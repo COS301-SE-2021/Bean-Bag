@@ -2,7 +2,7 @@
 
 <h2 align="center"> 🌠Team Polaris🌠</h2>
 
-<h5>Client: Agile Bridge</h5>
+<h5  align="center">Client: Agile Bridge</h5>
 
 [![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/issues) [![GitHub forks](https://img.shields.io/github/forks/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/network) [![GitHub stars](https://img.shields.io/github/stars/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/stargazers) [![GitHub issues](https://img.shields.io/github/contributors/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/contributors)
 
