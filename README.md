@@ -28,8 +28,8 @@
 <a name="intro"/><h3>Introduction</h3></a>
 <b>Bean Bag</b> is an inventory management system that uses image recognition to catalog stock items.<br>
 This application would assist in multiple areas such as:<br>
-⚡ the cataloging of secondhand clothing and apparel,<br>
-⚡ condition assessment of secondhand computer parts, and more.<br>
+🔰 the cataloging of secondhand clothing and apparel,<br>
+🔰 condition assessment of secondhand computer parts, and more.<br>
 A key feature of Bean Bag is that the recognizer can be trained on new item types thereby providing flexibility and enabling the application to be tailored to any users needs.
 
 ---
