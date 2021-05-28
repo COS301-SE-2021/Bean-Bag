@@ -1,29 +1,28 @@
-<center> 
-<h1>Bean Bag</h1>
 
-## 🌠Team Polaris🌠
+<h1 align="center">Bean Bag</h1>
+
+<h2 align="center"> 🌠Team Polaris🌠</h2>
 
 <h6>Agile Bridge</h6>
+
 
 [![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/issues) [![GitHub forks](https://img.shields.io/github/forks/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/network) [![GitHub stars](https://img.shields.io/github/stars/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/stargazers) [![GitHub issues](https://img.shields.io/github/contributors/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/contributors)
 
 ## <!--Can add more badges about builds and testing later: shields.io -->
 
-</center>
 
----
 
 ### Table of Contents
 
-[Introduction](#intro)  
-[The Team](#team)
-[Mentors](#mentors)
-[Technology Stack](#tech)
-[Github Structure](#structure)
-[Deployment](#deploy)
-[Communications](#comms)
-[Project Management Tools](#management)
-[Demo 1](#D1)
+[Introduction](#intro)  <br>
+[The Team](#team)<br>
+[Mentors](#mentors)<br>
+[Technology Stack](#tech)<br>
+[Github Structure](#structure)<br>
+[Deployment](#deploy)<br>
+[Communications](#comms)<br>
+[Project Management Tools](#management)<br>
+[Demo 1](#D1)<br>
 [Demo 2](#D2)
 
 <a name="headers"/>
@@ -31,10 +30,10 @@
 ---
 
 <a name="intro"/><h3>Introduction</h3></a>
-<b>Bean Bag</b> is an inventory management system that uses image recognition to catalog stock items.
-This application would assist in multiple areas such as:
-➜ the cataloging of secondhand clothing and apparel,
-➜ condition assessment of secondhand computer parts, and more.
+<b>Bean Bag</b> is an inventory management system that uses image recognition to catalog stock items.<br>
+This application would assist in multiple areas such as:<br>
+➜ the cataloging of secondhand clothing and apparel,<br>
+➜ condition assessment of secondhand computer parts, and more.<br>
 A key feature of Bean Bag is that the recognizer can be trained on new item types thereby providing flexibility and enabling the application to be tailored to any users needs.
 
 ---
@@ -65,22 +64,22 @@ A key feature of Bean Bag is that the recognizer can be trained on new item type
 
 <!--TODO: Add correct tech to correct sub headings -->
 
-######Front-end
+<h4>Front-end</h4>
 <img alt="HTML5" src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"/><img alt="CSS3" src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"/><img alt="Xamarin" src="https://img.shields.io/badge/Xamarin-3498DB?style=for-the-badge&logo=xamarin&logoColor=white"/>
 
-######Back-end
+<h4>Back-end</h4>
 <img alt=".Net" src="https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white"/><img alt="C#" src="https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white"/>
-######AI and Analytics
+<h4>AI and Analytics</h4>
 <img alt="Python" src="https://img.shields.io/badge/python-%2314354C.svg?style=for-the-badge&logo=python&logoColor=white"/>
 
-######Cloud Services & Deployment
+<h4>Cloud Services & Deployment</h4>
 <img alt="Azure" src="https://img.shields.io/badge/Microsoft_Azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white"/>
 
-######Workflow
+<h4>Workflow</h4>
 <img alt="GitHub Actions" src="https://img.shields.io/badge/githubactions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white"/>
 
 <a name="structure"/><h3>Github Structure</h3></a>
-######Branching Strategy
+<h4>Branching Strategy</h4>
 //Dummy Structure- TO DO Finalise structure
 
 master ( build )
@@ -95,7 +94,7 @@ master ( build )
 </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− frontend−development ( build )
 
-######Flow Management
+<h4>Flow Management</h4>
 //TO DO explain structure and management
 
 1.  master - this will be...
