@@ -1,20 +1,16 @@
-
 <h1 align="center">Bean Bag</h1>
 
 <h2 align="center"> 🌠Team Polaris🌠</h2>
 
-<h6>Client: Agile Bridge</h6>
-
+<h5>Client: Agile Bridge</h5>
 
 [![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/issues) [![GitHub forks](https://img.shields.io/github/forks/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/network) [![GitHub stars](https://img.shields.io/github/stars/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/stargazers) [![GitHub issues](https://img.shields.io/github/contributors/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/contributors)
 
 ## <!--Can add more badges about builds and testing later: shields.io -->
 
-
-
 ### Table of Contents
 
-[Introduction](#intro)  <br>
+[Introduction](#intro) <br>
 [The Team](#team)<br>
 [Mentors](#mentors)<br>
 [Technology Stack](#tech)<br>
@@ -40,21 +36,21 @@ A key feature of Bean Bag is that the recognizer can be trained on new item type
 
 <a name="team"/><h3>The Team</h3></a>
 
-|                                                                                                                                  **Team Member**                                                                                                                                   |                                                                                **Profiles**                                                                                |                                                                                                                        **Skills/Interest**                                                                                                                         |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4E03AQFi_VuyzJsbQQ/profile-displayphoto-shrink_200_200/0/1618521179149?e=1623888000&v=beta&t=tYFv7oSUDzg_I-FSg9SBR9aTI6uAYDAEUejwMbbeq5g "Firstname Lastname") <br/> Reno Davids <br/> u19309229 <br/> (Team Leader) |     [GitHub](https://github.com/Dreddy97) <br/> [Profile Page](https://Dreddy97.github.io/) <br/> [LinkedIn](https://www.linkedin.com/in/reno-davids-661009210/) <br/>     |                                                                              <b>Skills </b> <br> Problem solving. <br><b>Interests </b> </br> Music, video games and huge movie buff                                                                               |
-|        ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4D03AQGjUNDo9-njTQ/profile-displayphoto-shrink_800_800/0/1618493072051?e=1623888000&v=beta&t=S6zalWhawdYxpm72UHxnqX-ReDTfm7o1M6L-oy0gGlo "Firstname Lastname") <br/> Munashe Muganiwa <br/> u18030948         | [GitHub](https://github.com/u18030948) <br/> [Profile Page](https://gitusername.github.io/) <br/> [LinkedIn](https://www.linkedin.com/in/munashe-muganiwa-03b852b4/) <br/> | <b>Skills</b><br> Brainstorming, Creative thinking, Mobile app dev, Programming (HTML, C++, JAVA, SQL, PHP, Node, React, Delphi, Python), Mathematical thinker.</br> <b>Interests </b> </br> Hiking, philosophy, space exploration, competitive gaming, taekwando. |
-|           ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4E03AQHaGBr2eZOt-g/profile-displayphoto-shrink_200_200/0/1618527501276?e=1623888000&v=beta&t=yNfPOUdlNDOjc3CsRqLm-Zsl8ES99AJIt_7vvhc3CDU "Firstname Lastname") <br/> Nada Chraf <br/> u18113312            | [GitHub](https://github.com/nadachra) <br/> [Profile Page](https://nada-chraf.firebaseapp.com/) <br/> [LinkedIn](https://www.linkedin.com/in/nada-chraf-a1314a135/) <br/>  |                                                                     <b>Skills </b> </br> Researching, Programming, Creative Thinking.<br/> <b>Interests </b> </br> Philosophy and Futurology.                                                                      |
-|           ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4D03AQEceAx_HJkw9A/profile-displayphoto-shrink_400_400/0/1613219411295?e=1627516800&v=beta&t=_M-5Z2-36nwZLZJEhOwEson6D7w_F2gq82la1OhhJu0 "Firstname Lastname") <br/> Sphesihle Mtwa <br/> u18---           |                      [GitHub](https://) <br/> [Profile Page](https://) <br/> [LinkedIn](https://www.linkedin.com/in/sphesihle-mtwa-a33924206/) <br/>                       |                                                                                                            <b>Skills </b> </br> <b>Interests </b> </br>                                                                                                            |
-|           ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4D03AQH849guxG7z_Q/profile-displayphoto-shrink_400_400/0/1621422993184?e=1627516800&v=beta&t=y-bHpXsM0ia0P4BGHG94jnptNknCyDtuWwHWaOTS6sg "Firstname Lastname") <br/> Suzel Alberts <br/> u17---            |                       [GitHub](https://) <br/> [Profile Page](https://) <br/> [LinkedIn](https://www.linkedin.com/in/suzel-alberts-1a0009210/) <br/>                       |                                                                                                             <b>Skills</b><br/> <b>Interests </b> </br>                                                                                                             |
+|                                                                                                                                  **Team Member**                                                                                                                                   |                                                                                **Profiles**                                                                                |                                                                                                                          **Skills/Interests**                                                                                                                          |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4E03AQFi_VuyzJsbQQ/profile-displayphoto-shrink_200_200/0/1618521179149?e=1623888000&v=beta&t=tYFv7oSUDzg_I-FSg9SBR9aTI6uAYDAEUejwMbbeq5g "Firstname Lastname") <br/> Reno Davids <br/> u19309229 <br/> (Team Leader) |     [GitHub](https://github.com/Dreddy97) <br/> [Profile Page](https://Dreddy97.github.io/) <br/> [LinkedIn](https://www.linkedin.com/in/reno-davids-661009210/) <br/>     |                                                                              <b>Skills </b> <br> Problem solving. <br><br><b>Interests </b> </br> Music, video games and huge movie buff                                                                               |
+|        ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4D03AQGjUNDo9-njTQ/profile-displayphoto-shrink_800_800/0/1618493072051?e=1623888000&v=beta&t=S6zalWhawdYxpm72UHxnqX-ReDTfm7o1M6L-oy0gGlo "Firstname Lastname") <br/> Munashe Muganiwa <br/> u18030948         | [GitHub](https://github.com/u18030948) <br/> [Profile Page](https://gitusername.github.io/) <br/> [LinkedIn](https://www.linkedin.com/in/munashe-muganiwa-03b852b4/) <br/> | <b>Skills</b><br> Brainstorming, Creative thinking, Mobile app dev, Programming (HTML, C++, JAVA, SQL, PHP, Node, React, Delphi, Python), Mathematical thinker.</br> <br><b>Interests </b> </br> Hiking, philosophy, space exploration, competitive gaming, taekwando. |
+|           ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4E03AQHaGBr2eZOt-g/profile-displayphoto-shrink_200_200/0/1618527501276?e=1623888000&v=beta&t=yNfPOUdlNDOjc3CsRqLm-Zsl8ES99AJIt_7vvhc3CDU "Firstname Lastname") <br/> Nada Chraf <br/> u18113312            | [GitHub](https://github.com/nadachra) <br/> [Profile Page](https://nada-chraf.firebaseapp.com/) <br/> [LinkedIn](https://www.linkedin.com/in/nada-chraf-a1314a135/) <br/>  |                                                                     <b>Skills </b> </br> Researching, Programming, Creative Thinking.<br/> <br> <b>Interests </b> </br> Philosophy and Futurology.                                                                     |
+|           ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4D03AQEceAx_HJkw9A/profile-displayphoto-shrink_400_400/0/1613219411295?e=1627516800&v=beta&t=_M-5Z2-36nwZLZJEhOwEson6D7w_F2gq82la1OhhJu0 "Firstname Lastname") <br/> Sphesihle Mtwa <br/> u18---           |                      [GitHub](https://) <br/> [Profile Page](https://) <br/> [LinkedIn](https://www.linkedin.com/in/sphesihle-mtwa-a33924206/) <br/>                       |                                                                                                           <b>Skills </b> </br> <br> <b>Interests </b> </br>                                                                                                            |
+|           ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4D03AQH849guxG7z_Q/profile-displayphoto-shrink_400_400/0/1621422993184?e=1627516800&v=beta&t=y-bHpXsM0ia0P4BGHG94jnptNknCyDtuWwHWaOTS6sg "Firstname Lastname") <br/> Suzel Alberts <br/> u17---            |                       [GitHub](https://) <br/> [Profile Page](https://) <br/> [LinkedIn](https://www.linkedin.com/in/suzel-alberts-1a0009210/) <br/>                       |                                                                                                            <b>Skills</b><br/> <br/><b>Interests </b> </br>                                                                                                             |
 
 ---
 
 <a name="mentors"/><h3>Mentors</h3></a>
 
-- Lecturer Mentor: Andrew Broekman
-- Industry Mentor: Vorster Swanepoel
-- Student Mentor: Anrich
+- Lecturer Mentor: Andrew Broekman :email: u11089777@tuks.co.za
+- Industry Mentor: Vorster Swanepoel :email: vorsters@agilebridge.co.za
+- Student Mentor: Anrich :email: anrichh@agilebridge.co.za
 
 ---
 
@@ -77,8 +73,11 @@ A key feature of Bean Bag is that the recognizer can be trained on new item type
 
 <h4>Workflow</h4>
 <img alt="GitHub Actions" src="https://img.shields.io/badge/githubactions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white"/>
+
 ---
+
 <a name="structure"/><h3>Github Structure</h3></a>
+
 <h4>Branching Strategy</h4>
 //Dummy Structure- TO DO Finalise structure
 
