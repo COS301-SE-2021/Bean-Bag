@@ -77,7 +77,7 @@ A key feature of Bean Bag is that the recognizer can be trained on new item type
 
 <h4>Workflow</h4>
 <img alt="GitHub Actions" src="https://img.shields.io/badge/githubactions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white"/>
-
+---
 <a name="structure"/><h3>Github Structure</h3></a>
 <h4>Branching Strategy</h4>
 //Dummy Structure- TO DO Finalise structure
