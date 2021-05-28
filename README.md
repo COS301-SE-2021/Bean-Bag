@@ -48,9 +48,9 @@ A key feature of Bean Bag is that the recognizer can be trained on new item type
 
 <a name="mentors"/><h3>Mentors</h3></a>
 
-- Lecturer Mentor: Andrew Broekman :email: u11089777@tuks.co.za
-- Industry Mentor: Vorster Swanepoel :email: vorsters@agilebridge.co.za
-- Student Mentor: Anrich :email: anrichh@agilebridge.co.za
+- Lecturer Mentor: Andrew Broekman <br> :email: u11089777@tuks.co.za
+- Industry Mentor: Vorster Swanepoel <br>:email: vorsters@agilebridge.co.za
+- Student Mentor: Anrich <br>:email: anrichh@agilebridge.co.za
 
 ---
 
