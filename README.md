@@ -129,11 +129,11 @@ TBA
 <a name="D1"/><h3>Demo 1</h3></a>
 
 - :tv: [Demo Video](https://drive.google.com/open?id=)
-- :open_book: [Overleaf Document](https://www.overleaf.com/read/)
+- :open_book: [Software Requirements Specification Document](https://www.overleaf.com/read/)
 
 ---
 
 <a name="D2"/><h3>Demo 2</h3></a>
 
 - :tv: [Demo Video](https://drive.google.com/open?id=)
-- :open_book: [Overleaf Document](https://www.overleaf.com/read/)
+- :open_book: [Software Requirements Specification Document](https://www.overleaf.com/read/)
