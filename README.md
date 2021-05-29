@@ -1,11 +1,13 @@
 <h1 align="center">Bean Bag</h1>
 
-<h2 align="center"> 🌠Team Polaris🌠</h2>
+<h5  align="center"> Agile Bridge</h5>
 
-<h5  align="center">Client: Agile Bridge</h5>
-
-[![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/issues) [![GitHub forks](https://img.shields.io/github/forks/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/network) [![GitHub stars](https://img.shields.io/github/stars/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/stargazers) [![GitHub issues](https://img.shields.io/github/contributors/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/contributors)
-
+[![GitHub forks](https://img.shields.io/github/forks/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/network) [![GitHub stars](https://img.shields.io/github/stars/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/stargazers) [![GitHub issues](https://img.shields.io/github/contributors/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/issues)
+![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fgithub.com%2FCOS301-SE-2021%2FBean-Bag%2F)
+![Uptime Robot status](https://img.shields.io/uptimerobot/status/m788271158-bb7bc699e2e1865de72a0c39)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/Bean-Bag)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2021/Bean-Bag/workflow)
 ## <!--Can add more badges about builds and testing later: shields.io -->
 
 ### Table of Contents
@@ -30,7 +32,7 @@
 This application would assist in multiple areas such as:<br>
 🔰 the cataloging of secondhand clothing and apparel,<br>
 🔰 condition assessment of secondhand computer parts, and more.<br>
-A key feature of Bean Bag is that the recognizer can be trained on new item types thereby providing flexibility and enabling the application to be tailored to any users needs.
+A key feature of Bean Bag is that the recognizer can be trained on new item types thereby providing flexibility and enabling the application to be tailored to the user depending on the type of items the user catalogs into their inventory.
 
 ---
 
@@ -77,6 +79,7 @@ A key feature of Bean Bag is that the recognizer can be trained on new item type
 ---
 
 <a name="structure"/><h3>Github Structure</h3></a>
+The Bean Bag project will make use of a mono-repo. All code and assets related to this project will be available in one repo which is the Bean-Bag repository. This ensures all code is compact and easily avaliable from a single source.
 
 <h4>Branching Strategy</h4>
 //Dummy Structure- TO DO Finalise structure
