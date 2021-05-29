@@ -1,0 +1,40 @@
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\bin\Release\net5.0\appsettings.Development.json
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\bin\Release\net5.0\appsettings.json
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\bin\Release\net5.0\Bean Bag.exe
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\bin\Release\net5.0\Bean Bag.deps.json
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\bin\Release\net5.0\Bean Bag.runtimeconfig.json
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\bin\Release\net5.0\Bean Bag.runtimeconfig.dev.json
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\bin\Release\net5.0\Bean Bag.dll
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\bin\Release\net5.0\ref\Bean Bag.dll
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\bin\Release\net5.0\Bean Bag.pdb
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\bin\Release\net5.0\Bean Bag.Views.dll
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\bin\Release\net5.0\Bean Bag.Views.pdb
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.csproj.AssemblyReference.cache
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.GeneratedMSBuildEditorConfig.editorconfig
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.AssemblyInfoInputs.cache
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.AssemblyInfo.cs
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.csproj.CoreCompileInputs.cache
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.MvcApplicationPartsAssemblyInfo.cache
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.RazorAssemblyInfo.cache
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.RazorAssemblyInfo.cs
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\staticwebassets\Bean Bag.StaticWebAssets.Manifest.cache
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\staticwebassets\Bean Bag.StaticWebAssets.xml
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\scopedcss\bundle\Bean Bag.styles.css
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.TagHelpers.input.cache
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.TagHelpers.output.cache
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.RazorCoreGenerate.cache
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Razor\Pages\Error.cshtml.g.cs
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Razor\Pages\Index.cshtml.g.cs
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Razor\Pages\Privacy.cshtml.g.cs
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Razor\Pages\Shared\_Layout.cshtml.g.cs
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Razor\Pages\_ViewImports.cshtml.g.cs
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Razor\Pages\_ViewStart.cshtml.g.cs
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.RazorTargetAssemblyInfo.cache
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.RazorTargetAssemblyInfo.cs
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.Views.pdb
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.dll
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\ref\Bean Bag.dll
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.pdb
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.genruntimeconfig.cache
+F:\Tuks\2021\COS 301\Capstone\Code\Demo1\Bean Bag\obj\Release\net5.0\Bean Bag.csproj.CopyComplete
