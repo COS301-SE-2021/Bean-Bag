@@ -16,4 +16,4 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
     - name: Run MSBuild
-      run: msbuild .\BeanBag\BeanBag.sln
+      run: msbuild .\BeanBag\BeanBag.csproj
