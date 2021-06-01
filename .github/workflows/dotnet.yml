@@ -21,4 +21,4 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-      uses: ./BeanBag/BeanBag.csproj
+      working-directory: ./BeanBag/BeanBag.csproj
