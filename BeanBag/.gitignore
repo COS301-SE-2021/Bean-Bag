@@ -3,3 +3,6 @@
 
 #Personal IDE details
 .csprog.user
+
+#In case anyone is using Jetbrains Rider IDE
+.idea
