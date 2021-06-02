@@ -23,16 +23,20 @@ namespace BeanBag.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Account()
         {
             return View();
         }
 
-        public IActionResult Logout()
+        public IActionResult Upload()
         {
             return View();
         }
 
+        public IActionResult Inventory()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

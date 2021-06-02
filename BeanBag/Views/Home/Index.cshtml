@@ -1,39 +1,44 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
+    <nav class="navbar navbar-expand-md fixed-top">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BeanBag</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <!-- Brand -->
+            <a class="navbar-brand" asp-area="" asp-controller="LandingPage" asp-action="Index">Bean Bag</a>
+
+            <!-- Toggler/collapsible Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
+
+            <!-- Navbar links add active thing on the link to the current that you're on... -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+                        <!---B2C Links here-->
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <!---B2C Links here-->
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Account">Account</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="LandingPage" asp-action="Index">Logout</a>
+                        <a class="nav-link" asp-area="" asp-controller="LandingPage" asp-action="Index">Logout</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
-<div class="container">
-    <main role="main" class="pb-3">
+<section>
+    <div class="container">
+        <!--Create button to Upload-->
+        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Upload">Home</a>
 
-
-        <div class="text-center">
-            <h1 class="display-4">Welcome</h1>
-            <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-        </div>
-
-    </main>
-</div>
+        <!--Create button to View Inventory-->
+        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Inventory">Home</a>
+    </div>
+</section>
