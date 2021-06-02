@@ -1,12 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<style type="text/css">.home-btn { }</style>
+
 <header>
 
     <nav class="navbar navbar-expand-md fixed-top">
         <div class="container">
             <!-- Brand -->
-            <a class="navbar-brand" asp-area="" asp-controller="LandingPage" asp-action="Index">Bean Bag</a>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bean Bag</a>
 
             <!-- Toggler/collapsible Button -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -34,7 +36,35 @@
     </nav>
 </header>
 
+<!-- Home Page Heading Text, Description and Animation...-->
+<section class="home d-flex align-items-center">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6">
+                <div class="content-item">
+                    <div class="icon">
+                        <img src="images/plus.svg" class="filter-purple" />
+                    </div>
+                    <div class="fixmargin home-text text-center">
+                        <p> Click on the button below in order to add an item to your inventory.</p>
+                    </div>
+                    <div class="home-btn text-center">
+                        <a class="btn btn-1" asp-area="" asp-controller="QRCode" asp-action="Index"> Add item</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-1 ">
 
-                <!--Create button to Upload 
-                <a class="nav-link" asp-area="" asp-controller="QRCode" asp-action="Index">Home</a> --->
-           
+            </div>
+            <div class="col-lg-5 col-md-5 text-center">
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+

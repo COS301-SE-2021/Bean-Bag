@@ -33,46 +33,62 @@
         </div>
     </nav>
 </header>
-<section>
+<!-- upload code-->
+<section class="home d-flex align-items-center">
     <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 col-md-12">
+                
+                    <!-- For demo purpose -->
 
-
-        <!-- For demo purpose -->
-
-        <div class="text-secondary ">
-            <img src="https://res.cloudinary.com/mhmd/image/upload/v1564991372/image_pxlho1.svg" alt="" width="150" class="mb-4">
-        </div>
-
-        <div class="container py-5">
-
-            <div class="row py-4">
-                <div class="col-lg-6 mx-auto">
-
-
-
-                    <!--Create button to Upload-->
-                    <!-- Upload image input-->
-                    <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                        <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
-                        <label id="upload-label" for="upload" class="font-weight-light text-muted">Upload Image</label>
-                        <div class="input-group-append">
-                            <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted"> <img src="~/images/cloud.png" height="30" width="30" alt="upload" /></small></label>
-                        </div>
+                    <div class="text-secondary ">
+                        <img src="https://res.cloudinary.com/mhmd/image/upload/v1564991372/image_pxlho1.svg" alt="" width="150" class="mb-4">
                     </div>
 
-                    <!-- Uploaded image area-->
-                    <p class="font-italic text-secondary text-center"></p>
-                    <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                    <div class="container py-5">
 
-                    <!--  Process Button HERE--->
-
-                    <!--  Return generated QRCODE HERE--->
-                    <p>PROCESS BUTTON HERE</p>
-                    <p>Return QR Code HERE (make container)</p>
+                        <div class="row py-4">
+                            <div class="col-lg-5 mx-auto">
 
 
+
+                                <!--Create button to Upload-->
+                                <!-- Upload image input-->
+                                <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                                    <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
+                                    <label id="upload-label" for="upload" class="font-weight-light text-muted">Upload Image</label>
+                                    <div class="input-group-append">
+                                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted text-center"></i><small class="text-uppercase font-weight-bold text-muted "> <img src="images/upload-simple.svg" class="filter-purple2" alt="upload" /></small></label>
+                                    </div>
+                                </div>
+
+                                <!-- Uploaded image area-->
+                                <p class="font-italic text-secondary text-center"></p>
+                                <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+
+                                <!--  Process Button HERE--->
+                                <div class="home-btn text-center">
+                                    <a class="btn btn-1" >Process</a>
+                                </div>
+
+
+
+                            </div>
+                            <div class="col-lg-2 mx-auto">
+
+                            </div>
+                            <div class="col-lg-5' mx-auto">
+                                <!--  Return generated QRCODE HERE--->
+
+                                <p>Return QR Code HERE (make container)</p>
+                            </div>
+                        </div>
+                    </div>    
                 </div>
             </div>
+
         </div>
-    </div>
+
+    
+
 </section>
