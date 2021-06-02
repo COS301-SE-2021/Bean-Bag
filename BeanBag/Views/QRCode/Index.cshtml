@@ -67,20 +67,28 @@
                                 <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
 
                                 <!--  Process Button HERE--->
-                                <div class="home-btn text-center">
-                                    <a class="btn btn-1" >Process</a>
-                                </div>
-
-
-
+                                <br />
+                                @using (Html.BeginForm("Index", "QRCode", FormMethod.Post))
+                                {
+                                    <!--  Generate Text backend
+                                        
+                                        --->
+                                    <input class="btn btn-1" type="submit" value="Generate QR" />
+                                }
                             </div>
                             <div class="col-lg-2 mx-auto">
-
                             </div>
                             <div class="col-lg-5' mx-auto">
+
                                 <!--  Return generated QRCODE HERE--->
 
-                                <p>Return QR Code HERE (make container)</p>
+                                <hr />
+                                @if (ViewBag.QRCode != null)
+                                {
+                                    <p>Generated QR-Code </p>
+
+                                    <img src="@ViewBag.QRCode" style="width:200px; height:200px;" />//source is the direct bitmap image being 'parsed'
+                                }
                             </div>
                         </div>
                     </div>    

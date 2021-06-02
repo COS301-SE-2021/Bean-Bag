@@ -230,7 +230,6 @@ C:\Users\Sphesihle\Source\Repos\COS301-SE-2021\Bean-Bag\BeanBag\obj\Debug\net5.0
 C:\Users\Sphesihle\Source\Repos\COS301-SE-2021\Bean-Bag\BeanBag\obj\Debug\net5.0\ref\BeanBag.dll
 C:\Users\Sphesihle\Source\Repos\COS301-SE-2021\Bean-Bag\BeanBag\obj\Debug\net5.0\BeanBag.pdb
 C:\Users\Sphesihle\Source\Repos\COS301-SE-2021\Bean-Bag\BeanBag\obj\Debug\net5.0\BeanBag.genruntimeconfig.cache
-C:\Users\user\Source\Repos\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Home\Account.cshtml.g.cs
 C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
 C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -298,3 +297,4 @@ C:\Users\Sphesihle\source\repos\COS301-SE-2021\Bean-Bag\BeanBag\bin\Debug\net5.0
 C:\Users\Sphesihle\source\repos\COS301-SE-2021\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Home\Account.cshtml.g.cs
 C:\Users\Sphesihle\source\repos\COS301-SE-2021\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Item\Index.cshtml.g.cs
 C:\Users\Sphesihle\source\repos\COS301-SE-2021\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\QRCode\Index.cshtml.g.cs
+C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\QRCoder.dll
