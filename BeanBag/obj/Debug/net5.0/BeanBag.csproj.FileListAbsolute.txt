@@ -358,3 +358,4 @@ F:\Tuks\2021\COS 301\Capstone\Code\Git Repo\Bean-Bag\BeanBag\obj\Debug\net5.0\Be
 F:\Tuks\2021\COS 301\Capstone\Code\Git Repo\Bean-Bag\BeanBag\obj\Debug\net5.0\ref\BeanBag.dll
 F:\Tuks\2021\COS 301\Capstone\Code\Git Repo\Bean-Bag\BeanBag\obj\Debug\net5.0\BeanBag.pdb
 F:\Tuks\2021\COS 301\Capstone\Code\Git Repo\Bean-Bag\BeanBag\obj\Debug\net5.0\BeanBag.genruntimeconfig.cache
+F:\Tuks\2021\COS 301\Capstone\Code\Git Repo\Bean-Bag\BeanBag\bin\Debug\net5.0\QRCoder.dll
