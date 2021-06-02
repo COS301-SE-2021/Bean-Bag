@@ -265,5 +265,6 @@ C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\runtimes\win-x86\na
 C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\user\Source\Repos\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Home\Inventory.cshtml.g.cs
-C:\Users\user\Source\Repos\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Home\Upload.cshtml.g.cs
+C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.WindowsAzure.Storage.dll
+C:\Users\user\Source\Repos\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Item\Index.cshtml.g.cs
+C:\Users\user\Source\Repos\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\QRCode\Index.cshtml.g.cs

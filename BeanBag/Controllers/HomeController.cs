@@ -12,6 +12,7 @@ namespace BeanBag.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -24,16 +25,6 @@ namespace BeanBag.Controllers
         }
 
         public IActionResult Account()
-        {
-            return View();
-        }
-
-        public IActionResult Upload()
-        {
-            return View();
-        }
-
-        public IActionResult Inventory()
         {
             return View();
         }
