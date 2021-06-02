@@ -6,15 +6,18 @@
     <title>@ViewData["Title"] - BeanBag</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 <body>
   
 
     @RenderBody()
 
-    <footer class="border-top footer text-muted">
+    <footer>
+        <!--class="border-top footer text-muted"-->
         <div class="container">
-            &copy; 2021 - BeanBag - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - BeanBag by <a class="agilelink" href="https://www.agilebridge.co.za/">Agile Bridge </a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
