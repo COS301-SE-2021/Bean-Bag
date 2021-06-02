@@ -1,5 +1,7 @@
 #Visual studio always overwriting this file
-.vs/slnx.sqlite
+.vs
+BeanBag/.vs
+
 
 #Personal IDE details
 .csprog.user
