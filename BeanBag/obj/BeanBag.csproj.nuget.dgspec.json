@@ -1,21 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj": {}
+    "F:\\Tuks\\2021\\COS 301\\Capstone\\Code\\Git Repo\\Bean-Bag\\BeanBag\\BeanBag.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
+    "F:\\Tuks\\2021\\COS 301\\Capstone\\Code\\Git Repo\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj",
+        "projectUniqueName": "F:\\Tuks\\2021\\COS 301\\Capstone\\Code\\Git Repo\\Bean-Bag\\BeanBag\\BeanBag.csproj",
         "projectName": "BeanBag",
-        "projectPath": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj",
-        "packagesPath": "C:\\Users\\Sphesihle\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\obj\\",
+        "projectPath": "F:\\Tuks\\2021\\COS 301\\Capstone\\Code\\Git Repo\\Bean-Bag\\BeanBag\\BeanBag.csproj",
+        "packagesPath": "C:\\Users\\Reno\\.nuget\\packages\\",
+        "outputPath": "F:\\Tuks\\2021\\COS 301\\Capstone\\Code\\Git Repo\\Bean-Bag\\BeanBag\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Sphesihle\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Reno\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
