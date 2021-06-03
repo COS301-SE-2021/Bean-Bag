@@ -11,5 +11,6 @@ namespace BeanBag.Models
     public class QRCodeModel
     {
         public string QRCodeNumber { get; set; }
+
     }
 }

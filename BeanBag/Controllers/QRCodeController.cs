@@ -52,19 +52,22 @@ namespace BeanBag.Controllers
                 //Determine whether the QRCode was successfully generated
                 if (ViewBag.QRCode!=null)
                 {
-                    return true;
+                    return true;        //function returns true after successful code generation 
                 }
-                return false;
+                return false;       //function returns false after failed code generation 
             }
         }
+
 
         /*
          * Function to couple up the item ID with the QR
          */
-        public bool coupleQRCode(string ItemId,string QRNumber)
+        public bool coupleQRCode(string ItemID, string QRNumber)
         {
+
             return true;
         }
+
 
         /*
         * This function is used to return the structure of the QRCode page 

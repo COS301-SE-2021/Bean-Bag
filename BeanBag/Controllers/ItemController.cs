@@ -17,7 +17,7 @@ namespace BeanBag.Controllers
          */
         public IActionResult Index()
         {
-            using (var Context = new BeanBag.Database.BeanBagContext())
+            //using (var Context = new BeanBag.Database.BeanBagContext())
             {
                 var item = new BeanBag.Models.ItemModel
                 {
