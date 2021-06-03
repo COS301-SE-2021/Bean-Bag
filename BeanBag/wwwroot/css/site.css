@@ -24,7 +24,7 @@ body {
     background-color: #ffffff;
     line-height: 1.5;
     /*try this...*/
-    /*padding-top: 30px;*/
+    
 }
 
 .btn-1 {
@@ -32,7 +32,7 @@ body {
     padding: 12px 30px;
     border: none;
     border-radius: 30px;
-    color: #f1f2f6;/*color is not changing*/
+    color: #f1f2f6;
     font-size: 16px;
     text-transform: capitalize;
     transition: all 05s ease;
@@ -47,6 +47,11 @@ body {
 .btn:hover {
     color: #f1f2f6;
     background-color: #9557DA;
+}
+
+.btn.btn-light:hover {
+    color: #f1f2f6;
+    background-color: transparent;
 }
 
 .clearfix {
@@ -77,7 +82,10 @@ ul {
         transform: rotate(360deg);
     }
 }
-
+/* fix padding on QRcode page*/
+.fixpadding {
+    padding-bottom: 200px;
+}
 .fixmargin {
     margin: 10px;
 }
@@ -91,14 +99,6 @@ ul {
     margin-right: auto;
 }
 
-.filter-purple2 {
-    filter: invert(30%) sepia(91%) saturate(1202%) hue-rotate(230deg) brightness(108%) contrast(110%);
-    width: 30px;
-    height: 30px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 .empty-div {
     padding-top: 30px;
@@ -161,7 +161,7 @@ ul {
 /*Home */
 .home {
     min-height: 92vh;
-    padding: 150px 0;
+    padding: 80px 0; /*Default value was 150px*/
     background-color: #f1f2f6;
 }
 
@@ -181,6 +181,23 @@ ul {
 .home-btn {
     margin: 15px;
 }
+
+/*QRCode */
+
+.filter-purple2 {
+    filter: invert(30%) sepia(91%) saturate(1202%) hue-rotate(230deg) brightness(108%) contrast(110%);
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+small {
+    display: flex;
+    padding-bottom: 15px;
+}
+
 /*Landing Page*/
 .landing-page {
     min-height: 92vh;
@@ -218,7 +235,7 @@ ul {
     transform: translate(-50%, -50%);
 }
 
-    .landing-img .circle::before {
+.landing-img .circle::before {
         content: '';
         position: absolute;
         height: 60px;
@@ -229,7 +246,7 @@ ul {
         top: 30px;
         transform-origin: 210px 220px;
         animation: spin_01 10s linear infinite;
-    }
+}
 /* footer*/
 footer {
     font-family: 'Poppins', sans-serif;
@@ -265,7 +282,7 @@ for details on configuring this project to bundle and minify static web assets. 
 #upload-label {
     position: absolute;
     top: 50%;
-    left: 1rem;
+    left: 2rem;
     transform: translateY(-50%);
 }
 
@@ -275,7 +292,7 @@ for details on configuring this project to bundle and minify static web assets. 
     position: relative;
 }
 
-    .image-area::before {
+.image-area::before {
         content: 'Uploaded image result';
         color: lightslategray;
         font-weight: bold;
@@ -286,9 +303,9 @@ for details on configuring this project to bundle and minify static web assets. 
         transform: translate(-50%, -50%);
         font-size: 0.8rem;
         z-index: 1;
-    }
+}
 
-    .image-area img {
+.image-area img {
         z-index: 2;
         position: relative;
-    }
+}

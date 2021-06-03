@@ -21,10 +21,10 @@
                         <!---B2C Links here-->
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <!---B2C Links here-->
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Account">Account</a>
-                    </li>
+                    <!-- <li class="nav-item">-->
+                    <!---B2C Links here-->
+                    <!-- <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Account">Account</a>
+                     </li>-->
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="LandingPage" asp-action="Index">Logout</a>
                     </li>
@@ -56,9 +56,9 @@
                                 <!-- Upload image input-->
                                 <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
                                     <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
-                                    <label id="upload-label" for="upload" class="font-weight-light text-muted">Upload Image</label>
+                                    <label id="upload-label" for="upload" class="font-weight-light text-muted ">Upload Image</label>
                                     <div class="input-group-append">
-                                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted text-center"></i><small class="text-uppercase font-weight-bold text-muted "> <img src="images/upload-simple.svg" class="filter-purple2" alt="upload" /></small></label>
+                                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted text-center"></i><small class="text-uppercase font-weight-bold text-muted text-center "> <img src="images/upload-simple.svg" class="filter-purple2" alt="upload" /></small></label>
                                     </div>
                                 </div>
 
@@ -77,18 +77,20 @@
                                 }
                             </div>
                             <div class="col-lg-2 mx-auto">
+
                             </div>
-                            <div class="col-lg-5' mx-auto">
+                            <div class="col-lg-5 text-center home-text">
 
                                 <!--  Return generated QRCODE HERE--->
+                                <!-- <hr/> -->
+                                <div class="fixpadding">
+                                    @if (ViewBag.QRCode != null)
+                                    {
+                                        <p > Generated QR Code </p>
 
-                                <hr />
-                                @if (ViewBag.QRCode != null)
-                                {
-                                    <p>Generated QR-Code </p>
-
-                                    <img src="@ViewBag.QRCode" style="width:200px; height:200px;" />//source is the direct bitmap image being 'parsed'
-                                }
+                                        <img src="@ViewBag.QRCode" style="width:200px; height:200px;" />//source is the direct bitmap image being 'parsed'
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>    
