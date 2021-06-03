@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeanBag", "BeanBag.csproj", "{326C237B-05C1-4B4E-83F4-547141238FBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanBagUnitTests", "..\BeanBagUnitTests\BeanBagUnitTests.csproj", "{C381C1F3-26D4-4EEA-B651-410783D1F9D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanBagTesting", "..\BeanBagTesting\BeanBagTesting.csproj", "{C1D7E717-112C-4E10-8BCC-56C5B7D70E45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{326C237B-05C1-4B4E-83F4-547141238FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{326C237B-05C1-4B4E-83F4-547141238FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{326C237B-05C1-4B4E-83F4-547141238FBC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C381C1F3-26D4-4EEA-B651-410783D1F9D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C381C1F3-26D4-4EEA-B651-410783D1F9D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C381C1F3-26D4-4EEA-B651-410783D1F9D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C381C1F3-26D4-4EEA-B651-410783D1F9D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1D7E717-112C-4E10-8BCC-56C5B7D70E45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1D7E717-112C-4E10-8BCC-56C5B7D70E45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1D7E717-112C-4E10-8BCC-56C5B7D70E45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1D7E717-112C-4E10-8BCC-56C5B7D70E45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

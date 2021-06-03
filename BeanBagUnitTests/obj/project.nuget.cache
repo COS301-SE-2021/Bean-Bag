@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0JGKI8wjQglyy1boQRLcnIm//edQWlS5yCozB/8/909/H2s2URbJLwKGX+xKzupdGo6PrnXFCvSIEi7fAbpDuw==",
+  "dgSpecHash": "0m4fjIDJtS3DkPBz2fmDBwifnPOxgWr83JnbV5RsNXa/0jBXCw4rdgtW4boQkW4LQYtbPjWh5vmYGT7uBFdzkA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\source\\repos\\Bean-Bag\\BeanBagUnitTests\\BeanBagUnitTests.csproj",
+  "projectFilePath": "C:\\Users\\user\\Source\\Repos\\Bean-Bag\\BeanBagUnitTests\\BeanBagUnitTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\microsoft.codecoverage\\16.5.0\\microsoft.codecoverage.16.5.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",

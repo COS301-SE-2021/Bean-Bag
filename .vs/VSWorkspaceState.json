@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\BeanBag",
+    "\\BeanBagUnitTests"
   ],
+  "SelectedNode": "\\BeanBag\\BeanBag.sln",
   "PreviewInSolutionExplorer": false
 }
