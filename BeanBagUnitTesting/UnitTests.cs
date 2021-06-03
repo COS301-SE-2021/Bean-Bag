@@ -14,11 +14,17 @@ namespace BeanBagUnitTesting
         [Fact]
         public void TestQRCodeCoupling()
         {
+            //Mock data
             String ItemNumber = "7878178178";
-            String QRNumber = "dummyQR";
+            String QRNumber = "131341";
 
+            // Arrange
             QRCodeController qr = new QRCodeController();
+
+            //Act
             bool result = qr.coupleQRCode(ItemNumber, QRNumber);
+
+            //Assert
             Assert.True(result);
         }
 
@@ -30,11 +36,16 @@ namespace BeanBagUnitTesting
         [Fact]
         public void TestQRCodeGeneration()
         {
+            //Mock data
+            String ItemId = "7617671671";
 
+            //Arrange
             QRCodeController qr = new QRCodeController();
-            String ItemId = "7617671671716";
 
+            //Act
             bool result = qr.generateQRCode(ItemId);
+
+            //Assert
             Assert.True(result);
         }
 
