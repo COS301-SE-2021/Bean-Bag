@@ -8,7 +8,9 @@
 ![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fgithub.com%2FCOS301-SE-2021%2FBean-Bag%2F)
 ![Uptime Robot status](https://img.shields.io/uptimerobot/status/m788271158-bb7bc699e2e1865de72a0c39)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/Bean-Bag)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2021/Bean-Bag/workflow)
+![example workflow](https://github.com/COS301-SE-2021/Bean-Bag/actions/workflows/dotnet.yml/badge.svg)
+
+<!--[![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2021/Bean-Bag/badge.svg?branch=main)](https://coveralls.io/github/COS301-SE-2021/Bean-Bag?branch=master)!--->
 
 ## <!--Can add more badges about builds and testing later: shields.io -->
 
