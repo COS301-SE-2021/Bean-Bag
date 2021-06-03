@@ -23,7 +23,7 @@ namespace BeanBag.Controllers
         /*
          * Function to generate a QRCode, gets the itemDetails as the parameter
          */
-        public void generateQRCode(string inputText)
+        public bool generateQRCode(string inputText)
         {
             //  Dummy -- Mocking out backend to test [mocking recognised data that will come from AI model function]
             string itemName = "Item: Table\n";
@@ -48,6 +48,13 @@ namespace BeanBag.Controllers
                     ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
                     //viewbag is connected to front end, and we convert the bitmap back to a value our front end can comprehend, an array of bits?
                 }
+
+                //Determine whether the QRCode was successfully generated
+                if (ViewBag.QRCode!=null)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
