@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace BeanBag.Models
 {
+    /*
+   * This class is used to get and set all the variables related to the Item in the users inventory
+   */
     public class ItemModel
     {
-        //Dono how its stored?
         public byte[] picture { get; set; }
     }
 }

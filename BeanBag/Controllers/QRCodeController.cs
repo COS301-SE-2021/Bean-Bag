@@ -14,9 +14,9 @@ using QRCoder;
 namespace BeanBag.Controllers
 {
     /*
-     * This class is the controller for the QRCode, 
+     * This class is the controller class for the QRCode, this class is responsible for 
+     * returning data to the QR page
      */
-
     public class QRCodeController : Controller
     {
 
@@ -29,21 +29,16 @@ namespace BeanBag.Controllers
         }
 
         /*
-         * This function is used to ...
-         *
+         * This function is used to generate and return the QRcode for an item
          */
-
         [HttpPost]
         public IActionResult Index(string inputText)    
         {
-            /*
-             * Dummy -- Mocking out backend to test [mocking recognised data that will come from AI model function]
-             */
+            
+            //  Dummy -- Mocking out backend to test [mocking recognised data that will come from AI model function]
             string itemName = "Item: Table\n";
             string itemCondition = "Condition: Good\n";
             string color = "Color: Black\n";
-
-
             inputText = itemName + itemCondition + color;
 
             //memory stream helps write from and to the memory

@@ -9,25 +9,17 @@ using System.Threading.Tasks;
 
 namespace BeanBag.Controllers
 {
+    /*
+     * This class is responsible for data returned to the Home Page 
+     */
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
+        /*
+        * This function returns the page structure for the items page 
+        */
         public IActionResult Index()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

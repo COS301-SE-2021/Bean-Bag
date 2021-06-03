@@ -70,9 +70,7 @@
                                 <br />
                                 @using (Html.BeginForm("Index", "QRCode", FormMethod.Post))
                                 {
-                                    <!--  Generate Text backend
-                                        
-                                        --->
+                                    <!--  Generate Text backend--->
                                     <input class="btn btn-1" type="submit" value="Generate QR" />
                                 }
                             </div>
@@ -81,8 +79,8 @@
                             </div>
                             <div class="col-lg-5 text-center home-text">
 
-                                <!--  Return generated QRCODE HERE--->
-                                <!-- <hr/> -->
+                                <!--  Return generated QRcode here--->
+                        
                                 <div class="fixpadding">
                                     @if (ViewBag.QRCode != null)
                                     {
@@ -96,9 +94,5 @@
                     </div>    
                 </div>
             </div>
-
         </div>
-
-    
-
 </section>
