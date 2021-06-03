@@ -10072,19 +10072,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\munas\\.nuget\\packages\\": {}
+    "C:\\Users\\Sphesihle\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\munas\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj",
+      "projectUniqueName": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj",
       "projectName": "BeanBagUnitTesting",
-      "projectPath": "C:\\Users\\munas\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj",
-      "packagesPath": "C:\\Users\\munas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\munas\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\obj\\",
+      "projectPath": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj",
+      "packagesPath": "C:\\Users\\Sphesihle\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\munas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Sphesihle\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10098,8 +10098,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\munas\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
-              "projectPath": "C:\\Users\\munas\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj"
+            "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
+              "projectPath": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj"
             }
           }
         }

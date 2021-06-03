@@ -24,7 +24,6 @@ body {
     background-color: #ffffff;
     line-height: 1.5;
     /*try this...*/
-    
 }
 
 .btn-1 {
@@ -40,9 +39,9 @@ body {
     font-weight: 500;
 }
 
-.btn-1:focus {
+    .btn-1:focus {
         box-shadow: var(--shadow-black-100);
-}
+    }
 
 .btn:hover {
     color: #f1f2f6;
@@ -55,7 +54,7 @@ body {
 }
 
 .clearfix {
-        clear: both;
+    clear: both;
 }
 
 * {
@@ -82,10 +81,22 @@ ul {
         transform: rotate(360deg);
     }
 }
+
+@keyframes zoomInOut_01 {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
 /* fix padding on QRcode page*/
 .fixpadding {
     padding-bottom: 200px;
 }
+
 .fixmargin {
     margin: 10px;
 }
@@ -118,45 +129,45 @@ ul {
     padding: 20px 0;
 }
 
-.navbar > container {
+    .navbar > container {
         padding: 0 15px;
-}
+    }
 
-.navbar .navbar-brand {
+    .navbar .navbar-brand {
         font-size: 30px;
         color: #ffffff;
         font-weight: 500;
         text-transform: capitalize;
-}
+    }
 
-.navbar .nav-item {
+    .navbar .nav-item {
         margin-left: 40px;
-}
+    }
 
 .navbar .nav-item .nav-link {
-     color: #ffffff;
-     text-transform: capitalize;
-     font-size: 16px;
-     font-weight: 400;
-     padding: 5px 0;
-     position: relative;
+            color: #ffffff;
+            text-transform: capitalize;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 5px 0;
+            position: relative;
 }
 
 .navbar .nav-item .nav-link::before {
-     content: '';
-     position: absolute;
-     left: 0;
-     bottom: 0;
-     right: 0;
-     height: 1px;
-     background-color: #ffffff;
-     transition: all 0.5s ease;
-     transform: scale(0);
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                height: 1px;
+                background-color: #ffffff;
+                transition: all 0.5s ease;
+                transform: scale(0);
 }
 
 .navbar .nav-item .nav-link.active::before,
 .navbar .nav-item .nav-link:hover::before {
-     transform: scale(1);
+                transform: scale(1);
 }
 /*Home */
 .home {
@@ -178,9 +189,12 @@ ul {
     color: #7857fe;
     width: 100%;
 }
+
 .home-btn {
     margin: 15px;
 }
+
+
 
 /*QRCode */
 
@@ -203,6 +217,10 @@ small {
     min-height: 92vh;
     padding: 150px 0;
     background-color: var(--main-to-dark-color);
+    /*added this*/
+    position: relative;
+    z-index: 1;
+    overflow-x: hidden;
 }
 
 .landing-text h1 {
@@ -247,6 +265,28 @@ small {
         transform-origin: 210px 220px;
         animation: spin_01 10s linear infinite;
 }
+/* Preloader */
+.preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2100;
+    background-color: var(--main-to-dark-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .preloader span {
+        display: block;
+        height: 60px;
+        width: 60px;
+        background-color: var(--dark-to-main-color);
+        border-radius: 50%;
+        animation: zoomInOut_01 1s ease infinite;
+    }
 /* footer*/
 footer {
     font-family: 'Poppins', sans-serif;
@@ -292,7 +332,7 @@ for details on configuring this project to bundle and minify static web assets. 
     position: relative;
 }
 
-.image-area::before {
+    .image-area::before {
         content: 'Uploaded image result';
         color: lightslategray;
         font-weight: bold;
@@ -303,9 +343,9 @@ for details on configuring this project to bundle and minify static web assets. 
         transform: translate(-50%, -50%);
         font-size: 0.8rem;
         z-index: 1;
-}
+    }
 
-.image-area img {
+    .image-area img {
         z-index: 2;
         position: relative;
-}
+    }
