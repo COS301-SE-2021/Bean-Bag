@@ -298,3 +298,7 @@ C:\Users\Sphesihle\source\repos\COS301-SE-2021\Bean-Bag\BeanBag\obj\Debug\net5.0
 C:\Users\Sphesihle\source\repos\COS301-SE-2021\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\QRCode\Index.cshtml.g.cs
 C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\QRCoder.dll
 C:\Users\Sphesihle\Source\Repos\COS301-SE-2021\Bean-Bag\BeanBag\bin\Debug\net5.0\QRCoder.dll
+C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\xunit.abstractions.dll
+C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\xunit.assert.dll
+C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\xunit.core.dll
+C:\Users\user\Source\Repos\Bean-Bag\BeanBag\bin\Debug\net5.0\xunit.execution.dotnet.dll

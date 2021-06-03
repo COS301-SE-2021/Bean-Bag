@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\source\\repos\\Bean-Bag\\BeanBagUnitTests\\BeanBagUnitTests.csproj": {}
+    "C:\\Users\\user\\Source\\Repos\\Bean-Bag\\BeanBagUnitTests\\BeanBagUnitTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\source\\repos\\Bean-Bag\\BeanBagUnitTests\\BeanBagUnitTests.csproj": {
+    "C:\\Users\\user\\Source\\Repos\\Bean-Bag\\BeanBagUnitTests\\BeanBagUnitTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\source\\repos\\Bean-Bag\\BeanBagUnitTests\\BeanBagUnitTests.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Source\\Repos\\Bean-Bag\\BeanBagUnitTests\\BeanBagUnitTests.csproj",
         "projectName": "BeanBagUnitTests",
-        "projectPath": "C:\\Users\\user\\source\\repos\\Bean-Bag\\BeanBagUnitTests\\BeanBagUnitTests.csproj",
+        "projectPath": "C:\\Users\\user\\Source\\Repos\\Bean-Bag\\BeanBagUnitTests\\BeanBagUnitTests.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\source\\repos\\Bean-Bag\\BeanBagUnitTests\\obj\\",
+        "outputPath": "C:\\Users\\user\\Source\\Repos\\Bean-Bag\\BeanBagUnitTests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",

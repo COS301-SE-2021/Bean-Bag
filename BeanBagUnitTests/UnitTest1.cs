@@ -7,6 +7,7 @@ namespace BeanBagUnitTests
         [SetUp]
         public void Setup()
         {
+
         }
 
         [Test]
