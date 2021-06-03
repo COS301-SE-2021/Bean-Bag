@@ -10,6 +10,14 @@ namespace BeanBag.Models
    */
     public class ItemModel
     {
-        public byte[] picture { get; set; }
+        //public byte[] picture { get; set; }
+        public string itemID { get; set; }
+        public string inventoryID { get; set; }
+        public string itemName { get; set; }
+        public string itemType { get; set; }
+        public DateTime scanDate { get; set; }
+
+        //public virtual ICollection
+
     }
 }

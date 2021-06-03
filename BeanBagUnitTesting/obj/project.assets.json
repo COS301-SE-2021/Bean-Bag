@@ -10072,19 +10072,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\user\\.nuget\\packages\\": {}
+    "C:\\Users\\munas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\source\\repos\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj",
+      "projectUniqueName": "C:\\Users\\munas\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj",
       "projectName": "BeanBagUnitTesting",
-      "projectPath": "C:\\Users\\user\\source\\repos\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj",
-      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\source\\repos\\Bean-Bag\\BeanBagUnitTesting\\obj\\",
+      "projectPath": "C:\\Users\\munas\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj",
+      "packagesPath": "C:\\Users\\munas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\munas\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\munas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10098,8 +10098,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\user\\source\\repos\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
-              "projectPath": "C:\\Users\\user\\source\\repos\\Bean-Bag\\BeanBag\\BeanBag.csproj"
+            "C:\\Users\\munas\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
+              "projectPath": "C:\\Users\\munas\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj"
             }
           }
         }
@@ -10150,7 +10150,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }
