@@ -117,6 +117,8 @@ master ( build )
 5.  module-develop- this branch contains the backend code for specific subsystems/modules in the system. When the features from the backend are complete, they are merged into module-develop.
 6.  feature-module-feature_name - this branch is used to develop new backend features for the upcoming releases.
 7.  frontend-develop -this branch contains pre-production front-end code.
+8.  QRCode-develop - this branch contains experimental code for the QR functionality 
+9.  architecture-develop - this branch containts a practical visualization for our planning of our architecture
 
 ---
 
