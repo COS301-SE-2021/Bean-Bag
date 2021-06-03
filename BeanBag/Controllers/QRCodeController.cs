@@ -13,18 +13,31 @@ using System.IO;
 using QRCoder;
 namespace BeanBag.Controllers
 {
+    /*
+     * This class is the controller for the QRCode, 
+     */
+
     public class QRCodeController : Controller
     {
+
+        /*
+         * This function is used to return the structure of the QRCode page 
+         */
         public IActionResult Index()
         {
             return View();
         }
 
+        /*
+         * This function is used to ...
+         *
+         */
+
         [HttpPost]
-        public IActionResult Index(string inputText)    //Index page but specified with the string input
+        public IActionResult Index(string inputText)    
         {
             /*
-             * NB : Dummy -- Mocking out backend to test :) [mocking recognised data that will come from AI model function]
+             * Dummy -- Mocking out backend to test [mocking recognised data that will come from AI model function]
              */
             string itemName = "Item: Table\n";
             string itemCondition = "Condition: Good\n";
@@ -33,23 +46,27 @@ namespace BeanBag.Controllers
 
             inputText = itemName + itemCondition + color;
 
-
-            using (MemoryStream ms = new MemoryStream())        //memory stream helps write from and to the 'memory'
+            //memory stream helps write from and to the memory
+            using (MemoryStream ms = new MemoryStream())        
             {
-                QRCodeGenerator qRCodeGenerator = new QRCodeGenerator();    //newQRCode generator Object instance created from package
+                QRCodeGenerator qRCodeGenerator = new QRCodeGenerator();    
                 QRCodeData qRCodeData = qRCodeGenerator.CreateQrCode(inputText, QRCodeGenerator.ECCLevel.Q);
+
                 //Data and input text is used to generate the QR Code's actual 'DATA' 
-                QRCode qRCode = new QRCode(qRCodeData); //make a new instance of the QR code compiled data of text and string input
+                QRCode qRCode = new QRCode(qRCodeData);
+
+                //make a new instance of the QR code compiled data of text and string input
                 using (Bitmap bitmap = qRCode.GetGraphic(20))
                 {
-                    bitmap.Save(ms, ImageFormat.Png);   //bitmap maps our string and data to image bits which are then 'drawn'
+                    //bitmap maps our string and data to image bits which are then 'drawn'
+                    bitmap.Save(ms, ImageFormat.Png);   
                     ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
                     //viewbag is connected to front end, and we convert the bitmap back to a value our front end can comprehend, an array of bits?
                 }
 
-
             }
-            return View();  //view is returned on the front end for the entire instance of the project ;)
+            //view is returned on the front end for the entire instance of the project 
+            return View();  
         }
     }
 }

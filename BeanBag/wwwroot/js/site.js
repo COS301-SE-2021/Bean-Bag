@@ -27,7 +27,7 @@ $(function () {
 /*  ==========================================
     SHOW UPLOADED IMAGE NAME
 * ========================================== */
-var input = document.getElementById('upload');
+/*var input = document.getElementById('upload');
 var infoArea = document.getElementById('upload-label');
 
 input.addEventListener('change', showFileName);
@@ -36,3 +36,4 @@ function showFileName(event) {
     var fileName = input.files[0].name;
     infoArea.textContent = 'File name: ' + fileName;
 }
+*/

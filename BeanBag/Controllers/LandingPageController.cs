@@ -12,19 +12,5 @@ namespace BeanBag.Controllers
         {
             return View();
         }
-
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        public IActionResult Signup()
-        {
-            return View();
-        }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
     }
 }
