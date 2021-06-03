@@ -13,6 +13,11 @@ using System.IO;
 using QRCoder;
 //Added imports
 
+
+//controllers in mvc
+//controllers help the model and view interact
+//take stuff from the model and output it to view
+//logically, QRCode is our model and it is outputted as a view
 namespace BeanBag.Controllers
 {
     public class LandingPageController : Controller
@@ -45,7 +50,7 @@ namespace BeanBag.Controllers
 
 
             }
-            return View();  //view is returned on the front end for the entire instance of the project ;)
+            return View();  //view is returned on the front end for the entire instance of the project 
         }
 
         public IActionResult Signup()
