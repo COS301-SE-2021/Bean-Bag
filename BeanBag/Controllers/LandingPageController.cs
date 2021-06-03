@@ -50,7 +50,11 @@ namespace BeanBag.Controllers
 
 
             }
-            return View();  //view is returned on the front end for the entire instance of the project 
+            return View();  
+            //view is returned on the front end for the entire instance of the project 
+            //The view in this case is the QR Code
+            //in future the QR code should display a URL which is a simple web page for the item we just scanned.
+            //we could formulate the URL from the info retrieved from the database
         }
 
         public IActionResult Signup()
