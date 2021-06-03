@@ -131,7 +131,7 @@ The project management applications and communication techniques used for the <b
 - :pushpin: [Overleaf](https://www.overleaf.com)
 
 - :pushpin: [Jira](https://polariscapestone.atlassian.net/jira/software/projects/BB301/boards/1)
-- 
+ 
 - :email: polariscapstone301@gmail.com
 
 - [![Discord](https://img.shields.io/discord/591914197219016707.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/GJvuD5PM)
@@ -143,7 +143,7 @@ All neccessary documentation related to the <b> Bean Bag</b> project.
 
 - :open_book: [Software Requirements Specification Document](https://drive.google.com/drive/u/1/folders/1aOf_vzdIkNxeur8eyyou5kn9FHSUVCod)
 
-- :open_book: [Bean Bag Tender](https://drive.google.com/file/d/1vduIyqNOzRqf1_XaOKoXY07f_kTbIOEw/view?usp=sharing) (In progress)
+- :open_book: [Bean Bag Tender](https://drive.google.com/file/d/1vduIyqNOzRqf1_XaOKoXY07f_kTbIOEw/view?usp=sharing) 
 
 - :open_book: [Installation Guide](https://www.overleaf.com/read/) (In progress)
 
