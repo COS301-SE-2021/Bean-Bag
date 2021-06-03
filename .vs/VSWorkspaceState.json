@@ -2,7 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\BeanBag",
-    "\\BeanBag\\Models",
+    "\\BeanBag\\Controllers",
     "\\BeanBag\\Properties",
     "\\BeanBag\\Views",
     "\\BeanBag\\Views\\Home",
@@ -11,6 +11,6 @@
     "\\BeanBag\\wwwroot",
     "\\BeanBag\\wwwroot\\css"
   ],
-  "SelectedNode": "\\BeanBag\\Views\\Home\\Index.cshtml",
+  "SelectedNode": "\\BeanBag\\Views\\LandingPage\\Login.cshtml",
   "PreviewInSolutionExplorer": false
 }

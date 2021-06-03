@@ -33,7 +33,7 @@ namespace BeanBag.Controllers
             using (MemoryStream ms = new MemoryStream())        //memory stream helps write from and to the 'memory'
             {
                 QRCodeGenerator qRCodeGenerator = new QRCodeGenerator();    //newQRCode generator Object instance created from package
-                QRCodeData qRCodeData = qRCodeGenerator.CreateQrCode("urlfromthedatabase", QRCodeGenerator.ECCLevel.Q);
+                QRCodeData qRCodeData = qRCodeGenerator.CreateQrCode(inputText, QRCodeGenerator.ECCLevel.Q);
                 //Data and input text is used to generate the QR Code's actual 'DATA' 
                 QRCode qRCode = new QRCode(qRCodeData); //make a new instance of the QR code compiled data of text and string input
                 using (Bitmap bitmap= qRCode.GetGraphic(20)) 
