@@ -151,7 +151,7 @@ All neccessary documentation related to the <b> Bean Bag</b> project.
 
 <a name="D2"/><h3>Demo Videos</h3></a>
 
-- :tv: [Demo Video 1](https://drive.google.com/drive/u/1/folders/18UvquRIEvCKuZyfEESXBXh2mFWG5_VYl)
+- :tv: [Demo Video 1](https://drive.google.com/drive/folders/1eGUc2Kfhp8kpJgx4Yz0-tKVz40Xp5-_E?usp=sharing)
 
 - :tv: [Demo Video 2](https://drive.google.com/open?id=)
 - :tv: [Demo Video 3](https://drive.google.com/open?id=)
