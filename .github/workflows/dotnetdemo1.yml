@@ -1,4 +1,4 @@
-name: .NET
+name: Demo 1 .Net workflow with automate testing
 
 on:
   push:
@@ -25,4 +25,4 @@ jobs:
       working-directory: ./BeanBag
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      working-directory: ./BeanBag
+      working-directory: ./BeanBagTesting
