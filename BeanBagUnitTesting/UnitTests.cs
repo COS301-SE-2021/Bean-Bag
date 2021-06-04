@@ -35,7 +35,7 @@ namespace BeanBagUnitTesting
         */
         [Fact]
         public void TestQRCodeGeneration()
-        {
+       {
             //Mock data
             String ItemId = "7617671671";
 
