@@ -64,7 +64,27 @@ namespace BeanBag.Controllers
          */
         public bool coupleQRCode(string ItemID, string QRNumber)
         {
+          /*  Random generator = new Random();
+            String r = generator.Next(0, 1000000).ToString("D6");       //create a random 6 digit string 
+            */
+          ItemID = QRNumber;        //THIS SHOULD BE FIXED ONCE THE DB IS DONE
+            bool successCode = false;                   //boolean to check if the coupling was successful, used as return 
 
+            if (ItemID != null || QRNumber != null)
+            {
+                successCode = true;
+            }
+            else
+            {
+                return successCode;         //should return false if coupling never occurs 
+            }
+            /*
+             * 
+
+             * 
+             * 
+             */
+            return successCode;
             return true;
         }
 
