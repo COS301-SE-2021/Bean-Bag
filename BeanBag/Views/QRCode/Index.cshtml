@@ -21,10 +21,8 @@
                         <!---B2C Links here-->
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-                    <!-- <li class="nav-item">-->
-                    <!---B2C Links here-->
-                    <!-- <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Account">Account</a>
-                     </li>-->
+                  
+                     
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="LandingPage" asp-action="Index">Logout</a>
                     </li>
@@ -80,14 +78,18 @@
                             <div class="col-lg-5 text-center home-text">
 
                                 <!--  Return generated QRcode here--->
-                        
+
                                 <div class="fixpadding">
                                     @if (ViewBag.QRCode != null)
                                     {
-                                        <p > Generated QR Code </p>
+                                        <p> Generated QR Code </p>
 
                                         <img src="@ViewBag.QRCode" style="width:200px; height:200px;" />//source is the direct bitmap image being 'parsed'
                                     }
+                                </div>
+                                <div class="item-details" id="item-details">
+                                    <!--please add code that will hide item details-->
+                                        <p>Item details</p>
                                 </div>
                             </div>
                         </div>

@@ -94,7 +94,7 @@ ul {
 }
 /* fix padding on QRcode page*/
 .fixpadding {
-    padding-bottom: 200px;
+    padding-bottom: 25px;
 }
 
 .fixmargin {
@@ -279,14 +279,14 @@ small {
     justify-content: center;
 }
 
-    .preloader span {
+.preloader span {
         display: block;
         height: 60px;
         width: 60px;
         background-color: var(--dark-to-main-color);
         border-radius: 50%;
         animation: zoomInOut_01 1s ease infinite;
-    }
+}
 /* footer*/
 footer {
     font-family: 'Poppins', sans-serif;

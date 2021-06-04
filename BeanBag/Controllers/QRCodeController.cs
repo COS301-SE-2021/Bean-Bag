@@ -26,10 +26,10 @@ namespace BeanBag.Controllers
         public bool generateQRCode(string inputText)
         {
             //  Dummy -- Mocking out backend to test [mocking recognised data that will come from AI model function]
-            string itemName = "Item: Table\n";
-            string itemCondition = "Condition: Good\n";
-            string color = "Color: Black\n";
-            inputText = itemName + itemCondition + color;
+            string itemName = "Item: Chair\n";
+            string itemInventory = "Inventory: Furniture Inventory\n";
+            string iType = "Type: Furniture\n";
+            inputText = itemName + itemInventory + iType;
 
             //memory stream helps write from and to the memory
             using (MemoryStream ms = new MemoryStream())
@@ -64,7 +64,27 @@ namespace BeanBag.Controllers
          */
         public bool coupleQRCode(string ItemID, string QRNumber)
         {
+          /*  Random generator = new Random();
+            String r = generator.Next(0, 1000000).ToString("D6");       //create a random 6 digit string 
+            */
+          ItemID = QRNumber;        //THIS SHOULD BE FIXED ONCE THE DB IS DONE
+            bool successCode = false;                   //boolean to check if the coupling was successful, used as return 
 
+            if (ItemID != null || QRNumber != null)
+            {
+                successCode = true;
+            }
+            else
+            {
+                return successCode;         //should return false if coupling never occurs 
+            }
+            /*
+             * 
+
+             * 
+             * 
+             */
+            return successCode;
             return true;
         }
 

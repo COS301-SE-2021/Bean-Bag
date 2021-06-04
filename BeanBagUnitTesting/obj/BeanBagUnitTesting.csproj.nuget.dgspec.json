@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj": {}
+    "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj": {
+    "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj",
+        "projectUniqueName": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj",
         "projectName": "BeanBagUnitTesting",
-        "projectPath": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj",
-        "packagesPath": "C:\\Users\\Sphesihle\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBagUnitTesting\\obj\\",
+        "projectPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBagUnitTesting\\BeanBagUnitTesting.csproj",
+        "packagesPath": "C:\\Users\\munas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBagUnitTesting\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Sphesihle\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\munas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
-                "projectPath": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj"
+              "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
+                "projectPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj"
               }
             }
           }
@@ -76,6 +76,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
@@ -84,17 +87,17 @@
         }
       }
     },
-    "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
+    "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj",
+        "projectUniqueName": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
         "projectName": "BeanBag",
-        "projectPath": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\BeanBag.csproj",
-        "packagesPath": "C:\\Users\\Sphesihle\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sphesihle\\Source\\Repos\\COS301-SE-2021\\Bean-Bag\\BeanBag\\obj\\",
+        "projectPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
+        "packagesPath": "C:\\Users\\munas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Sphesihle\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\munas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
