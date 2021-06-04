@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace BeanBag.Controllers
 {
-    /*
-     * This class is responsible for the data returned to the Item page
-     */
-   /* public class ItemController : Controller
-    {*/
-        /*
-         * This function returns the page structure for the items page 
-         */
-      /*  public IActionResult Index()
+    
+    
+    public class ItemController : Controller
+    {
+        
+       public IActionResult Index()
         {
             //using (var Context = new BeanBag.Database.BeanBagContext())
             {
@@ -31,6 +28,6 @@ namespace BeanBag.Controllers
             }
             return View();
         }
-    }*/
+    }
 }
       

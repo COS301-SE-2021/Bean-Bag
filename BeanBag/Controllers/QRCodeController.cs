@@ -26,10 +26,10 @@ namespace BeanBag.Controllers
         public bool generateQRCode(string inputText)
         {
             //  Dummy -- Mocking out backend to test [mocking recognised data that will come from AI model function]
-            string itemName = "Item: Table\n";
-            string itemCondition = "Condition: Good\n";
-            string color = "Color: Black\n";
-            inputText = itemName + itemCondition + color;
+            string itemName = "Item: Chair\n";
+            string itemInventory = "Inventory: Furniture Inventory\n";
+            string iType = "Type: Furniture\n";
+            inputText = itemName + itemInventory + iType;
 
             //memory stream helps write from and to the memory
             using (MemoryStream ms = new MemoryStream())
