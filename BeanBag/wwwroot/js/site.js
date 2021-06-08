@@ -20,7 +20,7 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
     //window.alert('this is an alert');
-    document.getElementById("item-details").innerHTML += "Name: Chair" + "<br>" +
+    document.getElementById("item-details").innerHTML += "<p>"+"Item details"+"</p>"+"Name: Chair" + "<br>" +
         "Inventory: Furniture inventory" + "<br>" +
         "Type: Furniture" + "<br>" +
         "scanDate : 2021/06/04";
