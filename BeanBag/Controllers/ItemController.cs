@@ -1,14 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-
 namespace BeanBag.Controllers
 {
-    
-    
     public class ItemController : Controller
     {
         
@@ -16,7 +8,7 @@ namespace BeanBag.Controllers
         {
             //using (var Context = new BeanBag.Database.BeanBagContext())
             {
-                var item = new BeanBag.Models.ItemModel
+              /*  var item = new BeanBag.Models.ItemModel
                 {
                     itemID = "001",
                     inventoryID = "001",
@@ -24,7 +16,7 @@ namespace BeanBag.Controllers
                     itemType = "Furniture",
                     scanDate = DateTime.Parse(DateTime.Today.ToString())
 
-                }; 
+                }; */
             }
             return View();
         }

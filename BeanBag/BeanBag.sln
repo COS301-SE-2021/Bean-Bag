@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeanBag", "BeanBag.csproj", "{326C237B-05C1-4B4E-83F4-547141238FBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanBagUnitTesting", "..\BeanBagUnitTesting\BeanBagUnitTesting.csproj", "{E33BCCFD-0476-42C5-AC10-E68F670869BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanBagTests", "..\BeanBagTests\BeanBagTests.csproj", "{E33BCCFD-0476-42C5-AC10-E68F670869BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
