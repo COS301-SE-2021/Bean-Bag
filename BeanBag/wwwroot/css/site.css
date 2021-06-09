@@ -265,6 +265,10 @@ small {
         transform-origin: 210px 220px;
         animation: spin_01 10s linear infinite;
 }
+.landing-page-image{
+    font-size:10px;
+    
+}
 /* Preloader */
 .preloader {
     position: fixed;
