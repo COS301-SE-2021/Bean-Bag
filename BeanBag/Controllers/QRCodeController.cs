@@ -41,9 +41,7 @@ namespace BeanBag.Controllers
             }
         }
 
-        /*
-         * Function to couple up the item ID with the QRCode
-         */
+        /* This function couples up the item ID with the QRCode */
         public bool CoupleQrCode(string itemId, string qrNumber)
        {
           /*  Random generator = new Random();
@@ -65,25 +63,18 @@ namespace BeanBag.Controllers
         }
 
 
-        /*
-        * This function is used to return the structure of the QRCode page 
-        */
+        /* This function is used to return the structure of the QRCode page  */
         public IActionResult Index()
         {
             return View();
         }
 
-        /*
-         * This function is used to generate and return the QRcode for an item
-         */
+        /* This function is used to generate and return the QRcode for an item*/
         [HttpPost]
         public IActionResult Index(string itemId)
         {
             var qrCodeModel = new QrCodeModel();
-            //Call QRCode Generator 
             GenerateQrCode(itemId, qrCodeModel);
-
-            //view is returned on the front end for the entire instance of the project 
             return View();
         }
     }

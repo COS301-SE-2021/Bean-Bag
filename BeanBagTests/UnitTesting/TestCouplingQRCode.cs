@@ -45,7 +45,7 @@ namespace BeanBagUnitTesting.UnitTesting
              bool result = qr.CoupleQrCode(ItemNumber, QRNumber);
             
              //Assert
-             Assert.False(result); //again need database thats wy fails
+             Assert.False(result); // need database thats why fails
          }
          
          /* Unit test for coupling QR Code to an item with valid input expecting failure given invalid ItemNumber
@@ -64,7 +64,7 @@ namespace BeanBagUnitTesting.UnitTesting
              bool result = qr.CoupleQrCode(ItemNumber, QRNumber);
             
              //Assert
-             Assert.False(result);
+             Assert.False(result); // need database thats why fails
          }
          
          

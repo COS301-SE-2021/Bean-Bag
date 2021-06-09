@@ -10759,32 +10759,34 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Sphesihle\\.nuget\\packages\\": {}
+    "C:\\Users\\user\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Sphesihle\\RiderProjects\\Bean-Bag\\BeanBagTests\\BeanBagTests.csproj",
+      "projectUniqueName": "C:\\Users\\user\\RiderProjects\\Bean-Bag\\BeanBagTests\\BeanBagTests.csproj",
       "projectName": "BeanBagTests",
-      "projectPath": "C:\\Users\\Sphesihle\\RiderProjects\\Bean-Bag\\BeanBagTests\\BeanBagTests.csproj",
-      "packagesPath": "C:\\Users\\Sphesihle\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Sphesihle\\RiderProjects\\Bean-Bag\\BeanBagTests\\obj\\",
+      "projectPath": "C:\\Users\\user\\RiderProjects\\Bean-Bag\\BeanBagTests\\BeanBagTests.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\user\\RiderProjects\\Bean-Bag\\BeanBagTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Sphesihle\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\Sphesihle\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
-              "projectPath": "C:\\Users\\Sphesihle\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj"
+            "C:\\Users\\user\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
+              "projectPath": "C:\\Users\\user\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj"
             }
           }
         }
@@ -10870,7 +10872,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\Sphesihle\\.dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }
