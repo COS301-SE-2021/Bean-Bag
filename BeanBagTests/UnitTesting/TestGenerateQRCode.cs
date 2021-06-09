@@ -15,14 +15,20 @@ namespace BeanBagUnitTesting.UnitTesting
          * If the function returns false the coupling failed*/
         
         [Fact] 
-        public void Test_QRCode_Generation_Successful() 
+        public void Test_QRCode_Generation_Successful_Valid_ItemID() 
         {
+            //Arrange
             String ItemId = "7617671671";
+            
+            //Act
             QrCodeController qr = new QrCodeController();
             var qrCodeModel = new QrCodeModel();
             qr.GenerateQrCode(ItemId, qrCodeModel);
+            
+            //Assert
             Assert.NotNull(qrCodeModel.QrCodeNumber);
         }
+        
                 
         /*---------------------------------- NEGATIVE TESTING-----------------------------------------*/
         
@@ -31,13 +37,18 @@ namespace BeanBagUnitTesting.UnitTesting
          * If the function returns false the coupling failed*/
         
         [Fact]
-        public void Test_QRCode_Generation_Failure()
+        public void Test_QRCode_Generation_Failure_Invalid_ItemID()
         {
+            //Arrange
             String ItemId = "7617671671";
             QrCodeController qr = new QrCodeController();
             var qrCodeModel = new QrCodeModel();
+            
+            //Act
             qr.GenerateQrCode(ItemId, qrCodeModel);
-            Assert.Null(qrCodeModel.QrCodeNumber);
+            
+            //Assert
+            Assert.Null(qrCodeModel.QrCodeNumber); //fails because database is needed to query if item exists
         }
     }
 }

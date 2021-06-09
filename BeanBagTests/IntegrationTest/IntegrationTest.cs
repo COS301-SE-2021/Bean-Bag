@@ -1,4 +1,5 @@
-﻿namespace BeanBagUnitTesting.IntegrationTest
+﻿
+namespace BeanBagUnitTesting.IntegrationTest
 {
       /*
        * This class creates an integration test for the BeanBag system
