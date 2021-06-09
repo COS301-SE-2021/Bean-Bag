@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+
 namespace BeanBag.Models
 {
     /*
@@ -6,13 +9,11 @@ namespace BeanBag.Models
    */
     public class ItemModel
     {
-        //public byte[] picture { get; set; }
         public string InventoryId { get; set; }
         public string ItemName { get; set; }
         public string ItemType { get; set; }
         public DateTime ScanDate { get; set; }
-
-        //public virtual ICollection
-
+        
+        public virtual List<ItemModel> Items { get; set; }
     }
 }
