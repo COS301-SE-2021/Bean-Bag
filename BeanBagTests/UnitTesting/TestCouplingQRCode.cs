@@ -8,10 +8,7 @@ namespace BeanBagUnitTesting.UnitTesting
     {
         /*---------------------------------- POSITIVE TESTING----------------------------------------- */
         
-        /* Unit test for coupling QR Code to an item with valid input expecting success
-         * If the function returns true the coupling was achieved successfully
-         * If the function returns false the coupling failed*/
-        
+        /* Unit test for coupling QR Code to an item with valid input, expecting success*/
         [Fact]
         public void Test_QrCode_Coupling_Valid_Input()
         {
@@ -29,10 +26,7 @@ namespace BeanBagUnitTesting.UnitTesting
 
         /*---------------------------------- NEGATIVE TESTING----------------------------------------- */
         
-         /* Unit test for coupling QR Code to an item with valid input expecting failure given invalid QRNumber
-          * If the function returns true the coupling was achieved successfully
-          * If the function returns false the coupling failed*/
-         
+         /* Unit test for coupling QR Code to an item with valid input expecting failure given invalid QRNumber*/
          [Fact]
          public void Test_QrCode_Coupling_Invalid_QRNum()
          {
@@ -48,10 +42,7 @@ namespace BeanBagUnitTesting.UnitTesting
              Assert.False(result); // need database thats why fails
          }
          
-         /* Unit test for coupling QR Code to an item with valid input expecting failure given invalid ItemNumber
-          * If the function returns true the coupling was achieved successfully
-          * If the function returns false the coupling failed */
-         
+         /* Unit test for coupling QR Code to an item with valid input expecting failure given invalid ItemNumber*/
          [Fact]
          public void Test_QrCode_Coupling_Invalid_ItemNum()
          {
@@ -64,7 +55,7 @@ namespace BeanBagUnitTesting.UnitTesting
              bool result = qr.CoupleQrCode(ItemNumber, QRNumber);
             
              //Assert
-             Assert.False(result); // need database thats why fails
+             Assert.False(result); // need database that's why fails
          }
         
     }

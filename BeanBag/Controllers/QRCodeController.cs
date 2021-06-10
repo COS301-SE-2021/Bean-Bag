@@ -74,7 +74,7 @@ namespace BeanBag.Controllers
 
         /*---------------------------------- VIEW RESPONSE----------------------------------------- */
 
-        /* This function is used to return the structure of the QRCode page  */
+        /* This function is used to return the layout of the QRCode page */
         public IActionResult Index()
         {
             return View();

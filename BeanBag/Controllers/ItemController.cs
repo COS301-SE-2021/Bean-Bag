@@ -27,7 +27,6 @@ namespace BeanBag.Controllers
             return View();
         }*/
      
-     
      //nada: create item and add (using for unit testing , mocking DB)
      private readonly BeanBagContext _beanBagContext;
      public ItemController(BeanBagContext beanBagContext)
