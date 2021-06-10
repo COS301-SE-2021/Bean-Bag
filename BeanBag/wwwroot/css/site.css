@@ -1,6 +1,6 @@
 ﻿/*  Fonts  */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-/*  Gloabal Css  */
+/*  Global Css  */
 :root {
     --main-color: #7857fe;
     --color-1: #e91e63;
@@ -10,6 +10,7 @@
     --main-to-dark-color: var(--main-color);
     --dark-to-main-color: var(--bg-dark);
     --shadow-black-100: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --shadow-black-300: 0 5px 15px rgba(0, 0, 0, 0.3);
     --black-900: #000000;
     --black-400: #555555;
     --black-100: #ffffff;
@@ -169,6 +170,13 @@ ul {
 .navbar .nav-item .nav-link:hover::before {
                 transform: scale(1);
 }
+.navbar-toggler{
+    padding: .25rem .75rem;
+    font-size:1.25rem;
+    line-height:1;
+    background-color: transparent;
+    border-radius: .25rem;
+}
 /*Home */
 .home {
     min-height: 92vh;
@@ -308,7 +316,60 @@ a[href^="https"] {
     text-decoration: underline;
     color: #ffffff;
 }
+/* Responsive*/
+@media(max-width: 991px){
+    .navbar-toggler{
+        background-color: var(--dark-to-main-color);
+        box-shadow:var(--shadow-black-300);
+        height:34px;
+        width: 44px;
+        padding:0;
+        font-size:17px;
+        color:#ffffff;
+    }
+    .navbar-nav{
+        background-color: var(--dark-to-main-color);
+        box-shadow:var(--shadow-black-300);
+        
+    }
+    .navbar .nav-item{
+        margin:0;
+        padding:5px 15px;
+    }
+    .navbar.navbar-shrink .navbar-toggler,
+    .navbar.navbar-shrink .navbar-nav{
+        background-color: var(--main-color);
+    }
+    .landing-text h1{
+        font-size:36px;
+        
+    }
+    .landing-text p {
+        font-size: 16px;
+    }
+    .upload-image{
+        margin-bottom:80px;
+    }
+}
+@media(max-width: 767px){
+    .landing-text{
+        margin-bottom: 80px;
+    }
+    .landing-img img {
+        transform: scale(1.1, 1.1);
+    }
+}
 
+@media(max-width: 575px){
+    .home-text h1{
+        font-size:30px;
+        
+    }
+    .home-text p{
+        font-size:16px;
+        
+    }
+}
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 

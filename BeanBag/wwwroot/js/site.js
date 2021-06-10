@@ -5,7 +5,10 @@ $(window).on("load", function () {
     /*Preloader*/
     $(".preloader").fadeOut("slow");
 });
-
+/*Navbar Collapse*/
+$(".nav-link").on("click", function (){ /* check the behaviour of this function*/
+    $(".navbar-collapse").collapse("hide");
+});
 /*  ==========================================
     SHOW UPLOADED IMAGE
 * ========================================== */
