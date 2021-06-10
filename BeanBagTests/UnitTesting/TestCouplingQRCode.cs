@@ -66,7 +66,6 @@ namespace BeanBagUnitTesting.UnitTesting
              //Assert
              Assert.False(result); // need database thats why fails
          }
-         
-         
+        
     }
 }

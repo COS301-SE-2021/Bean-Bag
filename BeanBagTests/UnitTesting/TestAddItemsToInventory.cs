@@ -10,8 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeanBagUnitTesting.UnitTesting
 {
-    
-   public class TestAddItemsToInventory
+    public class TestAddItemsToInventory
     {
         
         /*---------------------------------- POSITIVE TESTING----------------------------------------- */

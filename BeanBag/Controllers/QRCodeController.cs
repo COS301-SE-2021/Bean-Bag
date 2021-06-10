@@ -1,7 +1,6 @@
 ﻿using BeanBag.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using QRCoder;
@@ -12,56 +11,68 @@ namespace BeanBag.Controllers
      * implementing the functions of the QRCode class and returning data to the QR page*/
     public class QrCodeController : Controller
     {
+        private QrCodeModel _qrModel = new QrCodeModel();
         
+        /*---------------------------------- SERVICE CONTRACTS----------------------------------------- */
+
         /* This function generates a QRCode and gets the itemDetails as the parameter. Memory stream helps write from
          * and to the memory. Data and input text is used to generate the QR Code's actual 'DATA'. A new instance of
          * the QR code compiled data of text and string input is created.bitmap maps our string and data to image bits
          * which are then 'drawn', thereafter the generated QRCode variable is set.*/
-        public void GenerateQrCode(string input, QrCodeModel qrModel)
-        { 
-            string itemName = "Item: Chair\n", itemInventory = "Inventory: Furniture Inventory\n",iType = "Type: Furniture\n";
-            string  itemId = itemName + itemInventory + iType;
-            // Dummy -- Mocking out backend to test [mocking recognised data that will come from AI model function]
-            // write code here to check if item is actually in the database (Need for unit testing) throw error if isnt
-            // Will need to query the details of the item from the database also
+        public bool GenerateQrCode(string itemId)
+        {
+            if (itemId == null)
+            {
+                throw new Exception("QRCode generation failed. ItemID input is null.");
+            }
+
+            else if (itemId.Length !=36) 
+            {
+                throw new Exception("QRCode generation failed. ItemID string is invalid.");
+            }
             
-            using (MemoryStream ms = new MemoryStream())
-            {
-                QRCodeGenerator qRCodeGenerator = new QRCodeGenerator();
-                QRCodeData qRCodeData = qRCodeGenerator.CreateQrCode(itemId, QRCodeGenerator.ECCLevel.Q);
-                QRCode qRCode = new QRCode(qRCodeData);
-                
-                using (Bitmap bitmap = qRCode.GetGraphic(20))
-                {
-                    bitmap.Save(ms, ImageFormat.Png);
-                    ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
-                    qrModel.QrCodeNumber = qRCode.ToString();
-                    CoupleQrCode(itemId, qrModel.QrCodeNumber);
-                }
-            }
-        }
+            //Query from db here
+            //throw exception if item not found
+            //throw new Exception("QRCode generation failed. ItemID not found in database.");
+            const string itemName = "Item: Chair\n";
+            const string itemInventory = "Inventory: Furniture Inventory\n";
+            const string iType = "Type: Furniture\n";
+            itemId = itemName + itemInventory + iType;
 
-        /* This function couples up the item ID with the QRCode */
-        public bool CoupleQrCode(string itemId, string qrNumber)
-       {
-          /*  Random generator = new Random();
-            String r = generator.Next(0, 1000000).ToString("D6");       //create a random 6 digit string 
-            */
-           // itemId = qrNumber;        //THIS SHOULD BE FIXED ONCE THE DB IS DONE
-           /*   bool successCode = false;                   //boolean to check if the coupling was successful, used as return 
+            var ms = new MemoryStream();
+            var qRCodeGenerator = new QRCodeGenerator();
+            var qRCodeData = qRCodeGenerator.CreateQrCode(itemId, QRCodeGenerator.ECCLevel.Q);
+            var qRCode = new QRCode(qRCodeData);
+            var bitmap = qRCode.GetGraphic(20);
+            
+            bitmap.Save(ms, ImageFormat.Png);
+            ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
 
-            if (itemId != null || qrNumber != null)
+            if (ViewBag.QRCode == null)
             {
-                successCode = true;
+                return false;
             }
-            else
-            {
-                return successCode;         //should return false if coupling never occurs 
-            }
-            return successCode;*/
+            
+            _qrModel.QrCodeNumber = qRCode.ToString();
+             CoupleQrCode(itemId, _qrModel.QrCodeNumber);
+            
             return true;
         }
 
+        /* This function couples up the item ID with the QRCode*/
+        public bool CoupleQrCode(string itemId, string qrNumber)
+        {
+            //Random generator = new Random();
+            //create a random 6 digit string 
+            // String r = generator.Next(0, 1000000).ToString("D6");
+            // itemId = qrNumber;        //THIS SHOULD BE FIXED ONCE THE DB IS DONE
+            //boolean to check if the coupling was successful, used as return 
+            bool successCode = itemId != null || qrNumber != null;
+            //should return false if coupling never occurs 
+            return successCode;
+        }
+
+        /*---------------------------------- VIEW RESPONSE----------------------------------------- */
 
         /* This function is used to return the structure of the QRCode page  */
         public IActionResult Index()
@@ -69,12 +80,13 @@ namespace BeanBag.Controllers
             return View();
         }
 
-        /* This function is used to generate and return the QRcode for an item*/
+        /* This function is used to generate and return the QR-code for an item*/
         [HttpPost]
         public IActionResult Index(string itemId)
         {
-            var qrCodeModel = new QrCodeModel();
-            GenerateQrCode(itemId, qrCodeModel);
+            _qrModel = new QrCodeModel();
+            //mock id until integrate
+            GenerateQrCode(new Guid().ToString());
             return View();
         }
     }

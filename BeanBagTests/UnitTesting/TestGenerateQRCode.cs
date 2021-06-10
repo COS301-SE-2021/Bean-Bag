@@ -1,54 +1,58 @@
 ﻿using System;
 using BeanBag.Controllers;
-using BeanBag.Models;
 using Xunit;
 
 namespace BeanBagUnitTesting.UnitTesting
 {
     public class TestGenerateQrCode 
     {
-        
         /*---------------------------------- POSITIVE TESTING----------------------------------------- */
                
-        /* Unit test for generating a QR Code with valid itemID input expecting success
-         * If the function returns true the coupling was achieved successfully
-         * If the function returns false the coupling failed*/
-        
+        /* Unit test for generating a QR Code with valid itemID input, expecting success*/
         [Fact] 
         public void Test_QRCode_Generation_Successful_Valid_ItemID() 
         {
             //Arrange
-            String ItemId = "7617671671";
+            var itemId = new Guid().ToString() ;
             
             //Act
-            QrCodeController qr = new QrCodeController();
-            var qrCodeModel = new QrCodeModel();
-            qr.GenerateQrCode(ItemId, qrCodeModel);
+            var qr = new QrCodeController();
             
             //Assert
-            Assert.NotNull(qrCodeModel.QrCodeNumber);
+           Assert.True(qr.GenerateQrCode(itemId));
         }
-        
-                
+
         /*---------------------------------- NEGATIVE TESTING-----------------------------------------*/
         
-        /* Unit test for generating a QR Code with invalid itemID input expecting failure
-         * If the function returns true the coupling was achieved successfully
-         * If the function returns false the coupling failed*/
-        
+        /* Unit test for generating a QR Code with invalid itemID input, expecting failure*/
         [Fact]
         public void Test_QRCode_Generation_Failure_Invalid_ItemID()
         {
             //Arrange
-            String ItemId = "7617671671";
-            QrCodeController qr = new QrCodeController();
-            var qrCodeModel = new QrCodeModel();
+            const string itemId = "InvalidString123";
+            var qr = new QrCodeController();
             
             //Act
-            qr.GenerateQrCode(ItemId, qrCodeModel);
-            
+            void Act() => qr.GenerateQrCode(itemId);
+
             //Assert
-            Assert.Null(qrCodeModel.QrCodeNumber); //fails because database is needed to query if item exists
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("QRCode generation failed. ItemID string is invalid.", exception.Message);
+        }
+
+        /* Unit test for generating a QR Code with invalid null input, expecting failure*/
+        [Fact]
+        public void Test_QRCode_Generation_Failure_Null_ItemID()
+        {
+            //Arrange
+            var qr = new QrCodeController();
+            
+            //Act
+            Action act =() => qr.GenerateQrCode(null);
+
+            //Assert
+            var exception = Assert.Throws<Exception>(act);
+            Assert.Equal("QRCode generation failed. ItemID input is null.", exception.Message);
         }
     }
 }
