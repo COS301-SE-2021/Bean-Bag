@@ -1,14 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace BeanBag
 {
@@ -25,6 +23,26 @@ namespace BeanBag
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Azure B2C OpenIdConnect Authentication service setup
+            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+                .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAdB2C"));
+            services.AddRazorPages().AddMicrosoftIdentityUI();
+            
+            services.Configure<OpenIdConnectOptions>(
+                OpenIdConnectDefaults.AuthenticationScheme, options =>
+                {
+                    options.Events.OnRedirectToIdentityProvider = async context =>
+                    {
+                        context.Properties.RedirectUri = "/Home";
+                    };
+
+                    options.Events.OnSignedOutCallbackRedirect = async context =>
+                    {
+                        context.Properties.RedirectUri = "/LandingPage";
+                    };
+                    
+                });
+            
             services.AddControllersWithViews();
             services.AddDbContext<BeanBag.Database.BeanBagContext>(options => options.UseSqlServer("Server=tcp:polariscapestone.database.windows.net,1433;Initial Catalog=Bean-Bag-Platform-DB;Persist Security Info=False;User ID=polaris;Password=MNRSSp103;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
             
@@ -49,6 +67,7 @@ namespace BeanBag
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -56,6 +75,7 @@ namespace BeanBag
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=LandingPage}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

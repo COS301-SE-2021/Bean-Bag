@@ -1,4 +1,12 @@
-﻿@{
+﻿@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+
+@{
+    var options = _azureAdb2COptions.Value;
+}
+
+@{
     ViewData["Title"] = "Home Page";
 }
 <style type="text/css">.home-btn { }</style>
@@ -18,15 +26,22 @@
             <!-- Navbar links add active thing on the link to the current that you're on... -->
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
+                    @if (User.Identity.IsAuthenticated)
+                     {
+                         <li class="nav-item"><span class="navbar-toggler-icon"> Hello @User.Identity.Name</span>
+                        </li>
 
-                        <!---B2C Links here-->
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                   
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="LandingPage" asp-action="Index">Logout</a>
-                    </li>
+                         @if (!string.IsNullOrEmpty(options.EditProfilePolicyId))
+                         {
+                             <li class="nav-item">
+                                 <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="EditProfile">Edit Profile</a>
+                             </li>
+                         }
+
+                         <li class="nav-item">
+                             <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
+                         </li>
+                     }
                 </ul>
             </div>
         </div>

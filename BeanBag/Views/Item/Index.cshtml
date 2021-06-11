@@ -22,9 +22,12 @@
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                   
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="LandingPage" asp-action="Index">Logout</a>
-                    </li>
+                     @if (User.Identity.IsAuthenticated)
+                     {
+                         <li class="nav-item">
+                             <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
+                         </li>
+                     }
                 </ul>
             </div>
         </div>

@@ -23,13 +23,13 @@
             <!-- Navbar links add active thing on the link to the current that you're on... -->
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <!---B2C Links here-->
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="LandingPage" >Sign up</a> <!-- action removed, must be replaced by b2c functionality-->
-                    </li>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Sign in | Sign up</a>
+                        </li>
+                    }
+
                 </ul>
             </div>
         </div>
