@@ -4,6 +4,8 @@
     public class QrCodeModel
     {
         public string QrCodeNumber { get; set; }
-
+        //the unique identifier for every QR code. This QR number is used in coupling
+        //the QR code to the Item through coupling with itemID as the primary key and QRNumber as the foreign key
+        //in the item table
     }
 }
