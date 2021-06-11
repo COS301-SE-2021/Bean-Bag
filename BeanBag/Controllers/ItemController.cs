@@ -12,6 +12,7 @@ namespace BeanBag.Controllers
     public class ItemController : Controller
     {
         
+     // Mocked code for the item details on demo 1, to be fully implemented.    
      /*  public IActionResult Index()
         {
             using (var Context = new BeanBag.Database.BeanBagContext())
@@ -27,7 +28,8 @@ namespace BeanBag.Controllers
             return View();
         }*/
      
-     //nada: create item and add (using for unit testing , mocking DB)
+     // Nada: create item and add. (using for unit testing , mocking DB)
+     // Unit testing specifies mock data, intergration testing uses the database
      private readonly BeanBagContext _beanBagContext;
      public ItemController(BeanBagContext beanBagContext)
      {

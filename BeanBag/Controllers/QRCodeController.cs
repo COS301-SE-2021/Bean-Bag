@@ -31,9 +31,9 @@ namespace BeanBag.Controllers
                 throw new Exception("QRCode generation failed. ItemID string is invalid.");
             }
             
-            //Query from db here
-            //throw exception if item not found
-            //throw new Exception("QRCode generation failed. ItemID not found in database.");
+            // Query from db here
+            // Throw exception if item not found
+            // Throw new Exception("QRCode generation failed. ItemID not found in database.");
             const string itemName = "Item: Chair\n";
             const string itemInventory = "Inventory: Furniture Inventory\n";
             const string iType = "Type: Furniture\n";
@@ -62,13 +62,13 @@ namespace BeanBag.Controllers
         /* This function couples up the item ID with the QRCode*/
         public bool CoupleQrCode(string itemId, string qrNumber)
         {
-            //Random generator = new Random();
-            //create a random 6 digit string 
+            // Random generator = new Random();
+            // Create a random 6 digit string 
             // String r = generator.Next(0, 1000000).ToString("D6");
             // itemId = qrNumber;        //THIS SHOULD BE FIXED ONCE THE DB IS DONE
-            //boolean to check if the coupling was successful, used as return 
+            // Boolean to check if the coupling was successful, used as return 
             bool successCode = itemId != null || qrNumber != null;
-            //should return false if coupling never occurs 
+            // Should return false if coupling never occurs 
             return successCode;
         }
 
@@ -85,7 +85,8 @@ namespace BeanBag.Controllers
         public IActionResult Index(string itemId)
         {
             _qrModel = new QrCodeModel();
-            //mock id until integrate
+            
+            // Mock id until integrate
             GenerateQrCode(new Guid().ToString());
             return View();
         }
