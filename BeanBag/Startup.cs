@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using BeanBag.Database;
 
 namespace BeanBag
 {
@@ -44,9 +45,11 @@ namespace BeanBag
                 });
             
             services.AddControllersWithViews();
-            services.AddDbContext<BeanBag.Database.BeanBagContext>(options => options.UseSqlServer("Server=tcp:polariscapestone.database.windows.net,1433;Initial Catalog=Bean-Bag-Platform-DB;Persist Security Info=False;User ID=polaris;Password=MNRSSp103;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
-            
-            
+
+            // Connecting to the sql server and to the specified DB using the appsettings.json ConnectionStrings defaultConnection contents
+            services.AddDbContext<DBContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,12 +1,11 @@
-﻿@model IEnumerable<Inventory>
-
+﻿@model IEnumerable<Item>
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">Inventory List</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary">Create new Inventory</a>
+            <a asp-controller="Inventory" asp-action="AddItem" class="btn btn-primary">Add new Item</a>
         </div>
     </div>
     <br />
@@ -16,20 +15,23 @@
             <thead>
                 <tr>
                     <th>
-                        Inventory Name
+                        Item Name
+                    </th>
+                    <th>
+                        Item Type
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var inventory in Model)
+                @foreach (var item in Model)
                 {
                     <tr>
-                        <td width="50%">@inventory.name</td>
+                        <td width="50%">@item.name</td>
+                        <td width="50%">@item.type</td>
                         <td width="50%">
                             <div class="w-100 btn-group" role="group">
-                                <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn btn-success">View Items</a>
-                                <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn btn-secondary">Edit</a>
-                                <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn btn-danger">Delete</a>
+                                <a asp-controller="Item" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-secondary">Edit</a>
+                                <a asp-controller="Item" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger">Delete</a>
                             </div>
                         </td>
                     </tr>
@@ -39,7 +41,7 @@
     }
     else
     {
-        <p>No Inventories yet</p>
+        <p>No items yet</p>
     }
 </div>
 

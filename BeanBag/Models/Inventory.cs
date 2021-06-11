@@ -16,7 +16,8 @@ namespace BeanBag.Models
 
         // The name of the Inventory. Required to have a value
         [Required]
-        public String name { get; set; }
-
+        [DisplayName("Inventory Name")]
+        public string name { get; set; }
+        public virtual ICollection<Item> ItemList { get; set; }
     }
 }
