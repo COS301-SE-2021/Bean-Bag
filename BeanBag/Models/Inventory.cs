@@ -18,6 +18,7 @@ namespace BeanBag.Models
         [Required]
         [DisplayName("Inventory Name")]
         public string name { get; set; }
-        public virtual ICollection<Item> ItemList { get; set; }
+
+        //public virtual ICollection<Item> ItemList { get; set; }
     }
 }

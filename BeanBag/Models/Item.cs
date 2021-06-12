@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace BeanBag.Models
 {
     // This class is responsible for handling the items data for the application
@@ -19,7 +21,11 @@ namespace BeanBag.Models
         [Required]
         [DisplayName("Item Type")]
         public string type { get; set; }
-
+        
+        [Required]
         public Guid inventoryId { get; set; }
+
+        [ForeignKey("inventoryId")]
+        public virtual Inventory Inventory { get; set; }
     }
 }

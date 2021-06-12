@@ -60,16 +60,13 @@ namespace BeanBag.Migrations
 
             modelBuilder.Entity("BeanBag.Models.Item", b =>
                 {
-                    b.HasOne("BeanBag.Models.Inventory", null)
-                        .WithMany("ItemList")
+                    b.HasOne("BeanBag.Models.Inventory", "Inventory")
+                        .WithMany()
                         .HasForeignKey("inventoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("BeanBag.Models.Inventory", b =>
-                {
-                    b.Navigation("ItemList");
+                    b.Navigation("Inventory");
                 });
 #pragma warning restore 612, 618
         }
