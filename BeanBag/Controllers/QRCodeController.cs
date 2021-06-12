@@ -71,17 +71,28 @@ namespace BeanBag.Controllers
             return successCode;
         }
 
-        
+      /*  
         // This function denotes the functionality needed to print a QR code to a pdf. 
         // It takes in an itemID as a parameter and through that the QR code is retrieved and printed
         public bool printQRCode(string itemId)
         {
             bool printsuccess = false;
+            // ------------------------------PSUEDOCODE-------------------
             
             
+            /*
+             *  retrieve item with that ID.
+             *  Use item.QRNumber to retrieve the actual QRCode.
+             *  Once you have the QRCode image, you create a new PDF document.
+             *  Add the itemName and ID to the QRCode PDF.
+             *  Then add the image of the QR CODE.
+             *  Save the PDF on the local computer which can then be printed. 
+             
+            
+            // Possible error checking: itemID actually exists, and QRNumber actually exists. 
             return printsuccess;
         }
-        
+        */
         
         //---------------------------------- VIEW RESPONSE----------------------------------------- 
 
