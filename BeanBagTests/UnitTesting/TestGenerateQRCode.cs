@@ -6,9 +6,9 @@ namespace BeanBagUnitTesting.UnitTesting
 {
     public class TestGenerateQrCode 
     {
-        /*---------------------------------- POSITIVE TESTING----------------------------------------- */
+        //---------------------------------- POSITIVE TESTING----------------------------------------- 
                
-        /* Unit test for generating a QR Code with valid itemID input, expecting success*/
+        // Unit test for generating a QR Code with valid itemID input, expecting success.
         [Fact] 
         public void Test_QRCode_Generation_Successful_Valid_ItemID() 
         {
@@ -16,42 +16,42 @@ namespace BeanBagUnitTesting.UnitTesting
             var itemId = new Guid().ToString() ;
             
             //Act
-            var qr = new QrCodeController();
+            var code = new QrCodeController();
             
             //Assert
-           Assert.True(qr.GenerateQrCode(itemId));
+           Assert.True(code.GenerateQrCode(itemId));
         }
 
-        /*---------------------------------- NEGATIVE TESTING-----------------------------------------*/
+        //---------------------------------- NEGATIVE TESTING-----------------------------------------
         
-        /* Unit test for generating a QR Code with invalid itemID input, expecting failure*/
+        // Unit test for generating a QR Code with invalid itemID input, expecting failure.
         [Fact]
         public void Test_QRCode_Generation_Failure_Invalid_ItemID()
         {
-            //Arrange
+            // Arrange.
             const string itemId = "InvalidString123";
-            var qr = new QrCodeController();
+            var code = new QrCodeController();
             
-            //Act
-            void Act() => qr.GenerateQrCode(itemId);
+            // Act.
+            void Act() => code.GenerateQrCode(itemId);
 
-            //Assert
+            // Assert.
             var exception = Assert.Throws<Exception>(Act);
-            Assert.Equal("QRCode generation failed. ItemID string is invalid.", exception.Message);
+            Assert.Equal("QRCode generation failed. ItemID string length is invalid.", exception.Message);
         }
 
-        /* Unit test for generating a QR Code with invalid null input, expecting failure*/
+        // Unit test for generating a QR Code with invalid null input, expecting failure. 
         [Fact]
-        public void Test_QRCode_Generation_Failure_Null_ItemID()
+        public void Test_QRCodeGeneration_NullItemID_ThrowsException()
         {
-            //Arrange
-            var qr = new QrCodeController();
+            // Arrange.
+            var code = new QrCodeController();
             
-            //Act
-            Action act =() => qr.GenerateQrCode(null);
+            // Act.
+            void Act() => code.GenerateQrCode(null);
 
-            //Assert
-            var exception = Assert.Throws<Exception>(act);
+            // Assert.
+            var exception = Assert.Throws<Exception>(Act);
             Assert.Equal("QRCode generation failed. ItemID input is null.", exception.Message);
         }
     }

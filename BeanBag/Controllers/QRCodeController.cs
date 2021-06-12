@@ -7,13 +7,12 @@ using QRCoder;
 
 namespace BeanBag.Controllers
 {
-    /* This class is the controller class for the QRCode Model, this class is responsible for 
-     * implementing the functions of the QRCode class and returning data to the QR page*/
+    // This is the QR Code controller.
     public class QrCodeController : Controller
     {
         private QrCodeModel _qrModel = new QrCodeModel();
         
-        /*---------------------------------- SERVICE CONTRACTS----------------------------------------- */
+        //---------------------------------- SERVICE CONTRACTS----------------------------------------- 
 
         /* This function generates a QRCode and gets the itemDetails as the parameter. Memory stream helps write from
          * and to the memory. Data and input text is used to generate the QR Code's actual 'DATA'. A new instance of
@@ -28,7 +27,7 @@ namespace BeanBag.Controllers
 
             else if (itemId.Length !=36) 
             {
-                throw new Exception("QRCode generation failed. ItemID string is invalid.");
+                throw new Exception("QRCode generation failed. ItemID string length is invalid.");
             }
             
             // Query from db here
@@ -59,7 +58,7 @@ namespace BeanBag.Controllers
             return true;
         }
 
-        /* This function couples up the item ID with the QRCode*/
+        //This function couples up the item ID with the QRCode.
         public bool CoupleQrCode(string itemId, string qrNumber)
         {
             // Random generator = new Random();
@@ -72,21 +71,21 @@ namespace BeanBag.Controllers
             return successCode;
         }
 
-        /*---------------------------------- VIEW RESPONSE----------------------------------------- */
+        //---------------------------------- VIEW RESPONSE----------------------------------------- 
 
-        /* This function is used to return the layout of the QRCode page */
+        // This function returns the QRCode Index page.
         public IActionResult Index()
         {
             return View();
         }
 
-        /* This function is used to generate and return the QR-code for an item*/
+        // This function is used to generate and respond with the QR-code for an item to the View.
         [HttpPost]
         public IActionResult Index(string itemId)
         {
             _qrModel = new QrCodeModel();
             
-            // Mock id until integrate
+            // Mock id until integrate.
             GenerateQrCode(new Guid().ToString());
             return View();
         }

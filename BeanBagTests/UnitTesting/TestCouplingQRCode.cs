@@ -6,56 +6,56 @@ namespace BeanBagUnitTesting.UnitTesting
 {
     public class TestCouplingQrCode  
     {
-        /*---------------------------------- POSITIVE TESTING----------------------------------------- */
+        //---------------------------------- POSITIVE TESTING----------------------------------------- 
         
-        /* Unit test for coupling QR Code to an item with valid input, expecting success*/
+        // Unit test for coupling QR Code to an item with valid input, expecting success.
         [Fact]
         public void Test_QrCode_Coupling_Valid_Input()
         {
-            //Arrange
+            // Arrange.
             String ItemNumber = "7878178178";
             String QRNumber = "131341";
             
-            //Act
+            // Act.
             QrCodeController qr = new QrCodeController();
             bool result = qr.CoupleQrCode(ItemNumber, QRNumber);
             
-            //Assert
+            // Assert.
             Assert.True(result);
         }
 
-        /*---------------------------------- NEGATIVE TESTING----------------------------------------- */
+        //---------------------------------- NEGATIVE TESTING----------------------------------------- 
         
-         /* Unit test for coupling QR Code to an item with valid input expecting failure given invalid QRNumber*/
+         // Unit test for coupling QR Code to an item with valid input expecting failure given invalid QRNumber.
          [Fact]
          public void Test_QrCode_Coupling_Invalid_QRNum()
          {
-             //Arrange
-             String ItemNumber = "7878178178";
-             String QRNumber = "131341";
+             // Arrange.
+             const string itemNumber = "7878178178";
+             const string qRNumber = "131341";
             
-             //Act
+             // Act.
              QrCodeController qr = new QrCodeController();
-             bool result = qr.CoupleQrCode(ItemNumber, QRNumber);
+             bool result = qr.CoupleQrCode(itemNumber, qRNumber);
             
-             //Assert
-             Assert.False(result); // need database thats why fails
+             // Assert.
+             Assert.False(result); 
          }
          
-         /* Unit test for coupling QR Code to an item with valid input expecting failure given invalid ItemNumber*/
+         // Unit test for coupling QR Code to an item with valid input expecting failure given invalid ItemNumber.
          [Fact]
          public void Test_QrCode_Coupling_Invalid_ItemNum()
          {
-             //Arrange
+             // Arrange.
              String ItemNumber = "7878178178";
              String QRNumber = "131341";
             
-             //Act
+             // Act.
              QrCodeController qr = new QrCodeController();
              bool result = qr.CoupleQrCode(ItemNumber, QRNumber);
             
-             //Assert
-             Assert.False(result); // need database that's why fails
+             // Assert.
+             Assert.False(result); 
          }
         
     }
