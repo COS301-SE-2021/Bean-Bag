@@ -8,29 +8,27 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace BeanBag.Controllers
 {
-    
+    // This is the Item controller.
     public class ItemController : Controller
     {
         
-     // Mocked code for the item details on demo 1, to be fully implemented.    
-     /*  public IActionResult Index()
-        {
-            using (var Context = new BeanBag.Database.BeanBagContext())
-            {
-               var item = new BeanBag.Models.ItemModel
-                {
-                    InventoryId = "001",
-                    ItemName = "Chair",
-                    ItemType = "Furniture",
-                    ScanDate = DateTime.Parse(DateTime.Today.ToString())
-                }; 
-            }
-            return View();
-        }*/
-     
-     // Nada: create item and add. (using for unit testing , mocking DB)
-     // Unit testing specifies mock data, intergration testing uses the database
-     private readonly BeanBagContext _beanBagContext;
+        // Mocked code for the item details on demo 1, to be fully implemented.    
+        /*  public IActionResult Index()
+           {
+               using (var Context = new BeanBag.Database.BeanBagContext())
+               {
+                  var item = new BeanBag.Models.ItemModel
+                   {
+                       InventoryId = "001",
+                       ItemName = "Chair",
+                       ItemType = "Furniture",
+                       ScanDate = DateTime.Parse(DateTime.Today.ToString())
+                   }; 
+               }
+               return View();
+           }*/
+        
+        private readonly BeanBagContext _beanBagContext;
      public ItemController(BeanBagContext beanBagContext)
      {
          _beanBagContext = beanBagContext;
@@ -59,6 +57,8 @@ namespace BeanBag.Controllers
 
          return query.ToList();
      }
+     
+   
     }
 }
       

@@ -3,17 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BeanBag.Controllers
 {
-    /* This class is responsible for the data returned to the landing page */
+    // This is the Landing page controller.
     [AllowAnonymous]
     public class LandingPageController : Controller
     {
+        // This function sends a response to the LandingPage Index page.
         public IActionResult Index()
         {
             return View();
         }
         
         [HttpGet]
-        /* Redirects to Landing Page when signing out */
+        // This function redirects to Landing Page when signing out.
         public IActionResult SignOut(string page)
         {
             return RedirectToAction("Index", "LandingPage");

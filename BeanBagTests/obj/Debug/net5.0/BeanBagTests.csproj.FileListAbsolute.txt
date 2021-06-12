@@ -484,3 +484,13 @@ C:\Users\munas\RiderProjects\Bean-Bag\BeanBagTests\obj\Debug\net5.0\BeanBagTests
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBagTests\obj\Debug\net5.0\ref\BeanBagTests.dll
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBagTests\obj\Debug\net5.0\BeanBagTests.pdb
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBagTests\obj\Debug\net5.0\BeanBagTests.genruntimeconfig.cache
+C:\Users\user\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Azure.Core.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Azure.Identity.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Azure.Security.KeyVault.Certificates.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Azure.Security.KeyVault.Secrets.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Microsoft.Identity.Web.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Microsoft.Identity.Web.UI.Views.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Microsoft.Identity.Web.UI.dll

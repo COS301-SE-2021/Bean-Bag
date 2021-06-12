@@ -21,6 +21,10 @@
                         <!---B2C Links here-->
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
+
+                    @{
+                        System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+                    }
                     @if (User.Identity.IsAuthenticated)
                      {
                          <li class="nav-item">

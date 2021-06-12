@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 namespace BeanBag.Controllers
 {
-    // The default home page controller 
-    /* This class is responsible for data returned to the Home Page */
+    // This is the Home page controller.
     public class HomeController : Controller
     {
+        // This function sends a response to the Home Index page.
         public IActionResult Index()
         {
             return View();

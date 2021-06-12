@@ -14,7 +14,7 @@ $(".nav-link").on("click", function (){ /* check the behaviour of this function*
 * ========================================== */
 function readURL(input) {
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
+        const reader = new FileReader();
 
         reader.onload = function (e) {
             $('#imageResult')
@@ -22,14 +22,10 @@ function readURL(input) {
         };
         reader.readAsDataURL(input.files[0]);
     }
-    //window.alert('this is an alert');
     document.getElementById("item-details").innerHTML += "<p>"+"Item details"+"</p>"+"Name: Chair" + "<br>" +
         "Inventory: Furniture inventory" + "<br>" +
         "Type: Furniture" + "<br>" +
         "scanDate : 2021/06/04";
-    
-    
-    
     
 }
 
@@ -38,17 +34,3 @@ $(function () {
         readURL(input);
     });
 });
-
-/*  ==========================================
-    SHOW UPLOADED IMAGE NAME
-* ========================================== */
-/*var input = document.getElementById('upload');
-var infoArea = document.getElementById('upload-label');
-
-input.addEventListener('change', showFileName);
-function showFileName(event) {
-    var input = event.srcElement;
-    var fileName = input.files[0].name;
-    infoArea.textContent = 'File name: ' + fileName;
-}
-*/

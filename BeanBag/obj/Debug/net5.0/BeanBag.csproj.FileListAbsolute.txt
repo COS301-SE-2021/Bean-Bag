@@ -1134,3 +1134,14 @@ C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\runtimes\win-x86\
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\BeanBag.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\user\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Azure.Core.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Azure.Identity.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Azure.Security.KeyVault.Certificates.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Azure.Security.KeyVault.Secrets.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.Identity.Web.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.Identity.Web.UI.Views.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.Identity.Web.UI.dll
+C:\Users\user\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\BeanBag.MvcApplicationPartsAssemblyInfo.cs

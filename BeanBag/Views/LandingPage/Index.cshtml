@@ -23,6 +23,10 @@
             <!-- Navbar links add active thing on the link to the current that you're on... -->
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav ml-auto">
+
+                    @{
+                        System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+                    }
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">

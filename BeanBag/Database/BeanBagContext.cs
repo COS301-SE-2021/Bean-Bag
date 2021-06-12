@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeanBag.Database
 {
-    /*This class is used to create a database context*/
+    // This class is used to create a database context.
     public class BeanBagContext : DbContext
     {
         protected BeanBagContext(){}
