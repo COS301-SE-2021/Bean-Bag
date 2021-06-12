@@ -119,7 +119,7 @@ namespace BeanBagUnitTesting.IntegrationTest
             var service = new Mock<ItemController>(mockContext.Object); 
             
             // Add exception handling to Add Item implementation.
-            service.Object.AddItem("wackid", "chair",  "furniture", new DateTime() );
+            service.Object.AddItem("wack-id", "chair",  "furniture", new DateTime() );
             
             // Assert.
             mockSet.Verify(m => m.Add(It.IsAny<ItemModel>()), Times.Once());

@@ -10,7 +10,7 @@ namespace BeanBagUnitTesting.UnitTesting
                
         // Unit test for generating a QR Code with valid itemID input, expecting success.
         [Fact] 
-        public void Test_QRCode_Generation_Successful_Valid_ItemID() 
+        public void Test_QRCodeGeneration_ValidItemID_True() 
         {
             //Arrange
             var itemId = new Guid().ToString() ;
@@ -26,7 +26,7 @@ namespace BeanBagUnitTesting.UnitTesting
         
         // Unit test for generating a QR Code with invalid itemID input, expecting failure.
         [Fact]
-        public void Test_QRCode_Generation_Failure_Invalid_ItemID()
+        public void Test_QRCodeGeneration_InvalidItemID_ThrowsException()
         {
             // Arrange.
             const string itemId = "InvalidString123";

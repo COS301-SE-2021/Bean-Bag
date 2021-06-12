@@ -1,5 +1,4 @@
-﻿using System;
-using BeanBag.Controllers;
+﻿using BeanBag.Controllers;
 using Xunit;
 
 namespace BeanBagUnitTesting.UnitTesting
@@ -10,15 +9,15 @@ namespace BeanBagUnitTesting.UnitTesting
         
         // Unit test for coupling QR Code to an item with valid input, expecting success.
         [Fact]
-        public void Test_QrCode_Coupling_Valid_Input()
+        public void Test_CoupleQrCode_ValidInput_True()
         {
             // Arrange.
-            String ItemNumber = "7878178178";
-            String QRNumber = "131341";
-            
+            const string itemNumber = "7878178178";
+            const string qRNumber = "131341";
+
             // Act.
-            QrCodeController qr = new QrCodeController();
-            bool result = qr.CoupleQrCode(ItemNumber, QRNumber);
+            var qr = new QrCodeController();
+            bool result = qr.CoupleQrCode(itemNumber, qRNumber);
             
             // Assert.
             Assert.True(result);
@@ -28,14 +27,14 @@ namespace BeanBagUnitTesting.UnitTesting
         
          // Unit test for coupling QR Code to an item with valid input expecting failure given invalid QRNumber.
          [Fact]
-         public void Test_QrCode_Coupling_Invalid_QRNum()
+         public void Test_CoupleQrCode_InvalidQRCode_False()
          {
              // Arrange.
              const string itemNumber = "7878178178";
              const string qRNumber = "131341";
             
              // Act.
-             QrCodeController qr = new QrCodeController();
+             var qr = new QrCodeController();
              bool result = qr.CoupleQrCode(itemNumber, qRNumber);
             
              // Assert.
@@ -44,15 +43,15 @@ namespace BeanBagUnitTesting.UnitTesting
          
          // Unit test for coupling QR Code to an item with valid input expecting failure given invalid ItemNumber.
          [Fact]
-         public void Test_QrCode_Coupling_Invalid_ItemNum()
+         public void Test_CoupleQrCode_InvalidItemNumber_False()
          {
              // Arrange.
-             String ItemNumber = "7878178178";
-             String QRNumber = "131341";
+             const string itemNumber = "7878178178";
+             const string qRNumber = "131341";
             
              // Act.
-             QrCodeController qr = new QrCodeController();
-             bool result = qr.CoupleQrCode(ItemNumber, QRNumber);
+             var qr = new QrCodeController();
+             bool result = qr.CoupleQrCode(itemNumber, qRNumber);
             
              // Assert.
              Assert.False(result); 
