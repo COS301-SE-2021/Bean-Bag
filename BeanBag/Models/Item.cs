@@ -23,6 +23,7 @@ namespace BeanBag.Models
         public string type { get; set; }
         
         [Required]
+        [DisplayName("Inventory")]
         public Guid inventoryId { get; set; }
 
         [ForeignKey("inventoryId")]

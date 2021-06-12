@@ -2,10 +2,12 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Inventory List</h2>
+            <h2 class="text-primary">Inventory List</h2><br/>
+            <h4 class="text-secondary">@ViewBag.InventoryName</h4>
         </div>
         <div class="col-6 text-right">
-            <a asp-controller="Inventory" asp-action="AddItem" class="btn btn-primary">Add new Item</a>
+            <a asp-controller="Item" asp-action="Create" class="btn btn-success">Add new Item</a>
+            <a asp-controller="Inventory" asp-action="Index" class="btn btn-primary">Back</a>
         </div>
     </div>
     <br />

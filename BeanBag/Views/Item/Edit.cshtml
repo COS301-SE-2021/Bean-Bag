@@ -1,10 +1,10 @@
-﻿@model Inventory
+﻿@model Item
 
-<form method="post" asp-action="Create">
+<form method="post" asp-action="EditPost">
+    <input asp-for="Id" hidden />
     <div class="border p-3">
-        <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group row">
-            <h2 class="text-black-50 pl-3">Add item</h2>
+            <h2 class="text-black-50 pl-3">Edit Item</h2>
         </div>
         <div class="row">
             <div class="col-12">
@@ -12,15 +12,30 @@
                     <div class="col-4">
                         <label asp-for="name"></label>
                     </div>
+                    <div class="col-4">
+                        <label asp-for="type"></label>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="inventoryId" value ="Inventory"></label>
+                    </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
                         <input asp-for="name" class="form-control" />
+
+                    </div>
+                    <div class="col-4">
+                        <input asp-for="type" class="form-control" />
+                    </div>
+                    <div class="col-4">
+                        <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
+                        </select>
+                    </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-8 offset-2 row">
                         <div class="col">
-                            <input type="submit" class="btn btn-info w-75" value="Create" />
+                            <input type="submit" class="btn btn-info w-75" value="Edit" />
                         </div>
                         <div class="col">
                             <a asp-action="Index" class="btn btn-danger w-75">Back</a>

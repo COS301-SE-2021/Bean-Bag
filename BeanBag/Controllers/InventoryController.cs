@@ -41,9 +41,13 @@ namespace BeanBag.Controllers
         //[ValidateAntiForgeryToken]
         public IActionResult Create(Inventory newInvetory)
         {
-            _db.Inventories.Add(newInvetory);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _db.Inventories.Add(newInvetory);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(newInvetory);
         }
 
         // This is the Get method for viewItems
@@ -57,13 +61,86 @@ namespace BeanBag.Controllers
                 return NotFound();
             }
 
+            string inventoryName = _db.Inventories.Find(InventoryId).name;
             var items = from i in _db.Items where i.inventoryId.Equals(InventoryId) select i;
+
+            ViewBag.InventoryName = inventoryName;
+
             return View(items);
         }
 
         public IActionResult AddItem()
         {
             return View();
+        }
+
+        public IActionResult Edit(Guid? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var inventory = _db.Inventories.Find(id);
+
+            if(inventory == null)
+            {
+                return NotFound();
+            }
+
+            return View(inventory);
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult EditPost(Inventory inventory)
+        {
+
+            if(ModelState.IsValid)
+            {
+                _db.Inventories.Update(inventory);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return BadRequest();
+        }
+
+        public IActionResult Delete(Guid? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var inventory = _db.Inventories.Find(id);
+            if(inventory == null)
+            {
+                return NotFound();
+            }
+
+            return View(inventory);
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult DeletePost(Guid? id)
+        {
+            var inventory = _db.Inventories.Find(id);
+
+            if(inventory == null)
+            {
+                return NotFound();
+            }
+
+            var items = from i in _db.Items where i.inventoryId.Equals(id) select i;
+            foreach(var i in items)
+            {
+                _db.Items.Remove(i);
+            }
+            _db.Inventories.Remove(inventory);
+            _db.SaveChanges();
+            return RedirectToAction("Index");      
         }
     }
 }
