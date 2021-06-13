@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,23 +29,32 @@ namespace BeanBag
                 .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAdB2C"));
             services.AddRazorPages().AddMicrosoftIdentityUI();
             
+            ConfigureRedirects(services);
+            
+            services.AddControllersWithViews();
+            services.AddDbContext<BeanBag.Database.BeanBagContext>(options => options.UseSqlServer("Server=tcp:polariscapestone.database.windows.net,1433;Initial Catalog=Bean-Bag-Platform-DB;Persist Security Info=False;User ID=polaris;Password=MNRSSp103;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
+            
+        }
+
+        // This method configures the redirection URLs for the B2C sign up and sign out flow
+        public void ConfigureRedirects(IServiceCollection services)
+        {
             services.Configure<OpenIdConnectOptions>(
                 OpenIdConnectDefaults.AuthenticationScheme, options =>
                 {
                     options.Events.OnRedirectToIdentityProvider = async context =>
                     {
                         context.Properties.RedirectUri = "/Home";
+                        await Task.FromResult(0);
                     };
 
                     options.Events.OnSignedOutCallbackRedirect = async context =>
                     {
                         context.Properties.RedirectUri = "/LandingPage";
+                        await Task.FromResult(0);
                     };
                     
                 });
-            
-            services.AddControllersWithViews();
-            services.AddDbContext<BeanBag.Database.BeanBagContext>(options => options.UseSqlServer("Server=tcp:polariscapestone.database.windows.net,1433;Initial Catalog=Bean-Bag-Platform-DB;Persist Security Info=False;User ID=polaris;Password=MNRSSp103;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
             
             
         }
