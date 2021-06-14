@@ -17,8 +17,11 @@ namespace BeanBag.Models
         public string ItemType { get; set; }
 
         // This is the date the item was added to the inventory via and uploaded picture and AI analysis.
-        public DateTime ScanDate { get; set; }
+        public DateTime ScanDate { get; }
         
         // public string ItemID {get; set; }     to discuss with group whether to add??
+        
+        // This is the QRNumber associated to the item and hence the QR code
+        public string QrNumber { get; set; }
     }
 }

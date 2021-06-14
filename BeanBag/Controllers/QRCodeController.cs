@@ -91,6 +91,20 @@ namespace BeanBag.Controllers
             
             // Possible error checking: itemID actually exists, and QRNumber actually exists. 
             return printsuccess;
+            
+            provisional solution to saving the image:
+            
+            ***PART 1***
+            BitmapImage bImage = new BitmapImage();
+            bImage.UriSource = new Uri(muss.Immagine, UriKind.Relative);
+
+            Image my = new Image();
+            my.Source = bImage;
+
+            ***PART 2***
+            bitmap.Save("C:/Users/folderName/imageName.jpeg");
+
+
         }
         */
         
