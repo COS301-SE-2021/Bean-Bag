@@ -10,3 +10,5 @@
 
     }
 }
+
+    // What are other needed fields for a model of the qr code?

@@ -102,7 +102,9 @@ namespace BeanBag.Controllers
             my.Source = bImage;
 
             ***PART 2***
-            bitmap.Save("C:/Users/folderName/imageName.jpeg");
+            bitmap.Save("C:/Users/folderName/imageName.jpeg");          
+            
+            // Directly save to a specified path, what path?
 
 
         }

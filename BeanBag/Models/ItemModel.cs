@@ -17,7 +17,7 @@ namespace BeanBag.Models
         public string ItemType { get; set; }
 
         // This is the date the item was added to the inventory via and uploaded picture and AI analysis.
-        public DateTime ScanDate { get; }
+        public DateTime ScanDate { get; set; }
         
         // public string ItemID {get; set; }     to discuss with group whether to add??
         
@@ -25,3 +25,7 @@ namespace BeanBag.Models
         public string QrNumber { get; set; }
     }
 }
+
+
+    // Can a item details be set aside from name?
+    // Or should they be autocompleted by the AI?
