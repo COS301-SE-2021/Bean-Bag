@@ -10665,19 +10665,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\user\\.nuget\\packages\\": {}
+    "C:\\Users\\munas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\RiderProjects\\Bean-Bag\\BeanBagTests\\BeanBagTests.csproj",
+      "projectUniqueName": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBagTests\\BeanBagTests.csproj",
       "projectName": "BeanBagTests",
-      "projectPath": "C:\\Users\\user\\RiderProjects\\Bean-Bag\\BeanBagTests\\BeanBagTests.csproj",
-      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\RiderProjects\\Bean-Bag\\BeanBagTests\\obj\\",
+      "projectPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBagTests\\BeanBagTests.csproj",
+      "packagesPath": "C:\\Users\\munas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBagTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\munas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10691,8 +10691,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\user\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
-              "projectPath": "C:\\Users\\user\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj"
+            "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
+              "projectPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj"
             }
           }
         }

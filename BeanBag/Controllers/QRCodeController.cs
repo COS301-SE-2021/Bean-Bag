@@ -44,6 +44,9 @@ namespace BeanBag.Controllers
             var qRCode = new QRCode(qRCodeData);
             var bitmap = qRCode.GetGraphic(20);
             
+            // Funcionality to put QR Code into its own file in a directory.
+            // bitmap.Save("C:/Users/Public/Pictures/ItemQRCode.png");
+
             bitmap.Save(ms, ImageFormat.Png);
             ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
 
@@ -77,36 +80,28 @@ namespace BeanBag.Controllers
         public bool printQRCode(string itemId)
         {
             bool printsuccess = false;
-            // ------------------------------PSUEDOCODE-------------------
             
-            
-            /*
-             *  retrieve item with that ID.
-             *  Use item.QRNumber to retrieve the actual QRCode.
-             *  Once you have the QRCode image, you create a new PDF document.
-             *  Add the itemName and ID to the QRCode PDF.
-             *  Then add the image of the QR CODE.
-             *  Save the PDF on the local computer which can then be printed. 
-             
-            
-            // Possible error checking: itemID actually exists, and QRNumber actually exists. 
-            return printsuccess;
-            
-            provisional solution to saving the image:
-            
-            ***PART 1***
-            BitmapImage bImage = new BitmapImage();
-            bImage.UriSource = new Uri(muss.Immagine, UriKind.Relative);
+            // Query from db here
+            // Throw exception if item not found
+            // Throw new Exception("QRCode generation failed. ItemID not found in database.");
+            const string itemName = "Item: Chair\n";
+            const string itemInventory = "Inventory: Furniture Inventory\n";
+            const string iType = "Type: Furniture\n";
+            itemId = itemName + itemInventory + iType;
 
-            Image my = new Image();
-            my.Source = bImage;
-
-            ***PART 2***
-            bitmap.Save("C:/Users/folderName/imageName.jpeg");          
+            var ms = new MemoryStream();
+            var qRCodeGenerator = new QRCodeGenerator();
+            var qRCodeData = qRCodeGenerator.CreateQrCode(itemId, QRCodeGenerator.ECCLevel.Q);
+            var qRCode = new QRCode(qRCodeData);
+            var bitmap = qRCode.GetGraphic(20);
             
-            // Directly save to a specified path, what path?
-
-
+            // Funcionality to put QR Code into its own file in a directory.
+            if(printsuccess == false)
+            {
+                bitmap.Save("C:/Users/Public/Pictures/ItemQRCode.png");
+                printsuccess == true; 
+            }
+            return printsuccess
         }
         */
         
