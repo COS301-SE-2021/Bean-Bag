@@ -33,7 +33,7 @@ namespace BeanBag.Controllers
             // Query from db here
             // Throw exception if item not found
             // Throw new Exception("QRCode generation failed. ItemID not found in database.");
-            const string itemName = "Item: Chair\n";
+            const string itemName = "Item: Munashe's Chair\n";
             const string itemInventory = "Inventory: Furniture Inventory\n";
             const string iType = "Type: Furniture\n";
             itemId = itemName + itemInventory + iType;
@@ -45,8 +45,10 @@ namespace BeanBag.Controllers
             var bitmap = qRCode.GetGraphic(20);
             
             // Funcionality to put QR Code into its own file in a directory.
-            // bitmap.Save("C:/Users/Public/Pictures/ItemQRCode.png");
+            bitmap.Save("C:/Users/Public/Pictures/ItemQRCode.png");
 
+            // As of now the QR Code save on a local dir is done same time as generation
+            // but at a later stage will be done in a seperate function. 
             bitmap.Save(ms, ImageFormat.Png);
             ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
 
