@@ -40,6 +40,9 @@ namespace BeanBag.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("imageURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("inventoryId")
                         .HasColumnType("uniqueidentifier");
 

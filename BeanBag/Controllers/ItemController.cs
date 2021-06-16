@@ -1,12 +1,17 @@
 ﻿using BeanBag.Database;
 using BeanBag.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace BeanBag.Controllers
 {
@@ -14,6 +19,8 @@ namespace BeanBag.Controllers
     {
         // This variable is used to interact with the Database/DBContext class. Allows us to save, update and delete records 
         private readonly DBContext _db;
+        // The connection string is exposed. Will need to figure out a way of getting it out of appsetting.json. Maybe init in startup like db context ?
+        
         public ItemController(DBContext db)
         {
             _db = db;
@@ -22,6 +29,31 @@ namespace BeanBag.Controllers
         public IActionResult Index()
         {
             return Ok("Item Index");
+        }
+
+        
+        public IActionResult UploadImage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadImage([FromForm(Name ="file")]IFormFile file)
+        {
+
+            CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;EndpointSuffix=core.windows.net");
+            CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference("itemimages");
+
+            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(file.FileName);
+            cloudBlockBlob.Properties.ContentType = file.ContentType;
+
+            using(var ms = new MemoryStream())
+            {
+                await file.CopyToAsync(ms);
+                await cloudBlockBlob.UploadFromByteArrayAsync(ms.ToArray(), 0, (int)ms.Length);
+            }
+            return Redirect(cloudBlockBlob.Uri.AbsoluteUri);
         }
 
         // Get method for create
@@ -44,6 +76,7 @@ namespace BeanBag.Controllers
         [HttpPost]
         public IActionResult Create(Item newItem)
         {
+            //Grab URL link for image of item
             if(ModelState.IsValid)
             {
                 _db.Items.Add(newItem);

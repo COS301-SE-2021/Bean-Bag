@@ -28,5 +28,7 @@ namespace BeanBag.Models
 
         [ForeignKey("inventoryId")]
         public virtual Inventory Inventory { get; set; }
+
+        public string imageURL { get; set; }
     }
 }

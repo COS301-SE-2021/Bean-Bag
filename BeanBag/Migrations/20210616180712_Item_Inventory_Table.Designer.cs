@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeanBag.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20210611202049_Inventory_And_Item_Table")]
-    partial class Inventory_And_Item_Table
+    [Migration("20210616180712_Item_Inventory_Table")]
+    partial class Item_Inventory_Table
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,6 +42,9 @@ namespace BeanBag.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("imageURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("inventoryId")
                         .HasColumnType("uniqueidentifier");
 
@@ -62,16 +65,13 @@ namespace BeanBag.Migrations
 
             modelBuilder.Entity("BeanBag.Models.Item", b =>
                 {
-                    b.HasOne("BeanBag.Models.Inventory", null)
-                        .WithMany("ItemList")
+                    b.HasOne("BeanBag.Models.Inventory", "Inventory")
+                        .WithMany()
                         .HasForeignKey("inventoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("BeanBag.Models.Inventory", b =>
-                {
-                    b.Navigation("ItemList");
+                    b.Navigation("Inventory");
                 });
 #pragma warning restore 612, 618
         }
