@@ -68,7 +68,7 @@ namespace BeanBag.Controllers
             var result = predictionClient.ClassifyImageUrl(new Guid("377f08bf-2813-43cd-aa41-b0e623b2beec"), "Iteration1", 
                 new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(cloudBlockBlob.Uri.AbsoluteUri.ToString()));
 
-            return Ok(result.Predictions[0].TagName);
+            return LocalRedirect("/Item/Create?imageUrl="+ cloudBlockBlob.Uri.AbsoluteUri.ToString() + "&itemType="+ result.Predictions[0].TagName);
         }
 
         /*
@@ -95,7 +95,7 @@ namespace BeanBag.Controllers
 
         // Get method for create
         // Returns Create view
-        public IActionResult Create()
+        public IActionResult Create(string imageUrl, string itemType)
         {
             IEnumerable<SelectListItem> InventoryDropDown = _db.Inventories.Select(i => new SelectListItem
             {
@@ -104,6 +104,8 @@ namespace BeanBag.Controllers
             });
 
             ViewBag.InventoryDropDown = InventoryDropDown;
+            ViewBag.itemType = itemType;
+            ViewBag.imageUrl = imageUrl;
 
             return View();
         }
@@ -111,7 +113,7 @@ namespace BeanBag.Controllers
         // Post method for create
         // Takes in form from Create view to add a new item to the DB
         [HttpPost]
-        public IActionResult Create(Item newItem)
+        public IActionResult CreateItem(Item newItem)
         {
             //Grab URL link for image of item
             if(ModelState.IsValid)
@@ -145,6 +147,7 @@ namespace BeanBag.Controllers
             });
 
             ViewBag.InventoryDropDown = InventoryDropDown;
+            ViewBag.InventoryId = item.inventoryId;
 
             return View(item);
         }

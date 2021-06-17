@@ -1,6 +1,6 @@
 ﻿@model Item
 
-<form method="post" asp-action="Create" asp-controller="Item">
+<form method="post" asp-action="CreateItem" asp-controller="Item">
     <div class="border p-3">
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group row">
@@ -9,6 +9,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="imageURL"></label>
+                    </div>
                     <div class="col-4">
                         <label asp-for="name"></label>
                     </div>
@@ -21,14 +24,16 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-4">
+                        <input asp-for="imageURL" class="form-control" disabled value="@ViewBag.imageUrl"/>
+                    </div>
+                    <div class="col-4">
                         <input asp-for="name" class="form-control" />
-
                     </div>
                     <div class="col-4">
-                        <input asp-for="type" class="form-control" />
+                        <input asp-for="type" class="form-control" value="@ViewBag.itemType" />
                     </div>
                     <div class="col-4">
-                        <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control" >
+                        <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
                             <option selected>Select Inventory</option>
                         </select>
                     </div>
