@@ -1,40 +1,48 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-<header>
+﻿@model IEnumerable<Item>
 
-    <nav class="navbar navbar-expand-lg fixed-top navbar-shrink">
-        <div class="container">
-            <!-- Brand -->
-            <a class="navbar-brand" asp-area="" asp-controller="LandingPage" asp-action="Index">Bean Bag</a>
-
-            <!-- Toggler/collapsible Button -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <i class="fas fa-bars"> </i>
-            </button>
-
-            <!-- Navbar links add active thing on the link to the current that you're on... -->
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-
-                        <!---B2C Links here-->
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-
-
-                    @{
-                        System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                     {
-                         <li class="nav-item">
-                             <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
-                         </li>
-                     }
-                </ul>
-            </div>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Inventory List</h2>
         </div>
-    </nav>
-</header>
+        <div class="col-6 text-right">
+            <a asp-controller="Item" asp-action="Create" class="btn btn-primary">Add new Item</a>
+        </div>
+    </div>
+    <br />
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Item Name
+                    </th>
+                    <th>
+                        Item Type
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td width="50%">@item.name</td>
+                    <td width="50%">@item.type</td>
+                    <td width="50%">
+                        <div class="w-100 btn-group" role="group">
+                            <a asp-controller="Item" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-secondary">Edit</a>
+                            <a asp-controller="Item" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No Items yet</p>
+    }
+</div>
 

@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using BeanBag.Database;
 
 namespace BeanBag
 {
@@ -19,7 +19,7 @@ namespace BeanBag
 
         }
 
-        private IConfiguration Configuration { get;}
+        public IConfiguration Configuration { get;}
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -29,38 +29,31 @@ namespace BeanBag
                 .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAdB2C"));
             services.AddRazorPages().AddMicrosoftIdentityUI();
             
-            ConfigureRedirects(services);
-            
-            services.AddControllersWithViews();
-            services.AddDbContext<Database.BeanBagContext>(options => options.UseSqlServer("Server=tcp:polariscapestone.database.windows.net,1433;Initial Catalog=Bean-Bag-Platform-DB;Persist Security Info=False;User ID=polaris;Password=MNRSSp103;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
-            
-        }
-
-        // This method configures the redirection URLs for the B2C sign up and sign out flow
-        private static void ConfigureRedirects(IServiceCollection services)
-        {
             services.Configure<OpenIdConnectOptions>(
                 OpenIdConnectDefaults.AuthenticationScheme, options =>
                 {
                     options.Events.OnRedirectToIdentityProvider = async context =>
                     {
                         context.Properties.RedirectUri = "/Home";
-                        await Task.FromResult(0);
                     };
 
                     options.Events.OnSignedOutCallbackRedirect = async context =>
                     {
                         context.Properties.RedirectUri = "/LandingPage";
-                        await Task.FromResult(0);
                     };
                     
                 });
             
-            
+            services.AddControllersWithViews();
+
+            // Connecting to the sql server and to the specified DB using the appsettings.json ConnectionStrings defaultConnection contents
+            services.AddDbContext<DBContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
