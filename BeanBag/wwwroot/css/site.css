@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 /*  Global Css  */
 :root {
-    --main-color: #7857fe;
+    --main-color: #578CFF;/*#7857fe*/
     --color-1: #e91e63;
     --color-2: #f5ae10;
     --color-3: #09d69c;
@@ -28,7 +28,7 @@ body {
 }
 
 .btn-1 {
-    background-color: #7857fe;
+    background-color: var(--main-color);
     padding: 12px 30px;
     border: none;
     border-radius: 30px;
@@ -46,7 +46,7 @@ body {
 
 .btn:hover {
     color: #f1f2f6;
-    background-color: #9557DA;
+    background-color:#57C5FF ;/* put this colour inside a var */ /* was #9557DA */
 }
 
 .btn.btn-light:hover {
@@ -102,8 +102,8 @@ ul {
     margin: 10px;
 }
 
-.filter-purple {
-    filter: invert(30%) sepia(91%) saturate(1202%) hue-rotate(230deg) brightness(108%) contrast(110%);
+.filter-colour {
+    filter: invert(57%) sepia(61%) saturate(4250%) hue-rotate(203deg) brightness(101%) contrast(100%);
     width: 60px;
     height: 60px;
     display: block;
@@ -187,14 +187,14 @@ ul {
 .home-text h1 {
     font-size: 45px;
     font-weight: 700;
-    color: #7857fe;
+    color: #578CFF;
     margin: 0 0 20px;
 }
 
 .home-text p {
     font-size: 18px;
     line-height: 28px;
-    color: #7857fe;
+    color: #578CFF;
     width: 100%;
 }
 
@@ -206,8 +206,8 @@ ul {
 
 /*QRCode */
 
-.filter-purple2 {
-    filter: invert(30%) sepia(91%) saturate(1202%) hue-rotate(230deg) brightness(108%) contrast(110%);
+.filter-colour2 {
+    filter: invert(57%) sepia(61%) saturate(4250%) hue-rotate(203deg) brightness(101%) contrast(100%);
     width: 30px;
     height: 30px;
     display: block;
