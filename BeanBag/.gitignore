@@ -1,7 +1,3 @@
-#Visual studio always overwriting this file
-.vs/
-
-#Personal IDE details
 .csprog.user
 
 BeanBag/.vs/
