@@ -15,6 +15,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.Identity.Web;
 
 
 namespace BeanBag.Controllers
@@ -87,7 +88,10 @@ namespace BeanBag.Controllers
         public IActionResult Create(string imageUrl, string itemType)
         {
             // This creates a list of the different inventories available to put the item into
-            IEnumerable<SelectListItem> InventoryDropDown = _db.Inventories.Select(i => new SelectListItem
+
+            var inventories = from i in _db.Inventories where i.userId.Equals(User.GetObjectId()) select i;
+
+            IEnumerable < SelectListItem > InventoryDropDown = inventories.Select(i => new SelectListItem
             {
                 Text = i.name,
                 Value = i.Id.ToString()
@@ -139,7 +143,9 @@ namespace BeanBag.Controllers
             }
 
             // This creates a list of the different inventories available to put the item into
-            IEnumerable<SelectListItem> InventoryDropDown = _db.Inventories.Select(i => new SelectListItem
+            var inventories = from i in _db.Inventories where i.userId.Equals(User.GetObjectId()) select i;
+
+            IEnumerable<SelectListItem> InventoryDropDown = inventories.Select(i => new SelectListItem
             {
                 Text = i.name,
                 Value = i.Id.ToString()
