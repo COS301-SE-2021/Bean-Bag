@@ -19,6 +19,6 @@ namespace BeanBag.Models
         [DisplayName("Inventory Name")]
         public string name { get; set; }
 
-        //public virtual ICollection<Item> ItemList { get; set; }
+        public string userId { get; set; }
     }
 }

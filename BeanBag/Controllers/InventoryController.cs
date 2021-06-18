@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Identity.Web;
 
 namespace BeanBag.Controllers
 {
@@ -23,8 +24,20 @@ namespace BeanBag.Controllers
         // This is the default view to view all of the inventories associated with a user
         public IActionResult Index()
         {
-            IEnumerable<Inventory> inventoryList = _db.Inventories;
-            return View(inventoryList);
+            // Checks to see if user is logged in
+            // If not logged in throw user back to home page
+            if(User.Identity.IsAuthenticated)
+            {
+                string userObjectId = User.GetObjectId();
+                var inventories = from i in _db.Inventories where i.userId.Equals(userObjectId) select i;
+
+                return View(inventories);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
+            
         }
 
         // This returns the view from Views/Inventory/Create
@@ -41,18 +54,27 @@ namespace BeanBag.Controllers
         //[ValidateAntiForgeryToken]
         public IActionResult Create(Inventory newInvetory)
         {
-            // Checks to see that the newInventory is valid (that the fields filled in the create view are present)
-            if (ModelState.IsValid)
+            if(User.Identity.IsAuthenticated)
             {
-                // Adds the newInventory to the Inventory table. 
-                _db.Inventories.Add(newInvetory);
-                _db.SaveChanges();
+                newInvetory.userId = User.GetObjectId();
+                // Checks to see that the newInventory is valid (that the fields filled in the create view are present)
+                if (ModelState.IsValid)
+                {
+                    // Adds the newInventory to the Inventory table. 
+                    _db.Inventories.Add(newInvetory);
+                    _db.SaveChanges();
 
-                // Returns back to inventory/index
-                return RedirectToAction("Index");
+                    // Returns back to inventory/index
+                    return RedirectToAction("Index");
+                }
+                // Only goes here if the newInventory is invalid
+                return View(newInvetory);
             }
-            // Only goes here if the newInventory is invalid
-            return View(newInvetory);
+            else
+            {
+                return LocalRedirect("/");
+            }
+           
         }
 
         // This is the Get method for viewItems
@@ -60,32 +82,45 @@ namespace BeanBag.Controllers
         [HttpGet]
         public IActionResult ViewItems(Guid? InventoryId)
         {
-            // If the inventory id field in the URL is nothing
-            if(InventoryId == null)
+            if(User.Identity.IsAuthenticated)
             {
-                return NotFound();
+                // If the inventory id field in the URL is nothing
+                if (InventoryId == null)
+                {
+                    return NotFound();
+                }
+
+                // Find the inventory in the inventory table using the inventory ID
+                Inventory inventory = _db.Inventories.Find(InventoryId);
+
+                // If their doesn't exist an inventory with the inventory id given
+                if (inventory == null)
+                {
+                    return NotFound();
+                }
+
+                if(inventory.userId != User.GetObjectId())
+                {
+                    return BadRequest();
+                }
+
+                string inventoryName = inventory.name;
+
+                // Viewbag allows us to pass values from the controller to the respected view
+                // Here we are passing the inventory name in order to display it in the viewItems page
+                ViewBag.InventoryName = inventoryName;
+
+                // This query gets us all the items inside the respected inventory
+                // We pass these items to be displayed into the view
+                var items = from i in _db.Items where i.inventoryId.Equals(InventoryId) select i;
+
+                return View(items);
             }
-
-            // Find the inventory in the inventory table using the inventory ID
-            Inventory inventory = _db.Inventories.Find(InventoryId);
-
-            // If their doesn't exist an inventory with the inventory id given
-            if(inventory == null)
+            else
             {
-                return NotFound();
+                return LocalRedirect("/");
             }
-
-            string inventoryName = inventory.name;
-
-            // Viewbag allows us to pass values from the controller to the respected view
-            // Here we are passing the inventory name in order to display it in the viewItems page
-            ViewBag.InventoryName = inventoryName;
-
-            // This query gets us all the items inside the respected inventory
-            // We pass these items to be displayed into the view
-            var items = from i in _db.Items where i.inventoryId.Equals(InventoryId) select i;
-
-            return View(items);
+            
         }
 
         // This is the GET Method for Edit
@@ -93,58 +128,102 @@ namespace BeanBag.Controllers
         // The URL needs to accept the GUID of the inventory that is being edited
         public IActionResult Edit(Guid? id)
         {
-            // If their doesn't exist an inventory with the inventory id given
-            if (id == null)
+            if(User.Identity.IsAuthenticated)
             {
-                return NotFound();
+                // If their doesn't exist an inventory with the inventory id given
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                // Find the inventory in the inventory table using the inventory ID
+                var inventory = _db.Inventories.Find(id);
+
+                if(inventory.userId == User.GetObjectId())
+                {
+                    if (inventory == null)
+                    {
+                        return NotFound();
+                    }
+
+                    return View(inventory);
+                }
+                else 
+                {
+                    return BadRequest();
+                }         
             }
-
-            // Find the inventory in the inventory table using the inventory ID
-            var inventory = _db.Inventories.Find(id);
-
-            if(inventory == null)
+            else
             {
-                return NotFound();
+                return LocalRedirect("/");
             }
-
-            return View(inventory);
+           
         }
 
         // This is the POST method for edit inventory
         // This accepts the inventory model from the edit view above
         // This will allow us to make changes to the respected inventory
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public IActionResult EditPost(Inventory inventory)
         {
-            // Making sure that the inventory is valid before applying the changes into the DB
-            if(ModelState.IsValid)
+            if(User.Identity.IsAuthenticated)
             {
-                _db.Inventories.Update(inventory);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                // Making sure that the inventory is valid before applying the changes into the DB
+                if (ModelState.IsValid)
+                {
+                    if(inventory.userId == User.GetObjectId())
+                    {
+                        _db.Inventories.Update(inventory);
+                        _db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                    
+                }
 
-            // If model state is invalid then we return back to the inventory edit view
-            return View(inventory);
+                // If model state is invalid then we return back to the inventory edit view
+                return View(inventory);
+            }
+            else 
+            {
+                return LocalRedirect("/");
+            }
+            
         }
 
         // This is the GET method for delete inventory
         public IActionResult Delete(Guid? id)
         {
-            if(id == null)
+            if(User.Identity.IsAuthenticated)
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            // Find the inventory in the inventory table using the inventory ID
-            var inventory = _db.Inventories.Find(id);
-            if(inventory == null)
+                // Find the inventory in the inventory table using the inventory ID
+                var inventory = _db.Inventories.Find(id);
+
+                if (inventory == null)
+                {
+                    return NotFound();
+                }
+
+                if(inventory.userId != User.GetObjectId())
+                {
+                    return BadRequest();
+                }
+
+                return View(inventory);
+            }
+            else
             {
-                return NotFound();
+                return LocalRedirect("/");
             }
-
-            return View(inventory);
+            
         }
 
         // This is the POSt method for delete inventory
@@ -153,24 +232,37 @@ namespace BeanBag.Controllers
         //[ValidateAntiForgeryToken]
         public IActionResult DeletePost(Guid? id)
         {
-            var inventory = _db.Inventories.Find(id);
-
-            // Checking to see if inventory is in the inventory table
-            if(inventory == null)
+            if(User.Identity.IsAuthenticated)
             {
-                return NotFound();
-            }
+                var inventory = _db.Inventories.Find(id);
 
-            // We are removing all the items in the inventory from the items table
-            var items = from i in _db.Items where i.inventoryId.Equals(id) select i;
-            foreach(var i in items)
-            {
-                _db.Items.Remove(i);
+                // Checking to see if inventory is in the inventory table
+                if (inventory == null)
+                {
+                    return NotFound();
+                }
+
+                if(inventory.userId != User.GetObjectId())
+                {
+                    return BadRequest();
+                }
+
+                // We are removing all the items in the inventory from the items table
+                var items = from i in _db.Items where i.inventoryId.Equals(id) select i;
+                foreach (var i in items)
+                {
+                    _db.Items.Remove(i);
+                }
+                // Deleting the inventory from inventory table
+                _db.Inventories.Remove(inventory);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            // Deleting the inventory from inventory table
-            _db.Inventories.Remove(inventory);
-            _db.SaveChanges();
-            return RedirectToAction("Index");      
+            else
+            {
+                return LocalRedirect("/");
+            }
+                  
         }
     }
 }

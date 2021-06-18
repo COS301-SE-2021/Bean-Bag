@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeanBag.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20210616180712_Item_Inventory_Table")]
-    partial class Item_Inventory_Table
+    [Migration("20210618194624_Item_Inventory_Create")]
+    partial class Item_Inventory_Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,6 +28,10 @@ namespace BeanBag.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
