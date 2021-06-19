@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -35,11 +36,15 @@ namespace BeanBag
                     options.Events.OnRedirectToIdentityProvider = async context =>
                     {
                         context.Properties.RedirectUri = "/Home";
+
+                        await Task.FromResult(0);
                     };
 
                     options.Events.OnSignedOutCallbackRedirect = async context =>
                     {
                         context.Properties.RedirectUri = "/LandingPage";
+                        
+                        await Task.FromResult(0);
                     };
                     
                 });
