@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using Xunit;
 using Moq;
@@ -69,7 +69,7 @@ namespace BeanBagUnitTesting.IntegrationTest
         }
         
          
-        /*---------------------------------- NEGATIVE TESTING----------------------------------------- */
+        *//*---------------------------------- NEGATIVE TESTING----------------------------------------- *//*
 
         // Unit test for making sure invalid items are not added and not queryable in the inventory.
         [Fact]
@@ -126,4 +126,4 @@ namespace BeanBagUnitTesting.IntegrationTest
             mockContext.Verify(m => m.SaveChanges(), Times.Once()); 
         }
       }
-}
+}*/

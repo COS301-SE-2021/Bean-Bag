@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using BeanBag.Controllers;
 using Xunit;
 
@@ -55,4 +55,4 @@ namespace BeanBagUnitTesting.UnitTesting
             Assert.Equal("QRCode generation failed. ItemID input is null.", exception.Message);
         }
     }
-}
+}*/
