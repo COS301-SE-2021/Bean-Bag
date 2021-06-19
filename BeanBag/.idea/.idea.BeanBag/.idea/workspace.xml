@@ -4,19 +4,7 @@
     <projectFile>BeanBag.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eab6e863-7647-4f19-8cee-6038675f508d" name="Default Changelist" comment="new MERGE">
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/BeanBagTests.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/BeanBagTests.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/BeanBagTests.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/BeanBagTests.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/rider.project.restore.info" afterDir="false" />
-    </list>
+    <list default="true" id="eab6e863-7647-4f19-8cee-6038675f508d" name="Default Changelist" comment="unstaged for pull" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,7 +83,7 @@
       <workItem from="1624004345181" duration="1356000" />
       <workItem from="1624010563198" duration="1043000" />
       <workItem from="1624024594401" duration="2849000" />
-      <workItem from="1624106691846" duration="560000" />
+      <workItem from="1624106691846" duration="1080000" />
     </task>
     <task id="LOCAL-00001" summary="Added QR printing functionality but commented out">
       <created>1623860465651</created>
@@ -132,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624107070119</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="unstaged for pull">
+      <created>1624107500102</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1624107500102</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,6 +165,7 @@
     <MESSAGE value="rebase clear" />
     <MESSAGE value="unversioned default checklist" />
     <MESSAGE value="new MERGE" />
-    <option name="LAST_COMMIT_MESSAGE" value="new MERGE" />
+    <MESSAGE value="unstaged for pull" />
+    <option name="LAST_COMMIT_MESSAGE" value="unstaged for pull" />
   </component>
 </project>

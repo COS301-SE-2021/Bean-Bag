@@ -1109,21 +1109,12 @@ C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Azure.Core.dll
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Azure.Identity.dll
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Azure.Security.KeyVault.Certificates.dll
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Azure.Security.KeyVault.Secrets.dll
-C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\EntityFramework.SqlServer.dll
-C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\EntityFramework.dll
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.Identity.Client.Extensions.Msal.dll
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.Identity.Web.dll
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.Identity.Web.UI.Views.dll
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.Identity.Web.UI.dll
-C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\System.CodeDom.dll
-C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\System.Data.SqlClient.dll
-C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
-C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
-C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
-C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\BeanBag.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Suzel Alberts\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Azure.Storage.Blobs.dll
 C:\Users\Suzel Alberts\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Azure.Storage.Common.dll
@@ -1140,3 +1131,20 @@ C:\Users\Suzel Alberts\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Vie
 C:\Users\Suzel Alberts\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Item\Delete.cshtml.g.cs
 C:\Users\Suzel Alberts\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Item\Edit.cshtml.g.cs
 C:\Users\Suzel Alberts\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Item\UploadImage.cshtml.g.cs
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Azure.Storage.Blobs.dll
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Azure.Storage.Common.dll
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.Rest.ClientRuntime.dll
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\Microsoft.Rest.ClientRuntime.Azure.dll
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\bin\Debug\net5.0\System.Memory.Data.dll
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Inventory\Create.cshtml.g.cs
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Inventory\Delete.cshtml.g.cs
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Inventory\Edit.cshtml.g.cs
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Inventory\EditPost.cshtml.g.cs
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Inventory\Index.cshtml.g.cs
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Inventory\ViewItems.cshtml.g.cs
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Item\Create.cshtml.g.cs
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Item\Delete.cshtml.g.cs
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Item\Edit.cshtml.g.cs
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Item\EditPost.cshtml.g.cs
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBag\obj\Debug\net5.0\Razor\Views\Item\UploadImage.cshtml.g.cs

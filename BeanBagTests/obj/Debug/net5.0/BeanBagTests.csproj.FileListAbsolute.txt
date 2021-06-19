@@ -738,3 +738,9 @@ C:\Users\Suzel Alberts\RiderProjects\Bean-Bag\BeanBagTests\obj\Debug\net5.0\Bean
 C:\Users\Suzel Alberts\RiderProjects\Bean-Bag\BeanBagTests\obj\Debug\net5.0\ref\BeanBagTests.dll
 C:\Users\Suzel Alberts\RiderProjects\Bean-Bag\BeanBagTests\obj\Debug\net5.0\BeanBagTests.pdb
 C:\Users\Suzel Alberts\RiderProjects\Bean-Bag\BeanBagTests\obj\Debug\net5.0\BeanBagTests.genruntimeconfig.cache
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Azure.Storage.Blobs.dll
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Azure.Storage.Common.dll
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Microsoft.Rest.ClientRuntime.dll
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\Microsoft.Rest.ClientRuntime.Azure.dll
+C:\Users\munas\RiderProjects\Bean-Bag\BeanBagTests\bin\Debug\net5.0\System.Memory.Data.dll
