@@ -16,6 +16,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.Identity.Web;
+using System.Drawing.Imaging;
+using QRCoder;
 
 
 namespace BeanBag.Controllers
@@ -215,5 +217,47 @@ namespace BeanBag.Controllers
             // The item variable is not deleted. Only the information in the item table, not the item variable itself
             return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
         }
+        
+        
+        private QrCodeModel _qrModel = new QrCodeModel();
+        public bool GenerateQrCodeOnRequest(string itemId)
+        {
+            if (itemId == null)
+            {
+                throw new Exception("QRCode generation failed. ItemID input is null.");
+            }
+
+            else if (itemId.Length !=36) 
+            {
+                throw new Exception("QRCode generation failed. ItemID string length is invalid.");
+            }
+            
+            // Query from db here
+            // Throw exception if item not found
+            // Throw new Exception("QRCode generation failed. ItemID not found in database.");
+            const string itemName = "Item: Munashe's Chair\n";
+            const string itemInventory = "Inventory: Furniture Inventory\n";
+            const string iType = "Type: Furniture\n";
+            itemId = itemName + itemInventory + iType;
+
+            var ms = new MemoryStream();
+            var qRCodeGenerator = new QRCodeGenerator();
+            var qRCodeData = qRCodeGenerator.CreateQrCode(itemId, QRCodeGenerator.ECCLevel.Q);
+            var qRCode = new QRCode(qRCodeData);
+            var bitmap = qRCode.GetGraphic(20);
+            
+            bitmap.Save(ms, ImageFormat.Png);
+            ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
+
+            if (ViewBag.QRCode == null)
+            {
+                return false;
+            }
+            
+            _qrModel.QrCodeNumber = qRCode.ToString();
+
+            return true;
+        }
+        
     }
 }
