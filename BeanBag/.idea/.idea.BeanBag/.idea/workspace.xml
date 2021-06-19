@@ -4,9 +4,18 @@
     <projectFile>BeanBag.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eab6e863-7647-4f19-8cee-6038675f508d" name="Default Changelist" comment="">
+    <list default="true" id="eab6e863-7647-4f19-8cee-6038675f508d" name="Default Changelist" comment="new MERGE">
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/BeanBagTests.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/BeanBagTests.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/BeanBagTests.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/BeanBagTests.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +32,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Models/ErrorViewModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Controllers/HomeController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Controllers/LandingPageController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
@@ -85,7 +95,7 @@
       <workItem from="1624004345181" duration="1356000" />
       <workItem from="1624010563198" duration="1043000" />
       <workItem from="1624024594401" duration="2849000" />
-      <workItem from="1624106691846" duration="248000" />
+      <workItem from="1624106691846" duration="560000" />
     </task>
     <task id="LOCAL-00001" summary="Added QR printing functionality but commented out">
       <created>1623860465651</created>
@@ -115,7 +125,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624010820859</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="new MERGE">
+      <created>1624107070119</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1624107070119</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -152,6 +169,7 @@
     <MESSAGE value="Untracked preventing pull" />
     <MESSAGE value="rebase clear" />
     <MESSAGE value="unversioned default checklist" />
-    <option name="LAST_COMMIT_MESSAGE" value="unversioned default checklist" />
+    <MESSAGE value="new MERGE" />
+    <option name="LAST_COMMIT_MESSAGE" value="new MERGE" />
   </component>
 </project>
