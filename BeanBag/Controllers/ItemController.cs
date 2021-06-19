@@ -114,10 +114,19 @@ namespace BeanBag.Controllers
         [HttpPost]
         public IActionResult Create(Item newItem)
         {
+            // Adding to QRContents for QR Code scanning
+
             // Making sure the newItem is valid before adding it into the item table (making sure all the required fields have a value)
             if(ModelState.IsValid)
             {
                 _db.Items.Add(newItem);
+                _db.SaveChanges();
+
+                string itemID = newItem.Id.ToString();
+
+                // Adding QRContents to the new item made and applying changes
+                newItem.QRContents = itemID;
+                _db.Items.Update(newItem);
                 _db.SaveChanges();
                 
                 // Returns back to the viewItems view for the inventory using the inventoryId
