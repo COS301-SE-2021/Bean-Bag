@@ -30,5 +30,10 @@ namespace BeanBag.Models
         public virtual Inventory Inventory { get; set; }
 
         public string imageURL { get; set; }
+
+        public string qrNumber { get; set; }
+
+        [ForeignKey("qrNumber")]
+        public virtual QrCodeModel QrCode { get; set; }
     }
 }
