@@ -3,14 +3,14 @@
 }
 <header>
 
-    <nav class="navbar navbar-expand-md fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-shrink">
         <div class="container">
             <!-- Brand -->
             <a class="navbar-brand" asp-area="" asp-controller="LandingPage" asp-action="Index">Bean Bag</a>
 
-            <!-- Toggler/collapsible Button -->
+            <!-- Toggle/collapsible Button -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
+                <i class="fas fa-bars"> </i>
             </button>
 
             <!-- Navbar links add active thing on the link to the current that you're on... -->
@@ -21,13 +21,16 @@
                         <!---B2C Links here-->
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-                    <!-- <li class="nav-item">-->
-                    <!---B2C Links here-->
-                    <!-- <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Account">Account</a>
-                     </li>-->
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="LandingPage" asp-action="Index">Logout</a>
-                    </li>
+
+                    @{
+                        System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                     {
+                         <li class="nav-item">
+                             <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
+                         </li>
+                     }
                 </ul>
             </div>
         </div>
@@ -48,7 +51,7 @@
                     <div class="container py-5">
 
                         <div class="row py-4">
-                            <div class="col-lg-5 mx-auto">
+                            <div class="col-lg-5 mx-auto upload-image">
 
 
 
@@ -58,7 +61,7 @@
                                     <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
                                     <label id="upload-label" for="upload" class="font-weight-light text-muted ">Upload Image</label>
                                     <div class="input-group-append">
-                                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted text-center"></i><small class="text-uppercase font-weight-bold text-muted text-center "> <img src="images/upload-simple.svg" class="filter-purple2" alt="upload" /></small></label>
+                                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted text-center"></i><small class="text-uppercase font-weight-bold text-muted text-center "> <img src="images/upload-simple.svg" class="filter-colour2" alt="upload" /></small></label>
                                     </div>
                                 </div>
 
@@ -80,14 +83,19 @@
                             <div class="col-lg-5 text-center home-text">
 
                                 <!--  Return generated QRcode here--->
-                        
+
                                 <div class="fixpadding">
                                     @if (ViewBag.QRCode != null)
                                     {
-                                        <p > Generated QR Code </p>
+                                        <p> Generated QR Code </p>
 
-                                        <img src="@ViewBag.QRCode" style="width:200px; height:200px;" />//source is the direct bitmap image being 'parsed'
+                                        <img src="@ViewBag.QRCode" style="width:200px; height:200px;"  alt="barcode"/>//source is the direct bitmap image being 'parsed'
                                     }
+                                </div>
+                                <div class="item-details" id="item-details">
+
+                                 
+                                       
                                 </div>
                             </div>
                         </div>

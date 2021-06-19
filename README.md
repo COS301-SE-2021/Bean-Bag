@@ -1,56 +1,101 @@
-<h1 align="center">Bean Bag</h1>
+<h1 align="center">Bean Bag </h1>
 
-<h2  align="center"> Polaris </h5>
-<h5  align="center"> Agile Bridge</h5>
+Developed by Polaris for <a href="https://www.agilebridge.co.za/" >Agile Bridge</a></h5>
 
-[![GitHub forks](https://img.shields.io/github/forks/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/network) [![GitHub stars](https://img.shields.io/github/stars/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/stargazers) [![GitHub issues](https://img.shields.io/github/contributors/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/contributors)
-[![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2021/Bean-Bag)](https://github.com/COS301-SE-2021/Bean-Bag/issues)
-![Security Headers](https://img.shields.io/security-headers?url=https%3A%2F%2Fgithub.com%2FCOS301-SE-2021%2FBean-Bag%2F)
-![Uptime Robot status](https://img.shields.io/uptimerobot/status/m788271158-bb7bc699e2e1865de72a0c39)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/Bean-Bag)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/COS301-SE-2021/Bean-Bag/workflow)
+[![GitHub forks](https://img.shields.io/github/forks/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/network) [![GitHub stars](https://img.shields.io/github/stars/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/stargazers) [![GitHub issues](https://img.shields.io/github/contributors/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/issues)
+![Security Headers](https://img.shields.io/security-headers?style=flat-round&url=https%3A%2F%2Fgithub.com%2FCOS301-SE-2021%2FBean-Bag%2F)
+![Uptime Robot status](https://img.shields.io/uptimerobot/status/m788271158-bb7bc699e2e1865de72a0c39?style=flat-round&)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/Bean-Bag?style=flat-round&)
 
-## <!--Can add more badges about builds and testing later: shields.io -->
-
-### Table of Contents
-
-[Introduction](#intro) <br>
-[The Team](#team)<br>
-[Mentors](#mentors)<br>
-[Technology Stack](#tech)<br>
-[Github Structure](#structure)<br>
-[Deployment](#deploy)<br>
-[Communications](#comms)<br>
-[Project Management Tools](#management)<br>
-[Demo 1](#D1)<br>
-[Demo 2](#D2)
-
-<a name="headers"/>
+![example workflow](https://github.com/COS301-SE-2021/Bean-Bag/actions/workflows/dotnet.yml/badge.svg?style=flat-round&)
+[![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2021/Bean-Bag/badge.svg?branch=master)](https://coveralls.io/github/COS301-SE-2021/Bean-Bag?branch=master)
 
 ---
 
-<a name="intro"/><h3>Introduction</h3></a>
-<b>Bean Bag</b> is an inventory management system that uses image recognition to catalog stock items.<br>
-This application would assist in multiple areas such as:<br>
-🔰 the cataloging of secondhand clothing and apparel,<br>
-🔰 condition assessment of secondhand computer parts, and more.<br>
+## <!--Can add more badges about builds and testing later: shields.io -->
+
+<h2>🔵 Table of Contents</h2>
+
+- [Introduction](#intro) <br>
+- [The Team](#team)<br>
+- [Mentors](#mentors)<br>
+- [Technology Stack](#tech)<br>
+- [Github Structure](#structure)<br>
+- [Deployment](#deploy)<br>
+- [Documentation](#D1)<br>
+- [Installation](#D1)<br>
+- [Testing](#D1)<br>
+- [Project Management Tools](#management)<br>
+- [Demo Videos](#D2)
+
+---
+
+<a  name="intro"/><h2>🔵 Introduction </h2></a>
+
+Currently, operations such as cataloging items and searching for items are done manually, which can be seen as a detrimental and inefficient approach especially in fast paced business markets or markets where cataloging requires expert input and results in bottlenecks when loading stock into their inventory management systems.
+<br><br>
+<b>Bean Bag</b> is an inventory management system that utilizes image recognition technology to optimize and bring forth a new approach to automate and accelerate item cataloging.<br>
+This application would assist in multiple areas such as:
+
+- the cataloging of secondhand clothing and apparel,
+- condition assessment of secondhand computer parts, and more.
+
 A key feature of Bean Bag is that the recognizer can be trained on new item types thereby providing flexibility and enabling the application to be tailored to the user depending on the type of items the user catalogs into their inventory.
 
 ---
 
-<a name="team"/><h3>The Team</h3></a>
+<a name="team"/><h2>🔵 The Team</h2></a>
+We are team Polaris, a diverse group of students studying at the <a href="https://www.up.ac.za/"> University of Pretoria.</a> <br>
+Below is a short overview of the Polaris team developing the <b>Bean Bag </b> project.
 
-|                                                                                                                                  **Team Member**                                                                                                                                   |                                                                                  **Profiles**                                                                                  |                                                                                                                          **Skills/Interests**                                                                                                                          |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4E03AQFi_VuyzJsbQQ/profile-displayphoto-shrink_200_200/0/1618521179149?e=1623888000&v=beta&t=tYFv7oSUDzg_I-FSg9SBR9aTI6uAYDAEUejwMbbeq5g "Firstname Lastname") <br/> Reno Davids <br/> u19309229 <br/> (Team Leader) |       [GitHub](https://github.com/Dreddy97) <br/> [Profile Page](https://Dreddy97.github.io/) <br/> [LinkedIn](https://www.linkedin.com/in/reno-davids-661009210/) <br/>       |                                                                              <b>Skills </b> <br> Problem solving. <br><br><b>Interests </b> </br> Music, video games and huge movie buff                                                                               |
-|        ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4D03AQGjUNDo9-njTQ/profile-displayphoto-shrink_400_400/0/1618493072051?e=1628121600&v=beta&t=9zlGPRU_BkeHp5Vr_4FfpGyOI35NGBgxbh4bzZSFqBc "Firstname Lastname") <br/> Munashe Muganiwa <br/> u18030948         |   [GitHub](https://github.com/u18030948) <br/> [Profile Page](https://gitusername.github.io/) <br/> [LinkedIn](https://www.linkedin.com/in/munashe-muganiwa-03b852b4/) <br/>   | <b>Skills</b><br> Brainstorming, Creative thinking, Mobile app dev, Programming (HTML, C++, JAVA, SQL, PHP, Node, React, Delphi, Python), Mathematical thinker.</br> <br><b>Interests </b> </br> Hiking, philosophy, space exploration, competitive gaming, taekwando. |
-|           ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4E03AQHaGBr2eZOt-g/profile-displayphoto-shrink_200_200/0/1618527501276?e=1623888000&v=beta&t=yNfPOUdlNDOjc3CsRqLm-Zsl8ES99AJIt_7vvhc3CDU "Firstname Lastname") <br/> Nada Chraf <br/> u18113312            |   [GitHub](https://github.com/nadachra) <br/> [Profile Page](https://nada-chraf.firebaseapp.com/) <br/> [LinkedIn](https://www.linkedin.com/in/nada-chraf-a1314a135/) <br/>    |                                                                     <b>Skills </b> </br> Researching, Programming, Creative Thinking.<br/> <br> <b>Interests </b> </br> Philosophy and Futurology.                                                                     |
-|           ![Firstname Lastname](https://images-ext-2.discordapp.net/external/5goYtfojwsC1a-2zge1bvCIP2dwT0eKh1Phd10srgsg/%3Fe%3D1624492800%26v%3Dbeta%26t%3D1pvzyTMBOFy6FEL2-Q3nm3bM3lxsbufpK_atFJ3nm9U/https/media-exp1.licdn.com/dms/image/C4D03AQEceAx_HJkw9A/profile-displayphoto-shrink_200_200/0/1613219411295 "Firstname Lastname") <br/> Sphesihle Mtwa <br/> u18217746        | [GitHub](https://github.com/sphesihlemtwa) <br/> [Profile Page](https://sphesihlemtwa.github.io/) <br/> [LinkedIn](https://www.linkedin.com/in/sphesihle-mtwa-a33924206/) <br/>       |         <b>Skills </b> </br> Communication, emotional intelligence and programming <br> <b>Interests </b> </br>   Music and cooking                                                                                                        |
-|          ![Firstname Lastname](https://media-exp1.licdn.com/dms/image/C4D03AQH849guxG7z_Q/profile-displayphoto-shrink_400_400/0/1621422993184?e=1627516800&v=beta&t=y-bHpXsM0ia0P4BGHG94jnptNknCyDtuWwHWaOTS6sg "Firstname Lastname") <br/> Suzel Alberts <br/> u17055017          | [GitHub](https://github.com/Suzel-Alberts) <br/> [Profile Page](https://Suzel-Alberts.github.io/) <br/> [LinkedIn](https://www.linkedin.com/in/suzel-alberts-1a0009210/) <br/> |                                  <b>Skills</b><br/>Programming (C++, Java, Python, HTML, CSS, JavaScript) <br> Fast learner, Adaptable, Creative<br> <br/><b>Interests<br> </b>Music, History, Documentaries, Outdoor activities</br>                                  |
+> <img align="left" src="https://i.ibb.co/jDRJrLT/circle-cropped.png" alt="drawing" width="90"/></img> <h3> ‎ ‎‎Reno Davids</h3><p><code> ‎ Team Leader, Backend Development</code> </p> 
+> [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-round&logo=github&logoColor=white)](https://github.com/Dreddy97) <t/>[![PersonalProfile](https://img.shields.io/badge/ProfilePage-4285F4?style=flat-round&logo&logoColor=white)](https://dreddy97.github.io/) <t/>[![LinkedIn](https://img.shields.io/badge/linked-in-369?style=flat-round&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/reno-davids-661009210/)
+>
+> - <i> 3rd year BsC Computer Science student</i>
+> - <i>Skills </i>- Problem solving.
+> - <i>Interests</i> - Music, video games and a huge movie buff.
+
+<br>
+
+> <img align="left" src="https://i.ibb.co/ZW0CRPb/circle-cropped-6.png" alt="drawing" width="90"/></img> <h3> ‎ ‎‎Nada Chraf</h3><p><code> ‎ Frontend and Backend Integration, Testing</p></code>
+ > [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-round&logo=github&logoColor=white)](https://github.com/nadachra) <t/>[![PersonalProfile](https://img.shields.io/badge/ProfilePage-4285F4?style=flat-round&logo&logoColor=white)](https://nada-chraf.firebaseapp.com/) <t/>[![LinkedIn](https://img.shields.io/badge/linked-in-369?style=flat-round&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nada-chraf-a1314a135/)
+>
+> - <i> 3rd year BsC Computer Science student</i>
+> - <i>Skills </i>-Researching, programming, designing, creative thinking and problem solving.
+> - <i>Interests</i> - Philosophy, film, travelling and learning languages.
+
+<br>
+
+> <img align="left" src="https://i.ibb.co/ZStCzCn/circle-cropped-4.png" alt="drawing" width="90"/></img> <h3> ‎ ‎‎Munashe Muganiwa</h3><p><code> ‎ Backend Development</p></code> 
+> [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-round&logo=github&logoColor=white)](https://github.com/u18030948) <t/>[![PersonalProfile](https://img.shields.io/badge/ProfilePage-4285F4?style=flat-round&logo&logoColor=white)](https://gitusername.github.io/) <t/>[![LinkedIn](https://img.shields.io/badge/linked-in-369?style=flat-round&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/munashe-muganiwa-03b852b4/)
+>
+> - <i> 3rd year BIT student</i>
+> - <i>Skills </i>-Brainstorming, Creative thinking, Mobile App Dev, Programming (HTML, C++, JAVA, SQL, PHP, Node, React, Delphi, Python), Mathematical thinker.
+> - <i>Interests</i> - Hiking, philosophy, space exploration, competitive gaming, taekwando.
+
+<br>
+
+> <img align="left" src="https://i.ibb.co/MZ1dygg/circle-cropped-5.png" alt="drawing" width="90"/></img> <h3> ‎ ‎‎Suzel Alberts</h3><p><code> ‎ Backend Development</p></code> 
+> [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-round&logo=github&logoColor=white)](https://github.com/Suzel-Alberts) <t/>[![PersonalProfile](https://img.shields.io/badge/ProfilePage-4285F4?style=flat-round&logo&logoColor=white)](https://suzel-alberts.github.io/) <t/>[![LinkedIn](https://img.shields.io/badge/linked-in-369?style=flat-round&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/suzel-alberts-1a0009210/)
+>
+> - <i> 3rd year BsC Computer Science student</i>
+> - <i>Skills </i>- Programming (C++, Java, Python, HTML, CSS, JavaScript). <br> A fast learner, adaptable and creative.
+> - <i>Interests</i> - Music, history, documentaries and outdoor activities.
+
+<br>
+
+> <img align="left" src="https://i.ibb.co/gSmBwLh/circle-cropped-7.png" alt="drawing" width="90"/></img> <h3> ‎ Sphesihle Mtwa</h3><p><code> ‎ UX/UI Design, Frontend Development</p></code> 
+> [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-round&logo=github&logoColor=white)](https://github.com/sphesihlemtwa) <t/>[![PersonalProfile](https://img.shields.io/badge/ProfilePage-4285F4?style=flat-round&logo&logoColor=white)](https://sphesihlemtwa.github.io/) <t/>[![LinkedIn](https://img.shields.io/badge/linked-in-369?style=flat-round&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sphesihle-mtwa-a33924206/)
+>
+> - <i> 3rd year BsC Computer Science student</i>
+> - <i>Skills </i>- Communication, emotional intelligence and programming.
+> - <i>Interests</i> - Music and cooking.
 
 ---
 
-<a name="mentors"/><h3>Mentors</h3></a>
+<a name="mentors"/><h2>🔵 Mentors</h3></a>
+Mentors that guided the Polaris team during the development of the <b>Bean Bag</b> project.
 
 - Lecturer Mentor: Andrew Broekman <br> :email: andrew.broekman@up.ac.za
 - Industry Mentor: Vorster Swanepoel <br>:email: vorsters@agilebridge.co.za
@@ -58,86 +103,103 @@ A key feature of Bean Bag is that the recognizer can be trained on new item type
 
 ---
 
-<a name="tech"/><h3>Technology Stack</h3></a>
+<a name="tech"/><h2>🔵 Technology Stack</h3></a>
+The technologies used to build the <b>Bean Bag </b> system.
 
 <!--TODO: Add correct tech to correct sub headings -->
 
-<h4>Front-end</h4>
-<img alt="HTML5" src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"/><img alt="CSS3" src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"/><img alt="JavaScript" src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/><img alt="Bootstrap" src="https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white"/>
-
-<h4>Back-end</h4>
-<img alt=".Net" src="https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white"/><img alt="C#" src="https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white"/>
+<h4>Backend</h4>
+<p> <img alt=".Net" src="https://img.shields.io/badge/ASP.NET Core-5.0-5C2D91?style=flat-round&logo=.net&logoColor=white"/> <img alt="C#" src="https://img.shields.io/badge/C%23-%23239120.svg?style=flat-round&logo=c-sharp&logoColor=white"/></p>
+<h4>Frontend - Web App</h4>
+<p><img alt="HTML5" src="https://img.shields.io/badge/HTML5-%23E34F26.svg?style=flat-round&logo=html5&logoColor=white"/> <img alt="CSS3" src="https://img.shields.io/badge/CSS3-%231572B6.svg?style=flat-round&logo=CSS3&logoColor=white"/> <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-%23323330.svg?style=flat-round=javascript&logoColor=%23F7DF1E"/> <img alt="Bootstrap" src="https://img.shields.io/badge/Bootstrap-%23563D7C.svg?style=flat-round&logo=bootstrap&logoColor=white"/></p>
 <h4>AI and Analytics</h4>
-<img alt="Python" src="https://img.shields.io/badge/python-%2314354C.svg?style=for-the-badge&logo=python&logoColor=white"/>
-
+<img alt="Python" src="https://img.shields.io/badge/Python-%2314354C.svg?style=flat-round=python&logoColor=white"/>
 <h4>Cloud Services & Deployment</h4>
-<img alt="Azure" src="https://img.shields.io/badge/Microsoft_Azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white"/>
+<img alt="Azure" src="https://img.shields.io/badge/Microsoft_Azure-0089D6?style=flat-round&logo=microsoft-azure&logoColor=white"/>
 
 <h4>Workflow Automation</h4>
-<img alt="GitHub Actions" src="https://img.shields.io/badge/githubactions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white"/>
+<img alt="GitHub Actions" src="https://img.shields.io/badge/Github Actions-%232671E5.svg?style=flat-round&logo=githubactions&logoColor=white"/>
 
 ---
 
-<a name="structure"/><h3>Github Structure</h3></a>
+<a name="structure"/><h2> 🔵 Github Structure</h3></a>
 The Bean Bag project will make use of a mono-repo. All code and assets related to this project will be available in one repo which is the Bean-Bag repository. This ensures all code is compact and easily avaliable from a single source.
 
-<h4>Branching Strategy</h4>
+<h4  align="center"> Branching Strategy </h4>
 
-master ( build )
-</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− hotfix
-</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop ( build )
-</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− backend−develop ( build )
-</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− module-develop ( build )
-</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− feature-module-feature_name
-</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− frontend−develop ( build )
+    master ( build )
+    − hotfix
+      - develop ( build )
+            − backend−develop ( build )
+                  − module-develop ( build )
+                        − feature-module-feature_name
+            − frontend−develop ( build )
 
-<h4>Flow Management</h4>
+<h4 align="center"> Flow Management </h4>
 
-1.  master - this branch contains production code. All development code is merged into master in sometime
-2.  hotfix - hotfix branches are necessary to act immediately upon an undesired status of master.
-3.  develop - this branch contains pre-production code.
-4.  backend-develop - this branch contains pre-production backend code.
-5.  module-develop- this branch contains the backend code for specific subsystems/modules in the system. When the features from the backend are complete, they are merged into module-develop.
-6.  feature-module-feature_name - this branch is used to develop new backend features for the upcoming releases.
-7.  frontend-develop -this branch contains pre-production front-end code.
+- <b>master</b> - this branch contains production code. All development code is merged into master in sometime
+- <b>hotfix</b> - this branch is necessary to act immediately upon an undesired status of master.
+- <b>develop </b>- this branch contains pre-production code.
+- <b>backend-develop</b> - this branch contains pre-production backend code.
+- <b>module-develop</b>- this branch contains the backend code for specific subsystems/modules in the system. When the features from the backend are complete, they are merged into module-develop.
+- <b>feature-module-feature_name</b> - this branch is used to develop new backend features for a specific module.
+- <b>frontend-develop</b> -this branch contains pre-production front-end code.
 
 ---
 
-<a name="comms"/><h3>Communications</h3></a>
+<a name="install"/><h2> 🔵 Installation</h2></a>
+Download the Visual Studio IDE. To download the Visual Studio IDE, <a href="https://visualstudio.microsoft.com/vs/" >click here</a>.
 
-- [![Discord](https://img.shields.io/discord/591914197219016707.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/GJvuD5PM)
+    1. Install the required software in your Visual Studio IDE in the "Workloads" window:
+        - ASP.NET and web development
+        - Azure development
+        - Python development
+        - Data storage and processing
+    2. Clone the Bean-Bag repository into your local directory.
+    3. Launch the Bean-Bag.sln file.
 
+---
+
+<a name="testing"/><h2> 🔵 Testing</h2></a>
+Testing the <b>Bean Bag</b> system:
+
+    1. Open Visual Studio IDE
+    2. Click on "Test" in the panel
+    3. Open "Test Explorer"
+
+<a href="https://ibb.co/rsyn8gj"><img width="500" src="https://i.ibb.co/pWXGwjb/Untitled.png" alt="Untitled" border="0"></a><br /><a target='_blank' href='https://imgbb.com/'></a><br>
+
+    4. Click on the green play button or type in Ctrl+R,T
+
+---
+
+<a name="D1"/><h2> 🔵 Documentation</h3></a>
+All neccessary documentation related to the <b> Bean Bag</b> project.
+
+- [Software Requirements Specification Document](https://drive.google.com/drive/u/1/folders/1aOf_vzdIkNxeur8eyyou5kn9FHSUVCod)
+- [Technical Installation Guide](https://www.overleaf.com/project/60bf6e62809345fbe421d6e2)
+- [Coding Standards](https://www.overleaf.com/project/60bf6e7b809345771a21d741)
+- [User Manual](https://www.overleaf.com/project/60bf6e418093458cd021d68f)
+- [Testing Policy](https://www.overleaf.com/project/60bf6e88809345766321d83e)
+
+---
+
+<a name="management"/><h2>🔵 Project Management Tools</h3></a>
+
+The project management applications and communication techniques used for the <b>Bean Bag</b> project. We contacted the clients using a team email and had conferences and discussions on Discord as well as MS Teams. Github as well as Jira were used for issuing tickets and backlog grooming.
+
+- [Jira](https://polariscapestone.atlassian.net/jira/software/projects/BB301/boards/1)
+- [MS Teams](https://www.microsoft.com/en-za/microsoft-teams/log-in)
+- [GitHub](https://github.com/COS301-SE-2021/Bean-Bag/projects)
+- [Discord](https://discord.gg/GJvuD5PM)
 - :email: polariscapstone301@gmail.com
 
 ---
 
-<a name="management"/><h3>Project Management Tools</h3></a>
+<a name="D2"/><h2>🔵 Demo Videos</h3></a>
+Video demonstrations about the progression of the Bean Bag project.
 
-- :pushpin: [GitHub](https://github.com/COS301-SE-2021/Bean-Bag/projects)
-
-- :pushpin: [Jira](https://polariscapestone.atlassian.net/jira/software/projects/BB301/boards/1)
-
----
-
-<a name="deploy"/><h3>Deployment</h3></a>
-TBA
-
----
-
-<a name="D1"/><h3>Demo 1</h3></a>
-
-- :tv: [Demo Video](https://drive.google.com/drive/u/1/folders/18UvquRIEvCKuZyfEESXBXh2mFWG5_VYl)
-- :open_book: [Software Requirements Specification Document](https://drive.google.com/drive/u/1/folders/1aOf_vzdIkNxeur8eyyou5kn9FHSUVCod)
-
----
-
-<a name="D2"/><h3>Demo 2</h3></a>
-
-- :tv: [Demo Video](https://drive.google.com/open?id=)
-- :open_book: [Software Requirements Specification Document](https://www.overleaf.com/read/)
+- [Demo Video 1 - 📅 4 June 2021](https://drive.google.com/drive/u/1/folders/18UvquRIEvCKuZyfEESXBXh2mFWG5_VYl)
+- [Demo Video 2](https://drive.google.com/open?id=)
+- [Demo Video 3](https://drive.google.com/open?id=)
+- [Demo Video 4](https://drive.google.com/open?id=)

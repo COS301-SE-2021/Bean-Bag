@@ -1,22 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BeanBag.Controllers
 {
-    /*
-     * This class is responsible for the data returned to the landing page 
-     */
+    // This is the Landing page controller.
+    [AllowAnonymous]
     public class LandingPageController : Controller
     {
-        /*
-         * This function returns the structure of the Landing Page 
-         */
+        // This function sends a response to the LandingPage Index page.
         public IActionResult Index()
         {
             return View();
+        }
+        
+        [HttpGet]
+        // This function redirects to Landing Page when signing out.
+        public IActionResult SignOut(string page)
+        {
+            return RedirectToAction("Index", "LandingPage");
         }
     }
 }

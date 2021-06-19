@@ -1,14 +1,20 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
-// Write your JavaScript code.
-
+$(window).on("load", function () {
+    /*Preloader*/
+    $(".preloader").fadeOut("slow");
+});
+/*Navbar Collapse*/
+$(".nav-link").on("click", function (){ /* check the behaviour of this function*/
+    $(".navbar-collapse").collapse("hide");
+});
 /*  ==========================================
     SHOW UPLOADED IMAGE
 * ========================================== */
 function readURL(input) {
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
+        const reader = new FileReader();
 
         reader.onload = function (e) {
             $('#imageResult')
@@ -16,6 +22,11 @@ function readURL(input) {
         };
         reader.readAsDataURL(input.files[0]);
     }
+    document.getElementById("item-details").innerHTML += "<p>"+"Item details"+"</p>"+"Name: Chair" + "<br>" +
+        "Inventory: Furniture inventory" + "<br>" +
+        "Type: Furniture" + "<br>" +
+        "scanDate : 2021/06/04";
+    
 }
 
 $(function () {
@@ -23,17 +34,3 @@ $(function () {
         readURL(input);
     });
 });
-
-/*  ==========================================
-    SHOW UPLOADED IMAGE NAME
-* ========================================== */
-/*var input = document.getElementById('upload');
-var infoArea = document.getElementById('upload-label');
-
-input.addEventListener('change', showFileName);
-function showFileName(event) {
-    var input = event.srcElement;
-    var fileName = input.files[0].name;
-    infoArea.textContent = 'File name: ' + fileName;
-}
-*/

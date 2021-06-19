@@ -1,8 +1,8 @@
 ﻿/*  Fonts  */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-/*  Gloabal Css  */
+/*  Global Css  */
 :root {
-    --main-color: #7857fe;
+    --main-color: #578CFF;/*#7857fe*/
     --color-1: #e91e63;
     --color-2: #f5ae10;
     --color-3: #09d69c;
@@ -10,6 +10,7 @@
     --main-to-dark-color: var(--main-color);
     --dark-to-main-color: var(--bg-dark);
     --shadow-black-100: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --shadow-black-300: 0 5px 15px rgba(0, 0, 0, 0.3);
     --black-900: #000000;
     --black-400: #555555;
     --black-100: #ffffff;
@@ -24,11 +25,10 @@ body {
     background-color: #ffffff;
     line-height: 1.5;
     /*try this...*/
-    
 }
 
 .btn-1 {
-    background-color: #7857fe;
+    background-color: var(--main-color);
     padding: 12px 30px;
     border: none;
     border-radius: 30px;
@@ -40,13 +40,13 @@ body {
     font-weight: 500;
 }
 
-.btn-1:focus {
+    .btn-1:focus {
         box-shadow: var(--shadow-black-100);
-}
+    }
 
 .btn:hover {
     color: #f1f2f6;
-    background-color: #9557DA;
+    background-color:#57C5FF ;/* put this colour inside a var */ /* was #9557DA */
 }
 
 .btn.btn-light:hover {
@@ -55,7 +55,7 @@ body {
 }
 
 .clearfix {
-        clear: both;
+    clear: both;
 }
 
 * {
@@ -82,16 +82,28 @@ ul {
         transform: rotate(360deg);
     }
 }
+
+@keyframes zoomInOut_01 {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
 /* fix padding on QRcode page*/
 .fixpadding {
-    padding-bottom: 200px;
+    padding-bottom: 25px;
 }
+
 .fixmargin {
     margin: 10px;
 }
 
-.filter-purple {
-    filter: invert(30%) sepia(91%) saturate(1202%) hue-rotate(230deg) brightness(108%) contrast(110%);
+.filter-colour {
+    filter: invert(57%) sepia(61%) saturate(4250%) hue-rotate(203deg) brightness(101%) contrast(100%);
     width: 60px;
     height: 60px;
     display: block;
@@ -118,45 +130,52 @@ ul {
     padding: 20px 0;
 }
 
-.navbar > container {
+    .navbar > container {
         padding: 0 15px;
-}
+    }
 
-.navbar .navbar-brand {
+    .navbar .navbar-brand {
         font-size: 30px;
         color: #ffffff;
         font-weight: 500;
         text-transform: capitalize;
-}
+    }
 
-.navbar .nav-item {
+    .navbar .nav-item {
         margin-left: 40px;
-}
+    }
 
 .navbar .nav-item .nav-link {
-     color: #ffffff;
-     text-transform: capitalize;
-     font-size: 16px;
-     font-weight: 400;
-     padding: 5px 0;
-     position: relative;
+            color: #ffffff;
+            text-transform: capitalize;
+            font-size: 16px;
+            font-weight: 400;
+            padding: 5px 0;
+            position: relative;
 }
 
 .navbar .nav-item .nav-link::before {
-     content: '';
-     position: absolute;
-     left: 0;
-     bottom: 0;
-     right: 0;
-     height: 1px;
-     background-color: #ffffff;
-     transition: all 0.5s ease;
-     transform: scale(0);
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                height: 1px;
+                background-color: #ffffff;
+                transition: all 0.5s ease;
+                transform: scale(0);
 }
 
 .navbar .nav-item .nav-link.active::before,
 .navbar .nav-item .nav-link:hover::before {
-     transform: scale(1);
+                transform: scale(1);
+}
+.navbar-toggler{
+    padding: .25rem .75rem;
+    font-size:1.25rem;
+    line-height:1;
+    background-color: transparent;
+    border-radius: .25rem;
 }
 /*Home */
 .home {
@@ -168,24 +187,27 @@ ul {
 .home-text h1 {
     font-size: 45px;
     font-weight: 700;
-    color: #7857fe;
+    color: #578CFF;
     margin: 0 0 20px;
 }
 
 .home-text p {
     font-size: 18px;
     line-height: 28px;
-    color: #7857fe;
+    color: #578CFF;
     width: 100%;
 }
+
 .home-btn {
     margin: 15px;
 }
 
+
+
 /*QRCode */
 
-.filter-purple2 {
-    filter: invert(30%) sepia(91%) saturate(1202%) hue-rotate(230deg) brightness(108%) contrast(110%);
+.filter-colour2 {
+    filter: invert(57%) sepia(61%) saturate(4250%) hue-rotate(203deg) brightness(101%) contrast(100%);
     width: 30px;
     height: 30px;
     display: block;
@@ -203,6 +225,10 @@ small {
     min-height: 92vh;
     padding: 150px 0;
     background-color: var(--main-to-dark-color);
+    /*added this*/
+    position: relative;
+    z-index: 1;
+    overflow-x: hidden;
 }
 
 .landing-text h1 {
@@ -247,6 +273,32 @@ small {
         transform-origin: 210px 220px;
         animation: spin_01 10s linear infinite;
 }
+.landing-page-image{
+    font-size:10px;
+    
+}
+/* Preloader */
+.preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2100;
+    background-color: var(--main-to-dark-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preloader span {
+        display: block;
+        height: 60px;
+        width: 60px;
+        background-color: var(--dark-to-main-color);
+        border-radius: 50%;
+        animation: zoomInOut_01 1s ease infinite;
+}
 /* footer*/
 footer {
     font-family: 'Poppins', sans-serif;
@@ -264,7 +316,60 @@ a[href^="https"] {
     text-decoration: underline;
     color: #ffffff;
 }
+/* Responsive*/
+@media(max-width: 991px){
+    .navbar-toggler{
+        background-color: var(--dark-to-main-color);
+        box-shadow:var(--shadow-black-300);
+        height:34px;
+        width: 44px;
+        padding:0;
+        font-size:17px;
+        color:#ffffff;
+    }
+    .navbar-nav{
+        background-color: var(--dark-to-main-color);
+        box-shadow:var(--shadow-black-300);
+        
+    }
+    .navbar .nav-item{
+        margin:0;
+        padding:5px 15px;
+    }
+    .navbar.navbar-shrink .navbar-toggler,
+    .navbar.navbar-shrink .navbar-nav{
+        background-color: var(--main-color);
+    }
+    .landing-text h1{
+        font-size:36px;
+        
+    }
+    .landing-text p {
+        font-size: 16px;
+    }
+    .upload-image{
+        margin-bottom:80px;
+    }
+}
+@media(max-width: 767px){
+    .landing-text{
+        margin-bottom: 80px;
+    }
+    .landing-img img {
+        transform: scale(1.1, 1.1);
+    }
+}
 
+@media(max-width: 575px){
+    .home-text h1{
+        font-size:30px;
+        
+    }
+    .home-text p{
+        font-size:16px;
+        
+    }
+}
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
@@ -293,19 +398,19 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 .image-area::before {
-        content: 'Uploaded image result';
-        color: lightslategray;
-        font-weight: bold;
-        text-transform: uppercase;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 0.8rem;
-        z-index: 1;
+    content: 'Uploaded image result';
+    color: lightslategray;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    z-index: 1;
 }
 
 .image-area img {
-        z-index: 2;
-        position: relative;
+    z-index: 2;
+    position: relative;
 }

@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using BeanBag.Database;
 
 namespace BeanBag
 {
@@ -16,14 +16,40 @@ namespace BeanBag
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get;}
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Azure B2C OpenIdConnect Authentication service setup
+            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+                .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAdB2C"));
+            services.AddRazorPages().AddMicrosoftIdentityUI();
+            
+            services.Configure<OpenIdConnectOptions>(
+                OpenIdConnectDefaults.AuthenticationScheme, options =>
+                {
+                    options.Events.OnRedirectToIdentityProvider = async context =>
+                    {
+                        context.Properties.RedirectUri = "/Home";
+                    };
+
+                    options.Events.OnSignedOutCallbackRedirect = async context =>
+                    {
+                        context.Properties.RedirectUri = "/LandingPage";
+                    };
+                    
+                });
+            
             services.AddControllersWithViews();
+
+            // Connecting to the sql server and to the specified DB using the appsettings.json ConnectionStrings defaultConnection contents
+            services.AddDbContext<DBContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +70,7 @@ namespace BeanBag
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -51,6 +78,7 @@ namespace BeanBag
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=LandingPage}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
