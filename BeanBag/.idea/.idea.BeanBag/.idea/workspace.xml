@@ -4,7 +4,7 @@
     <projectFile>BeanBag.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eab6e863-7647-4f19-8cee-6038675f508d" name="Default Changelist" comment="Fixed QR on request being in the inventory controller to the item controller">
+    <list default="true" id="eab6e863-7647-4f19-8cee-6038675f508d" name="Default Changelist" comment="caches">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BeanBag/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BeanBag/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +91,7 @@
       <workItem from="1624004345181" duration="1356000" />
       <workItem from="1624010563198" duration="1043000" />
       <workItem from="1624024594401" duration="2849000" />
-      <workItem from="1624106691846" duration="2556000" />
+      <workItem from="1624106691846" duration="3619000" />
     </task>
     <task id="LOCAL-00001" summary="Added QR printing functionality but commented out">
       <created>1623860465651</created>
@@ -149,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624108652492</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="caches">
+      <created>1624109728863</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1624109728863</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,6 +197,7 @@
     <MESSAGE value="unstaged for pull" />
     <MESSAGE value="Added QR code generation on request function for Item controller" />
     <MESSAGE value="Fixed QR on request being in the inventory controller to the item controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed QR on request being in the inventory controller to the item controller" />
+    <MESSAGE value="caches" />
+    <option name="LAST_COMMIT_MESSAGE" value="caches" />
   </component>
 </project>
