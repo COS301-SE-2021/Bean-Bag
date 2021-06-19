@@ -125,7 +125,7 @@ namespace BeanBag.Controllers
                 string itemID = newItem.Id.ToString();
 
                 // Adding QRContents to the new item made and applying changes
-                newItem.QRContents = itemID;
+                newItem.QRContents = "https://bean-bag.azurewebsites.net/api/QRCodeScan?itemID=" + itemID;
                 _db.Items.Update(newItem);
                 _db.SaveChanges();
                 
@@ -226,6 +226,75 @@ namespace BeanBag.Controllers
             // The item variable is not deleted. Only the information in the item table, not the item variable itself
             return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
         }
+
+        public IActionResult ViewQRCode(Guid Id)
+        {
+            var item = _db.Items.Find(Id);
+
+            if(item == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var ms = new MemoryStream();
+                var qRCodeGenerator = new QRCodeGenerator();
+                var qRCodeData = qRCodeGenerator.CreateQrCode(item.QRContents, QRCodeGenerator.ECCLevel.Q);
+                var qRCode = new QRCode(qRCodeData);
+                var bitmap = qRCode.GetGraphic(20);
+                bitmap.Save(ms, ImageFormat.Png);
+
+                ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
+
+                return View();
+            }
+             
+        }
+
+        /*public bool GenerateQrCode(string itemId)
+        {
+            if (itemId == null)
+            {
+                throw new Exception("QRCode generation failed. ItemID input is null.");
+            }
+
+            else if (itemId.Length != 36)
+            {
+                throw new Exception("QRCode generation failed. ItemID string length is invalid.");
+            }
+
+            // Query from db here
+            // Throw exception if item not found
+            // Throw new Exception("QRCode generation failed. ItemID not found in database.");
+            const string itemName = "Item: Munashe's Chair\n";
+            const string itemInventory = "Inventory: Furniture Inventory\n";
+            const string iType = "Type: Furniture\n";
+            itemId = itemName + itemInventory + iType;
+
+            var ms = new MemoryStream();
+            var qRCodeGenerator = new QRCodeGenerator();
+            var qRCodeData = qRCodeGenerator.CreateQrCode(itemId, QRCodeGenerator.ECCLevel.Q);
+            var qRCode = new QRCode(qRCodeData);
+            var bitmap = qRCode.GetGraphic(20);
+
+            // Funcionality to put QR Code into its own file in a directory.
+            bitmap.Save("C:/Users/Public/Pictures/ItemQRCode.png");
+
+            // As of now the QR Code save on a local dir is done same time as generation
+            // but at a later stage will be done in a seperate function. 
+            bitmap.Save(ms, ImageFormat.Png);
+            ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
+
+            if (ViewBag.QRCode == null)
+            {
+                return false;
+            }
+
+            _qrModel.QrCodeNumber = qRCode.ToString();
+            CoupleQrCode(itemId, _qrModel.QrCodeNumber);
+
+            return true;
+        }*/
 
 
         /*private QrCodeModel _qrModel = new QrCodeModel();
