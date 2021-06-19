@@ -4,7 +4,9 @@
     <projectFile>BeanBag.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eab6e863-7647-4f19-8cee-6038675f508d" name="Default Changelist" comment="unstaged for pull" />
+    <list default="true" id="eab6e863-7647-4f19-8cee-6038675f508d" name="Default Changelist" comment="Fixed QR on request being in the inventory controller to the item controller">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BeanBag/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BeanBag/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,13 +23,19 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Models/ErrorViewModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/munas/RiderProjects/Bean-Bag/BeanBag/obj/Debug/net5.0/Razor/Views/Shared/_Layout.cshtml.g.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Shared/_Layout.cshtml.g.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Controllers/HomeController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Controllers/LandingPageController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/munas/RiderProjects/Bean-Bag/BeanBag/Controllers/InventoryController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Controllers/QRCodeController.cs" />
+      <option value="$PROJECT_DIR$/Controllers/InventoryController.cs" />
+      <option value="$PROJECT_DIR$/Controllers/ItemController.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1u2N5JU0jdDpeBchW7sbojisWS4" />
@@ -83,7 +91,7 @@
       <workItem from="1624004345181" duration="1356000" />
       <workItem from="1624010563198" duration="1043000" />
       <workItem from="1624024594401" duration="2849000" />
-      <workItem from="1624106691846" duration="1080000" />
+      <workItem from="1624106691846" duration="2556000" />
     </task>
     <task id="LOCAL-00001" summary="Added QR printing functionality but commented out">
       <created>1623860465651</created>
@@ -127,7 +135,21 @@
       <option name="project" value="LOCAL" />
       <updated>1624107500102</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added QR code generation on request function for Item controller">
+      <created>1624108323720</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1624108323720</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fixed QR on request being in the inventory controller to the item controller">
+      <created>1624108652492</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1624108652492</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,6 +188,8 @@
     <MESSAGE value="unversioned default checklist" />
     <MESSAGE value="new MERGE" />
     <MESSAGE value="unstaged for pull" />
-    <option name="LAST_COMMIT_MESSAGE" value="unstaged for pull" />
+    <MESSAGE value="Added QR code generation on request function for Item controller" />
+    <MESSAGE value="Fixed QR on request being in the inventory controller to the item controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed QR on request being in the inventory controller to the item controller" />
   </component>
 </project>
