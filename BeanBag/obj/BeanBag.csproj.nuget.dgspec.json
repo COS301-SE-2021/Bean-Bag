@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj": {}
+    "C:\\Users\\Suzel Alberts\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj": {}
   },
   "projects": {
-    "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
+    "C:\\Users\\Suzel Alberts\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
+        "projectUniqueName": "C:\\Users\\Suzel Alberts\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
         "projectName": "BeanBag",
-        "projectPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
-        "packagesPath": "C:\\Users\\munas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\obj\\",
+        "projectPath": "C:\\Users\\Suzel Alberts\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
+        "packagesPath": "C:\\Users\\Suzel Alberts\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Suzel Alberts\\RiderProjects\\Bean-Bag\\BeanBag\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\munas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Suzel Alberts\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,9 +40,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "EntityFramework": {
+            "Azure.Storage.Blobs": {
               "target": "Package",
-              "version": "[6.4.4, )"
+              "version": "[12.9.0, )"
             },
             "Font.Awesome": {
               "target": "Package",
@@ -51,6 +51,10 @@
             "Microsoft.AspNetCore.Authentication.OpenIdConnect": {
               "target": "Package",
               "version": "[5.0.0, )"
+            },
+            "Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction": {
+              "target": "Package",
+              "version": "[2.0.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -65,6 +69,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.6, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[5.0.0, )"
             },
             "Microsoft.Identity.Web": {
               "target": "Package",
