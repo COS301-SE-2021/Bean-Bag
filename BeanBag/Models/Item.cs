@@ -31,9 +31,6 @@ namespace BeanBag.Models
 
         public string imageURL { get; set; }
 
-        public string qrNumber { get; set; }
-
-        [ForeignKey("qrNumber")]
-        public virtual QrCodeModel QrCode { get; set; }
+        public string QRContents { get; set; }
     }
 }

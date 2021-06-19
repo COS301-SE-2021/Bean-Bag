@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeanBag.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20210619125606_QRCode_And_FK_To_Item")]
-    partial class QRCode_And_FK_To_Item
+    [Migration("20210619133324_Item_And_Inventory")]
+    partial class Item_And_Inventory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,6 +45,9 @@ namespace BeanBag.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("QRContents")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("imageURL")
                         .HasColumnType("nvarchar(max)");
 
@@ -55,9 +58,6 @@ namespace BeanBag.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("qrNumber")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -66,22 +66,7 @@ namespace BeanBag.Migrations
 
                     b.HasIndex("inventoryId");
 
-                    b.HasIndex("qrNumber");
-
                     b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("BeanBag.Models.QrCodeModel", b =>
-                {
-                    b.Property<string>("QrCodeNumber")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("QrContents")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("QrCodeNumber");
-
-                    b.ToTable("QRCodes");
                 });
 
             modelBuilder.Entity("BeanBag.Models.Item", b =>
@@ -92,13 +77,7 @@ namespace BeanBag.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BeanBag.Models.QrCodeModel", "QrCode")
-                        .WithMany()
-                        .HasForeignKey("qrNumber");
-
                     b.Navigation("Inventory");
-
-                    b.Navigation("QrCode");
                 });
 #pragma warning restore 612, 618
         }

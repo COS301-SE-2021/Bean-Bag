@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BeanBag.Migrations
 {
-    public partial class Item_Inventory_Create : Migration
+    public partial class Item_And_Inventory : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace BeanBag.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    userId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    userId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,7 +28,8 @@ namespace BeanBag.Migrations
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     inventoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    imageURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    imageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    QRContents = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
