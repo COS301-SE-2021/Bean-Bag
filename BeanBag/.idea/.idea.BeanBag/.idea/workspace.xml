@@ -4,30 +4,17 @@
     <projectFile>BeanBag.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a80deffb-acf1-4970-8109-8dd52bad5c64" name="Default Changelist" comment="">
+    <list default="true" id="a80deffb-acf1-4970-8109-8dd52bad5c64" name="Default Changelist" comment="Made changes to the UI of the inventory page - changed button colours and the placement of the Inventory table">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BeanBag/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BeanBag/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/Inventory/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Inventory/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Inventory/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Inventory/Create.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/QRCode/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/QRCode/Index.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.Views.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/ref/BeanBag.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/ref/BeanBag.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.Views.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/Index.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/Index.cshtml.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/ViewItems.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/ViewItems.cshtml.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/Create.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/Create.cshtml.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/UploadImage.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/UploadImage.cshtml.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/BeanBag.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/BeanBag.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/Create.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/Create.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/QRCode/Index.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/QRCode/Index.cshtml.g.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wwwroot/css/site.css" beforeDir="false" afterPath="$PROJECT_DIR$/wwwroot/css/site.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/BeanBagTests.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/BeanBagTests.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,8 +47,9 @@
       <option value="$PROJECT_DIR$/Views/Inventory/ViewItems.cshtml" />
       <option value="$PROJECT_DIR$/Controllers/ItemController.cs" />
       <option value="$PROJECT_DIR$/Views/Home/Index.cshtml" />
-      <option value="$PROJECT_DIR$/Views/QRCode/Index.cshtml" />
       <option value="$PROJECT_DIR$/Views/Inventory/Index.cshtml" />
+      <option value="$PROJECT_DIR$/Views/QRCode/Index.cshtml" />
+      <option value="$PROJECT_DIR$/Views/Inventory/Create.cshtml" />
       <option value="$PROJECT_DIR$/wwwroot/css/site.css" />
     </changedPaths>
   </component>
@@ -219,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624198111613</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Made changes to the UI of the inventory page - changed button colours and the placement of the Inventory table">
+      <created>1624213375970</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1624213375970</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,6 +260,7 @@
     <MESSAGE value="sln docs" />
     <MESSAGE value="Fixed QR print views" />
     <MESSAGE value="rebase commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="rebase commit" />
+    <MESSAGE value="Made changes to the UI of the inventory page - changed button colours and the placement of the Inventory table" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made changes to the UI of the inventory page - changed button colours and the placement of the Inventory table" />
   </component>
 </project>

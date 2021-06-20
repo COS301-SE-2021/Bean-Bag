@@ -183,7 +183,9 @@ ul {
     padding: 80px 0; /*Default value was 150px*/
     background-color: #f1f2f6;
 }
-
+h3{
+    color: #578CFF;
+}
 .home-text h1 {
     font-size: 45px;
     font-weight: 700;
@@ -319,10 +321,26 @@ a[href^="https"] {
     color: #ffffff;
 }
 /*Inventory*/
+.createForm{
+    padding: 50px 0;
+    
+}
 .inventory{
-    min-height: 50vh;
+    min-height: 60vh;
     padding: 80px; /*Default value was 150px*/
     background-color: #f1f2f6;
+}
+.btn-2 {
+    background-color: #f1f2f6;
+    padding: 12px 30px;
+    border-radius: 30px;
+    border-color: var(--main-color);
+    color: var(--main-color);
+    font-size: 16px;
+    text-transform: capitalize;
+    
+    box-shadow: var(--shadow-black-100);
+    font-weight: 500;
 }
 /* Responsive*/
 @media(max-width: 991px){
