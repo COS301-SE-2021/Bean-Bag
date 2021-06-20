@@ -250,6 +250,32 @@ namespace BeanBag.Controllers
             }
              
         }
+        
+        
+        public IActionResult PrintQRCode(Guid Id)
+        {
+            var item = _db.Items.Find(Id);
+
+            if(item == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var ms = new MemoryStream();
+                var qRCodeGenerator = new QRCodeGenerator();
+                var qRCodeData = qRCodeGenerator.CreateQrCode(item.QRContents, QRCodeGenerator.ECCLevel.Q);
+                var qRCode = new QRCode(qRCodeData);
+                var bitmap = qRCode.GetGraphic(20);
+                bitmap.Save(ms, ImageFormat.Png);
+                bitmap.Save("C:/Users/Public/Pictures/ItemQRCode.png");
+
+                //ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
+
+                return null;
+            }
+             
+        }
 
         /*public bool GenerateQrCode(string itemId)
         {

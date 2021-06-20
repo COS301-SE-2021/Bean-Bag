@@ -4,22 +4,26 @@
     <projectFile>BeanBag.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eab6e863-7647-4f19-8cee-6038675f508d" name="Default Changelist" comment="sln docs">
+    <list default="true" id="eab6e863-7647-4f19-8cee-6038675f508d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BeanBag/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BeanBag/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/ItemController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/ItemController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Item/ViewQRCode.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Item/ViewQRCode.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.Views.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/ref/BeanBag.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/ref/BeanBag.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.RazorCoreGenerate.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.RazorCoreGenerate.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.Views.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/ViewItems.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/ViewItems.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/ViewQRCode.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/ViewQRCode.cshtml.g.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/BeanBag.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/BeanBag.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.Views.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.Views.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.csproj.AssemblyReference.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,8 +41,8 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Models/ErrorViewModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Shared/_Layout.cshtml.g.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Controllers/HomeController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Shared/_Layout.cshtml.g.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Controllers/LandingPageController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
@@ -47,6 +51,7 @@
     <changedPaths>
       <option value="$PROJECT_DIR$/Controllers/QRCodeController.cs" />
       <option value="$PROJECT_DIR$/Controllers/InventoryController.cs" />
+      <option value="$PROJECT_DIR$/Views/Item/ViewQRCode.cshtml" />
       <option value="$PROJECT_DIR$/Controllers/ItemController.cs" />
     </changedPaths>
   </component>
@@ -77,6 +82,7 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
+      <browser name="b2a9dca7-9d0b-4e1e-98a8-afb19c1328d2" />
       <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
       <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
       <option name="SEND_DEBUG_REQUEST" value="1" />
@@ -105,6 +111,7 @@
       <workItem from="1624024594401" duration="2849000" />
       <workItem from="1624106691846" duration="4732000" />
       <workItem from="1624133952959" duration="842000" />
+      <workItem from="1624169693177" duration="2670000" />
     </task>
     <task id="LOCAL-00001" summary="Added QR printing functionality but commented out">
       <created>1623860465651</created>
