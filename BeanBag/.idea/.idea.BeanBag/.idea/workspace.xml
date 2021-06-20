@@ -4,273 +4,59 @@
     <projectFile>BeanBag.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eab6e863-7647-4f19-8cee-6038675f508d" name="Default Changelist" comment="rebase commit">
+    <list default="true" id="eab6e863-7647-4f19-8cee-6038675f508d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BeanBag/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_2021_2_49_PM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BeanBag/.idea/shelf/Uncommitted_changes_before_Update_at_6_19_2021_2_49_PM__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BeanBag/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BeanBag/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/config/applicationhost.config" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/config/applicationhost.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Home/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Home/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Inventory/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/Inventory/Index.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.Views.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.deps.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.runtimeconfig.dev.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/BeanBag.runtimeconfig.dev.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/BeanBag.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/BeanBag.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/BeanBag.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/obj/BeanBag.csproj.nuget.g.props" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.Views.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.genruntimeconfig.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/BeanBag.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Home/Index.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Home/Index.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/Create.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/Create.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/Delete.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/Delete.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/Edit.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/Edit.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/EditPost.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/EditPost.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/Index.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/Index.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/ViewItems.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Inventory/ViewItems.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/Create.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/Create.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/Delete.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/Delete.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/Edit.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/Edit.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/EditPost.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/EditPost.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/Index.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/Index.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/UploadImage.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/UploadImage.cshtml.g.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/ViewQRCode.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Item/ViewQRCode.cshtml.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Azure.Core.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Azure.Identity.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Azure.Security.KeyVault.Certificates.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Azure.Security.KeyVault.Secrets.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Azure.Storage.Blobs.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Azure.Storage.Common.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.Views.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.Views.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.deps.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.runtimeconfig.dev.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBag.runtimeconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBagTests.deps.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBagTests.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBagTests.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBagTests.runtimeconfig.dev.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/BeanBagTests.runtimeconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Castle.Core.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Entidades.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/EntityFramework.SqlServer.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/EntityFramework.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Humanizer.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.AspNetCore.Razor.Language.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Bcl.AsyncInterfaces.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.CodeAnalysis.CSharp.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.CodeAnalysis.Razor.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.CodeAnalysis.Workspaces.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.CodeAnalysis.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Data.SqlClient.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.EntityFrameworkCore.Abstractions.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.EntityFrameworkCore.Relational.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.EntityFrameworkCore.SqlServer.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.EntityFrameworkCore.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Extensions.Caching.Abstractions.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Extensions.Caching.Memory.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Extensions.DependencyInjection.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Extensions.Logging.Abstractions.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Extensions.Logging.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Extensions.Options.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Extensions.Primitives.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Identity.Client.Extensions.Msal.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Identity.Client.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Identity.Web.UI.Views.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Identity.Web.UI.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Identity.Web.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.IdentityModel.JsonWebTokens.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.IdentityModel.Logging.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.IdentityModel.Protocols.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.IdentityModel.Tokens.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Rest.ClientRuntime.Azure.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.Rest.ClientRuntime.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.TestPlatform.CommunicationUtilities.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.TestPlatform.CoreUtilities.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.TestPlatform.CrossPlatEngine.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.TestPlatform.PlatformAbstractions.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.TestPlatform.Utilities.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.VisualStudio.TestPlatform.Common.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.VisualStudio.TestPlatform.ObjectModel.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.VisualStudio.Web.CodeGeneration.Core.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.VisualStudio.Web.CodeGeneration.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Microsoft.WindowsAzure.Storage.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Moq.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/Newtonsoft.Json.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/NuGet.Frameworks.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/QRCoder.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.CodeDom.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.Collections.Immutable.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.ComponentModel.Annotations.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.Composition.AttributedModel.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.Composition.Convention.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.Composition.Hosting.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.Composition.Runtime.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.Composition.TypedParts.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.Configuration.ConfigurationManager.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.Data.SqlClient.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.Diagnostics.DiagnosticSource.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.IdentityModel.Tokens.Jwt.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.Memory.Data.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.Runtime.Caching.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.Runtime.CompilerServices.Unsafe.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/System.Security.Cryptography.ProtectedData.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/appsettings.Development.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/appsettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/cs/Microsoft.CodeAnalysis.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/cs/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/cs/Microsoft.TestPlatform.CoreUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/cs/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/cs/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/cs/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/de/Microsoft.CodeAnalysis.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/de/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/de/Microsoft.TestPlatform.CoreUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/de/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/de/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/de/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/dotnet-aspnet-codegenerator-design.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/es/Microsoft.CodeAnalysis.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/es/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/es/Microsoft.TestPlatform.CoreUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/es/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/es/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/es/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/fr/Microsoft.CodeAnalysis.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/fr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/fr/Microsoft.TestPlatform.CoreUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/fr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/fr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/fr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/it/Microsoft.CodeAnalysis.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/it/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/it/Microsoft.TestPlatform.CoreUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/it/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/it/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/it/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ja/Microsoft.CodeAnalysis.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ja/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ja/Microsoft.TestPlatform.CoreUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ja/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ja/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ja/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ko/Microsoft.CodeAnalysis.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ko/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ko/Microsoft.TestPlatform.CoreUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ko/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ko/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ko/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pl/Microsoft.CodeAnalysis.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pl/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pl/Microsoft.TestPlatform.CoreUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pl/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pl/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pl/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pt-BR/Microsoft.CodeAnalysis.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pt-BR/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pt-BR/Microsoft.TestPlatform.CoreUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pt-BR/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pt-BR/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/pt-BR/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ref/BeanBagTests.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ru/Microsoft.CodeAnalysis.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ru/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ru/Microsoft.TestPlatform.CoreUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ru/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ru/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/ru/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/unix/lib/netcoreapp3.1/Microsoft.Data.SqlClient.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win-arm/lib/net5.0/dotnet-aspnet-codegenerator-design.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win-arm64/lib/net5.0/dotnet-aspnet-codegenerator-design.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win-arm64/native/sni.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win-x64/native/sni.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win-x86/native/sni.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win/lib/netcoreapp3.1/Microsoft.Data.SqlClient.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win/lib/netstandard2.0/System.Runtime.Caching.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/testhost.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/testhost.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/tr/Microsoft.CodeAnalysis.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/tr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/tr/Microsoft.TestPlatform.CoreUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/tr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/tr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/tr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/xunit.abstractions.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/xunit.assert.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/xunit.core.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/xunit.execution.dotnet.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/xunit.runner.reporters.netcoreapp10.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/xunit.runner.utility.netcoreapp10.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/xunit.runner.visualstudio.dotnetcore.testadapter.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hans/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hans/Microsoft.TestPlatform.CoreUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hans/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hans/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hans/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hant/Microsoft.TestPlatform.CommunicationUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hant/Microsoft.TestPlatform.CoreUtilities.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hant/Microsoft.TestPlatform.CrossPlatEngine.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/bin/Debug/net5.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.AssemblyInfo.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.AssemblyInfoInputs.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/LandingPage/Index.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/LandingPage/Index.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/QRCode/Index.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/QRCode/Index.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Shared/Error.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Shared/Error.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Shared/_Layout.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Shared/_Layout.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Shared/_ValidationScriptsPartial.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/Shared/_ValidationScriptsPartial.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/_ViewImports.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/_ViewImports.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/_ViewStart.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/Razor/Views/_ViewStart.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/BeanBagTests.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/BeanBagTests.csproj.nuget.g.props" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.csproj.AssemblyReference.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.csproj.CopyComplete" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.csproj.CoreCompileInputs.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.genruntimeconfig.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/BeanBagTests.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/ref/BeanBagTests.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BeanBagTests/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../BeanBagTests/obj/project.packagespec.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,18 +66,18 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="demo1-develop" />
+        <entry key="$PROJECT_DIR$/.." value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Models/ErrorViewModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Controllers/HomeController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Controllers/LandingPageController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../BeanBagTests/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Controllers/LandingPageController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Controllers/HomeController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Models/ErrorViewModel.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -300,6 +86,9 @@
       <option value="$PROJECT_DIR$/Views/Item/ViewQRCode.cshtml" />
       <option value="$PROJECT_DIR$/Views/Inventory/ViewItems.cshtml" />
       <option value="$PROJECT_DIR$/Controllers/ItemController.cs" />
+      <option value="$PROJECT_DIR$/Views/Home/Index.cshtml" />
+      <option value="$PROJECT_DIR$/Views/QRCode/Index.cshtml" />
+      <option value="$PROJECT_DIR$/Views/Inventory/Index.cshtml" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1u2N5JU0jdDpeBchW7sbojisWS4" />
@@ -317,6 +106,10 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="RiderIisExpressOptionsPageId" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -329,7 +122,6 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
-      <browser name="b2a9dca7-9d0b-4e1e-98a8-afb19c1328d2" />
       <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
       <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
       <option name="SEND_DEBUG_REQUEST" value="1" />

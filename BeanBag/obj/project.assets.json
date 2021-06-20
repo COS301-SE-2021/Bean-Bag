@@ -9360,19 +9360,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\munas\\.nuget\\packages\\": {}
+    "C:\\Users\\Sphesihle\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
+      "projectUniqueName": "C:\\Users\\Sphesihle\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
       "projectName": "BeanBag",
-      "projectPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
-      "packagesPath": "C:\\Users\\munas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\obj\\",
+      "projectPath": "C:\\Users\\Sphesihle\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
+      "packagesPath": "C:\\Users\\Sphesihle\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Sphesihle\\RiderProjects\\Bean-Bag\\BeanBag\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\munas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Sphesihle\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9491,7 +9491,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }
