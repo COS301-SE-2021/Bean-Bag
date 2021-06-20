@@ -41,7 +41,7 @@ namespace BeanBag.Controllers
         }
 
         // This returns the uploadimage view for item
-        public IActionResult UploadImage()
+        public IActionResult UploadImage(Guid inventoryId)
         {
             return View();
         }

@@ -6,9 +6,7 @@
             <h4 class="text-secondary">@ViewBag.InventoryName</h4>
         </div>
         <div class="col-6 text-right">
-            <a asp-controller="Item" asp-action="UploadImage" class="btn btn-success">Add new Item</a>
             <a asp-controller="Inventory" asp-action="Index" class="btn btn-primary">Back</a>
-
         </div>
     </div>
     <br />
@@ -36,8 +34,7 @@
                                 <a asp-controller="Item" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-secondary">Edit</a>
                                 <a asp-controller="Item" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger">Delete</a>
                                 <a asp-controller="Item" asp-action="ViewQRCode" asp-route-Id="@item.Id" class="btn btn-success">View QR Code</a>
-                                <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@item.Id" class="btn btn-success">Print QR Code</a>
-                                
+                                <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@item.Id" class="btn btn-success">Print QR Code</a>            
                             </div>
                         </td>
                     </tr>

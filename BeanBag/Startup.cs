@@ -35,7 +35,7 @@ namespace BeanBag
                 {
                     options.Events.OnRedirectToIdentityProvider = async context =>
                     {
-                        context.Properties.RedirectUri = "/Home";
+                        context.Properties.RedirectUri = "/Inventory";
 
                         await Task.FromResult(0);
                     };
