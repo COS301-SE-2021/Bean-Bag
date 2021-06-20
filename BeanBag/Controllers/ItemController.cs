@@ -227,6 +227,7 @@ namespace BeanBag.Controllers
             return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
         }
 
+        // Define a function to generate a QR code every time we want to view it
         public IActionResult ViewQRCode(Guid Id)
         {
             var item = _db.Items.Find(Id);
@@ -268,11 +269,11 @@ namespace BeanBag.Controllers
                 var qRCode = new QRCode(qRCodeData);
                 var bitmap = qRCode.GetGraphic(20);
                 bitmap.Save(ms, ImageFormat.Png);
-                bitmap.Save("C:/Users/Public/Pictures/ItemQRCode.png");
+                bitmap.Save("C:/Users/Public/Pictures/BeanBagItemQRCode.png");
 
                 //ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
 
-                return null;
+                return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
             }
              
         }
