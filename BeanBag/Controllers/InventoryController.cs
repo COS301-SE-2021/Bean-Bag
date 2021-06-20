@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Identity.Web;
+using System.Drawing.Imaging;
+using System.IO;
+using QRCoder;
 
 namespace BeanBag.Controllers
 {

@@ -30,7 +30,6 @@ namespace BeanBag.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("userId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -43,6 +42,9 @@ namespace BeanBag.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("QRContents")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("imageURL")
                         .HasColumnType("nvarchar(max)");

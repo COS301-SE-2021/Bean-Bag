@@ -9360,19 +9360,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Suzel Alberts\\.nuget\\packages\\": {}
+    "C:\\Users\\munas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Suzel Alberts\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
+      "projectUniqueName": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
       "projectName": "BeanBag",
-      "projectPath": "C:\\Users\\Suzel Alberts\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
-      "packagesPath": "C:\\Users\\Suzel Alberts\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Suzel Alberts\\RiderProjects\\Bean-Bag\\BeanBag\\obj\\",
+      "projectPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\BeanBag.csproj",
+      "packagesPath": "C:\\Users\\munas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\munas\\RiderProjects\\Bean-Bag\\BeanBag\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Suzel Alberts\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\munas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

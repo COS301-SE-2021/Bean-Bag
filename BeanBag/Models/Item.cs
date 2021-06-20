@@ -30,5 +30,7 @@ namespace BeanBag.Models
         public virtual Inventory Inventory { get; set; }
 
         public string imageURL { get; set; }
+
+        public string QRContents { get; set; }
     }
 }
