@@ -326,7 +326,7 @@ a[href^="https"] {
     
 }
 .inventory{
-    min-height: 50vh;
+    min-height: 60vh;
     padding: 80px; /*Default value was 150px*/
     background-color: #f1f2f6;
 }
