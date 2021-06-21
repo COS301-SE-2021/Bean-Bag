@@ -179,9 +179,9 @@ All neccessary documentation related to the <b> Bean Bag</b> project.
 - [Software Requirements Specification Document](https://drive.google.com/drive/u/1/folders/1aOf_vzdIkNxeur8eyyou5kn9FHSUVCod)
 - [Architectural Document](https://drive.google.com/file/d/1bOr6wew3k5TFKAb9n3qYyJCWyn7ECS1o/view?usp=sharing)
 - [Technical Installation Guide](https://www.overleaf.com/project/60bf6e62809345fbe421d6e2)
-- [Coding Standards](https://www.overleaf.com/project/60bf6e7b809345771a21d741)
-- [User Manual](https://www.overleaf.com/project/60bf6e418093458cd021d68f)
-- [Testing Policy](https://www.overleaf.com/project/60bf6e88809345766321d83e)
+- [Coding Standards](https://www.overleaf.com/read/rgzpwvjjdkwq)
+- [User Manual](https://www.overleaf.com/read/tmsbffjmsfgc)
+- [Testing Policy](https://www.overleaf.com/read/vyyyndhcvjbd)
 
 ---
 
