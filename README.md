@@ -177,6 +177,7 @@ Testing the <b>Bean Bag</b> system:
 All neccessary documentation related to the <b> Bean Bag</b> project.
 
 - [Software Requirements Specification Document](https://drive.google.com/drive/u/1/folders/1aOf_vzdIkNxeur8eyyou5kn9FHSUVCod)
+- [Architectural Document](https://drive.google.com/file/d/1bOr6wew3k5TFKAb9n3qYyJCWyn7ECS1o/view?usp=sharing)
 - [Technical Installation Guide](https://www.overleaf.com/project/60bf6e62809345fbe421d6e2)
 - [Coding Standards](https://www.overleaf.com/project/60bf6e7b809345771a21d741)
 - [User Manual](https://www.overleaf.com/project/60bf6e418093458cd021d68f)
@@ -200,6 +201,6 @@ The project management applications and communication techniques used for the <b
 Video demonstrations about the progression of the Bean Bag project.
 
 - [Demo Video 1 - 📅 4 June 2021](https://drive.google.com/drive/u/1/folders/18UvquRIEvCKuZyfEESXBXh2mFWG5_VYl)
-- [Demo Video 2](https://drive.google.com/open?id=)
+- [Demo Video 2 - 📅 21 June 2021](https://drive.google.com/file/d/1-rO9bH5BukctFnMlDfORGhOYwjJ4PBqt/view?usp=sharing)
 - [Demo Video 3](https://drive.google.com/open?id=)
 - [Demo Video 4](https://drive.google.com/open?id=)
