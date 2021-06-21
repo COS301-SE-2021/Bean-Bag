@@ -326,7 +326,7 @@ a[href^="https"] {
     
 }
 .inventory{
-    min-height: 60vh;
+    min-height: 50vh;
     padding: 80px; /*Default value was 150px*/
     background-color: #f1f2f6;
 }
@@ -408,6 +408,7 @@ a[href^="https"] {
         
     }
 }
+
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
@@ -455,4 +456,38 @@ for details on configuring this project to bundle and minify static web assets. 
     position: relative;
     max-width:100%;/*check if size changes*/
     max-height:100%;/*check if size changes*/ 
+}
+
+/* Item - Create*/
+.box{
+    width:400px;
+    height:400px; 
+}
+
+.box img {
+    z-index: 2;
+    position: relative;
+    max-width:100%;/*check if size changes*/
+    max-height:100%;/*check if size changes*/
+}
+
+.content-item2 {
+    border-radius: 25px;
+    border: 2px solid var(--main-color);
+    padding: 20px;
+    width: 450px;
+    height: 450px;
+}
+
+.content-item2 p{
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--main-color);
+    width: 100%;  
+}
+
+.item-create{
+    min-height: 92vh;
+    padding: 80px; /*Default value was 150px*/
+    background-color: #f1f2f6;
 }

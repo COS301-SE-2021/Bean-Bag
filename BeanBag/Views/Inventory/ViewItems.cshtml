@@ -1,50 +1,100 @@
 ﻿@model IEnumerable<Item>
-<div class="container p-3">
-    <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">Inventory List</h2><br/>
-            <h4 class="text-secondary">@ViewBag.InventoryName</h4>
-        </div>
-        <div class="col-6 text-right">
-            <a asp-controller="Inventory" asp-action="Index" class="btn btn-primary">Back</a>
-        </div>
-    </div>
-    <br />
-    @if (Model.Count() > 0)
-    {
-        <table class="table table-bordered table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th>
-                        Item Name
-                    </th>
-                    <th>
-                        Item Type
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td width="50%">@item.name</td>
-                        <td width="50%">@item.type</td>
-                        <td width="50%">
-                            <div class="w-100 btn-group" role="group">
-                                <a asp-controller="Item" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-secondary">Edit</a>
-                                <a asp-controller="Item" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger">Delete</a>
-                                <a asp-controller="Item" asp-action="ViewQRCode" asp-route-Id="@item.Id" class="btn btn-success">View QR Code</a>
-                                <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@item.Id" class="btn btn-success">Print QR Code</a>            
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p>No items yet</p>
-    }
-</div>
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
 
+@{
+    var options = _azureAdb2COptions.Value;
+}
+
+<header>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-shrink">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bean Bag</a>
+
+            <!-- Toggler/collapsible Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <i class="fas fa-bars"> </i>
+            </button>
+
+            <!-- Navbar links add active thing on the link to the current that you're on... -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto">
+
+                    @{
+                        System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <!-- <li class="nav-item"><span class="navbar-toggler-icon"> Hello @User.Identity.Name</span>
+                        </li>-->
+
+                        @if (!string.IsNullOrEmpty(options.EditProfilePolicyId))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="EditProfile">Edit Profile</a>
+                            </li>
+                        }
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="inventory d-flex align-items-center">
+    <div class="container p-3">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 class="text-primary">Inventory List</h2><br/>
+                <h4 class="text-secondary">@ViewBag.InventoryName</h4>
+            </div>
+            <div class="col-6 text-right">
+                <a asp-controller="Inventory" asp-action="Index" class="btn btn-primary">Back</a>
+            </div>
+        </div>
+        <br />
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Item Name
+                        </th>
+                        <th>
+                            Item Type
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td width="50%">@item.name</td>
+                            <td width="50%">@item.type</td>
+                            <td width="50%">
+                                <div class="w-100 btn-group" role="group">
+                                    <a asp-controller="Item" asp-action="Edit" asp-route-Id="@item.Id" class="btn ">Edit</a>
+                                    <a asp-controller="Item" asp-action="Delete" asp-route-Id="@item.Id" class="btn ">Delete</a>
+                                    <a asp-controller="Item" asp-action="ViewQRCode" asp-route-Id="@item.Id" class="btn ">View QR Code</a>
+                                    <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@item.Id" class="btn ">Print QR Code</a>            
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No items yet</p>
+        }
+    </div>
+</section>
