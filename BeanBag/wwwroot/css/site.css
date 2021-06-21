@@ -330,6 +330,18 @@ a[href^="https"] {
     padding: 80px; /*Default value was 150px*/
     background-color: #f1f2f6;
 }
+.btn-option {
+    background-color: var(--main-color);
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    color: #f1f2f6;
+    font-size: 16px;
+    text-transform: capitalize;
+    /*transition: all 05s ease;*/
+    box-shadow: var(--shadow-black-100);
+    font-weight: 500;
+}
 .btn-2 {
     background-color: #f1f2f6;
     padding: 12px 30px;
@@ -421,6 +433,8 @@ for details on configuring this project to bundle and minify static web assets. 
     border: 2px dashed lightslategray;
     padding: 1rem;
     position: relative;
+    width:300px;
+    height:300px;
 }
 
 .image-area::before {
@@ -439,4 +453,6 @@ for details on configuring this project to bundle and minify static web assets. 
 .image-area img {
     z-index: 2;
     position: relative;
+    max-width:100%;/*check if size changes*/
+    max-height:100%;/*check if size changes*/ 
 }

@@ -1,23 +1,82 @@
-﻿<form method="post" enctype="multipart/form-data" asp-action="UploadImage" asp-controller="Item">
-    <div class="border p-3">
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="form-group row">
-            <h2 class="text-black-50 pl-3">Add item</h2>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="form-group row">
-                    <div class="col-4">
-                        <input type="file" class="btn-secondary" name="file"/>
-                    </div>
-                    <div class="col-4">
-                        <input type="submit" value="Upload" class="btn btn-success"/>
-                    </div>
-                </div>
+﻿@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+
+@{
+    var options = _azureAdb2COptions.Value;
+}
+
+<header>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-shrink">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bean Bag</a>
+
+            <!-- Toggler/collapsible Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <i class="fas fa-bars"> </i>
+            </button>
+
+            <!-- Navbar links add active thing on the link to the current that you're on... -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto">
+
+                    @{
+                        System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <!-- <li class="nav-item"><span class="navbar-toggler-icon"> Hello @User.Identity.Name</span>
+                        </li>-->
+
+                        @if (!string.IsNullOrEmpty(options.EditProfilePolicyId))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="EditProfile">Edit Profile</a>
+                            </li>
+                        }
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
-    </div>
-</form>
+    </nav>
+</header>
+
+<section class="inventory d-flex align-items-center">
+
+    <form method="post" enctype="multipart/form-data" asp-action="UploadImage" asp-controller="Item">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <br/> 
+        <div class="form-group row">
+            <h3>Upload Image</h3>
+        </div>
+         <div class="col-2" ></div>  
+        <div class="col-8">
+            <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0">
+                <label id="upload-label" for="upload" class="font-weight-light text-muted ">Upload Image</label>
+                <div class="input-group-append">
+                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted text-center"></i><small class="text-uppercase font-weight-bold text-muted text-center "> <img src="../../wwwroot/images/upload-simple.svg" class="filter-colour2" alt="upload"/></small></label>
+                </div>
+            </div>       
+            
+            <p class="font-italic text-secondary text-center"></p>
+            <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+
+            <br/>
+            <input type="submit" value="Submit" class="btn btn-1"/>
+        </div>
+         <div class="col-2" ></div>  
+               
+            
+        
+    </form>
+</section>
 
 @*
 @section Scripts{

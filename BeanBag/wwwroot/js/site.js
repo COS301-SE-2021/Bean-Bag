@@ -22,10 +22,10 @@ function readURL(input) {
         };
         reader.readAsDataURL(input.files[0]);
     }
-    document.getElementById("item-details").innerHTML += "<p>"+"Item details"+"</p>"+"Name: Chair" + "<br>" +
+   /* document.getElementById("item-details").innerHTML += "<p>"+"Item details"+"</p>"+"Name: Chair" + "<br>" +
         "Inventory: Furniture inventory" + "<br>" +
         "Type: Furniture" + "<br>" +
-        "scanDate : 2021/06/04";
+        "scanDate : 2021/06/04";*/
     
 }
 
