@@ -1,0 +1,105 @@
+﻿@model Item
+
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+
+@{
+    var options = _azureAdb2COptions.Value;
+}
+
+<header>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-shrink">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bean Bag</a>
+
+            <!-- Toggler/collapsible Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <i class="fas fa-bars"> </i>
+            </button>
+
+            <!-- Navbar links add active thing on the link to the current that you're on... -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto">
+
+                    @{
+                        System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <!-- <li class="nav-item"><span class="navbar-toggler-icon"> Hello @User.Identity.Name</span>
+                        </li>-->
+
+                        @if (!string.IsNullOrEmpty(options.EditProfilePolicyId))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="EditProfile">Edit Profile</a>
+                            </li>
+                        }
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="inventory d-flex align-items-center">
+    <br/>
+    <form method="post" asp-action="EditPost" class="createForm" >
+        <input asp-for="Id" hidden/>
+
+        <div class="form-group row">
+            <h3>Edit Item</h3>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="name"></label>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="type"></label>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="inventoryId" value="Inventory"></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <input asp-for="name" class="form-control"/>
+
+                    </div>
+                    <div class="col-4">
+                        <input asp-for="type" class="form-control"/>
+                    </div>
+                    <div class="col-4">
+                        <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-2 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-1" value="Edit"/>
+                        </div>
+                        <div class="col">
+                            <a asp-action="ViewItems" asp-controller="Inventory" asp-route-InventoryId="@ViewBag.InventoryId" class="btn btn-2">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</section>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
