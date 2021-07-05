@@ -50,7 +50,7 @@ We are team Polaris, a diverse group of students studying at the <a href="https:
 Below is a short overview of the Polaris team developing the <b>Bean Bag </b> project.
 
 > <img align="left" src="https://i.ibb.co/jDRJrLT/circle-cropped.png" alt="drawing" width="90"/></img> <h3> ‎ ‎‎Reno Davids</h3><p><code> ‎ Team Leader, Backend Development</code> </p> 
-> [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-round&logo=github&logoColor=white)](https://github.com/Dreddy97) <t/>[![PersonalProfile](https://img.shields.io/badge/ProfilePage-4285F4?style=flat-round&logo&logoColor=white)](https://dreddy97.github.io/) <t/>[![LinkedIn](https://img.shields.io/badge/linked-in-369?style=flat-round&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/reno-davids-661009210/)
+> [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-round&logo=github&logoColor=white)](https://github.com/renodavids) <t/>[![PersonalProfile](https://img.shields.io/badge/ProfilePage-4285F4?style=flat-round&logo&logoColor=white)](https://dreddy97.github.io/) <t/>[![LinkedIn](https://img.shields.io/badge/linked-in-369?style=flat-round&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/reno-davids-661009210/)
 >
 > - <i> 3rd year BsC Computer Science student</i>
 > - <i>Skills </i>- Problem solving.
