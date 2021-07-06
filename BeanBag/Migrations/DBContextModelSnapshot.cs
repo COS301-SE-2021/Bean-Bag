@@ -67,6 +67,20 @@ namespace BeanBag.Migrations
                     b.ToTable("Items");
                 });
 
+            modelBuilder.Entity("BeanBag.Models.UserRoles", b =>
+                {
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("userId");
+
+                    b.ToTable("UserRoles");
+                });
+
             modelBuilder.Entity("BeanBag.Models.Item", b =>
                 {
                     b.HasOne("BeanBag.Models.Inventory", "Inventory")

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeanBag.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20210619133324_Item_And_Inventory")]
-    partial class Item_And_Inventory
+    [Migration("20210706142334_roles_items_inventory")]
+    partial class roles_items_inventory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,6 +67,20 @@ namespace BeanBag.Migrations
                     b.HasIndex("inventoryId");
 
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("BeanBag.Models.UserRoles", b =>
+                {
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("userId");
+
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("BeanBag.Models.Item", b =>
