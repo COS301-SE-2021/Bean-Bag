@@ -24,6 +24,17 @@ namespace BeanBag.Controllers
             _db = db;
         }
 
+        public void checkUserRole()
+        {
+            var user = _db.UserRoles.Find(User.GetObjectId());
+            if(user == null)
+            {
+                user = new UserRoles { userId = User.GetObjectId(), role = "U" };
+                _db.UserRoles.Add(user);
+                _db.SaveChanges();
+            }
+        }
+
         // This is the default view to view all of the inventories associated with a user
         public IActionResult Index()
         {
@@ -33,6 +44,9 @@ namespace BeanBag.Controllers
             {
                 string userObjectId = User.GetObjectId();
                 var inventories = from i in _db.Inventories where i.userId.Equals(userObjectId) select i;
+
+                //Checking user role is in DB
+                checkUserRole();
 
                 return View(inventories);
             }
