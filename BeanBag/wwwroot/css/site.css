@@ -93,12 +93,12 @@ ul {
         opacity: 0;
     }
 }
-/* fix padding on QRcode page*/
-.fixpadding {
+/* fix padding on QRCode page*/
+.fixPadding {
     padding-bottom: 25px;
 }
 
-.fixmargin {
+.fixMargin {
     margin: 10px;
 }
 
@@ -130,7 +130,7 @@ ul {
     padding: 20px 0;
 }
 
-    .navbar > container {
+    .navbar > .container {
         padding: 0 15px;
     }
 

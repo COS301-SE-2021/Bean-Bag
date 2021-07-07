@@ -74,8 +74,8 @@
                     @foreach (var inventory in Model)
                     {
                         <tr>
-                            <td width="50%">@inventory.name</td>
-                            <td width="50%">
+                            <td >@inventory.name</td> <!-- width="50%"-->
+                            <td > <!-- width="50%"-->
                                 <div class="w-100 btn-group" role="group">
                                     <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
                                     <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn">Edit</a>
