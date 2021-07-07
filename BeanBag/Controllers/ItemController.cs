@@ -67,7 +67,16 @@ namespace BeanBag.Controllers
             // Objects used to predict what type of item is in the image
             string predictionUrl = "https://uksouth.api.cognitive.microsoft.com/";
 
-            CustomVisionPredictionClient predictionClient = new CustomVisionPredictionClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.ApiKeyServiceClientCredentials("f05b67634cc3441492a07f32553d996a"))
+            string furnitureModelPredictionKey = "f05b67634cc3441492a07f32553d996a";
+            string furnitureModelProjectId = "377f08bf-2813-43cd-aa41-b0e623b2beec";
+            string furnitureModelPredictionName = "Iteration1";
+            
+            string clothingModelPredictionKey = "3fcb002210614500aaf87a89c79603d1";
+            string clothingModelProjectId = "8c37a1ca-7ede-43ab-9a92-150d4e6c8fdc";
+            string clothingModelPredictionName = "ClothingMiniModelV1.0";
+
+            CustomVisionPredictionClient predictionClient = new CustomVisionPredictionClient
+                (new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.ApiKeyServiceClientCredentials(clothingModelPredictionKey))
             {
                 Endpoint = predictionUrl
             };
@@ -75,7 +84,7 @@ namespace BeanBag.Controllers
             // We are using the URL: cloudBlockBlob.Uri.AbsoluteUri
             // This url is from the method above where we uploaded the image to the blob container
             // This method uses an image url and information regarding the AI model used to return the predicted item type
-            var result = predictionClient.ClassifyImageUrl(new Guid("377f08bf-2813-43cd-aa41-b0e623b2beec"), "Iteration1", 
+            var result = predictionClient.ClassifyImageUrl(new Guid(clothingModelProjectId), clothingModelPredictionName, 
                 new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(cloudBlockBlob.Uri.AbsoluteUri.ToString()));
 
             // We are returning to the item create page with the imageURL and itemtype given into the parameters

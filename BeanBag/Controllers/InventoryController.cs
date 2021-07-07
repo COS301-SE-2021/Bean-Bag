@@ -38,6 +38,7 @@ namespace BeanBag.Controllers
         // This is the default view to view all of the inventories associated with a user
         public IActionResult Index()
         {
+            
             // Checks to see if user is logged in
             // If not logged in throw user back to home page
             if(User.Identity.IsAuthenticated)
