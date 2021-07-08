@@ -59,6 +59,7 @@ namespace BeanBag
 
             //Adding service classes to be used as a DI
             services.AddTransient<IInventoryService, InventoryService>();
+            services.AddTransient<IItemService, ItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

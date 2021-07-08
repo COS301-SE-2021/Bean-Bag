@@ -18,19 +18,24 @@ using System.Threading.Tasks;
 using Microsoft.Identity.Web;
 using System.Drawing.Imaging;
 using QRCoder;
-
+using BeanBag.Services;
 
 namespace BeanBag.Controllers
 {
     public class ItemController : Controller
     {
+        private readonly IItemService itemService;
+        private readonly IInventoryService inventoryService;
+
         // This variable is used to interact with the Database/DBContext class. Allows us to save, update and delete records 
-        private readonly DBContext _db;
+        //private readonly DBContext _db;
         // The connection string is exposed. Will need to figure out a way of getting it out of appsetting.json. Maybe init in startup like db context ?
         
-        public ItemController(DBContext db)
+        public ItemController(DBContext db, IItemService _is, IInventoryService _invs)
         {
-            _db = db;
+            //_db = db;
+            itemService = _is;
+            inventoryService = _invs;
         }
 
         // Might need to implement
@@ -100,7 +105,7 @@ namespace BeanBag.Controllers
         {
             // This creates a list of the different inventories available to put the item into
 
-            var inventories = from i in _db.Inventories where i.userId.Equals(User.GetObjectId()) select i;
+            var inventories = inventoryService.GetInventories(User.GetObjectId());
 
             IEnumerable < SelectListItem > InventoryDropDown = inventories.Select(i => new SelectListItem
             {
@@ -128,15 +133,7 @@ namespace BeanBag.Controllers
             // Making sure the newItem is valid before adding it into the item table (making sure all the required fields have a value)
             if(ModelState.IsValid)
             {
-                _db.Items.Add(newItem);
-                _db.SaveChanges();
-
-                string itemID = newItem.Id.ToString();
-
-                // Adding QRContents to the new item made and applying changes
-                newItem.QRContents = "https://bean-bag.azurewebsites.net/api/QRCodeScan?itemID=" + itemID;
-                _db.Items.Update(newItem);
-                _db.SaveChanges();
+                itemService.CreateItem(newItem);
                 
                 // Returns back to the viewItems view for the inventory using the inventoryId
                 return LocalRedirect("/Inventory/ViewItems?InventoryId="+newItem.inventoryId.ToString());
@@ -148,14 +145,9 @@ namespace BeanBag.Controllers
         // This is the GET method of item edit
         // This returns the view of an item that is being edited
         // Accepts an itemId in order to return a view of the item that needs to be edited with it's respective information passed along
-        public IActionResult Edit(Guid? Id)
+        public IActionResult Edit(Guid Id)
         {
-            if(Id == null)
-            {
-                return NotFound();
-            }
-
-            var item = _db.Items.Find(Id);
+            var item = itemService.FindItem(Id);
             // Does the item exist in the table 
             if(item == null)
             {
@@ -163,7 +155,7 @@ namespace BeanBag.Controllers
             }
 
             // This creates a list of the different inventories available to put the item into
-            var inventories = from i in _db.Inventories where i.userId.Equals(User.GetObjectId()) select i;
+            var inventories = inventoryService.GetInventories(User.GetObjectId());
 
             IEnumerable<SelectListItem> InventoryDropDown = inventories.Select(i => new SelectListItem
             {
@@ -185,8 +177,7 @@ namespace BeanBag.Controllers
             // Makes sure that 
             if(ModelState.IsValid)
             {
-                _db.Items.Update(item);
-                _db.SaveChanges();
+                itemService.EditItem(item);
 
                 return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
             }
@@ -195,51 +186,36 @@ namespace BeanBag.Controllers
         }
 
         // This is the GET method for delete item
-        public IActionResult Delete(Guid? Id)
+        public IActionResult Delete(Guid Id)
         {
- 
-            if (Id == null)
-            {
-                return NotFound();
-            }
-
-            var item = _db.Items.Find(Id);
+            var item = itemService.FindItem(Id);
             // Does the item exist in the item table
             if (item == null)
             {
                 return NotFound();
             }
 
-            ViewBag.InventoryName = _db.Inventories.Find(item.inventoryId).name;
+            ViewBag.InventoryName = inventoryService.FindInventory(item.inventoryId).name;
             return View(item);
         }
 
         // This is the POST method for delete item
         [HttpPost]
-        public IActionResult DeletePost(Guid? Id)
+        public IActionResult DeletePost(Guid Id)
         {
-            // Item variable
-            var item = _db.Items.Find(Id);
-
-            if(item == null)
-            {
-                return NotFound();
-            }
-
-            // Deletes item in table
-            _db.Items.Remove(item);
-            _db.SaveChanges();
+            string inventoryId = itemService.GetInventoryIdFromItem(Id).ToString();
+            itemService.DeleteItem(Id);
 
             // Returns back to the view items in inventory using the inventory ID
             // The reason why we can still use item.inventoryId is because it is still an intact variable
             // The item variable is not deleted. Only the information in the item table, not the item variable itself
-            return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
+            return LocalRedirect("/Inventory/ViewItems?InventoryId=" + inventoryId);
         }
 
         // Define a function to generate a QR code every time we want to view it
         public IActionResult ViewQRCode(Guid Id)
         {
-            var item = _db.Items.Find(Id);
+            var item = itemService.FindItem(Id);
 
             if(item == null)
             {
@@ -255,6 +231,7 @@ namespace BeanBag.Controllers
                 bitmap.Save(ms, ImageFormat.Png);
 
                 ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
+                ViewBag.InventoryId = item.inventoryId;
 
                 return View();
             }
@@ -264,9 +241,9 @@ namespace BeanBag.Controllers
         
         public IActionResult PrintQRCode(Guid Id)
         {
-            var item = _db.Items.Find(Id);
+            var item = itemService.FindItem(Id);
 
-            if(item == null)
+            if (item == null)
             {
                 return NotFound();
             }
