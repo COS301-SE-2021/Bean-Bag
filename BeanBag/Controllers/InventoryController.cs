@@ -9,6 +9,7 @@ using Microsoft.Identity.Web;
 using System.Drawing.Imaging;
 using System.IO;
 using QRCoder;
+using BeanBag.Services;
 
 namespace BeanBag.Controllers
 {
@@ -18,10 +19,13 @@ namespace BeanBag.Controllers
         // This variable is used to interact with the Database/DBContext class. Allows us to save, update and delete records 
         private readonly DBContext _db;
 
-        public InventoryController(DBContext db)
+        private readonly IInventoryService inventoryService;
+
+        public InventoryController(DBContext db, IInventoryService _is)
         {
             // Inits the db context allowing us to use CRUD operations on the inventory table
             _db = db;
+            inventoryService = _is;
         }
 
         public void checkUserRole()
@@ -43,8 +47,7 @@ namespace BeanBag.Controllers
             // If not logged in throw user back to home page
             if(User.Identity.IsAuthenticated)
             {
-                string userObjectId = User.GetObjectId();
-                var inventories = from i in _db.Inventories where i.userId.Equals(userObjectId) select i;
+                var inventories = inventoryService.GetInventories(User.GetObjectId());
 
                 //Checking user role is in DB
                 checkUserRole();
@@ -78,9 +81,7 @@ namespace BeanBag.Controllers
                 // Checks to see that the newInventory is valid (that the fields filled in the create view are present)
                 if (ModelState.IsValid)
                 {
-                    // Adds the newInventory to the Inventory table. 
-                    _db.Inventories.Add(newInvetory);
-                    _db.SaveChanges();
+                    inventoryService.CreateInventory(newInvetory);
 
                     // Returns back to inventory/index
                     return RedirectToAction("Index");
@@ -90,7 +91,8 @@ namespace BeanBag.Controllers
             }
             else
             {
-                return LocalRedirect("/");
+                //return LocalRedirect("/");
+                return BadRequest();
             }
            
         }
@@ -98,18 +100,12 @@ namespace BeanBag.Controllers
         // This is the Get method for viewItems
         // Views all of the items within the specified inventory
         [HttpGet]
-        public IActionResult ViewItems(Guid? InventoryId)
+        public IActionResult ViewItems(Guid InventoryId)
         {
             if(User.Identity.IsAuthenticated)
             {
-                // If the inventory id field in the URL is nothing
-                if (InventoryId == null)
-                {
-                    return NotFound();
-                }
-
                 // Find the inventory in the inventory table using the inventory ID
-                Inventory inventory = _db.Inventories.Find(InventoryId);
+                Inventory inventory = inventoryService.FindInventory(InventoryId);
 
                 // If their doesn't exist an inventory with the inventory id given
                 if (inventory == null)
@@ -144,18 +140,12 @@ namespace BeanBag.Controllers
         // This is the GET Method for Edit
         // This returns the view for editing the information related to an inventory
         // The URL needs to accept the GUID of the inventory that is being edited
-        public IActionResult Edit(Guid? id)
+        public IActionResult Edit(Guid id)
         {
             if(User.Identity.IsAuthenticated)
             {
-                // If their doesn't exist an inventory with the inventory id given
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
                 // Find the inventory in the inventory table using the inventory ID
-                var inventory = _db.Inventories.Find(id);
+                var inventory = inventoryService.FindInventory(id);
 
                 if(inventory.userId == User.GetObjectId())
                 {
@@ -189,17 +179,14 @@ namespace BeanBag.Controllers
                 // Making sure that the inventory is valid before applying the changes into the DB
                 if (ModelState.IsValid)
                 {
-                    if(inventory.userId == User.GetObjectId())
+                    if(inventoryService.EditInventory(User.GetObjectId(), inventory))
                     {
-                        _db.Inventories.Update(inventory);
-                        _db.SaveChanges();
                         return RedirectToAction("Index");
                     }
                     else
                     {
                         return BadRequest();
-                    }
-                    
+                    }                 
                 }
 
                 // If model state is invalid then we return back to the inventory edit view
@@ -213,17 +200,13 @@ namespace BeanBag.Controllers
         }
 
         // This is the GET method for delete inventory
-        public IActionResult Delete(Guid? id)
+        public IActionResult Delete(Guid id)
         {
             if(User.Identity.IsAuthenticated)
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
 
                 // Find the inventory in the inventory table using the inventory ID
-                var inventory = _db.Inventories.Find(id);
+                var inventory = inventoryService.FindInventory(id);
 
                 if (inventory == null)
                 {
@@ -247,34 +230,18 @@ namespace BeanBag.Controllers
         // This is the POSt method for delete inventory
         // This allows us to delete an inventory using the inventory ID
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public IActionResult DeletePost(Guid? id)
+        public IActionResult DeletePost(Guid id)
         {
             if(User.Identity.IsAuthenticated)
             {
-                var inventory = _db.Inventories.Find(id);
-
-                // Checking to see if inventory is in the inventory table
-                if (inventory == null)
+                if(inventoryService.DeleteInventory(id, User.GetObjectId()))
                 {
-                    return NotFound();
+                    return RedirectToAction("Index");
                 }
-
-                if(inventory.userId != User.GetObjectId())
+                else
                 {
                     return BadRequest();
                 }
-
-                // We are removing all the items in the inventory from the items table
-                var items = from i in _db.Items where i.inventoryId.Equals(id) select i;
-                foreach (var i in items)
-                {
-                    _db.Items.Remove(i);
-                }
-                // Deleting the inventory from inventory table
-                _db.Inventories.Remove(inventory);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
             }
             else
             {
