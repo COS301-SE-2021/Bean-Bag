@@ -9,51 +9,10 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-<style >.home-btn { }</style> <!-- type="text/css"-->
 
-<header>
-
-    <nav class="navbar navbar-expand-lg fixed-top navbar-shrink">
-        <div class="container">
-            <!-- Brand -->
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bean Bag</a>
-
-            <!-- Toggler/collapsible Button -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <i class="fas fa-bars"> </i>
-            </button>
-
-            <!-- Navbar links add active thing on the link to the current that you're on... -->
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav ml-auto">
-
-                    @{
-                        System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                     {
-                        <!-- <li class="nav-item"><span class="navbar-toggler-icon"> Hello @User.Identity.Name</span>
-                        </li>-->
-
-                         @if (!string.IsNullOrEmpty(options.EditProfilePolicyId))
-                         {
-                             <li class="nav-item">
-                                 <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="EditProfile">Edit Profile</a>
-                             </li>
-                         }
-
-                         <li class="nav-item">
-                             <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
-                         </li>
-                     }
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
 
 <!-- Home Page Heading Text, Description and Animation...-->
-<section class="home d-flex align-items-center">
+<section class="page-content">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-6">
@@ -78,15 +37,9 @@
         </div>
 
     </div>
-
+    
 </section>
 
-<footer id="sticky-footer"  class="footer-copyright ">
-        <!--class="border-top footer text-muted"-->
-        <div class="container">
-            &copy; 2021 - BeanBag by <a class="agile-link" href="https://www.agilebridge.co.za/">Agile Bridge </a>
-            <br>
-            <a class="landing-page-image" href="https://www.freepik.com/vectors/box">Box vector created by vectorjuice - www.freepik.com</a>
-        </div>
-</footer>
-
+<div class="page-footer">
+    <span>    &copy; 2021 - Agile Bridge </span>
+</div>

@@ -27,6 +27,7 @@ body {
     /*try this...*/
 }
 
+
 .btn-1 {
     background-color: var(--main-color);
     padding: 12px 30px;
@@ -311,7 +312,7 @@ footer {
     color: #ffffff;
     bottom: 0;
     /*min-height: 8vh;*/
-    position: fixed;
+   position: fixed;
     width:100%
 }
 
