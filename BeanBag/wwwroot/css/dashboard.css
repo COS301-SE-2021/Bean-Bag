@@ -1,6 +1,5 @@
 ﻿/* RESET RULES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-@import url("https://fonts.googleapis.com/css?family=Lato:400,700&display=swap");
 
 :root {
     --page-header-bgColor: #1f1e1e;
@@ -272,24 +271,6 @@ svg {
     height: 30px;
 }
 
-.search-and-user .admin-profile .notifications {
-    position: relative;
-}
-
-.search-and-user .admin-profile .badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: -10px;
-    right: -3px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    font-size: 10px;
-    color: var(--white);
-    background: var(--red);
-}
 
 .page-content .grid {
     display: grid;
@@ -562,6 +543,7 @@ svg {
     align-items: center;
     justify-content: flex-end;
     margin-top: 10px;
+    
 }
 
 .page-footer a {
