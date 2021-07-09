@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    font-family: "Exo", sans-serif;
+    color: #fff;
+    background: linear-gradient(-45deg, blue, white, white, blue);
+    background-size: 400% 400%;
+    animation: gradientBG 17s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+.container {
+    width: 100%;
+    position: absolute;
+    top: 35%;
+    text-align: center;
+}
+
+h1 {
+    font-weight: 300;
+}
+
+h3 {
+    color: #eee;
+    font-weight: 100;
+}
+
+h5 {
+    color:#eee;
+    font-weight:300;
+}
+
+a,
+a:hover {
+    text-decoration: none;
+    color: #ddd;
+}
