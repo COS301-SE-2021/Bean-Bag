@@ -1,0 +1,45 @@
+﻿@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+
+@{
+    var options = _azureAdb2COptions.Value;
+}
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<!-- Home Page Heading Text, Description and Animation...-->
+<section class="page-content">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6">
+                <div class="content-item">
+                    <div class="icon">
+                        <img src="images/plus.svg" alt="add" class="filter-colour" />
+                    </div>
+                    <div class="fixMargin home-text text-center">
+                        <p> Click on the button below in order to add an item to your inventory.</p>
+                    </div>
+                    <div class="home-btn text-center">
+                        <a class="btn btn-1" asp-area="" asp-controller="" asp-action="Index"> Add item</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-1 ">
+
+            </div>
+            <div class="col-lg-5 col-md-5 text-center">
+
+            </div>
+        </div>
+
+    </div>
+    
+</section>
+
+<div class="page-footer">
+    <span>    &copy; 2021 - Agile Bridge </span>
+</div>
