@@ -74,34 +74,37 @@ a:hover {
 /*  Navbar  */
 .navbar {
     background-color: transparent;
-    padding: 25px 0;
+    padding: 50px 0;
     font-family: 'Poppins', sans-serif;
+    margin-top: 10px;
+    color: black;
 }
 
 .navbar > .container {
-    padding: 0 25px;
+    padding: 0 45px;
 }
 
 .navbar .navbar-brand {
     font-size: 30px;
     color: black;
     text-transform: capitalize;
-    margin-left: 5px;
+    margin-left: 40px;
     font-weight: 600;
 }
 
 .navbar .nav-item {
-    margin-left: 40px;
+    margin-right: 40px;
     color: black;
 }
 
 .navbar .nav-item .nav-link {
-    color: #ffffff;
+    color: #100f0f;
     text-transform: capitalize;
     font-size: 16px;
     font-weight: 400;
     padding: 5px 0;
     position: relative;
+    text-decoration: none;
 }
 
 .navbar .nav-item .nav-link::before {
@@ -116,11 +119,15 @@ a:hover {
     transform: scale(0);
     color:black ;
     font-family: 'Poppins', sans-serif;
+
+    text-decoration: none;
 }
 
 .navbar .nav-item .nav-link.active::before,
 .navbar .nav-item .nav-link:hover::before {
     transform: scale(1);
+    text-decoration: none;
+    color: black;
 }
 .navbar-toggler{
     padding: .25rem .75rem;
@@ -194,9 +201,9 @@ css {
 .svg-wrapper {
     margin-top: 0;
     position: relative;
-    width: 160px;
+    width: 150px;
     /*make sure to use same height/width as in the html*/
-    height: 50px;
+    height: 40px;
     display: inline-block;
     border-radius: 3px;
     margin-left: 5px;
