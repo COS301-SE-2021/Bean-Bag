@@ -5,34 +5,72 @@
 @{
        Layout = null;
 }
-<!--Preloader Start-->
-<div class="preloader">
-	<span> </span>
-</div>
 
 <link rel="stylesheet" href="css/splashscreen.css">
-  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-   
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+<!--Preloader Start-->
+
+
+<!--Content-->
 <div class="container1">
-	<h1>Pure CSS Animated Gradient Background</h1>
-	<h3><a href="https://codepen.io/P1N2O/full/pyBNzX" target="_blank">Full Screen</a></h3>
-	<h5><small>by</small> <a href="https://manuelpinto.in" target="_blank"> Manuel Pinto</a></h5>
-</div><nav class="navbar navbar-expand-md navbar-light bg-light">
-	<a href="#" class="navbar-brand">Brand</a>
+	
+	<h1 id="title-heading">Inventory Management Solution for your business.</h1>
+	<h3 id="sub-heading"> Bean Bag is an Inventory Management System that utilizes AI recognition technology to optomise the way you manage your stock.</h3>
+	
+
+        <!--start button, nothing above this is necessary -->
+        <div class="svg-wrapper">
+          <svg height="50" width="160" xmlns="http://www.w3.org/2000/svg">
+            <rect id="shape" height="50" width="160" />
+            <div id="text">
+              <a href=""><span class="spot"></span>Learn More</a>
+            </div>
+          </svg>
+        </div>
+      
+    <br> <br>
+	<div id="" data-aos="fade-up"
+     data-aos-duration="1200">
+	<img src="images/dashboard.png" width="1100px" alt="dashboard"><br>
+</div>
+
+	</div>
+
+<!--Navbar-->
+<nav class="navbar navbar-expand-md navbar-light">
+	<a href="#" class="navbar-brand">Bean Bag</a>
 	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
 		<span class="navbar-toggler-icon"></span>
 	</button>
+	@{
+					System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+				}
+				@if (User.Identity.IsAuthenticated)
+				{
 
-	<div class="collapse navbar-collapse" id="navbarCollapse">
-		<div class="navbar-nav">
-			<a href="#" class="nav-item nav-link active">Home</a>
-			<a href="#" class="nav-item nav-link">Profile</a>
-			<a href="#" class="nav-item nav-link">Messages</a>
-			<a href="#" class="nav-item nav-link disabled" tabindex="-1">Reports</a>
-		</div>
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+		
 		<div class="navbar-nav ml-auto">
-			<a href="#" class="nav-item nav-link">Login</a>
+			<li class="nav-item">
+						<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">  Login | SignUp
+					
+					<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+						<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+						<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+					</svg>
+			</a></li>
+			
+				
 		</div>
 	</div>
+				}
+	
 </nav>
+
+<script>
+  AOS.init();
+</script>
