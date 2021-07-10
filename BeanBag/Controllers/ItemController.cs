@@ -26,16 +26,20 @@ namespace BeanBag.Controllers
     {
         private readonly IItemService itemService;
         private readonly IInventoryService inventoryService;
+        private readonly IAIService aIService;
+        private readonly IBlobStorageService blobStorageService;
 
         // This variable is used to interact with the Database/DBContext class. Allows us to save, update and delete records 
         //private readonly DBContext _db;
         // The connection string is exposed. Will need to figure out a way of getting it out of appsetting.json. Maybe init in startup like db context ?
         
-        public ItemController(DBContext db, IItemService _is, IInventoryService _invs)
+        public ItemController(DBContext db, IItemService _is, IInventoryService _invs, IAIService _aI, IBlobStorageService _blob)
         {
             //_db = db;
             itemService = _is;
             inventoryService = _invs;
+            aIService = _aI;
+            blobStorageService = _blob;
         }
 
         // Might need to implement
@@ -55,46 +59,11 @@ namespace BeanBag.Controllers
         // This method also uses the custom vision AI that will predict what type of item is in the image
         [HttpPost]
         public async Task<IActionResult> UploadImage([FromForm(Name = "file")] IFormFile file)
-        {
-            // Objects used to upload the file into the Azure blob container
-            CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;EndpointSuffix=core.windows.net");
-            CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
-            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference("itemimages");
+        { 
+            string imageURL = await blobStorageService.uploadItemImage(file);
+            string prediction = aIService.predict(imageURL);
 
-            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(file.FileName);
-            cloudBlockBlob.Properties.ContentType = file.ContentType;
-
-            // Copying the file into a memory stream and then uploaded into the azure blob container
-            var ms = new MemoryStream();
-            await file.CopyToAsync(ms);
-            await cloudBlockBlob.UploadFromByteArrayAsync(ms.ToArray(), 0, (int)ms.Length);
-
-            // Objects used to predict what type of item is in the image
-            string predictionUrl = "https://uksouth.api.cognitive.microsoft.com/";
-
-            string furnitureModelPredictionKey = "f05b67634cc3441492a07f32553d996a";
-            string furnitureModelProjectId = "377f08bf-2813-43cd-aa41-b0e623b2beec";
-            string furnitureModelPredictionName = "Iteration1";
-            
-            string clothingModelPredictionKey = "3fcb002210614500aaf87a89c79603d1";
-            string clothingModelProjectId = "8c37a1ca-7ede-43ab-9a92-150d4e6c8fdc";
-            string clothingModelPredictionName = "ClothingMiniModelV1.0";
-
-            CustomVisionPredictionClient predictionClient = new CustomVisionPredictionClient
-                (new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.ApiKeyServiceClientCredentials(clothingModelPredictionKey))
-            {
-                Endpoint = predictionUrl
-            };
-
-            // We are using the URL: cloudBlockBlob.Uri.AbsoluteUri
-            // This url is from the method above where we uploaded the image to the blob container
-            // This method uses an image url and information regarding the AI model used to return the predicted item type
-            var result = predictionClient.ClassifyImageUrl(new Guid(clothingModelProjectId), clothingModelPredictionName, 
-                new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(cloudBlockBlob.Uri.AbsoluteUri.ToString()));
-
-            // We are returning to the item create page with the imageURL and itemtype given into the parameters
-            // These url parameters values are grabbed and put into the create item view fields. This makes the automation part of creating an item.
-            return LocalRedirect("/Item/Create?imageUrl="+ cloudBlockBlob.Uri.AbsoluteUri.ToString() + "&itemType="+ result.Predictions[0].TagName);
+            return LocalRedirect("/Item/Create?imageUrl="+ imageURL + "&itemType="+ prediction);
         }
 
         // Get method for create
