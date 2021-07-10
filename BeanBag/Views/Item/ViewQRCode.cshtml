@@ -10,59 +10,19 @@
     var options = _azureAdb2COptions.Value;
 }
 
-<header>
-
-    <nav class="navbar navbar-expand-lg fixed-top navbar-shrink">
-        <div class="container">
-            <!-- Brand -->
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bean Bag</a>
-
-            <!-- Toggler/collapsible Button -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <i class="fas fa-bars"> </i>
-            </button>
-
-            <!-- Navbar links add active thing on the link to the current that you're on... -->
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav ml-auto">
-
-                    @{
-                        System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <!-- <li class="nav-item"><span class="navbar-toggler-icon"> Hello @User.Identity.Name</span>
-                        </li>-->
-
-                        @if (!string.IsNullOrEmpty(options.EditProfilePolicyId))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="EditProfile">Edit Profile</a>
-                            </li>
-                        }
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
 <section class="home d-flex align-items-center">
     <div class="container">
             <h3>View QR Code</h3>
             <br/>
-           <img src ="@ViewBag.QRCode" width="200" height="200" /> 
+           <img src ="@ViewBag.QRCode" width="200" height="200"  alt="QR"/> 
     </div>
 
 </section>
-  <footer id="sticky-footer"  class="footer-copyright ">
-        <!--class="border-top footer text-muted"-->
-        <div class="container">
-            &copy; 2021 - BeanBag by <a class="agile-link" href="https://www.agilebridge.co.za/">Agile Bridge </a>
-            <br>
-            <a class="landing-page-image" href="https://www.freepik.com/vectors/box">Box vector created by vectorjuice - www.freepik.com</a>
-        </div>
-    </footer>
+<!--<footer id="sticky-footer"  class="footer-copyright "> -->
+<!--class="border-top footer text-muted"-->
+<!-- <div class="container">
+    &copy; 2021 - BeanBag by <a class="agile-link" href="https://www.agilebridge.co.za/">Agile Bridge </a>
+    <br>
+    <a class="landing-page-image" href="https://www.freepik.com/vectors/box">Box vector created by vectorjuice - www.freepik.com</a>
+</div>
+</footer> -->
