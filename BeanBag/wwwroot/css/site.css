@@ -15,6 +15,7 @@
     --black-400: #555555;
     --black-100: #ffffff;
     --black-alpha-100: rgba(0, 0, 0, 0.05);
+    
 }
 
 body {
@@ -492,3 +493,4 @@ for details on configuring this project to bundle and minify static web assets. 
     padding: 80px; /*Default value was 150px*/
     background-color: #f1f2f6;
 }
+

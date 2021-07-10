@@ -2,7 +2,7 @@
 $(function() {
     "use strict";
 // ============================================================== 
-    // Total Sale
+    // Total Sale -Graphic
     // ============================================================== 
     let ctx = document.getElementById("total-sale").getContext('2d');
     new Chart(ctx, {
