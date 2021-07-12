@@ -1,0 +1,253 @@
+/*  Fonts  */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+body {
+    margin: 0;
+    width: 100%;
+    height: 100vh; font-family: 'Poppins', sans-serif;
+    color: #fff;
+    background: linear-gradient(-45deg, #4BC0C8, white, white, #C779D0);
+    background-size: 400% 400%;
+    animation: gradientBG 7s ease infinite;
+}
+/*  background  */
+#font
+{
+    font-family: 'Poppins', sans-serif;
+}
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.container1 {
+    width: 100%;
+    position: absolute;
+    top: 16%;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+#sub-heading
+{
+    margin: 0 0 25px;
+    font-size: 20px; 
+    font-weight: 400;
+    line-height: 24px;
+    color: #2b2c2f;
+}
+
+#title-heading
+{
+    font-size: 50px;
+    font-weight: 900;
+    margin: 0 0 55px;
+}
+
+h1 {
+    font-weight: 300;
+}
+
+h3 {
+    color: #eee;
+    font-weight: 100;
+}
+
+h5 {
+    color:#eee;
+    font-weight:300;
+}
+
+a,
+a:hover {
+    text-decoration: none;
+    color: #ddd;
+}
+
+/*  Navbar  */
+.navbar {
+    background-color: transparent;
+    padding: 50px 0;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 10px;
+    color: black;
+}
+
+.navbar > .container {
+    padding: 0 45px;
+}
+
+.navbar .navbar-brand {
+    font-size: 30px;
+    color: black;
+    text-transform: capitalize;
+    margin-left: 40px;
+    font-weight: 600;
+}
+
+.navbar .nav-item {
+    margin-right: 40px;
+    color: black;
+}
+
+.navbar .nav-item .nav-link {
+    color: #100f0f;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 5px 0;
+    position: relative;
+    text-decoration: none;
+}
+
+.navbar .nav-item .nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ffffff;
+    transition: all 0.5s ease;
+    transform: scale(0);
+    color:black ;
+    font-family: 'Poppins', sans-serif;
+
+    text-decoration: none;
+}
+
+.navbar .nav-item .nav-link.active::before,
+.navbar .nav-item .nav-link:hover::before {
+    transform: scale(1);
+    text-decoration: none;
+    color: black;
+}
+.navbar-toggler{
+    padding: .25rem .75rem;
+    font-size:1.25rem;
+    line-height:1;
+    background-color: transparent;
+    border-radius: .25rem;
+}
+
+img {
+    border-radius: 1%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
+
+/*       Just setting CSS for the page   */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+css {
+    width: 100%;
+    height: 100%;
+}
+
+.position {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 15%;
+}
+
+#workarea {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #1e1a3e;
+    font-family: Raleway;
+}
+
+#personal {
+    color:white;
+    text-decoration:none;
+    position:absolute;
+    bottom:15px;
+    right:2%;
+}
+/*    start code for the actual button:         */
+
+
+/*   
+    Spot is the span on the inside of the href that
+    fills the parent and makes the hover and link work
+    for the entire div
+*/
+
+.spot {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+/*
+    This is the outer svg wrapper that the SVG itself will 
+    fill. Multiple svg-wrapper classes can be put side by side.
+*/
+
+.svg-wrapper {
+    margin-top: 0;
+    position: relative;
+    width: 150px;
+    /*make sure to use same height/width as in the html*/
+    height: 40px;
+    display: inline-block;
+    border-radius: 3px;
+    margin-left: 5px;
+    margin-right: 5px
+}
+/*
+  This is where we define the fill, color, thickness,
+  and stroke pattern of the SVG when there is no hover.
+  The dasharray and offset together define the line position
+  under the words. Here's also where the transition speed is set.
+*/
+
+#shape {
+    stroke-width: 10px;
+    fill: transparent;
+    stroke: #3b2db8;
+    stroke-dasharray: 85 400;
+    stroke-dashoffset: -220;
+    transition: 1s all ease;
+}
+/* 
+    Pushing the text up into the SVG. Without this the
+    text would be below the div's.
+*/
+
+#text {
+    margin-top: -35px;
+    text-align: center;
+}
+
+#text a {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+/* 
+    Changing the shape on hover. I change the color of the stroke,
+make it thinner, then set it to again wrap around the entire parent element.
+*/
+
+.svg-wrapper:hover #shape {
+    stroke-dasharray: 50 0;
+    stroke-width: 3px;
+    stroke-dashoffset: 0;
+    stroke: #06D6A0;
+}

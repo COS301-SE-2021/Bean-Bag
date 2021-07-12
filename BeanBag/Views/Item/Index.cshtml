@@ -27,9 +27,9 @@
                 @foreach (var item in Model)
                 {
                 <tr>
-                    <td width="50%">@item.name</td>
-                    <td width="50%">@item.type</td>
-                    <td width="50%">
+                    <td>@item.name</td> <!-- width="50%"-->
+                    <td>@item.type</td> <!-- width="50%"-->
+                    <td > <!-- width="50%"-->
                         <div class="w-100 btn-group" role="group">
                             <a asp-controller="Item" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-secondary">Edit</a>
                             <a asp-controller="Item" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger">Delete</a>
@@ -45,4 +45,11 @@
         <p>No Items yet</p>
     }
 </div>
-
+<!--<footer id="sticky-footer"  class="footer-copyright "> -->
+                  <!--class="border-top footer text-muted"-->
+                 <!-- <div class="container">
+                      &copy; 2021 - BeanBag by <a class="agile-link" href="https://www.agilebridge.co.za/">Agile Bridge </a>
+                      <br>
+                      <a class="landing-page-image" href="https://www.freepik.com/vectors/box">Box vector created by vectorjuice - www.freepik.com</a>
+                  </div>
+              </footer> -->

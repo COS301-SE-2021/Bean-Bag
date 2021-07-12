@@ -15,6 +15,7 @@
     --black-400: #555555;
     --black-100: #ffffff;
     --black-alpha-100: rgba(0, 0, 0, 0.05);
+    
 }
 
 body {
@@ -26,6 +27,7 @@ body {
     line-height: 1.5;
     /*try this...*/
 }
+
 
 .btn-1 {
     background-color: var(--main-color);
@@ -93,12 +95,12 @@ ul {
         opacity: 0;
     }
 }
-/* fix padding on QRcode page*/
-.fixpadding {
+/* fix padding on QRCode page*/
+.fixPadding {
     padding-bottom: 25px;
 }
 
-.fixmargin {
+.fixMargin {
     margin: 10px;
 }
 
@@ -130,7 +132,7 @@ ul {
     padding: 20px 0;
 }
 
-    .navbar > container {
+    .navbar > .container {
         padding: 0 15px;
     }
 
@@ -311,7 +313,7 @@ footer {
     color: #ffffff;
     bottom: 0;
     /*min-height: 8vh;*/
-    position: fixed;
+   position: fixed;
     width:100%
 }
 
@@ -491,3 +493,4 @@ for details on configuring this project to bundle and minify static web assets. 
     padding: 80px; /*Default value was 150px*/
     background-color: #f1f2f6;
 }
+
