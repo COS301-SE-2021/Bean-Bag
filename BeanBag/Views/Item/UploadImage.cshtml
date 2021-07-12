@@ -6,32 +6,33 @@
     var options = _azureAdb2COptions.Value;
 }
 
-<section class="inventory d-flex align-items-center">
-
+<section class="inventory d-flex justify-content-center">
+    <div class="col-1 "> </div>
     <form method="post" enctype="multipart/form-data" asp-action="UploadImage" asp-controller="Item">
         <div asp-validation-summary="All" class="text-danger"></div>
         <br/> 
-        <div class="form-group row">
+        <div class="form-group row text-center">
             <h3>Upload Image</h3>
         </div>
-         <div class="col-2" ></div>  
-        <div class="col-8">
-            <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0">
-                <label id="upload-label" for="upload" class="font-weight-light text-muted ">Upload Image</label>
-                <div class="input-group-append">
-                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted text-center"></i><small class="text-uppercase font-weight-bold text-muted text-center "> <img src="../../wwwroot/images/upload-simple.svg" class="filter-colour2" alt="upload"/></small></label>
-                </div>
-            </div>       
-            
-            <p class="font-italic text-secondary text-center"></p>
-            <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-2" ></div>  
+            <div class="col-8">
+                <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                    <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0">
+                    <label id="upload-label" for="upload" class="font-weight-light text-muted ">Upload Image</label>
+                    <div class="input-group-append">
+                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted text-center"></i><small class="text-uppercase font-weight-bold text-muted text-center "> <img src="../../wwwroot/images/upload-simple.svg" class="filter-colour2" alt="upload"/></small></label>
+                    </div>
+                </div>       
+                
+                <p class="font-italic text-secondary text-center"></p>
+                <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
 
-            <br/>
-            <input type="submit" value="Submit" class="btn btn-1"/>
-        </div>
-         <div class="col-2" ></div>  
-               
+                <br/>
+                <input type="submit" value="Submit" class="btn btn-1"/>
+            </div>
+             <div class="col-2" ></div>  
+         </div>       
             
         
     </form>

@@ -10,58 +10,62 @@
 <section class="inventory d-flex align-items-center">
     <div class="container p-3">
         <div class="row pt-4">
-            <div class="col-6">
+            <div class="col-1">
+                
+            </div>            
+            <div class="col-5">
                 <h2 class="text-primary">Inventory List</h2><br/>
                 <h4 class="text-secondary">@ViewBag.InventoryName</h4>
             </div>
             <div class="col-6 text-right">
-                <a asp-controller="Inventory" asp-action="Index" class="btn btn-primary">Back</a>
+                <a asp-controller="Inventory" asp-action="Index" class="btn btn-2">Back</a>
             </div>
         </div>
         <br />
-        @if (Model.Count() > 0)
-        {
-            <table class="table table-bordered table-striped" style="width:100%">
-                <thead>
-                <tr>
-                    <th>
-                        Item Name
-                    </th>
-                    <th>
-                        Item Type
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td >@item.name</td> <!-- width="50%"-->
-                        <td>@item.type</td> <!-- width="50%"-->
-                        <td> <!-- width="50%"-->
-                            <div class="w-100 btn-group" role="group">
-                                <a asp-controller="Item" asp-action="Edit" asp-route-Id="@item.Id" class="btn ">Edit</a>
-                                <a asp-controller="Item" asp-action="Delete" asp-route-Id="@item.Id" class="btn ">Delete</a>
-                                <a asp-controller="Item" asp-action="ViewQRCode" asp-route-Id="@item.Id" class="btn ">View QR Code</a>
-                                <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@item.Id" class="btn ">Print QR Code</a>            
-                            </div>
-                        </td>
-                    </tr>
-                }
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <p>No items yet</p>
-        }
+        <div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-1 "> </div>
+                <div class="col-11 "> <!-- this div contains the table code d-flex justify-content-center -->
+                    @if (Model.Any())
+                    {
+                        <table class="table table-bordered table-striped" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>
+                                    Item Name
+                                </th>
+                                <th>
+                                    Item Type
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td >@item.name</td> <!-- width="50%"-->
+                                    <td>@item.type</td> <!-- width="50%"-->
+                                    <td> <!-- width="50%"-->
+                                        <div class="w-100 btn-group" role="group">
+                                            <a asp-controller="Item" asp-action="Edit" asp-route-Id="@item.Id" class="btn ">Edit</a>
+                                            <a asp-controller="Item" asp-action="Delete" asp-route-Id="@item.Id" class="btn ">Delete</a>
+                                            <a asp-controller="Item" asp-action="ViewQRCode" asp-route-Id="@item.Id" class="btn ">View QR Code</a>
+                                            <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@item.Id" class="btn ">Print QR Code</a>            
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>No items yet</p>
+                    }                    
+                </div>
+            </div>
+         
+        </div>
+
     </div>
 </section>
-<!--<footer id="sticky-footer"  class="footer-copyright "> -->
-<!--class="border-top footer text-muted"-->
-<!-- <div class="container">
-    &copy; 2021 - BeanBag by <a class="agile-link" href="https://www.agilebridge.co.za/">Agile Bridge </a>
-    <br>
-    <a class="landing-page-image" href="https://www.freepik.com/vectors/box">Box vector created by vectorjuice - www.freepik.com</a>
-</div>
-</footer> -->
