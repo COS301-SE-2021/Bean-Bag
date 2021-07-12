@@ -9,6 +9,7 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using BeanBag.Database;
+using BeanBag.Services;
 
 namespace BeanBag
 {
@@ -55,6 +56,13 @@ namespace BeanBag
             services.AddDbContext<DBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
+
+            //Adding service classes to be used as a DI
+            services.AddTransient<IInventoryService, InventoryService>();
+            services.AddTransient<IItemService, ItemService>();
+            services.AddTransient<IAIService, AIService>();
+            services.AddTransient<IBlobStorageService, BlobStorageService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

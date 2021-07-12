@@ -18,19 +18,28 @@ using System.Threading.Tasks;
 using Microsoft.Identity.Web;
 using System.Drawing.Imaging;
 using QRCoder;
-
+using BeanBag.Services;
 
 namespace BeanBag.Controllers
 {
     public class ItemController : Controller
     {
+        private readonly IItemService itemService;
+        private readonly IInventoryService inventoryService;
+        private readonly IAIService aIService;
+        private readonly IBlobStorageService blobStorageService;
+
         // This variable is used to interact with the Database/DBContext class. Allows us to save, update and delete records 
-        private readonly DBContext _db;
+        //private readonly DBContext _db;
         // The connection string is exposed. Will need to figure out a way of getting it out of appsetting.json. Maybe init in startup like db context ?
         
-        public ItemController(DBContext db)
+        public ItemController(DBContext db, IItemService _is, IInventoryService _invs, IAIService _aI, IBlobStorageService _blob)
         {
-            _db = db;
+            //_db = db;
+            itemService = _is;
+            inventoryService = _invs;
+            aIService = _aI;
+            blobStorageService = _blob;
         }
 
         // Might need to implement
@@ -50,37 +59,11 @@ namespace BeanBag.Controllers
         // This method also uses the custom vision AI that will predict what type of item is in the image
         [HttpPost]
         public async Task<IActionResult> UploadImage([FromForm(Name = "file")] IFormFile file)
-        {
-            // Objects used to upload the file into the Azure blob container
-            CloudStorageAccount cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;EndpointSuffix=core.windows.net");
-            CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
-            CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference("itemimages");
+        { 
+            string imageURL = await blobStorageService.uploadItemImage(file);
+            string prediction = aIService.predict(imageURL);
 
-            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(file.FileName);
-            cloudBlockBlob.Properties.ContentType = file.ContentType;
-
-            // Copying the file into a memory stream and then uploaded into the azure blob container
-            var ms = new MemoryStream();
-            await file.CopyToAsync(ms);
-            await cloudBlockBlob.UploadFromByteArrayAsync(ms.ToArray(), 0, (int)ms.Length);
-
-            // Objects used to predict what type of item is in the image
-            string predictionUrl = "https://uksouth.api.cognitive.microsoft.com/";
-
-            CustomVisionPredictionClient predictionClient = new CustomVisionPredictionClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.ApiKeyServiceClientCredentials("f05b67634cc3441492a07f32553d996a"))
-            {
-                Endpoint = predictionUrl
-            };
-
-            // We are using the URL: cloudBlockBlob.Uri.AbsoluteUri
-            // This url is from the method above where we uploaded the image to the blob container
-            // This method uses an image url and information regarding the AI model used to return the predicted item type
-            var result = predictionClient.ClassifyImageUrl(new Guid("377f08bf-2813-43cd-aa41-b0e623b2beec"), "Iteration1", 
-                new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(cloudBlockBlob.Uri.AbsoluteUri.ToString()));
-
-            // We are returning to the item create page with the imageURL and itemtype given into the parameters
-            // These url parameters values are grabbed and put into the create item view fields. This makes the automation part of creating an item.
-            return LocalRedirect("/Item/Create?imageUrl="+ cloudBlockBlob.Uri.AbsoluteUri.ToString() + "&itemType="+ result.Predictions[0].TagName);
+            return LocalRedirect("/Item/Create?imageUrl="+ imageURL + "&itemType="+ prediction);
         }
 
         // Get method for create
@@ -91,7 +74,7 @@ namespace BeanBag.Controllers
         {
             // This creates a list of the different inventories available to put the item into
 
-            var inventories = from i in _db.Inventories where i.userId.Equals(User.GetObjectId()) select i;
+            var inventories = inventoryService.GetInventories(User.GetObjectId());
 
             IEnumerable < SelectListItem > InventoryDropDown = inventories.Select(i => new SelectListItem
             {
@@ -119,15 +102,7 @@ namespace BeanBag.Controllers
             // Making sure the newItem is valid before adding it into the item table (making sure all the required fields have a value)
             if(ModelState.IsValid)
             {
-                _db.Items.Add(newItem);
-                _db.SaveChanges();
-
-                string itemID = newItem.Id.ToString();
-
-                // Adding QRContents to the new item made and applying changes
-                newItem.QRContents = "https://bean-bag.azurewebsites.net/api/QRCodeScan?itemID=" + itemID;
-                _db.Items.Update(newItem);
-                _db.SaveChanges();
+                itemService.CreateItem(newItem);
                 
                 // Returns back to the viewItems view for the inventory using the inventoryId
                 return LocalRedirect("/Inventory/ViewItems?InventoryId="+newItem.inventoryId.ToString());
@@ -139,14 +114,9 @@ namespace BeanBag.Controllers
         // This is the GET method of item edit
         // This returns the view of an item that is being edited
         // Accepts an itemId in order to return a view of the item that needs to be edited with it's respective information passed along
-        public IActionResult Edit(Guid? Id)
+        public IActionResult Edit(Guid Id)
         {
-            if(Id == null)
-            {
-                return NotFound();
-            }
-
-            var item = _db.Items.Find(Id);
+            var item = itemService.FindItem(Id);
             // Does the item exist in the table 
             if(item == null)
             {
@@ -154,7 +124,7 @@ namespace BeanBag.Controllers
             }
 
             // This creates a list of the different inventories available to put the item into
-            var inventories = from i in _db.Inventories where i.userId.Equals(User.GetObjectId()) select i;
+            var inventories = inventoryService.GetInventories(User.GetObjectId());
 
             IEnumerable<SelectListItem> InventoryDropDown = inventories.Select(i => new SelectListItem
             {
@@ -176,8 +146,7 @@ namespace BeanBag.Controllers
             // Makes sure that 
             if(ModelState.IsValid)
             {
-                _db.Items.Update(item);
-                _db.SaveChanges();
+                itemService.EditItem(item);
 
                 return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
             }
@@ -186,51 +155,36 @@ namespace BeanBag.Controllers
         }
 
         // This is the GET method for delete item
-        public IActionResult Delete(Guid? Id)
+        public IActionResult Delete(Guid Id)
         {
- 
-            if (Id == null)
-            {
-                return NotFound();
-            }
-
-            var item = _db.Items.Find(Id);
+            var item = itemService.FindItem(Id);
             // Does the item exist in the item table
             if (item == null)
             {
                 return NotFound();
             }
 
-            ViewBag.InventoryName = _db.Inventories.Find(item.inventoryId).name;
+            ViewBag.InventoryName = inventoryService.FindInventory(item.inventoryId).name;
             return View(item);
         }
 
         // This is the POST method for delete item
         [HttpPost]
-        public IActionResult DeletePost(Guid? Id)
+        public IActionResult DeletePost(Guid Id)
         {
-            // Item variable
-            var item = _db.Items.Find(Id);
-
-            if(item == null)
-            {
-                return NotFound();
-            }
-
-            // Deletes item in table
-            _db.Items.Remove(item);
-            _db.SaveChanges();
+            string inventoryId = itemService.GetInventoryIdFromItem(Id).ToString();
+            itemService.DeleteItem(Id);
 
             // Returns back to the view items in inventory using the inventory ID
             // The reason why we can still use item.inventoryId is because it is still an intact variable
             // The item variable is not deleted. Only the information in the item table, not the item variable itself
-            return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
+            return LocalRedirect("/Inventory/ViewItems?InventoryId=" + inventoryId);
         }
 
         // Define a function to generate a QR code every time we want to view it
         public IActionResult ViewQRCode(Guid Id)
         {
-            var item = _db.Items.Find(Id);
+            var item = itemService.FindItem(Id);
 
             if(item == null)
             {
@@ -246,6 +200,7 @@ namespace BeanBag.Controllers
                 bitmap.Save(ms, ImageFormat.Png);
 
                 ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
+                ViewBag.InventoryId = item.inventoryId;
 
                 return View();
             }
@@ -255,9 +210,9 @@ namespace BeanBag.Controllers
         
         public IActionResult PrintQRCode(Guid Id)
         {
-            var item = _db.Items.Find(Id);
+            var item = itemService.FindItem(Id);
 
-            if(item == null)
+            if (item == null)
             {
                 return NotFound();
             }

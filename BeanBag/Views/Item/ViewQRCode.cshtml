@@ -52,9 +52,10 @@
 </header>
 <section class="home d-flex align-items-center">
     <div class="container">
-            <h3>View QR Code</h3>
-            <br/>
-           <img src ="@ViewBag.QRCode" width="200" height="200" /> 
+        <h3>View QR Code</h3>
+        <br />
+        <img src="@ViewBag.QRCode" width="200" height="200" />
+        <a asp-action="ViewItems" asp-controller="Inventory" asp-route-InventoryId="@ViewBag.InventoryId" class="btn btn-2">Back</a>
     </div>
 
 </section>
