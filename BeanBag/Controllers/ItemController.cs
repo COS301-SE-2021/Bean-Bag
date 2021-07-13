@@ -161,6 +161,7 @@ namespace BeanBag.Controllers
             }
 
             ViewBag.InventoryName = inventoryService.FindInventory(item.inventoryId).name;
+            ViewBag.InventoryId = item.inventoryId;
             return View(item);
         }
 
