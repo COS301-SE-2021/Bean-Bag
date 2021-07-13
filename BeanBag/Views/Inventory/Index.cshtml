@@ -11,52 +11,58 @@
 <section class="inventory d-flex align-items-center">
     <div class="container p-3">
         <div class="row pt-4">
-            <div class="col-6">
+            <div class="col-1">
+                
+            </div>            
+            <div class="col-5">
                 <h2 class="text-primary">Inventory List</h2>
             </div>
             <div class="col-6 text-right">
                 <a asp-controller="Inventory" asp-action="Create" class="btn btn-1">Create new Inventory</a> <!-- change button css---->
                 <a asp-controller="Item" asp-action="UploadImage" class="btn btn-1">Add Item</a> <!-- change button css-->
             </div>
-       </div>
-        <br />
-        @if (Model.Count() > 0)
-        {
-            <table class="table table-bordered table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>
-                            Inventory Name
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var inventory in Model)
-                    {
-                        <tr>
-                            <td >@inventory.name</td> <!-- width="50%"-->
-                            <td > <!-- width="50%"-->
-                                <div class="w-100 btn-group" role="group">
-                                    <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
-                                    <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn">Edit</a>
-                                    <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <p>No Inventories yet</p>
-        }
+        </div>
+
+      <br />
+      <div>
+          <div class="row d-flex justify-content-center">
+              <div class="col-1 "> </div>
+              <div class="col-11 "> <!-- this div contains the table code d-flex justify-content-center -->
+              @if (Model.Any())
+              {
+                  <table class="table table-bordered table-striped " style="width:100%" >
+                      <thead>
+                      <tr>
+                          <th>
+                              Inventory Name
+                          </th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      @foreach (var inventory in Model)
+                      {
+                          <tr>
+                              <td >@inventory.name</td> <!-- width="50%"-->
+                              <td > <!-- width="50%"-->
+                                  <div class="w-100 btn-group" role="group">
+                                      <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
+                                      <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn">Edit</a>
+                                      <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a>
+                                  </div>
+                              </td>
+                          </tr>
+                      }
+                      </tbody>
+                  </table>
+              }
+              else
+              {
+                  <p>No Inventories yet</p>
+              }
+              </div>
+            </div>
+ 
+      </div>
+      
     </div>
 </section>
-<!--<footer id="sticky-footer"  class="footer-copyright "> -->
-    <!--class="border-top footer text-muted"-->
-    <!--<div class="container">
-        &copy; 2021 - BeanBag by <a class="agile-link" href="https://www.agilebridge.co.za/">Agile Bridge </a>
-        <br>
-           </div>
-</footer> -->

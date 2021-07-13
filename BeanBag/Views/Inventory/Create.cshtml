@@ -8,33 +8,27 @@
 }
 
 <link rel="stylesheet" type="text/css" href="css\dashboard.css"  />
-<section class="inventory d-flex align-items-center">
-
-    <form method="post" asp-action="Create" class="createForm">
-        <div asp-validation-summary="All" class="text-danger"></div>
-        
-        <div class="form-group row">
-            <h3 >Create inventory</h3>
-        </div>
-        <div class="form-group row">
-            <label asp-for="name"></label> <!--Inventory Name-->
-            <input asp-for="name" class="form-control"/> <!--input box-->
-        </div>
-        <input type="submit" class="btn btn-1" value="Create"/> <!--create button-->
-        
-        <a asp-action="Index" class="btn btn-2">Back</a> <!--Back-->
-    </form>
+<section class="inventory d-flex justify-content-center">
+    <div class="col-1 "> </div> <!-- change it to use offsets-->
+    
+        <form method="post" asp-action="Create" class="createForm">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            
+            <div class="form-group row">
+                <h3 >Create inventory</h3>
+            </div>
+            <div class="form-group row">
+                <label asp-for="name"></label> <!--Inventory Name-->
+                <input asp-for="name" class="form-control"/> <!--input box-->
+            </div>
+            <input type="submit" class="btn btn-1" value="Create"/> <!--create button-->
+            
+            <a asp-action="Index" class="btn btn-2">Back</a> <!--Back-->
+        </form>
     
 
 </section> 
-<!--<footer id="sticky-footer"  class="footer-copyright "> -->
-                  <!--class="border-top footer text-muted"-->
-                 <!-- <div class="container">
-                      &copy; 2021 - BeanBag by <a class="agile-link" href="https://www.agilebridge.co.za/">Agile Bridge </a>
-                      <br>
-                      <a class="landing-page-image" href="https://www.freepik.com/vectors/box">Box vector created by vectorjuice - www.freepik.com</a>
-                  </div>
-              </footer> -->
+
 
 @section Scripts{
     @{
