@@ -34,7 +34,7 @@ namespace BeanBag
             services.Configure<OpenIdConnectOptions>(
                 OpenIdConnectDefaults.AuthenticationScheme, options =>
                 {
-                    options.Events.OnRedirectToIdentityProvider = async context =>
+                    options.Events.OnTokenValidated = async context =>
                     {
                         context.Properties.RedirectUri = "/Home";
 
