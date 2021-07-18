@@ -3,8 +3,6 @@ using BeanBag.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Identity.Web;
 
 namespace BeanBag.Services
 {
