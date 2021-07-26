@@ -1,10 +1,8 @@
 ﻿@using Microsoft.Extensions.Options
 @using Microsoft.Identity.Web
+@model dynamic
 @inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
 
-@{
-    ViewData["Title"] = "Home";
-}
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -19,7 +17,7 @@
             {
                 <span class="greeting">
 
-                    Hello @User.Identity.Name</span>
+                    Hello @User.Identity.Name </span>
       
             }
             <div class="notifications">
@@ -149,6 +147,7 @@
                                              <th class="border-0">#</th>
                                              <th class="border-0">Image</th>
                                              <th class="border-0">Item Name</th>
+                                             <th class="border-0">Inventory Name</th>
                                              <th class="border-0">Item Type</th>
                                              <th class="border-0">Price</th>
                                              <th class="border-0">Date</th>
@@ -162,7 +161,7 @@
                                                  <div class="m-r-10"><img src="images/bed.jpg" alt="user" class="rounded" width="95"></div>
                                              </td>
                                              <td>Bed</td>
-
+                                                <td>Inv1</td>
                                              <td>Furniture</td>
                                              <td>R800.00</td>
                                              <td>24-08-2018 14:12:77</td>
@@ -176,7 +175,7 @@
                                                  <div class="m-r-10"><img src="images/car.png" alt="user" class="rounded" width="95"></div>
                                              </td>
                                              <td>Car</td>
-
+  <td>Inv1</td>
                                              <td>Vehicle</td>
                                              <td>R180000.00</td>
 
@@ -190,7 +189,7 @@
                                                  <div class="m-r-10"><img src="images/chair.jpg" alt="user" class="rounded" width="95"></div>
                                              </td>
                                              <td>Chair</td>
-
+  <td>Inv1</td>
                                              <td>Furniture</td>
                                              <td>R820.00</td>
                                              <td>24-08-2018 14:12:77</td>
@@ -204,7 +203,7 @@
                                                  <div class="m-r-10"><img src="images/tshirt.jpg" alt="user" class="rounded" width="95"></div>
                                              </td>
                                              <td>T-Shirt</td>
-
+  <td>Inv1</td>
                                              <td>Clothing </td>
                                              <td>R340.00</td>
                                              <td>24-08-2018 14:12:77</td>
@@ -213,7 +212,20 @@
                                              </td>
                                          </tr>
                                          <tr>
-                                             <td colspan="8"><a href="#" class="btn btn-outline-light float-right">View Details</a></td>
+                                             <td colspan="9">
+                                                 
+                                                 <select class="form-control" id="StudentGender" name="StudentGender">
+                                                     <option> Select Inventory</option>
+                                                     @if (Model != null)
+                                                      {
+                                                          @foreach (var inv in Model.inventories)
+                                                          {
+                                                              <option> @inv.name </option>
+                                                          }
+                                                      }
+                                                      
+                                                 </select>
+                                               </td>
                                          </tr>
                                          </tbody>
                                      </table>
