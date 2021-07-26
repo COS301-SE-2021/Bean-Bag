@@ -10,5 +10,32 @@ namespace BeanBag.Services
         {
             _db = db;
         }
+
+        public string GetItemName(int position)
+        {
+            return "";
+        }
+
+        public string GetItemType(int position)
+        {
+            return "";
+        }
+
+        public string GetItemPrice(int position)
+        {
+            return "";
+        }
+
+        public string GetItemDate(int position)
+        {
+            return "";
+        }
+
+        public string GetItemQrCode(int position)
+        {
+            return "";
+        }
+        
+
     }
 }

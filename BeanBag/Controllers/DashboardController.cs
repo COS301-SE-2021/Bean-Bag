@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 
 namespace BeanBag.Controllers
 {
@@ -9,5 +10,8 @@ namespace BeanBag.Controllers
         {
             return View();
         }
+
+    
+        
     }
 }
