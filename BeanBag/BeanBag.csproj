@@ -28,8 +28,4 @@
     <PackageReference Include="xunit.analyzers" Version="0.10.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

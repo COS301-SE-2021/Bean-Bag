@@ -24,6 +24,7 @@ namespace BeanBag.Services
 
         public void CreateItem(Item newItem)
         {
+            newItem.entryDate = DateTime.Now;
             _db.Items.Add(newItem);
             _db.SaveChanges();
             newItem = AddQRItem(newItem);

@@ -60,29 +60,39 @@
     <div class="col-1"> </div>
     
     <div class="col-6">
-    <form method="post" asp-action="Create" asp-controller="Item">
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <!--<div class="form-group row">
-            <h2 class="text-black-50 pl-3">Add item</h2>
-        </div>-->
+        <form method="post" asp-action="Create" asp-controller="Item">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <!--<div class="form-group row">
+        <h2 class="text-black-50 pl-3">Add item</h2>
+    </div>-->
 
-        <div class="form-group row">
-            <label asp-for="name"></label>
-            <input asp-for="name" class="form-control"/>
-        </div>
+            <div class="form-group row">
+                <label asp-for="name"></label>
+                <input asp-for="name" class="form-control" />
+            </div>
 
-        <div class="form-group row">
-            <label asp-for="inventoryId" value="Inventory"></label>
-            <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
-                <option selected>Select Inventory</option>
+            <div class="form-group row">
+                <label asp-for="price"></label>
+                <input asp-for="price" class="form-control" />
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="quantity"></label>
+                <input asp-for="quantity" class="form-control" />
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="inventoryId" value="Inventory"></label>
+                <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
+                    <option selected>Select Inventory</option>
                 </select>
             </div>
 
-        <input asp-for="imageURL" class="form-control" value="@ViewBag.imageUrl" hidden/>
-        <input asp-for="type" class="form-control" value="@ViewBag.itemType" hidden/>
+            <input asp-for="imageURL" class="form-control" value="@ViewBag.imageUrl" hidden />
+            <input asp-for="type" class="form-control" value="@ViewBag.itemType" hidden />
 
-        <input type="submit" class="btn btn-1" value="Create"/>
-        <a asp-action="Index" asp-controller="Inventory" class="btn btn-2">Back</a>
+            <input type="submit" class="btn btn-1" value="Create" />
+            <a asp-action="Index" asp-controller="Inventory" class="btn btn-2">Back</a>
 
         </form>
     </div>
