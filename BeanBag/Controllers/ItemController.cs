@@ -70,7 +70,7 @@ namespace BeanBag.Controllers
         {
             // This creates a list of the different inventories available to put the item into
 
-            var inventories = inventoryService.GetInventories(User.GetObjectId());
+            var inventories = inventoryService.GetInventories();
 
             IEnumerable < SelectListItem > InventoryDropDown = inventories.Select(i => new SelectListItem
             {
@@ -120,7 +120,7 @@ namespace BeanBag.Controllers
             }
 
             // This creates a list of the different inventories available to put the item into
-            var inventories = inventoryService.GetInventories(User.GetObjectId());
+            var inventories = inventoryService.GetInventories();
 
             IEnumerable<SelectListItem> InventoryDropDown = inventories.Select(i => new SelectListItem
             {

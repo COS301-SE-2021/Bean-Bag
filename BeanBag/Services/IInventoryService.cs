@@ -8,7 +8,7 @@ namespace BeanBag.Services
 {
     public interface IInventoryService
     {
-        public List<Inventory> GetInventories(string UserId);
+        public List<Inventory> GetInventories();
         public void CreateInventory(Inventory newInventory);
         public bool EditInventory(string UserId, Inventory inventory);
         public bool DeleteInventory(Guid Id, string UserId);

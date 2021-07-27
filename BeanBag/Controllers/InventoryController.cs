@@ -10,9 +10,11 @@ using System.Drawing.Imaging;
 using System.IO;
 using QRCoder;
 using BeanBag.Services;
+using System.Text.Json;
 
 namespace BeanBag.Controllers
 {
+    [Route("api/[controller]")]
     // This class is used to handle any user interaction regarding an inventory
     public class InventoryController : Controller
     {
@@ -47,7 +49,7 @@ namespace BeanBag.Controllers
             // If not logged in throw user back to home page
             if(User.Identity.IsAuthenticated)
             {
-                var inventories = inventoryService.GetInventories(User.GetObjectId());
+                var inventories = inventoryService.GetInventories();
 
                 //Checking user role is in DB
                 checkUserRole();
@@ -99,24 +101,27 @@ namespace BeanBag.Controllers
 
         // This is the Get method for viewItems
         // Views all of the items within the specified inventory
-        [HttpGet]
-        public IActionResult ViewItems(Guid InventoryId)
+        [HttpGet("")]
+        public IActionResult ViewItems()
         {
-            if(User.Identity.IsAuthenticated)
+           /* if (User.Identity.IsAuthenticated)
             {
                 // Find the inventory in the inventory table using the inventory ID
                 Inventory inventory = inventoryService.FindInventory(InventoryId);
 
+
+                /*
                 // If their doesn't exist an inventory with the inventory id given
                 if (inventory == null)
                 {
                     return NotFound();
                 }
 
-                if(inventory.userId != User.GetObjectId())
+                if (inventory.userId != User.GetObjectId())
                 {
                     return BadRequest();
                 }
+                
 
                 string inventoryName = inventory.name;
 
@@ -128,19 +133,31 @@ namespace BeanBag.Controllers
                 // We pass these items to be displayed into the view
                 var items = from i in _db.Items where i.inventoryId.Equals(InventoryId) select i;
 
-                return View(items);
+                string jsonString = JsonSerializer.Serialize(items);
+
+
             }
             else
             {
-                return LocalRedirect("/");
+                //return LocalRedirect("/");
             }
-            
-        }
+           */
+            var temp = inventoryService.GetInventories();
 
-        // This is the GET Method for Edit
-        // This returns the view for editing the information related to an inventory
-        // The URL needs to accept the GUID of the inventory that is being edited
-        public IActionResult Edit(Guid id)
+            string jsonString = JsonSerializer.Serialize<List<Inventory>>(temp);
+
+
+            List<Inventory> weatherForecast = JsonSerializer.Deserialize<List<Inventory>>(jsonString);
+
+            return View(weatherForecast);
+
+        }
+    
+
+    // This is the GET Method for Edit
+    // This returns the view for editing the information related to an inventory
+    // The URL needs to accept the GUID of the inventory that is being edited
+    public IActionResult Edit(Guid id)
         {
             if(User.Identity.IsAuthenticated)
             {
