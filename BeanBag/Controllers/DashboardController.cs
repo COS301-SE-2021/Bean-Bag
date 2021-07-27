@@ -45,7 +45,7 @@ namespace BeanBag.Controllers
         public JsonResult GetItems(string id)
         {
             var idd =  new Guid(id);
-            var result = from i in _db.Items where i.inventoryId.Equals(idd) select new { i.name, i.type, i.imageURL, i.QRContents };
+            var result = from i in _db.Items where i.inventoryId.Equals(idd) select new { i.name, i.type, i.imageURL, i.QRContents, i.price, i.entryDate };
 
             return Json(result);  
         }
