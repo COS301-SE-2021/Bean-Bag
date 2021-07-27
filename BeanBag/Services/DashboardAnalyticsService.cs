@@ -6,8 +6,8 @@ namespace BeanBag.Services
     public class DashboardAnalyticsService
     {
         private readonly DBContext _db;
-        private readonly Item _item;
-        private readonly Inventory _inventory;
+      //  private readonly Item _item;
+        //private readonly Inventory _inventory;
 
         public DashboardAnalyticsService(DBContext db)
         {
