@@ -148,8 +148,8 @@ namespace BeanBag.Controllers
 
                 return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
             }
-
-            return View();
+            return Ok(item);
+            //return LocalRedirect("/Item/Edit?ItemId="+item.Id);
         }
 
         // This is the GET method for delete item

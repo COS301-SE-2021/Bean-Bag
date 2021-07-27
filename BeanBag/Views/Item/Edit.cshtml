@@ -64,10 +64,19 @@
     <div class="col-6">
         <form method="post" asp-action="EditPost" asp-controller="Item" class="createForm">
             <div asp-validation-summary="All" class="text-danger"></div>
+            <input asp-for="Id" hidden />
+            <input asp-for="imageURL" hidden />
+            <input asp-for="QRContents" hidden />
+            <input asp-for="entryDate" hidden />           
 
             <div class="form-group row">
                 <label asp-for="name"></label>
                 <input asp-for="name" class="form-control" />
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="type"></label>
+                <input asp-for="type" class="form-control" />
             </div>
 
             <div class="form-group row">
@@ -82,7 +91,12 @@
 
             <div class="form-group row">
                 <label asp-for="isSold"></label>
-                <input asp-for="isSold" class="form-control" type="checkbox"/>
+                <input asp-for="isSold" class="form-control" type="checkbox" />
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="soldDate"></label>
+                <input asp-for="soldDate" class="form-control" type="date" />
             </div>
 
             <div class="form-group row">
