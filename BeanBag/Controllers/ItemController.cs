@@ -90,9 +90,6 @@ namespace BeanBag.Controllers
         [HttpPost]
         public IActionResult Create(Item newItem)
         {
-            // Adding to QRContents for QR Code scanning
-
-            // Making sure the newItem is valid before adding it into the item table (making sure all the required fields have a value)
             if(ModelState.IsValid)
             {
                 itemService.CreateItem(newItem);
@@ -128,6 +125,7 @@ namespace BeanBag.Controllers
             // View bag allows the controller to pass information into the view
             ViewBag.InventoryDropDown = InventoryDropDown;
             ViewBag.InventoryId = item.inventoryId;
+            ViewBag.imageUrl = item.imageURL;
 
             return View(item);
         }
@@ -143,8 +141,8 @@ namespace BeanBag.Controllers
 
                 return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
             }
-
-            return View();
+            return Ok(item);
+            //return LocalRedirect("/Item/Edit?ItemId="+item.Id);
         }
 
         // This is the GET method for delete item

@@ -29,5 +29,23 @@ namespace BeanBag.Models
         public string imageURL { get; set; }
 
         public string QRContents { get; set; }
+
+        public DateTime entryDate { get; set; }
+
+        [Required]
+        [DisplayName("Item Price")]
+        [Range(0, int.MaxValue, ErrorMessage ="Price needs to be positive")]
+        public double price { get; set; }
+
+        [Required]
+        [DisplayName("Item Quantity")]
+        [Range(0, int.MaxValue, ErrorMessage = "Quantity needs to be positive")]
+        public int quantity { get; set; }
+
+        [DisplayName("Sold Status")]
+        public bool isSold { get; set; }
+
+        [DisplayName("Sold Date")]
+        public DateTime soldDate { get; set; }
     }
 }
