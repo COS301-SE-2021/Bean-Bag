@@ -137,13 +137,31 @@
                           data-aos-delay="400"
                           data-aos-offset="0">
 
-                         <div class="card">
+                         <div class="card" id="CategoryID" >
                              <h5 class="card-header">Recently Added Items</h5>
                              <div class="card-body p-0">
                                  <div class="table-responsive">
                                      <table class="table">
                                          <thead class="bg-light">
-                                         <tr class="border-0">
+                                         
+                                         <tr>
+                                             <td colspan="10">                                     
+                                                 <select data-id="item" class="btn btn-secondary dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="form-control" id="StudentGender" name="StudentGender">
+                                                     <option> Select Inventory</option>
+                                                     @if (Model != null)
+                                                     {
+                                                         @foreach (var inv in Model.inventories)
+                                                         {
+                                                             <option> @inv.name </option>
+                                                         }
+                                                     }
+                                                                                               
+                                                 </select>
+                                             </td>
+                                              
+                                         </tr>
+                                        
+                                         <tr>
                                              <th class="border-0">#</th>
                                              <th class="border-0">Image</th>
                                              <th class="border-0">Item Name</th>
@@ -155,13 +173,15 @@
                                          </tr>
                                          </thead>
                                          <tbody>
+                                         
+                                       
                                          <tr>
                                              <td>1</td>
                                              <td>
                                                  <div class="m-r-10"><img src="images/bed.jpg" alt="user" class="rounded" width="95"></div>
                                              </td>
                                              <td>Bed</td>
-                                                <td>Inv1</td>
+                                             <td>Inv1</td>
                                              <td>Furniture</td>
                                              <td>R800.00</td>
                                              <td>24-08-2018 14:12:77</td>
@@ -175,7 +195,7 @@
                                                  <div class="m-r-10"><img src="images/car.png" alt="user" class="rounded" width="95"></div>
                                              </td>
                                              <td>Car</td>
-  <td>Inv1</td>
+                                             <td>Inv1</td>
                                              <td>Vehicle</td>
                                              <td>R180000.00</td>
 
@@ -189,7 +209,7 @@
                                                  <div class="m-r-10"><img src="images/chair.jpg" alt="user" class="rounded" width="95"></div>
                                              </td>
                                              <td>Chair</td>
-  <td>Inv1</td>
+                                             <td>Inv1</td>
                                              <td>Furniture</td>
                                              <td>R820.00</td>
                                              <td>24-08-2018 14:12:77</td>
@@ -203,29 +223,13 @@
                                                  <div class="m-r-10"><img src="images/tshirt.jpg" alt="user" class="rounded" width="95"></div>
                                              </td>
                                              <td>T-Shirt</td>
-  <td>Inv1</td>
+                                             <td>Inv1</td>
                                              <td>Clothing </td>
                                              <td>R340.00</td>
                                              <td>24-08-2018 14:12:77</td>
                                              <td>
                                                  <div class="m-r-10"><img src="images/code.png" alt="user" class="rounded" width="95"></div>
                                              </td>
-                                         </tr>
-                                         <tr>
-                                             <td colspan="9">
-                                                 
-                                                 <select class="form-control" id="StudentGender" name="StudentGender">
-                                                     <option> Select Inventory</option>
-                                                     @if (Model != null)
-                                                      {
-                                                          @foreach (var inv in Model.inventories)
-                                                          {
-                                                              <option> @inv.name </option>
-                                                          }
-                                                      }
-                                                      
-                                                 </select>
-                                               </td>
                                          </tr>
                                          </tbody>
                                      </table>
@@ -290,6 +294,23 @@
     </div>
     </div>
 </section>
+
+
+<!-- AJAX to get recent inventory items -->
+<script>$("#CategoryID").change( function (event) {
+      const userId = $(this).val();
+        $.ajax({
+            url: "@Url.Action("GetItems","Dashboard")",
+            data: { id : userId },
+            type: "Get",
+            dataType: "html",    
+            success: function (data) {
+                //Whatever result you have got from your controller with html partial view replace with a specific html.
+                $("#divPartialView").html( data ); // HTML DOM replace
+            }
+        });
+    });
+</script>
 
 <!-- Optional JavaScript -->
 <!-- jquery 3.3.1 js-->
