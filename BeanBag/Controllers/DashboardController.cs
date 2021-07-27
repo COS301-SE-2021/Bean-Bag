@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Dynamic;
+using System.Collections.Generic;
+using System.Linq;
 using BeanBag.Database;
 using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Identity.Web;
 
 namespace BeanBag.Controllers
@@ -12,7 +14,7 @@ namespace BeanBag.Controllers
     {
         private readonly IInventoryService _inventoryService;
         private readonly IItemService _itemService;
-        // This variable is used to interact with the Database/DBContext class. Allows us to save, update and delete records 
+        // This variable is used to interact with the Database/DBContext class. Allows us to save, update and delete records
         private readonly DBContext _db;
 
         public DashboardController(DBContext db, IInventoryService inv, IItemService item)
@@ -26,18 +28,26 @@ namespace BeanBag.Controllers
         // GET
         public IActionResult Index()
         {
-            dynamic dy = new ExpandoObject();
-            dy.inventories = _inventoryService.GetInventories(User.GetObjectId());
-            return View(dy);
+            var inventories = _inventoryService.GetInventories(User.GetObjectId());
+            IEnumerable < SelectListItem > inventoryDropDown = inventories.Select(i => new SelectListItem
+            {
+               
+                Text = i.name,
+                Value = i.Id.ToString()
+                
+            }
+            );
+           
+          ViewBag.InventoryDropDown = inventoryDropDown;
+          return View();
         }
 
-        // Get recently added items
-        public PartialViewResult GetItems(int x, Guid id)
+        public JsonResult GetItems(string id)
         {
-            dynamic dy = new ExpandoObject();
-            dy.item = _itemService.GetItems(id);
-            return PartialView("Index");
+            var idd =  new Guid(id);
+            var result = from i in _db.Items where i.inventoryId.Equals(idd) select new { i.name, i.type, i.imageURL, i.QRContents };
+
+            return Json(result);  
         }
-        
     }
 }
