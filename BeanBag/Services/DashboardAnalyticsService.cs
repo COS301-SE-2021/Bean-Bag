@@ -16,7 +16,7 @@ namespace BeanBag.Services
         public IOrderedQueryable GetRecentItems(string id)
         {
             var idd =  new Guid(id);
-            var result = from i in _db.Items where i.inventoryId.Equals(idd) select new { i.name, i.type, i.imageURL, i.QRContents, i.price, i.entryDate };
+            var result = from i in _db.Items where i.inventoryId.Equals(idd) select new { i.name, i.type, i.imageURL, i.QRContents, i.price, i.entryDate , i.quantity};
             var res= result.OrderByDescending(d => d.entryDate);
             return res;
         }

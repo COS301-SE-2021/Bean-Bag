@@ -160,12 +160,12 @@
                             <tr>
                                 <th class="border-0">#</th>
                                 <th class="border-0">Image</th>
-                                <th class="border-0">Item</th>
                                 <th class="border-0">Inventory </th>
+                                <th class="border-0">Item</th>
                                 <th class="border-0">Type</th>
+                                <th class="border-0">Quantity</th>
                                 <th class="border-0">Price</th>
                                 <th class="border-0">Date</th>
-                                <th class="border-0">QR Code</th>
                             </tr>
                             </thead>
                             <tbody id="recentItems">
@@ -260,14 +260,13 @@
 '                                <td>'+
 '                                    <div class="m-r-10"><img src="'+item.imageURL+'" alt="user" class="rounded" width="95"></div>'+
 '                                </td>'+
-'                                <td>'+item.name+'</td>'+
 '                                <td>'+$("#InventoryDropDown Option:Selected").text()+'</td>'+
+'                                <td>'+item.name+'</td>'+
 '                                <td>'+item.type+'</td>'+
+'                                <td>'+item.quantity +'</td>'+
 '                                <td>'+item.price+'</td>'+
 ''+
 '                                <td>'+item.entryDate+'</td>'+
-'                                <td>'+
-'                                    <div class="m-r-10"><img src="'+item.QRContents +'" alt="user" class="rounded" width="95"></div> </td>'+
 '                            </tr>';
 	
                          }
