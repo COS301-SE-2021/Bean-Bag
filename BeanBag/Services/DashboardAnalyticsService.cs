@@ -1,44 +1,26 @@
-﻿using BeanBag.Database;
-using BeanBag.Models;
+﻿using System;
+using System.Linq;
+using BeanBag.Database;
 
 namespace BeanBag.Services
 {
-    public class DashboardAnalyticsService
+    public class DashboardAnalyticsService :IDashboardAnalyticsService
     {
         private readonly DBContext _db;
-      //  private readonly Item _item;
-        //private readonly Inventory _inventory;
 
         public DashboardAnalyticsService(DBContext db)
         {
             _db = db;
         }
 
-        public string GetItemName(int position)
+        public IOrderedQueryable GetRecentItems(string id)
         {
-            return "";
+            var idd =  new Guid(id);
+            var result = from i in _db.Items where i.inventoryId.Equals(idd) select new { i.name, i.type, i.imageURL, i.QRContents, i.price, i.entryDate };
+            var res= result.OrderByDescending(d => d.entryDate);
+            return res;
         }
 
-        public string GetItemType(int position)
-        {
-            return "";
-        }
-
-        public string GetItemPrice(int position)
-        {
-            return "";
-        }
-
-        public string GetItemDate(int position)
-        {
-            return "";
-        }
-
-        public string GetItemQrCode(int position)
-        {
-            return "";
-        }
-        
 
     }
 }
