@@ -6,13 +6,11 @@ namespace BeanBag.Services
     public class DashboardAnalyticsService :IDashboardAnalyticsService
     {
         private readonly DBContext _db;
-        private readonly IInventoryService _inv;
         
         //Constructor
-        public DashboardAnalyticsService( IInventoryService inv, DBContext db)
+        public DashboardAnalyticsService( DBContext db)
         {
             _db = db;
-            _inv = inv;
         }
 
         //Gets the recent items added to a specific inventory id in the functions parameter 
@@ -24,21 +22,12 @@ namespace BeanBag.Services
             return res;
         }
         
-        //Gets the total items added by the user given the user id in the functions parameter 
-        public int GetTotalItems(string userId)
+        //Gets the total items added by the user given the inventory id in the functions parameter 
+        public int GetTotalItems(string id)
         {
-            var inventories = _inv.GetInventories(userId);
-
-            var total = 0;
-            foreach (var inventory in inventories)
-            {
-                var res = (from i in _db.Items where i.inventoryId.Equals(inventory.Id) select new {i.quantity}).ToList();
-                for (int i = 0; i < res.Count; i++)
-                {
-                    total += res[i].quantity;
-                }
-            }
-            return total;
+            var idd =  new Guid(id);
+            var res = (from i in _db.Items where i.inventoryId.Equals(idd) select new {i.quantity}).ToList();
+            return res.Sum(t => t.quantity);
             
         }
         
