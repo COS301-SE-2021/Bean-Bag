@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BeanBag.Services
@@ -7,6 +8,7 @@ namespace BeanBag.Services
     {
         public IOrderedQueryable GetRecentItems(string id);
         public int GetTotalItems(string id);
+        public List<string> GetTopItems(string id);
 
 
     }
