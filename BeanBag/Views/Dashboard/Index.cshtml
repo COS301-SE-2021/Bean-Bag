@@ -190,6 +190,11 @@
             <div class="card">
                 <h5 class="card-header">Total Items</h5>
                 <div class="card-body">
+                    <div class="float-right">
+                        <span class="font-weight-bold"> Inventory : </span> @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, "Select Inventory")
+                    
+                          </div>  
+                  
                     <canvas id="total-sale" width="220" height="155"></canvas>
 
                     <br> <br>
