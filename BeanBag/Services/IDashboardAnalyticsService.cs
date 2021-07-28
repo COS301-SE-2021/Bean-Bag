@@ -8,7 +8,7 @@ namespace BeanBag.Services
     {
         public IOrderedQueryable GetRecentItems(string id);
         public int GetTotalItems(string id);
-        public List<string> GetTopItems(string id);
+        public IQueryable GetTopItems(string id);
 
 
     }

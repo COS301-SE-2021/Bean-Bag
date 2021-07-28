@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using BeanBag.Database;
 using BeanBag.Models;
 
@@ -35,17 +36,17 @@ namespace BeanBag.Services
         }
 
         //Gets the top items with the highest occurrence in the database
-        public  List<string>  GetTopItems(String id)
+        public  IQueryable GetTopItems(String id)
         {
             var idd =  new Guid(id);
-            List<string> topItems =_db.Set<Item>()
-                .Where(x=>x.inventoryId.Equals(idd))
-                .GroupBy(x=>x.type)
-                .Select(x=>new{ProductId=x.Key, QuantitySum=x.Sum(a=>a.quantity ) })
-                .OrderByDescending(x=>x.QuantitySum)
-                .Select(x=>x.ProductId)
-                .Take(3)
-                .ToList();
+            var topItems = _db.Set<Item>()
+                .Where(x => x.inventoryId.Equals(idd))
+                .GroupBy(x => x.type)
+                .Select(x => new {ProductId = x.Key, QuantitySum = x.Sum(a => a.quantity)})
+                .OrderByDescending(x => x.QuantitySum)
+                .Select(x => x.ProductId)
+                .Take(3);
+        
             return topItems;
         }
         
