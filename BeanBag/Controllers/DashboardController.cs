@@ -53,7 +53,7 @@ namespace BeanBag.Controllers
             
         }
 
-        public JsonResult TopItems(string id)
+        public JsonResult TopItems(string id , int total)
         {
             var result = _dashboardAnalyticsService.GetTopItems(id);
             return Json(result);  
