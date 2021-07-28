@@ -191,7 +191,7 @@
                 <h5 class="card-header">Total Items</h5>
                 <div class="card-body">
                     <div class="float-right">
-                        <span class="font-weight-bold"> Inventory : </span> @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, "Select Inventory")
+                        <span class="font-weight-bold"> Inventory : </span> @Html.DropDownList("InventoryDropDownChart", ViewBag.InventoryDropDownChart as SelectList, "Select Inventory")
                     
                           </div>  
                   
@@ -213,11 +213,11 @@
                             <span class="float-right">48</span>
                         </p>
                         <p>
-                            <span class="fa-xs text-brand mr-1 legend-title"><i class="fa fa-fw fa-square-full"></i></span> <span class="legend-text">Gadgets</span>
+                            <span class="fa-xs text-brand mr-1 legend-title"><i class="fa fa-fw fa-square-full"></i></span> <span class="legend-text">Other</span>
                             <span class="float-right">48</span>
                         </p>
                         <p class="mb-0">
-                            <span class="fa-xs text-info mr-1 legend-title"><i class="fa fa-fw fa-square-full"></i></span> <span class="legend-text"> Other</span>
+                            <span class="fa-xs text-info mr-1 legend-title"></span> <span class="legend-text font-weight-bold"> Total Items </span>
                             <span class="float-right">154</span>
                         </p>
                     </div>
@@ -242,8 +242,11 @@
 </section>
 
 @section Scripts {
+    
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
+    
+    //Ajax function to get the most recent Items 
       $(document).ready(function ()
       {
          $("#InventoryDropDown").change(function () {
@@ -275,6 +278,10 @@
                  });  
              })                          
         })
+        
+        
+    //Ajax function to get the chart total items 
+     
     </script>
 }   
 <!-- Optional JavaScript -->
