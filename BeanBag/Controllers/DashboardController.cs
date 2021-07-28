@@ -29,8 +29,14 @@ namespace BeanBag.Controllers
                 Value = i.Id.ToString()
             }
             );
-           
+            IEnumerable < SelectListItem > inventoryDropDownChart = inventories.Select(i => new SelectListItem
+                {
+                    Text = i.name,
+                    Value = i.Id.ToString()
+                }
+            );
           ViewBag.InventoryDropDown = inventoryDropDown;
+          ViewBag.InventoryDropDownChart = inventoryDropDownChart;
           return View();
         }
 
@@ -39,5 +45,13 @@ namespace BeanBag.Controllers
             var result = _dashboardAnalyticsService.GetRecentItems(id);
             return Json(result);  
         }
+
+        public int TotalItems()
+        {
+            var result = _dashboardAnalyticsService.GetTotalItems(User.GetObjectId());
+            return result;
+            
+        }
+        
     }
 }
