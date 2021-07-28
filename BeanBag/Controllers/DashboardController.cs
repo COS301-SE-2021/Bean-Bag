@@ -46,9 +46,9 @@ namespace BeanBag.Controllers
             return Json(result);  
         }
 
-        public int TotalItems()
+        public int TotalItems(string id)
         {
-            var result = _dashboardAnalyticsService.GetTotalItems(User.GetObjectId());
+            var result = _dashboardAnalyticsService.GetTotalItems(id);
             return result;
             
         }

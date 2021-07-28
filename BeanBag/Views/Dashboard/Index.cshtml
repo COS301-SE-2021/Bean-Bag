@@ -218,7 +218,7 @@
                         </p>
                         <p class="mb-0">
                             <span class="fa-xs text-info mr-1 legend-title"></span> <span class="legend-text font-weight-bold"> Total Items </span>
-                            <span class="float-right">154</span>
+                            <span class="float-right" id="totalItems">0</span>
                         </p>
                     </div>
                 </div>
@@ -242,8 +242,9 @@
 </section>
 
 @section Scripts {
-    
+
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
     <script type="text/javascript">
     
     //Ajax function to get the most recent Items 
@@ -281,7 +282,17 @@
         
         
     //Ajax function to get the chart total items 
-     
+      $(document).ready(function ()
+           {
+                $("#InventoryDropDownChart").change(function () {
+        
+                 $.getJSON('/Dashboard/TotalItems/' +  $("#InventoryDropDownChart Option:Selected").val(), function (data) { 
+                           
+                        $("#totalItems").text(data);  
+                    });  
+                    
+           } )})
+           
     </script>
 }   
 <!-- Optional JavaScript -->
