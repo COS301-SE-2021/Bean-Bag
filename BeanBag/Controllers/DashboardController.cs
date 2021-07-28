@@ -46,8 +46,8 @@ namespace BeanBag.Controllers
         {
             var idd =  new Guid(id);
             var result = from i in _db.Items where i.inventoryId.Equals(idd) select new { i.name, i.type, i.imageURL, i.QRContents, i.price, i.entryDate };
-
-            return Json(result);  
+            var res= result.OrderByDescending(d => d.entryDate);
+            return Json(res);  
         }
     }
 }
