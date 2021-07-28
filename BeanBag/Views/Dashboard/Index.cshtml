@@ -145,24 +145,24 @@
                             <thead class="bg-light">
                                          
                             <tr>
-                                <td colspan="10">                                     
-                                    <!--   <select data-id="item" asp-items="@ViewBag.InventoryDropDown" class="btn btn-secondary dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="form-control">
-                                        <option> Select Inventory</option>
-                                                  
-                                    </select> !--->
-                                                 <div>
-                                    @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, "Select Inventory")
-                                                 </div>                                                 
+                                <td colspan="8"> 
+                                                 <div  class="float-right" >
+                                                     <span class="font-weight-bold"> Inventory : </span>  @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, "Select Inventory")
+                        
+                                            
+                                                 </div>  
+                                    <br/>
+                                    <hr> 
                                 </td>
-                                              
+                                                  
                             </tr>
                                         
                             <tr>
                                 <th class="border-0">#</th>
                                 <th class="border-0">Image</th>
-                                <th class="border-0">Item Name</th>
-                                <th class="border-0">Inventory Name</th>
-                                <th class="border-0">Item Type</th>
+                                <th class="border-0">Item</th>
+                                <th class="border-0">Inventory </th>
+                                <th class="border-0">Type</th>
                                 <th class="border-0">Price</th>
                                 <th class="border-0">Date</th>
                                 <th class="border-0">QR Code</th>
