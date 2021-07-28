@@ -52,6 +52,12 @@ namespace BeanBag.Controllers
             return result;
             
         }
-        
+
+        public JsonResult TopItems(string id)
+        {
+            var result = _dashboardAnalyticsService.GetTopItems(id);
+            return Json(result);  
+        }
+
     }
 }
