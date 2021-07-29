@@ -30,18 +30,10 @@ namespace BeanBag.Controllers
                 Value = i.Id.ToString()
             }
             );
-          /*  IEnumerable < SelectListItem > inventoryDropDownChart = inventories.Select(i => new SelectListItem
-                {
-                    Text = i.name,
-                    Value = i.Id.ToString()
-                }
-            );*/
             
             inventoryDropDown.First().Selected=true;
-           // inventoryDropDownChart.First().Selected = true;
             
           ViewBag.InventoryDropDown = inventoryDropDown;
-         // ViewBag.InventoryDropDownChart = inventoryDropDownChart;
           return View();
         }
         

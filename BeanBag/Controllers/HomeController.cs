@@ -25,20 +25,16 @@ namespace BeanBag.Controllers
         {
             var inventories = inventoryService.GetInventories(User.GetObjectId());
             IEnumerable < SelectListItem > inventoryDropDown = inventories.Select(i => new SelectListItem
-            {
-                Text = i.name,
-                Value = i.Id.ToString()
-            }
-            );
-            IEnumerable < SelectListItem > inventoryDropDownChart = inventories.Select(i => new SelectListItem
                 {
                     Text = i.name,
                     Value = i.Id.ToString()
                 }
             );
-          ViewBag.InventoryDropDown = inventoryDropDown;
-          ViewBag.InventoryDropDownChart = inventoryDropDownChart;
-          return View();
+            
+            inventoryDropDown.First().Selected=true;
+            
+            ViewBag.InventoryDropDown = inventoryDropDown;
+            return View();
         }
         
         // Get recent items for recently added items card
