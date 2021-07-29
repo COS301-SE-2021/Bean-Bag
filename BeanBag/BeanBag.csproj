@@ -28,4 +28,8 @@
     <PackageReference Include="xunit.analyzers" Version="0.10.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Dashboard\Index.cshtml" />
+  </ItemGroup>
+
 </Project>
