@@ -192,25 +192,27 @@
                         <span class="font-weight-bold"> Inventory : </span>// 
                     
                           </div>  -->
-                  
+               
+                                          
                     <canvas id="total-sale" width="220" height="155"></canvas>
 
-                    <br> <br>
-                    <div class="chart-widget-list" >
-                        
-                        <div id="topItems">
-                            
-                        </div>
-
-                          <p class="mb-0">
-                                                    <span class="fa-xs text-info mr-1 legend-title"></span> <span class="legend-text font-weight-bold"> Total Items </span>
-                                                    <span class="float-right" id="totalItems">0</span>
-                                                </p>
-                        <p class="mb-0">
-                            <span class="fa-xs text-info mr-1 legend-title"></span> <span class="legend-text font-weight-bold"> Total Items </span>
-                            <span class="float-right" id="totalItems">0</span>
-                        </p>
+                    <br> 
+                <div class="chart-widget-list">
+                     <p class="mb-0">
+                                        
+                            <span class="legend-text font-weight-bold ">Inventory </span> <span class="legend-text float-right" id="inventory"> None
+                                        </span>
+                         <span><br></span>
+                       
+                                    </p>
+  <hr>
+                    <div id="topItems">
                     </div>
+
+                    <p class="mb-0"> <span class="legend-text font-weight-bold"> Total Items </span>
+                        <span class="float-right" id="totalItems">0</span>
+                    </p>
+                </div>
                 </div>
             </div>
         </div>
@@ -241,9 +243,11 @@
          //Ajax function to get dashboard on dropdown
          $("#InventoryDropDown").change(function () {
             
-             var selected=  $("#InventoryDropDown Option:Selected").val();
+             var selected=  $("#InventoryDropDown Option:Selected");
+             
+              $('#inventory').text( selected.text());  
              //RecentItems
-           $.getJSON('/Dashboard/GetItems/' +selected , function (data) { 
+           $.getJSON('/Dashboard/GetItems/' + selected.val(), function (data) { 
                      let items = '';  
                      $.each(data, function (i, item) {
                          if (i<4){
@@ -254,7 +258,7 @@
 '                                <td>'+
 '                                    <div class="m-r-10"><img src="'+item.imageURL+'" alt="user" class="rounded" width="95"></div>'+
 '                                </td>'+
-'                                <td>'+$("#InventoryDropDown Option:Selected").text()+'</td>'+
+'                                <td>'+selected.text()+'</td>'+
 '                                <td>'+item.name+'</td>'+
 '                                <td>'+item.type+'</td>'+
 '                                <td>'+item.quantity +'</td>'+
@@ -269,7 +273,7 @@
                  });
            
            //Chart
-            let inventoryid=selected;
+            let inventoryid=selected.val();
                                           let totalItems=0;
                                           let items='';
                                           let otherTotal = 0;  
@@ -365,8 +369,10 @@
          
              
           //Ajax function to get dashboard on load
-                   var  selected=$("#InventoryDropDown Option:Selected").val();
-           $.getJSON('/Dashboard/GetItems/' + selected  , function (data) { 
+              var  selected=$("#InventoryDropDown Option:Selected");
+              $('#inventory').text( selected.text());  
+                          
+           $.getJSON('/Dashboard/GetItems/' + selected.val()  , function (data) { 
                      let items = '';  
                      $.each(data, function (i, item) {
                          if (i<4){
@@ -377,7 +383,7 @@
 '                                <td>'+
 '                                    <div class="m-r-10"><img src="'+item.imageURL+'" alt="user" class="rounded" width="95"></div>'+
 '                                </td>'+
-'                                <td>'+$("#InventoryDropDown Option:Selected").text()+'</td>'+
+'                                <td>'+selected.text()+'</td>'+
 '                                <td>'+item.name+'</td>'+
 '                                <td>'+item.type+'</td>'+
 '                                <td>'+item.quantity +'</td>'+
@@ -390,7 +396,7 @@
                      });     
                      $('#recentItems').html(items);  
                  });  
-                let inventoryid=selected;
+                let inventoryid=selected.val();
                                    let totalItems=0;
                                    let items='';
                                    let otherTotal = 0;  
