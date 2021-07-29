@@ -1,3 +1,4 @@
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,14 +22,15 @@ namespace BeanBag
 
         }
 
-        public IConfiguration Configuration { get;}
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Azure B2C OpenIdConnect Authentication service setup
             services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAdB2C:Tenant1"));
+                .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAdB2C:Tenant2"));
+
             services.AddRazorPages().AddMicrosoftIdentityUI();
             
             services.Configure<OpenIdConnectOptions>(
@@ -47,9 +49,9 @@ namespace BeanBag
                         
                         await Task.FromResult(0);
                     };
-                    
+
                 });
-            
+
             services.AddControllersWithViews();
 
             // Connecting to the sql server and to the specified DB using the appsettings.json ConnectionStrings defaultConnection contents
@@ -68,6 +70,7 @@ namespace BeanBag
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -93,6 +96,8 @@ namespace BeanBag
                     pattern: "{controller=LandingPage}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            
+            
         }
     }
 }
