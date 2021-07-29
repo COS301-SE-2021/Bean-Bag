@@ -9,20 +9,20 @@ namespace BeanBag.Controllers
 {
     public class DashboardController : Controller
     {
-        private readonly IInventoryService _inventoryService;
-        private readonly IDashboardAnalyticsService _dashboardAnalyticsService;
+        private readonly IInventoryService inventoryService;
+        private readonly IDashboardAnalyticsService dashboardAnalyticsService;
 
         public DashboardController( IInventoryService inv, IDashboardAnalyticsService dash)
         {
             // Inits the db context allowing us to use CRUD operations on the inventory table
-            _inventoryService = inv;
-            _dashboardAnalyticsService = dash;
+            inventoryService = inv;
+            dashboardAnalyticsService = dash;
         }
         
         // GET
         public IActionResult Index()
         {
-            var inventories = _inventoryService.GetInventories(User.GetObjectId());
+            var inventories = inventoryService.GetInventories(User.GetObjectId());
             IEnumerable < SelectListItem > inventoryDropDown = inventories.Select(i => new SelectListItem
             {
                 Text = i.name,
@@ -42,20 +42,20 @@ namespace BeanBag.Controllers
 
         public JsonResult GetItems(string id)
         {
-            var result = _dashboardAnalyticsService.GetRecentItems(id);
+            var result = dashboardAnalyticsService.GetRecentItems(id);
             return Json(result);  
         }
 
         public int TotalItems(string id)
         {
-            var result = _dashboardAnalyticsService.GetTotalItems(id);
+            var result = dashboardAnalyticsService.GetTotalItems(id);
             return result;
             
         }
 
         public JsonResult TopItems(string id , int total)
         {
-            var result = _dashboardAnalyticsService.GetTopItems(id);
+            var result = dashboardAnalyticsService.GetTopItems(id);
             return Json(result);  
         }
 
