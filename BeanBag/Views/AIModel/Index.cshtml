@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Inventory>
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+
+@{
+    var options = _azureAdb2COptions.Value;
+}
+<link rel="stylesheet" type="text/css" href="css\dashboard.css" />
+<!-- From Reno: Note the name of the class for the below section. Change if you must :) -->
+<section class="inventory d-flex justify-content-center">
+    <a asp-action="CreateAIModel" class="btn-success">Create New AI Model</a>
+</section>
