@@ -247,7 +247,7 @@
              
               $('#inventory').text( selected.text());  
              //RecentItems
-           $.getJSON('/Dashboard/GetItems/' + selected.val(), function (data) { 
+           $.getJSON('/Home/GetItems/' + selected.val(), function (data) { 
                      let items = '';  
                      $.each(data, function (i, item) {
                          if (i<4){
@@ -285,7 +285,7 @@
                                           let boxColor='';
                                           
                                        //Top 3 Items 
-                                       $.getJSON('/Dashboard/TopItems/' +  inventoryid + "/?nocache="+Math.random(), function (data) { 
+                                       $.getJSON('/Home/TopItems/' +  inventoryid + "/?nocache="+Math.random(), function (data) { 
                                             
                                            $.each(data, function (i, item) { //make if statement for colors
                                                
@@ -325,7 +325,7 @@
                                                             '                        </p>';}
                                            $("#topItems").html(items);  
                                     //Total Items                    
-                                  $.getJSON('/Dashboard/TotalItems/' +  inventoryid  + "/?nocache="+Math.random(), function (data) {                  
+                                  $.getJSON('/Home/TotalItems/' +  inventoryid  + "/?nocache="+Math.random(), function (data) {                  
                                                         $("#totalItems").text(data);
                                                         totalItems=data;
                                                                                 
@@ -372,7 +372,7 @@
               var  selected=$("#InventoryDropDown Option:Selected");
               $('#inventory').text( selected.text());  
                           
-           $.getJSON('/Dashboard/GetItems/' + selected.val()  , function (data) { 
+           $.getJSON('/Home/GetItems/' + selected.val()  , function (data) { 
                      let items = '';  
                      $.each(data, function (i, item) {
                          if (i<4){
@@ -408,7 +408,7 @@
                                    let boxColor='';
                                    
                                 //Top 3 Items 
-                                $.getJSON('/Dashboard/TopItems/' +  inventoryid + "/?nocache="+Math.random(), function (data) { 
+                                $.getJSON('/Home/TopItems/' +  inventoryid + "/?nocache="+Math.random(), function (data) { 
                                      
                                     $.each(data, function (i, item) { //make if statement for colors
                                         
@@ -448,7 +448,7 @@
                                                      '                        </p>';}
                                     $("#topItems").html(items);  
                              //Total Items                    
-                           $.getJSON('/Dashboard/TotalItems/' +  inventoryid  + "/?nocache="+Math.random(), function (data) {                  
+                           $.getJSON('/Home/TotalItems/' +  inventoryid  + "/?nocache="+Math.random(), function (data) {                  
                                                  $("#totalItems").text(data);
                                                  totalItems=data;
                                                                          
