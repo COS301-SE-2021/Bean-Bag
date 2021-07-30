@@ -52,5 +52,11 @@ namespace BeanBag.Services
 
             return topItems;
         }
+        
+        //Gets items available in all the inventories 
+       public int GetItemsAvailable(string id)
+       {
+           return 0;
+       }
     }
 }

@@ -63,6 +63,15 @@ namespace BeanBag.Controllers
             var result = dashboardAnalyticsService.GetTopItems(id);
             return Json(result);  
         }
+        
+        //Get items available for items available card
+        public int ItemsAvailable(string id)
+        {
+            var result = dashboardAnalyticsService.GetItemsAvailable(id);
+            return result;
+            
+        }
 
+        
     }
 }

@@ -8,14 +8,14 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
-<section class="search-and-user" >
-    <div class="admin-profile" >
+<section class="search-and-user " >
+    <div class="admin-profile float-right " >
         @{
             System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
         }
         @if (User.Identity.IsAuthenticated)
         {
-            <span class="greeting">
+            <span class="greeting ">
 
                 Hello @User.Identity.Name </span>
       
@@ -240,7 +240,7 @@
     
       $(document).ready(function ()
       {
-         //Ajax function to get dashboard on dropdown
+         //Ajax function to get dashboard on dropdown (Recent Items)
          $("#InventoryDropDown").change(function () {
             
              var selected=  $("#InventoryDropDown Option:Selected");
@@ -272,7 +272,7 @@
                      $('#recentItems').html(items);  
                  });
            
-           //Chart
+           //Chart card
             let inventoryid=selected.val();
                                           let totalItems=0;
                                           let items='';
