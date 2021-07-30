@@ -70,6 +70,11 @@ namespace BeanBag.Controllers
             return result;
         }
 
+        public double ItemsSold()
+        {
+            var result = dashboardAnalyticsService.GetItemsSold(User.GetObjectId()); 
+            return result;
+        }
         
     }
 }
