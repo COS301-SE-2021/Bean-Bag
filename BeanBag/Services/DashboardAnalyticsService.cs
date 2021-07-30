@@ -120,6 +120,15 @@ namespace BeanBag.Services
        //Get sales growth for all inventories 
        public double GetSalesGrowth(string id)
        {
+           //monthly
+           
+           
+           //yearly
+           
+           
+           //weekly 
+           
+           
            return 0;
        }
 
