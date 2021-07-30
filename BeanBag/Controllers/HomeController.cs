@@ -71,11 +71,20 @@ namespace BeanBag.Controllers
         }
 
         //Items sold for items card
-        public double ItemsSold()
+        public int ItemsSold()
         {
             var result = dashboardAnalyticsService.GetItemsSold(User.GetObjectId()); 
             return result;
         }
         
+        //Revenue 
+        public double Revenue()
+        {
+            var result = dashboardAnalyticsService.GetRevenue(User.GetObjectId()); 
+            return result;
+        }
+        
+        //Growth
+
     }
 }
