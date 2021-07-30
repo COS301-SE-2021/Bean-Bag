@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.Linq;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -30,9 +31,13 @@ namespace BeanBag.Controllers
                     Value = i.Id.ToString()
                 }
             );
+            if(inventories.Count!=0)
+            {
+                inventoryDropDown.First().Selected = true;
+            }
+          
             
-            inventoryDropDown.First().Selected=true;
-            
+
             ViewBag.InventoryDropDown = inventoryDropDown;
             return View();
         }
