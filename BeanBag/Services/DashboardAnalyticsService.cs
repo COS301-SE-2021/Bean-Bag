@@ -99,8 +99,22 @@ namespace BeanBag.Services
 
        //Get revenue for all inventories 
        public double GetRevenue(string id)
-       {
-           return 0;
+       { 
+           var inv = inventoryService.GetInventories(id);
+           double sum = 0;
+           foreach (var x in inv)
+           {
+               var items = itemService.GetItems(x.Id);
+
+               foreach (var y in items)
+               {
+                   if (y.isSold)
+                   {
+                       sum += y.price;
+                   }
+               }
+           }
+           return sum;
        }
        
        //Get sales growth for all inventories 
