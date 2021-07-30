@@ -66,7 +66,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Items Sold</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 text-primary">4,200 </h1>
+                        <h1 class="mb-1 text-primary" id="itemsSold">0 </h1>
                     </div>
                     <div class="metric-label d-inline-block float-right text-danger">
                         <i class="fa fa-fw fa-caret-down"></i><span>1.08%</span>
@@ -245,7 +245,10 @@
                 $('#itemsAvailable').text(data);       
               });
                     
-          
+           //Items available
+          $.getJSON('/Home/ItemsSold/' , function (data) { 
+                 $('#itemsSold').text(data);       
+            });
           
           
           
