@@ -11,6 +11,7 @@ namespace BeanBag.Services
         public IQueryable GetTopItems(string id);
         public int GetItemsAvailable(string id);
         public int GetItemsSold(string id);
-
+        public double GetRevenue(string id);
+       double GetGrowth(string id);
     }
 }
