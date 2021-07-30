@@ -96,5 +96,18 @@ namespace BeanBag.Services
            }
            return sum;
        }
+
+       //Get revenue for all inventories 
+       public double GetRevenue(string id)
+       {
+           return 0;
+       }
+       
+       //Get sales growth for all inventories 
+       public double GetSalesGrowth(string id)
+       {
+           return 0;
+       }
+
     }
 }
