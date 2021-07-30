@@ -74,5 +74,13 @@ namespace BeanBag.Services
            }
            return sum;
        }
+       
+       //Gets total items sold in all the inventories 
+
+       public int GetItemsSold(string id)
+       {
+           return 0;
+       }
+       
     }
 }

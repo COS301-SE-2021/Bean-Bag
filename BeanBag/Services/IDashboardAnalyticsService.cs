@@ -10,5 +10,7 @@ namespace BeanBag.Services
         public int GetTotalItems(string id);
         public IQueryable GetTopItems(string id);
         int GetItemsAvailable(string id);
+        public int GetItemsSold(string id);
+
     }
 }
