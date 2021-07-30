@@ -85,6 +85,10 @@ namespace BeanBag.Controllers
         }
         
         //Growth
-
+        public double Growth()
+        {
+            var result = dashboardAnalyticsService.GetGrowth(User.GetObjectId()); 
+            return result;
+        }
     }
 }
