@@ -89,7 +89,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Revenue</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 text-primary" id="revenue" ></h1>
+                        <h1 class="mb-1 text-primary" id="revenue" > R0.00</h1>
                     </div>
                     <div class="metric-label d-inline-block float-right text-danger">
                         <i class="fa fa-fw fa-caret-down"></i><span>7.00%</span>
@@ -111,12 +111,12 @@
              data-aos-offset="0">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="text-muted">Growth</h5>
+                    <h5 class="text-muted">Sales Growth</h5>
                     <div class="metric-value d-inline-block">
                         <h1 class="mb-1 text-primary">+28.45% </h1>
                     </div>
                     <div class="metric-label d-inline-block float-right text-success">
-                        <i class="fa fa-fw fa-caret-up"></i><span>4.87%</span>
+                        <i class="fa fa-fw fa-caret-up"></i><span></span>
                     </div>
                 </div>
                 <div id="sparkline-4"></div>
@@ -250,11 +250,16 @@
                  $('#itemsSold').text(data);       
             });
           
-            //Items sold
+            //Items revenue
            $.getJSON('/Home/Revenue/' , function (data) { 
-                $('#revenue').text(data);       
+                $('#revenue').text("R" + data);       
             });
                     
+            //Items Growth
+            $.getJSON('/Home/SalesGrowth/' , function (data) { 
+                 $('#growth').text(data +"%");       
+             });
+                      
          //Ajax function to get dashboard on dropdown (Recent Items)
          $("#InventoryDropDown").change(function () {
             
