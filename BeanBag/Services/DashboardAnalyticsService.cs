@@ -77,10 +77,24 @@ namespace BeanBag.Services
        
        //Gets total items sold in all the inventories 
 
-       public int GetItemsSold(string id)
+       public double GetItemsSold(string id)
        {
-           return 0;
+           
+           var inv = inventoryService.GetInventories(id);
+           double sum = 0;
+           foreach (var x in inv)
+           {
+               var items = itemService.GetItems(x.Id);
+
+               foreach (var y in items)
+               {
+                   if (y.isSold)
+                   {
+                       sum += 1;
+                   }
+               }
+           }
+           return sum;
        }
-       
     }
 }
