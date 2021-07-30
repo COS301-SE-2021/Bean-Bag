@@ -7,19 +7,19 @@ namespace BeanBag.Services
 {
     public class DashboardAnalyticsService :IDashboardAnalyticsService
     {
-        private readonly DBContext _db;
+        private readonly DBContext db;
         
         //Constructor
         public DashboardAnalyticsService( DBContext db)
         {
-            _db = db;
+            this.db = db;
         }
 
         //Gets the recent items added to a specific inventory id in the functions parameter 
         public IOrderedQueryable GetRecentItems(string id)
         {
             var idd =  new Guid(id);
-            var result = from i in _db.Items where i.inventoryId.Equals(idd) select new { i.name, i.type, i.imageURL, i.QRContents, i.price, i.entryDate , i.quantity};
+            var result = from i in db.Items where i.inventoryId.Equals(idd) select new { i.name, i.type, i.imageURL, i.QRContents, i.price, i.entryDate , i.quantity};
             var res= result.OrderByDescending(d => d.entryDate);
             
             return res;
@@ -29,7 +29,7 @@ namespace BeanBag.Services
         public int GetTotalItems(string id)
         {
             var idd =  new Guid(id);
-            var res = (from i in _db.Items where i.inventoryId.Equals(idd) select new {i.quantity}).ToList();
+            var res = (from i in db.Items where i.inventoryId.Equals(idd) select new {i.quantity}).ToList();
             return res.Sum(t => t.quantity);
             
         }
@@ -38,10 +38,10 @@ namespace BeanBag.Services
         public  IQueryable GetTopItems(string id)
         {
             var idd =  new Guid(id);
-            var res = (from i in _db.Items where i.inventoryId.Equals(idd) select new {i.quantity}).ToList();
+            var res = (from i in db.Items where i.inventoryId.Equals(idd) select new {i.quantity}).ToList();
             int tot= res.Sum(t => t.quantity);
 
-            var topItems = _db.Set<Item>()
+            var topItems = db.Set<Item>()
                 .Where(x => x.inventoryId.Equals(idd))
                 .GroupBy(x => x.type)
                 .Select(x => new {ProductId = x.Key, QuantitySum = x.Sum(a => a.quantity)})

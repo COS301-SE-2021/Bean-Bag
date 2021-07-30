@@ -44,7 +44,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Items Available</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 text-primary">32,100 </h1>
+                        <h1 class="mb-1 text-primary" id="itemsAvailable" >0 </h1>
                     </div>
                     <div class="metric-label d-inline-block float-right text-success">
                         <i class="fa fa-fw fa-caret-up"></i><span>5.27%</span>
@@ -237,9 +237,18 @@
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
-    
+   
       $(document).ready(function ()
       {
+          //Items available
+          $.getJSON('/Home/ItemsAvailable/' , function (data) { 
+                $('#itemsAvailable').text(data);       
+              });
+                    
+          
+          
+          
+          
          //Ajax function to get dashboard on dropdown (Recent Items)
          $("#InventoryDropDown").change(function () {
             

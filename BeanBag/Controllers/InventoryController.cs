@@ -2,13 +2,8 @@
 using BeanBag.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Identity.Web;
-using System.Drawing.Imaging;
-using System.IO;
-using QRCoder;
 using BeanBag.Services;
 
 namespace BeanBag.Controllers

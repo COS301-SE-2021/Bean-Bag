@@ -14,7 +14,7 @@ namespace BeanBag.Controllers
         private readonly IDashboardAnalyticsService dashboardAnalyticsService;
 
         //Constructor
-        public HomeController( IInventoryService inv, IDashboardAnalyticsService dash)
+        public HomeController(IInventoryService inv, IDashboardAnalyticsService dash)
         {
             // Inits the db context allowing us to use CRUD operations on the inventory table
             inventoryService = inv;
@@ -35,10 +35,9 @@ namespace BeanBag.Controllers
             {
                 inventoryDropDown.First().Selected = true;
             }
-          
             
-
             ViewBag.InventoryDropDown = inventoryDropDown;
+            
             return View();
         }
         
@@ -65,11 +64,10 @@ namespace BeanBag.Controllers
         }
         
         //Get items available for items available card
-        public int ItemsAvailable(string id)
+        public int ItemsAvailable()
         {
-            var result = dashboardAnalyticsService.GetItemsAvailable(id);
+            var result = dashboardAnalyticsService.GetItemsAvailable(User.GetObjectId()); 
             return result;
-            
         }
 
         
