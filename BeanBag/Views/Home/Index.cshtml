@@ -20,16 +20,24 @@
                 Hello @User.Identity.Name </span>
       
         }
-        <div class="notifications">
+        <div>
             <svg>
                 <use xlink:href="#users"></use>
             </svg>
         </div>
     </div>
+      
+<div   >
+                               <h6 class="float-right"> Select Inventory   @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList)
+                                                                                                 
+                                                                                                                     
+                                                                                                                     </h6>     </div>
+            
 </section>
 <div class="dashboard-wrapper">
+  
 <div class="container-fluid  dashboard-content">
-
+  
 <!-- ============================================================== -->
 <!-- page-header  -->
 <!-- ============================================================== -->
@@ -137,11 +145,7 @@
              data-aos-offset="0">
 
             <div class="card" id="CategoryID" >
-                <h5 class="card-header">Recently Added Items  <span  class="float-right" >
-                   <h6> Select Inventory   @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList)
-                                                                                     
-                                                                                                         
-                                                                                                         </h6>     </span>   </h5>
+                <h5 class="card-header">Recently Added Items   </h5>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table">
