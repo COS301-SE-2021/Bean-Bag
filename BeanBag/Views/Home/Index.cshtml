@@ -27,18 +27,39 @@
         </div>
     </div>
       
-<div   >
-                               <h6 class="float-right"> Select Inventory   @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList)
-                                                                                                 
-                                                                                                                     
-                                                                                                                     </h6>     </div>
             
 </section>
+
 <div class="dashboard-wrapper">
-  
-<div class="container-fluid  dashboard-content">
-  
-<!-- ============================================================== -->
+    <div class="container-fluid  dashboard-content">
+    
+    
+    <!--Date picker -->
+    <div class="row">
+   
+        
+        <div class="col-md-2">
+            <input type="text" name="from_date" id="from_date" class="form-control dateFilter" placeholder="From Date"/>
+        </div>
+        <div class="col-md-2">
+            <input type="text" name="to_date" id="to_date" class="form-control dateFilter" placeholder="To Date"/>
+        </div>
+        <div class="col-md-5">
+            <input type="button" name="search" id="btn_search" value="Search" class="btn btn-primary"/>
+        </div>
+        <span class="col-md-1.5">
+        Select Inventory
+        </span>
+         <span class="col-md-2">
+               @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, null,new { @class = "form-control" } )
+                 
+                 </span>
+
+
+    </div>
+    <br>
+    
+    <!-- ============================================================== -->
 <!-- page-header  -->
 <!-- ============================================================== -->
 <div class="row">
