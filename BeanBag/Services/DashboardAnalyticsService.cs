@@ -8,11 +8,15 @@ namespace BeanBag.Services
     public class DashboardAnalyticsService :IDashboardAnalyticsService
     {
         private readonly DBContext db;
+        private readonly IInventoryService inventoryService;
+        private readonly IItemService itemService;
         
         //Constructor
-        public DashboardAnalyticsService( DBContext db)
+        public DashboardAnalyticsService( DBContext db, IInventoryService inventoryService, IItemService itemService)
         {
             this.db = db;
+            this.inventoryService = inventoryService;
+            this.itemService = itemService;
         }
 
         //Gets the recent items added to a specific inventory id in the functions parameter 
@@ -56,7 +60,19 @@ namespace BeanBag.Services
         //Gets items available in all the inventories 
        public int GetItemsAvailable(string id)
        {
-           return 0;
+           var inv = inventoryService.GetInventories(id);
+           int sum = 0;
+           foreach (var x in inv)
+           {
+               var items = itemService.GetItems(x.Id);
+
+               foreach (var y in items)
+               {
+                   sum += y.quantity;
+               }
+               
+           }
+           return sum;
        }
     }
 }
