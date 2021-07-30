@@ -89,7 +89,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Revenue</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 text-primary">R5,656</h1>
+                        <h1 class="mb-1 text-primary" id="revenue" ></h1>
                     </div>
                     <div class="metric-label d-inline-block float-right text-danger">
                         <i class="fa fa-fw fa-caret-down"></i><span>7.00%</span>
@@ -245,13 +245,16 @@
                 $('#itemsAvailable').text(data);       
               });
                     
-           //Items available
+           //Items sold
           $.getJSON('/Home/ItemsSold/' , function (data) { 
                  $('#itemsSold').text(data);       
             });
           
-          
-          
+            //Items sold
+           $.getJSON('/Home/Revenue/' , function (data) { 
+                $('#revenue').text(data);       
+            });
+                    
          //Ajax function to get dashboard on dropdown (Recent Items)
          $("#InventoryDropDown").change(function () {
             
