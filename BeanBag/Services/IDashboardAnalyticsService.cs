@@ -9,7 +9,7 @@ namespace BeanBag.Services
         public IOrderedQueryable GetRecentItems(string id);
         public int GetTotalItems(string id);
         public IQueryable GetTopItems(string id);
-        public int GetItemsAvailable(string id);
+        public int GetItemsAvailable(string id, string time);
         public int GetItemsSold(string id);
         public double GetRevenue(string id);
        double GetSalesGrowth(string id);

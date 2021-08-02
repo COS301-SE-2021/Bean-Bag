@@ -76,9 +76,9 @@ namespace BeanBag.Controllers
         }
         
         //Get items available for items available card
-        public int ItemsAvailable()
+        public int ItemsAvailable(string id, string time)
         {
-            var result = dashboardAnalyticsService.GetItemsAvailable(User.GetObjectId()); 
+            var result = dashboardAnalyticsService.GetItemsAvailable(id , time); 
             return result;
         }
 

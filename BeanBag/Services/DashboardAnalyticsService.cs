@@ -58,19 +58,15 @@ namespace BeanBag.Services
         }
         
         //Gets items available in all the inventories 
-       public int GetItemsAvailable(string id)
+       public int GetItemsAvailable(string id, string time)
        {
-           var inv = inventoryService.GetInventories(id);
+           Guid newId = new Guid(id);
+           var items = itemService.GetItems(newId);
            int sum = 0;
-           foreach (var x in inv)
+           
+           foreach (var y in items)
            {
-               var items = itemService.GetItems(x.Id);
-
-               foreach (var y in items)
-               {
                    sum += y.quantity;
-               }
-               
            }
            return sum;
        }

@@ -277,14 +277,7 @@
    
       $(document).ready(function ()
       {
-          //Date picker
-     
-       
-        
-          //Items available
-          $.getJSON('/Home/ItemsAvailable/' , function (data) { 
-                $('#itemsAvailable').text(data);       
-              });
+         
                     
            //Items sold
           $.getJSON('/Home/ItemsSold/' , function (data) { 
@@ -305,8 +298,16 @@
          $("#InventoryDropDown").change(function () {
             
              var selected=  $("#InventoryDropDown Option:Selected");
-             
-              $('#inventory').text( selected.text());  
+             $('#inventory').text( selected.text());  
+              
+              var selectedTime=$("#TimeDropDown Option:Selected");
+              $('#time').text( selected.text());  
+                                        
+         //Items available
+          $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
+              $('#itemsAvailable').text(data);       
+          });
+                                 
              //RecentItems
            $.getJSON('/Home/GetItems/' + selected.val(), function (data) { 
                      let items = '';  
@@ -429,10 +430,19 @@
              
          
              
-          //Ajax function to get dashboard on load
+          //------ Ajax function to get dashboard on load
               var  selected=$("#InventoryDropDown Option:Selected");
               $('#inventory').text( selected.text());  
+              
+              var selectedTime=$("#TimeDropDown Option:Selected");
+               $('#time').text( selected.text());  
                           
+          //Items available
+                   $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                         $('#itemsAvailable').text(data);       
+                       });
+                   
+           //Recent items                
            $.getJSON('/Home/GetItems/' + selected.val()  , function (data) { 
                      let items = '';  
                      $.each(data, function (i, item) {
