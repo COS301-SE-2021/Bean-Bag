@@ -63,6 +63,25 @@ namespace BeanBag.Services
            Guid newId = new Guid(id);
            var items = itemService.GetItems(newId);
            int sum = 0;
+
+           switch (time)
+           {
+               case "Y":
+                   sum = 1;
+                   break;
+               case "M":
+                   sum = 2;
+                   break;
+               case "W":
+                   sum = 3;
+                   break;
+               case "D":
+                   sum = 4;
+                   break;
+               default:
+                   throw new  Exception("Invalid timespan given as input, expecting Y, M, W or D") ;
+           }
+           
            
            foreach (var y in items)
            {
