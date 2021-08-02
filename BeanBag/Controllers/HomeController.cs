@@ -24,6 +24,7 @@ namespace BeanBag.Controllers
         //Index page, returns drop-down-lists and the page view
         public IActionResult Index()
         {
+            //Inventory Drop-Down-List
             var inventories = inventoryService.GetInventories(User.GetObjectId());
             IEnumerable < SelectListItem > inventoryDropDown = inventories.Select(i => new SelectListItem
                 {
@@ -35,9 +36,20 @@ namespace BeanBag.Controllers
             {
                 inventoryDropDown.First().Selected = true;
             }
-            
             ViewBag.InventoryDropDown = inventoryDropDown;
             
+            //TimeFrame Drop-Down-list
+            List<SelectListItem> times = new List<SelectListItem>
+            {
+                new SelectListItem() {Text = "Year", Value = "Y"},
+                new SelectListItem() {Text = "Month", Value = "M"},
+                new SelectListItem() {Text = "Week", Value = "W"},
+                new SelectListItem() {Text = "Day", Value = "D"}
+            };
+
+            times.First().Selected = true;
+            ViewBag.TimeDropDown = times;
+
             return View();
         }
         

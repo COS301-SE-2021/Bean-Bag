@@ -6,6 +6,7 @@
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+ 
 
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
 <section class="search-and-user " >
@@ -38,16 +39,28 @@
     <div class="row">
    
         
-        <div class="col-md-2">
-            <input type="text" name="from_date" id="from_date" class="form-control dateFilter" placeholder="From Date"/>
+        <!--  <div class="col-md-2">
+            <input type="date" name="start_date" id="start_date" class="form-control dateFilter" value="From Date"/>
         </div>
         <div class="col-md-2">
-            <input type="text" name="to_date" id="to_date" class="form-control dateFilter" placeholder="To Date"/>
+            <input type="date" name="end_date" id="end_date" class="form-control dateFilter" value="To Date"/>
         </div>
         <div class="col-md-5">
             <input type="button" name="search" id="btn_search" value="Search" class="btn btn-primary"/>
-        </div>
-        <span class="col-md-1.5">
+        </div>-->
+        <div class="col-md-3">
+             </div>
+                <div class="col-md-3">
+             </div>
+         <span class="col-md-1">
+                View By 
+                </span>
+                 <span class="col-md-2">
+                       @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null,new { @class = "form-control" } )
+                         
+                         </span>
+        
+        <span class="col-md-1">
         Select Inventory
         </span>
          <span class="col-md-2">
@@ -71,7 +84,7 @@
              data-aos-offset="0">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="text-muted">Items Available</h5>
+                    <h5 class="text-muted">Items Added</h5>
                     <div class="metric-value d-inline-block">
                         <h1 class="mb-1 text-primary" id="itemsAvailable" >0 </h1>
                     </div>
@@ -159,7 +172,7 @@
     <!-- ============================================================== -->
     <!-- recent products  -->
     <!-- ============================================================== -->
-    <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="col-xl-8 col-lg-13 col-md-13 col-sm-13 col-13">
         <div data-aos="fade-zoom-in"
              data-aos-easing="fade-zoom-in"
              data-aos-delay="400"
@@ -265,6 +278,8 @@
       $(document).ready(function ()
       {
           //Date picker
+     
+       
         
           //Items available
           $.getJSON('/Home/ItemsAvailable/' , function (data) { 
