@@ -186,16 +186,71 @@ namespace BeanBag.Services
        //Get sales growth for all inventories 
        public double GetSalesGrowth(string id, string time)
        {
-           //monthly
+           Guid newId = new Guid(id);
+          
+           DateTime currentDate;
+           DateTime prevDate;
+
+           switch (time)
+           {
+               //Year
+               case "Y": 
+                   currentDate = DateTime.UtcNow.Date.AddYears(-1);
+                   prevDate = DateTime.UtcNow.Date.AddYears(-2);
+                   break;
+               //Month
+               case "M":
+                   currentDate = DateTime.UtcNow.Date.AddMonths(-1);
+                   prevDate = DateTime.UtcNow.AddMonths(-2);
+                   break;
+               //Week
+               case "W":
+                   currentDate = DateTime.UtcNow.Date.AddDays(-7);
+                   prevDate = DateTime.UtcNow.AddDays(-14);
+                   break;
+               //Day
+               case "D":
+                   currentDate = DateTime.UtcNow.Date;
+                   prevDate = DateTime.UtcNow.AddDays(-1);
+                   break;
+               default:
+                   throw new  Exception("Invalid timespan given as input, expecting Y, M, W or D") ;
+           }
            
+           double sum = 0;
+           double prevSum = 0;
+
+           //Current period
+           var contents = from cnt in db.Items
+               where cnt.inventoryId == newId & cnt.entryDate >= currentDate
+               select new { cnt.price , cnt.isSold};
+
+           foreach (var y in contents)
+           {
+               if (y.isSold)
+               {
+                   sum += y.price;
+               }
+           }
            
-           //yearly
+           //Previous period
+           var prevContents = from cnt in db.Items
+               where cnt.inventoryId == newId &  prevDate >= cnt.entryDate
+               select new { cnt.price , cnt.isSold};
            
+           foreach (var y in prevContents)
+           {
+               if (y.isSold)
+               {
+                   prevSum += y.price;
+               }
+           }
            
-           //weekly 
+           //Growth calculation 
            
-           
-           return 0;
+           double growth = (sum - prevSum) / prevSum * 100;
+
+           return sum;
        }
 
     }
