@@ -249,8 +249,9 @@ namespace BeanBag.Services
            //Growth calculation 
            
            double growth = (sum - prevSum) / prevSum * 100;
+           double rounded = Math.Round(growth,2);
 
-           return sum;
+           return growth;
        }
 
     }
