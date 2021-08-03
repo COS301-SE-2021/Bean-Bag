@@ -29,7 +29,7 @@ namespace BeanBag
         {
             // Azure B2C OpenIdConnect Authentication service setup
             services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAdB2C:Tenant2"));
+                .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAdB2C"));
 
             services.AddRazorPages().AddMicrosoftIdentityUI();
             
