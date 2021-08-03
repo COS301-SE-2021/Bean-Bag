@@ -92,7 +92,7 @@ namespace BeanBag.Services
        
        //Gets total items sold in all the inventories 
 
-       public int GetItemsSold(string id)
+       public int GetItemsSold(string id, string time)
        {
            
            var inv = inventoryService.GetInventories(id);
@@ -113,7 +113,7 @@ namespace BeanBag.Services
        }
 
        //Get revenue for all inventories 
-       public double GetRevenue(string id)
+       public double GetRevenue(string id, string time)
        { 
            var inv = inventoryService.GetInventories(id);
            double sum = 0;
@@ -133,7 +133,7 @@ namespace BeanBag.Services
        }
        
        //Get sales growth for all inventories 
-       public double GetSalesGrowth(string id)
+       public double GetSalesGrowth(string id, string time)
        {
            //monthly
            
