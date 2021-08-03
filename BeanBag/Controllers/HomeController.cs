@@ -88,7 +88,7 @@ namespace BeanBag.Controllers
             var result = dashboardAnalyticsService.GetItemsSold(id , time); 
             return result;
         }
-        
+
         //Revenue 
         public double Revenue(string id, string time)
         {
@@ -100,6 +100,29 @@ namespace BeanBag.Controllers
         public double SalesGrowth(string id, string time)
         {
             var result = dashboardAnalyticsService.GetSalesGrowth(id , time); 
+            return result;
+        }
+        
+            
+        //Item available percentage growth statistic
+        public double AvailableStat(string id, string time)
+        {
+            var result = dashboardAnalyticsService.ItemAvailableStat(id , time); 
+            return result;
+        }
+        
+               
+        //Item sold percentage growth statistic
+        public double SoldStat(string id, string time)
+        {
+            var result = dashboardAnalyticsService.ItemsSoldStat(id , time); 
+            return result;
+        }
+        
+        //Item revenue percentage growth statistic
+        public double RevenueStat(string id, string time)
+        {
+            var result = dashboardAnalyticsService.ItemsRevenueStat(id , time); 
             return result;
         }
     }

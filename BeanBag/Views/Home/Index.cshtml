@@ -88,12 +88,9 @@
                     <div class="metric-value d-inline-block">
                         <h1 class="mb-1 text-primary" id="itemsAvailable" >0 </h1>
                     </div>
-                    <div class="metric-label d-inline-block float-right text-success">
-                        <div id="addedStat"> </div>
-                        <i class="fa fa-fw fa-caret-up"></i><span>0%</span>
-                    </div>
+                         <span id="addedStat"> </span>
+                  
                 </div>
-                <div id="sparkline-1"></div>
             </div>
         </div>
                     
@@ -111,15 +108,12 @@
                     <div class="metric-value d-inline-block">
                         <h1 class="mb-1 text-primary" id="itemsSold">0 </h1>
                     </div>
-                    <div class="metric-label d-inline-block float-right text-danger">
-                        
-                        <i class="fa fa-fw fa-caret-down"></i><span>0%</span>
-                    </div>
+                 
+                         <span id="soldStat"> </span>
+                   
                 </div>
-                <div id="sparkline-2"></div>
-            </div>
         </div>
-                    
+              </div>           
     </div>
     <!-- /. metric -->
     <!-- metric -->
@@ -135,12 +129,10 @@
                     <div class="metric-value d-inline-block">
                         <h1 class="mb-1 text-primary" id="revenue" > R0.00</h1>
                     </div>
-                    <div class="metric-label d-inline-block float-right text-danger">
-                        <i class="fa fa-fw fa-caret-down"></i><span>0%</span>
-                    </div>
+                   <span id="revStat"> </span>
+                
                 </div>
-                <div id="sparkline-3">
-                </div>
+              
             </div>
         </div>
                      
@@ -159,10 +151,8 @@
                     <div class="metric-value d-inline-block">
                         <h1 class="mb-1 text-primary">+0% </h1>
                     </div>
-                    <div class="metric-label d-inline-block float-right text-success">
-                        </div>
+                  
                 </div>
-                <div id="sparkline-4"></div>
             </div>
         </div>
                     
@@ -279,17 +269,13 @@
    
       $(document).ready(function ()
       {
-         
-                    
-        
-            
             //------------- Ajax get items on change of the timespan ------------------//
              $("#TimeDropDown").change(function () {
                  
-                  var selected=  $("#InventoryDropDown Option:Selected");
+                  let selected=  $("#InventoryDropDown Option:Selected");
                               $('#inventory').text( selected.text());  
                                
-                               var selectedTime=$("#TimeDropDown Option:Selected");
+                               let selectedTime=$("#TimeDropDown Option:Selected");
                                $('#time').text( selected.text());  
                                                          
                           //Items available
@@ -299,7 +285,7 @@
                            
                               //Items sold
                                      $.getJSON('/Home/ItemsSold/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                                            $('#itemsSold').text(data);       
+                                         $('#itemsSold').text(data);     
                                        });
                                      
                                        //Items revenue
@@ -311,18 +297,71 @@
                                        $.getJSON('/Home/SalesGrowth/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
                                             $('#growth').text(data +"%");       
                                         }); 
-               });
+                                       
+                         
+                          //Percentage growth stats
+                          
+                          //Added stat
+                           $.getJSON('/Home/AvailableStat/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                let val;
+                                if (data>=0)
+                                {
+                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                }
+                                else
+                                {
+                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                 }
+                              
+                               $('#addedStat').html(val);       
+                            })  
+                 
+                           //Sold stat
+                            $.getJSON('/Home/SoldStat/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                    let val;
+                                             if (data>=0)
+                                             {
+                                                 val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                                        '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                             }
+                                             else
+                                             {
+                                                 val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                                      '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                              }                                                
+                                  $('#soldStat').html(val);       
+                               });
+                           
+                            //Revenue stat
+                              $.getJSON('/Home/RevenueStat/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                let val;
+                                if (data>=0)
+                                {
+                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                }
+                                else
+                                {
+                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                 }                     $('#revStat').html(val);       
+                                }); 
+                              
+                              
+                             });
                       
          //--------------- Ajax function to get dashboard on dropdown (Recent Items) --------------//
          $("#InventoryDropDown").change(function () {
             
-             var selected=  $("#InventoryDropDown Option:Selected");
+             let selected=  $("#InventoryDropDown Option:Selected");
              $('#inventory').text( selected.text());  
              
                      
-                               var selectedTime=$("#TimeDropDown Option:Selected");
+                               let selectedTime=$("#TimeDropDown Option:Selected");
                                $('#time').text( selected.text());  
-                                                         
+                                                           
                           //Items available
                            $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
                                $('#itemsAvailable').text(data);       
@@ -378,7 +417,7 @@
                                           let item1='';
                                           let item2='';
                                           let item3='';
-                                          var quantity1=0, quantity2=0, quantity3=0;
+                                          let quantity1=0, quantity2=0, quantity3=0;
                                           let boxColor='';
                                           
                                        //Top 3 Items 
@@ -468,10 +507,10 @@
           //------ Ajax function to get dashboard on load ---------------//
           
           
-              var  selected=$("#InventoryDropDown Option:Selected");
+              let  selected=$("#InventoryDropDown Option:Selected");
               $('#inventory').text( selected.text());  
               
-              var selectedTime=$("#TimeDropDown Option:Selected");
+              let selectedTime=$("#TimeDropDown Option:Selected");
                $('#time').text( selected.text());  
       
                                                          
@@ -528,7 +567,7 @@
                                    let item1='';
                                    let item2='';
                                    let item3='';
-                                   var quantity1=0, quantity2=0, quantity3=0;
+                                   let quantity1=0, quantity2=0, quantity3=0;
                                    let boxColor='';
                                    
                                 //Top 3 Items 

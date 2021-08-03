@@ -11,5 +11,8 @@ namespace BeanBag.Services
         public int GetItemsSold(string id,string time);
         public double GetRevenue(string id, string time);
        double GetSalesGrowth(string id, string time) ;
+       double ItemsRevenueStat(string id, string time);
+       double ItemsSoldStat(string id, string time);
+       double ItemAvailableStat(string id, string time);
     }
 }

@@ -251,7 +251,26 @@ namespace BeanBag.Services
            double growth = (sum - prevSum) / prevSum * 100;
            double rounded = Math.Round(growth,2);
 
-           return growth;
+           return rounded;
+       }
+       
+       //Item revenue percentage growth statistic
+       public double ItemsRevenueStat(string id, string time)
+       {
+           return 5;
+
+       }
+       
+       //Item sold percentage growth statistic
+       public double ItemsSoldStat(string id, string time)
+       {
+           return -5;
+       }
+       
+       //Item revenue percentage growth statistic
+       public double ItemAvailableStat(string id, string time)
+       {
+           return -5;
        }
 
     }
