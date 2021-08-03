@@ -89,6 +89,7 @@
                         <h1 class="mb-1 text-primary" id="itemsAvailable" >0 </h1>
                     </div>
                     <div class="metric-label d-inline-block float-right text-success">
+                        <div id="addedStat"> </div>
                         <i class="fa fa-fw fa-caret-up"></i><span>0%</span>
                     </div>
                 </div>
@@ -111,6 +112,7 @@
                         <h1 class="mb-1 text-primary" id="itemsSold">0 </h1>
                     </div>
                     <div class="metric-label d-inline-block float-right text-danger">
+                        
                         <i class="fa fa-fw fa-caret-down"></i><span>0%</span>
                     </div>
                 </div>
@@ -279,20 +281,7 @@
       {
          
                     
-           //Items sold
-          $.getJSON('/Home/ItemsSold/' , function (data) { 
-                 $('#itemsSold').text(data);       
-            });
-          
-            //Items revenue
-           $.getJSON('/Home/Revenue/' , function (data) { 
-                $('#revenue').text("R" + data);       
-            });
-                    
-            //Items Growth
-            $.getJSON('/Home/SalesGrowth/' , function (data) { 
-                 $('#growth').text(data +"%");       
-             });
+        
             
             //------------- Ajax get items on change of the timespan ------------------//
              $("#TimeDropDown").change(function () {
@@ -306,7 +295,22 @@
                           //Items available
                            $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
                                $('#itemsAvailable').text(data);       
-                           })        
+                           })       
+                           
+                              //Items sold
+                                     $.getJSON('/Home/ItemsSold/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                            $('#itemsSold').text(data);       
+                                       });
+                                     
+                                       //Items revenue
+                                      $.getJSON('/Home/Revenue/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                           $('#revenue').text("R" + data);       
+                                       });
+                                               
+                                       //Items Growth
+                                       $.getJSON('/Home/SalesGrowth/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                            $('#growth').text(data +"%");       
+                                        }); 
                });
                       
          //--------------- Ajax function to get dashboard on dropdown (Recent Items) --------------//
@@ -314,6 +318,30 @@
             
              var selected=  $("#InventoryDropDown Option:Selected");
              $('#inventory').text( selected.text());  
+             
+                     
+                               var selectedTime=$("#TimeDropDown Option:Selected");
+                               $('#time').text( selected.text());  
+                                                         
+                          //Items available
+                           $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                               $('#itemsAvailable').text(data);       
+                           })       
+                           
+                              //Items sold
+                                     $.getJSON('/Home/ItemsSold/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                            $('#itemsSold').text(data);       
+                                       });
+                                     
+                                       //Items revenue
+                                      $.getJSON('/Home/Revenue/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                           $('#revenue').text("R" + data);       
+                                       });
+                                               
+                                       //Items Growth
+                                       $.getJSON('/Home/SalesGrowth/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                            $('#growth').text(data +"%");       
+                                        }); 
                                               
              //RecentItems
            $.getJSON('/Home/GetItems/' + selected.val(), function (data) { 
@@ -331,7 +359,7 @@
 '                                <td>'+item.name+'</td>'+
 '                                <td>'+item.type+'</td>'+
 '                                <td>'+item.quantity +'</td>'+
-'                                <td>'+item.price+'</td>'+
+'                                <td>'+"R"+ item.price+'</td>'+
 ''+
 '                                <td>'+item.entryDate+'</td>'+
 '                            </tr>';
@@ -445,11 +473,27 @@
               
               var selectedTime=$("#TimeDropDown Option:Selected");
                $('#time').text( selected.text());  
-                          
-          //Items available
-                   $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                         $('#itemsAvailable').text(data);       
-                       });
+      
+                                                         
+                          //Items available
+                           $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                               $('#itemsAvailable').text(data);       
+                           })       
+                           
+                              //Items sold
+                                     $.getJSON('/Home/ItemsSold/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                            $('#itemsSold').text(data);       
+                                       });
+                                     
+                                       //Items revenue
+                                      $.getJSON('/Home/Revenue/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                           $('#revenue').text("R" + data);       
+                                       });
+                                               
+                                       //Items Growth
+                                       $.getJSON('/Home/SalesGrowth/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                            $('#growth').text(data +"%");       
+                                        });                 
                    
            //Recent items                
            $.getJSON('/Home/GetItems/' + selected.val()  , function (data) { 
@@ -467,7 +511,7 @@
 '                                <td>'+item.name+'</td>'+
 '                                <td>'+item.type+'</td>'+
 '                                <td>'+item.quantity +'</td>'+
-'                                <td>'+item.price+'</td>'+
+'                                <td>'+"R" +item.price+'</td>'+
 ''+
 '                                <td>'+item.entryDate+'</td>'+
 '                            </tr>';
