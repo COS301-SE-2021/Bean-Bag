@@ -58,6 +58,11 @@ namespace BeanBag
             services.AddDbContext<DBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
+            
+            // Connecting to Tenant DB
+            services.AddDbContext<DBContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("TenantConnection"))
+            );
 
             //Adding service classes to be used as a DI
             services.AddTransient<IInventoryService, InventoryService>();
