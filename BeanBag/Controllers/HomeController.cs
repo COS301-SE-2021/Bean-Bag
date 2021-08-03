@@ -83,23 +83,23 @@ namespace BeanBag.Controllers
         }
 
         //Items sold for items card
-        public int ItemsSold()
+        public int ItemsSold(string id, string time)
         {
-            var result = dashboardAnalyticsService.GetItemsSold(User.GetObjectId()); 
+            var result = dashboardAnalyticsService.GetItemsSold(id , time); 
             return result;
         }
         
         //Revenue 
-        public double Revenue()
+        public double Revenue(string id, string time)
         {
-            var result = dashboardAnalyticsService.GetRevenue(User.GetObjectId()); 
+            var result = dashboardAnalyticsService.GetRevenue(id , time); 
             return result;
         }
         
         //Growth
-        public double Growth()
+        public double SalesGrowth(string id, string time)
         {
-            var result = dashboardAnalyticsService.GetSalesGrowth(User.GetObjectId()); 
+            var result = dashboardAnalyticsService.GetSalesGrowth(id , time); 
             return result;
         }
     }
