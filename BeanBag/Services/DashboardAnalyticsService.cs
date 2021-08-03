@@ -8,15 +8,11 @@ namespace BeanBag.Services
     public class DashboardAnalyticsService :IDashboardAnalyticsService
     {
         private readonly DBContext db;
-        private readonly IInventoryService inventoryService;
-        private readonly IItemService itemService;
         
         //Constructor
-        public DashboardAnalyticsService( DBContext db, IInventoryService inventoryService, IItemService itemService)
+        public DashboardAnalyticsService( DBContext db)
         {
             this.db = db;
-            this.inventoryService = inventoryService;
-            this.itemService = itemService;
         }
 
         //Gets the recent items added to a specific inventory id in the functions parameter 
@@ -61,29 +57,33 @@ namespace BeanBag.Services
        public int GetItemsAvailable(string id, string time)
        {
            Guid newId = new Guid(id);
-           var items = itemService.GetItems(newId);
            int sum = 0;
+
+           DateTime currentDate;
 
            switch (time)
            {
                case "Y":
-                   sum = 1;
+                   currentDate = DateTime.UtcNow.Date.AddYears(-1);
                    break;
                case "M":
-                   sum = 2;
+                   currentDate = DateTime.UtcNow.Date.AddMonths(-1);
                    break;
                case "W":
-                   sum = 3;
+                   currentDate = DateTime.UtcNow.Date.AddDays(-7);
                    break;
                case "D":
-                   sum = 4;
+                   currentDate = DateTime.UtcNow.Date;
                    break;
                default:
                    throw new  Exception("Invalid timespan given as input, expecting Y, M, W or D") ;
            }
            
-           
-           foreach (var y in items)
+           var contents = from cnt in db.Items
+               where cnt.inventoryId == newId & cnt.entryDate >= currentDate
+               select new { cnt.quantity };
+
+           foreach (var y in contents)
            {
                    sum += y.quantity;
            }
@@ -94,12 +94,12 @@ namespace BeanBag.Services
 
        public int GetItemsSold(string id, string time)
        {
-           
-           var inv = inventoryService.GetInventories(id);
+           int sum = 0;
+         /*  var inv = inventoryService.GetInventories(id);
            int sum = 0;
            foreach (var x in inv)
            {
-               var items = itemService.GetItems(x.Id);
+              // var items = itemService.GetItems(x.Id);
 
                foreach (var y in items)
                {
@@ -108,16 +108,15 @@ namespace BeanBag.Services
                        sum += 1;
                    }
                }
-           }
+           }*/
            return sum;
        }
 
        //Get revenue for all inventories 
        public double GetRevenue(string id, string time)
        { 
-           var inv = inventoryService.GetInventories(id);
            double sum = 0;
-           foreach (var x in inv)
+          /* foreach (var x in inv)
            {
                var items = itemService.GetItems(x.Id);
 
@@ -128,7 +127,7 @@ namespace BeanBag.Services
                        sum += y.price;
                    }
                }
-           }
+           }*/
            return sum;
        }
        
