@@ -257,7 +257,7 @@ namespace BeanBag.Services
        //Item revenue percentage growth statistic
        public double ItemsRevenueStat(string id, string time)
        {
-           return 5;
+           return GetSalesGrowth(id, time);
 
        }
        

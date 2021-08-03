@@ -266,6 +266,7 @@
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
+    
    
       $(document).ready(function ()
       {
@@ -381,6 +382,56 @@
                                        $.getJSON('/Home/SalesGrowth/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
                                             $('#growth').text(data +"%");       
                                         }); 
+           
+                          //Percentage growth stats
+                          
+                          //Added stat
+                           $.getJSON('/Home/AvailableStat/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                let val;
+                                if (data>=0)
+                                {
+                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                }
+                                else
+                                {
+                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                 }
+                              
+                               $('#addedStat').html(val);       
+                            })  
+                 
+                           //Sold stat
+                            $.getJSON('/Home/SoldStat/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                    let val;
+                                             if (data>=0)
+                                             {
+                                                 val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                                        '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                             }
+                                             else
+                                             {
+                                                 val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                                      '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                              }                                                
+                                  $('#soldStat').html(val);       
+                               });
+                           
+                            //Revenue stat
+                              $.getJSON('/Home/RevenueStat/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                let val;
+                                if (data>=0)
+                                {
+                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                }
+                                else
+                                {
+                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                 }                     $('#revStat').html(val);       
+                                });                                       
                                               
              //RecentItems
            $.getJSON('/Home/GetItems/' + selected.val(), function (data) { 
@@ -533,7 +584,56 @@
                                        $.getJSON('/Home/SalesGrowth/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
                                             $('#growth').text(data +"%");       
                                         });                 
-                   
+            
+                          //Percentage growth stats
+                          
+                          //Added stat
+                           $.getJSON('/Home/AvailableStat/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                let val;
+                                if (data>=0)
+                                {
+                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                }
+                                else
+                                {
+                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                 }
+                              
+                               $('#addedStat').html(val);       
+                            })  
+                 
+                           //Sold stat
+                            $.getJSON('/Home/SoldStat/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                    let val;
+                                             if (data>=0)
+                                             {
+                                                 val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                                        '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                             }
+                                             else
+                                             {
+                                                 val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                                      '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                              }                                                
+                                  $('#soldStat').html(val);       
+                               });
+                           
+                            //Revenue stat
+                              $.getJSON('/Home/RevenueStat/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                let val;
+                                if (data>=0)
+                                {
+                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                }
+                                else
+                                {
+                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                 }                     $('#revStat').html(val);       
+                                });                  
            //Recent items                
            $.getJSON('/Home/GetItems/' + selected.val()  , function (data) { 
                      let items = '';  
