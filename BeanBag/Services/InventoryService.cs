@@ -3,8 +3,6 @@ using BeanBag.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Identity.Web;
 
 namespace BeanBag.Services
 {
@@ -17,9 +15,9 @@ namespace BeanBag.Services
             _db = db;
         }
 
-        public List<Inventory> GetInventories()
+        public List<Inventory> GetInventories(string id)
         {
-            var inventories = (from i in _db.Inventories where i.userId.Equals("605ffb39-8901-440a-94c8-6c87d1b31825") select i).ToList();
+            var inventories = (from i in _db.Inventories where i.userId.Equals(id) select i).ToList();
             return inventories;
         }
 

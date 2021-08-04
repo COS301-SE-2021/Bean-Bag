@@ -36,4 +36,8 @@
     <ProjectReference Include="..\BeanBag\BeanBag.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UnitTesting\DashboardUnitTests" />
+  </ItemGroup>
+
 </Project>

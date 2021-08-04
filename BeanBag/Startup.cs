@@ -36,7 +36,7 @@ namespace BeanBag
                 {
                     options.Events.OnRedirectToIdentityProvider = async context =>
                     {
-                        context.Properties.RedirectUri = "/Dashboard";
+                        context.Properties.RedirectUri = "/Home";
 
                         await Task.FromResult(0);
                     };
@@ -61,6 +61,7 @@ namespace BeanBag
             services.AddTransient<IInventoryService, InventoryService>();
             services.AddTransient<IItemService, ItemService>();
             services.AddTransient<IAIService, AIService>();
+            services.AddTransient<IDashboardAnalyticsService, DashboardAnalyticsService>();
             services.AddTransient<IBlobStorageService, BlobStorageService>();
 
         }

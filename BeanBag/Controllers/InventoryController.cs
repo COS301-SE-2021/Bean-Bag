@@ -14,7 +14,7 @@ using System.Text.Json;
 
 namespace BeanBag.Controllers
 {
-    [Route("api/[controller]")]
+   // [Route("api/[controller]")]
     // This class is used to handle any user interaction regarding an inventory
     public class InventoryController : Controller
     {
@@ -49,7 +49,7 @@ namespace BeanBag.Controllers
             // If not logged in throw user back to home page
             if(User.Identity.IsAuthenticated)
             {
-                var inventories = inventoryService.GetInventories();
+                var inventories = inventoryService.GetInventories(User.GetObjectId());
 
                 //Checking user role is in DB
                 checkUserRole();
