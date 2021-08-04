@@ -51,6 +51,12 @@ body {
     background-color:#57C5FF ;/* put this colour inside a var */ /* was #9557DA */
 }
 
+.btn.tableButton:visited{
+
+    color: var(--black-900) !important;  /*don't let this property apply to table attributes only add it to proper buttons*/
+
+}
+
 .btn.btn-light:hover {
     color: #f1f2f6;
     background-color: transparent;
@@ -349,7 +355,7 @@ a[href^="https"] {
     padding: 12px 30px;
     border-radius: 30px;
     border-color: var(--main-color);
-    color: var(--main-color);
+    color: var(--main-color) !important;
     font-size: 16px;
     text-transform: capitalize;
     

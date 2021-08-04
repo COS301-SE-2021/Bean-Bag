@@ -11,7 +11,7 @@
                 
             </div>            
             <div class="col-5">
-                <h2 class="text-primary">Inventory List</h2>
+                <h3>Inventory List</h3>
             </div>
             <div class="col-6 text-right">
                 <a asp-controller="Inventory" asp-action="Create" class="btn btn-1">Create new Inventory</a> <!-- change button css---->
@@ -29,7 +29,7 @@
                   <table class="table table-bordered table-striped " style="width:100%" >
                       <thead>
                       <tr>
-                          <th>
+                          <th colspan="3">
                               Inventory Name
                           </th>
                       </tr>
@@ -41,9 +41,9 @@
                               <td >@inventory.name</td> <!-- width="50%"-->
                               <td > <!-- width="50%"-->
                                   <div class="w-100 btn-group" role="group">
-                                      <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
-                                      <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn">Edit</a>
-                                      <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a>
+                                      <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn tableButton">View Items</a>
+                                      <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn tableButton">Edit</a>
+                                      <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn tableButton">Delete</a>
                                   </div>
                               </td>
                           </tr>
