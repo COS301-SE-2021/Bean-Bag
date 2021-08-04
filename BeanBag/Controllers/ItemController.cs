@@ -137,7 +137,7 @@ namespace BeanBag.Controllers
 
         // This is the POST method for edit Item
         [HttpPost]
-        public IActionResult EditPost(Item item)
+        public IActionResult Edit(Item item)
         {
             // Makes sure that 
             if(ModelState.IsValid)

@@ -101,9 +101,9 @@ namespace BeanBag.Controllers
 
         // This is the Get method for viewItems
         // Views all of the items within the specified inventory
-        [HttpGet("")]
-        public IActionResult ViewItems()
-        {
+     //   [HttpGet("")]
+        //public IActionResult ViewItems()
+     //   {
            /* if (User.Identity.IsAuthenticated)
             {
                 // Find the inventory in the inventory table using the inventory ID
@@ -142,7 +142,7 @@ namespace BeanBag.Controllers
                 //return LocalRedirect("/");
             }
            */
-            var temp = inventoryService.GetInventories();
+           /* var temp = inventoryService.GetInventories();
 
             string jsonString = JsonSerializer.Serialize<List<Inventory>>(temp);
 
@@ -151,9 +151,48 @@ namespace BeanBag.Controllers
 
             return View(weatherForecast);
 
-        }
+        }*/
     
 
+        // This is the Get method for viewItems
+        // Views all of the items within the specified inventory
+        [HttpGet]
+        public IActionResult ViewItems(Guid InventoryId)
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                // Find the inventory in the inventory table using the inventory ID
+                Inventory inventory = inventoryService.FindInventory(InventoryId);
+
+                // If their doesn't exist an inventory with the inventory id given
+                if (inventory == null)
+                {
+                    return NotFound();
+                }
+
+                if(inventory.userId != User.GetObjectId())
+                {
+                    return BadRequest();
+                }
+
+                string inventoryName = inventory.name;
+
+                // Viewbag allows us to pass values from the controller to the respected view
+                // Here we are passing the inventory name in order to display it in the viewItems page
+                ViewBag.InventoryName = inventoryName;
+
+                // This query gets us all the items inside the respected inventory
+                // We pass these items to be displayed into the view
+                var items = from i in _db.Items where i.inventoryId.Equals(InventoryId) select i;
+
+                return View(items);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
+            
+        }
     // This is the GET Method for Edit
     // This returns the view for editing the information related to an inventory
     // The URL needs to accept the GUID of the inventory that is being edited
@@ -189,7 +228,7 @@ namespace BeanBag.Controllers
         // This accepts the inventory model from the edit view above
         // This will allow us to make changes to the respected inventory
         [HttpPost]
-        public IActionResult EditPost(Inventory inventory)
+        public IActionResult Edit(Inventory inventory)
         {
             if(User.Identity.IsAuthenticated)
             {
