@@ -248,6 +248,12 @@ namespace BeanBag.Services
            
            //Growth calculation 
            
+           //Zero division
+           if (sum - prevSum == 0)
+           {
+               return 0; 
+           }
+           
            double growth = (sum - prevSum) / prevSum * 100;
            double rounded = Math.Round(growth,2);
 
@@ -301,13 +307,13 @@ namespace BeanBag.Services
            //Current period
            var contents = from cnt in db.Items
                where cnt.inventoryId == newId & cnt.entryDate >= currentDate
-               select new { cnt.price , cnt.isSold};
+               select new { cnt.quantity , cnt.isSold};
 
            foreach (var y in contents)
            {
                if (y.isSold)
                {
-                   sum += y.price;
+                   sum += y.quantity;
                }
            }
            
@@ -325,8 +331,13 @@ namespace BeanBag.Services
            }
            
            //Growth calculation 
-           
-           double growth = (sum - prevSum) / prevSum * 100;
+
+           //Zero division
+           if (sum - prevSum == 0)
+           {
+               return 0; 
+           }
+           double growth = (sum - prevSum) / prevSum * 100; 
            double rounded = Math.Round(growth,2);
 
            return rounded;
@@ -371,19 +382,16 @@ namespace BeanBag.Services
            //Current period
            var contents = from cnt in db.Items
                where cnt.inventoryId == newId & cnt.entryDate >= currentDate
-               select new { cnt.price , cnt.isSold};
+               select new { cnt.quantity , cnt.isSold};
 
            foreach (var y in contents)
            {
-               if (y.isSold)
-               {
-                   sum += y.price;
-               }
+               sum += y.quantity;
            }
            
            //Previous period
            var prevContents = from cnt in db.Items
-               where cnt.inventoryId == newId &  prevDate >= cnt.entryDate
+               where cnt.inventoryId == newId &  prevDate > cnt.entryDate
                select new { cnt.quantity};
            
            foreach (var y in prevContents)
@@ -394,6 +402,12 @@ namespace BeanBag.Services
            }
            
            //Growth calculation 
+           
+           //Zero division
+           if (sum - prevSum == 0)
+           {
+               return 0; 
+           }
            
            double growth = (sum - prevSum) / prevSum * 100;
            double rounded = Math.Round(growth,2);
