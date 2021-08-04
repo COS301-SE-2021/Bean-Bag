@@ -68,6 +68,7 @@ namespace BeanBag
             services.AddTransient<IInventoryService, InventoryService>();
             services.AddTransient<IItemService, ItemService>();
             services.AddTransient<IAIService, AIService>();
+            services.AddTransient<IDashboardAnalyticsService, DashboardAnalyticsService>();
             services.AddTransient<IBlobStorageService, BlobStorageService>();
 
         }
