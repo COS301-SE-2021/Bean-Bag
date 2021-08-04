@@ -7,68 +7,29 @@
     var options = _azureAdb2COptions.Value;
 }
 
-<header>
-
-    <nav class="navbar navbar-expand-lg fixed-top navbar-shrink">
-        <div class="container">
-            <!-- Brand -->
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bean Bag</a>
-
-            <!-- Toggler/collapsible Button -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <i class="fas fa-bars"> </i>
-            </button>
-
-            <!-- Navbar links add active thing on the link to the current that you're on... -->
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav ml-auto">
-
-                    @{
-                        System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <!-- <li class="nav-item"><span class="navbar-toggler-icon"> Hello @User.Identity.Name</span>
-                        </li>-->
-
-                        @if (!string.IsNullOrEmpty(options.EditProfilePolicyId))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="EditProfile">Edit Profile</a>
-                            </li>
-                        }
-
-                       <!-- <li class="nav-item">
-                            <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
-                        </li>-->
-                    }
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-
-<section class="item-create d-flex align-items-center">
-   <div class="col-5">
-       <div class="content-item2">
-           <div class="box">
-               <img src="@ViewBag.imageUrl"/>
-           </div>
-           <p><b>Item Type:</b> @ViewBag.itemType</p>
-       </div>
-   </div> 
-    <div class="col-1"> </div>
+<section class="item-create row d-flex justify-content-center">
+    <div class="col-2"> </div>
+    <div class="col-2">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="@ViewBag.imageUrl" alt="uploadedImage">
+          <div class="card-body">
+              <p class="card-text">
+                  <p><b>Item Type:</b> @ViewBag.itemType</p>
+              </div>
+        </div> 
+    </div>
+    <div class="col-2"> </div>
     
-    <div class="col-6">
+    <div class="col-5">
         <form method="post" asp-action="Create" asp-controller="Item">
             <div asp-validation-summary="All" class="text-danger"></div>
             <!--<div class="form-group row">
-        <h2 class="text-black-50 pl-3">Add item</h2>
-    </div>-->
+                <h2 class="text-black-50 pl-3">Add item</h2>
+            </div>-->
 
             <div class="form-group row">
                 <label asp-for="name"></label>
-                <input asp-for="name" class="form-control" />
+                <input asp-for="name" class="form-control"/>
             </div>
 
             <div class="form-group row">
@@ -96,6 +57,7 @@
 
         </form>
     </div>
+     <div class="col-1"> </div>
 </section>
 
 @section Scripts{

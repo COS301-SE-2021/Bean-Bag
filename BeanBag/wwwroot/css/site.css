@@ -14,6 +14,7 @@
     --black-900: #000000;
     --black-400: #555555;
     --black-100: #ffffff;
+    --off-white: #f1f2f6;
     --black-alpha-100: rgba(0, 0, 0, 0.05);
     
 }
@@ -23,9 +24,9 @@ body {
     font-size: 16px;
     font-weight: 400;
     overflow-x: hidden;
-    background-color: #f1f2f6;
+    background-color: var(--off-white);
     line-height: 1.5;
-    /*try this...*/
+ 
 }
 
 
@@ -34,7 +35,7 @@ body {
     padding: 12px 30px;
     border: none;
     border-radius: 30px;
-    color: #f1f2f6;
+    color: var(--off-white);
     font-size: 16px;
     text-transform: capitalize;
     transition: all 05s ease;
@@ -42,24 +43,30 @@ body {
     font-weight: 500;
 }
 
-    .btn-1:focus {
-        box-shadow: var(--shadow-black-100);
-    }
+.btn-1:focus {
+    box-shadow: var(--shadow-black-100);
+}
 
 .btn:hover {
-    color: #f1f2f6;
-    background-color:#57C5FF ;/* put this colour inside a var */ /* was #9557DA */
+   /* color: #f1f2f6;*/
+    background-color:rgba(87,140,255,0.5) ;/* put this colour inside a var */ /* was #9557DA */
+    
+}
+.btn:visited{
+   
+    color: var(--off-white);  
+    background-color:var(--main-color) ;/* put this colour inside a var */ /* was #9557DA */
 }
 
 .btn.tableButton:visited{
 
-    color: var(--black-900) !important;  /*don't let this property apply to table attributes only add it to proper buttons*/
+    color: var(--black-900) !important;  
 
 }
 
 .btn.btn-light:hover {
-    color: #f1f2f6;
-    background-color: transparent;
+   color: var(--off-white);
+   background-color: transparent;
 }
 
 .clearfix {
@@ -189,10 +196,14 @@ ul {
 .home {
     min-height: 92vh;
     padding: 80px 0; /*Default value was 150px*/
-    background-color: #f1f2f6;
+    background-color: var(--off-white);
 }
 h3{
-    color: #578CFF;
+    color: var(--main-color) !important; 
+}
+
+h2{
+    color:var(--main-color) !important;
 }
 .home-text h1 {
     font-size: 45px;
@@ -230,85 +241,8 @@ small {
     padding-bottom: 15px;
 }
 
-/*Landing Page*/
-.landing-page {
-    min-height: 92vh;
-    padding: 150px 0;
-    background-color: var(--main-to-dark-color);
-    /*added this*/
-    position: relative;
-    z-index: 1;
-    overflow-x: hidden;
-}
 
-.landing-text h1 {
-    font-size: 45px;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0 0 20px;
-}
 
-.landing-text p {
-    font-size: 18px;
-    line-height: 28px;
-    color: #ffffff;
-    width: 100%;
-}
-
-.landing-img img {
-    transform: scale(1.2, 1.2);
-}
-
-.landing-img .circle {
-    position: absolute;
-    z-index: 1;
-    height: 500px;
-    width: 500px;
-    border: 1px solid rgba(255, 255,255, 0.2);
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.landing-img .circle::before {
-        content: '';
-        position: absolute;
-        height: 60px;
-        width: 60px;
-        background-color: rgba(255, 255, 255, 0.4);
-        border-radius: 50%;
-        left: 30px;
-        top: 30px;
-        transform-origin: 210px 220px;
-        animation: spin_01 10s linear infinite;
-}
-.landing-page-image{
-    font-size:10px;
-    
-}
-/* Preloader */
-.preloader {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 2100;
-    background-color: var(--main-to-dark-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.preloader span {
-        display: block;
-        height: 60px;
-        width: 60px;
-        background-color: var(--dark-to-main-color);
-        border-radius: 50%;
-        animation: zoomInOut_01 1s ease infinite;
-}
 /* footer*/
 footer {
     font-family: 'Poppins', sans-serif;
@@ -336,14 +270,14 @@ a[href^="https"] {
 .inventory{
     min-height: 60vh;
     padding: 80px; /*Default value was 150px*/
-    background-color: #f1f2f6;
+    background-color: var(--off-white);
 }
 .btn-option {
     background-color: var(--main-color);
     padding: 12px 30px;
     border: none;
     border-radius: 10px;
-    color: #f1f2f6;
+    color: var(--off-white);
     font-size: 16px;
     text-transform: capitalize;
     /*transition: all 05s ease;*/
@@ -351,7 +285,7 @@ a[href^="https"] {
     font-weight: 500;
 }
 .btn-2 {
-    background-color: #f1f2f6;
+    /*background-color: var(--off-white);*/
     padding: 12px 30px;
     border-radius: 30px;
     border-color: var(--main-color);
@@ -361,6 +295,18 @@ a[href^="https"] {
     
     box-shadow: var(--shadow-black-100);
     font-weight: 500;
+}
+/* This is the Inventory table's css*/
+.inventoryTable {
+    border-color: var(--main-color);
+}
+thead th
+{
+    /* doesn't want to show*/
+    background-color: #578CFF !important;
+    color:#f1f2f6;
+    
+    
 }
 /* Responsive*/
 @media(max-width: 991px){
@@ -417,8 +363,7 @@ a[href^="https"] {
     }
 }
 
-/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+
 
 /*
 *
@@ -497,6 +442,6 @@ for details on configuring this project to bundle and minify static web assets. 
 .item-create{
     min-height: 92vh;
     padding: 80px; /*Default value was 150px*/
-    background-color: #f1f2f6;
+    background-color: var(--off-white);
 }
 
