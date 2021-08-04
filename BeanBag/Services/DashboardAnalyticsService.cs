@@ -326,11 +326,17 @@ namespace BeanBag.Services
            
            //Growth calculation 
            
-           //Zero division
-           if (prevSum == 0)
+           //Zero division - max profit
+           if (prevSum == 0 && sum>0)
            {
-               return 0; 
+               return 100; 
            }
+           //No profit
+           else if (prevSum == 0 && sum==0)
+           {
+               return 0;
+           }
+
            
            double growth = (sum - prevSum) / prevSum * 100;
            double rounded = Math.Round(growth,2);
@@ -422,11 +428,17 @@ namespace BeanBag.Services
            
            //Growth calculation 
 
-           //Zero division
-           if (prevSum == 0)
+           //Zero division - max profit
+           if (prevSum == 0 && sum>0)
            {
-               return 0; 
+               return 100; 
            }
+           //No profit
+           else if (prevSum == 0 && sum==0)
+           {
+               return 0;
+           }
+
            double growth = (sum - prevSum) / prevSum * 100; 
            double rounded = Math.Round(growth,2);
 
@@ -506,10 +518,15 @@ namespace BeanBag.Services
            
            //Growth calculation 
            
-           //Zero division
-           if (prevSum == 0)
+           //Zero division - max profit 
+           if (prevSum == 0 && sum>0)
            {
-               return 0; 
+               return 100; 
+           }
+           //No profit
+           else if (prevSum == 0 && sum==0)
+           {
+               return 0;
            }
            
            double growth = (sum - prevSum) / prevSum * 100;

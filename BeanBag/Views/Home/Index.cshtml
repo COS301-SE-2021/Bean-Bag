@@ -33,50 +33,51 @@
 
 
     </div>
-
-<hr>
+    
 </section>
 
 
 <div class="dashboard-wrapper">
-    <div class="container-fluid  dashboard-content">
-    
-    
-    <!--Date picker -->
-    <div class="row">
-   
-        
-        <!--  <div class="col-md-2">
-            <input type="date" name="start_date" id="start_date" class="form-control dateFilter" value="From Date"/>
-        </div>
-        <div class="col-md-2">
-            <input type="date" name="end_date" id="end_date" class="form-control dateFilter" value="To Date"/>
-        </div>
-        <div class="col-md-5">
-            <input type="button" name="search" id="btn_search" value="Search" class="btn btn-primary"/>
-        </div>-->
-        
-         <span class="col-md-1">
-                View By 
-                </span>
-                 <span class="col-md-2">
-                       @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null,new { @class = "form-control" } )
-                         
-                         </span>
-        
-        <span class="col-md-1">
-        Select Inventory
-        </span>
-         <span class="col-md-2">
-               @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, null,new { @class = "form-control" } )
-                 
-                 </span>
+
+<div class="container-fluid  dashboard-content">
+
+<hr>
+<br>
+<!--Date picker -->
+<div class="row">
 
 
+    <!--  <div class="col-md-2">
+        <input type="date" name="start_date" id="start_date" class="form-control dateFilter" value="From Date"/>
     </div>
-    <br>
-    
-    <!-- ============================================================== -->
+    <div class="col-md-2">
+        <input type="date" name="end_date" id="end_date" class="form-control dateFilter" value="To Date"/>
+    </div>
+    <div class="col-md-5">
+        <input type="button" name="search" id="btn_search" value="Search" class="btn btn-primary"/>
+    </div>-->
+
+    <span class="col-md-1">
+        View By
+    </span>
+    <span class="col-md-2">
+        @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null, new {@class = "form-control"})
+
+    </span>
+
+    <span class="col-md-1">
+        Select Inventory
+    </span>
+    <span class="col-md-2">
+        @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, null, new {@class = "form-control"})
+
+    </span>
+
+
+</div>
+<br>
+
+<!-- ============================================================== -->
 <!-- page-header  -->
 <!-- ============================================================== -->
 <div class="row">
@@ -90,14 +91,14 @@
                 <div class="card-body">
                     <h5 class="text-muted">Items Added</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 text-primary" id="itemsAvailable" >0 </h1>
+                        <h1 class="mb-1 text-primary" id="itemsAvailable">0 </h1>
                     </div>
-                         <span id="addedStat"> </span>
-                  
+                    <span id="addedStat"> </span>
+
                 </div>
             </div>
         </div>
-                    
+
     </div>
     <!-- /. metric -->
     <!-- metric -->
@@ -112,17 +113,17 @@
                     <div class="metric-value d-inline-block">
                         <h1 class="mb-1 text-primary" id="itemsSold">0 </h1>
                     </div>
-                 
-                         <span id="soldStat"> </span>
-                   
+
+                    <span id="soldStat"> </span>
+
                 </div>
+            </div>
         </div>
-              </div>           
     </div>
     <!-- /. metric -->
     <!-- metric -->
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                     
+
         <div data-aos="flip-left"
              data-aos-easing="ease-in-back"
              data-aos-delay="800"
@@ -131,20 +132,20 @@
                 <div class="card-body">
                     <h5 class="text-muted">Revenue</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 text-primary" id="revenue" > R0.00</h1>
+                        <h1 class="mb-1 text-primary" id="revenue"> R0.00</h1>
                     </div>
-                   <span id="revStat"> </span>
-                
+                    <span id="revStat"> </span>
+
                 </div>
-              
+
             </div>
         </div>
-                     
+
     </div>
     <!-- /. metric -->
     <!-- metric -->
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                     
+
         <div data-aos="flip-left"
              data-aos-easing="ease-in-back"
              data-aos-delay="600"
@@ -155,11 +156,11 @@
                     <div class="metric-value d-inline-block">
                         <h1 class="mb-1 text-primary" id="growth">+0% </h1>
                     </div>
-                  
+
                 </div>
             </div>
         </div>
-                    
+
     </div>
     <!-- /. metric -->
 </div>
@@ -174,20 +175,20 @@
              data-aos-delay="400"
              data-aos-offset="0">
 
-            <div class="card" id="CategoryID" >
-                <h5 class="card-header">Recently Added Items   </h5>
+            <div class="card" id="CategoryID">
+                <h5 class="card-header">Recently Added Items </h5>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table">
                             <thead class="bg-light">
-                                         
+
                             <tr>
-                                <td colspan="8"> 
-                                    
+                                <td colspan="8">
+
                                 </td>
-                                                  
+
                             </tr>
-                                        
+
                             <tr>
                                 <th class="border-0">#</th>
                                 <th class="border-0">Image</th>
@@ -210,42 +211,43 @@
     <!-- ============================================================== -->
     <!-- end  -->
     <!-- ============================================================== -->
-           
-             
+
+
     <div class="col-xl-4 col-lg-12 col-md-4 col-sm-12 col-12">
         <div data-aos="fade-zoom-in"
              data-aos-easing="ease-in-back"
              data-aos-delay="50"
              data-aos-offset="0">
-                                              		
+
             <div class="card">
                 <h5 class="card-header">Total Items</h5>
                 <div class="card-body">
-                <!--    <div class="float-right">
+                    <!--    <div class="float-right">
                         <span class="font-weight-bold"> Inventory : </span>// 
                     
-                          </div>  -->
-               
-                                          
+                    </div>  -->
+
+
                     <canvas id="total-sale" width="220" height="155"></canvas>
 
-                    <br> 
-                <div class="chart-widget-list">
-                     <p class="mb-0">
-                                        
-                            <span class="legend-text font-weight-bold ">Inventory </span> <span class="legend-text float-right" id="inventory"> None
-                                        </span>
-                         <span><br></span>
-                       
-                                    </p>
-  <hr>
-                    <div id="topItems">
-                    </div>
+                    <br>
+                    <div class="chart-widget-list">
+                        <p class="mb-0">
 
-                    <p class="mb-0"> <span class="legend-text font-weight-bold"> Total Items </span>
-                        <span class="float-right" id="totalItems">0</span>
-                    </p>
-                </div>
+                            <span class="legend-text font-weight-bold ">Inventory </span>
+                            <span class="legend-text float-right" id="inventory"> None
+                            </span>
+                            <span><br></span>
+
+                        </p>
+                        <hr>
+                        <div id="topItems">
+                        </div>
+
+                        <p class="mb-0"> <span class="legend-text font-weight-bold"> Total Items </span>
+                            <span class="float-right" id="totalItems">0</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -254,13 +256,13 @@
     <!-- end total items  -->
     <!-- ============================================================== -->
 </div>
-               
-             
-             
-             
+
+
+
+
 <div class="page-footer">
-    <span>    &copy; 2021 - Agile Bridge </span>
-  
+    <span> &copy; 2021 - Agile Bridge </span>
+
 </div>
 </div>
 </div>
