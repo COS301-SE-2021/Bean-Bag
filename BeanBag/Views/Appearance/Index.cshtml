@@ -1,0 +1,24 @@
+﻿@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+
+
+@{
+   //Which model will the colour themes view use?
+    var options = _azureAdb2COptions.Value;
+   // ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<!--<section class="inventory d-flex justify-content-center">
+    <div class="container"> 
+        <div class="card">
+          <h5 class="card-header">Main colour</h5>
+          <div class="card-body">
+            <h5 class="card-title">Pick a colour below</h5>
+            <p class="card-text">Display themes here</p>
+            
+          </div>
+        </div>
+    </div>
+</section>-->
