@@ -8,7 +8,7 @@ namespace BeanBag.Services
     public class DashboardAnalyticsService :IDashboardAnalyticsService
     {
         private readonly DBContext db;
-        
+
         //Constructor
         public DashboardAnalyticsService( DBContext db)
         {
@@ -18,7 +18,17 @@ namespace BeanBag.Services
         //Gets the recent items added to a specific inventory id in the functions parameter 
         public IOrderedQueryable GetRecentItems(string id)
         {
-            var idd =  new Guid(id);
+            if (id == null)
+            {
+                throw new  Exception("Inventory ID is null.") ;
+            }
+            
+            var idd =  new Guid(id); 
+            if (db.Inventories.Find(idd) == null)
+            {
+                throw new  Exception("Inventory with the given Inventory ID does not exist.") ;
+            }
+            
             var result = from i in db.Items where i.inventoryId.Equals(idd) select new { i.name, i.type, i.imageURL, i.QRContents, i.price, i.entryDate , i.quantity};
             var res= result.OrderByDescending(d => d.entryDate);
             
@@ -28,7 +38,16 @@ namespace BeanBag.Services
         //Gets the total items added by the user given the inventory id in the functions parameter 
         public int GetTotalItems(string id)
         {
+            if (id == null)
+            {
+                throw new  Exception("Inventory ID is null.") ;
+            }
+
             var idd =  new Guid(id);
+            if (db.Inventories.Find(idd) == null)
+            {
+                throw new  Exception("Inventory with the given Inventory ID does not exist.") ;
+            }
             var res = (from i in db.Items where i.inventoryId.Equals(idd) select new {i.quantity}).ToList();
             return res.Sum(t => t.quantity);
             
@@ -37,7 +56,17 @@ namespace BeanBag.Services
         //Gets the top items with the highest occurrence in the database
         public  IQueryable GetTopItems(string id)
         {
+            if (id == null)
+            {
+                throw new  Exception("Inventory ID is null.") ;
+            }
+            
             var idd =  new Guid(id);
+            if (db.Inventories.Find(idd) == null)
+            {
+                throw new  Exception("Inventory with the given Inventory ID does not exist.") ;
+            }
+
             var res = (from i in db.Items where i.inventoryId.Equals(idd) select new {i.quantity}).ToList();
             int tot= res.Sum(t => t.quantity);
 
@@ -56,11 +85,22 @@ namespace BeanBag.Services
         //Gets items available in all the inventories 
        public int GetItemsAvailable(string id, string time)
        {
+           
+           if (id == null)
+           {
+               throw new  Exception("Inventory ID is null.") ;
+           }else if (time == null)
+           {
+               throw new Exception("Time period is null");
+           }
+           
            Guid newId = new Guid(id);
-           int sum = 0;
-
+           if (db.Inventories.Find(newId) == null)
+           {
+               throw new  Exception("Inventory with the given Inventory ID does not exist.") ;
+           }
+           
            DateTime currentDate;
-
            switch (time)
            {
                //Year
@@ -80,13 +120,14 @@ namespace BeanBag.Services
                    currentDate = DateTime.UtcNow.Date;
                    break;
                default:
-                   throw new  Exception("Invalid timespan given as input, expecting Y, M, W or D") ;
+                   throw new Exception("Invalid timespan given as input, expecting Y, M, W or D") ;
            }
            
            var contents = from cnt in db.Items
                where cnt.inventoryId == newId & cnt.entryDate >= currentDate
                select new { cnt.quantity };
 
+           int sum = 0;
            foreach (var y in contents)
            {
                    sum += y.quantity;
@@ -98,9 +139,21 @@ namespace BeanBag.Services
 
        public int GetItemsSold(string id, string time)
        {
-           Guid newId = new Guid(id);
-           int sum = 0;
+           if (id == null)
+           {
+               throw new  Exception("Inventory ID is null.") ;
+           }else if (time == null)
+           {
+               throw new Exception("Time period is null");
+           }
 
+           Guid newId = new Guid(id);
+            
+           if (db.Inventories.Find(newId) == null)
+           {
+               throw new  Exception("Inventory with the given Inventory ID does not exist.") ;
+           }
+           
            DateTime currentDate;
 
            switch (time)
@@ -129,6 +182,7 @@ namespace BeanBag.Services
                where cnt.inventoryId == newId & cnt.entryDate >= currentDate
                select new { cnt.quantity , cnt.isSold};
 
+           int sum = 0;
            foreach (var y in contents)
            {
                if (y.isSold)
@@ -142,8 +196,19 @@ namespace BeanBag.Services
        //Get revenue for all inventories 
        public double GetRevenue(string id, string time)
        { 
+           if (id == null)
+           {
+               throw new  Exception("Inventory ID is null.") ;
+           }else if (time == null)
+           {
+               throw new Exception("Time period is null");
+           }
+
            Guid newId = new Guid(id);
-           double sum = 0;
+           if (db.Inventories.Find(newId) == null)
+           {
+               throw new  Exception("Inventory with the given Inventory ID does not exist.") ;
+           }
 
            DateTime currentDate;
 
@@ -173,6 +238,7 @@ namespace BeanBag.Services
                where cnt.inventoryId == newId & cnt.entryDate >= currentDate
                select new { cnt.price , cnt.isSold};
 
+           double sum = 0;
            foreach (var y in contents)
            {
                if (y.isSold)
@@ -186,8 +252,20 @@ namespace BeanBag.Services
        //Get sales growth for all inventories 
        public double GetSalesGrowth(string id, string time)
        {
+           if (id == null)
+           {
+               throw new  Exception("Inventory ID is null.") ;
+           }else if (time == null)
+           {
+               throw new Exception("Time period is null");
+           }
+
            Guid newId = new Guid(id);
-          
+           if (db.Inventories.Find(newId) == null)
+           {
+               throw new Exception("Inventory with the given Inventory ID does not exist.");
+           }
+
            DateTime currentDate;
            DateTime prevDate;
 
@@ -235,7 +313,7 @@ namespace BeanBag.Services
            
            //Previous period
            var prevContents = from cnt in db.Items
-               where cnt.inventoryId == newId &  prevDate >= cnt.entryDate
+               where cnt.inventoryId == newId &  prevDate > cnt.entryDate
                select new { cnt.price , cnt.isSold};
            
            foreach (var y in prevContents)
@@ -249,7 +327,7 @@ namespace BeanBag.Services
            //Growth calculation 
            
            //Zero division
-           if (sum - prevSum == 0)
+           if (prevSum == 0)
            {
                return 0; 
            }
@@ -270,7 +348,19 @@ namespace BeanBag.Services
        //Item sold percentage growth statistic
        public double ItemsSoldStat(string id, string time)
        {
+           if (id == null)
+           {
+               throw new  Exception("Inventory ID is null.") ;
+           }else if (time == null)
+           {
+               throw new Exception("Time period is null");
+           }
+           
            Guid newId = new Guid(id);
+           if (db.Inventories.Find(newId) == null)
+           {
+               throw new Exception("Inventory with the given Inventory ID does not exist.");
+           }
           
            DateTime currentDate;
            DateTime prevDate;
@@ -319,7 +409,7 @@ namespace BeanBag.Services
            
            //Previous period
            var prevContents = from cnt in db.Items
-               where cnt.inventoryId == newId &  prevDate >= cnt.entryDate
+               where cnt.inventoryId == newId &  prevDate > cnt.entryDate
                select new { cnt.quantity , cnt.isSold};
            
            foreach (var y in prevContents)
@@ -333,7 +423,7 @@ namespace BeanBag.Services
            //Growth calculation 
 
            //Zero division
-           if (sum - prevSum == 0)
+           if (prevSum == 0)
            {
                return 0; 
            }
@@ -345,7 +435,20 @@ namespace BeanBag.Services
        
        //Item revenue percentage growth statistic
        public double ItemAvailableStat(string id, string time)
-       { Guid newId = new Guid(id);
+       {
+           if (id == null)
+           {
+               throw new  Exception("Inventory ID is null.") ;
+           }else if (time == null)
+           {
+               throw new Exception("Time period is null");
+           }
+           
+           Guid newId = new Guid(id);
+           if (db.Inventories.Find(newId) == null)
+           {
+               throw new Exception("Inventory with the given Inventory ID does not exist.");
+           }
           
            DateTime currentDate;
            DateTime prevDate;
@@ -404,7 +507,7 @@ namespace BeanBag.Services
            //Growth calculation 
            
            //Zero division
-           if (sum - prevSum == 0)
+           if (prevSum == 0)
            {
                return 0; 
            }
