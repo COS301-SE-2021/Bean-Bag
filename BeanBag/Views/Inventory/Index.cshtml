@@ -44,7 +44,8 @@
 
                 <!--Create Item-->
                 <div class="ml-auto col-md-2">
-                    <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Create new Inventory</a> <!-- change button css---->
+                    <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Create New Inventory &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
+                                                                                                                                                                                                               aria-hidden="true"></i></a> <!-- change button css---->
                 </div>
 
                 <!--Table with bootstrap class .table and .table-condensed-->
@@ -53,7 +54,7 @@
                     <br>
                     <div class="card " >
                         <h5 class="card-header">Inventory List</h5>
-                        <div class="card-body" data-aos="zoom-in"  data-aos-duration="1000">
+                        <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
                             <div>
                                 @if (Model.PagedList.Any())
                                 {
@@ -68,9 +69,9 @@
                                                 <td >@inventory.name</td>
                                                 <td >
                                                     <div class="w-100 btn-group" role="group">
-                                                        <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
-                                                        <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn">Edit</a>
+                                                       <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn">Edit</a>
                                                         <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a>
+                                                           <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
                                                         <a asp-controller="Item" asp-action="UploadImage" class="btn">Add Item</a> <!-- change button css-->
 
                                                     </div>
@@ -111,12 +112,12 @@
      
      
     <!---Popup Form to create inventory -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" role="document">
         
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"  id="exampleModalCenterTitle">Create New Inventory</h5>
+                    <h5 class="modal-title"  id="exampleModalTitle">Create New Inventory</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
