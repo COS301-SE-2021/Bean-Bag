@@ -51,9 +51,9 @@
                 
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <br>
-                    <div class="card">
+                    <div class="card " >
                         <h5 class="card-header">Inventory List</h5>
-                        <div class="card-body">
+                        <div class="card-body" data-aos="zoom-in"  data-aos-duration="1000">
                             <div>
                                 @if (Model.PagedList.Any())
                                 {
@@ -98,12 +98,12 @@
                          DisplayLinkToIndividualPages = true,
                          DisplayPageCountAndCurrentLocation = false,
                          MaximumPageNumbersToDisplay = 10,
-                         LiElementClasses = new string[] {"page-item"},
-                         PageClasses = new string[] {"page-link"},
+                         LiElementClasses = new[] {"page-item"},
+                         PageClasses = new[] {"page-link"},
                      })
                 
             </div>
-                <!--Code to show curent page and page number-->
+                <!--Code to show current page and page number-->
                         <div >Page @(Model.PagedList.PageCount < Model.PagedList.PageNumber ? 0 : Model.PagedList.PageNumber) of @Model.PagedList.PageCount
                         </div>
         </div>
@@ -152,3 +152,8 @@
                                      <partial name="_ValidationScriptsPartial" />
     }
 }
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
