@@ -23,12 +23,14 @@ namespace BeanBag.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult newAIModel(CreateNewAIModel newModel)
+        [HttpGet]
+        public IActionResult Create()
         {
-            // Create the project with it's new name
-            // Upload images along with tags needed with images (image count > 5). List<Tags>, IFormCollection
+            return View();
+        }
 
+        public async Task<IActionResult> Create(string modelName)
+        {
             return Ok();
         }
     }
