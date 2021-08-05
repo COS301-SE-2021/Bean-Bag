@@ -31,6 +31,6 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Dashboard\Index.cshtml" />
- </ItemGroup>
+     </ItemGroup>
 
 </Project>
