@@ -9,6 +9,6 @@ namespace BeanBag.Services
     {
         public string predict(string imageURL);
 
-        public string createProject(string modelName);
+        public Task<Guid> createProject(string modelName);
     }
 }

@@ -1,0 +1,21 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<section class="inventory d-flex justify-content-center">
+    <form method="post" asp-controller="AIModel" asp-action="Create" class="createForm">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group row">
+            <h3>Create inventory</h3>
+        </div>
+        <div class="form-group row">
+            <label>Model Name</label>
+            <input name="modelName" class="form-control" />
+        </div>
+        <input type="submit" class="btn btn-1" value="Next" /> <!--create button-->
+
+        <a asp-controller="Home" asp-action="Index" class="btn btn-2">Back</a> <!--Back-->
+    </form>
+</section>
