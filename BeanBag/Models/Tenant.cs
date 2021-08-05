@@ -9,5 +9,7 @@ namespace BeanBag.Models
         
         [Required]
         public string TenantName { get; set; }
+        
+        public string TenantTheme { get; set; }
     }
 }

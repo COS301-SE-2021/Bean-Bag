@@ -13,7 +13,7 @@ namespace BeanBag.Services
             _tenantDb = context;
         }
 
-        //Get tenant that the user belongs to
+        //Get tenant id that the current user belongs to
         public string GetUserTenant(string userId)
         {
             if (userId == null)
@@ -28,19 +28,17 @@ namespace BeanBag.Services
             }
             
             // user is found in db - get result
-            var tenant = (from item
+            var tenantId = (from item
                     in _tenantDb.TenantUser
                 where item.UserObjectId.Equals(userId)
                 select item.UserTenantId).Single();
 
-            if (tenant == null)
+            if (tenantId == null)
             {
                 throw new Exception("Tenant is null.");
             }
             
-            var tenantName = GetTenantName(tenant);
-
-            return tenantName;
+            return tenantId;
         }
         
         //Get the name of the current tenant
@@ -68,5 +66,31 @@ namespace BeanBag.Services
 
             return tenantName;
         }
+        
+        //Get the chosen theme for current tenant from database
+        public string GetTenantTheme(string userId)
+        {
+            var userTenantId = GetUserTenant(userId);
+
+            if (userTenantId == null)
+            {
+                throw new Exception("Tenant is null");
+            }
+            
+            var theme = (from item
+                    in _tenantDb.Tenant
+                where item.TenantId.Equals(userTenantId)
+                select item.TenantTheme).Single();
+
+
+            if (theme == null)
+            {
+                throw new Exception("Theme for tenant is null");
+            }
+
+            return theme;
+
+        }
+
     }
 }
