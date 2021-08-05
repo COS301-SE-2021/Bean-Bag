@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Inventory>
+﻿@model ViewModel
 
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
@@ -10,72 +10,111 @@
     
      
     <div class="dashboard-wrapper">
-    <div class="container-fluid  dashboard-content">
-        <hr>
-        <br>
-        <div class="row">
-            <!-- Search form -->
-            <span class="col-2">
+        <div class="container-fluid  dashboard-content">
+            <hr>
+            <br>
+            <div class="row">
+                <!-- Search form -->
+                <span class="col-3">
              
-<div class="input-group md-form form-sm form-2 pl-0">
-  <input class="form-control my-0 py-1 red-border" type="text" placeholder="Search" aria-label="Search">
-  <div class="input-group-append">
-    <button class="input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search text-grey"
-        aria-hidden="true"></i></button>
-  </div>
-</div>
-            </span>
+                    <div class="input-group md-form form-sm form-2 pl-0">
+                        <input class="form-control my-0 py-1 red-border" type="text" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search text-grey"
+                                                                                               aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </span>
             
-            <div class="ml-auto col-3">
-                <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary">Create new Inventory</a> <!-- change button css---->
+                <div class="ml-auto col-md-2">
+                    <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" >Create new Inventory</a> <!-- change button css---->
                
-              <a asp-controller="Item" asp-action="UploadImage" class="btn btn-primary ">Add Item</a> <!-- change button css-->
-            </div>
+              </div>
 
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-               <br>
-                               <div class="card">
-                    <h5 class="card-header">Inventory List</h5>
-                    <div class="card-body">
-                        <div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <br>
+                    <div class="card">
+                        <h5 class="card-header">Inventory List</h5>
+                        <div class="card-body">
+                            <div>
 
-                            @if (Model.Any())
-                            {
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            Inventory Name
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach (var inventory in Model)
-                                    {
+                                @if (Model.Inventories.Any())
+                                {
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
                                         <tr>
-                                            <td >@inventory.name</td>
-                                            <td >
-                                                <div class="w-100 btn-group" role="group">
-                                                    <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
-                                                    <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn">Edit</a>
-                                                    <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a>
-                                                    <div id="addItem" class="btn"> Add Item</div>
-                                                </div>
-                                            </td>
+                                            <th>
+                                                Inventory Name
+                                            </th>
                                         </tr>
-                                    }
-                                    </tbody>
-                                </table>
-                            }
-                            else
-                            {
-                                <p>No Inventories yet</p>
-                            }
+                                        </thead>
+                                        <tbody>
+                                        @foreach (var inventory in Model.Inventories)
+                                        {
+                                            <tr>
+                                                <td >@inventory.name</td>
+                                                <td >
+                                                    <div class="w-100 btn-group" role="group">
+                                                        <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
+                                                        <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn">Edit</a>
+                                                        <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a>
+                                                        <a asp-controller="Item" asp-action="UploadImage" class="btn">Add Item</a> <!-- change button css-->
+                                                                     
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                        </tbody>
+                                    </table>
+                                }
+                                else
+                                {
+                                    <p>No Inventories yet</p>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    
+    
+    <!---Popup Form to create inventory -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"  id="exampleModalCenterTitle">Create New Inventory</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <form method="post" asp-action="Create" >
+                         <div class="modal-body">
+                             <div class="form-group ">
+                             <label asp-for="Inventory.name" class="col-form-label"></label> <!--Inventory Name-->
+                             <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
+                         </div>
+                         <div asp-validation-summary="All" class="text-danger"></div>
+                          </div>
+                    <div class="modal-footer ">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Create"/> <!--create button-->
+                    </div>
+                    </form>
+                   
+            </div>
         </div>
     </div>
+    
 </section>
+
+<!---Popup Form to create inventory -->
+@section Scripts{
+    @{
+                                     <partial name="_ValidationScriptsPartial" />
+    }
+}
