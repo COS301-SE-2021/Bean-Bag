@@ -3,7 +3,6 @@ using BeanBag.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BeanBag.Services
 {
@@ -24,6 +23,7 @@ namespace BeanBag.Services
 
         public void CreateItem(Item newItem)
         {
+            newItem.entryDate = DateTime.Now;
             _db.Items.Add(newItem);
             _db.SaveChanges();
             newItem = AddQRItem(newItem);
@@ -45,6 +45,8 @@ namespace BeanBag.Services
 
         public void EditItem(Item item)
         {
+            if (!item.isSold)
+                item.soldDate = DateTime.MinValue;
             _db.Items.Update(item);
             _db.SaveChanges();
         }

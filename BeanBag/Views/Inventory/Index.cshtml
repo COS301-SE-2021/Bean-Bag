@@ -1,68 +1,81 @@
 ﻿@model IEnumerable<Inventory>
-@using Microsoft.Extensions.Options
-@using Microsoft.Identity.Web
-@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
 
-@{
-    var options = _azureAdb2COptions.Value;
-}
-
-
-<section class="inventory d-flex align-items-center">
-    <div class="container p-3">
-        <div class="row pt-4">
-            <div class="col-1">
-                
-            </div>            
-            <div class="col-5">
-                <h2 class="text-primary">Inventory List</h2>
+<section class="page-content" xmlns="http://www.w3.org/1999/html">
+    
+    <section>
+        <span class="col-md-1 text-secondary search-and-user">
+            Inventory
+        </span>
+    </section>
+    
+     
+    <div class="dashboard-wrapper">
+    <div class="container-fluid  dashboard-content">
+        <hr>
+        <br>
+        <div class="row">
+            <!-- Search form -->
+            <span class="col-2">
+             
+<div class="input-group md-form form-sm form-2 pl-0">
+  <input class="form-control my-0 py-1 red-border" type="text" placeholder="Search" aria-label="Search">
+  <div class="input-group-append">
+    <button class="input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search text-grey"
+        aria-hidden="true"></i></button>
+  </div>
+</div>
+            </span>
+            
+            <div class="ml-auto col-3">
+                <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary">Create new Inventory</a> <!-- change button css---->
+               
+              <a asp-controller="Item" asp-action="UploadImage" class="btn btn-primary ">Add Item</a> <!-- change button css-->
             </div>
-            <div class="col-6 text-right">
-                <a asp-controller="Inventory" asp-action="Create" class="btn btn-1">Create new Inventory</a> <!-- change button css---->
-                <a asp-controller="Item" asp-action="UploadImage" class="btn btn-1">Add Item</a> <!-- change button css-->
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+               <br>
+                               <div class="card">
+                    <h5 class="card-header">Inventory List</h5>
+                    <div class="card-body">
+                        <div>
+
+                            @if (Model.Any())
+                            {
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            Inventory Name
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var inventory in Model)
+                                    {
+                                        <tr>
+                                            <td >@inventory.name</td>
+                                            <td >
+                                                <div class="w-100 btn-group" role="group">
+                                                    <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
+                                                    <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn">Edit</a>
+                                                    <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a>
+                                                    <div id="addItem" class="btn"> Add Item</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <p>No Inventories yet</p>
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-      <br />
-      <div>
-          <div class="row d-flex justify-content-center">
-              <div class="col-1 "> </div>
-              <div class="col-11 "> <!-- this div contains the table code d-flex justify-content-center -->
-              @if (Model.Any())
-              {
-                  <table class="table table-bordered table-striped " style="width:100%" >
-                      <thead>
-                      <tr>
-                          <th>
-                              Inventory Name
-                          </th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      @foreach (var inventory in Model)
-                      {
-                          <tr>
-                              <td >@inventory.name</td> <!-- width="50%"-->
-                              <td > <!-- width="50%"-->
-                                  <div class="w-100 btn-group" role="group">
-                                      <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
-                                      <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn">Edit</a>
-                                      <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a>
-                                  </div>
-                              </td>
-                          </tr>
-                      }
-                      </tbody>
-                  </table>
-              }
-              else
-              {
-                  <p>No Inventories yet</p>
-              }
-              </div>
-            </div>
- 
-      </div>
-      
+        </div>
     </div>
 </section>

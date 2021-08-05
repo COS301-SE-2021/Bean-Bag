@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <_ContentIncludedByDefault Remove="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
 
 </Project>
