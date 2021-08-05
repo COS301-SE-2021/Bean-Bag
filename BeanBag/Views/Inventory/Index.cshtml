@@ -1,4 +1,14 @@
-﻿@model ViewModel
+﻿<!--Changed model type to that of pagedList-->
+<link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
+@model ViewModel
+
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+
+
+@{
+    ViewBag.Title = "Home Page";
+}
 
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
@@ -14,43 +24,47 @@
             <hr>
             <br>
             <div class="row">
-                <!-- Search form -->
+                
+                <!--Search-->
+              
                 <span class="col-3">
-             
-                    <div class="input-group md-form form-sm form-2 pl-0">
-                        <input class="form-control my-0 py-1 red-border" type="text" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search text-grey"
-                                                                                               aria-hidden="true"></i></button>
+                    @using (Html.BeginForm())
+                    {
+                        <div class="input-group md-form form-sm form-2 pl-0">
+                            @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 red-border", placeholder = "Search"})
+                            <div class="input-group-append">
+                                <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
+                                    <i class="fas fa-search text-grey"
+                                       aria-hidden="true"></i></button>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </span>
-            
-                <div class="ml-auto col-md-2">
-                    <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" >Create new Inventory</a> <!-- change button css---->
-               
-              </div>
 
+             
+
+                <!--Create Item-->
+                <div class="ml-auto col-md-2">
+                    <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Create new Inventory</a> <!-- change button css---->
+                </div>
+
+                <!--Table with bootstrap class .table and .table-condensed-->
+                
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <br>
                     <div class="card">
                         <h5 class="card-header">Inventory List</h5>
                         <div class="card-body">
                             <div>
-
-                                @if (Model.Inventories.Any())
+                                @if (Model.PagedList.Any())
                                 {
                                     <table class="table table-bordered table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>
-                                                Inventory Name
-                                            </th>
+                                        <thead><tr>
+                                            <th>@Html.ActionLink("Inventory Name ", "Index", new {sortOrder = ViewBag.NameSortParm}) <i class="fas fa-chevron-down text-grey"
+                                                                                                                                        aria-hidden="true"></i></th>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach (var inventory in Model.Inventories)
-                                        {
+                                        </thead><tbody>
+                                        @foreach (var inventory in Model.PagedList){
                                             <tr>
                                                 <td >@inventory.name</td>
                                                 <td >
@@ -59,7 +73,7 @@
                                                         <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn">Edit</a>
                                                         <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a>
                                                         <a asp-controller="Item" asp-action="UploadImage" class="btn">Add Item</a> <!-- change button css-->
-                                                                     
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -68,18 +82,36 @@
                                     </table>
                                 }
                                 else
-                                {
-                                    <p>No Inventories yet</p>
-                                }
+                                {<p>No Inventories</p>}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+      
+            <br/>
+                
+        
+            <!--Code to show curent page and page number-->
+          
+            <div>    @Html.PagedListPager(Model.PagedList, page => Url.Action("Index", new {page}), new PagedListRenderOptions
+                     {
+                         DisplayLinkToIndividualPages = true,
+                         DisplayPageCountAndCurrentLocation = false,
+                         MaximumPageNumbersToDisplay = 10,
+                         LiElementClasses = new string[] {"page-item"},
+                         PageClasses = new string[] {"page-link"},
+                     })
+                
+            </div>
+              <br/>
+                <!--Code to show curent page and page number-->
+                        <div >Page @(Model.PagedList.PageCount < Model.PagedList.PageNumber ? 0 : Model.PagedList.PageNumber) of @Model.PagedList.PageCount
+                        </div>
         </div>
-    </div>
-    
-    
+        </div>
+     
+     
     <!---Popup Form to create inventory -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -95,9 +127,10 @@
                 <form method="post" asp-action="Create" >
                          <div class="modal-body">
                              <div class="form-group ">
-                             <label asp-for="Inventory.name" class="col-form-label"></label> <!--Inventory Name-->
-                             <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
-                         </div>
+                            
+                                 <label asp-for="Inventory.name" class="col-form-label"></label> <!--Inventory Name-->
+                                 <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
+                             </div>
                          <div asp-validation-summary="All" class="text-danger"></div>
                           </div>
                     <div class="modal-footer ">
@@ -109,9 +142,7 @@
             </div>
         </div>
     </div>
-    
 </section>
-
 <!---Popup Form to create inventory -->
 @section Scripts{
     @{
