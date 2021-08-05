@@ -113,7 +113,7 @@
      
     <!---Popup Form to create inventory -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
         
             <div class="modal-content">
                 <div class="modal-header">
@@ -124,23 +124,28 @@
                 </div>
                 
                 <form method="post" asp-action="Create" >
-                         <div class="modal-body">
-                             <div class="form-group ">
+                    <div class="modal-body">
+                        <div class="form-group ">
                             
-                                 <label asp-for="Inventory.name" class="col-form-label"></label> <!--Inventory Name-->
-                                 <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
-                             </div>
-                         <div asp-validation-summary="All" class="text-danger"></div>
-                          </div>
+                            <label asp-for="Inventory.name" class="col-form-label"></label> <!--Inventory Name-->
+                            <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
+                        </div>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                    </div>
                     <div class="modal-footer ">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-primary" value="Create"/> <!--create button-->
                     </div>
-                    </form>
+                </form>
                    
             </div>
         </div>
     </div>
+    
+<div class="page-footer fixed-bottom">
+    <span class="p-5"> &copy; 2021 - Agile Bridge </span>
+
+</div>
 </section>
 <!---Popup Form to create inventory -->
 @section Scripts{
