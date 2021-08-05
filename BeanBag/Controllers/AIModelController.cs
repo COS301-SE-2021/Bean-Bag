@@ -29,9 +29,12 @@ namespace BeanBag.Controllers
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create(string modelName)
         {
-            return Ok();
+            Guid id = await aIService.createProject(modelName);
+
+            return Ok(id);
         }
     }
 }

@@ -1,5 +1,8 @@
-﻿using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
+﻿using BeanBag.Database;
+using BeanBag.Models;
+using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training;
+using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +13,16 @@ namespace BeanBag.Services
     public class AIService : IAIService
     {
         private readonly string endpoint = "https://uksouth.api.cognitive.microsoft.com/";
+
+        private readonly string trainingKey = "3fcb002210614500aaf87a89c79603d1";
+        private readonly string projectId;
+        private readonly string projectName;
+
+        private CustomVisionTrainingClient trainingClient;
+        private CustomVisionPredictionClient predictionClient;
+
+        private readonly DBContext _db;
+
 
         ////Furniture Model
         //private readonly string furnitureModelPredictionKey = "f05b67634cc3441492a07f32553d996a";
@@ -22,19 +35,16 @@ namespace BeanBag.Services
         //private readonly string clothingModelPredictionName = "ClothingMiniModelV1.0";
 
         //MAKE SURE TO REMOVE THIS TRAINING KEY. IT IS LIKE THE PASSWORD FOR OUR AI PROJECTS
-        private readonly string trainingKey = "3fcb002210614500aaf87a89c79603d1";
-        private readonly string projectId;
-        private readonly string projectName;
 
-        private CustomVisionTrainingClient trainingClient;
-        private CustomVisionPredictionClient predictionClient;
 
-        public AIService()
+        public AIService(DBContext db)
         {
             trainingClient = new CustomVisionTrainingClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.ApiKeyServiceClientCredentials(trainingKey))
             {
                 Endpoint = endpoint
             };
+
+            _db = db;
             
 
             //predictionClient = new CustomVisionPredictionClient
@@ -44,9 +54,21 @@ namespace BeanBag.Services
             //};
         }
 
-        public string createProject(string modelName)
+        public async Task<Guid> createProject(string modelName)
         {
-            return "";
+            Project newProject = await trainingClient.CreateProjectAsync(modelName);
+
+            AIModel newModel = new AIModel()
+            {
+                projectName = modelName,
+                projectId = newProject.Id
+            };
+
+            await _db.AIModels.AddAsync(newModel);
+
+            _db.SaveChanges();
+
+            return newModel.projectId;
         }
 
         public string predict(string imageURL)
