@@ -2,12 +2,12 @@
 
 namespace BeanBag.Models
 {
-    public class Tenants
+    public class TenantUser
     {
         [Key]
-        public string TenantId { get; set; }
+        public string UserObjectId { get; set; }
         
         [Required]
-        public string TenantName { get; set; }
+        public string UserTenantId { get; set; }
     }
 }

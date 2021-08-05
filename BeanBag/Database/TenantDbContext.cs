@@ -13,10 +13,10 @@ namespace BeanBag.Database
         
         // Entities
         // Current tenant information
-        public DbSet<Tenants> Tenant { get; set; }
+        public DbSet<Tenant> Tenant { get; set; }
         
         // Current user 
-        public DbSet<Users> User { get; set; }
+        public DbSet<TenantUser> TenantUser { get; set; }
         
     }
 }

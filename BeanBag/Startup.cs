@@ -60,7 +60,7 @@ namespace BeanBag
             );
             
             // Connecting to Tenant DB
-            services.AddDbContext<DBContext>(options => 
+            services.AddDbContext<TenantDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("TenantConnection"))
             );
 
@@ -70,6 +70,8 @@ namespace BeanBag
             services.AddTransient<IAIService, AIService>();
             services.AddTransient<IDashboardAnalyticsService, DashboardAnalyticsService>();
             services.AddTransient<IBlobStorageService, BlobStorageService>();
+
+            services.AddTransient<TenantService>();
 
         }
 
