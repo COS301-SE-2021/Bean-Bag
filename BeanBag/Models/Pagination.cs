@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
 using X.PagedList;
 
 namespace BeanBag.Models
@@ -7,13 +7,7 @@ namespace BeanBag.Models
     public class Pagination
     {
         public Inventory Inventory { get; set; }
-        
-        
-        public Item Item { get; set; }
         public IPagedList<Inventory> PagedList{ get; set; }
-        
-        
-        public IPagedList<Item> PagedListItems{ get; set; }
 
     }
     
