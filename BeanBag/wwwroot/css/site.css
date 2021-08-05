@@ -7,6 +7,13 @@
     --color-2: #f5ae10;
     --color-3: #09d69c;
     --bg-dark: #2b2c2f;
+    /* ----- Theme colours -----*/
+    --cornflowerBlue:#578CFF;
+    --fieryRose: #FF5971;
+    --greenSheen:#76B5AE;
+    --outrageousOrange:#FE7958;
+    --purpleMountainMajesty:#967BB6;
+    /*-------------------------------*/
     --main-to-dark-color: var(--main-color);
     --dark-to-main-color: var(--bg-dark);
     --shadow-black-100: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -49,13 +56,13 @@ body {
 
 .btn:hover {
    /* color: #f1f2f6;*/
-    background-color:rgba(87,140,255,0.5) ;/* put this colour inside a var */ /* was #9557DA */
+    background-color:rgba(87,140,255,0.5) ;/* put this colour inside a var */ 
     
 }
 .btn:visited{
    
     color: var(--off-white);  
-    background-color:var(--main-color) ;/* put this colour inside a var */ /* was #9557DA */
+    background-color:var(--main-color) ;/* put this colour inside a var */ 
 }
 
 .btn.tableButton:visited{
