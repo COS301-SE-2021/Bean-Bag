@@ -13,10 +13,12 @@
  
 
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
+<span>@tenant</span>
 <section class="search-and-user ">
     <span class="col-md-1 text-secondary">
         Dashboard
     </span>
+
     <div class="admin-profile ">
         @{
             System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
@@ -37,7 +39,7 @@
 
 
     </div>
-    
+
 </section>
 
 
