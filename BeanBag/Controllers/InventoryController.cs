@@ -50,11 +50,18 @@ namespace BeanBag.Controllers
             if(User.Identity.IsAuthenticated)
             {
                 var inventories = inventoryService.GetInventories(User.GetObjectId());
+                Inventory inventory = new Inventory();
+                
+                ViewModel viewModel = new ViewModel();
+                viewModel.Inventories = inventories;
+                viewModel.Inventory = inventory;
+             
+                
 
                 //Checking user role is in DB
                 checkUserRole();
 
-                return View(inventories);
+                return View(viewModel);
             }
             else
             {
@@ -75,22 +82,23 @@ namespace BeanBag.Controllers
         // Adds a new inventory for the user into the DB
         // Returns the user to the Inventory/Index page
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public IActionResult Create(Inventory newInvetory)
+        public IActionResult Create(ViewModel newInvetory)
         {
-            if(User.Identity.IsAuthenticated)
+            if(User.Identity != null && User.Identity.IsAuthenticated)
             {
-                newInvetory.userId = User.GetObjectId();
+                newInvetory.Inventory.userId = User.GetObjectId();
+               
                 // Checks to see that the newInventory is valid (that the fields filled in the create view are present)
                 if (ModelState.IsValid)
                 {
-                    inventoryService.CreateInventory(newInvetory);
+                    inventoryService.CreateInventory(newInvetory.Inventory);
 
                     // Returns back to inventory/index
-                    return RedirectToAction("Index");
+                     return RedirectToAction("Index");
                 }
                 // Only goes here if the newInventory is invalid
-                return View(newInvetory);
+             
+                return RedirectToAction("Index");
             }
             else
             {
