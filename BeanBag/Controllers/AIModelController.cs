@@ -23,12 +23,6 @@ namespace BeanBag.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult CreateAIModel()
-        {
-            return View();
-        }
-
         [HttpPost]
         public IActionResult newAIModel(CreateNewAIModel newModel)
         {
