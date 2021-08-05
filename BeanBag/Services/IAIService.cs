@@ -8,5 +8,7 @@ namespace BeanBag.Services
     public interface IAIService
     {
         public string predict(string imageURL);
+
+        public string createProject(string modelName);
     }
 }
