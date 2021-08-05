@@ -90,7 +90,7 @@ namespace BeanBag.Controllers
             //return the Model data with paged
 
             Inventory inventory = new Inventory();
-            ViewModel viewModel = new ViewModel();
+            Pagination viewModel = new Pagination();
             IPagedList<Inventory> pagedList = modelList.ToPagedList(pageNumber, pageSize);
             
             viewModel.Inventory = inventory;
@@ -113,16 +113,16 @@ namespace BeanBag.Controllers
         // Adds a new inventory for the user into the DB
         // Returns the user to the Inventory/Index page
         [HttpPost]
-        public IActionResult Create(ViewModel newInventory)
+        public IActionResult Create(Pagination inventories)
         {
             if(User.Identity is {IsAuthenticated: true})
             {
-                newInventory.Inventory.userId = User.GetObjectId();
+                inventories.Inventory.userId = User.GetObjectId();
                
                 // Checks to see that the newInventory is valid (that the fields filled in the create view are present)
                 if (ModelState.IsValid)
                 {
-                    inventoryService.CreateInventory(newInventory.Inventory);
+                    inventoryService.CreateInventory(inventories.Inventory);
 
                     // Returns back to inventory/index
                      return RedirectToAction("Index");
