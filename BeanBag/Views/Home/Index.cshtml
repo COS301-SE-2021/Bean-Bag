@@ -50,7 +50,7 @@
         View By
     </span>
     <span class="col-md-2">
-        @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null, new {@class = "form-control"})
+        @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null, new {@class = "form-control shadow-sm bg-body rounded"})
 
     </span>
 
@@ -58,7 +58,7 @@
         Select Inventory
     </span>
     <span class="col-md-2">
-        @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, null, new {@class = "form-control"})
+        @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, null, new {@class = "form-control shadow-sm  bg-body rounded"})
 
     </span>
 
@@ -76,7 +76,7 @@
              data-aos-easing="ease-in-back"
              data-aos-delay="1200"
              data-aos-offset="0">
-            <div class="card">
+            <div class="card shadow p-1 mb-3 bg-body rounded">
                 <div class="card-body">
                     <h5 class="text-muted">Items Added</h5>
                     <div class="metric-value d-inline-block">
@@ -96,7 +96,7 @@
              data-aos-easing="ease-in-back"
              data-aos-delay="1000"
              data-aos-offset="0">
-            <div class="card">
+            <div class="card shadow p-1 mb-3 bg-body rounded">
                 <div class="card-body">
                     <h5 class="text-muted">Items Sold</h5>
                     <div class="metric-value d-inline-block">
@@ -117,7 +117,7 @@
              data-aos-easing="ease-in-back"
              data-aos-delay="800"
              data-aos-offset="0">
-            <div class="card">
+            <div class="card shadow p-1 mb-3 bg-body rounded">
                 <div class="card-body">
                     <h5 class="text-muted">Revenue</h5>
                     <div class="metric-value d-inline-block">
@@ -139,7 +139,7 @@
              data-aos-easing="ease-in-back"
              data-aos-delay="600"
              data-aos-offset="0">
-            <div class="card">
+            <div class="card shadow p-1 mb-3 bg-body rounded">
                 <div class="card-body">
                     <h5 class="text-muted">Sales Growth</h5>
                     <div class="metric-value d-inline-block">
@@ -164,7 +164,7 @@
              data-aos-delay="400"
              data-aos-offset="0">
 
-            <div class="card" id="CategoryID">
+            <div class="card shadow p-1 mb-3 bg-body rounded" id="CategoryID">
                 <h5 class="card-header">Recently Added Items </h5>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -208,14 +208,9 @@
              data-aos-delay="50"
              data-aos-offset="0">
 
-            <div class="card">
+            <div class="card shadow p-1 mb-3 bg-body rounded">
                 <h5 class="card-header">Total Items</h5>
                 <div class="card-body">
-                    <!--    <div class="float-right">
-                        <span class="font-weight-bold"> Inventory : </span>// 
-                    
-                    </div>  -->
-
 
                     <canvas id="total-sale" width="220" height="155"></canvas>
 
