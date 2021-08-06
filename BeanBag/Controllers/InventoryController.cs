@@ -95,7 +95,7 @@ namespace BeanBag.Controllers
             
             viewModel.Inventory = inventory;
             viewModel.PagedList = pagedList;
-            
+
             //Checking user role is in DB
             CheckUserRole();
 
