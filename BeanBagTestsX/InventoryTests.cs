@@ -9,7 +9,7 @@ namespace BeanBagTestsX
     public class InventoryTests
     {
         [Fact]
-        public void Get_user_inventories_valid_id()
+        public void Get_user_inventories_with_valid_id()
         {
             //ARRANGE
             string theId = "1234";
