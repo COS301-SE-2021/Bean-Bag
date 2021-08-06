@@ -68,6 +68,51 @@ namespace BeanBagTestsX
 
         }
 
+
+        [Fact]
+        public void Creating_An_Inventory()
+        {
+            //ARRANGE
+            Guid theId1 = new();
+            Guid theId2 = new();
+
+            string u1 = "xxx";
+            string u2 = "yyy";
+
+            var mockIn = new Mock<IInventoryService>();
+
+            var data = new List<Inventory>
+            {
+
+            }.AsQueryable();
+
+            var mockSet = new Mock<DbSet<Inventory>>();
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            //var mockContext = new Mock<DBContext>();
+            //mockContext.Setup(c => c.Inventories).Returns(mockSet.Object);
+
+            //ACT
+
+            //var service = new InventoryService(mockContext.Object);
+            Mock<IInventoryService> myser = new Mock<IInventoryService>();
+
+            myser.Setup(x => x.GetInventories(u1)).Returns(mockSet.Object.ToList());
+
+
+            //var service = _iut;
+            //var invs = service.GetInventories(u1);
+            Inventory thenew = new Inventory { Id = theId2, name = "Mums 2", userId = u2 };
+            myser.Object.CreateInventory(thenew);
+
+
+            //ASSERT
+            Assert.NotNull(data);
+        }
+
     }
 }
 
