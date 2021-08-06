@@ -32,11 +32,12 @@ namespace BeanBagTestsX
             string u1 = "xxx";
             string u2 = "yyy";
 
+            var mockIn = new Mock<IInventoryService>();
+
             var data = new List<Inventory>
             {
                 new Inventory { Id = theId1, name = "Mums 1", userId = u1},
                 new Inventory { Id = theId1, name = "Mums 1.2", userId = u1},
-                new Inventory { Id = theId2, name = "Mums 2", userId = u2},
 
             }.AsQueryable();
 
@@ -46,20 +47,28 @@ namespace BeanBagTestsX
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            var mockContext = new Mock<DBContext>();
-            mockContext.Setup(c => c.Inventories).Returns(mockSet.Object);
+            //var mockContext = new Mock<DBContext>();
+            //mockContext.Setup(c => c.Inventories).Returns(mockSet.Object);
 
             //ACT
 
-            var service = new InventoryService(mockContext.Object);
+            //var service = new InventoryService(mockContext.Object);
+            Mock<IInventoryService> myser = new Mock<IInventoryService>();
+
+            myser.Setup(x => x.GetInventories(u1)).Returns(mockSet.Object.ToList());
+
+
             //var service = _iut;
-            var invs = service.GetInventories(u1);
+            //var invs = service.GetInventories(u1);
+            var tinvs = myser.Object.GetInventories(u1);
 
 
             //ASSERT
-            Assert.Equal(2 , invs.Count);
+            Assert.Equal(2 , tinvs.Count);
 
         }
+
     }
 }
+
 
