@@ -12,16 +12,8 @@ namespace BeanBagTestsX
 {
     public class InventoryTests
     {
-        //private readonly InventoryService _iut;
-        //private readonly Mock<DBContext> _invmock = new Mock<DBContext>();
 
-
-        //public InventoryTests()
-        //{
-        //    _iut = new InventoryService(_invmock.Object);
-
-        //}
-
+        // Unit test defined for the get user inventories, a valid ID will always be passed in so no need for negative testing
         [Fact]
         public void Get_user_inventories_with_valid_id()
         {
@@ -47,19 +39,12 @@ namespace BeanBagTestsX
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            //var mockContext = new Mock<DBContext>();
-            //mockContext.Setup(c => c.Inventories).Returns(mockSet.Object);
+            Mock<IInventoryService> myser = new Mock<IInventoryService>();
 
             //ACT
 
-            //var service = new InventoryService(mockContext.Object);
-            Mock<IInventoryService> myser = new Mock<IInventoryService>();
-
             myser.Setup(x => x.GetInventories(u1)).Returns(mockSet.Object.ToList());
 
-
-            //var service = _iut;
-            //var invs = service.GetInventories(u1);
             var tinvs = myser.Object.GetInventories(u1);
 
 
@@ -69,6 +54,7 @@ namespace BeanBagTestsX
         }
 
 
+        //Unit test for creating an inventory, a valid new inventory object will always be passed in so need for negative testing
         [Fact]
         public void Creating_An_Inventory()
         {
@@ -92,19 +78,11 @@ namespace BeanBagTestsX
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            //var mockContext = new Mock<DBContext>();
-            //mockContext.Setup(c => c.Inventories).Returns(mockSet.Object);
-
             //ACT
 
-            //var service = new InventoryService(mockContext.Object);
             Mock<IInventoryService> myser = new Mock<IInventoryService>();
-
             myser.Setup(x => x.GetInventories(u1)).Returns(mockSet.Object.ToList());
 
-
-            //var service = _iut;
-            //var invs = service.GetInventories(u1);
             Inventory thenew = new Inventory { Id = theId2, name = "Mums 2", userId = u2 };
             myser.Object.CreateInventory(thenew);
 
