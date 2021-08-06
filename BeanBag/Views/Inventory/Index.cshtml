@@ -4,10 +4,10 @@
 
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
-
+@{int i = 1;}
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Inventory";
 }
 
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
@@ -60,18 +60,23 @@
                                 {
                                     <table class="table table-bordered table-striped">
                                         <thead><tr>
-                                            <th>@Html.ActionLink("Inventory Name ", "Index", new {sortOrder = ViewBag.NameSortParm}) <i class="fas fa-chevron-down text-grey"
-                                                                                                                                        aria-hidden="true"></i></th>
+                                            <th>#</th>
+                                            <th>@Html.ActionLink("Inventory Name ", "Index", new {sortOrder = ViewBag.NameSortParm})
+                                                <i class="fas fa-chevron-down text-grey"
+                                                   aria-hidden="true"></i></th>
                                         </tr>
                                         </thead><tbody>
-                                        @foreach (var inventory in Model.PagedList){
+                                        @foreach (var inventory in Model.PagedList)
+                                        {
                                             <tr>
+                                                <td >@i</td>
+                                                @{ i++; }
                                                 <td >@inventory.name</td>
                                                 <td >
                                                     <div class="w-100 btn-group" role="group">
-                                                       <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn">Edit</a>
+                                                        <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn">Edit</a>
                                                         <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a>
-                                                           <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
+                                                        <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
                                                         <a asp-controller="Item" asp-action="UploadImage" class="btn">Add Item</a> <!-- change button css-->
 
                                                     </div>
