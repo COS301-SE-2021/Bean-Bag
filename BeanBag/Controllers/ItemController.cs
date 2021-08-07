@@ -42,12 +42,6 @@ namespace BeanBag.Controllers
             return Ok("Item Index");
         }
 
-        // This returns the uploadimage view for item
-        public IActionResult UploadImage(Guid inventoryId)
-        {
-            return View();
-        }
-
         // This takes in an image file to be uploaded into the Azure blob container
         // This method also uses the custom vision AI that will predict what type of item is in the image
         [HttpPost]
