@@ -16,17 +16,17 @@
         <span class="col-md-1 text-secondary ">
             Inventory
         </span>
-         <div class="admin-profile ">
-             <span class="greeting  ">
+        <div class="admin-profile ">
+            <span class="greeting  ">
         
-            Total Inventories &nbsp; <span class="border  shadow-lg bg-body   rounded-circle rounded p-3">22</span>
+                Total Inventories &nbsp; <span class="border  shadow-lg bg-body   rounded-circle rounded p-3">22</span>
 
                 
                 <div>
             
         
         
-            </div></span></div>
+                </div></span></div>
 
 
     </section>
@@ -58,7 +58,7 @@
                 <!--Create Item-->
                 <div class="ml-auto col-md-2">
                     <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Inventory &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
-                                                                                                                                                                                                               aria-hidden="true"></i></a> <!-- change button css---->
+                                                                                                                                                                                                                       aria-hidden="true"></i></a> <!-- change button css---->
                 </div>
 
                 <!--Table with bootstrap class .table and .table-condensed-->
@@ -87,10 +87,11 @@
                                                 <td >@inventory.name</td>
                                                 <td >
                                                     <div class="w-100 btn-group" role="group">
-                                                        <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn" data-toggle="modal" data-target="#exampleModal2">Edit</a>
-                                                        <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a>
+                                                      <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn"  >Edit</a>
+                                                         <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a>
                                                         <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
-                                                        <a asp-controller="Item" asp-action="UploadImage" class="btn">Add Item</a> <!-- change button css-->
+                                                        <a  class="btn" data-toggle="modal" data-target="#exampleModal2">Add Item</a> <!-- change button css-->
+ <a asp-controller="Item" asp-action="UploadImage" class="btn">Add Item</a> <!-- change button css-->
 
                                                     </div>
                                                 </td>
@@ -112,20 +113,20 @@
             <!--Code to show curent page and page number-->
           
             <div >    @Html.PagedListPager(Model.PagedList, page => Url.Action("Index", new {page}), new PagedListRenderOptions
-                     {
-                         DisplayLinkToIndividualPages = true,
-                         DisplayPageCountAndCurrentLocation = false,
-                         MaximumPageNumbersToDisplay = 10,
-                         LiElementClasses = new[] {"page-item"},
-                         PageClasses = new[] {"page-link"},
-                     })
+                      {
+                          DisplayLinkToIndividualPages = true,
+                          DisplayPageCountAndCurrentLocation = false,
+                          MaximumPageNumbersToDisplay = 10,
+                          LiElementClasses = new[] {"page-item"},
+                          PageClasses = new[] {"page-link"},
+                      })
                 
             </div>
-                <!--Code to show current page and page number-->
-                        <div >Showing @(Model.PagedList.PageCount < Model.PagedList.PageNumber ? 0 : Model.PagedList.PageNumber) out of @Model.PagedList.PageCount entries
-                        </div>
+            <!--Code to show current page and page number-->
+            <div >Showing @(Model.PagedList.PageCount < Model.PagedList.PageNumber ? 0 : Model.PagedList.PageNumber) out of @Model.PagedList.PageCount entries
+            </div>
         </div>
-        </div>
+    </div>
      
      
     <!---Popup Form to create inventory -->
@@ -143,7 +144,10 @@
                 <form method="post" asp-action="Create" >
                     <div class="modal-body">
                         <div class="form-group ">
-                            
+                              <input asp-for="Inventory.Id" hidden />
+                                    <input asp-for="Inventory.userId" hidden />
+                               
+
                             <label asp-for="Inventory.name" class="col-form-label"></label> <!--Inventory Name-->
                             <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
                         </div>
@@ -159,50 +163,83 @@
         </div>
     </div>
     
-     <!---Popup Form to edit inventory -->
-        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog" role="document">
+    <!---Popup Form to upload item to inventory -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle2" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" role="document">
             
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"  id="exampleModalTitle">Edit Inventory</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"  id="exampleModalTitle2">Add Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    
+                <form method="post" asp-action="UploadImage" asp-controller="Item" >
+                    <div class="modal-body">
+                    <div class="form-group ">
+                          
+                     
+                                <!-- Upload image input-->
+                                <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                                    <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
+                                    <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
+                                    <div class="input-group-append">
+                                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                                    </div>
+                                </div>
+
+                                <!-- Uploaded image area-->
+                                <p class="font-italic text-grey text-center">The image uploaded will be rendered inside the box below.</p>
+                                <div class="image-area mt-4 align-content-center"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+
+                            </div>
+                        <div asp-validation-summary="All" class="text-danger"></div>
                     </div>
                     
-                    <form method="post" asp-action="Edit" >
-                        <div class="modal-body">
-                            <div class="form-group ">
-                                
-                                <label asp-for="Inventory.name" class="col-form-label"></label> <!--Inventory Name-->
-                                <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
-                            </div>
-                            <div asp-validation-summary="All" class="text-danger"></div>
-                        </div>
-                        <div class="modal-footer ">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary" value="Edit"/> <!--create button-->
-                        </div>
-                    </form>
+                    <div class="modal-footer ">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Upload"/> <!--create button-->
+                    </div>
+                </form>
                        
-                </div>
             </div>
         </div>
+    </div>
     
     <div class="page-footer fixed-bottom">
-    <span class="p-5"> &copy; 2021 - Agile Bridge </span>
+        <span class="p-5"> &copy; 2021 - Agile Bridge </span>
 
-</div>
+    </div>
 </section>
-<!---Popup Form to create inventory -->
-@section Scripts{
-    @{
-                                     <partial name="_ValidationScriptsPartial" />
-    }
-}
+
+
+
+
+
+
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
   AOS.init();
 </script>
+
+<script type="text/javascript">
+   
+         var routeId = @ViewBag.MyRouteId;
+       $('#editName').val(routeId); 
+      
+     
+      
+      
+   
+</script>
+
+
+@section Scripts{
+    @{<partial name="_ValidationScriptsPartial" />
+    }
+}
+
+
