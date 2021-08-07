@@ -10,5 +10,7 @@ namespace BeanBag.Services
 
         public string GetTenantTheme(string userId);
 
+        public bool SignUserUp(string userId, string tenantId);
+
     }
 }

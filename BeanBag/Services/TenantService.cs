@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using BeanBag.Database;
+using BeanBag.Models;
 
 namespace BeanBag.Services
 {
@@ -91,6 +92,32 @@ namespace BeanBag.Services
             return theme;
 
         }
+
+        //Sign new user up under specified tenant
+        public bool SignUserUp(string userId, string tenantId)
+        {
+            if (userId == null || tenantId == null)
+            {
+                throw new Exception("User or tenant id is null");
+            }
+
+            //User already exists
+            if (_tenantDb.TenantUser.Find(userId) != null) return false;
+            
+            //Specified tenant does not exist
+            if (_tenantDb.Tenant.Find(tenantId) == null) return false;
+            
+            //Create new user to add 
+            var newUser = new TenantUser {UserObjectId = userId, UserTenantId = tenantId};
+            _tenantDb.Add(newUser);
+            _tenantDb.SaveChanges();
+
+            return true;
+
+        }
+        
+        //Create new tenant
+        
 
     }
 }
