@@ -36,5 +36,10 @@ namespace BeanBag.Controllers
 
             return Ok(id);
         }
+
+        public IActionResult TestImages()
+        {
+            return View();
+        }
     }
 }
