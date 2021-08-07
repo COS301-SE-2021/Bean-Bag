@@ -15,17 +15,21 @@
             <div class="col-2"></div>
             <div class="col-8">
                 <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                    <input hidden value="@Context.Request.Query["modelId"]" name="projectId"/>
+                    <input hidden value="@Context.Request.Query["modelId"]" name="projectId" />
                     <input id="upload" type="file" name="files" onchange="readURL(this);" class="form-control border-0" multiple>
                     <label id="upload-label" for="upload" class="font-weight-light text-muted ">Upload Image</label>
                     <div class="input-group-append">
                         <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted text-center"></i><small class="text-uppercase font-weight-bold text-muted text-center "> <img src="../../wwwroot/images/upload-simple.svg" class="filter-colour2" alt="upload" /></small></label>
                     </div>
+
                 </div>
 
                 <p class="font-italic text-secondary text-center"></p>
                 <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
 
+                <br />
+                <label>Tags:</label>
+                <input name="tags" type="text" />
                 <br />
                 <input type="submit" value="Submit" class="btn btn-1" />
             </div>

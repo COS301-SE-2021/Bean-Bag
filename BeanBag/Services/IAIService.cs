@@ -11,6 +11,6 @@ namespace BeanBag.Services
 
         public Task<Guid> createProject(string modelName);
 
-        public void uploadTestImages(List<string> imageUrls, Guid projectId);
+        public void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId);
     }
 }
