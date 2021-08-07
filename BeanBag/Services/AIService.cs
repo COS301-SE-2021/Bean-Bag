@@ -79,5 +79,27 @@ namespace BeanBag.Services
             //return result.Predictions[0].TagName;
             return "";
         }
+
+        public async void uploadTestImages(List<string> imageUrls, Guid projectId)
+        {
+            if(trainingClient.GetProject(projectId) != null)
+            {
+                Tag randomTag = trainingClient.CreateTag(projectId, "Random");
+
+                List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
+
+                foreach(var url in imageUrls)
+                {
+                    images.Add(new ImageUrlCreateEntry(url, new List<Guid> { randomTag.Id }, null));
+                }
+
+                await trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
+            }
+            else
+            {
+                // Throw exception that project does not exist
+            }
+            
+        }
     }
 }
