@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using BeanBag.Models;
 
 namespace BeanBag.Services
 {
@@ -13,6 +13,10 @@ namespace BeanBag.Services
         public bool SignUserUp(string userId, string tenantId);
 
         public bool CreateNewTenant(string tenantName);
+
+        public bool SearchTenant(string tenantId);
+
+        public bool SearchUser(string userId);
 
     }
 }

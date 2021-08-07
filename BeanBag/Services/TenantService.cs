@@ -117,7 +117,7 @@ namespace BeanBag.Services
 
         }
         
-        //Create new tenant
+        //Create new tenant to add to Tenant database
         public bool CreateNewTenant(string tenantName)
         {
             if (tenantName == null)
@@ -130,17 +130,33 @@ namespace BeanBag.Services
             if (_tenantDb.Tenant.Find(_newTenantId) != null) return false;
 
             //Create new tenant and add to db
-            var newTenant = new Tenant();
-            newTenant.TenantId = _newTenantId;
-            newTenant.TenantName = tenantName;
-            newTenant.TenantTheme = "Blue";
+            var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = "Blue"};
 
             _tenantDb.Tenant.Add(newTenant);
             _tenantDb.SaveChanges();
-
+            
             return true;
 
         }
 
+        public bool SearchTenant(string tenantId)
+        {
+            if (tenantId == null)
+            {
+                throw new Exception("Tenant is null");
+            }
+
+            return _tenantDb.Tenant.Find(tenantId) != null;
+        }
+
+        public bool SearchUser(string userId)
+        {
+            if (userId == null)
+            {
+                throw new Exception("User is null");
+            }
+
+            return _tenantDb.TenantUser.Find(userId) != null;
+        }
     }
 }
