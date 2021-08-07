@@ -10,5 +10,7 @@ namespace BeanBag.Services
         public string predict(string imageURL);
 
         public Task<Guid> createProject(string modelName);
+
+        public void uploadTestImages(List<string> imageUrls, Guid projectId);
     }
 }

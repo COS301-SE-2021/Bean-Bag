@@ -47,7 +47,9 @@ namespace BeanBag.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadTestImages([FromForm(Name = "files")] IFormFileCollection files, [FromForm(Name ="projectId")] Guid projectId)
         {
-            List<string> result = await blobService.uploadTestImages(files, projectId.ToString());
+            List<string> imageUrls = await blobService.uploadTestImages(files, projectId.ToString());
+
+            aIService.uploadTestImages(imageUrls, projectId);
 
             return Ok(":)");
         }
