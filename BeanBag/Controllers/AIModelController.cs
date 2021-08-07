@@ -12,10 +12,12 @@ namespace BeanBag.Controllers
     public class AIModelController : Controller
     {
         private readonly IAIService aIService;
+        private readonly IBlobStorageService blobService;
 
-        public AIModelController(IAIService _ai)
+        public AIModelController(IAIService _ai, IBlobStorageService _blob)
         {
             aIService = _ai;
+            blobService = _blob;
         }
 
         public IActionResult Index()
@@ -34,12 +36,20 @@ namespace BeanBag.Controllers
         {
             Guid id = await aIService.createProject(modelName);
 
-            return Ok(id);
+            return LocalRedirect("/AIModel/TestImages?modelId=" + id.ToString());
         }
 
-        public IActionResult TestImages()
+        public IActionResult TestImages(string modelId)
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadTestImages([FromForm(Name = "files")] IFormFileCollection files, [FromForm(Name ="projectId")] Guid projectId)
+        {
+            List<string> result = await blobService.uploadTestImages(files, projectId.ToString());
+
+            return Ok(":)");
         }
     }
 }
