@@ -80,17 +80,21 @@ namespace BeanBag.Services
             return "";
         }
 
-        public async void uploadTestImages(List<string> imageUrls, Guid projectId)
+        public async void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
         {
             if(trainingClient.GetProject(projectId) != null)
             {
-                Tag randomTag = trainingClient.CreateTag(projectId, "Random");
+                List<Guid> imageTagsId = new List<Guid>();
+                foreach(var tag in tags)
+                {
+                    imageTagsId.Add(trainingClient.CreateTag(projectId, tag).Id);
+                }
 
                 List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
 
                 foreach(var url in imageUrls)
                 {
-                    images.Add(new ImageUrlCreateEntry(url, new List<Guid> { randomTag.Id }, null));
+                    images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
                 }
 
                 await trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
