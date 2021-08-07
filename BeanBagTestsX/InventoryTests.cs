@@ -18,8 +18,8 @@ namespace BeanBagTestsX
         public void Get_user_inventories_with_valid_id()
         {
             //ARRANGE
-            Guid theId1 = new();
-            Guid theId2 = new();
+            Guid theId1 = new("00000000-0000-0000-0000-000000000001");
+            Guid theId2 = new("00000000-0000-0000-0000-000000000002");
 
             string u1 = "xxx";
             string u2 = "yyy";
@@ -59,8 +59,7 @@ namespace BeanBagTestsX
         public void Creating_An_Inventory()
         {
             //ARRANGE
-            Guid theId1 = new();
-            Guid theId2 = new();
+            Guid theId2 = new("00000000-0000-0000-0000-000000000001");
 
             string u1 = "xxx";
             string u2 = "yyy";
@@ -89,6 +88,49 @@ namespace BeanBagTestsX
 
             //ASSERT
             Assert.NotNull(data);
+        }
+
+
+        //Unit test for deleting an inventory. It will always be valid because a guid and user id will be passed in automatically 
+        [Fact]
+        public void Deleting_An_Inventory()
+        {
+            //ARRANGE
+            Guid theId1 = new("00000000-0000-0000-0000-000000000001");
+            Guid theId2 = new("00000000-0000-0000-0000-000000000002");
+
+
+            string u1 = "123";
+
+
+            //var mockIn = new Mock<IInventoryService>();
+
+            var data = new List<Inventory>
+            {
+                new Inventory { Id = theId1, name = "testinv 1", userId = u1},
+
+            }.AsQueryable();
+
+            var mockSet = new Mock<DbSet<Inventory>>();
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            //ACT
+
+            Mock<IInventoryService> myser = new Mock<IInventoryService>();
+
+            myser.Setup(x => x.GetInventories(u1)).Returns(mockSet.Object.ToList());
+
+
+            myser.Object.DeleteInventory(theId1, u1);
+
+            var updInvs = myser.Object.GetInventories(u1);
+            int x = updInvs.Count;
+
+            //ASSERT
+            Assert.Equal(1, x);
         }
 
     }
