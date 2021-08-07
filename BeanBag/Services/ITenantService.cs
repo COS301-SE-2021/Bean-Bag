@@ -12,5 +12,7 @@ namespace BeanBag.Services
 
         public bool SignUserUp(string userId, string tenantId);
 
+        public bool CreateNewTenant(string tenantName);
+
     }
 }

@@ -8,6 +8,7 @@ namespace BeanBag.Services
     public class TenantService : ITenantService
     {
         private readonly TenantDbContext _tenantDb;
+        private string _newTenantId;
         
         public TenantService(TenantDbContext context)
         {
@@ -117,7 +118,29 @@ namespace BeanBag.Services
         }
         
         //Create new tenant
-        
+        public bool CreateNewTenant(string tenantName)
+        {
+            if (tenantName == null)
+            {
+                throw new Exception("Tenant name is null");
+            }
+            
+            _newTenantId = new Guid().ToString();
+
+            if (_tenantDb.Tenant.Find(_newTenantId) != null) return false;
+
+            //Create new tenant and add to db
+            var newTenant = new Tenant();
+            newTenant.TenantId = _newTenantId;
+            newTenant.TenantName = tenantName;
+            newTenant.TenantTheme = "Blue";
+
+            _tenantDb.Tenant.Add(newTenant);
+            _tenantDb.SaveChanges();
+
+            return true;
+
+        }
 
     }
 }
