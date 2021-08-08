@@ -28,5 +28,5 @@ jobs:
       working-directory: ./BeanBag
       
     - name: Run automated tests 📋
-      run: dotnet test --nobuild
+      run: dotnet test --no-build --verbosity normal
       working-directory: ./BeanBagTestsX
