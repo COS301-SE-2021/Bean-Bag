@@ -2,8 +2,7 @@ name: BeanBag CI CD pipeline
 
 on:
   push:
-    branches: 
-      - master
+    branches:
       - develop
 
 jobs:
@@ -27,3 +26,7 @@ jobs:
     - name: Build app 🚀
       run: dotnet build --no-restore
       working-directory: ./BeanBag
+      
+    - name: Run automated tests 📋
+      run: dotnet test --nobuild
+      working-directory: ./BeanBag/BeanBagTestsX
