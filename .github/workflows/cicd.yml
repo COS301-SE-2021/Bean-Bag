@@ -3,7 +3,7 @@ name: BeanBag CI CD pipeline
 on:
   push:
     branches: 
-      - develop
+      - develop 
 
 jobs:
   build:
