@@ -25,5 +25,5 @@ jobs:
       working-directory: ./BeanBag
 
     - name: Build app 🚀
-      run: dotnet build -c --no-restore
+      run: dotnet build --no-restore
       working-directory: ./BeanBag
