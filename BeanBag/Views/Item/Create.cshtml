@@ -7,59 +7,163 @@
     var options = _azureAdb2COptions.Value;
 }
 
-
-<section class="item-create d-flex align-items-center">
-   <div class="col-5">
-       <div class="content-item2">
-           <div class="box">
-               <img src="@ViewBag.imageUrl"/>
-           </div>
-           <p><b>Item Type:</b> @ViewBag.itemType</p>
-       </div>
-   </div> 
-    <div class="col-1"> </div>
+<section class="page-content" xmlns="http://www.w3.org/1999/html">
     
-    <div class="col-6">
-        <form method="post" asp-action="Create" asp-controller="Item">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <!--<div class="form-group row">
-        <h2 class="text-black-50 pl-3">Add item</h2>
-    </div>-->
+    <section >
+            <a asp-action="Index" asp-controller="Inventory" class="btn btn-secondary  rounded-pill "><i class="fas fa-chevron-left"> </i></a>
+               
+        <span class="col-md-1 text-secondary ">
+            Inventory/AddItem
+        </span>
 
-            <div class="form-group row">
-                <label asp-for="name"></label>
-                <input asp-for="name" class="form-control" />
-            </div>
+    </section>
+    
+     
+    <div class="dashboard-wrapper">
+        <div class="container-fluid  dashboard-content">
+            <hr>
+            <br>
 
-            <div class="form-group row">
-                <label asp-for="price"></label>
-                <input asp-for="price" class="form-control" />
-            </div>
+            <div class="row">
+                
+                
+ 
+                <!-- ============================================================== -->
+                <!-- recent products  -->
+                <!-- ============================================================== -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div data-aos="fade-zoom-in"
+                         data-aos-easing="fade-zoom-in"
+                         data-aos-delay="400"
+                         data-aos-offset="0">
 
-            <div class="form-group row">
-                <label asp-for="quantity"></label>
-                <input asp-for="quantity" class="form-control" />
-            </div>
+                        <div class="card shadow p-1 mb-3 bg-body rounded" id="CategoryID">
+                            <h5 class="card-header">Add Item </h5>
+                            <div class="card-body ">
 
-            <div class="form-group row">
-                <label asp-for="inventoryId" value="Inventory"></label>
-                <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
-                    <option selected>Select Inventory</option>
-                </select>
-            </div>
+                                
+                                                  <div class="row">
+                                                   
+                                                    <div class="col-sm p-4">
+                                                        <div >
+                                                                                        <div data-aos="fade-zoom-in"
+                                                                                             data-aos-easing="ease-in-back"
+                                                                                             data-aos-delay="50"
+                                                                                             data-aos-offset="0">
+                                                    
+                                                                                            <div class="card shadow p-1 mb-3 bg-body rounded">
+                                                                                                <div class="card-body">
+                                                                                                    <p class=" text-muted text-uppercase medium"><i class="fas fa-camera"></i>  &nbsp; Detected Item : @ViewBag.itemType </p>
+                                                                                                    <hr> <br>
+                                                                                                    <div id="mdb-lightbox-ui"></div>
+                                                    
+                                                                                                    <div class="mdb-lightbox">
+                                                    
+                                                                                                        <div class="row product-gallery mx-1">
+                                                    
+                                                                                                            <div class="col-7 mb-0">
+                                                                                                                <figure class="view overlay rounded z-depth-1 main-img">
+                                                                                                                    <a href="@ViewBag.imageUrl"
+                                                                                                                       data-size="110x223">
+                                                                                                                        <img class="center-block" src="@ViewBag.imageUrl"
+                                                                                                                             class="img-fluid z-depth-1">
+                                                                                                                    </a>
+                                                                                                                </figure>
+                                                                                                            </div>
+                                                    
+                                                                                                        </div>
+                                                                                                    </div>
+                                                    
+                                                    
+                                                    
+                                                                                                </div>
+                                                    
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                    </div>
+                                                 <div class="col-sm p-5">
+                                                                                                        <div ><br>
+                                                                                                                                        <form method="post" asp-action="Create" asp-controller="Item">
+                                                                                                                                            <div asp-validation-summary="All" class="text-danger"></div>
+                                                                                                                                            <input asp-for="imageURL" class="form-control" value="@ViewBag.imageUrl" hidden/>
+                                                                                                                                            <input asp-for="type" class="form-control" value="@ViewBag.itemType" hidden/>
+                                                                                                    
+                                                                                                                                            <div class="form-group row">
+                                                                                                                                                <label asp-for="name"></label>
+                                                                                                                                                <input asp-for="name" class="form-control"/>
+                                                                                                                                            </div>
+                                                                                                    
+                                                                                                                                            <div class="form-group row">
+                                                                                                                                                <label asp-for="price"></label>
+                                                                                                                                                <input asp-for="price" class="form-control"/>
+                                                                                                                                            </div>
+                                                                                                    
+                                                                                                                                            <div class="form-group row">
+                                                                                                                                                <label asp-for="quantity"></label>
+                                                                                                                                                <input asp-for="quantity" class="form-control"/>
+                                                                                                                                            </div>
+                                                                                                    
+                                                                                                                                            <div class="form-group row">
+                                                                                                                                                <label asp-for="inventoryId" value="Inventory"></label>
+                                                                                                                                                <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
+                                                                                                                                                    <option selected>Select Inventory</option>
+                                                                                                                                                </select>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="form-group row">
+                                                                                                                                              
+                                                                                                                                                <input type="submit" class="btn btn-primary" value="Submit"/>
+                                                                                                                                            </div>
+                                                                                                    
+                                                                                                                                        </form>
+                                                                                                                                    </div>
+                                                                                                    </div>
+                                                  </div>
+                                                </div>
+                               
 
-            <input asp-for="imageURL" class="form-control" value="@ViewBag.imageUrl" hidden />
-            <input asp-for="type" class="form-control" value="@ViewBag.itemType" hidden />
 
-            <input type="submit" class="btn btn-1" value="Create" />
-            <a asp-action="Index" asp-controller="Inventory" class="btn btn-2">Back</a>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        </form>
-    </div>
+                <!-- ============================================================== -->
+                <!-- end  -->
+                <!-- ============================================================== -->
+
+            </div></div>
 </section>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+<!--Section: Block Content-->
+
 
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />
     }
+    
+    
 }
+
+<script>
+
+$(document).ready(function () {
+  // MDB Lightbox Init
+  $(function () {
+    $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+  });
+});
+</script>
