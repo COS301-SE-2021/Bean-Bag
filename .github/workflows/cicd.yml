@@ -22,6 +22,8 @@ jobs:
         
     - name: Restore dependencies 🔑
       run: dotnet restore
+      working-directory: ./BeanBag
 
     - name: Build app 🚀
       run: dotnet build -c --no-restore
+      working-directory: ./BeanBag
