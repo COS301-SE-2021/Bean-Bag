@@ -1,4 +1,4 @@
-name: BeanBag CI CD pipeline 
+name: BeanBag CI CD pipeline Develop branch
 
 on:
   push:
