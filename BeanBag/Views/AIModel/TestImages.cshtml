@@ -29,11 +29,35 @@
 
                 <br />
                 <label>Tags:</label>
-                <input name="tags" type="text" />
+                
+                <div id="TestImageTags">
+                    <input name="tags" type="text" />
+                    <input type="button" value="Add New Tag" onclick="DynamicText()" class="btn-success" />
+                </div>         
                 <br />
-                <input type="submit" value="Submit" class="btn btn-1" />
+                <input type="submit" value="Submit" class="btn btn-1"/>
             </div>
             <div class="col-2"></div>
         </div>
     </form>
 </section>
+
+@* This script functions is used to add dynamic text boxs to allow the user to enter as many tags as they desire with the uploaded test images *@
+<script>
+    function DynamicText()
+    {
+        var division = document.createElement('DIV');
+        division.innerHTML = AddTextBox("");
+        document.getElementById("TestImageTags").appendChild(division);
+    };
+
+    function AddTextBox(value)
+    {
+        return '<br/><div><input type="text" name="tags" /><input type="button" onclick="RemoveTextBox(this)" value="Remove Tag" class="btn-danger"/></div>';
+    };
+
+    function RemoveTextBox(div)
+    {
+        document.getElementById("TestImageTags").removeChild(div.parentNode.parentNode);
+    }
+</script>
