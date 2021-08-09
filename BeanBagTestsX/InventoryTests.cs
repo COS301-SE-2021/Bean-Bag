@@ -10,7 +10,7 @@ using Xunit;
 
 namespace BeanBagTestsX
 {
-    /*
+    
 
 
     public class InventoryTests
@@ -104,6 +104,7 @@ namespace BeanBagTestsX
 
 
             string u1 = "123";
+            string u2= "124";
 
 
             //var mockIn = new Mock<IInventoryService>();
@@ -111,6 +112,7 @@ namespace BeanBagTestsX
             var data = new List<Inventory>
             {
                 new Inventory { Id = theId1, name = "testinv 1", userId = u1},
+                new Inventory { Id = theId2, name = "testinv 2", userId = u1},
 
             }.AsQueryable();
 
@@ -120,9 +122,20 @@ namespace BeanBagTestsX
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
+          
             //ACT
+            var context = new Mock<DBContext>();
+            context.Setup(c => c.Inventories).Returns(mockSet.Object);
 
-            Mock<IInventoryService> myser = new Mock<IInventoryService>();
+            InventoryService inv = new InventoryService(context.Object);
+
+            var deleted = inv.DeleteInventory(theId2, u1);
+            
+            var updInvs = inv.GetInventories(u1);
+            
+           
+
+         /*   Mock<IInventoryService> myser = new Mock<IInventoryService>();
 
             myser.Setup(x => x.GetInventories(u1)).Returns(mockSet.Object.ToList());
 
@@ -130,15 +143,19 @@ namespace BeanBagTestsX
             myser.Object.DeleteInventory(theId1, u1);
 
             var updInvs = myser.Object.GetInventories(u1);
-            int x = updInvs.Count;
+            int x = updInvs.Count;*/
 
             //ASSERT
-            Assert.Equal(1, x);
+         //   Assert.Equal(1, x);
+         
+         var x = updInvs.Count;
+         Assert.Equal(1,x);
+         Assert.True(deleted);
         }
 
     }
 
-    */
+    
 
 
 }

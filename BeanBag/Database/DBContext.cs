@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using BeanBag.Models;
+using BeanBag.Services;
 
 namespace BeanBag.Database
 {
@@ -8,14 +9,24 @@ namespace BeanBag.Database
     {
         // This is the constructor for the DBContext class
         // It takes in the options in which the options are the connection string to the Bean Bag DB
-        public DBContext(DbContextOptions<DBContext> options) : base (options)
+        public DBContext()
         {
+        }
 
+        public DBContext(DbContextOptions<DbContext> options): base (options)
+        {
         }
 
         // This is the set of inventories found in the inventory table of the DB
-        public DbSet<Inventory> Inventories { get; set; }
-        public DbSet<Item> Items { get; set; }
-        public DbSet<UserRoles> UserRoles { get; set; }
+        
+        //Virtual functions
+        public virtual DbSet<Inventory> Inventories { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<UserRoles> UserRoles { get; set; }
+        
+      /*  public  DbSet<Inventory> Inventories { get; set; }
+        public  DbSet<Item> Items { get; set; }
+        public  DbSet<UserRoles> UserRoles { get; set; }*/
     }
+ 
 }

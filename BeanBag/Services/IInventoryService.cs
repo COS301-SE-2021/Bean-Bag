@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BeanBag.Database;
 
 namespace BeanBag.Services
 {
@@ -13,5 +14,6 @@ namespace BeanBag.Services
         public bool EditInventory(string UserId, Inventory inventory);
         public bool DeleteInventory(Guid Id, string UserId);
         public Inventory FindInventory(Guid Id);
+        
     }
 }
