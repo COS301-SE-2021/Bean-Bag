@@ -47,6 +47,9 @@ namespace BeanBag.Models
 
         [DisplayName("Date Sold")]
         public DateTime soldDate { get; set; }
+
         
     }
+
+  
 }
