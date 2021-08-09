@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 /*  Global Css  */
 :root {
-    --main-color: #578CFF;/*#7857fe*/
+    --main-color: var(--cornflowerBlue);
     --color-1: #e91e63;
     --color-2: #f5ae10;
     --color-3: #09d69c;
@@ -33,7 +33,7 @@ body {
     overflow-x: hidden;
     background-color: var(--off-white);
     line-height: 1.5;
- 
+
 }
 
 
@@ -55,25 +55,25 @@ body {
 }
 
 .btn:hover {
-   /* color: #f1f2f6;*/
-    background-color:rgba(87,140,255,0.5) ;/* put this colour inside a var */ 
-    
+    /* color: #f1f2f6;*/
+    background-color:rgba(87,140,255,0.5) ;/* put this colour inside a var */
+
 }
 .btn:visited{
-   
-    color: var(--off-white);  
-    background-color:var(--main-color) ;/* put this colour inside a var */ 
+
+    color: var(--off-white);
+    background-color:var(--main-color) ;/* put this colour inside a var */
 }
 
 .btn.tableButton:visited{
 
-    color: var(--black-900) !important;  
+    color: var(--black-900) !important;
 
 }
 
 .btn.btn-light:hover {
-   color: var(--off-white);
-   background-color: transparent;
+    color: var(--off-white);
+    background-color: transparent;
 }
 
 .clearfix {
@@ -152,45 +152,45 @@ ul {
     padding: 20px 0;
 }
 
-    .navbar > .container {
-        padding: 0 15px;
-    }
+.navbar > .container {
+    padding: 0 15px;
+}
 
-    .navbar .navbar-brand {
-        font-size: 30px;
-        color: #ffffff;
-        font-weight: 500;
-        text-transform: capitalize;
-    }
+.navbar .navbar-brand {
+    font-size: 30px;
+    color: #ffffff;
+    font-weight: 500;
+    text-transform: capitalize;
+}
 
-    .navbar .nav-item {
-        margin-left: 40px;
-    }
+.navbar .nav-item {
+    margin-left: 40px;
+}
 
 .navbar .nav-item .nav-link {
-            color: #ffffff;
-            text-transform: capitalize;
-            font-size: 16px;
-            font-weight: 400;
-            padding: 5px 0;
-            position: relative;
+    color: #ffffff;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 5px 0;
+    position: relative;
 }
 
 .navbar .nav-item .nav-link::before {
-                content: '';
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                height: 1px;
-                background-color: #ffffff;
-                transition: all 0.5s ease;
-                transform: scale(0);
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ffffff;
+    transition: all 0.5s ease;
+    transform: scale(0);
 }
 
 .navbar .nav-item .nav-link.active::before,
 .navbar .nav-item .nav-link:hover::before {
-                transform: scale(1);
+    transform: scale(1);
 }
 .navbar-toggler{
     padding: .25rem .75rem;
@@ -206,7 +206,7 @@ ul {
     background-color: var(--off-white);
 }
 h3{
-    color: var(--main-color) !important; 
+    color: var(--main-color) !important;
 }
 
 h2{
@@ -260,7 +260,7 @@ footer {
     color: #ffffff;
     bottom: 0;
     /*min-height: 8vh;*/
-   position: fixed;
+    position: fixed;
     width:100%
 }
 
@@ -272,7 +272,7 @@ a[href^="https"] {
 /*Inventory*/
 .createForm{
     padding: 50px 0;
-    
+
 }
 .inventory{
     min-height: 60vh;
@@ -299,7 +299,7 @@ a[href^="https"] {
     color: var(--main-color) !important;
     font-size: 16px;
     text-transform: capitalize;
-    
+
     box-shadow: var(--shadow-black-100);
     font-weight: 500;
 }
@@ -312,36 +312,36 @@ thead th
     /* doesn't want to show*/
     background-color: var(--main-color) !important;
     color:var(--off-white);
-    
-    
+
+
 }
 /* Responsive*/
 @media(max-width: 991px){
-   /* .navbar-toggler{
-        background-color: var(--dark-to-main-color);
-        box-shadow:var(--shadow-black-300);
-        height:34px;
-        width: 44px;
-        padding:0;
-        font-size:17px;
-        color:#ffffff;
-    }
-    .navbar-nav{
-        background-color: var(--dark-to-main-color);
-        box-shadow:var(--shadow-black-300);
-        
-    }
-    .navbar .nav-item{
-        margin:0;
-        padding:5px 15px;
-    }
-    .navbar.navbar-shrink .navbar-toggler,
-    .navbar.navbar-shrink .navbar-nav{
-        background-color: var(--main-color);
-    }*/
+    /* .navbar-toggler{
+         background-color: var(--dark-to-main-color);
+         box-shadow:var(--shadow-black-300);
+         height:34px;
+         width: 44px;
+         padding:0;
+         font-size:17px;
+         color:#ffffff;
+     }
+     .navbar-nav{
+         background-color: var(--dark-to-main-color);
+         box-shadow:var(--shadow-black-300);
+         
+     }
+     .navbar .nav-item{
+         margin:0;
+         padding:5px 15px;
+     }
+     .navbar.navbar-shrink .navbar-toggler,
+     .navbar.navbar-shrink .navbar-nav{
+         background-color: var(--main-color);
+     }*/
     .landing-text h1{
         font-size:36px;
-        
+
     }
     .landing-text p {
         font-size: 16px;
@@ -362,11 +362,11 @@ thead th
 @media(max-width: 575px){
     .home-text h1{
         font-size:30px;
-        
+
     }
     .home-text p{
         font-size:16px;
-        
+
     }
 }
 
@@ -386,15 +386,16 @@ thead th
 #upload-label {
     position: absolute;
     top: 50%;
-    left: 1.5rem;
+    left: 2rem;
     transform: translateY(-50%);
 }
 
 .image-area {
     border: 2px dashed lightslategray;
-    padding: 5rem;
+    padding: 1rem;
     position: relative;
-    margin-left: 5px;
+    width:300px;
+    height:300px;
 }
 
 .image-area::before {
@@ -413,13 +414,14 @@ thead th
 .image-area img {
     z-index: 2;
     position: relative;
-  
+    max-width:100%;/*check if size changes*/
+    max-height:100%;/*check if size changes*/
 }
 
 /* Item - Create*/
 .box{
     width:400px;
-    height:400px; 
+    height:400px;
 }
 
 .box img {
@@ -441,7 +443,7 @@ thead th
     font-size: 18px;
     line-height: 28px;
     color: var(--main-color);
-    width: 100%;  
+    width: 100%;
 }
 
 .item-create{

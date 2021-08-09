@@ -14,8 +14,8 @@
                 
             </div>            
             <div class="col-5">
-                <h2 class="text-primary">Inventory List</h2><br/>
-                <h4 class="text-secondary">@ViewBag.InventoryName</h4>
+                <h2 >Items List</h2><br/>
+                <h3>@ViewBag.InventoryName</h3>
             </div>
             <div class="col-6 text-right">
                 <a asp-controller="Inventory" asp-action="Index" class="btn btn-2">Back</a>
@@ -34,7 +34,7 @@
                                 <th>
                                     Item Name
                                 </th>
-                                <th>
+                                <th colspan="5">
                                     Item Type
                                 </th>
                             </tr>
@@ -47,10 +47,10 @@
                                     <td>@item.type</td> <!-- width="50%"-->
                                     <td> <!-- width="50%"-->
                                         <div class="w-100 btn-group" role="group">
-                                            <a asp-controller="Item" asp-action="Edit" asp-route-Id="@item.Id" class="btn ">Edit</a>
-                                            <a asp-controller="Item" asp-action="Delete" asp-route-Id="@item.Id" class="btn ">Delete</a>
-                                            <a asp-controller="Item" asp-action="ViewQRCode" asp-route-Id="@item.Id" class="btn ">View QR Code</a>
-                                            <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@item.Id" class="btn ">Print QR Code</a>            
+                                            <a asp-controller="Item" asp-action="Edit" asp-route-Id="@item.Id" class="btn tableButton">Edit</a>
+                                            <a asp-controller="Item" asp-action="Delete" asp-route-Id="@item.Id" class="btn tableButton">Delete</a>
+                                            <a asp-controller="Item" asp-action="ViewQRCode" asp-route-Id="@item.Id" class="btn tableButton ">View QR Code</a>
+                                            <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@item.Id" class="btn tableButton">Print QR Code</a>            
                                         </div>
                                     </td>
                                 </tr>
