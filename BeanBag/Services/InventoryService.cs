@@ -15,6 +15,7 @@ namespace BeanBag.Services
             _db = db;
         }
 
+   
         public List<Inventory> GetInventories(string id)
         {
             var inventories = (from i in _db.Inventories where i.userId.Equals(id) select i).ToList();
