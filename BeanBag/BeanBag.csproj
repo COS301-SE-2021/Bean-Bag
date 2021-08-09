@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Dashboard\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Appearance\Index.cshtml" />
   </ItemGroup>
 
 </Project>
