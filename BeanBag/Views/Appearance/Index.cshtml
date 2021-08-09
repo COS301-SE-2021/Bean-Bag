@@ -10,15 +10,42 @@
     Layout = "_Layout";
 }
 
-<!--<section class="inventory d-flex justify-content-center">
-    <div class="container"> 
-        <div class="card">
-          <h5 class="card-header">Main colour</h5>
-          <div class="card-body">
-            <h5 class="card-title">Pick a colour below</h5>
-            <p class="card-text">Display themes here</p>
-            
-          </div>
+<section class="inventory d-flex justify-content-center">
+    <div class="container justify-content-center">
+        <div class="col-2"> </div>
+        <div class="col-10">        
+            <div class="card ">
+                <h5 class="card-header">Website Theme</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Pick theme colour</h5>
+                    <div>
+                        
+                        <!--<input type="image" src="images/CornflowerBlue-default_theme.PNG"  name="Blue" width="40" height="40" id="CornflowerBlue" alt="Blue"/>
+
+                        <input type="image" src="images/Fiery_Rose.png"  name="FieryRose" width="40" height="40" id="FieryRose" alt="FieryRose"/>
+
+                        <input type="image" src="images/Green_Sheen.png"  name="GreenSheen" width="40" height="40" id="GreenSheen" alt="Green"/>
+
+                        <input type="image" src="images/Outrageous_Orange.png"  name="OutrageousOrange" width="40" height="40" id="OutrageousOrange" alt="Orange"/>
+
+                        <input type="image" src="images/Purple_Mountain_Majesty.png" name="Purple" width="40" height="40" id="Purple" alt="Purple"/>-->
+                       <form method="post" asp-action="ChangeThemeColour" asp-controller="Appearance">
+                           <!-- validate values--> 
+                           <select name="theme">
+                               <option value="">Select a theme</option>
+                               <option value="FieryRose">Fiery Rose</option>
+                               <option value="CornflowerBlue">Cornflower Blue</option>
+                               <option value="GreenSheen">Green Sheen</option>
+                               <option value="OutrageousOrange">Outrageous Orange</option>
+                               <option value="PurpleMountainMajesty">Purple Mountain Majesty</option>
+                           </select>
+                           <input type="submit" value="Submit" />
+                       </form>
+
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</section>-->
+</section>
