@@ -1,14 +1,33 @@
-﻿ 
+﻿@{
+  //Get the value of the website theme colour here
+  var color = "Red";
+} 
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BeanBag</title>
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/dashboard.css"  />
+    @if(color == "Green")
+    {
+      <link rel="stylesheet" href="~/css/greenSheen.css" />
+    }else if(color == "Red")
+    {
+      <link rel="stylesheet" href="~/css/fieryRose.css" />
+    }else if(color == "Blue")
+    {
+      <link rel="stylesheet" href="~/css/cornflowerBlue.css" />
+    } 
+    else if (color == "Purple")
+    {
+      <link rel="stylesheet" href="~/css/purpleMountainMajesty.css" />
+    }
+  
+    <link rel="stylesheet" href="~/css/dashboard.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
@@ -106,7 +125,7 @@
           <h3>Account</h3>
         </li>
         <li>
-               <a href="#0">
+               <a asp-area="" asp-controller="Appearance" asp-action="Index">
                  <svg>
                    <use xlink:href="#appearance"></use>
                  </svg>
