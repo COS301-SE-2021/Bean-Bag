@@ -309,7 +309,6 @@ namespace BeanBag.Controllers
                 viewModel.Inventory.name = inventory.name;
                 viewModel.Inventory.userId = inventory.userId;
 
-               
 
                 if(inventory.userId != User.GetObjectId())
                 {
