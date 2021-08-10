@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using X.PagedList;
+﻿using X.PagedList;
 
 namespace BeanBag.Models
 {
