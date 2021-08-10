@@ -87,6 +87,8 @@ namespace BeanBag.Services
             }
 
             tenant.TenantTheme = theme;
+            _tenantDb.SaveChanges();
+            
             return true;
 
         }
