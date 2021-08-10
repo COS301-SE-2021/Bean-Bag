@@ -43,9 +43,9 @@ namespace BeanBag.Controllers
         {
             if(User.Identity is {IsAuthenticated: true})
             {
-
-                //A ViewBag property provides the view with the current sort order, because this must be included in 
-          //  the paging links in order to keep the sort order the same while paging
+                
+             //A ViewBag property provides the view with the current sort order, because this must be included in 
+             //  the paging links in order to keep the sort order the same while paging
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             List<Inventory> modelList;
@@ -242,7 +242,7 @@ namespace BeanBag.Controllers
         }
 
         // This is the GET method for delete inventory
-        public IActionResult Delete(Guid id)
+       /*public IActionResult Delete(Guid id)
         {
             if(User.Identity is {IsAuthenticated: true})
             {
@@ -267,9 +267,9 @@ namespace BeanBag.Controllers
                 return LocalRedirect("/");
             }
             
-        }
-
-        // This is the POSt method for delete inventory
+        }*/
+        
+      // This is the POSt method for delete inventory
         // This allows us to delete an inventory using the inventory ID
         [HttpPost]
         public IActionResult DeletePost(Guid id)
@@ -290,6 +290,40 @@ namespace BeanBag.Controllers
                 return LocalRedirect("/");
             }
                   
+        }
+        
+        public IActionResult Delete(Guid id)
+        {
+            if(User.Identity is {IsAuthenticated: true})
+            {
+
+                // Find the inventory in the inventory table using the inventory ID
+                var inventory = inventoryService.FindInventory(id);
+                if (inventory == null)
+                {
+                    return NotFound();
+                } 
+                Pagination viewModel = new Pagination();
+                viewModel.Inventory = new Inventory();
+                viewModel.Inventory.Id = inventory.Id;
+                viewModel.Inventory.name = inventory.name;
+                viewModel.Inventory.userId = inventory.userId;
+
+               
+
+                if(inventory.userId != User.GetObjectId())
+                {
+                    return BadRequest();
+                }
+
+                //return View(inventory);
+                
+                return PartialView("_Delete", viewModel);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
         }
     }
     

@@ -1,0 +1,38 @@
+﻿    @model Pagination
+<!---Popup Form to delete inventory -->
+        <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog" role="document">
+            
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"  id="exampleModalTitle4">Delete Inventory</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    
+                    <form method="post" enctype="multipart/form-data" asp-action="DeletePost">
+                        <div class="modal-body">
+                    <div class="form-group ">
+                                       
+                        <input name="Id" value="@Model.Inventory.Id" hidden/>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group row">
+                        </div>
+                        <div class="form-group row">
+                            <label name="name" value="@Model.Inventory.name">Are you sure that you want to delete this inventory?</label> <!--Inventory Name-->
+                            <input name="name" value="@Model.Inventory.name" disabled class="form-control"/> <!--input box-->
+                        </div>
+</div>
+                        <div asp-validation-summary="All" class="text-danger"></div></div>
+                        <div class="modal-footer ">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <input type="submit" class="btn btn-primary" value="Delete"/> <!--create button-->
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+        

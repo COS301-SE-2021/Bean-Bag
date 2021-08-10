@@ -1,34 +1,29 @@
 ﻿@model Inventory
 @using Microsoft.Extensions.Options
 @using Microsoft.Identity.Web
-@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+@inject IOptions<MicrosoftIdentityOptions> azureAdb2COptions
 
-@{
-    var options = _azureAdb2COptions.Value;
-    
-}
 
 <section class="inventory d-flex justify-content-center">
     <div class="col-1 "> </div>
-    <form method="post" asp-action="Edit">
+    <form method="post" asp-action="DeletePost">
         <input asp-for="Id" hidden />
-        <input asp-for="userId" hidden />
-        
+        <div asp-validation-summary="All" class="text-danger"></div>
+
         <div class="form-group row">
-            <h3 >Edit inventory name</h3>
+            <h3 >Delete Item</h3>
         </div>
         <div class="form-group row">
             <label asp-for="name"></label> <!--Inventory Name-->
-            <input asp-for="name" class="form-control"/> <!--input box-->
+            <input asp-for="name" disabled class="form-control" /> <!--input box-->
         </div>
-        <input type="submit" class="btn btn-1" value="Edit"/> <!--create button-->
-        
+        <input type="submit" class="btn btn-1" value="Delete"/> <!--create button-->
+
         <a asp-action="Index" class="btn btn-2">Back</a> <!--Back-->
     </form>
     
 
 </section>
-
 
 
 
