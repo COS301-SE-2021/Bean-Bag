@@ -89,14 +89,16 @@
                                                 <td >
                                                     <div class="w-100 btn-group" role="group">
                                                       <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn"  >Edit</a>
-                                                         <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a>
+                                                        <!-- <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a> -->
+                                                        
+                                                        <a href="@Url.Action("Delete", "Inventory", new { @inventory.Id})" 
+                                                           class="btn delete" data-toggle="modal" 
+                                                           data-target="#exampleModal4" data-id="@inventory.Id">Delete</a>
+                                                        
                                                         <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
                                                          <a  class="btn" data-toggle="modal" data-target="#exampleModal2">Add Item</a> <!-- change button css-->
                                                           <a  class="btn" data-toggle="modal" data-target="#exampleModal3">Edit</a> <!-- change button css-->
                                                     
-                                                        <a href="@Url.Action("Delete", "Inventory", new { @inventory.Id})" 
-                                                           class="btn btn-xs btn-primary delete" data-toggle="modal" 
-                                                           data-target="#exampleModal4" data-id="@inventory.Id">Delete</a>
                                                         
                                                     </div>
                                                 </td>
@@ -269,7 +271,8 @@ $('.delete').click(function (ev) {
     var action = $(this).attr('href');
 
     $.get(action, function (data) {
-        $(this).find(".modal-body").html(data);
+        $mymodal = $("#exampleModal4");
+            $mymodal.find("div.form-group").html(data);
         $('#exampleModal4').modal('show');
     });
 });
