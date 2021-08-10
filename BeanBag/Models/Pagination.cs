@@ -1,4 +1,5 @@
-﻿using X.PagedList;
+﻿using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace BeanBag.Models
 {
