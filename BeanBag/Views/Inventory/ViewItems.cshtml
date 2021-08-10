@@ -12,30 +12,20 @@
 }
 
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
-    
-    <section class="search-and-user">
-        <span class="col-md-1 text-secondary ">
-            Inventory | @ViewBag.InventoryName | Items
-        </span>
-        <div class="admin-profile ">
-                 <a asp-action="Index" asp-controller="Inventory" class="btn btn-secondary  rounded-pill "><i class="fas fa-chevron-left"> </i></a>
+        
+<section class="md-2">
+             <a asp-action="Index" asp-controller="Inventory" class="btn btn-secondary  rounded-pill "><i class="fas fa-chevron-left"> </i></a>
                   
-            <span class="greeting  ">
-
+    <span class="  md-2 text-secondary ">
+         
+        &nbsp; Inventory | Item List
+    </span>
+            <span class="float-right mr-2">
                 Total Items &nbsp; <span class="border shadow-lg bg-body   rounded-circle rounded p-3">-</span>
-
-
                 <div>
-
-
-
                 </div></span>
-        </div>
+</section>
 
-
-    </section>
-    
-     
     <div class="dashboard-wrapper">
         <div class="container-fluid  dashboard-content">
             <hr>
@@ -64,36 +54,40 @@
                     <br>
                     <div class="card shadow p-1 mb-4 bg-body rounded" >
                         <h5 class="card-header">Item List</h5>
-                        <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
-                            <div>
+                        <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
+                              <div>
                                 @if (Model.PagedListItems.Any())
                                 {
                                     <table class="table table-bordered table-striped">
-                                        <thead><tr>
+                                        <thead>
+                                        <tr>
                                             <th>#</th>
                                             <th>@Html.ActionLink("Name", "ViewItems", new {sortOrder = ViewBag.NameSortParm})
                                                 <i class="fas fa-chevron-down text-grey"
                                                    aria-hidden="true"></i></th>
-                                          
-                                               <th>Type</th>
+
+                                            <th>Type</th>
+                                            
+                                            <th class="text-center">Actions</th>
                                         </tr>
-                                        </thead><tbody>
+                                        </thead>
+                                        <tbody>
                                         @foreach (var items in Model.PagedListItems)
                                         {
-                                            
+
                                             <tr>
                                                 <td >@i</td>
                                                 @{ i++; }
                                                 <td >@items.name</td>
-                                                 <th>@items.type</th>
+                                                <td>@items.type</td>
                                                 <td >
                                                     <div class="w-100 btn-group" role="group">
-                                                      <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn"  >Edit</a>
+                                                        <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn">Edit</a>
                                                         <a asp-controller="Item" asp-action="Delete" asp-route-Id="@items.Id" class="btn">Delete</a>
-                                                        <a  class="btn" data-toggle="modal" data-target="#exampleModal3">Edit</a> <!-- change button css-->
+                                                        <a class="btn" data-toggle="modal" data-target="#exampleModal3">Edit</a> <!-- change button css-->
                                                         <a asp-controller="Item" asp-action="ViewQRCode" asp-route-Id="@items.Id" class="btn ">View QR Code</a>
-                                                        <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@items.Id" class="btn ">Print QR Code</a>            
-                                                                                               
+                                                        <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@items.Id" class="btn ">Print QR Code</a>
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -102,7 +96,8 @@
                                     </table>
                                 }
                                 else
-                                {<p>No Inventories</p>}
+                                {
+                                    <p>No Inventories</p>}
                             </div>
                         </div>
                     </div>
