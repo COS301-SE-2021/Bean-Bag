@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BeanBag.Models
 {
     // This class is responsible for handling the inventory data for the application
-    public class Inventory
+    public partial class Inventory
     {
         // The Id field is a unique identifier for a specific inventory
         [Key]
