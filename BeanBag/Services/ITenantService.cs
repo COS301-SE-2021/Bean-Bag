@@ -1,4 +1,5 @@
-﻿using BeanBag.Models;
+﻿using System;
+using BeanBag.Models;
 
 namespace BeanBag.Services
 {
@@ -9,6 +10,8 @@ namespace BeanBag.Services
         public string GetUserTenant(string userId);
 
         public string GetTenantTheme(string userId);
+
+        public bool SetTenantTheme(string userId, string theme);
 
         public bool SignUserUp(string userId, string tenantId);
 

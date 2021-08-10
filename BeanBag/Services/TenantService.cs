@@ -68,6 +68,28 @@ namespace BeanBag.Services
 
             return tenantName;
         }
+
+        public bool SetTenantTheme(string userId, string theme)
+        {
+            if (userId == null)
+            {
+                throw new Exception("User id is null");
+            }
+
+            if (theme == null) return false;
+
+            var tenantId = GetUserTenant(userId);
+            var tenant = _tenantDb.Tenant.Find(tenantId);
+
+            if (tenant == null)
+            {
+                throw new Exception("Tenant id is null");
+            }
+
+            tenant.TenantTheme = theme;
+            return true;
+
+        }
         
         //Get the chosen theme for current tenant from database
         public string GetTenantTheme(string userId)
