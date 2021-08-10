@@ -5,7 +5,7 @@
 @inject IOptions<MicrosoftIdentityOptions> azureAdb2COptions
 @inject TenantService _tenantService
 @{
-    var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenant(User.GetObjectId()));
+    var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
 }
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">

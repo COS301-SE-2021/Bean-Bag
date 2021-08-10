@@ -10,13 +10,14 @@ namespace BeanBag.Services
         private readonly TenantDbContext _tenantDb;
         private string _newTenantId;
         
+        //Constructor
         public TenantService(TenantDbContext context)
         {
             _tenantDb = context;
         }
-
-        //Get tenant id that the current user belongs to
-        public string GetUserTenant(string userId)
+        
+        //Tenant functions
+        public string GetUserTenantId(string userId)
         {
             if (userId == null)
             {
@@ -43,7 +44,7 @@ namespace BeanBag.Services
             return tenantId;
         }
         
-        //Get the name of the current tenant
+        
         public string GetTenantName(string userTenantId)
         {
             if (userTenantId == null)
@@ -68,7 +69,8 @@ namespace BeanBag.Services
 
             return tenantName;
         }
-
+        
+        
         public bool SetTenantTheme(string userId, string theme)
         {
             if (userId == null)
@@ -78,7 +80,7 @@ namespace BeanBag.Services
 
             if (theme == null) return false;
 
-            var tenantId = GetUserTenant(userId);
+            var tenantId = GetUserTenantId(userId);
             var tenant = _tenantDb.Tenant.Find(tenantId);
 
             if (tenant == null)
@@ -93,10 +95,10 @@ namespace BeanBag.Services
 
         }
         
-        //Get the chosen theme for current tenant from database
+
         public string GetTenantTheme(string userId)
         {
-            var userTenantId = GetUserTenant(userId);
+            var userTenantId = GetUserTenantId(userId);
 
             if (userTenantId == null)
             {
@@ -117,8 +119,47 @@ namespace BeanBag.Services
             return theme;
 
         }
+        
+        
+        public bool CreateNewTenant(string tenantName, string theme)
+        {
+            if (tenantName == null)
+            {
+                throw new Exception("Tenant name is null");
+            }
+            
+            _newTenantId = new Guid().ToString();
 
-        //Sign new user up under specified tenant
+            if (_tenantDb.Tenant.Find(_newTenantId) != null) return false;
+
+            if (theme == null)
+            {
+                theme = "GreenSheen";
+            }
+
+            //Create new tenant and add to db
+            var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = theme};
+
+            _tenantDb.Tenant.Add(newTenant);
+            _tenantDb.SaveChanges();
+            
+            return true;
+
+        }
+        
+
+        public bool SearchTenant(string tenantId)
+        {
+            if (tenantId == null)
+            {
+                throw new Exception("Tenant is null");
+            }
+
+            return _tenantDb.Tenant.Find(tenantId) != null;
+        }
+
+        
+        //User functions
         public bool SignUserUp(string userId, string tenantId)
         {
             if (userId == null || tenantId == null)
@@ -141,37 +182,6 @@ namespace BeanBag.Services
 
         }
         
-        //Create new tenant to add to Tenant database
-        public bool CreateNewTenant(string tenantName)
-        {
-            if (tenantName == null)
-            {
-                throw new Exception("Tenant name is null");
-            }
-            
-            _newTenantId = new Guid().ToString();
-
-            if (_tenantDb.Tenant.Find(_newTenantId) != null) return false;
-
-            //Create new tenant and add to db
-            var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = "Blue"};
-
-            _tenantDb.Tenant.Add(newTenant);
-            _tenantDb.SaveChanges();
-            
-            return true;
-
-        }
-
-        public bool SearchTenant(string tenantId)
-        {
-            if (tenantId == null)
-            {
-                throw new Exception("Tenant is null");
-            }
-
-            return _tenantDb.Tenant.Find(tenantId) != null;
-        }
 
         public bool SearchUser(string userId)
         {
