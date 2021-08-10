@@ -142,41 +142,73 @@ namespace BeanBag.Controllers
         // This is the Get method for viewItems
         // Views all of the items within the specified inventory
         [HttpGet]
-        public IActionResult ViewItems(Guid inventoryId)
+        public IActionResult ViewItems(Guid inventoryId, string sortOrder, string currentFilter, string searchString, int? page)
         {
             if(User.Identity is {IsAuthenticated: true})
             {
-                // Find the inventory in the inventory table using the inventory ID
-                Inventory inventory = inventoryService.FindInventory(inventoryId);
+                
+             //A ViewBag property provides the view with the current sort order, because this must be included in 
+             //  the paging links in order to keep the sort order the same while paging
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            List<Item> modelList;
 
-                // If their doesn't exist an inventory with the inventory id given
-                if (inventory == null)
+            //ViewBag.CurrentFilter, provides the view with the current filter string.
+            //he search string is changed when a value is entered in the text box and the submit button is pressed. In that case, the searchString parameter is not null.
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+
+            var model =  from i in db.Items where i.inventoryId.Equals(inventoryId) select i;
+                //Search and match data, if search string is not null or empty
+                if (!String.IsNullOrEmpty(searchString))
                 {
-                    return NotFound();
+                    model = model.Where(s => s.name.Contains(searchString));
+                }
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        modelList = model.OrderByDescending(s => s.name).ToList();
+                        break;
+                 
+                    default:
+                        modelList = model.OrderBy(s => s.name).ToList();
+                        break;
                 }
 
-                if(inventory.userId != User.GetObjectId())
-                {
-                    return BadRequest();
-                }
+            
+            //indicates the size of list
+            int pageSize = 7;
+            //set page to one is there is no value, ??  is called the null-coalescing operator.
+            int pageNumber = (page ?? 1);
+            //return the Model data with paged
 
-                string inventoryName = inventory.name;
+            Item items = new Item();
+            Pagination viewModel = new Pagination();
+            IPagedList<Item> pagedList = modelList.ToPagedList(pageNumber, pageSize);
+            
+            viewModel.Item = items;
+            ViewBag.InventoryName = inventoryService.FindInventory(inventoryId).name;
+            viewModel.PagedListItems = pagedList;
 
-                // View-bag allows us to pass values from the controller to the respected view
-                // Here we are passing the inventory name in order to display it in the viewItems page
-                ViewBag.InventoryName = inventoryName;
+            //Checking user role is in DB
+            CheckUserRole();
 
-                // This query gets us all the items inside the respected inventory
-                // We pass these items to be displayed into the view
-                var items = from i in db.Items where i.inventoryId.Equals(inventoryId) select i;
-
-                return View(items);
+            return View(viewModel);
             }
             else
             {
                 return LocalRedirect("/");
             }
-            
+
         }
     // This is the GET Method for Edit
     // This returns the view for editing the information related to an inventory
