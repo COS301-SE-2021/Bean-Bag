@@ -1,10 +1,17 @@
-﻿
+﻿@using BeanBag.Services
 @{
     ViewData["Title"] = "Index";
 }
 @{
        Layout = null;
 }
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 
 <link rel="stylesheet" href="css/splashscreen.css">
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -13,7 +20,6 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <!--Preloader Start-->
-
 
 <!--Content-->
 <div class="container1">
@@ -37,7 +43,7 @@
     	     data-aos-easing="ease-in-back"
     	     data-aos-delay="1500"
     	     data-aos-offset="0">
-    	    <!--start button, nothing above this is necessary -->
+    	   
                 <div class="svg-wrapper">
                   <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                     <rect id="shape" height="40" width="150" />
@@ -57,15 +63,15 @@
 
 	</div>
 
-<!--Navbar-->
+
 <nav class="navbar navbar-expand-md navbar-light">
 	<a href="#" class="navbar-brand">Bean Bag</a>
 	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	@{
-					System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
-				}
+		System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+	}
 				
 
 	<div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -83,9 +89,63 @@
 				
 		</div>
 	</div>
-				
 	
 </nav>
+
+<!--Create Item-->
+    <div class="ml-auto col-md-2">
+        <a asp-controller="LandingPage" asp-action="CreateTenant" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Tenant &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
+                                                                                                                                                                                                                       aria-hidden="true"></i></a> <!-- change button css---->
+    </div>
+
+<!---Popup Form to create inventory -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" role="document">
+        
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"  id="exampleModalTitle">Create New Tenant</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <form method="post" asp-action="CreateTenant" >
+                    <div class="modal-body">
+	                    <div class="form-group">
+		                    <label for="tenantName" class="col-form-label">Tenant name</label>
+		                    <input type="text" id="tenantName" name="tenantName" class="form-control"/> <!--input box-->
+	                    </div>
+	                    
+	                    <div class="form-group">
+		                    <label for="tenantTheme" class="col-form-label">Theme</label>
+		                    <select name="tenantTheme" id="tenantTheme">
+			                    <option value="">Select a theme</option>
+			                    <option value="FieryRose">Fiery Rose</option>
+			                    <option value="CornflowerBlue">Cornflower Blue</option>
+			                    <option value="GreenSheen">Green Sheen</option>
+			                    <option value="OutrageousOrange">Outrageous Orange</option>
+			                    <option value="PurpleMountainMajesty">Purple Mountain Majesty</option>
+		                    </select>
+	                    </div>
+	                    
+	                    <div asp-validation-summary="All" class="text-danger"></div>
+	                    
+                    </div>
+                    <div class="modal-footer ">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Create"/> <!--create button-->
+                    </div>
+                </form>
+                   
+            </div>
+        </div>
+    </div>
+
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 <script>
   AOS.init();
