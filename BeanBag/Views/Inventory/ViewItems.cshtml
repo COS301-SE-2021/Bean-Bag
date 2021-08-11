@@ -118,6 +118,10 @@
                                                     <div class="w-100 btn-group" role="group">
                                                         <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn">Edit</a>
                                                         <a asp-controller="Item" asp-action="Delete" asp-route-Id="@items.Id" class="btn">Delete</a>
+                                                        <a href="@Url.Action("Delete", "Item", new { @items.Id})" 
+                                                           class="btn delete" data-toggle="modal" 
+                                                           data-target="#exampleModal4" data-id="@items.Id">Delete</a>
+                                                                                                                
                                                         <a asp-controller="Item" asp-action="ViewQRCode" asp-route-Id="@items.Id" class="btn ">View QR Code</a>
                                                         <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@items.Id" class="btn ">Print QR Code</a>
 
@@ -245,12 +249,27 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
   AOS.init();
+  
+  
+$('.delete').click(function (ev) {
+    ev.preventDefault(); // this is required
+
+    // get target action
+    var action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        $mymodal = $("#exampleModal4");
+            $mymodal.find("div.form-group").html(data);
+        $('#exampleModal4').modal('show');
+    });
+});
 </script>
+
 
 @section Scripts{
     @{<partial name="_ValidationScriptsPartial"/>
 
-
+                                     <partial name="/_DeleteItem" /> 
     }
 }
 
