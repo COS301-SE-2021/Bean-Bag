@@ -33,8 +33,22 @@
             <div class="row">
                 
                 <!--Search-->
-              
-                <span class="col-3">
+                <span class="col-md-0 ml-3 pt-1">
+                From Date</span>
+                <span class="col-md-2">
+                    <input type="date" name="from_date" id="from_date" class="form-control dateFilter" placeholder="From Date" />
+                </span>
+                
+                <span class="col-md-0 pt-1">
+                To Date</span>
+                    <span class="col-md-2 ml-1">
+           <input type="date" name="to_date" id="to_date" class="form-control dateFilter" placeholder="To Date" />
+                    </span>
+                <span class="col-md-2 mr-5">
+                    <input type="button" name="search" id="btn_search" value="Go" class="btn btn-primary" />
+                </span>
+                
+                <div class="col-md-4 ml-5">
                     @using (Html.BeginForm())
                     {
                         <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
@@ -46,7 +60,8 @@
                             </div>
                         </div>
                     }
-                </span>
+                </div>
+                
                 
                 <!--Table with bootstrap class .table and .table-condensed-->
                 
@@ -103,7 +118,6 @@
                                                     <div class="w-100 btn-group" role="group">
                                                         <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn">Edit</a>
                                                         <a asp-controller="Item" asp-action="Delete" asp-route-Id="@items.Id" class="btn">Delete</a>
-                                                        <a class="btn" data-toggle="modal" data-target="#exampleModal3">Edit</a> <!-- change button css-->
                                                         <a asp-controller="Item" asp-action="ViewQRCode" asp-route-Id="@items.Id" class="btn ">View QR Code</a>
                                                         <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@items.Id" class="btn ">Print QR Code</a>
 
@@ -127,7 +141,7 @@
         
             <!--Code to show curent page and page number-->
           
-            <div >    @Html.PagedListPager(Model.PagedListItems, page => Url.Action("ViewItems", new {page}), new PagedListRenderOptions
+            <div >    @Html.PagedListPager(Model.PagedListItems, page => Url.Action("ViewItems",  new {@ViewBag.InventoryId, page}), new PagedListRenderOptions
                       {
                           DisplayLinkToIndividualPages = true,
                           DisplayPageCountAndCurrentLocation = false,
@@ -221,44 +235,9 @@
         </div>
     </div>
 </div>
-
-    <!---Popup Form to edit inventory -->
-<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog" role="document">
-        
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"  id="exampleModalTitle3">Edit Inventory</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-                
-            <form method="post" asp-action="Edit" >
-                <div class="modal-body">
-                    <div class="form-group ">
-                        <input asp-for="Inventory.Id" hidden />
-                        <input asp-for="Inventory.userId" hidden />
-                               
-
-                        <label asp-for="Inventory.name" class="col-form-label"></label> <!--Inventory Name-->
-                        <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
-                    </div>
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                </div>
-                <div class="modal-footer ">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" value="Save Changes"/> <!--create button-->
-                </div>
-            </form>
-                   
-        </div>
-    </div>
-</div>
-
-
-
 </section>
+
+
 
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -269,10 +248,9 @@
 </script>
 
 @section Scripts{
-    @{<partial name="_ValidationScriptsPartial" /> 
-                                  
-       
+    @{<partial name="_ValidationScriptsPartial"/>
+
+
     }
 }
-
 
