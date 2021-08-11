@@ -177,7 +177,7 @@ namespace BeanBag.Controllers
                 viewModel.Item.name = item.name;
                 
                 
-                return PartialView("_Delete", viewModel);
+                return PartialView("_DeleteItem", viewModel);
             }
 
             return LocalRedirect("/");
