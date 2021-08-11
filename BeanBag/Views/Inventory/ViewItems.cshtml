@@ -62,11 +62,16 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Item</th>
                                             <th>@Html.ActionLink("Name", "ViewItems", new {sortOrder = ViewBag.NameSortParm})
                                                 <i class="fas fa-chevron-down text-grey"
                                                    aria-hidden="true"></i></th>
-
-                                            <th>Type</th>
+                                            <th>Category</th>
+                                            <th>Entry Date</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Status</th>
+                                            <th> Date Sold</th>
                                             
                                             <th class="text-center">Actions</th>
                                         </tr>
@@ -78,8 +83,22 @@
                                             <tr>
                                                 <td >@i</td>
                                                 @{ i++; }
-                                                <td >@items.name</td>
+                                                <td><img src="@items.imageURL"  class="rounded" width="60" alt="Item Image"></td>
+                                                <td>@items.name</td>
                                                 <td>@items.type</td>
+                                                <td>@items.entryDate</td>
+                                                <td>R @items.price</td>
+                                                <td>@items.quantity</td>
+                                                @if (@items.isSold)
+                                                {
+                                                    <td>Sold</td>
+                                                    <td>@items.soldDate</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>In Stock</td>
+                                                    <td>N/A</td>
+                                                }
                                                 <td >
                                                     <div class="w-100 btn-group" role="group">
                                                         <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn">Edit</a>
@@ -97,7 +116,7 @@
                                 }
                                 else
                                 {
-                                    <p>No Inventories</p>}
+                                    <p>No Items in Inventory : @ViewBag.InventoryName </p>}
                             </div>
                         </div>
                     </div>
@@ -237,11 +256,8 @@
     </div>
 </div>
 
-        
-<div class="page-footer fixed-bottom">
-        <span class="p-5"> &copy; 2021 - Agile Bridge </span>
 
-    </div>
+
 </section>
 
 
