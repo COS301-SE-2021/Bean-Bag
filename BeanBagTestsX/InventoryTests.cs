@@ -25,7 +25,6 @@ namespace BeanBagTestsX
             Guid theId2 = new("00000000-0000-0000-0000-000000000002");
 
             string u1 = "xxx";
-            string u2 = "yyy";
 
             var mockIn = new Mock<IInventoryService>();
 
@@ -94,6 +93,7 @@ namespace BeanBagTestsX
         }
 
 
+        /*
         //Unit test for deleting an inventory. It will always be valid because a guid and user id will be passed in automatically 
         [Fact]
         public void Deleting_An_Inventory()
@@ -104,7 +104,6 @@ namespace BeanBagTestsX
 
 
             string u1 = "123";
-            string u2= "124";
 
 
             //var mockIn = new Mock<IInventoryService>();
@@ -135,16 +134,6 @@ namespace BeanBagTestsX
             
            
 
-         /*   Mock<IInventoryService> myser = new Mock<IInventoryService>();
-
-            myser.Setup(x => x.GetInventories(u1)).Returns(mockSet.Object.ToList());
-
-
-            myser.Object.DeleteInventory(theId1, u1);
-
-            var updInvs = myser.Object.GetInventories(u1);
-            int x = updInvs.Count;*/
-
             //ASSERT
          //   Assert.Equal(1, x);
          
@@ -152,78 +141,7 @@ namespace BeanBagTestsX
          Assert.Equal(1,x);
          Assert.True(deleted);
         }
-        
-        
-        
-        [Fact]
-        public void Editing_An_Inventory()
-        {
-            //ARRANGE
-            Guid theId1 = new("00000000-0000-0000-0000-000000000001");
-            
-            string u2= "124";
-
-
-            //var mockIn = new Mock<IInventoryService>();
-
-            var data = new List<Inventory>
-            {
-                new Inventory { Id = theId1, name = "testinv 1", userId = u2},
-
-            }.AsQueryable();
-
-            var mockSet = new Mock<DbSet<Inventory>>();
-            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-          
-            //ACT
-            var context = new Mock<DBContext>();
-            context.Setup(c => c.Inventories).Returns(mockSet.Object);
-
-            InventoryService inv = new InventoryService(context.Object);
-
-            var edited = inv.EditInventory(u2, inv.FindInventory(theId1));
-            
-            Assert.True(edited);
-        }
-        
-        [Fact]
-        public void Finding_An_Inventory()
-        {
-            //ARRANGE
-            Guid theId1 = new("00000000-0000-0000-0000-000000000001");
-            
-            string u2= "124";
-
-
-            //var mockIn = new Mock<IInventoryService>();
-
-            var data = new List<Inventory>
-            {
-                new Inventory { Id = theId1, name = "testinv 1", userId = u2},
-
-            }.AsQueryable();
-
-            var mockSet = new Mock<DbSet<Inventory>>();
-            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-          
-            //ACT
-            var context = new Mock<DBContext>();
-            context.Setup(c => c.Inventories).Returns(mockSet.Object);
-
-            InventoryService inv = new InventoryService(context.Object);
-
-            var foundInv = inv.FindInventory(theId1);
-            
-            Assert.NotNull(foundInv);
-        }
+        */
 
     }
 
