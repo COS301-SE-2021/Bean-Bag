@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BeanBag.Models;
 
 namespace BeanBag.Services
@@ -16,6 +17,10 @@ namespace BeanBag.Services
         public bool CreateNewTenant(string tenantName, string theme);
 
         public bool SearchTenant(string tenantId);
+
+        public int GetNumberOfTenants();
+
+        public List<Tenant> GetTenantList();
 
         public bool SignUserUp(string userId, string tenantId);
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BeanBag.Database;
 using BeanBag.Models;
@@ -119,7 +120,29 @@ namespace BeanBag.Services
             return theme;
 
         }
+
         
+        public int GetNumberOfTenants()
+        {
+            var tenants = from tenant
+                    in _tenantDb.Tenant
+                select tenant;
+
+            var numberOfTenants = tenants.ToList().Count;
+
+            return numberOfTenants;
+        }
+
+        public List<Tenant> GetTenantList()
+        {
+            var tenants = from tenant
+                    in _tenantDb.Tenant
+                select tenant;
+
+            var list = tenants.ToList();
+
+            return list;
+        }
         
         public bool CreateNewTenant(string tenantName, string theme)
         {
