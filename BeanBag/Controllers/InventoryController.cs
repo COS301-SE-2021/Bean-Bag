@@ -10,7 +10,6 @@ using X.PagedList;
 
 namespace BeanBag.Controllers
 {
-   // [Route("api/[controller]")]
     // This class is used to handle any user interaction regarding an inventory
     public class InventoryController : Controller
     {
@@ -197,6 +196,7 @@ namespace BeanBag.Controllers
             
             viewModel.Item = items;
             ViewBag.InventoryName = inventoryService.FindInventory(inventoryId).name;
+            ViewBag.InventoryId= inventoryId;
             viewModel.PagedListItems = pagedList;
 
             //Checking user role is in DB
