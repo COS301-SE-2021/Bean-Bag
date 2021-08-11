@@ -139,6 +139,20 @@ namespace BeanBag.Controllers
             //return LocalRedirect("/Item/Edit?ItemId="+item.Id);
         }
 
+        // This is the GET method for delete item
+     /*   public IActionResult Delete(Guid Id)
+        {
+            var item = itemService.FindItem(Id);
+            // Does the item exist in the item table
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.InventoryName = inventoryService.FindInventory(item.inventoryId).name;
+            ViewBag.InventoryId = item.inventoryId;
+            return View(item);
+        }*/
         
        // This is the GET method for delete item
         public IActionResult Delete(Guid id)
@@ -161,9 +175,9 @@ namespace BeanBag.Controllers
                 viewModel.Item = x;
                 viewModel.Item.Id = item.Id;
                 viewModel.Item.name = item.name;
-                return View(item);
                 
-               // return PartialView("_DeleteItem", viewModel);
+                
+                return PartialView("_Delete", viewModel);
             }
 
             return LocalRedirect("/");
@@ -183,13 +197,13 @@ namespace BeanBag.Controllers
         }
 
         // Define a function to generate a QR code every time we want to view it
-        public string ViewQRCode(Guid Id)
+        public IActionResult ViewQRCode(Guid Id)
         {
             var item = itemService.FindItem(Id);
 
             if(item == null)
             {
-                return "No QR Code";
+                return NotFound();
             }
             else
             {
@@ -203,19 +217,19 @@ namespace BeanBag.Controllers
                 ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
                 ViewBag.InventoryId = item.inventoryId;
 
-                return  ViewBag.QRCode;
+                return View();
             }
              
         }
         
         
-        public string PrintQRCode(Guid Id)
+        public IActionResult PrintQRCode(Guid Id)
         {
             var item = itemService.FindItem(Id);
 
             if (item == null)
             {
-                return NotFound().ToString();
+                return NotFound();
             }
             else
             {
@@ -225,11 +239,11 @@ namespace BeanBag.Controllers
                 var qRCode = new QRCode(qRCodeData);
                 var bitmap = qRCode.GetGraphic(20);
                 bitmap.Save(ms, ImageFormat.Png);
-                bitmap.Save("C:/Users/Public/Pictures/"+Id +".png");
+                bitmap.Save("C:/Users/Public/Pictures/BeanBagItemQRCode.png");
 
-                return Id.ToString();
                 //ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
-                // return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
+
+                return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
             }
              
         }
