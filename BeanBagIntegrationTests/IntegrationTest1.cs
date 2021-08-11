@@ -17,6 +17,7 @@ namespace BeanBagIntegrationTests
 
         }
 
+        //Integration test defined to test if the webcontent pages are being hit when the system is run 
         [Theory]
         [InlineData("/")]
         /*[InlineData("/Home/Home")]
