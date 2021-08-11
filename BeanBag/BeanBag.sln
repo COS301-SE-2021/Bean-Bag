@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeanBag", "BeanBag.csproj", "{326C237B-05C1-4B4E-83F4-547141238FBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanBagTestsX", "..\BeanBagTestsX\BeanBagTestsX.csproj", "{818E1348-88A1-408B-8586-2F99D029DCDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeanBagUnitTests", "..\BeanBagTestsX\BeanBagUnitTests.csproj", "{818E1348-88A1-408B-8586-2F99D029DCDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanBagIntegrationTests", "..\BeanBagIntegrationTests\BeanBagIntegrationTests.csproj", "{09E4CF73-6277-455D-A7EE-41392F44CE11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{818E1348-88A1-408B-8586-2F99D029DCDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{818E1348-88A1-408B-8586-2F99D029DCDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{818E1348-88A1-408B-8586-2F99D029DCDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09E4CF73-6277-455D-A7EE-41392F44CE11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09E4CF73-6277-455D-A7EE-41392F44CE11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09E4CF73-6277-455D-A7EE-41392F44CE11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09E4CF73-6277-455D-A7EE-41392F44CE11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

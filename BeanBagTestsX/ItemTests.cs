@@ -18,7 +18,7 @@ namespace BeanBagTestsX
 
         // Unit test defined for adding a QR code to an item using the azure function
         [Fact]
-        public void Add_QR_item_with_valid_item()
+        public void Add_QRitem_with_valid_item()
         {
             //ARRANGE
             var mockIn = new Mock<IItemService>();
