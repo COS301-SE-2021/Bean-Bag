@@ -3,9 +3,6 @@
 @using Microsoft.Identity.Web
 @inject IOptions<MicrosoftIdentityOptions> azureAdb2COptions
 
-@{
-    var options = azureAdb2COptions.Value;
-}
 
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
@@ -102,7 +99,7 @@
                                                 </div>
                                                 
                                                 <div class="form-group row">
-                                                    <label for="favcolor">Colour</label> &nbsp; &nbsp;<br>
+                                                    <label for="color">Colour</label> &nbsp; &nbsp;<br>
                                                     <input type="color" size="100px" name="favcolor" value="black">
                                                 </div>
 
@@ -138,10 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="page-footer fixed-bottom">
-                        <span class="p-5"> &copy; 2021 - Agile Bridge </span>
-                
-                    </div>
+               
             </div>
 
             <!-- ============================================================== -->
