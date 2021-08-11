@@ -6,6 +6,12 @@
        Layout = null;
 }
 
+@inject TenantService _tenantService
+@{
+	var numberOfTenants = _tenantService.GetNumberOfTenants();
+	var count = 0;
+	var tenantList = _tenantService.GetTenantList();
+}
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -92,55 +98,108 @@
 	
 </nav>
 
-<!--Create Item-->
+<!--Create tenant button-->
     <div class="ml-auto col-md-2">
         <a asp-controller="LandingPage" asp-action="CreateTenant" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Tenant &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
                                                                                                                                                                                                                        aria-hidden="true"></i></a> <!-- change button css---->
     </div>
 
-<!---Popup Form to create inventory -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog" role="document">
+<!---Popup Form to create tenant-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog" role="document">
         
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"  id="exampleModalTitle">Create New Tenant</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"  id="exampleModalTitle">Create New Tenant</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
                 
-                <form method="post" asp-action="CreateTenant" >
-                    <div class="modal-body">
-	                    <div class="form-group">
-		                    <label for="tenantName" class="col-form-label">Tenant name</label>
-		                    <input type="text" id="tenantName" name="tenantName" class="form-control"/> <!--input box-->
-	                    </div>
+			<form method="post" asp-action="CreateTenant" >
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="tenantName" class="col-form-label">Tenant name</label>
+						<input type="text" id="tenantName" name="tenantName" class="form-control"/> <!--input box-->
+					</div>
 	                    
-	                    <div class="form-group">
-		                    <label for="tenantTheme" class="col-form-label">Theme</label>
-		                    <select name="tenantTheme" id="tenantTheme">
-			                    <option value="">Select a theme</option>
-			                    <option value="FieryRose">Fiery Rose</option>
-			                    <option value="CornflowerBlue">Cornflower Blue</option>
-			                    <option value="GreenSheen">Green Sheen</option>
-			                    <option value="OutrageousOrange">Outrageous Orange</option>
-			                    <option value="PurpleMountainMajesty">Purple Mountain Majesty</option>
-		                    </select>
-	                    </div>
+					<div class="form-group">
+						<label for="tenantTheme" class="col-form-label">Theme</label>
+						<select name="tenantTheme" id="tenantTheme">
+							<option value="">Select a theme</option>
+							<option value="FieryRose">Fiery Rose</option>
+							<option value="CornflowerBlue">Cornflower Blue</option>
+							<option value="GreenSheen">Green Sheen</option>
+							<option value="OutrageousOrange">Outrageous Orange</option>
+							<option value="PurpleMountainMajesty">Purple Mountain Majesty</option>
+						</select>
+					</div>
 	                    
-	                    <div asp-validation-summary="All" class="text-danger"></div>
+					<div asp-validation-summary="All" class="text-danger"></div>
 	                    
-                    </div>
-                    <div class="modal-footer ">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Create"/> <!--create button-->
-                    </div>
-                </form>
+				</div>
+				<div class="modal-footer ">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<input type="submit" class="btn btn-primary" value="Create"/> <!--create button-->
+				</div>
+			</form>
                    
-            </div>
-        </div>
+		</div>
+	</div>
+</div>
+
+
+
+<!--Create tenant button-->
+    <div class="ml-auto col-md-2">
+        <a asp-controller="LandingPage" asp-action="SelectTenant" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal2">Select a tenant &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
+                                                                                                                                                                                                                       aria-hidden="true"></i></a> <!-- change button css---->
     </div>
+
+<!---Popup Form to create tenant-->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle2" aria-hidden="true">
+	<div class="modal-dialog modal-dialog" role="document">
+        
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"  id="exampleModalTitle2">Select a Tenant</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+                
+			<form method="post" asp-action="SelectTenant" >
+				<div class="modal-body">
+					
+					<div class="form-group">
+						<label for="tenant" class="col-form-label">Tenant</label>
+						<select name="tenant" id="tenant">
+							<option value="">Select a tenant</option>
+
+							@if (tenantList.Any())
+							{
+								@foreach (var tenant in tenantList)
+								{
+									<option value="@tenant.TenantName">@tenant.TenantName</option>
+								}
+							}
+
+
+						</select>
+					</div>
+	                    
+					<div asp-validation-summary="All" class="text-danger"></div>
+	                    
+				</div>
+				<div class="modal-footer ">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<input type="submit" class="btn btn-primary" value="Select"/> <!--create button-->
+				</div>
+			</form>
+                   
+		</div>
+	</div>
+</div>
 
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">

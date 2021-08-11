@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
+using BeanBag.Database;
+using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace BeanBag.Controllers
 {
@@ -11,10 +15,12 @@ namespace BeanBag.Controllers
     public class LandingPageController : Controller
     {
         private readonly TenantService _tenantService;
+        private readonly TenantDbContext _tenantDb;
 
-        public LandingPageController(TenantService service)
+        public LandingPageController(TenantService service, TenantDbContext tenantDb)
         {
             _tenantService = service;
+            _tenantDb = tenantDb;
         }
         
         // This function sends a response to the LandingPage Index page.
@@ -31,6 +37,7 @@ namespace BeanBag.Controllers
         }
 
         [HttpPost]
+        // Allows user to create a new tenant
         public IActionResult CreateTenant(string tenantName, string tenantTheme)
         {
             if (tenantName == null)
@@ -40,6 +47,22 @@ namespace BeanBag.Controllers
             else
             {
                // _tenantService.CreateNewTenant(tenantName, tenantTheme);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        // Allows user to select tenant before sign in and sign up
+        public IActionResult SelectTenant(string tenant)
+        {
+            if (tenant == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                
             }
 
             return RedirectToAction("Index");
