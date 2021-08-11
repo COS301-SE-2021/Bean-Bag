@@ -1,6 +1,4 @@
 ﻿@model Pagination
-@addTagHelper *, Microsoft.AspNetCore.TagHelpers
-    
 <!---Popup Form to delete inventory -->
 <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle4" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
@@ -13,21 +11,8 @@
                 </button>
             </div>
                     
-            <form method="post"  asp-controller="Item" asp-action="DeletePost">
-                <div class="modal-body ">
-                    Are you sure that you want to delete this item? 
-                       
-                    <div class="form-group">
-                        <input name="Id" value="@Model.Item.Id" hidden/>
-                        <label name="name" type="text"  asp-for="Inventory.name" ></label> <!--Inventory Name-->
-                        <input type="text" asp-for="Item.name" name="name" value="@Model.Item.name" class="form-control"/> <!--input box-->
-                    </div>
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                </div>
-                <div class="modal-footer ">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <input type="submit" class="btn btn-primary" value="Delete"/> <!--create button-->
-                </div>
+            <form method="post"  asp-controller="Item" asp-action="DeletePost" class="data">
+              
             </form>
         </div>
     </div>

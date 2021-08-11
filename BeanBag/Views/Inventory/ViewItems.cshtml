@@ -259,7 +259,7 @@ $('.delete').click(function (ev) {
 
     $.get(action, function (data) {
         $mymodal = $("#exampleModal4");
-            $mymodal.find("div.form-group").html(data);
+            $mymodal.find("form.data").html(data);
         $('#exampleModal4').modal('show');
     });
 });
@@ -269,7 +269,7 @@ $('.delete').click(function (ev) {
 @section Scripts{
     @{<partial name="_ValidationScriptsPartial"/>
 
-                                     <partial name="/_DeleteItem" /> 
+                                     <partial name="_DeleteItem" /> 
     }
 }
 
