@@ -140,7 +140,7 @@ namespace BeanBag.Controllers
         }
 
         // This is the GET method for delete item
-        public IActionResult Delete(Guid Id)
+     /*   public IActionResult Delete(Guid Id)
         {
             var item = itemService.FindItem(Id);
             // Does the item exist in the item table
@@ -152,6 +152,35 @@ namespace BeanBag.Controllers
             ViewBag.InventoryName = inventoryService.FindInventory(item.inventoryId).name;
             ViewBag.InventoryId = item.inventoryId;
             return View(item);
+        }*/
+        
+       // This is the GET method for delete item
+        public IActionResult Delete(Guid id)
+        {
+
+            if(User.Identity is {IsAuthenticated: true})
+            {
+
+                var item = itemService.FindItem(id);
+                // Does the item exist in the item table
+                if (item == null)
+                {
+                    return NotFound();
+                }
+
+                ViewBag.InventoryName = inventoryService.FindInventory(item.inventoryId).name;
+                ViewBag.InventoryId = item.inventoryId;
+                Pagination viewModel = new Pagination();
+                Item x= new Item();
+                viewModel.Item = x;
+                viewModel.Item.Id = item.Id;
+                viewModel.Item.name = item.name;
+                
+                
+                return PartialView("_Delete", viewModel);
+            }
+
+            return LocalRedirect("/");
         }
 
         // This is the POST method for delete item
