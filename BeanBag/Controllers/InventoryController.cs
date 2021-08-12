@@ -273,35 +273,7 @@ namespace BeanBag.Controllers
             
         }
 
-        // This is the GET method for delete inventory
-       /*public IActionResult Delete(Guid id)
-        {
-            if(User.Identity is {IsAuthenticated: true})
-            {
-
-                // Find the inventory in the inventory table using the inventory ID
-                var inventory = inventoryService.FindInventory(id);
-
-                if (inventory == null)
-                {
-                    return NotFound();
-                }
-
-                if(inventory.userId != User.GetObjectId())
-                {
-                    return BadRequest();
-                }
-
-                return View(inventory);
-            }
-            else
-            {
-                return LocalRedirect("/");
-            }
-            
-        }*/
-        
-      // This is the POSt method for delete inventory
+        // This is the POST method for delete inventory
         // This allows us to delete an inventory using the inventory ID
         [HttpPost]
         public IActionResult DeletePost(Guid id)
