@@ -83,7 +83,7 @@ namespace BeanBag.Controllers
 
             
             //indicates the size of list
-            int pageSize = 5;
+            int pageSize = 7;
             //set page to one is there is no value, ??  is called the null-coalescing operator.
             int pageNumber = (page ?? 1);
             //return the Model data with paged
@@ -187,7 +187,7 @@ namespace BeanBag.Controllers
 
             
             //indicates the size of list
-            int pageSize = 7;
+            int pageSize = 5;
             //set page to one is there is no value, ??  is called the null-coalescing operator.
             int pageNumber = (page ?? 1);
             //return the Model data with paged
@@ -200,6 +200,7 @@ namespace BeanBag.Controllers
             ViewBag.InventoryName = inventoryService.FindInventory(inventoryId).name;
             ViewBag.InventoryId= inventoryId;
             viewModel.PagedListItems = pagedList;
+            @ViewBag.totalItems = pagedList.Count;
 
             //Checking user role is in DB
             CheckUserRole();
