@@ -1,7 +1,4 @@
-﻿
-<!--Changed model type to that of pagedList-->
-<link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
-@model Pagination
+﻿@model Pagination
 
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
@@ -10,7 +7,7 @@
 @{
     ViewBag.Title = "Items";
 }
-
+<link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
         
 <section class="md-2">
@@ -63,8 +60,7 @@
                 </div>
                 
                 
-                <!--Table with bootstrap class .table and .table-condensed-->
-                
+                <!--Table with bootstrap class-->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <br>
                     <div class="card shadow p-1 mb-4 bg-body rounded" >
@@ -126,9 +122,9 @@
                                                            class="btn viewQR">View QR Code</a>
                                                       
                                                         
-                                                        
-                                                        <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@items.Id" class="btn viewQR ">Print QR Code</a>
-
+                                                        <a href="@Url.Action("PrintQRCode", "Item", new { @items.Id})"
+                                                           data-toggle="modal" data-target="#printQRModal" data-id="@items.Id"
+                                                           class="btn printQR">Print QR Code</a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -177,21 +173,46 @@
                     </button>
                 </div>
                 <div class="modal-body  text-center align-content-center">
-                        <div class="QRImage text-center align-content-center">
-                        </div>
+                    <div class="QRImage text-center align-content-center">
                     </div>
-                    <div class="modal-footer ">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
+    
+      <!---Popup Form to print QR modal -->
+        <div class="modal fade" id="printQRModal" tabindex="-1" role="dialog" aria-labelledby="viewQRModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog" role="document">
+            
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"  id="printQRModalTitle">Print QR Code</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body printQR">
+                        
+                        </div>
+                        <div class="modal-footer ">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                        </div>
+                </div>
+            </div>
+        </div>
     
 </section>
 
 
 
 
+
+
+
+<!--AJAX and Javascript code--> 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -220,18 +241,33 @@ $('.viewQR').click(function (ev) {
 
     $.get(action, function (data) {
         $mymodal = $("#viewQRModal");
-            $mymodal.find("div.QRImage").html('<img src='+data+' width="300" class="align-content-center">');
+          $mymodal.find("div.QRImage").html('<img src='+data+' width="300" class="align-content-center">');
         $('#viewQRModal').modal('show');
     });
 });
 
+ //Print QR
+$('.printQR').click(function (ev) {
+    ev.preventDefault(); // this is required
 
+    // get target action
+    var action = $(this).attr('href');
 
+    $.get(action, function (data) {
+        $mymodal = $("#printQRModal");
+        if(data!=null){
+          $mymodal.find("div.printQR").html('<h6 class="text-muted"> The QRCode has been saved to your C Drive for printing </h6>  '+ 
+          ' <hr> C:/Users/Public/Pictures/'+ data + '.png');
 
+        $('#printQRModal').modal('show');}
+        else
+         {   
+             $mymodal.find("div.printQR").html('QR Code cannot be printed');
+         }
+    });
+});
 
 </script>
-
-
 @section Scripts{
     @{<partial name="_ValidationScriptsPartial"/> <partial name="_DeleteItem" /> 
     }
