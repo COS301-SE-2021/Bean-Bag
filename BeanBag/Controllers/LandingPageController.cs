@@ -46,14 +46,14 @@ namespace BeanBag.Controllers
             }
             else
             {
-               // _tenantService.CreateNewTenant(tenantName, tenantTheme);
+               _tenantService.CreateNewTenant(tenantName);
             }
 
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        // Allows user to select tenant before sign in and sign up
+        // Allows user to select tenant before sign in or sign up
         public IActionResult SelectTenant(string tenant)
         {
             if (tenant == null)
@@ -62,10 +62,10 @@ namespace BeanBag.Controllers
             }
             else
             {
-                
+                _tenantService.SetCurrentTenant(tenant);
             }
 
-            return RedirectToAction("Index");
+            return NoContent();
         }
     }
 }

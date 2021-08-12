@@ -8,8 +8,6 @@
 
 @inject TenantService _tenantService
 @{
-	var numberOfTenants = _tenantService.GetNumberOfTenants();
-	var count = 0;
 	var tenantList = _tenantService.GetTenantList();
 }
 
@@ -83,20 +81,25 @@
 	<div class="collapse navbar-collapse" id="collapsibleNavbar">
 		
 		<div class="navbar-nav ml-auto">
-			<li class="nav-item">
-				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">  Login | SignUp
-					
+			<li class="nav-item" >
+			
+				
+				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn"> Login | SignUp
+
 					<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
 						<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
 						<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
 					</svg>
-				</a></li>
+				</a>
+				
+			</li>
 			
 				
 		</div>
 	</div>
 	
 </nav>
+
 
 <!--Create tenant button-->
     <div class="ml-auto col-md-2">
@@ -122,19 +125,6 @@
 						<label for="tenantName" class="col-form-label">Tenant name</label>
 						<input type="text" id="tenantName" name="tenantName" class="form-control"/> <!--input box-->
 					</div>
-	                    
-					<div class="form-group">
-						<label for="tenantTheme" class="col-form-label">Theme</label>
-						<select name="tenantTheme" id="tenantTheme">
-							<option value="">Select a theme</option>
-							<option value="FieryRose">Fiery Rose</option>
-							<option value="CornflowerBlue">Cornflower Blue</option>
-							<option value="GreenSheen">Green Sheen</option>
-							<option value="OutrageousOrange">Outrageous Orange</option>
-							<option value="PurpleMountainMajesty">Purple Mountain Majesty</option>
-						</select>
-					</div>
-	                    
 					<div asp-validation-summary="All" class="text-danger"></div>
 	                    
 				</div>
@@ -150,13 +140,13 @@
 
 
 
-<!--Create tenant button-->
+<!--Create tenant selection button-->
     <div class="ml-auto col-md-2">
         <a asp-controller="LandingPage" asp-action="SelectTenant" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal2">Select a tenant &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
                                                                                                                                                                                                                        aria-hidden="true"></i></a> <!-- change button css---->
     </div>
 
-<!---Popup Form to create tenant-->
+<!---Popup Form to select tenant-->
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle2" aria-hidden="true">
 	<div class="modal-dialog modal-dialog" role="document">
         
@@ -168,14 +158,15 @@
 				</button>
 			</div>
                 
-			<form method="post" asp-action="SelectTenant" >
+			<form method="post" asp-action="SelectTenant">
 				<div class="modal-body">
 					
 					<div class="form-group">
 						<label for="tenant" class="col-form-label">Tenant</label>
-						<select name="tenant" id="tenant">
+						<select name="tenant" id="tenant" required>
 							<option value="">Select a tenant</option>
 
+							<!--Loop through tenant database and display names-->
 							@if (tenantList.Any())
 							{
 								@foreach (var tenant in tenantList)
@@ -183,18 +174,23 @@
 									<option value="@tenant.TenantName">@tenant.TenantName</option>
 								}
 							}
-
-
+							
 						</select>
 					</div>
-	                    
+
 					<div asp-validation-summary="All" class="text-danger"></div>
 	                    
 				</div>
+				
 				<div class="modal-footer ">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<input type="submit" class="btn btn-primary" value="Select"/> <!--create button-->
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+					<input type="submit" class="btn btn-primary" value="Select" onclick="tenantSelected(true)"/> <!--create button-->
 				</div>
+				
+				<div id="signupsignin">	
+					<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn"> Login | SignUp
+					</a></div>
+				
 			</form>
                    
 		</div>
@@ -205,6 +201,7 @@
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="~/js/automation.js"></script>
 
 <script>
   AOS.init();
