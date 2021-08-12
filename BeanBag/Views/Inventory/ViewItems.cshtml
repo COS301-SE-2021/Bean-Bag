@@ -71,6 +71,7 @@
                                 {
                                     <table class="table table-bordered table-striped">
                                         <thead>
+                                        
                                         <tr>
                                             <th>#</th>
                                             <th>ID</th>
@@ -84,19 +85,23 @@
                                             <th>Quantity</th>
                                             <th>Status</th>
                                             <th> Date Sold</th>
-                                            
+
+                                           
+                                            <th> Condition</th>
+                                             <th> Colour</th>
                                             <th class="text-center">Actions</th>
                                         </tr>
+                                      
                                         </thead>
+                                          
                                         <tbody>
                                         @foreach (var items in Model.PagedListItems)
                                         {
-
                                             <tr>
                                                 <td >@i</td>
                                                 @{ i++; }
-                                                <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@items.Id"><i class="fas fa-tag">  </i></button></td>
-                                                <td><img src="@items.imageURL"  class="rounded" width="60" alt="Item Image"></td>
+                                                <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@items.Id"><i class="fas fa-tag"> </i></button></td>
+                                                <td><img src="@items.imageURL" class="rounded" width="60" alt="Item Image"></td>
                                                 <td>@items.name</td>
                                                 <td>@items.type</td>
                                                 <td>@items.entryDate</td>
@@ -109,24 +114,26 @@
                                                 }
                                                 else
                                                 {
-                                                    <td>In Stock</td>
+                                                    <td>In Stock </td>
                                                     <td>N/A</td>
                                                 }
+                                                <td>- </td>
+                                                <td>- </td>
                                                 <td >
                                                     <div class="w-100 btn-group" role="group">
-                                                        <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn">Edit</a>
-                                                        <a href="@Url.Action("Delete", "Item", new { @items.Id})" 
-                                                           class="btn delete" data-toggle="modal" 
-                                                           data-target="#exampleModal4" data-id="@items.Id">Delete</a>
-                                                                                                                
-                                                        <a href="@Url.Action("ViewQRCode", "Item", new { @items.Id})"
+                                                        <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
+                                                        <a href="@Url.Action("Delete", "Item", new {@items.Id})"
+                                                           class="btn delete" data-toggle="modal"
+                                                           data-target="#exampleModal4" data-id="@items.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
+
+                                                        <a href="@Url.Action("ViewQRCode", "Item", new {@items.Id})"
                                                            data-toggle="modal" data-target="#viewQRModal" data-id="@items.Id"
-                                                           class="btn viewQR">View QR Code</a>
-                                                      
-                                                        
-                                                        <a href="@Url.Action("PrintQRCode", "Item", new { @items.Id})"
+                                                           class="btn viewQR"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View QR Code"><i class="fas fa-qrcode"> </i></button></a>
+
+
+                                                        <a href="@Url.Action("PrintQRCode", "Item", new {@items.Id})"
                                                            data-toggle="modal" data-target="#printQRModal" data-id="@items.Id"
-                                                           class="btn printQR">Print QR Code</a>
+                                                           class="btn printQR"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Print QR Code"><i class="fas fa-print"> </i></button></a>
                                                     </div>
                                                 </td>
                                             </tr>
