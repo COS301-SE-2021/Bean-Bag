@@ -37,7 +37,7 @@
                 
                 <!--Search-->
               
-                <span class="col-3">
+                <span >
                     @using (Html.BeginForm())
                     {
                         <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
@@ -54,17 +54,24 @@
              
 
                 <!--Create Item-->
-                <div class="ml-auto col-md-2">
+              <!--  <div class="ml-auto col-md-2">
                     <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Inventory &nbsp;  &nbsp;  <i class="fa fa-plus"
-                                                                                                                                                                                                                       aria-hidden="true"></i></a> <!-- change button css---->
-                </div>
+                                                                                                                                                                                                                       aria-hidden="true"></i></a> 
+                </div> -->
 
                 <!--Table with bootstrap class .table and .table-condensed-->
                 
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <br>
                     <div class="card shadow p-1 mb-4 bg-body rounded" >
-                        <h5 class="card-header">Inventory List</h5>
+                        <h5 class="card-header">Inventory List
+                        
+                          <!--Create Item-->
+                                        <div class="text-right float-right ">
+                                            <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Inventory &nbsp;   <i class="fa fa-plus"
+                                                                                                                                                                                                                                               aria-hidden="true"></i></a> <!-- change button css---->
+                                        </div>
+                            </h5>
                         <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
                             <div>
                                 @if (Model.PagedList.Any())
@@ -72,9 +79,14 @@
                                     <table class="table table-bordered table-striped">
                                         <thead><tr>
                                             <th>#</th>
+                                            <th>ID</th>
                                             <th>@Html.ActionLink("Inventory Name ", "Index", new {sortOrder = ViewBag.NameSortParm})
                                                 <i class="fas fa-chevron-down text-grey"
                                                    aria-hidden="true"></i></th>
+                                            
+                                            <th>Date Created</th>
+                                            <th>Description</th>
+                                                 <th class="text-center">Actions</th>
                                         </tr>
                                         </thead><tbody>
                                         @foreach (var inventory in Model.PagedList)
@@ -82,7 +94,11 @@
                                             <tr>
                                                 <td >@i</td>
                                                 @{ i++; }
+                                                  <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@inventory.Id"><i class="fas fa-tag">  </i></button></td>
+                                                                                              
                                                 <td >@inventory.name</td>
+                                                <td >-</td>
+                                                     <td >-</td>
                                                 <td >
                                                     <div class="w-100 btn-group" role="group">
                                                       <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn"  >Edit</a>
@@ -260,6 +276,8 @@
   AOS.init();
 </script>
 
+
+//Delete 
 <script type="text/javascript">
 $('.delete').click(function (ev) {
     ev.preventDefault(); // this is required
@@ -273,6 +291,11 @@ $('.delete').click(function (ev) {
         $('#exampleModal4').modal('show');
     });
 });
+
+  //ID tooltip
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
 
 </script>
 
