@@ -14,11 +14,13 @@ namespace BeanBag.Services
 
         public bool SetTenantTheme(string userId, string theme);
         
-        public bool CreateNewTenant(string tenantName, string theme);
+        public bool CreateNewTenant(string tenantName);
+
+        public void SetCurrentTenant(string tenant);
+        
+        public string GetCurrentTenant();
 
         public bool SearchTenant(string tenantId);
-
-        public int GetNumberOfTenants();
 
         public List<Tenant> GetTenantList();
 

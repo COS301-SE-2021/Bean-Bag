@@ -10,6 +10,7 @@ namespace BeanBag.Services
     {
         private readonly TenantDbContext _tenantDb;
         private string _newTenantId;
+        private string _currentTenant;
         
         //Constructor
         public TenantService(TenantDbContext context)
@@ -121,18 +122,6 @@ namespace BeanBag.Services
 
         }
 
-        
-        public int GetNumberOfTenants()
-        {
-            var tenants = from tenant
-                    in _tenantDb.Tenant
-                select tenant;
-
-            var numberOfTenants = tenants.ToList().Count;
-
-            return numberOfTenants;
-        }
-
         public List<Tenant> GetTenantList()
         {
             var tenants = from tenant
@@ -144,7 +133,7 @@ namespace BeanBag.Services
             return list;
         }
         
-        public bool CreateNewTenant(string tenantName, string theme)
+        public bool CreateNewTenant(string tenantName)
         {
             if (tenantName == null)
             {
@@ -155,19 +144,27 @@ namespace BeanBag.Services
 
             if (_tenantDb.Tenant.Find(_newTenantId) != null) return false;
 
-            if (theme == null)
-            {
-                theme = "GreenSheen";
-            }
+            
+            var defaultTheme = "GreenSheen";
 
-            //Create new tenant and add to db
-            var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = theme};
+                //Create new tenant and add to db
+            var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = defaultTheme};
 
             _tenantDb.Tenant.Add(newTenant);
             _tenantDb.SaveChanges();
             
             return true;
 
+        }
+
+        public void SetCurrentTenant(string tenant)
+        {
+            _currentTenant = tenant;
+        }
+
+        public string GetCurrentTenant()
+        {
+            return _currentTenant;
         }
         
 
