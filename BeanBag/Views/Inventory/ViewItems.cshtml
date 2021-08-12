@@ -34,16 +34,16 @@
                 
                 <!--Search-->
                 <span class="col-md-0 ml-3 pt-1">
-                From Date</span>
+                    From Date</span>
                 <span class="col-md-2">
                     <input type="date" name="from_date" id="from_date" class="form-control dateFilter" placeholder="From Date" />
                 </span>
                 
                 <span class="col-md-0 pt-1">
-                To Date</span>
-                    <span class="col-md-2 ml-1">
-           <input type="date" name="to_date" id="to_date" class="form-control dateFilter" placeholder="To Date" />
-                    </span>
+                    To Date</span>
+                <span class="col-md-2 ml-1">
+                    <input type="date" name="to_date" id="to_date" class="form-control dateFilter" placeholder="To Date" />
+                </span>
                 <span class="col-md-2 mr-5">
                     <input type="button" name="search" id="btn_search" value="Go" class="btn btn-primary" />
                 </span>
@@ -70,7 +70,7 @@
                     <div class="card shadow p-1 mb-4 bg-body rounded" >
                         <h5 class="card-header">Item List <span class="text-right float-right text-muted small">Inventory - @ViewBag.InventoryName </span></h5>
                         <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
-                              <div>
+                            <div>
                                 @if (Model.PagedListItems.Any())
                                 {
                                     <table class="table table-bordered table-striped">
@@ -117,13 +117,17 @@
                                                 <td >
                                                     <div class="w-100 btn-group" role="group">
                                                         <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn">Edit</a>
-                                                        <a asp-controller="Item" asp-action="Delete" asp-route-Id="@items.Id" class="btn">Delete</a>
                                                         <a href="@Url.Action("Delete", "Item", new { @items.Id})" 
                                                            class="btn delete" data-toggle="modal" 
                                                            data-target="#exampleModal4" data-id="@items.Id">Delete</a>
                                                                                                                 
-                                                        <a asp-controller="Item" asp-action="ViewQRCode" asp-route-Id="@items.Id" class="btn ">View QR Code</a>
-                                                        <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@items.Id" class="btn ">Print QR Code</a>
+                                                        <a href="@Url.Action("ViewQRCode", "Item", new { @items.Id})"
+                                                           data-toggle="modal" data-target="#viewQRModal" data-id="@items.Id"
+                                                           class="btn viewQR">View QR Code</a>
+                                                      
+                                                        
+                                                        
+                                                        <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@items.Id" class="btn viewQR ">Print QR Code</a>
 
                                                     </div>
                                                 </td>
@@ -160,85 +164,29 @@
             </div>
         </div>
     </div>
-     
-     
-    <!---Popup Form to create inventory -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+    
+    <!---Popup Form to view QR modal -->
+    <div class="modal fade" id="viewQRModal" tabindex="-1" role="dialog" aria-labelledby="viewQRModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog" role="document">
         
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"  id="exampleModalTitle">Create New Inventory</h5>
+                    <h5 class="modal-title"  id="viewQRModalTitle">Item QR Code</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                
-                <form method="post" asp-action="Create" >
-                    <div class="modal-body">
-                        <div class="form-group ">
-                              <input asp-for="Inventory.Id" hidden />
-                                    <input asp-for="Inventory.userId" hidden />
-                               
-
-                            <label asp-for="Inventory.name" class="col-form-label"></label> <!--Inventory Name-->
-                            <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
+                <div class="modal-body  text-center align-content-center">
+                        <div class="QRImage text-center align-content-center">
                         </div>
-                        <div asp-validation-summary="All" class="text-danger"></div>
                     </div>
                     <div class="modal-footer ">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Create"/> <!--create button-->
                     </div>
-                </form>
-                   
             </div>
         </div>
     </div>
     
-    <!---Popup Form to upload item to inventory -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog" role="document">
-            
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"  id="exampleModalTitle2">Add Item</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-                    
-            <form method="post"  enctype="multipart/form-data" asp-action="UploadImage" asp-controller="Item" >
-                <div class="modal-body">
-                    <div class="form-group ">
-                          
-                     
-                        <!-- Upload image input-->
-                        <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                            <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0">
-                            <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
-                            <div class="input-group-append">
-                                <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
-                            </div>
-                        </div>
-
-                        <!-- Uploaded image area-->
-                        <p class="font-italic text-grey text-center">The image uploaded will be rendered inside the box below.</p>
-                        <div class="image-area mt-4 align-content-center"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-
-                    </div>
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                </div>
-                    
-                <div class="modal-footer ">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" value="Submit"/> <!--create button-->
-                </div>
-            </form>
-                       
-        </div>
-    </div>
-</div>
 </section>
 
 
@@ -250,7 +198,7 @@
 <script>
   AOS.init();
   
-  
+ //Delete
 $('.delete').click(function (ev) {
     ev.preventDefault(); // this is required
 
@@ -263,13 +211,29 @@ $('.delete').click(function (ev) {
         $('#exampleModal4').modal('show');
     });
 });
+ //View QR
+$('.viewQR').click(function (ev) {
+    ev.preventDefault(); // this is required
+
+    // get target action
+    var action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        $mymodal = $("#viewQRModal");
+            $mymodal.find("div.QRImage").html('<img src='+data+' width="300" class="align-content-center">');
+        $('#viewQRModal').modal('show');
+    });
+});
+
+
+
+
+
 </script>
 
 
 @section Scripts{
-    @{<partial name="_ValidationScriptsPartial"/>
-
-                                     <partial name="_DeleteItem" /> 
+    @{<partial name="_ValidationScriptsPartial"/> <partial name="_DeleteItem" /> 
     }
 }
 
