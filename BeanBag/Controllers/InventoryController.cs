@@ -94,6 +94,8 @@ namespace BeanBag.Controllers
             
             viewModel.Inventory = inventory;
             viewModel.PagedList = pagedList;
+            @ViewBag.totalInventories = inventoryService.GetInventories(User.GetObjectId()).Count;
+            
 
             //Checking user role is in DB
             CheckUserRole();
