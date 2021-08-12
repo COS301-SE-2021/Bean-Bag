@@ -197,13 +197,13 @@ namespace BeanBag.Controllers
         }
 
         // Define a function to generate a QR code every time we want to view it
-        public IActionResult ViewQRCode(Guid Id)
+        public string ViewQRCode(Guid Id)
         {
             var item = itemService.FindItem(Id);
 
             if(item == null)
             {
-                return NotFound();
+                return "No QR Code";
             }
             else
             {
@@ -217,7 +217,7 @@ namespace BeanBag.Controllers
                 ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
                 ViewBag.InventoryId = item.inventoryId;
 
-                return View();
+                return  ViewBag.QRCode;
             }
              
         }
