@@ -1,12 +1,6 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using BeanBag.Database;
-using BeanBag.Models;
-using BeanBag.Services;
+﻿using BeanBag.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using X.PagedList;
 
 namespace BeanBag.Controllers
 {
@@ -15,12 +9,10 @@ namespace BeanBag.Controllers
     public class LandingPageController : Controller
     {
         private readonly TenantService _tenantService;
-        private readonly TenantDbContext _tenantDb;
 
-        public LandingPageController(TenantService service, TenantDbContext tenantDb)
+        public LandingPageController(TenantService service)
         {
             _tenantService = service;
-            _tenantDb = tenantDb;
         }
         
         // This function sends a response to the LandingPage Index page.

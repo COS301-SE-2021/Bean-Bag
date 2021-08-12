@@ -1,7 +1,4 @@
-﻿using System;
-using BeanBag.Database;
-using BeanBag.Models;
-using BeanBag.Services;
+﻿using BeanBag.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web;
 
