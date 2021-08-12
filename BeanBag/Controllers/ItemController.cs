@@ -139,20 +139,6 @@ namespace BeanBag.Controllers
             //return LocalRedirect("/Item/Edit?ItemId="+item.Id);
         }
 
-        // This is the GET method for delete item
-     /*   public IActionResult Delete(Guid Id)
-        {
-            var item = itemService.FindItem(Id);
-            // Does the item exist in the item table
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            ViewBag.InventoryName = inventoryService.FindInventory(item.inventoryId).name;
-            ViewBag.InventoryId = item.inventoryId;
-            return View(item);
-        }*/
         
        // This is the GET method for delete item
         public IActionResult Delete(Guid id)
@@ -223,13 +209,13 @@ namespace BeanBag.Controllers
         }
         
         
-        public IActionResult PrintQRCode(Guid Id)
+        public string PrintQRCode(Guid Id)
         {
             var item = itemService.FindItem(Id);
 
             if (item == null)
             {
-                return NotFound();
+                return NotFound().ToString();
             }
             else
             {
@@ -239,11 +225,11 @@ namespace BeanBag.Controllers
                 var qRCode = new QRCode(qRCodeData);
                 var bitmap = qRCode.GetGraphic(20);
                 bitmap.Save(ms, ImageFormat.Png);
-                bitmap.Save("C:/Users/Public/Pictures/BeanBagItemQRCode.png");
+                bitmap.Save("C:/Users/Public/Pictures/"+Id +".png");
 
+                return Id.ToString();
                 //ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
-
-                return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
+                // return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
             }
              
         }
