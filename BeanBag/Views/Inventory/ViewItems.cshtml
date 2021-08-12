@@ -73,6 +73,7 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>ID</th>
                                             <th>Item</th>
                                             <th>@Html.ActionLink("Name", "ViewItems", new {sortOrder = ViewBag.NameSortParm})
                                                 <i class="fas fa-chevron-down text-grey"
@@ -94,6 +95,7 @@
                                             <tr>
                                                 <td >@i</td>
                                                 @{ i++; }
+                                                <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@items.Id"><i class="fas fa-tag">  </i></button></td>
                                                 <td><img src="@items.imageURL"  class="rounded" width="60" alt="Item Image"></td>
                                                 <td>@items.name</td>
                                                 <td>@items.type</td>
@@ -207,17 +209,17 @@
 </section>
 
 
-
-
-
-
-
 <!--AJAX and Javascript code--> 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
   AOS.init();
+  
+  //ID tooltip
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
   
  //Delete
 $('.delete').click(function (ev) {
