@@ -21,7 +21,7 @@
 	<!--Tenant Creation-->
 	<!--Create tenant button-->
 	<div class="ml-auto col-md-2">
-		<a class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Tenant &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
+		<a asp-controller="Account" asp-action="CreateTenant" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Tenant &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
 		                                                                                                                                                 aria-hidden="true"></i></a> <!-- change button css---->
 	</div>
 
@@ -59,7 +59,7 @@
 
 	<!--Tenant Selection-->
 	<!--Create tenant selection button-->
-	<div class="ml-auto col-md-2">
+	<div id="select-tenant" class="ml-auto col-md-2">
 		<a  class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal2">Select a tenant &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
 		                                                                                                                                                 aria-hidden="true"></i></a> <!-- change button css---->
 	</div>
