@@ -265,8 +265,8 @@ $('.printQR').click(function (ev) {
     $.get(action, function (data) {
         $mymodal = $("#printQRModal");
         if(data!=null){
-          $mymodal.find("div.printQR").html('<h6 class="text-muted"> The QRCode has been saved to your C Drive for printing </h6>  '+ 
-          ' <hr> C:/Users/Public/Pictures/'+ data + '.png');
+          $mymodal.find("div.printQR").html('<h6 class="text-muted"> QRCode has been saved to your C Drive for printing at :</h6>  '+ 
+          ' <br> C:/Users/Public/Pictures/'+ data + '.png');
 
         $('#printQRModal').modal('show');}
         else
