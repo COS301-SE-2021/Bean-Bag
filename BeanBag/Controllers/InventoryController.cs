@@ -69,6 +69,7 @@ namespace BeanBag.Controllers
         {
             return View();
         }
+        
 
         // This is Post method for create
         // Adds a new inventory for the user into the DB

@@ -21,14 +21,14 @@ namespace BeanBagTestsX
         public void Add_QRitem_with_valid_item()
         {
             //ARRANGE
+            var testItem = new Item();
             var mockIn = new Mock<IItemService>();
-
-
+            
             //ACT
-
+            mockIn.Object.AddQRItem(testItem);
 
             //ASSERT
-
+            Assert.NotEqual("", testItem.QRContents);
 
         }
 
