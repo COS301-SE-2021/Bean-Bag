@@ -1,73 +1,132 @@
-﻿@page
-@using BeanBag.Services
-@model BeanBag.Views.Account.Account
-
-@{
-    Layout = null;
-}
+﻿@using BeanBag.Services
 
 @inject TenantService _tenantService
 @{
 	var tenantList = _tenantService.GetTenantList();
 }
 
-<!--Tenant Creation-->
-<!--Create tenant selection button-->
-    <div class="ml-auto col-md-2">
-        <a  class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal2">Select a tenant &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
-                                                                                                                                                                                                                       aria-hidden="true"></i></a> <!-- change button css---->
-    </div>
+<link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
+
+<section class="page-content" xmlns="http://www.w3.org/1999/html">
+    
+	<section class="search-and-user">
+		<span class="col-md-1 text-secondary ">
+			Tenant Account
+		</span>
 
 
-<div>
-    <!---Popup Form to select tenant-->
-    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle2" aria-hidden="true">
-    	<div class="modal-dialog modal-dialog" role="document">
+
+	</section>
+
+	<!--Tenant Creation-->
+	<!--Create tenant button-->
+	<div class="ml-auto col-md-2">
+		<a class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Tenant &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
+		                                                                                                                                                 aria-hidden="true"></i></a> <!-- change button css---->
+	</div>
+
+	<!---Popup Form to create tenant-->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog" role="document">
+        
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"  id="exampleModalTitle">Create New Tenant</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+                
+				<form method="post" asp-action="CreateTenant" >
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="tenantName" class="col-form-label">Tenant name</label>
+							<input type="text" id="tenantName" name="tenantName" class="form-control"/> <!--input box-->
+						</div>
+						<div asp-validation-summary="All" class="text-danger"></div>
+	                    
+					</div>
+					<div class="modal-footer ">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<input type="submit" class="btn btn-primary" value="Create"/> <!--create button-->
+					</div>
+				</form>
+                   
+			</div>
+		</div>
+	</div>
+
+
+	<!--Tenant Selection-->
+	<!--Create tenant selection button-->
+	<div class="ml-auto col-md-2">
+		<a  class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal2">Select a tenant &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
+		                                                                                                                                                 aria-hidden="true"></i></a> <!-- change button css---->
+	</div>
+
+
+
+	<!---Popup Form to select tenant-->
+	<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle2" aria-hidden="true">
+		<div class="modal-dialog modal-dialog" role="document">
             
-    		<div class="modal-content">
-    			<div class="modal-header">
-    				<h5 class="modal-title"  id="exampleModalTitle2">Select a Tenant</h5>
-    				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    					<span aria-hidden="true">&times;</span>
-    				</button>
-    			</div>
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"  id="exampleModalTitle2">Select a Tenant</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
                     
-    			<form method="post">
-    				<div class="modal-body">
+				<form method="post" asp-action="SelectTenant">
+					<div class="modal-body">
     					
-    					<div class="form-group">
-    						<label for="tenant" class="col-form-label">Tenant</label>
-    						<select name="tenant" id="tenant" required>
-    							<option value="">Select a tenant</option>
+						<div class="form-group">
+							<label for="tenant" class="col-form-label">Tenant</label>
+							<select name="tenant" id="tenant" required>
+								<option value="">Select a tenant</option>
     
-    							<!--Loop through tenant database and display names-->
-    							@if (tenantList.Any())
-    							{
-    								@foreach (var tenant in tenantList)
-    								{
-    									<option value="@tenant.TenantName">@tenant.TenantName</option>
-    								}
-    							}
+								<!--Loop through tenant database and display names-->
+								@if (tenantList.Any())
+								{
+									@foreach (var tenant in tenantList)
+									{
+										<option value="@tenant.TenantName">@tenant.TenantName</option>
+									}
+								}
     							
-    						</select>
-    					</div>
+							</select>
+						</div>
     
-    					<div asp-validation-summary="All" class="text-danger"></div>
+						<div asp-validation-summary="All" class="text-danger"></div>
     	                    
-    				</div>
+					</div>
     				
-    				<div class="modal-footer ">
-    					<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-    					<input type="submit" class="btn btn-primary" value="Select" onclick="tenantSelected()"/> <!--create button-->
-    				</div>
+					<div class="modal-footer ">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+						<input type="submit" class="btn btn-primary" value="Select" onclick="tenantSelected()"/> <!--create button-->
+					</div>
     
-    				<div id="signup-signin" hidden>	
-    					<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn"> Login | SignUp
-    				</a></div>
+					<div id="signup-signin" hidden>	
+						<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn"> Login | SignUp
+						</a></div>
     				
-    			</form>
+				</form>
                        
-    		</div>
-    	</div>
-    </div>
-</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-footer fixed-bottom">
+		<span class="p-5"> &copy; 2021 - Agile Bridge </span>
+
+	</div>
+</section>
+
+<script src="js/automation.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+  AOS.init();
+</script>
