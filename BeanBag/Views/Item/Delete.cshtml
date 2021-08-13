@@ -7,14 +7,43 @@
 }
 
 <div class="modal-body ">
-    Are you sure that you want to delete this item? 
-                       <br/>
-                    <div class="form-group">
-                        <input name="Id" value="Item.Id" hidden/>
-                        <input type="text" asp-for="name" name="name" disabled  class="form-control"/> <!--input box-->
-                    </div>
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                </div>
+                      
+                       <div class="form-group">
+                           
+    <h6 class="text-muted"> Are you sure that you want to delete this item? </h6>
+                           <div class="about-product text-center mt-2">
+                               
+                               <img alt="Item Image" src="@Model.imageURL" width="150" class="p-3">
+                               <div>
+                                   <h4>@Model.name </h4>
+                                   <b><i class="fas fa-tag"> </i> ITEM ID: @Model.Id</b>
+                               </div>
+                           </div>
+                              <hr>
+                           <div class="stats mt-2">
+                               <div class="d-flex justify-content-between p-price"><span>Inventory Name</span><span>@Model.Inventory.name</span></div>
+                               <div class="d-flex justify-content-between p-price"><span>Inventory ID</span><span>@Model.Inventory.Id</span></div>
+                               <div class="d-flex justify-content-between p-price"><span>Detected Category</span><span>@Model.type</span></div>
+                               <div class="d-flex justify-content-between p-price"><span>Price</span><span>R @Model.price </span></div>
+                               <div class="d-flex justify-content-between p-price"><span>Quantity</span><span>@Model.quantity</span></div>
+                               <div class="d-flex justify-content-between p-price"><span>Entry Date</span><span>@Model.entryDate</span></div>
+                               @if (@Model.isSold)
+                               {
+                                   <div class="d-flex justify-content-between p-price"><span>Status</span><span>Sold</span></div>
+                                   <div class="d-flex justify-content-between p-price"><span>Date Sold</span><span>@Model.soldDate</span></div>
+                                                                                                    
+                               }
+                               else
+                               {
+                                   <div class="d-flex justify-content-between p-price"><span>Status</span><span>In Stock</span></div>
+                                                                                                    
+                               }
+                               <div class="d-flex justify-content-between p-price"><span>Condition</span><span> - </span></div>
+                               <div class="d-flex justify-content-between p-price"><span>Colour</span><span> - </span></div>
+                           </div>    </div>
+                       
+                       
+</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <input type="submit" class="btn btn-primary" value="Delete"/> <!--create button-->
