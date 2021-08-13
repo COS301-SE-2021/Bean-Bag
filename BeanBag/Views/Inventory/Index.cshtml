@@ -186,8 +186,10 @@
                                     <input asp-for="Inventory.userId" hidden />
                                
 
-                            <label asp-for="Inventory.name" class="col-form-label"></label> <!--Inventory Name-->
-                            <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
+                            <label asp-for="Inventory.name" class="col-form-label">Inventory Name * </label> <!--Inventory Name-->
+                              <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
+                                <label asp-for="Inventory.name" class="col-form-label">Description *</label> <!--Inventory Name-->
+                                                                              <input class="form-control"/> <!--input box-->
                         </div>
                         <div asp-validation-summary="All" class="text-danger"></div>
                     </div>
