@@ -87,9 +87,10 @@ namespace BeanBagUnitTests
             Inventory thenew = new Inventory { Id = theId2, name = "Mums 2", userId = u2 };
             myser.Object.CreateInventory(thenew);
 
+            var worked = myser.Object.FindInventory(theId2);
 
             //ASSERT
-            Assert.NotNull(data);
+            Assert.NotNull(worked);
         }
 
 
@@ -182,6 +183,47 @@ namespace BeanBagUnitTests
 
             //ASSERT
             Assert.True(isEdited);
+        }
+        
+        
+        [Fact]
+        public void Find_An_Inventory_with_Id()
+        {
+            //ARRANGE
+            Guid theId1 = new("00000000-0000-0000-0000-000000000001");
+            Guid theId2 = new("00000000-0000-0000-0000-000000000002");
+
+
+            string u1 = "123";
+
+
+            //var mockIn = new Mock<IInventoryService>();
+
+            var data = new List<Inventory>
+            {
+                new Inventory { Id = theId1, name = "testinv 1", userId = u1},
+                new Inventory { Id = theId2, name = "testinv 2", userId = u1},
+
+            }.AsQueryable();
+
+            var mockSet = new Mock<DbSet<Inventory>>();
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+          
+            //ACT
+            var context = new Mock<DBContext>();
+            context.Setup(c => c.Inventories).Returns(mockSet.Object);
+
+            var inv = new Mock<InventoryService>(context.Object);
+
+            var isEdited = inv.Object.FindInventory(theId1);    //Insert Break point
+
+
+            //ASSERT
+            Assert.NotNull(isEdited);
         }
 
     }
