@@ -77,7 +77,7 @@ namespace BeanBagUnitTests
             //ARRANGE
 
             Guid invId = new("10000000-0000-0000-0000-000000000001");
-            Guid itemId = new("10000000-0000-0000-0000-000000000001");
+            Guid itemId = new("00000000-0000-0000-0000-000000000001");
 
             var myInv = new Inventory {Id = invId, name = "testInv", userId = "123"};
                 
@@ -112,7 +112,7 @@ namespace BeanBagUnitTests
             //ARRANGE
 
             Guid invId = new("10000000-0000-0000-0000-000000000001");
-            Guid itemId = new("10000000-0000-0000-0000-000000000001");
+            Guid itemId = new("00000000-0000-0000-0000-000000000001");
 
             var myInv = new Inventory {Id = invId, name = "testInv", userId = "123"};
                 
@@ -151,7 +151,7 @@ namespace BeanBagUnitTests
             //ARRANGE
 
             Guid invId = new("10000000-0000-0000-0000-000000000001");
-            Guid itemId = new("10000000-0000-0000-0000-000000000001");
+            Guid itemId = new("00000000-0000-0000-0000-000000000001");
 
             var myInv = new Inventory {Id = invId, name = "testInv", userId = "123"};
                 
@@ -186,7 +186,7 @@ namespace BeanBagUnitTests
             //ARRANGE
 
             Guid invId = new("10000000-0000-0000-0000-000000000001");
-            Guid itemId = new("10000000-0000-0000-0000-000000000001");
+            Guid itemId = new("00000000-0000-0000-0000-000000000001");
 
             var myInv = new Inventory {Id = invId, name = "testInv", userId = "123"};
                 
@@ -220,7 +220,7 @@ namespace BeanBagUnitTests
             //ARRANGE
 
             Guid invId = new("10000000-0000-0000-0000-000000000001");
-            Guid itemId = new("10000000-0000-0000-0000-000000000001");
+            Guid itemId = new("00000000-0000-0000-0000-000000000001");
 
             var myInv = new Inventory {Id = invId, name = "testInv", userId = "123"};
                 
