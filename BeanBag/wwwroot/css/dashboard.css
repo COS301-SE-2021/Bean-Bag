@@ -47,9 +47,7 @@ button {
     cursor: pointer;
 }
 
-input {
-    -webkit-appearance: none;
-}
+
 
 [type="checkbox"] {
     position: absolute;
