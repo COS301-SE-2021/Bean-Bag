@@ -1,13 +1,18 @@
 ﻿// Hide sign up | sign in option if tenant is not selected
+document.getElementById("signup-signin").hidden = true;
 
-let element = document.getElementById("signup-signin");
-element.style.display = 'none';
+var value = document.getElementById("TenantName").textContent;
 
-function tenantSelected(selected){
+function tenantSelected(){
     
-    if(selected && element.style.display === 'none'){
-        element.style.display = 'block';
+    var tenant = document.getElementById("tenant");
+    var selected = tenant.options[tenant.selectedIndex].text;
+    
+    if(selected === "Select a tenant"){
+        
     }else{
-        element.style.display = 'none';
+        document.getElementById("signup-signin").hidden = false;
     }
+
 }
+
