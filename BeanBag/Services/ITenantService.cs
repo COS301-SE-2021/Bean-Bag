@@ -15,10 +15,6 @@ namespace BeanBag.Services
         
         public bool CreateNewTenant(string tenantName);
 
-        public void SetCurrentTenant(string tenant);
-        
-        public string GetCurrentTenant();
-
         public bool SearchTenant(string tenantId);
 
         public List<Tenant> GetTenantList();

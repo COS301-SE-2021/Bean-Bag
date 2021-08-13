@@ -10,8 +10,7 @@ namespace BeanBag.Services
     {
         private readonly TenantDbContext _tenantDb;
         private string _newTenantId;
-        private string _currentTenant;
-        
+
         //Constructor
         public TenantService(TenantDbContext context)
         {
@@ -173,16 +172,6 @@ namespace BeanBag.Services
 
         }
 
-        public void SetCurrentTenant(string tenant)
-        {
-            _currentTenant = tenant;
-        }
-
-        public string GetCurrentTenant()
-        {
-            return _currentTenant;
-        }
-        
 
         public bool SearchTenant(string tenantId)
         {
