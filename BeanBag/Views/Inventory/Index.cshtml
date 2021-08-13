@@ -32,12 +32,17 @@
     <div class="dashboard-wrapper">
         <div class="container-fluid  dashboard-content">
             <hr>
+            
+            <div class="row">    <div class=" mr-3 ml-auto">
+                                                 <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Inventory &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a> 
+                                                                                                                                                                                                                             
+                                             </div> </div>
             <br>
             <div class="row">
                 
                 <!--Date sorts-->
                                 <span class="col-md-0 ml-3 pt-1">
-                                    From Date</span>
+                              <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date</span>
                                 <span class="col-md-2">
                                     <input type="date" name="from_date" id="from_date" class="form-control dateFilter" placeholder="From Date" />
                                 </span>
@@ -52,11 +57,20 @@
                                 </span>
            
                 <!--Search-->
-              
-                <div class=" mr-3 ml-auto">
-                    <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Inventory &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a> 
-                                                                                                                                                                                                
-                </div> 
+                                                      <div class="col-3 ml-auto ">
+                                                      @using (Html.BeginForm())
+                                                                          {
+                                                                              <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                                                                                  @Html.TextBox("SearchString", null, new {@class = "form-control  my-0 py-1 red-border", placeholder = "Search"})
+                                                                                  <div class="input-group-append">
+                                                                                      <button class="input-group-text " value="Search" type="submit" id="basic-text1">
+                                                                                          <i class="fas fa-search text-grey"
+                                                                                             aria-hidden="true"></i></button>
+                                                                                  </div>
+                                                                              </div>
+                                                                          }                                                                                                                                                                                                     
+                                                      </div>
+            
 
                 <!--Table with bootstrap class .table and .table-condensed-->
                 
@@ -65,20 +79,7 @@
                     <div class="card shadow p-1 mb-4 bg-body rounded" >
                         <h5 class="card-header">Inventory List
                         
-                          <!--Create Item-->
-                                        <div class="text-right float-right md-3 ">
-                                        @using (Html.BeginForm())
-                                                            {
-                                                                <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
-                                                                    @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 red-border", placeholder = "Search"})
-                                                                    <div class="input-group-append">
-                                                                        <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
-                                                                            <i class="fas fa-search text-grey"
-                                                                               aria-hidden="true"></i></button>
-                                                                    </div>
-                                                                </div>
-                                                            }                                                                                                                                                                                                     
-                                        </div>
+                         
                             </h5>
                         <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
                             <div>
@@ -94,7 +95,7 @@
                                             
                                             <th>Date Created</th>
                                             <th>Description</th>
-                                                 <th class="text-center">Actions</th>
+                                                 <th class="text-center colspan-2">Actions</th>
                                         </tr>
                                         </thead><tbody>
                                         @foreach (var inventory in Model.PagedList)
@@ -109,17 +110,20 @@
                                                      <td >-</td>
                                                 <td >
                                                     <div class="w-100 btn-group" role="group">
-                                                      <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn"  >Edit</a>
-                                                        <!-- <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a> -->
+                                                           
+                                                        <!--  <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn"  ><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
+                                                        -->
                                                         
+                                                        <!-- <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a> -->
+                                                               <a  class="btn" data-toggle="modal" data-target="#exampleModal3"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a> <!-- change button css-->
+                                                                                                            
                                                         <a href="@Url.Action("Delete", "Inventory", new { @inventory.Id})" 
                                                            class="btn delete" data-toggle="modal" 
-                                                           data-target="#exampleModal4" data-id="@inventory.Id">Delete</a>
+                                                           data-target="#exampleModal4" data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
                                                         
-                                                        <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn">View Items</a>
-                                                         <a  class="btn" data-toggle="modal" data-target="#exampleModal2">Add Item</a> <!-- change button css-->
-                                                          <a  class="btn" data-toggle="modal" data-target="#exampleModal3">Edit</a> <!-- change button css-->
-                                                    
+                                                        <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Items"><i class="fas fa-eye"> </i></button></a>
+                                                         <a  class="btn" data-toggle="modal" data-target="#exampleModal2"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Add Item"><i class="fas fa-folder-plus"> </i></button></a> <!-- change button css-->
+                                                   
                                                         
                                                     </div>
                                                 </td>
