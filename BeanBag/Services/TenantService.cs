@@ -71,6 +71,22 @@ namespace BeanBag.Services
 
             return tenantName;
         }
+
+
+        public string GetTenantId(string tenantName)
+        {
+            if (tenantName == null)
+            {
+                throw new Exception("Tenant name is null");
+            }
+
+            var tenantId = (from tenant
+                    in _tenantDb.Tenant
+                where tenant.TenantName.Equals(tenantName)
+                select tenant.TenantId).Single();
+
+            return tenantId;
+        }
         
         
         public bool SetTenantTheme(string userId, string theme)
@@ -193,7 +209,7 @@ namespace BeanBag.Services
             //Specified tenant does not exist
             if (_tenantDb.Tenant.Find(tenantId) == null) return false;
             
-            //Create new user to add 
+            //Create new user
             var newUser = new TenantUser {UserObjectId = userId, UserTenantId = tenantId};
             _tenantDb.Add(newUser);
             _tenantDb.SaveChanges();
