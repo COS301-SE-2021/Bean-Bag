@@ -4,7 +4,7 @@
 
 @{
   //Get the value of the website theme colour here
-  var color = "GreenSheen";
+  var color = _tenantService.GetTenantTheme(User.GetObjectId());
 } 
 
 <!DOCTYPE html>
