@@ -27,24 +27,28 @@
         <div class="container-fluid  dashboard-content">
             <hr>
             <br>
-            <div class="row"> 
+           
+            <div class="row">
+                
+                
+                
                 <!--Search-->
                 <span class="col-md-0 ml-3 pt-1">
-                  
-          <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp; From Date</span>
+
+                    <b>Find Entries</b> &nbsp;<i class="fas fa-angle-right"></i> &nbsp; From Date</span>
                 <span class="col-md-2">
-                    <input type="date" name="from_date" id="from_date" class="form-control dateFilter" placeholder="From Date" />
+                    <input type="date" name="from_date" id="from_date" class="form-control dateFilter" placeholder="From Date"/>
                 </span>
-                
+
                 <span class="col-md-0 pt-1">
                     To Date</span>
                 <span class="col-md-2 ml-1">
-                    <input type="date" name="to_date" id="to_date" class="form-control dateFilter" placeholder="To Date" />
+                    <input type="date" name="to_date" id="to_date" class="form-control dateFilter" placeholder="To Date"/>
                 </span>
                 <span class="col-md-2 mr-5">
-                    <input type="button" name="search" id="btn_search" value="Go" class="btn btn-primary" />
+                    <input type="button" name="search" id="btn_search" value="Go" class="btn btn-primary"/>
                 </span>
-                
+
                 <div class="col-3 ml-auto">
                     @using (Html.BeginForm())
                     {
@@ -58,12 +62,11 @@
                         </div>
                     }
                 </div>
-                
-                
+
                 <!--Table with bootstrap class-->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <br>
-                    <div class="card shadow p-1 mb-4 bg-body rounded" >
+                    <div class="card shadow p-1 mb-4 bg-body rounded">
                         <h5 class="card-header">Item List <span class="text-right float-right text-muted small">Inventory - @ViewBag.InventoryName </span></h5>
                         <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
                             <div>
@@ -71,7 +74,7 @@
                                 {
                                     <table class="table table-bordered table-striped">
                                         <thead>
-                                        
+
                                         <tr>
                                             <th>#</th>
                                             <th>ID</th>
@@ -86,14 +89,14 @@
                                             <th>Status</th>
                                             <th> Date Sold</th>
 
-                                           
+
                                             <th> Condition</th>
-                                             <th> Colour</th>
+                                            <th> Colour</th>
                                             <th class="text-center">Actions</th>
                                         </tr>
-                                      
+
                                         </thead>
-                                          
+
                                         <tbody>
                                         @foreach (var items in Model.PagedListItems)
                                         {
@@ -243,7 +246,7 @@ $('.delete').click(function (ev) {
 });
  //View QR
 $('.viewQR').click(function (ev) {
-    ev.preventDefault(); // this is required
+    ev.preventDefault(); 
 
     // get target action
     var action = $(this).attr('href');
