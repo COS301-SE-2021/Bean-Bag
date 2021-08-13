@@ -13,7 +13,7 @@ namespace BeanBag.Database
         {
         }
 
-        public DBContext(DbContextOptions<DbContext> options): base (options)
+        public DBContext(DbContextOptions<DBContext> options): base (options)
         {
         }
 
