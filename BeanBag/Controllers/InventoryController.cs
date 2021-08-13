@@ -324,7 +324,7 @@ namespace BeanBag.Controllers
 
                 //return View(inventory);
                 
-                return PartialView("_Delete", viewModel);
+                return PartialView("_DeleteInventory", viewModel);
             }
             else
             {
