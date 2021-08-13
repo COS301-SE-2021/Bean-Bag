@@ -45,16 +45,28 @@ namespace BeanBag.Controllers
         // This returns the uploadimage view for item
         public IActionResult UploadImage(Guid inventoryId)
         {
+            
+            List<AIModelVersions> iterations = aIService.getAllAvailableIterations();
+
+            IEnumerable<SelectListItem> iterationDropDown = iterations.Select(i => new SelectListItem
+            {
+                Text = i.iterationName, 
+                Value = i.iterationId.ToString()
+            });
+
+            ViewBag.iterationDropDown = iterationDropDown;
+
             return View();
         }
 
         // This takes in an image file to be uploaded into the Azure blob container
         // This method also uses the custom vision AI that will predict what type of item is in the image
         [HttpPost]
-        public async Task<IActionResult> UploadImage([FromForm(Name = "file")] IFormFile file)
-        { 
+        public async Task<IActionResult> UploadImage([FromForm(Name = "file")] IFormFile file, [FromForm(Name = "predictionModel")] string predictionModelId)
+        {
+            AIModelVersions iteration = aIService.getIteration(Guid.Parse(predictionModelId));
             string imageURL = await blobStorageService.uploadItemImage(file);
-            string prediction = aIService.predict(imageURL);
+            string prediction = aIService.predict(iteration.projectId, iteration.iterationName, imageURL);
 
             return LocalRedirect("/Item/Create?imageUrl="+ imageURL + "&itemType="+ prediction);
         }
