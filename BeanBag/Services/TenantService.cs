@@ -115,6 +115,18 @@ namespace BeanBag.Services
 
         public string GetTenantTheme(string userId)
         {
+            // return default when user is not signed in - Layout
+            if (userId == null)
+            {
+                throw new Exception("User id is null");
+            }
+
+            if (SearchUser(userId) == false)
+            {
+                return "GreenSheen";
+            }
+            
+
             var userTenantId = GetUserTenantId(userId);
 
             if (userTenantId == null)
@@ -130,7 +142,7 @@ namespace BeanBag.Services
 
             if (theme == null)
             {
-                throw new Exception("Theme for tenant is null");
+                theme = "GreenSheen";
             }
 
             return theme;
@@ -154,8 +166,10 @@ namespace BeanBag.Services
             {
                 throw new Exception("Tenant name is null");
             }
+
+            Guid id = Guid.NewGuid();
             
-            _newTenantId = new Guid().ToString();
+            _newTenantId = id.ToString();
 
             if (_tenantDb.Tenant.Find(_newTenantId) != null) return false;
 
@@ -206,7 +220,6 @@ namespace BeanBag.Services
             return true;
 
         }
-        
 
         public bool SearchUser(string userId)
         {
