@@ -1,4 +1,5 @@
-﻿@model Pagination
+﻿
+@model Pagination
 @addTagHelper *, Microsoft.AspNetCore.TagHelpers
     
 <!---Popup Form to delete inventory -->
@@ -17,12 +18,37 @@
                 <div class="modal-body ">
                     Are you sure that you want to delete this item? 
                        
+                   
+                           
                     <div class="form-group">
-                        <input name="Id" value="@Model.Item.Id" hidden/>
-                        <label name="name" type="text"  asp-for="Inventory.name" ></label> <!--Inventory Name-->
-                        <input type="text" asp-for="Item.name" name="name" value="@Model.Item.name" class="form-control"/> <!--input box-->
-                    </div>
-                    <div asp-validation-summary="All" class="text-danger"></div>
+                         <div class="about-product text-center mt-2"><img alt="" src="@Model.Item.imageURL" width="100">
+                                                        <div>
+                                                            <h5>ID: @Model.Item.Id</h5>
+                                                            <h6 class="mt-0 text-black-50">@Model.Item.name</h6>
+                                                        </div>
+                                                    </div>
+                        <div class="stats mt-2">
+                               <div class="d-flex justify-content-between p-price"><span>Inventory Name</span><span>@Model.Item.Inventory</span></div>
+                            <div class="d-flex justify-content-between p-price"><span>Inventory ID</span><span>@Model.Item.Inventory</span></div>
+                            <div class="d-flex justify-content-between p-price"><span>Detected Category</span><span>@Model.Item.type</span></div>
+                            <div class="d-flex justify-content-between p-price"><span>Price</span><span>R @Model.Item.price </span></div>
+                            <div class="d-flex justify-content-between p-price"><span>Quantity</span><span>@Model.Item.quantity</span></div>
+                            <div class="d-flex justify-content-between p-price"><span>Entry Date</span><span>@Model.Item.entryDate</span></div>
+                            @if (@Model.Item.isSold)
+                            {
+                                <div class="d-flex justify-content-between p-price"><span>Status</span><span>Sold</span></div>
+                                <div class="d-flex justify-content-between p-price"><span>Date Sold</span><span>@Model.Item.soldDate</span></div>
+                       
+                            }
+                            else
+                            {
+                                <div class="d-flex justify-content-between p-price"><span>Status</span><span>In Stock</span></div>
+                       
+                            }
+                             <div class="d-flex justify-content-between p-price"><span>Condition</span><span> - </span></div>
+                            <div class="d-flex justify-content-between p-price"><span>Colour</span><span> - </span></div>
+                        </div>
+                  </div>
                 </div>
                 <div class="modal-footer ">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
