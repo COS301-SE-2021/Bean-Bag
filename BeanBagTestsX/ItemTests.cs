@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
-namespace BeanBagTestsX
+namespace BeanBagUnitTests
 {
 
 
@@ -37,14 +37,36 @@ namespace BeanBagTestsX
         public void Create_item()
         {
             //ARRANGE
-            var mockIn = new Mock<IItemService>();
 
+            Guid invId = new("10000000-0000-0000-0000-000000000001");
+
+            var myInv = new Inventory {Id = invId, name = "testInv", userId = "123"};
+                
+            var data = new List<Item>
+            {
+
+            }.AsQueryable();
+            
+            var mockSet = new Mock<DbSet<Item>>();
+            mockSet.As<IQueryable<Item>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Item>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Item>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Item>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            var mockIn = new Mock<IItemService>();
+            var testItem = new Item();
+            testItem.inventoryId = invId;
+            
 
             //ACT
-
+            mockIn.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
+            mockIn.Object.CreateItem(testItem);
+            
+            var retItems = mockIn.Object.GetItems(invId);
+            var x = retItems.Count;
 
             //ASSERT
-
+            Assert.Equal(1, x);
 
         }
 
