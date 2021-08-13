@@ -1,6 +1,8 @@
-﻿using BeanBag.Services;
+﻿using System;
+using BeanBag.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web;
 
 namespace BeanBag.Controllers
 {
@@ -43,10 +45,30 @@ namespace BeanBag.Controllers
             {
                 return RedirectToAction("Index");
             }
-            
-            _tenantService.SetCurrentTenant(tenant);
 
-            return NoContent();
+            //Check if user is new
+            var userId = User.GetObjectId();
+            var currentTenantName = tenant;
+
+            var currentTenantId = _tenantService.GetTenantId(currentTenantName);
+
+            if (_tenantService.SearchUser(userId) == false)
+            {
+                //User is new - add user to database
+                //Verify tenant
+                if (_tenantService.SearchTenant(currentTenantId))
+                {
+                    //Verified
+                    _tenantService.SignUserUp(userId, currentTenantId);
+                }
+                else
+                {
+                    throw new Exception("Tenant does not exist");
+                }
+            }
+            
+
+            return RedirectToAction("Index", "Home");
         }
 
     }

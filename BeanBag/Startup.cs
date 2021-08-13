@@ -38,7 +38,7 @@ namespace BeanBag
                 {
                     options.Events.OnTokenValidated = async context =>
                     {
-                        context.Properties.RedirectUri = "/Home";
+                        context.Properties.RedirectUri = "/Account";
 
                         await Task.FromResult(0);
                     };
