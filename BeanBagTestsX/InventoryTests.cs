@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
-namespace BeanBagTestsX
+namespace BeanBagUnitTests
 {
     
 
