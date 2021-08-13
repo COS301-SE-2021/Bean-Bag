@@ -7,6 +7,11 @@ namespace BeanBag.Controllers
     public class AccountController : Controller
     {
         private readonly TenantService _tenantService;
+
+        public AccountController(TenantService tenantService)
+        {
+            _tenantService = tenantService;
+        }
         
         [AllowAnonymous]
         public IActionResult Index()
@@ -28,6 +33,20 @@ namespace BeanBag.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        // Allows user to select a tenant 
+        public IActionResult SelectTenant(string tenant)
+        {
+            if (tenant == null)
+            {
+                return RedirectToAction("Index");
+            }
+            
+            _tenantService.SetCurrentTenant(tenant);
+
+            return NoContent();
         }
 
     }
