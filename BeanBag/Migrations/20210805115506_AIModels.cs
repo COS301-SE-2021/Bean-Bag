@@ -6,11 +6,13 @@ namespace BeanBag.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            
+
             migrationBuilder.CreateTable(
                 name: "AIModels",
                 columns: table => new
                 {
-                    projectId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    projectId = table.Column<string>(type: "uniqueidentifier", nullable: false),
                     projectName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>

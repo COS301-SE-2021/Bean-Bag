@@ -14,9 +14,8 @@ namespace BeanBag.Services
     {
         private readonly string endpoint = "https://uksouth.api.cognitive.microsoft.com/";
 
-        private readonly string trainingKey = "3fcb002210614500aaf87a89c79603d1";
-        private readonly string projectId;
-        private readonly string projectName;
+        private readonly string key = "3fcb002210614500aaf87a89c79603d1";
+        private readonly string predictionResourceId = "/subscriptions/5385f64c-2176-4307-bc1b-1cc4ee7f36e3/resourceGroups/Bean-Bag-Resource-Group/providers/Microsoft.CognitiveServices/accounts/Bean-Bag-Platform-AI-Models";
 
         private CustomVisionTrainingClient trainingClient;
         private CustomVisionPredictionClient predictionClient;
@@ -39,7 +38,7 @@ namespace BeanBag.Services
 
         public AIService(DBContext db)
         {
-            trainingClient = new CustomVisionTrainingClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.ApiKeyServiceClientCredentials(trainingKey))
+            trainingClient = new CustomVisionTrainingClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.ApiKeyServiceClientCredentials(key))
             {
                 Endpoint = endpoint
             };
@@ -47,12 +46,35 @@ namespace BeanBag.Services
             _db = db;
             
 
-            //predictionClient = new CustomVisionPredictionClient
-            //    (new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.ApiKeyServiceClientCredentials(clothingModelPredictionKey))
-            //{
-            //    Endpoint = predictionUrl
-            //};
+            predictionClient = new CustomVisionPredictionClient
+                (new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.ApiKeyServiceClientCredentials(key))
+            {
+                Endpoint = endpoint
+            };
         }
+
+        public string predict(Guid projectId, string iterationName, string imageURL)
+        {
+            var result = predictionClient.ClassifyImageUrl(projectId, iterationName,
+                new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(imageURL));
+
+            //string itemType = "";
+
+            //foreach(var prediction in result.Predictions)
+            //{
+            //    if (prediction.Probability > 0.9)
+            //        itemType += prediction.TagName + ",";
+
+            //}
+
+            //if (itemType.Length > 0)
+            //    itemType = itemType.Remove(itemType.Length - 1, 1);
+
+            //return itemType;
+
+            return result.Predictions[0].TagName;
+        }
+
 
         public async Task<Guid> createProject(string modelName)
         {
@@ -71,15 +93,7 @@ namespace BeanBag.Services
             return newModel.projectId;
         }
 
-        public string predict(string imageURL)
-        {
-            //var result = predictionClient.ClassifyImageUrl(new Guid(clothingModelProjectId), clothingModelPredictionName,
-            //    new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(imageURL));
-
-            //return result.Predictions[0].TagName;
-            return "";
-        }
-
+        
         public async void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
         {
             if(trainingClient.GetProject(projectId) != null)
@@ -104,6 +118,81 @@ namespace BeanBag.Services
                 // Throw exception that project does not exist
             }
             
+        }
+
+        public void trainModel(Guid projectId)
+        {
+            var iteration = trainingClient.TrainProject(projectId);
+            string projectName = trainingClient.GetProject(projectId).Name;
+
+            AIModelVersions newModelVersion = new AIModelVersions()
+            {
+                iterationName = projectName + " - Iteration 1",
+                availableToUser = false,
+                iterationId = iteration.Id,
+                status = iteration.Status.ToString(),
+                projectId = projectId
+            };
+
+            _db.AIModelIterations.Add(newModelVersion);
+            _db.SaveChanges();
+        }
+
+        public async Task<List<AIModelVersions>> getIterations(Guid projectId)
+        {
+            var iterations = trainingClient.GetIterations(projectId);
+
+            if (iterations.Count == 0)
+                return new List<AIModelVersions>();
+
+            foreach(var iteration in iterations)
+            {
+                AIModelVersions x = await _db.AIModelIterations.FindAsync(iteration.Id);
+                x.status = iteration.Status;
+                _db.Update(x);
+            }
+            await _db.SaveChangesAsync();
+
+            return (from i in _db.AIModelIterations where i.projectId.Equals(projectId) select i).ToList();
+        }
+
+        public List<AIModelVersions> getAllIterations()
+        {
+            return _db.AIModelIterations.ToList();
+        }
+
+        public List<AIModelVersions> getAllAvailableIterations()
+        {
+            return (from i in _db.AIModelIterations where i.availableToUser.Equals(true) select i).ToList();
+        }
+
+        public List<AIModel> getAllModels()
+        {
+            return _db.AIModels.ToList();
+        }
+
+        public AIModelVersions getIteration(Guid iterationId)
+        {
+            return _db.AIModelIterations.Find(iterationId);
+        }
+
+        public void publishIteration(Guid projectId, Guid iterationId)
+        {
+            string iterationName = trainingClient.GetIteration(projectId, iterationId).Name;
+            trainingClient.PublishIteration(projectId, iterationId, iterationName, predictionResourceId);
+
+            var iteration = _db.AIModelIterations.Find(iterationId);
+            iteration.availableToUser = true;
+            _db.AIModelIterations.Update(iteration);
+            _db.SaveChanges();
+        }
+
+        public async void unpublishIteration(Guid projectId, Guid iterationId)
+        {
+            await trainingClient.UnpublishIterationAsync(projectId, iterationId);
+
+            _db.AIModelIterations.Find(iterationId).availableToUser = false;
+            _db.SaveChanges();
         }
     }
 }
