@@ -218,14 +218,33 @@ namespace BeanBagUnitTests
         public void Get_invID_from_item()
         {
             //ARRANGE
+
+            Guid invId = new("10000000-0000-0000-0000-000000000001");
+            Guid itemId = new("10000000-0000-0000-0000-000000000001");
+
+            var myInv = new Inventory {Id = invId, name = "testInv", userId = "123"};
+                
+            var data = new List<Item>
+            {
+                new Item {Id = itemId, name = "sock", inventoryId = invId}
+            }.AsQueryable();
+            
+            var mockSet = new Mock<DbSet<Item>>();
+            mockSet.As<IQueryable<Item>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Item>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Item>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Item>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
             var mockIn = new Mock<IItemService>();
 
 
             //ACT
+            mockIn.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
 
-
+            var myId = mockIn.Object.GetInventoryIdFromItem(itemId);    
+            
             //ASSERT
-
+            Assert.IsType<Guid>(myId);
 
         }
 
