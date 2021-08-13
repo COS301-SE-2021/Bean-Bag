@@ -17,7 +17,10 @@ namespace BeanBag.Services
 
         public Item AddQRItem(Item item)
         {
-            item.QRContents = "https://bean-bag.azurewebsites.net/api/QRCodeScan?itemID=" + item.Id.ToString();
+            if (item != null)
+            {
+                item.QRContents = "https://bean-bag.azurewebsites.net/api/QRCodeScan?itemID=" + item.Id.ToString();
+            }
             return item;
         }
 

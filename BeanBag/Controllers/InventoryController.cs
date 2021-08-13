@@ -4,133 +4,93 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Identity.Web;
+using System.Drawing.Imaging;
+using System.IO;
+using QRCoder;
 using BeanBag.Services;
-using X.PagedList;
+using System.Text.Json;
 
 namespace BeanBag.Controllers
 {
+   // [Route("api/[controller]")]
     // This class is used to handle any user interaction regarding an inventory
     public class InventoryController : Controller
     {
         // This variable is used to interact with the Database/DBContext class. Allows us to save, update and delete records 
-        private readonly DBContext db;
+        private readonly DBContext _db;
 
         private readonly IInventoryService inventoryService;
 
-        public InventoryController(DBContext db, IInventoryService inv)
+        public InventoryController(DBContext db, IInventoryService _is)
         {
             // Inits the db context allowing us to use CRUD operations on the inventory table
-            this.db = db;
-            inventoryService = inv;
+            _db = db;
+            inventoryService = _is;
         }
 
-        public void CheckUserRole()
+        public void checkUserRole()
         {
-            var user = db.UserRoles.Find(User.GetObjectId());
+            var user = _db.UserRoles.Find(User.GetObjectId());
             if(user == null)
             {
                 user = new UserRoles { userId = User.GetObjectId(), role = "U" };
-                db.UserRoles.Add(user);
-                db.SaveChanges();
+                _db.UserRoles.Add(user);
+                _db.SaveChanges();
             }
         }
 
-        
-         //This code adds a page parameter, a current sort order parameter, and a current filter parameter to the method signature
-        public IActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        // This is the default view to view all of the inventories associated with a user
+        public IActionResult Index()
         {
-            if(User.Identity is {IsAuthenticated: true})
-            {
-                
-             //A ViewBag property provides the view with the current sort order, because this must be included in 
-             //  the paging links in order to keep the sort order the same while paging
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            List<Inventory> modelList;
-
-            //ViewBag.CurrentFilter, provides the view with the current filter string.
-            //he search string is changed when a value is entered in the text box and the submit button is pressed. In that case, the searchString parameter is not null.
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewBag.CurrentFilter = searchString;
-
-
-            var model = from s in inventoryService.GetInventories(User.GetObjectId())
-                select s;
-                //Search and match data, if search string is not null or empty
-                if (!String.IsNullOrEmpty(searchString))
-                {
-                    model = model.Where(s => s.name.Contains(searchString));
-                }
-                switch (sortOrder)
-                {
-                    case "name_desc":
-                        modelList = model.OrderByDescending(s => s.name).ToList();
-                        break;
-                 
-                    default:
-                        modelList = model.OrderBy(s => s.name).ToList();
-                        break;
-                }
-
             
-            //indicates the size of list
-            int pageSize = 5;
-            //set page to one is there is no value, ??  is called the null-coalescing operator.
-            int pageNumber = (page ?? 1);
-            //return the Model data with paged
+            // Checks to see if user is logged in
+            // If not logged in throw user back to home page
+            if(User.Identity.IsAuthenticated)
+            {
+                var inventories = inventoryService.GetInventories(User.GetObjectId());
 
-            Inventory inventory = new Inventory();
-            Pagination viewModel = new Pagination();
-            IPagedList<Inventory> pagedList = modelList.ToPagedList(pageNumber, pageSize);
-            
-            viewModel.Inventory = inventory;
-            viewModel.PagedList = pagedList;
-            @ViewBag.totalInventories = inventoryService.GetInventories(User.GetObjectId()).Count;
-            
+                //Checking user role is in DB
+                checkUserRole();
 
-            //Checking user role is in DB
-            CheckUserRole();
-
-            return View(viewModel);
+                return View(inventories);
             }
             else
             {
                 return LocalRedirect("/");
             }
+            
+        }
 
-           
+        // This returns the view from Views/Inventory/Create
+        // This is a GET method for create
+        public IActionResult Create()
+        {
+            return View();
         }
         
+
         // This is Post method for create
         // Adds a new inventory for the user into the DB
         // Returns the user to the Inventory/Index page
         [HttpPost]
-        public IActionResult Create(Pagination inventories)
+        //[ValidateAntiForgeryToken]
+        public IActionResult Create(Inventory newInvetory)
         {
-            if(User.Identity is {IsAuthenticated: true})
+            if(User.Identity.IsAuthenticated)
             {
-                inventories.Inventory.userId = User.GetObjectId();
-               
+                newInvetory.userId = User.GetObjectId();
                 // Checks to see that the newInventory is valid (that the fields filled in the create view are present)
                 if (ModelState.IsValid)
                 {
-                    inventoryService.CreateInventory(inventories.Inventory);
+                    inventoryService.CreateInventory(newInvetory);
 
                     // Returns back to inventory/index
-                     return RedirectToAction("Index");
+                    return RedirectToAction("Index");
                 }
                 // Only goes here if the newInventory is invalid
-             
-                return RedirectToAction("Index");
+                return View(newInvetory);
             }
             else
             {
@@ -140,95 +100,117 @@ namespace BeanBag.Controllers
            
         }
 
+        // This is the Get method for viewItems
         // Views all of the items within the specified inventory
-        public IActionResult ViewItems(Guid inventoryId, string sortOrder, string currentFilter, string searchString, int? page , DateTime from, DateTime to)
-        {
-            if(User.Identity is {IsAuthenticated: true})
+     //   [HttpGet("")]
+        //public IActionResult ViewItems()
+     //   {
+           /* if (User.Identity.IsAuthenticated)
             {
-                
-             //A ViewBag property provides the view with the current sort order, because this must be included in 
-             //  the paging links in order to keep the sort order the same while paging
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            List<Item> modelList;
+                // Find the inventory in the inventory table using the inventory ID
+                Inventory inventory = inventoryService.FindInventory(InventoryId);
 
-            //ViewBag.CurrentFilter, provides the view with the current filter string.
-            //he search string is changed when a value is entered in the text box and the submit button is pressed. In that case, the searchString parameter is not null.
-            if (searchString != null)
-            {
-                page = 1;
+
+                /*
+                // If their doesn't exist an inventory with the inventory id given
+                if (inventory == null)
+                {
+                    return NotFound();
+                }
+
+                if (inventory.userId != User.GetObjectId())
+                {
+                    return BadRequest();
+                }
+                
+
+                string inventoryName = inventory.name;
+
+                // Viewbag allows us to pass values from the controller to the respected view
+                // Here we are passing the inventory name in order to display it in the viewItems page
+                ViewBag.InventoryName = inventoryName;
+
+                // This query gets us all the items inside the respected inventory
+                // We pass these items to be displayed into the view
+                var items = from i in _db.Items where i.inventoryId.Equals(InventoryId) select i;
+
+                string jsonString = JsonSerializer.Serialize(items);
+
+
             }
             else
             {
-                searchString = currentFilter;
+                //return LocalRedirect("/");
             }
+           */
+           /* var temp = inventoryService.GetInventories();
 
-            ViewBag.CurrentFilter = searchString;
+            string jsonString = JsonSerializer.Serialize<List<Inventory>>(temp);
 
 
-            var model =  from i in db.Items where i.inventoryId.Equals(inventoryId) select i;
-                //Search and match data, if search string is not null or empty
-                if (!String.IsNullOrEmpty(searchString))
+            List<Inventory> weatherForecast = JsonSerializer.Deserialize<List<Inventory>>(jsonString);
+
+            return View(weatherForecast);
+
+        }*/
+    
+
+        // This is the Get method for viewItems
+        // Views all of the items within the specified inventory
+        [HttpGet]
+        public IActionResult ViewItems(Guid InventoryId)
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                // Find the inventory in the inventory table using the inventory ID
+                Inventory inventory = inventoryService.FindInventory(InventoryId);
+
+                // If their doesn't exist an inventory with the inventory id given
+                if (inventory == null)
                 {
-                    model = model.Where(s => s.name.Contains(searchString));
+                    return NotFound();
                 }
-                switch (sortOrder)
+
+                if(inventory.userId != User.GetObjectId())
                 {
-                    case "name_desc":
-                        modelList = model.OrderByDescending(s => s.name).ToList();
-                        break; 
-                        
-                 
-                    default:
-                        modelList = model.OrderBy(s => s.name).ToList();
-                        break;
+                    return BadRequest();
                 }
 
-                //Date sorting
-           if (sortOrder == "date")
-                {
-                    modelList =( model.Where(t => t.entryDate > from && t.entryDate < to)).ToList();
+                string inventoryName = inventory.name;
 
-                }
-            //indicates the size of list
-            int pageSize = 5;
-            //set page to one is there is no value, ??  is called the null-coalescing operator.
-            int pageNumber = (page ?? 1);
-            //return the Model data with paged
+                // Viewbag allows us to pass values from the controller to the respected view
+                // Here we are passing the inventory name in order to display it in the viewItems page
+                ViewBag.InventoryName = inventoryName;
 
-            Item items = new Item();
-            Pagination viewModel = new Pagination();
-            IPagedList<Item> pagedList = modelList.ToPagedList(pageNumber, pageSize);
-            
-            viewModel.Item = items;
-            ViewBag.InventoryName = inventoryService.FindInventory(inventoryId).name;
-            ViewBag.InventoryId= inventoryId;
-            viewModel.PagedListItems = pagedList;
-            @ViewBag.totalItems = pagedList.Count;
+                // This query gets us all the items inside the respected inventory
+                // We pass these items to be displayed into the view
+                var items = from i in _db.Items where i.inventoryId.Equals(InventoryId) select i;
 
-            //Checking user role is in DB
-            CheckUserRole();
-
-            return View(viewModel);
+                return View(items);
             }
             else
             {
                 return LocalRedirect("/");
             }
-
+            
         }
     // This is the GET Method for Edit
     // This returns the view for editing the information related to an inventory
     // The URL needs to accept the GUID of the inventory that is being edited
     public IActionResult Edit(Guid id)
-    {
-        if(User.Identity is {IsAuthenticated: true})
+        {
+            if(User.Identity.IsAuthenticated)
             {
                 // Find the inventory in the inventory table using the inventory ID
                 var inventory = inventoryService.FindInventory(id);
 
                 if(inventory.userId == User.GetObjectId())
                 {
+                    if (inventory == null)
+                    {
+                        return NotFound();
+                    }
+
                     return View(inventory);
                 }
                 else 
@@ -247,9 +229,9 @@ namespace BeanBag.Controllers
         // This accepts the inventory model from the edit view above
         // This will allow us to make changes to the respected inventory
         [HttpPost]
-        public IActionResult EditPost(Inventory inventory)
+        public IActionResult Edit(Inventory inventory)
         {
-            if(User.Identity is {IsAuthenticated: true})
+            if(User.Identity.IsAuthenticated)
             {
                 // Making sure that the inventory is valid before applying the changes into the DB
                 if (ModelState.IsValid)
@@ -264,7 +246,8 @@ namespace BeanBag.Controllers
                     }                 
                 }
 
-                return RedirectToAction("Index");
+                // If model state is invalid then we return back to the inventory edit view
+                return View(inventory);
             }
             else 
             {
@@ -273,12 +256,40 @@ namespace BeanBag.Controllers
             
         }
 
-        // This is the POST method for delete inventory
+        // This is the GET method for delete inventory
+        public IActionResult Delete(Guid id)
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+
+                // Find the inventory in the inventory table using the inventory ID
+                var inventory = inventoryService.FindInventory(id);
+
+                if (inventory == null)
+                {
+                    return NotFound();
+                }
+
+                if(inventory.userId != User.GetObjectId())
+                {
+                    return BadRequest();
+                }
+
+                return View(inventory);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
+            
+        }
+
+        // This is the POSt method for delete inventory
         // This allows us to delete an inventory using the inventory ID
         [HttpPost]
         public IActionResult DeletePost(Guid id)
         {
-            if(User.Identity is {IsAuthenticated: true})
+            if(User.Identity.IsAuthenticated)
             {
                 if(inventoryService.DeleteInventory(id, User.GetObjectId()))
                 {
@@ -295,33 +306,5 @@ namespace BeanBag.Controllers
             }
                   
         }
-        
-        public IActionResult Delete(Guid id)
-        {
-            if(User.Identity is {IsAuthenticated: true})
-            {
-
-                // Find the inventory in the inventory table using the inventory ID
-                var inventory = inventoryService.FindInventory(id);
-                if (inventory == null)
-                {
-                    return NotFound();
-                } 
-                
-                if(inventory.userId != User.GetObjectId())
-                {
-                    return BadRequest();
-                }
-                return View(inventory);
-                
-            }
-            else
-            {
-                return LocalRedirect("/");
-            }
-        }
     }
-    
-    
-    
 }
