@@ -1,0 +1,47 @@
+﻿@model IEnumerable<AIModel>
+<link rel="stylesheet" type="text/css" href="css\dashboard.css" />
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Models</h2> <!-- Stock List? Maybe-->
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="AIModel" asp-action="CreateModel" class="btn btn-primary">Create New Model</a>
+        </div>
+    </div>
+    <br />
+    @if (Model.Any())
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Model Name
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var AImodel in Model)
+                {
+                    <tr>
+                        <td>@AImodel.projectName</td> <!-- width="50%"-->
+                        <td>
+                            <!-- width="50%"-->
+                            <div class="w-100 btn-group" role="group">
+                                <a asp-controller="AIModel" asp-action="EditModel" asp-route-modelId="@AImodel.projectId" class="btn btn-secondary">Edit</a>
+                                <a asp-controller="AIModel" asp-action="DeleteModel" asp-route-modelId="@AImodel.projectId" class="btn btn-danger">Delete</a>
+                                <a asp-controller="AIModel" asp-action="ModelVersions" asp-route-modelId="@AImodel.projectId" class="btn btn-secondary">Versions</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No Models yet</p>
+    }
+</div>
+

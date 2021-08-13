@@ -4,14 +4,16 @@ using BeanBag.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BeanBag.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20210805115506_AIModels")]
+    partial class AIModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,9 +23,8 @@ namespace BeanBag.Migrations
 
             modelBuilder.Entity("BeanBag.Models.AIModel", b =>
                 {
-                    b.Property<Guid>("projectId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("projectId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("projectName")
                         .HasColumnType("nvarchar(max)");
@@ -31,32 +32,6 @@ namespace BeanBag.Migrations
                     b.HasKey("projectId");
 
                     b.ToTable("AIModels");
-                });
-
-            modelBuilder.Entity("BeanBag.Models.AIModelVersions", b =>
-                {
-                    b.Property<Guid>("iterationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("availableToUser")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("iterationName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("predictionUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("projectId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("iterationId");
-
-                    b.ToTable("AIModelIterations");
                 });
 
             modelBuilder.Entity("BeanBag.Models.Inventory", b =>
