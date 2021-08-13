@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +19,22 @@ namespace BeanBag.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            if (User.GetObjectId() == null)
+            {
+                throw new Exception("User id is null");
+            }
+
+            if (_tenantService.SearchUser(User.GetObjectId()))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
             return View();
         }
         
         [HttpPost]
         // Allows user to create a new tenant
-        public IActionResult CreateTenant(string tenantName, string tenantTheme)
+        public IActionResult CreateTenant(string tenantName)
         {
             if (tenantName == null)
             {
@@ -48,6 +59,7 @@ namespace BeanBag.Controllers
 
             //Check if user is new
             var userId = User.GetObjectId();
+            
             var currentTenantName = tenant;
 
             var currentTenantId = _tenantService.GetTenantId(currentTenantName);
