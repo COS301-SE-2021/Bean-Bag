@@ -1,5 +1,4 @@
-﻿using BeanBag.Services;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeanBag.Controllers
@@ -8,13 +7,6 @@ namespace BeanBag.Controllers
     [AllowAnonymous]
     public class LandingPageController : Controller
     {
-        private readonly TenantService _tenantService;
-
-        public LandingPageController(TenantService service)
-        {
-            _tenantService = service;
-        }
-        
         // This function sends a response to the LandingPage Index page.
         public IActionResult Index()
         {
@@ -28,36 +20,5 @@ namespace BeanBag.Controllers
             return RedirectToAction("Index", "LandingPage");
         }
 
-        [HttpPost]
-        // Allows user to create a new tenant
-        public IActionResult CreateTenant(string tenantName, string tenantTheme)
-        {
-            if (tenantName == null)
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-               _tenantService.CreateNewTenant(tenantName);
-            }
-
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        // Allows user to select tenant before sign in or sign up
-        public IActionResult SelectTenant(string tenant)
-        {
-            if (tenant == null)
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                _tenantService.SetCurrentTenant(tenant);
-            }
-
-            return NoContent();
-        }
     }
 }
