@@ -48,10 +48,14 @@ namespace BeanBag.Services
 
         public void EditItem(Item item)
         {
-            if (!item.isSold)
-                item.soldDate = DateTime.MinValue;
-            _db.Items.Update(item);
-            _db.SaveChanges();
+            if (item != null)
+            {
+                if (!item.isSold)
+                    item.soldDate = DateTime.MinValue;
+                _db.Items.Update(item);
+                _db.SaveChanges(); 
+            }
+            
         }
 
         public Item FindItem(Guid ItemId)
