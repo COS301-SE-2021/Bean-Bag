@@ -68,7 +68,7 @@ namespace BeanBagUnitTests
 
             var mockIn = new Mock<IInventoryService>();
 
-            var data = new List<Inventory>
+            var data = new List<Inventory>()
             {
 
             }.AsQueryable();
@@ -84,10 +84,17 @@ namespace BeanBagUnitTests
             Mock<IInventoryService> myser = new Mock<IInventoryService>();
             myser.Setup(x => x.GetInventories(u1)).Returns(mockSet.Object.ToList());
 
+            
+
             Inventory thenew = new Inventory { Id = theId2, name = "Mums 2", userId = u2 };
-            myser.Object.CreateInventory(thenew);
+            //myser.Object.CreateInventory(thenew);
+
+            //Reno
+            //myser.Setup(x => x.CreateInventory(thenew));
+            myser.Setup(x => x.FindInventory(thenew.Id)).Returns(thenew);
 
             var worked = myser.Object.FindInventory(theId2);
+            //var worked = myser.Object.GetInventories(u2);
 
             //ASSERT
             Assert.NotNull(worked);
