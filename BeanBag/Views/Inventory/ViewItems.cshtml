@@ -79,7 +79,7 @@
                                             <th>#</th>
                                             <th>ID</th>
                                             <th>Item</th>
-                                            <th>@Html.ActionLink("Name", "ViewItems", new {sortOrder = ViewBag.NameSortParm})
+                                            <th>@Html.ActionLink("Name", "ViewItems", new {sortOrder = ViewBag.NameSortParm, inventoryId=@ViewBag.InventoryId})
                                                 <i class="fas fa-chevron-down text-grey"
                                                    aria-hidden="true"></i></th>
                                             <th>Category</th>
@@ -244,6 +244,7 @@ $('.delete').click(function (ev) {
         $('#exampleModal4').modal('show');
     });
 });
+  
  //View QR
 $('.viewQR').click(function (ev) {
     ev.preventDefault(); 
