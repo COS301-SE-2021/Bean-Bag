@@ -140,9 +140,7 @@ namespace BeanBag.Controllers
            
         }
 
-        // This is the Get method for viewItems
         // Views all of the items within the specified inventory
-        [HttpGet]
         public IActionResult ViewItems(Guid inventoryId, string sortOrder, string currentFilter, string searchString, int? page)
         {
             if(User.Identity is {IsAuthenticated: true})
