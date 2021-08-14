@@ -1,35 +1,22 @@
 ﻿    @model Pagination
     @addTagHelper *, Microsoft.AspNetCore.TagHelpers
     
-<!---Popup Form to delete inventory -->
-        <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle4" aria-hidden="true">
-            <div class="modal-dialog modal-dialog" role="document">
+
+    <!---Popup Form to delete inventory -->
+    <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle4" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" role="document">
             
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"  id="exampleModalTitle4">Delete Inventory <i class="fas fa-trash"> </i></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    
-                    <form method="post"  asp-action="DeletePost">
-                        <div class="modal-body ">
-                            Are you sure that you want to delete this inventory? 
-                       
-                            <div class="form-group">
-                                <input name="Id" value="@Model.Inventory.Id" hidden/>
-                         <!--       <label name="name" type="text"  asp-for="Inventory.name" ></label> --><!--Inventory Name-->
-                             <!--   <input type="text" asp-for="Inventory.name" name="name" value="@Model.Inventory.name" class="form-control"/>--> <!--input box-->
-                            </div>
-                            <div asp-validation-summary="All" class="text-danger"></div>
-                        </div>
-                        <div class="modal-footer ">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <input type="submit" class="btn btn-primary" value="Delete"/> <!--create button-->
-                        </div>
-                    </form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"  id="exampleModalTitle4">Delete Item <i class="fas fa-trash"> </i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+                    
+                <form method="post"  asp-controller="Inventory" asp-action="DeletePost" class="data">
+              
+                </form>
             </div>
         </div>
-        
+    </div>
