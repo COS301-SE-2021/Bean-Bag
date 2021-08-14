@@ -314,21 +314,14 @@ namespace BeanBag.Controllers
                 {
                     return NotFound();
                 } 
-                Pagination viewModel = new Pagination();
-                viewModel.Inventory = new Inventory();
-                viewModel.Inventory.Id = inventory.Id;
-                viewModel.Inventory.name = inventory.name;
-                viewModel.Inventory.userId = inventory.userId;
-
-
+                
                 if(inventory.userId != User.GetObjectId())
                 {
                     return BadRequest();
                 }
-
-                //return View(inventory);
+                return View(inventory);
                 
-                return PartialView("_DeleteInventory", viewModel);
+               // return PartialView("_DeleteInventory", viewModel);
             }
             else
             {

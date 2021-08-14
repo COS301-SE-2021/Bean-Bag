@@ -156,11 +156,7 @@ namespace BeanBag.Controllers
 
                 ViewBag.InventoryName = inventoryService.FindInventory(item.inventoryId).name;
                 ViewBag.InventoryId = item.inventoryId;
-                Pagination viewModel = new Pagination();
-                Item x= new Item();
-                viewModel.Item = x;
-                viewModel.Item.Id = item.Id;
-                viewModel.Item.name = item.name;
+            
                 return View(item);
                 
                // return PartialView("_DeleteItem", viewModel);
