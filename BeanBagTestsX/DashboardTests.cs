@@ -8,6 +8,13 @@ namespace BeanBagUnitTests
         [Fact]
         public void Get_Recent_Items()
         {
+            //ARRANGE
+            
+            
+            //ACT
+            
+            
+            //ASSERT
             
         }
 
@@ -15,6 +22,13 @@ namespace BeanBagUnitTests
         [Fact]
         public void Get_Total_Items()
         {
+            //ARRANGE
+            
+            
+            //ACT
+            
+            
+            //ASSERT
             
         }
         
@@ -22,13 +36,26 @@ namespace BeanBagUnitTests
         [Fact]
         public void Get_Top_Items()
         {
+            //ARRANGE
             
+            
+            //ACT
+            
+            
+            //ASSERT
         }
     
         //Unit test defined to get the items available, currently, in a user's database
         [Fact]
         public void Get_Items_Available()
         {
+            //ARRANGE
+            
+            
+            //ACT
+            
+            
+            //ASSERT
             
         }
 
@@ -36,6 +63,13 @@ namespace BeanBagUnitTests
         [Fact]
         public void Get_Items_Sold()
         {
+            //ARRANGE
+            
+            
+            //ACT
+            
+            
+            //ASSERT
             
         }
 
@@ -43,6 +77,13 @@ namespace BeanBagUnitTests
         [Fact]
         public void Get_Revenue()
         {
+            //ARRANGE
+            
+            
+            //ACT
+            
+            
+            //ASSERT
             
         }
 
@@ -50,6 +91,13 @@ namespace BeanBagUnitTests
         [Fact]
         public void Get_Sales_Growth()
         {
+            //ARRANGE
+            
+            
+            //ACT
+            
+            
+            //ASSERT
             
         }
         
@@ -57,6 +105,13 @@ namespace BeanBagUnitTests
         [Fact]
         public void Items_Revenue_Stat()
         {
+            //ARRANGE
+            
+            
+            //ACT
+            
+            
+            //ASSERT
             
         }
 
@@ -64,6 +119,13 @@ namespace BeanBagUnitTests
         [Fact]
         public void Items_Sold_Stat()
         {
+            //ARRANGE
+            
+            
+            //ACT
+            
+            
+            //ASSERT
             
         }
         
@@ -71,6 +133,13 @@ namespace BeanBagUnitTests
         [Fact]
         public void Item_Available_Stat()
         {
+            //ARRANGE
+            
+            
+            //ACT
+            
+            
+            //ASSERT
             
         }
     }
