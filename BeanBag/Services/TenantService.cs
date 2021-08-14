@@ -11,11 +11,12 @@ namespace BeanBag.Services
         private readonly TenantDbContext _tenantDb;
         private string _newTenantId;
 
-        //Constructor
+        //Constructor sets database context
         public TenantService(TenantDbContext context)
         {
             _tenantDb = context;
         }
+        
         
         //Tenant functions
         public string GetUserTenantId(string userId)
@@ -25,13 +26,13 @@ namespace BeanBag.Services
                 throw new Exception("User object id is null.");
             }
             
-            // search user in db
+            //Search for user in database
             if (_tenantDb.TenantUser.Find(userId) == null)
             {
                 throw new Exception("User does not exist in the database.");
             }
             
-            // user is found in db - get result
+            //User found
             var tenantId = (from item
                     in _tenantDb.TenantUser
                 where item.UserObjectId.Equals(userId)
@@ -45,7 +46,6 @@ namespace BeanBag.Services
             return tenantId;
         }
         
-        
         public string GetTenantName(string userTenantId)
         {
             if (userTenantId == null)
@@ -53,11 +53,13 @@ namespace BeanBag.Services
                 throw new Exception("User tenant id is null.");
             }
 
+            //Search tenant
             if (_tenantDb.Tenant.Find(userTenantId) == null)
             {
                 throw new Exception("Tenant id for user not found.");
             }
             
+            //Tenant found
             var tenantName = (from item
                     in _tenantDb.Tenant
                 where item.TenantId.Equals(userTenantId)
@@ -70,8 +72,7 @@ namespace BeanBag.Services
 
             return tenantName;
         }
-
-
+        
         public string GetTenantId(string tenantName)
         {
             if (tenantName == null)
@@ -86,7 +87,6 @@ namespace BeanBag.Services
 
             return tenantId;
         }
-        
         
         public bool SetTenantTheme(string userId, string theme)
         {
@@ -112,7 +112,6 @@ namespace BeanBag.Services
 
         }
         
-
         public string GetTenantTheme(string userId)
         {
             // return default when user is not signed in - Layout
@@ -149,7 +148,7 @@ namespace BeanBag.Services
 
         }
 
-        public List<Tenant> GetTenantList()
+        public IEnumerable<Tenant> GetTenantList()
         {
             var tenants = from tenant
                     in _tenantDb.Tenant
@@ -167,7 +166,7 @@ namespace BeanBag.Services
                 throw new Exception("Tenant name is null");
             }
 
-            Guid id = Guid.NewGuid();
+            var id = Guid.NewGuid();
             
             _newTenantId = id.ToString();
 
@@ -185,7 +184,6 @@ namespace BeanBag.Services
             return true;
 
         }
-
 
         public bool SearchTenant(string tenantId)
         {
