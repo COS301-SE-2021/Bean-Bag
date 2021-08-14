@@ -22,8 +22,9 @@ namespace BeanBag.Services
         private CustomVisionPredictionClient predictionClient;
 
         private readonly DBContext _db;
+        private readonly IBlobStorageService _blob;
 
-        public AIService(DBContext db)
+        public AIService(DBContext db, IBlobStorageService blob)
         {
             trainingClient = new CustomVisionTrainingClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.ApiKeyServiceClientCredentials(key))
             {
@@ -31,7 +32,7 @@ namespace BeanBag.Services
             };
 
             _db = db;
-            
+            _blob = blob;
 
             predictionClient = new CustomVisionPredictionClient
                 (new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.ApiKeyServiceClientCredentials(key))
@@ -113,6 +114,36 @@ namespace BeanBag.Services
             
         }
 
+        // This method deletes a custom vision project from the DB and custom vision service
+        public void deleteProject(Guid projectId)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project id is null");
+
+            try
+            {
+                // 1) removing test images from blob storage
+                _blob.deleteTestImageFolder(projectId.ToString());
+
+                // 2) Deleting from Custom Vision and iterations
+                var iterations = trainingClient.GetIterations(projectId);
+                foreach (var i in iterations)
+                    deleteIteration(i.Id);
+
+                trainingClient.DeleteProject(projectId);
+
+                // 3) Deleting from DB
+                AIModel model = _db.AIModels.Find(projectId);
+                _db.AIModels.Remove(model);
+                _db.SaveChanges();
+
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.ToString());
+            }
+        }
+
         // This method is used to upload a set of test images into the Azure blob storage and then into the custom vision project
         public async void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
         {
@@ -177,6 +208,33 @@ namespace BeanBag.Services
                 throw new Exception(e.ToString());
             }
             
+        }
+
+        // This method deletes an iteration from the custom vision service as well as from the DB
+        public void deleteIteration(Guid iterationId)
+        {
+            if (iterationId == Guid.Empty)
+                throw new Exception("Iteration id is null");
+
+            AIModelVersions iteration = _db.AIModelIterations.Find(iterationId);
+
+            if (iteration == null)
+                throw new Exception("Iteration not found with iteration id " + iterationId.ToString());
+
+            try
+            {
+                if(iteration.availableToUser)
+                    trainingClient.UnpublishIteration(iteration.projectId, iterationId);
+
+                trainingClient.DeleteIteration(iteration.projectId, iterationId);
+
+                _db.AIModelIterations.Remove(iteration);
+                _db.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.ToString());
+            }
         }
 
         // This method returns all of the iterations related to a custom vision project

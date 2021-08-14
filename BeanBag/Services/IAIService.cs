@@ -12,9 +12,13 @@ namespace BeanBag.Services
 
         public Task<Guid> createProject(string projectName);
 
+        public void deleteProject(Guid projectId);
+
         public void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId);
 
         public void trainModel(Guid projectId);
+
+        public void deleteIteration(Guid iterationId);
 
         //public List<AIModelVersions> getAllIterations();
 
