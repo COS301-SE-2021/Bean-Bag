@@ -4,14 +4,16 @@ using BeanBag.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BeanBag.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20210812102606_AIModelIterations")]
+    partial class AIModelIterations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,9 +45,6 @@ namespace BeanBag.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("iterationName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("predictionUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("projectId")
