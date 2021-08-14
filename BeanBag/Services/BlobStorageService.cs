@@ -57,5 +57,12 @@ namespace BeanBag.Services
             return testImagesUrls;
             
         }
+
+        public async void deleteTestImageFolder(string projectId)
+        {
+            cloudBlobContainer = cloudBlobClient.GetContainerReference("modeltestimages");
+
+            await cloudBlobContainer.GetBlockBlobReference(projectId).DeleteIfExistsAsync();
+        }
     }
 }
