@@ -34,20 +34,22 @@
                 <!--Search-->
                     @using (Html.BeginForm())
                     {
-                        <span class="col-md-0 ml-3 pt-1">
-                           <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date</span>
-                        <span class="col-md-2">              
-                        @Html.TextBox("from", null, new {@class = "form-control ml-3 p-3", type="date"})
+                        <div class="d-flex">
+                        <span class="d-inline-block ml-3 pt-2">
+                           <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date &nbsp;</span>
+                        <span class=" d-inline-block">              
+                        @Html.TextBox("from", null, new {@class = "form-control ", type="date"})
                      </span>
-                        <span class="col-md-0 pt-1">
-                            To Date</span>
-                        <span class="col-md-2 ml-2">  
-                        @Html.TextBox("to", null, new {@class = "form-control ml-3 p-3", type="date" })
+                        <span class="d-inline-block pt-2">
+                            &nbsp; &nbsp; To Date &nbsp;</span>
+                        <span class=" d-inline-block">  
+                        @Html.TextBox("to", null, new {@class = "form-control ", type="date" })
                     </span>
                         @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
-                        <span >
-                        <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-primary"/>
+                        <span class="d-inline-block pl-2">
+                            <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-primary"/>
                         </span>
+                        </div>
                     }
              
                 <div class="col-3 ml-auto">
