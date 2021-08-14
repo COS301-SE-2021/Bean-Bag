@@ -6,7 +6,7 @@
             <h2 class="text-primary">Model Versions</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-controller="AIModel" asp-action="TrainModel" asp-route-modelId="@ViewBag.ModelId" class="btn btn-primary">Train new version of model</a>
+            <a asp-controller="AIModel" asp-action="TrainModel" asp-route-projectId="@ViewBag.projectId" class="btn btn-primary">Train new version of model</a>
         </div>
     </div>
     <br />
@@ -36,8 +36,8 @@
                     <td>
                         <!-- width="50%"-->
                         <div class="w-100 btn-group" role="group">
-                            <a asp-controller="AIModel" asp-action="EditModel" asp-route-modelId="@AIModelIterations.projectId" class="btn btn-secondary">Edit</a>
-                            <a asp-controller="AIModel" asp-action="DeleteModel" asp-route-modelId="@AIModelIterations.projectId" class="btn btn-danger">Delete</a>
+                            <a asp-controller="AIModel" asp-action="EditModel" asp-route-projectId="@AIModelIterations.projectId" class="btn btn-secondary">Edit</a>
+                            <a asp-controller="AIModel" asp-action="DeleteModel" asp-route-projectId="@AIModelIterations.projectId" class="btn btn-danger">Delete</a>
                             @if (AIModelIterations.status.Equals("Completed") && AIModelIterations.availableToUser == false)
                             {
                                 <a asp-controller="AIModel" asp-action="PublishIteration" asp-route-projectId="@AIModelIterations.projectId" asp-route-iterationId="@AIModelIterations.iterationId" class="btn btn-success">Make available for item use</a>

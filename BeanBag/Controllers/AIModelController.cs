@@ -14,7 +14,6 @@ namespace BeanBag.Controllers
     {
         private readonly IAIService aIService;
         private readonly IBlobStorageService blobService;
-        //private readonly DBContext db;
 
         public AIModelController(IAIService _ai, IBlobStorageService _blob)
         {
@@ -39,10 +38,10 @@ namespace BeanBag.Controllers
         {
             Guid id = await aIService.createProject(modelName);
 
-            return LocalRedirect("/AIModel/TestImages?modelId=" + id.ToString());
+            return LocalRedirect("/AIModel/TestImages?projectId=" + id.ToString());
         }
 
-        public IActionResult TestImages(Guid modelId)
+        public IActionResult TestImages(Guid projectId)
         {
             return View();
         }
@@ -69,35 +68,35 @@ namespace BeanBag.Controllers
             aIService.uploadTestImages(imageUrls, tags, projectId);
 
             if (lastTestImages != null)
-                return LocalRedirect("/AIModel/ModelVersions?modelId=" + projectId.ToString());
+                return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
             else
-                return LocalRedirect("/AIModel/TestImages?modelId=" + projectId.ToString());
+                return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
 
         }
 
-        public async Task<IActionResult> ModelVersions(Guid modelId)
+        public IActionResult ModelVersions(Guid projectId)
         {
-            List<AIModelVersions> modelversions = await aIService.getIterations(modelId);         
-            ViewBag.ModelId = modelId;
+            List<AIModelVersions> modelversions = aIService.getProjectIterations(projectId);         
+            ViewBag.projectId = projectId;
             return View(modelversions);
         }
 
-        public IActionResult TrainModel(Guid modelId)
+        public IActionResult TrainModel(Guid projectId)
         {
-            aIService.trainModel(modelId);
-            return LocalRedirect("/AIModel/ModelVersions?modelId=" + modelId.ToString());
+            aIService.trainModel(projectId);
+            return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
         }
 
         public IActionResult PublishIteration(Guid projectId, Guid iterationId)
         {
             aIService.publishIteration(projectId, iterationId);
-            return LocalRedirect("/AIModel/ModelVersions?modelId=" + projectId.ToString());
+            return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
         }
 
         public IActionResult Unpublishiteration(Guid projectId, Guid iterationId)
         {
             aIService.unpublishIteration(projectId, iterationId);
-            return LocalRedirect("/AIModel/ModelVersions?modelId=" + projectId.ToString());
+            return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
         }
     }
 }
