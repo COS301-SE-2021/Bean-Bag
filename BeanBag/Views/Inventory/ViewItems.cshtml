@@ -30,25 +30,26 @@
            
             <div class="row">
                 
-                
-                
+    
                 <!--Search-->
-                <span class="col-md-0 ml-3 pt-1">
-
-                    <b>Find Entries</b> &nbsp;<i class="fas fa-angle-right"></i> &nbsp; From Date</span>
-                <span class="col-md-2">
-                    <input type="date" name="from_date" id="from_date" class="form-control dateFilter" placeholder="From Date"/>
-                </span>
-
-                <span class="col-md-0 pt-1">
-                    To Date</span>
-                <span class="col-md-2 ml-1">
-                    <input type="date" name="to_date" id="to_date" class="form-control dateFilter" placeholder="To Date"/>
-                </span>
-                <span class="col-md-2 mr-5">
-                    <input type="button" name="search" id="btn_search" value="Go" class="btn btn-primary"/>
-                </span>
-
+                    @using (Html.BeginForm())
+                    {
+                        <span class="col-md-0 ml-3 pt-1">
+                           <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date</span>
+                        <span class="col-md-2">              
+                        @Html.TextBox("from", null, new {@class = "form-control ml-3 p-3", type="date"})
+                     </span>
+                        <span class="col-md-0 pt-1">
+                            To Date</span>
+                        <span class="col-md-2 ml-2">  
+                        @Html.TextBox("to", null, new {@class = "form-control ml-3 p-3", type="date" })
+                    </span>
+                        @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
+                        <span >
+                        <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-primary"/>
+                        </span>
+                    }
+             
                 <div class="col-3 ml-auto">
                     @using (Html.BeginForm())
                     {
@@ -224,6 +225,7 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
+
   AOS.init();
   
   //ID tooltip

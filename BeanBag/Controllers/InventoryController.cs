@@ -141,7 +141,7 @@ namespace BeanBag.Controllers
         }
 
         // Views all of the items within the specified inventory
-        public IActionResult ViewItems(Guid inventoryId, string sortOrder, string currentFilter, string searchString, int? page)
+        public IActionResult ViewItems(Guid inventoryId, string sortOrder, string currentFilter, string searchString, int? page , DateTime from, DateTime to)
         {
             if(User.Identity is {IsAuthenticated: true})
             {
@@ -176,14 +176,20 @@ namespace BeanBag.Controllers
                 {
                     case "name_desc":
                         modelList = model.OrderByDescending(s => s.name).ToList();
-                        break;
+                        break; 
+                        
                  
                     default:
                         modelList = model.OrderBy(s => s.name).ToList();
                         break;
                 }
 
-            
+                //Date sorting
+           if (sortOrder == "date")
+                {
+                    modelList =( model.Where(t => t.entryDate > from && t.entryDate < to)).ToList();
+
+                }
             //indicates the size of list
             int pageSize = 5;
             //set page to one is there is no value, ??  is called the null-coalescing operator.
