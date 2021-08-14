@@ -220,11 +220,9 @@ namespace BeanBag.Controllers
     // This is the GET Method for Edit
     // This returns the view for editing the information related to an inventory
     // The URL needs to accept the GUID of the inventory that is being edited
-    [HttpGet]
     public IActionResult Edit(Guid id)
     {
-        ViewBag.MyRouteId = id;
-            if(User.Identity is {IsAuthenticated: true})
+        if(User.Identity is {IsAuthenticated: true})
             {
                 // Find the inventory in the inventory table using the inventory ID
                 var inventory = inventoryService.FindInventory(id);
@@ -232,9 +230,6 @@ namespace BeanBag.Controllers
                 if(inventory.userId == User.GetObjectId())
                 {
                     return View(inventory);
-                  
-                
-                   //return RedirectToAction("Index",inventory);
                 }
                 else 
                 {
@@ -252,7 +247,7 @@ namespace BeanBag.Controllers
         // This accepts the inventory model from the edit view above
         // This will allow us to make changes to the respected inventory
         [HttpPost]
-        public IActionResult Edit(Inventory inventory)
+        public IActionResult EditPost(Inventory inventory)
         {
             if(User.Identity is {IsAuthenticated: true})
             {
@@ -269,8 +264,6 @@ namespace BeanBag.Controllers
                     }                 
                 }
 
-                // If model state is invalid then we return back to the inventory edit view
-              //  return View(inventory);
                 return RedirectToAction("Index");
             }
             else 
@@ -321,7 +314,6 @@ namespace BeanBag.Controllers
                 }
                 return View(inventory);
                 
-               // return PartialView("_DeleteInventory", viewModel);
             }
             else
             {
