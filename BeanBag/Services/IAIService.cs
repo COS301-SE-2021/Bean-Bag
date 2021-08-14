@@ -10,19 +10,19 @@ namespace BeanBag.Services
     {
         public string predict(Guid projectId, string iterationName, string imageURL);
 
-        public Task<Guid> createProject(string modelName);
+        public Task<Guid> createProject(string projectName);
 
         public void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId);
 
         public void trainModel(Guid projectId);
 
-        public List<AIModelVersions> getAllIterations();
+        //public List<AIModelVersions> getAllIterations();
 
         public List<AIModelVersions> getAllAvailableIterations();
 
         public List<AIModel> getAllModels();
 
-        public Task<List<AIModelVersions>> getIterations(Guid projectId);
+        public List<AIModelVersions> getProjectIterations(Guid projectId);
 
         public AIModelVersions getIteration(Guid iterationId);
 
