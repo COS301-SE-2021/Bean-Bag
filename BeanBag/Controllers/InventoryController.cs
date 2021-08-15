@@ -140,10 +140,8 @@ namespace BeanBag.Controllers
            
         }
 
-        // This is the Get method for viewItems
         // Views all of the items within the specified inventory
-        [HttpGet]
-        public IActionResult ViewItems(Guid inventoryId, string sortOrder, string currentFilter, string searchString, int? page)
+        public IActionResult ViewItems(Guid inventoryId, string sortOrder, string currentFilter, string searchString, int? page , DateTime from, DateTime to)
         {
             if(User.Identity is {IsAuthenticated: true})
             {
@@ -178,14 +176,20 @@ namespace BeanBag.Controllers
                 {
                     case "name_desc":
                         modelList = model.OrderByDescending(s => s.name).ToList();
-                        break;
+                        break; 
+                        
                  
                     default:
                         modelList = model.OrderBy(s => s.name).ToList();
                         break;
                 }
 
-            
+                //Date sorting
+           if (sortOrder == "date")
+                {
+                    modelList =( model.Where(t => t.entryDate > from && t.entryDate < to)).ToList();
+
+                }
             //indicates the size of list
             int pageSize = 5;
             //set page to one is there is no value, ??  is called the null-coalescing operator.
@@ -216,11 +220,9 @@ namespace BeanBag.Controllers
     // This is the GET Method for Edit
     // This returns the view for editing the information related to an inventory
     // The URL needs to accept the GUID of the inventory that is being edited
-    [HttpGet]
     public IActionResult Edit(Guid id)
     {
-        ViewBag.MyRouteId = id;
-            if(User.Identity is {IsAuthenticated: true})
+        if(User.Identity is {IsAuthenticated: true})
             {
                 // Find the inventory in the inventory table using the inventory ID
                 var inventory = inventoryService.FindInventory(id);
@@ -228,9 +230,6 @@ namespace BeanBag.Controllers
                 if(inventory.userId == User.GetObjectId())
                 {
                     return View(inventory);
-                  
-                
-                   //return RedirectToAction("Index",inventory);
                 }
                 else 
                 {
@@ -248,7 +247,7 @@ namespace BeanBag.Controllers
         // This accepts the inventory model from the edit view above
         // This will allow us to make changes to the respected inventory
         [HttpPost]
-        public IActionResult Edit(Inventory inventory)
+        public IActionResult EditPost(Inventory inventory)
         {
             if(User.Identity is {IsAuthenticated: true})
             {
@@ -265,8 +264,6 @@ namespace BeanBag.Controllers
                     }                 
                 }
 
-                // If model state is invalid then we return back to the inventory edit view
-              //  return View(inventory);
                 return RedirectToAction("Index");
             }
             else 
@@ -310,21 +307,13 @@ namespace BeanBag.Controllers
                 {
                     return NotFound();
                 } 
-                Pagination viewModel = new Pagination();
-                viewModel.Inventory = new Inventory();
-                viewModel.Inventory.Id = inventory.Id;
-                viewModel.Inventory.name = inventory.name;
-                viewModel.Inventory.userId = inventory.userId;
-
-
+                
                 if(inventory.userId != User.GetObjectId())
                 {
                     return BadRequest();
                 }
-
-                //return View(inventory);
+                return View(inventory);
                 
-                return PartialView("_DeleteInventory", viewModel);
             }
             else
             {
