@@ -87,10 +87,9 @@ namespace BeanBagUnitTests
             
 
             Inventory thenew = new Inventory { Id = theId2, name = "Mums 2", userId = u2 };
-            //myser.Object.CreateInventory(thenew);
+            myser.Setup(x => x.CreateInventory(thenew));
+            myser.Object.CreateInventory(thenew);
 
-            //Reno
-            //myser.Setup(x => x.CreateInventory(thenew));
             myser.Setup(x => x.FindInventory(thenew.Id)).Returns(thenew);
 
             var worked = myser.Object.FindInventory(theId2);
