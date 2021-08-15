@@ -11,9 +11,11 @@
         <h6 class="text-muted"> Are you sure that you want to delete this inventory? </h6>
         <hr>
         <div class="stats mt-2">
+            
+            <div class="d-flex justify-content-between p-price"><span>Name</span><span>@Model.name</span></div>
             <div class="d-flex justify-content-between p-price"><span>ID</span><span>@Model.Id</span></div>
-            <div class="d-flex justify-content-between p-price"><span>Date Created</span><span>@Model.name</span></div>
-            <div class="d-flex justify-content-between p-price"><span>Description</span><span>@Model.name</span></div>
+            <div class="d-flex justify-content-between p-price"><span>Date Created</span><span>-</span></div>
+            <div class="d-flex justify-content-between p-price"><span>Description</span><span>-</span></div>
         </div>
         <input asp-for="Id" hidden/>
 
