@@ -114,11 +114,13 @@
                                                     <a href="@Url.Action("Delete", "Inventory", new {@inventory.Id})"
                                                        class="btn delete" data-toggle="modal"
                                                        data-target="#exampleModal4" data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
-
-                                                    <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Items"><i class="fas fa-eye"> </i></button></a>
-                                                    <a  class="btn" data-toggle="modal" data-target="#exampleModal2"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Add Item"><i class="fas fa-folder-plus"> </i></button></a> <!-- change button css-->
                                                    
-                                                        
+                                                    <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Items"><i class="fas fa-eye"> </i></button></a>
+                                                     
+                                                    <a href="@Url.Action("UploadImage", "Item", new {@inventory.Id})" 
+                                                       class="btn upload" data-toggle="modal"
+                                                        data-target="#exampleModal2" data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Add Item"><i class="fas fa-folder-plus"> </i></button></a>
+     
                                                 </div>
                                             </td>
                                         </tr>
@@ -190,50 +192,6 @@
         </div>
     </div>
 </div>
-    
-<!---Popup Form to upload item to inventory -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog" role="document">
-            
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"  id="exampleModalTitle2">Add Item <i class="fas fa-folder-plus"> </i></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-                    
-            <form method="post"  enctype="multipart/form-data" asp-action="UploadImage" asp-controller="Item" >
-                <div class="modal-body">
-                    <div class="form-group ">
-                          
-                     
-                        <!-- Upload image input-->
-                        <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                            <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0">
-                            <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
-                            <div class="input-group-append">
-                                <label for="upload" class="btn btn-light m-0 rounded-pill px-4 upload"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
-                            </div>
-                        </div>
-
-                        <!-- Uploaded image area-->
-                        <p class="font-italic text-grey text-center">The image uploaded will be rendered inside the box below.</p>
-                        <div class="image-area mt-4 align-content-center"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-
-                    </div>
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                </div>
-                    
-                <div class="modal-footer ">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" value="Submit"/> <!--create button-->
-                </div>
-            </form>
-                       
-        </div>
-    </div>
-</div>
 
 </section>
 
@@ -260,6 +218,20 @@ $('.edit').click(function (ev) {
         let myModal = $("#exampleModal3");
             myModal.find("form.data").html(data);
         $('#exampleModal3').modal('show');
+    });
+});
+
+// --Upload 
+$('.upload').click(function (ev) {
+    ev.preventDefault(); // this is required
+
+    // get target action
+    let action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        let myModal = $("#exampleModal2");
+            myModal.find("form.data").html(data);
+        $('#exampleModal2').modal('show');
     });
 });
 
@@ -290,6 +262,7 @@ $('.delete').click(function (ev) {
     @{<partial name="_ValidationScriptsPartial" /> 
                                      <partial name="_DeleteInventory" /> 
                                      <partial name="_Edit" /> 
+                                     <partial name="_UploadImage" /> 
        
     }
 }

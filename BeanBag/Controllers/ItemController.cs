@@ -1,5 +1,4 @@
-﻿using BeanBag.Database;
-using BeanBag.Models;
+﻿using BeanBag.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,23 +25,16 @@ namespace BeanBag.Controllers
         //private readonly DBContext _db;
         // The connection string is exposed. Will need to figure out a way of getting it out of appsetting.json. Maybe init in startup like db context ?
         
-        public ItemController(DBContext db, IItemService _is, IInventoryService _invs, IAIService _aI, IBlobStorageService _blob)
+        public ItemController(IItemService iss, IInventoryService invs, IAIService aI, IBlobStorageService blob)
         {
-            //_db = db;
-            itemService = _is;
-            inventoryService = _invs;
-            aIService = _aI;
-            blobStorageService = _blob;
+      
+            itemService = iss;
+            inventoryService = invs;
+            aIService = aI;
+            blobStorageService = blob;
         }
-
-        // Might need to implement
-        // Currently not being used
-        public IActionResult Index()
-        {
-            return Ok("Item Index");
-        }
-
-        // This returns the uploadimage view for item
+        
+        // This returns the upload-image view for item
         public IActionResult UploadImage(Guid inventoryId)
         {
             
@@ -65,10 +57,10 @@ namespace BeanBag.Controllers
         public async Task<IActionResult> UploadImage([FromForm(Name = "file")] IFormFile file, [FromForm(Name = "predictionModel")] string predictionModelId)
         {
             AIModelVersions iteration = aIService.getIteration(Guid.Parse(predictionModelId));
-            string imageURL = await blobStorageService.uploadItemImage(file);
-            string prediction = aIService.predict(iteration.projectId, iteration.iterationName, imageURL);
+            string imageUrl = await blobStorageService.uploadItemImage(file);
+            string prediction = aIService.predict(iteration.projectId, iteration.iterationName, imageUrl);
 
-            return LocalRedirect("/Item/Create?imageUrl="+ imageURL + "&itemType="+ prediction);
+            return LocalRedirect("/Item/Create?imageUrl="+ imageUrl + "&itemType="+ prediction);
         }
 
         // Get method for create
@@ -81,7 +73,7 @@ namespace BeanBag.Controllers
 
             var inventories = inventoryService.GetInventories(User.GetObjectId());
 
-            IEnumerable < SelectListItem > InventoryDropDown = inventories.Select(i => new SelectListItem
+            IEnumerable < SelectListItem > inventoryDropDown = inventories.Select(i => new SelectListItem
             {
                 Text = i.name,
                 Value = i.Id.ToString()
@@ -90,7 +82,7 @@ namespace BeanBag.Controllers
             // View bag allows the controller to pass information into the view
             // We are passing the inventoryDrop drown as well as the automated imageURL and itemType from the imageUpload POST method
 
-            ViewBag.InventoryDropDown = InventoryDropDown;
+            ViewBag.InventoryDropDown = inventoryDropDown;
             ViewBag.itemType = itemType;
             ViewBag.imageUrl = imageUrl;
 
@@ -116,9 +108,9 @@ namespace BeanBag.Controllers
         // This is the GET method of item edit
         // This returns the view of an item that is being edited
         // Accepts an itemId in order to return a view of the item that needs to be edited with it's respective information passed along
-        public IActionResult Edit(Guid Id)
+        public IActionResult Edit(Guid id)
         {
-            var item = itemService.FindItem(Id);
+            var item = itemService.FindItem(id);
             // Does the item exist in the table 
             if(item == null)
             {
@@ -128,14 +120,14 @@ namespace BeanBag.Controllers
             // This creates a list of the different inventories available to put the item into
             var inventories = inventoryService.GetInventories(User.GetObjectId());
 
-            IEnumerable<SelectListItem> InventoryDropDown = inventories.Select(i => new SelectListItem
+            IEnumerable<SelectListItem> inventoryDropDown = inventories.Select(i => new SelectListItem
             {
                 Text = i.name,
                 Value = i.Id.ToString()
             });
 
             // View bag allows the controller to pass information into the view
-            ViewBag.InventoryDropDown = InventoryDropDown;
+            ViewBag.InventoryDropDown = inventoryDropDown;
             ViewBag.InventoryId = item.inventoryId;
             ViewBag.imageUrl = item.imageURL;
 
@@ -158,9 +150,9 @@ namespace BeanBag.Controllers
         }
 
         // This is the GET method for delete item
-        public IActionResult Delete(Guid Id)
+        public IActionResult Delete(Guid id)
         {
-            var item = itemService.FindItem(Id);
+            var item = itemService.FindItem(id);
             // Does the item exist in the item table
             if (item == null)
             {
@@ -174,10 +166,10 @@ namespace BeanBag.Controllers
 
         // This is the POST method for delete item
         [HttpPost]
-        public IActionResult DeletePost(Guid Id)
+        public IActionResult DeletePost(Guid id)
         {
-            string inventoryId = itemService.GetInventoryIdFromItem(Id).ToString();
-            itemService.DeleteItem(Id);
+            string inventoryId = itemService.GetInventoryIdFromItem(id).ToString();
+            itemService.DeleteItem(id);
 
             // Returns back to the view items in inventory using the inventory ID
             // The reason why we can still use item.inventoryId is because it is still an intact variable
@@ -186,9 +178,9 @@ namespace BeanBag.Controllers
         }
         
         // Define a function to generate a QR code every time we want to view it
-        public string ViewQRCode(Guid Id)
+        public string ViewQrCode(Guid id)
         {
-            var item = itemService.FindItem(Id);
+            var item = itemService.FindItem(id);
 
             if(item == null)
             {
@@ -212,9 +204,9 @@ namespace BeanBag.Controllers
         }
         
         
-        public string PrintQRCode(Guid Id)
+        public string PrintQrCode(Guid id)
         {
-            var item = itemService.FindItem(Id);
+            var item = itemService.FindItem(id);
 
             if (item == null)
             {
@@ -228,11 +220,10 @@ namespace BeanBag.Controllers
                 var qRCode = new QRCode(qRCodeData);
                 var bitmap = qRCode.GetGraphic(20);
                 bitmap.Save(ms, ImageFormat.Png);
-                bitmap.Save("C:/Users/Public/Pictures/"+Id +".png");
+                bitmap.Save("C:/Users/Public/Pictures/"+id +".png");
 
-                return Id.ToString();
-                //ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
-                // return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
+                return id.ToString();
+                
             }
              
         }
