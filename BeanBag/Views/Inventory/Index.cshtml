@@ -110,7 +110,9 @@
                                                      <a href="@Url.Action("Edit", "Inventory", new {@inventory.Id})"
                                                         class="btn edit" data-toggle="modal" data-target="#exampleModal3" 
                                                         data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
-
+                                                    
+                                             
+                                                    
                                                     <a href="@Url.Action("Delete", "Inventory", new {@inventory.Id})"
                                                        class="btn delete" data-toggle="modal"
                                                        data-target="#exampleModal4" data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
@@ -118,7 +120,7 @@
                                                     <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Items"><i class="fas fa-eye"> </i></button></a>
                                                      
                                                     <a href="@Url.Action("UploadImage", "Item", new {@inventory.Id})" 
-                                                       class="btn upload" data-toggle="modal"
+                                                       class="btn uploading" data-toggle="modal"
                                                         data-target="#exampleModal2" data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Add Item"><i class="fas fa-folder-plus"> </i></button></a>
      
                                                 </div>
@@ -222,7 +224,7 @@ $('.edit').click(function (ev) {
 });
 
 // --Upload 
-$('.upload').click(function (ev) {
+$('.uploading').click(function (ev) {
     ev.preventDefault(); // this is required
 
     // get target action
