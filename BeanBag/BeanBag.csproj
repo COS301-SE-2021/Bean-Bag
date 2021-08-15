@@ -34,4 +34,8 @@
     <_ContentIncludedByDefault Remove="Pages\Appearance\Index.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages" />
+  </ItemGroup>
+
 </Project>
