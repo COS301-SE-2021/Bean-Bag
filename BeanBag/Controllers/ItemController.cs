@@ -42,13 +42,31 @@ namespace BeanBag.Controllers
             return Ok("Item Index");
         }
 
+        // This returns the uploadimage view for item
+        public IActionResult UploadImage(Guid inventoryId)
+        {
+            
+            List<AIModelVersions> iterations = aIService.getAllAvailableIterations();
+
+            IEnumerable<SelectListItem> iterationDropDown = iterations.Select(i => new SelectListItem
+            {
+                Text = i.iterationName, 
+                Value = i.iterationId.ToString()
+            });
+
+            ViewBag.iterationDropDown = iterationDropDown;
+
+            return View();
+        }
+
         // This takes in an image file to be uploaded into the Azure blob container
         // This method also uses the custom vision AI that will predict what type of item is in the image
         [HttpPost]
-        public async Task<IActionResult> UploadImage([FromForm(Name = "file")] IFormFile file)
-        { 
+        public async Task<IActionResult> UploadImage([FromForm(Name = "file")] IFormFile file, [FromForm(Name = "predictionModel")] string predictionModelId)
+        {
+            AIModelVersions iteration = aIService.getIteration(Guid.Parse(predictionModelId));
             string imageURL = await blobStorageService.uploadItemImage(file);
-            string prediction = aIService.predict(imageURL);
+            string prediction = aIService.predict(iteration.projectId, iteration.iterationName, imageURL);
 
             return LocalRedirect("/Item/Create?imageUrl="+ imageURL + "&itemType="+ prediction);
         }
@@ -139,30 +157,19 @@ namespace BeanBag.Controllers
             //return LocalRedirect("/Item/Edit?ItemId="+item.Id);
         }
 
-        
-       // This is the GET method for delete item
-        public IActionResult Delete(Guid id)
+        // This is the GET method for delete item
+        public IActionResult Delete(Guid Id)
         {
-
-            if(User.Identity is {IsAuthenticated: true})
+            var item = itemService.FindItem(Id);
+            // Does the item exist in the item table
+            if (item == null)
             {
-
-                var item = itemService.FindItem(id);
-                // Does the item exist in the item table
-                if (item == null)
-                {
-                    return NotFound();
-                }
-
-                ViewBag.InventoryName = inventoryService.FindInventory(item.inventoryId).name;
-                ViewBag.InventoryId = item.inventoryId;
-            
-                return View(item);
-                
-               // return PartialView("_DeleteItem", viewModel);
+                return NotFound();
             }
 
-            return LocalRedirect("/");
+            ViewBag.InventoryName = inventoryService.FindInventory(item.inventoryId).name;
+            ViewBag.InventoryId = item.inventoryId;
+            return View(item);
         }
 
         // This is the POST method for delete item
@@ -179,13 +186,13 @@ namespace BeanBag.Controllers
         }
 
         // Define a function to generate a QR code every time we want to view it
-        public string ViewQRCode(Guid Id)
+        public IActionResult ViewQRCode(Guid Id)
         {
             var item = itemService.FindItem(Id);
 
             if(item == null)
             {
-                return "No QR Code";
+                return NotFound();
             }
             else
             {
@@ -199,19 +206,19 @@ namespace BeanBag.Controllers
                 ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
                 ViewBag.InventoryId = item.inventoryId;
 
-                return  ViewBag.QRCode;
+                return View();
             }
              
         }
         
         
-        public string PrintQRCode(Guid Id)
+        public IActionResult PrintQRCode(Guid Id)
         {
             var item = itemService.FindItem(Id);
 
             if (item == null)
             {
-                return NotFound().ToString();
+                return NotFound();
             }
             else
             {
@@ -221,11 +228,11 @@ namespace BeanBag.Controllers
                 var qRCode = new QRCode(qRCodeData);
                 var bitmap = qRCode.GetGraphic(20);
                 bitmap.Save(ms, ImageFormat.Png);
-                bitmap.Save("C:/Users/Public/Pictures/"+Id +".png");
+                bitmap.Save("C:/Users/Public/Pictures/BeanBagItemQRCode.png");
 
-                return Id.ToString();
                 //ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
-                // return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
+
+                return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
             }
              
         }

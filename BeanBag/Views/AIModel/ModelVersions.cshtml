@@ -36,7 +36,7 @@
                     <td>
                         <!-- width="50%"-->
                         <div class="w-100 btn-group" role="group">
-                            <a asp-controller="AIModel" asp-action="EditModel" asp-route-projectId="@AIModelIterations.projectId" class="btn btn-secondary">Edit</a>
+                            <a asp-controller="AIModel" asp-action="Edit" asp-route-projectId="@AIModelIterations.projectId" class="btn btn-secondary">Edit</a>
                             <a asp-controller="AIModel" asp-action="DeleteModel" asp-route-projectId="@AIModelIterations.projectId" class="btn btn-danger">Delete</a>
                             @if (AIModelIterations.status.Equals("Completed") && AIModelIterations.availableToUser == false)
                             {
