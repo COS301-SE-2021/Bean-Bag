@@ -1,7 +1,5 @@
 ﻿<!--Changed model type to that of pagedList-->
-<link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
 @model Pagination
-
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
 @{int i = 1;}
@@ -9,276 +7,191 @@
 @{
     ViewBag.Title = "Inventory";
 }
-
+<link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
-    <section class="search-and-user">
-        <span class="col-md-1 text-secondary ">
-            Inventory
+<section class="search-and-user">
+    <span class="col-md-1 text-secondary ">
+        Inventory
+    </span>
+    <div class="admin-profile ">
+        <span class="greeting  ">
+            Total Inventories &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalInventories</span>
+               
         </span>
-        <div class="admin-profile ">
-            <span class="greeting  ">
-        
-                Total Inventories &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalInventories</span>
-                <div>
-            
-        
-        
-                </div></span></div>
-
-
-    </section>
+    </div>
+</section>
     
      
-    <div class="dashboard-wrapper">
-        <div class="container-fluid  dashboard-content">
-            <hr>
+<div class="dashboard-wrapper">
+    <div class="container-fluid  dashboard-content">
+        <hr>
             
-            <div class="row">   
+        <div class="row">
+
+            <div class=" mr-3 ml-auto">
+                <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Inventory &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a>
+            </div>
+            </div>
+        <br>
+        <div class="row">
                 
-                
-                
-                
-                <div class=" mr-3 ml-auto">
-                                                 <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Inventory &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a> 
-                                                                                                                                                                                                                             
-                                             </div> </div>
-            <br>
-            <div class="row">
-                
-                <!--Date sorts-->
-                                <span class="col-md-0 ml-3 pt-1">
-                              <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date</span>
-                                <span class="col-md-2">
-                                    <input type="date" name="from_date" id="from_date" class="form-control dateFilter" placeholder="From Date" />
-                                </span>
+            <!--Date sorts-->
+            <span class="col-md-0 ml-3 pt-1">
+                <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date</span>
+            <span class="col-md-2">
+                <input type="date" name="from_date" id="from_date" class="form-control dateFilter" placeholder="From Date" />
+            </span>
                                 
-                                <span class="col-md-0 pt-1">
-                                    To Date</span>
-                                <span class="col-md-2 ml-1">
-                                    <input type="date" name="to_date" id="to_date" class="form-control dateFilter" placeholder="To Date" />
-                                </span>
-                                <span class="col-md-2 mr-5">
-                                    <input type="button" name="search" id="btn_search" value="Go" class="btn btn-primary" />
-                                </span>
+            <span class="col-md-0 pt-1">
+                To Date</span>
+            <span class="col-md-2 ml-1">
+                <input type="date" name="to_date" id="to_date" class="form-control dateFilter" placeholder="To Date" />
+            </span>
+            <span class="col-md-2 mr-5">
+                <input type="button" name="search" id="btn_search" value="Go" class="btn btn-primary" />
+            </span>
            
-                <!--Search-->
-                                                      <div class="col-3 ml-auto ">
-                                                      @using (Html.BeginForm())
-                                                                          {
-                                                                              <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
-                                                                                  @Html.TextBox("SearchString", null, new {@class = "form-control  my-0 py-1 red-border", placeholder = "Search"})
-                                                                                  <div class="input-group-append">
-                                                                                      <button class="input-group-text " value="Search" type="submit" id="basic-text1">
-                                                                                          <i class="fas fa-search text-grey"
-                                                                                             aria-hidden="true"></i></button>
-                                                                                  </div>
-                                                                              </div>
-                                                                          }                                                                                                                                                                                                     
-                                                      </div>
+            <!--Search-->
+            <div class="col-3 ml-auto ">
+                @using (Html.BeginForm())
+                {
+                    <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                        @Html.TextBox("SearchString", null, new {@class = "form-control  my-0 py-1 red-border", placeholder = "Search"})
+                        <div class="input-group-append">
+                            <button class="input-group-text " value="Search" type="submit" id="basic-text1">
+                                <i class="fas fa-search text-grey"
+                                   aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                }                                                                                                                                                                                                     
+            </div>
             
 
-                <!--Table with bootstrap class .table and .table-condensed-->
+            <!--Table with bootstrap class .table and .table-condensed-->
                 
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <br>
-                    <div class="card shadow p-1 mb-4 bg-body rounded" >
-                        <h5 class="card-header">Inventory List
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <br>
+                <div class="card shadow p-1 mb-4 bg-body rounded" >
+                    <h5 class="card-header">Inventory List
                         
                          
-                            </h5>
-                        <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
-                            <div>
-                                @if (Model.PagedList.Any())
-                                {
-                                    <table class="table table-bordered table-striped">
-                                        <thead><tr>
-                                            <th>#</th>
-                                            <th>ID</th>
-                                            <th>@Html.ActionLink("Inventory Name ", "Index", new {sortOrder = ViewBag.NameSortParm})
-                                                <i class="fas fa-chevron-down text-grey"
-                                                   aria-hidden="true"></i></th>
+                    </h5>
+                    <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
+                        <div>
+                            @if (Model.PagedList.Any())
+                            {
+                                <table class="table table-bordered table-striped">
+                                    <thead><tr>
+                                        <th>#</th>
+                                        <th>ID</th>
+                                        <th>@Html.ActionLink("Inventory Name ", "Index", new {sortOrder = ViewBag.NameSortParm})
+                                            <i class="fas fa-chevron-down text-grey"
+                                               aria-hidden="true"></i></th>
                                             
-                                            <th>Date Created</th>
-                                            <th>Description</th>
-                                                 <th class="text-center colspan-2">Actions</th>
-                                        </tr>
-                                        </thead><tbody>
-                                        @foreach (var inventory in Model.PagedList)
-                                        {
-                                            <tr>
-                                                <td >@i</td>
-                                                @{ i++; }
-                                                  <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@inventory.Id"><i class="fas fa-tag">  </i></button></td>
+                                        <th>Date Created</th>
+                                        <th>Description</th>
+                                        <th class="text-center colspan-2">Actions</th>
+                                    </tr>
+                                    </thead><tbody>
+                                    @foreach (var inventory in Model.PagedList)
+                                    {
+                                        <tr>
+                                            <td >@i</td>
+                                            @{ i++; }
+                                            <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@inventory.Id"><i class="fas fa-tag">  </i></button></td>
                                                                                               
-                                                <td >@inventory.name</td>
-                                                <td >-</td>
-                                                     <td >-</td>
-                                                <td >
-                                                    <div class="w-100 btn-group" role="group">
-                                                           
-                                                        <!--  <a asp-controller="Inventory" asp-action="Edit" asp-route-Id="@inventory.Id" class="btn"  ><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
-                                                        -->
-                                                        
-                                                        <!-- <a asp-controller="Inventory" asp-action="Delete" asp-route-Id="@inventory.Id" class="btn">Delete</a> -->
-                                                               <a  class="btn" data-toggle="modal" data-target="#exampleModal3"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a> <!-- change button css-->
-                                                                                                            
-                                                        <a href="@Url.Action("Delete", "Inventory", new { @inventory.Id})" 
-                                                           class="btn delete" data-toggle="modal" 
-                                                           data-target="#exampleModal4" data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
-                                                        
-                                                        <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Items"><i class="fas fa-eye"> </i></button></a>
-                                                         <a  class="btn" data-toggle="modal" data-target="#exampleModal2"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Add Item"><i class="fas fa-folder-plus"> </i></button></a> <!-- change button css-->
+                                            <td >@inventory.name</td>
+                                            <td >-</td>
+                                            <td >-</td>
+                                            <td >
+                                                <div class="w-100 btn-group" role="group">
+                                                    
+                                                     <a href="@Url.Action("Edit", "Inventory", new {@inventory.Id})"
+                                                        class="btn edit" data-toggle="modal" data-target="#exampleModal3" 
+                                                        data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
+
+                                                    <a href="@Url.Action("Delete", "Inventory", new {@inventory.Id})"
+                                                       class="btn delete" data-toggle="modal"
+                                                       data-target="#exampleModal4" data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
                                                    
-                                                        
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        }
-                                        </tbody>
-                                    </table>
-                                }
-                                else
-                                {<p>No Inventories</p>}
-                            </div>
+                                                    <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Items"><i class="fas fa-eye"> </i></button></a>
+                                                     
+                                                    <a href="@Url.Action("UploadImage", "Item", new {@inventory.Id})" 
+                                                       class="btn upload" data-toggle="modal"
+                                                        data-target="#exampleModal2" data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Add Item"><i class="fas fa-folder-plus"> </i></button></a>
+     
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {<p>No Inventories</p>}
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
       
                 
         
-            <!--Code to show curent page and page number-->
+        <!--Code to show curent page and page number-->
           
-            <div >    @Html.PagedListPager(Model.PagedList, page => Url.Action("Index", new {page}), new PagedListRenderOptions
-                      {
-                          DisplayLinkToIndividualPages = true,
-                          DisplayPageCountAndCurrentLocation = false,
-                          MaximumPageNumbersToDisplay = 10,
-                          LiElementClasses = new[] {"page-item"},
-                          PageClasses = new[] {"page-link"},
-                      })
+        <div >    @Html.PagedListPager(Model.PagedList, page => Url.Action("Index", new {page}), new PagedListRenderOptions
+                  {
+                      DisplayLinkToIndividualPages = true,
+                      DisplayPageCountAndCurrentLocation = false,
+                      MaximumPageNumbersToDisplay = 10,
+                      LiElementClasses = new[] {"page-item"},
+                      PageClasses = new[] {"page-link"},
+                  })
                 
-            </div>
-            <!--Code to show current page and page number-->
-            <div >Showing @(Model.PagedList.PageCount < Model.PagedList.PageNumber ? 0 : Model.PagedList.PageNumber) out of @Model.PagedList.PageCount entries
-            </div>
         </div>
-    </div>
-     
-     
-    <!---Popup Form to create inventory -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog" role="document">
-        
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"  id="exampleModalTitle">Create New Inventory <i class="fas fa-plus"> </i></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                
-                <form method="post" asp-action="Create" >
-                    <div class="modal-body">
-                        <div class="form-group ">
-                              <input asp-for="Inventory.Id" hidden />
-                                    <input asp-for="Inventory.userId" hidden />
-                               
-
-                            <label asp-for="Inventory.name" class="col-form-label"></label> <!--Inventory Name-->
-                            <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
-                        </div>
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                    </div>
-                    <div class="modal-footer ">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Create"/> <!--create button-->
-                    </div>
-                </form>
-                   
-            </div>
-        </div>
-    </div>
-    
-    <!---Popup Form to upload item to inventory -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog" role="document">
-            
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"  id="exampleModalTitle2">Add Item <i class="fas fa-folder-plus"> </i></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-                    
-            <form method="post"  enctype="multipart/form-data" asp-action="UploadImage" asp-controller="Item" >
-                <div class="modal-body">
-                    <div class="form-group ">
-                          
-                     
-                        <!-- Upload image input-->
-                        <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                            <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0">
-                            <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
-                            <div class="input-group-append">
-                                <label for="upload" class="btn btn-light m-0 rounded-pill px-4 upload"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
-                            </div>
-                        </div>
-
-                        <!-- Uploaded image area-->
-                        <p class="font-italic text-grey text-center">The image uploaded will be rendered inside the box below.</p>
-                        <div class="image-area mt-4 align-content-center"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-
-                    </div>
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                </div>
-                    
-                <div class="modal-footer ">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" value="Submit"/> <!--create button-->
-                </div>
-            </form>
-                       
+        <!--Code to show current page and page number-->
+        <div >Showing @(Model.PagedList.PageCount < Model.PagedList.PageNumber ? 0 : Model.PagedList.PageNumber) out of @Model.PagedList.PageCount entries
         </div>
     </div>
 </div>
-
-    <!---Popup Form to edit inventory -->
-<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+     
+     
+<!---Popup Form to create inventory -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
         
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"  id="exampleModalTitle3">Edit Inventory <i class="fas fa-edit"> </i></h5>
+                <h5 class="modal-title"  id="exampleModalTitle">Create New Inventory <i class="fas fa-plus"> </i></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
                 
-            <form method="post" asp-action="Edit" >
+            <form method="post" asp-action="Create" >
                 <div class="modal-body">
                     <div class="form-group ">
                         <input asp-for="Inventory.Id" hidden />
                         <input asp-for="Inventory.userId" hidden />
                                
 
-                        <label asp-for="Inventory.name" class="col-form-label"></label> <!--Inventory Name-->
+                        <label asp-for="Inventory.name" class="col-form-label">Inventory Name * </label> <!--Inventory Name-->
                         <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
+                        <label asp-for="Inventory.name" class="col-form-label">Description *</label> <!--Inventory Name-->
+                        <input class="form-control"/> <!--input box-->
                     </div>
                     <div asp-validation-summary="All" class="text-danger"></div>
                 </div>
                 <div class="modal-footer ">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" value="Save Changes"/> <!--create button-->
+                    <input type="submit" class="btn btn-primary" value="Create"/> <!--create button-->
                 </div>
             </form>
                    
         </div>
     </div>
 </div>
-
 
 </section>
 
@@ -287,23 +200,55 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
-  AOS.init();
+//Animations
+AOS.init();
 </script>
 
-
 <script type="text/javascript">
+//Popups 
+
+// --Edit 
+$('.edit').click(function (ev) {
+    ev.preventDefault(); // this is required
+
+    // get target action
+    let action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        let myModal = $("#exampleModal3");
+            myModal.find("form.data").html(data);
+        $('#exampleModal3').modal('show');
+    });
+});
+
+// --Upload 
+$('.upload').click(function (ev) {
+    ev.preventDefault(); // this is required
+
+    // get target action
+    let action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        let myModal = $("#exampleModal2");
+            myModal.find("form.data").html(data);
+        $('#exampleModal2').modal('show');
+    });
+});
+
+//-- Delete 
 $('.delete').click(function (ev) {
     ev.preventDefault(); // this is required
 
     // get target action
-    var action = $(this).attr('href');
+    let action = $(this).attr('href');
 
     $.get(action, function (data) {
-        $mymodal = $("#exampleModal4");
-            $mymodal.find("div.form-group").html(data);
+        let myModal = $("#exampleModal4");
+            myModal.find("form.data").html(data);
         $('#exampleModal4').modal('show');
     });
 });
+
 
   //ID tooltip
   $(function () {
@@ -312,9 +257,12 @@ $('.delete').click(function (ev) {
 
 </script>
 
+<!--popup partial views-->
 @section Scripts{
     @{<partial name="_ValidationScriptsPartial" /> 
                                      <partial name="_DeleteInventory" /> 
+                                     <partial name="_Edit" /> 
+                                     <partial name="_UploadImage" /> 
        
     }
 }
