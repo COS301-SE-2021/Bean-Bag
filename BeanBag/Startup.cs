@@ -71,7 +71,7 @@ namespace BeanBag
             services.AddTransient<IDashboardAnalyticsService, DashboardAnalyticsService>();
             services.AddTransient<IBlobStorageService, BlobStorageService>();
 
-            services.AddTransient<ITenantService, TenantService>();
+            services.AddTransient<TenantService>();
 
         }
 
