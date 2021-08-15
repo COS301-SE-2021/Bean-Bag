@@ -184,15 +184,15 @@ namespace BeanBag.Controllers
             // The item variable is not deleted. Only the information in the item table, not the item variable itself
             return LocalRedirect("/Inventory/ViewItems?InventoryId=" + inventoryId);
         }
-
+        
         // Define a function to generate a QR code every time we want to view it
-        public IActionResult ViewQRCode(Guid Id)
+        public string ViewQRCode(Guid Id)
         {
             var item = itemService.FindItem(Id);
 
             if(item == null)
             {
-                return NotFound();
+                return "No QR Code";
             }
             else
             {
@@ -206,19 +206,19 @@ namespace BeanBag.Controllers
                 ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
                 ViewBag.InventoryId = item.inventoryId;
 
-                return View();
+                return  ViewBag.QRCode;
             }
              
         }
         
         
-        public IActionResult PrintQRCode(Guid Id)
+        public string PrintQRCode(Guid Id)
         {
             var item = itemService.FindItem(Id);
 
             if (item == null)
             {
-                return NotFound();
+                return NotFound().ToString();
             }
             else
             {
@@ -228,11 +228,11 @@ namespace BeanBag.Controllers
                 var qRCode = new QRCode(qRCodeData);
                 var bitmap = qRCode.GetGraphic(20);
                 bitmap.Save(ms, ImageFormat.Png);
-                bitmap.Save("C:/Users/Public/Pictures/BeanBagItemQRCode.png");
+                bitmap.Save("C:/Users/Public/Pictures/"+Id +".png");
 
+                return Id.ToString();
                 //ViewBag.QRCode = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
-
-                return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
+                // return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
             }
              
         }
