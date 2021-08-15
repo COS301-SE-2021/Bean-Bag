@@ -6,38 +6,66 @@
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+ 
 
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
-<section class="search-and-user " >
-    <div class="admin-profile float-right " >
+<section class="search-and-user ">
+    <span class="col-md-1 text-secondary">
+        Dashboard
+    </span>
+    <div class="admin-profile ">
         @{
             System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
         }
         @if (User.Identity.IsAuthenticated)
         {
-            <span class="greeting ">
+
+            <span class="greeting  ">
 
                 Hello @User.Identity.Name </span>
-      
+
         }
         <div>
             <svg>
                 <use xlink:href="#users"></use>
             </svg>
         </div>
+
+
     </div>
-      
-<div   >
-                               <h6 class="float-right"> Select Inventory   @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList)
-                                                                                                 
-                                                                                                                     
-                                                                                                                     </h6>     </div>
-            
+    
 </section>
+
+
 <div class="dashboard-wrapper">
-  
+
 <div class="container-fluid  dashboard-content">
-  
+
+<hr>
+<br>
+<!--Date picker -->
+<div class="row">
+    
+    <span class="col-md-1">
+        View By
+    </span>
+    <span class="col-md-2">
+        @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null, new {@class = "form-control shadow-sm bg-body rounded"})
+
+    </span>
+
+    <span class="col-md-1">
+        Select Inventory
+    </span>
+    <span class="col-md-2">
+        @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, null, new {@class = "form-control shadow-sm  bg-body rounded"})
+
+    </span>
+
+
+</div>
+<br>
+
 <!-- ============================================================== -->
 <!-- page-header  -->
 <!-- ============================================================== -->
@@ -48,20 +76,18 @@
              data-aos-easing="ease-in-back"
              data-aos-delay="1200"
              data-aos-offset="0">
-            <div class="card">
+            <div class="card shadow p-1 mb-3 bg-body rounded">
                 <div class="card-body">
-                    <h5 class="text-muted">Items Available</h5>
+                    <h5 class="text-muted">Items Added</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 text-primary" id="itemsAvailable" >0 </h1>
+                        <h1 class="mb-1 text-primary" id="itemsAvailable">0 </h1>
                     </div>
-                    <div class="metric-label d-inline-block float-right text-success">
-                        <i class="fa fa-fw fa-caret-up"></i><span>0%</span>
-                    </div>
+                    <span id="addedStat"> </span>
+
                 </div>
-                <div id="sparkline-1"></div>
             </div>
         </div>
-                    
+
     </div>
     <!-- /. metric -->
     <!-- metric -->
@@ -70,66 +96,60 @@
              data-aos-easing="ease-in-back"
              data-aos-delay="1000"
              data-aos-offset="0">
-            <div class="card">
+            <div class="card shadow p-1 mb-3 bg-body rounded">
                 <div class="card-body">
                     <h5 class="text-muted">Items Sold</h5>
                     <div class="metric-value d-inline-block">
                         <h1 class="mb-1 text-primary" id="itemsSold">0 </h1>
                     </div>
-                    <div class="metric-label d-inline-block float-right text-danger">
-                        <i class="fa fa-fw fa-caret-down"></i><span>0%</span>
-                    </div>
+
+                    <span id="soldStat"> </span>
+
                 </div>
-                <div id="sparkline-2"></div>
             </div>
         </div>
-                    
     </div>
     <!-- /. metric -->
     <!-- metric -->
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                     
+
         <div data-aos="flip-left"
              data-aos-easing="ease-in-back"
              data-aos-delay="800"
              data-aos-offset="0">
-            <div class="card">
+            <div class="card shadow p-1 mb-3 bg-body rounded">
                 <div class="card-body">
                     <h5 class="text-muted">Revenue</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 text-primary" id="revenue" > R0.00</h1>
+                        <h1 class="mb-1 text-primary" id="revenue"> R0.00</h1>
                     </div>
-                    <div class="metric-label d-inline-block float-right text-danger">
-                        <i class="fa fa-fw fa-caret-down"></i><span>0%</span>
-                    </div>
+                    <span id="revStat"> </span>
+
                 </div>
-                <div id="sparkline-3">
-                </div>
+
             </div>
         </div>
-                     
+
     </div>
     <!-- /. metric -->
     <!-- metric -->
     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                     
+
         <div data-aos="flip-left"
              data-aos-easing="ease-in-back"
              data-aos-delay="600"
              data-aos-offset="0">
-            <div class="card">
+            <div class="card shadow p-1 mb-3 bg-body rounded">
                 <div class="card-body">
                     <h5 class="text-muted">Sales Growth</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 text-primary">+0% </h1>
+                        <h1 class="mb-1 text-primary" id="growth">+0% </h1>
                     </div>
-                    <div class="metric-label d-inline-block float-right text-success">
-                        </div>
+
                 </div>
-                <div id="sparkline-4"></div>
             </div>
         </div>
-                    
+
     </div>
     <!-- /. metric -->
 </div>
@@ -138,26 +158,26 @@
     <!-- ============================================================== -->
     <!-- recent products  -->
     <!-- ============================================================== -->
-    <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="col-xl-8 col-lg-13 col-md-13 col-sm-13 col-13">
         <div data-aos="fade-zoom-in"
              data-aos-easing="fade-zoom-in"
              data-aos-delay="400"
              data-aos-offset="0">
 
-            <div class="card" id="CategoryID" >
-                <h5 class="card-header">Recently Added Items   </h5>
+            <div class="card shadow p-1 mb-3 bg-body rounded" id="CategoryID">
+                <h5 class="card-header">Recently Added Items </h5>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table">
                             <thead class="bg-light">
-                                         
+
                             <tr>
-                                <td colspan="8"> 
-                                    
+                                <td colspan="8">
+
                                 </td>
-                                                  
+
                             </tr>
-                                        
+
                             <tr>
                                 <th class="border-0">#</th>
                                 <th class="border-0">Image</th>
@@ -180,42 +200,38 @@
     <!-- ============================================================== -->
     <!-- end  -->
     <!-- ============================================================== -->
-           
-             
+
+
     <div class="col-xl-4 col-lg-12 col-md-4 col-sm-12 col-12">
         <div data-aos="fade-zoom-in"
              data-aos-easing="ease-in-back"
              data-aos-delay="50"
              data-aos-offset="0">
-                                              		
-            <div class="card">
+
+            <div class="card shadow p-1 mb-3 bg-body rounded">
                 <h5 class="card-header">Total Items</h5>
                 <div class="card-body">
-                <!--    <div class="float-right">
-                        <span class="font-weight-bold"> Inventory : </span>// 
-                    
-                          </div>  -->
-               
-                                          
+
                     <canvas id="total-sale" width="220" height="155"></canvas>
 
-                    <br> 
-                <div class="chart-widget-list">
-                     <p class="mb-0">
-                                        
-                            <span class="legend-text font-weight-bold ">Inventory </span> <span class="legend-text float-right" id="inventory"> None
-                                        </span>
-                         <span><br></span>
-                       
-                                    </p>
-  <hr>
-                    <div id="topItems">
-                    </div>
+                    <br>
+                    <div class="chart-widget-list">
+                        <p class="mb-0">
 
-                    <p class="mb-0"> <span class="legend-text font-weight-bold"> Total Items </span>
-                        <span class="float-right" id="totalItems">0</span>
-                    </p>
-                </div>
+                            <span class="legend-text font-weight-bold ">Inventory </span>
+                            <span class="legend-text float-right" id="inventory"> None
+                            </span>
+                            <span><br></span>
+
+                        </p>
+                        <hr>
+                        <div id="topItems">
+                        </div>
+
+                        <p class="mb-0"> <span class="legend-text font-weight-bold"> Total Items </span>
+                            <span class="float-right" id="totalItems">0</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -224,13 +240,13 @@
     <!-- end total items  -->
     <!-- ============================================================== -->
 </div>
-               
-             
-             
-             
+
+
+
+
 <div class="page-footer">
-    <span>    &copy; 2021 - Agile Bridge </span>
-  
+    <span> &copy; 2021 - Agile Bridge </span>
+
 </div>
 </div>
 </div>
@@ -240,35 +256,173 @@
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
+    
    
       $(document).ready(function ()
       {
-          //Items available
-          $.getJSON('/Home/ItemsAvailable/' , function (data) { 
-                $('#itemsAvailable').text(data);       
-              });
-                    
-           //Items sold
-          $.getJSON('/Home/ItemsSold/' , function (data) { 
-                 $('#itemsSold').text(data);       
-            });
-          
-            //Items revenue
-           $.getJSON('/Home/Revenue/' , function (data) { 
-                $('#revenue').text("R" + data);       
-            });
-                    
-            //Items Growth
-            $.getJSON('/Home/SalesGrowth/' , function (data) { 
-                 $('#growth').text(data +"%");       
-             });
+            //------------- Ajax get items on change of the timespan ------------------//
+             $("#TimeDropDown").change(function () {
+                 
+                  let selected=  $("#InventoryDropDown Option:Selected");
+                              $('#inventory').text( selected.text());  
+                               
+                               let selectedTime=$("#TimeDropDown Option:Selected");
+                               $('#time').text( selected.text());  
+                                                         
+                          //Items available
+                           $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                               $('#itemsAvailable').text(data);       
+                           })       
+                           
+                              //Items sold
+                                     $.getJSON('/Home/ItemsSold/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                         $('#itemsSold').text(data);     
+                                       });
+                                     
+                                       //Items revenue
+                                      $.getJSON('/Home/Revenue/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                           $('#revenue').text("R" + data);       
+                                       });
+                                               
+                                       //Items Growth
+                                       $.getJSON('/Home/SalesGrowth/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                            $('#growth').text(data +"%");       
+                                        }); 
+                                       
+                         
+                          //Percentage growth stats
+                          
+                          //Added stat
+                           $.getJSON('/Home/AvailableStat/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                let val;
+                                if (data>=0)
+                                {
+                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                }
+                                else
+                                {
+                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                 }
+                              
+                               $('#addedStat').html(val);       
+                            })  
+                 
+                           //Sold stat
+                            $.getJSON('/Home/SoldStat/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                    let val;
+                                             if (data>=0)
+                                             {
+                                                 val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                                        '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                             }
+                                             else
+                                             {
+                                                 val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                                      '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                              }                                                
+                                  $('#soldStat').html(val);       
+                               });
+                           
+                            //Revenue stat
+                              $.getJSON('/Home/RevenueStat/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                let val;
+                                if (data>=0)
+                                {
+                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                }
+                                else
+                                {
+                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                 }                     $('#revStat').html(val);       
+                                }); 
+                              
+                              
+                             });
                       
-         //Ajax function to get dashboard on dropdown (Recent Items)
+         //--------------- Ajax function to get dashboard on dropdown (Recent Items) --------------//
          $("#InventoryDropDown").change(function () {
             
-             var selected=  $("#InventoryDropDown Option:Selected");
+             let selected=  $("#InventoryDropDown Option:Selected");
+             $('#inventory').text( selected.text());  
              
-              $('#inventory').text( selected.text());  
+                     
+                               let selectedTime=$("#TimeDropDown Option:Selected");
+                               $('#time').text( selected.text());  
+                                                           
+                          //Items available
+                           $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                               $('#itemsAvailable').text(data);       
+                           })       
+                           
+                              //Items sold
+                                     $.getJSON('/Home/ItemsSold/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                            $('#itemsSold').text(data);       
+                                       });
+                                     
+                                       //Items revenue
+                                      $.getJSON('/Home/Revenue/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                           $('#revenue').text("R" + data);       
+                                       });
+                                               
+                                       //Items Growth
+                                       $.getJSON('/Home/SalesGrowth/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                            $('#growth').text(data +"%");       
+                                        }); 
+           
+                          //Percentage growth stats
+                          
+                          //Added stat
+                           $.getJSON('/Home/AvailableStat/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                let val;
+                                if (data>=0)
+                                {
+                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                }
+                                else
+                                {
+                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                 }
+                              
+                               $('#addedStat').html(val);       
+                            })  
+                 
+                           //Sold stat
+                            $.getJSON('/Home/SoldStat/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                    let val;
+                                             if (data>=0)
+                                             {
+                                                 val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                                        '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                             }
+                                             else
+                                             {
+                                                 val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                                      '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                              }                                                
+                                  $('#soldStat').html(val);       
+                               });
+                           
+                            //Revenue stat
+                              $.getJSON('/Home/RevenueStat/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                let val;
+                                if (data>=0)
+                                {
+                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                }
+                                else
+                                {
+                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                 }                     $('#revStat').html(val);       
+                                });                                       
+                                              
              //RecentItems
            $.getJSON('/Home/GetItems/' + selected.val(), function (data) { 
                      let items = '';  
@@ -285,7 +439,7 @@
 '                                <td>'+item.name+'</td>'+
 '                                <td>'+item.type+'</td>'+
 '                                <td>'+item.quantity +'</td>'+
-'                                <td>'+item.price+'</td>'+
+'                                <td>'+"R"+ item.price+'</td>'+
 ''+
 '                                <td>'+item.entryDate+'</td>'+
 '                            </tr>';
@@ -304,7 +458,7 @@
                                           let item1='';
                                           let item2='';
                                           let item3='';
-                                          var quantity1=0, quantity2=0, quantity3=0;
+                                          let quantity1=0, quantity2=0, quantity3=0;
                                           let boxColor='';
                                           
                                        //Top 3 Items 
@@ -391,10 +545,86 @@
              
          
              
-          //Ajax function to get dashboard on load
-              var  selected=$("#InventoryDropDown Option:Selected");
+          //------ Ajax function to get dashboard on load ---------------//
+          
+          
+              let  selected=$("#InventoryDropDown Option:Selected");
               $('#inventory').text( selected.text());  
+              
+              let selectedTime=$("#TimeDropDown Option:Selected");
+               $('#time').text( selected.text());  
+      
+                                                         
+                          //Items available
+                           $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                               $('#itemsAvailable').text(data);       
+                           })       
+                           
+                              //Items sold
+                                     $.getJSON('/Home/ItemsSold/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                            $('#itemsSold').text(data);       
+                                       });
+                                     
+                                       //Items revenue
+                                      $.getJSON('/Home/Revenue/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                           $('#revenue').text("R" + data);       
+                                       });
+                                               
+                                       //Items Growth
+                                       $.getJSON('/Home/SalesGrowth/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                            $('#growth').text(data +"%");       
+                                        });                 
+            
+                          //Percentage growth stats
                           
+                          //Added stat
+                           $.getJSON('/Home/AvailableStat/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                let val;
+                                if (data>=0)
+                                {
+                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                }
+                                else
+                                {
+                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                 }
+                              
+                               $('#addedStat').html(val);       
+                            })  
+                 
+                           //Sold stat
+                            $.getJSON('/Home/SoldStat/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
+                                    let val;
+                                             if (data>=0)
+                                             {
+                                                 val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                                        '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                             }
+                                             else
+                                             {
+                                                 val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                                      '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                              }                                                
+                                  $('#soldStat').html(val);       
+                               });
+                           
+                            //Revenue stat
+                              $.getJSON('/Home/RevenueStat/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
+                                let val;
+                                if (data>=0)
+                                {
+                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
+                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
+                                }
+                                else
+                                {
+                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
+                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
+                                 }                     $('#revStat').html(val);       
+                                });                  
+           //Recent items                
            $.getJSON('/Home/GetItems/' + selected.val()  , function (data) { 
                      let items = '';  
                      $.each(data, function (i, item) {
@@ -410,7 +640,7 @@
 '                                <td>'+item.name+'</td>'+
 '                                <td>'+item.type+'</td>'+
 '                                <td>'+item.quantity +'</td>'+
-'                                <td>'+item.price+'</td>'+
+'                                <td>'+"R" +item.price+'</td>'+
 ''+
 '                                <td>'+item.entryDate+'</td>'+
 '                            </tr>';
@@ -427,7 +657,7 @@
                                    let item1='';
                                    let item2='';
                                    let item3='';
-                                   var quantity1=0, quantity2=0, quantity3=0;
+                                   let quantity1=0, quantity2=0, quantity3=0;
                                    let boxColor='';
                                    
                                 //Top 3 Items 

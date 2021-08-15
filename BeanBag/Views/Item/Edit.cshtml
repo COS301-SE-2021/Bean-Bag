@@ -1,131 +1,210 @@
 ﻿@model Item
-
-@using Microsoft.Extensions.Options
-@using Microsoft.Identity.Web
-@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
-
-@{
-    var options = _azureAdb2COptions.Value;
-}
-
-<section class="item-create row d-flex justify-content-center">
-    <div class="col-2"> </div>
-    <div class="col-2">
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="@ViewBag.imageUrl" alt="uploadedImage">
-          <div class="card-body">
-              <p class="card-text">
-                  <p><b>Item Type:</b> @ViewBag.itemType</p>
-              </div>
-        </div> 
-    </div>
-    <div class="col-2"> </div>
+<section class="page-content" xmlns="http://www.w3.org/1999/html">
     
-    <div class="col-5">
-        <form method="post" asp-action="Edit" asp-controller="Item" class="createForm">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <input asp-for="Id" hidden />
-            <input asp-for="imageURL" hidden />
-            <input asp-for="QRContents" hidden />
-            <input asp-for="entryDate" hidden />           
+    <section class="ml-3" >
+        <a asp-action="ViewItems" asp-controller="Inventory" asp-route-inventoryId="@ViewBag.InventoryId" class="btn btn-secondary  rounded-pill "><i class="fas fa-chevron-left"> </i></a>
 
-            <div class="form-group row">
-                <label asp-for="name"></label>
-                <input asp-for="name" class="form-control" />
-            </div>
+        <span class="col-md-1 text-secondary ">
+            Item | Edit Item
+        </span>
 
-            <div class="form-group row">
-                <label asp-for="type"></label>
-                <input asp-for="type" class="form-control" />
-            </div>
+    </section>
+    
+     
+    <div class="dashboard-wrapper">
+        <div class="container-fluid  dashboard-content">
+            <hr>
+            <br>
 
-            <div class="form-group row">
-                <label asp-for="price"></label>
-                <input asp-for="price" class="form-control" />
-            </div>
+            <div class="row ">
+                
+                
+ 
+                <!-- ============================================================== -->
+                <!-- recent products  -->
+                <!-- ============================================================== -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                   
+                        <div class="card shadow p-1 mb-3 bg-body rounded " >
+                            <h5 class="card-header">Edit Item <i class="fas fa-edit"> </i></h5>
+                            <div class="card-body">
 
-            <div class="form-group row">
-                <label asp-for="quantity"></label>
-                <input asp-for="quantity" class="form-control" />
-            </div>
+                                
+                                <div class="row">
+                                                   
+                                    <div class="col-sm p-3">
+                                        <div >
+                                            <div >
+                                                    
+                                                <div class="card shadow p-1 mb-3 bg-body rounded">
+                                                    <div class="card-body ">
+                                                        <p class=" text-muted text-uppercase medium"><i class="fas fa-camera"></i>  &nbsp; Item Image  </p>
+                                                        <hr> <br>
+                                                        <div id="mdb-lightbox-ui"></div>
+                                                    
+                                                        <div class="mdb-lightbox">
+                                                    
+                                                            <div class="row product-gallery mx-1 d-flex justify-content-center">
+                                                    
+                                                                <div class="col-7 mb-0">
+                                                                    <figure class="view overlay rounded z-depth-1 main-img">
+                                                                        <a href="@ViewBag.imageUrl"
+                                                                           data-size="110x223">
+                                                                            <img  src="@ViewBag.imageUrl"
+                                                                                 class="img-fluid z-depth-1" alt="">
+                                                                        </a>
+                                                                    </figure>
+                                                                </div>
+                                                    
+                                                            </div>
+                                                        </div>
+                                                    
+                                                    
+                                                    
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm pl-5 pr-5 pt-3">
+                                
+                                            
+                                            <form method="post" asp-action="Edit" asp-controller="Item">
+                               <div class="form-group row">                                               
+                    <h5 class="text-muted">Item Details </h5>     <hr></div>
+                                             
+                                                <div class="row">             
+                                    <div class="col-sm">
+                                                <div asp-validation-summary="All" class="text-danger"></div>
+                                                  <div asp-validation-summary="All" class="text-danger"></div>
+                                                           <input asp-for="Id" hidden />
+                                                           <input asp-for="imageURL" hidden />
+                                                           <input asp-for="QRContents" hidden />
+                                                           <input asp-for="entryDate" hidden />           
+                                               
+                                                           <div class="form-group row">
+                                                               <label asp-for="name"></label>
+                                                               <input asp-for="name" class="form-control" />
+                                                           </div>
+                                               
+                                                           <div class="form-group row">
+                                                               <label asp-for="type"></label>
+                                                               <input asp-for="type" class="form-control" />
+                                                           </div>
+                                               
+                                                           <div class="form-group row">
+                                                               <label asp-for="price"></label>
+                                                               <input asp-for="price" class="form-control" />
+                                                           </div>
+                                               
+                                                           <div class="form-group row">
+                                                               <label asp-for="quantity"></label>
+                                                               <input asp-for="quantity" class="form-control" />
+                                                           </div>
+                                                           
+                                                           <div class=" form-check-inline form-group row">
+                                                               
+                                                               <label class="form-check-label"  >Sold &nbsp;</label>
+                                                               <input class="form-check-input" type="checkbox" asp-for="isSold" >
+                                                           </div>
+                                                    </div>
+                                                         
+                                                            
+                                                    <div class="col-sm  pl-5 pr-5 p-3">
+                                                        <div class="form-group row">
+                                                            
+                                                            <label asp-for="soldDate"></label>
+                                                            <input asp-for="soldDate" class="form-control" type="date"/>
 
-            <div class="form-group row">
-                <label asp-for="isSold"></label>
-                <input asp-for="isSold" class="form-control" type="checkbox" />
-            </div>
 
-            <div class="form-group row">
-                <label asp-for="soldDate"></label>
-                <input asp-for="soldDate" class="form-control" type="date" />
-            </div>
+                                                          
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label asp-for="inventoryId" value="Inventory"></label>
+                                                            <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
+                                                                <option selected>Select Inventory</option>
+                                                            </select>
+                                                        </div>
+                                                        <!--need to do backend code-->
+                                                        <div class="form-group row">
+                                                            <label for="color">Colour</label> &nbsp; &nbsp;<br>
+                                                            <input type="color" size="100px" name="favcolor" value="black">
+                                                        </div>
 
-            <div class="form-group row">
-                <label asp-for="inventoryId" value="Inventory"></label>
-                <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
-                    <option selected>Select Inventory</option>
-                </select>
-            </div>
+                                                        <div class="form-group row">
 
-            <input type="submit" class="btn btn-1" value="Edit" />
-            <a asp-action="Index" asp-controller="Inventory" class="btn btn-2">Back</a>
-        </form>
-    </div>
-    <div class="col-1"> </div>
-</section>
+                                                            <label for="condition" value="Condition">Condition</label> &nbsp; &nbsp;<br>
+                                                            <select name="Condition" class="form-control">
+                                                                <option value="new">New</option>
+                                                                <option value="pre owned">Pre-Owned</option>
+                                                                <option value="damaged">Damaged</option>
+                                                            </select>
+                                                        </div>
 
-@*  *@
+                                                        <div class="form-group row">
 
-@*<section class="inventory d-flex align-items-center">
-        <br/>
-        <form method="post" asp-action="EditPost" class="createForm" >
-            <input asp-for="Id" hidden/>
+                                                            <input type="submit" class="btn btn-primary float-right text-right" value="Submit"/>
+                                                        </div>
+                                                    </div></div> 
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                    
 
-            <div class="form-group row">
-                <h3>Edit Item</h3>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group row">
-                        <div class="col-4">
-                            <label asp-for="name"></label>
-                        </div>
-                        <div class="col-4">
-                            <label asp-for="type"></label>
-                        </div>
-                        <div class="col-4">
-                            <label asp-for="inventoryId" value="Inventory"></label>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-4">
-                            <input asp-for="name" class="form-control"/>
 
-                        </div>
-                        <div class="col-4">
-                            <input asp-for="type" class="form-control"/>
-                        </div>
-                        <div class="col-4">
-                            <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-8 offset-2 row">
-                            <div class="col">
-                                <input type="submit" class="btn btn-1" value="Edit"/>
-                            </div>
-                            <div class="col">
-                                <a asp-action="ViewItems" asp-controller="Inventory" asp-route-InventoryId="@ViewBag.InventoryId" class="btn btn-2">Back</a>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
+              
             </div>
 
-        </form>
-    </section>*@
+            <!-- ============================================================== -->
+            <!-- end  -->
+            <!-- ============================================================== -->
+
+        </div>
+        
+
+</section>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+<!--Section: Block Content-->
+
+
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />
     }
+    
+    
 }
+
+<script>
+
+$(document).ready(function () {
+  // MDB Lightbox Init
+  $(function () {
+    $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+  });
+});
+</script>
+<script>
+  AOS.init();
+</script>
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+

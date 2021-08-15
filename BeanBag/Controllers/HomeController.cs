@@ -24,6 +24,7 @@ namespace BeanBag.Controllers
         //Index page, returns drop-down-lists and the page view
         public IActionResult Index()
         {
+            //Inventory Drop-Down-List
             var inventories = inventoryService.GetInventories(User.GetObjectId());
             IEnumerable < SelectListItem > inventoryDropDown = inventories.Select(i => new SelectListItem
                 {
@@ -35,9 +36,20 @@ namespace BeanBag.Controllers
             {
                 inventoryDropDown.First().Selected = true;
             }
-            
             ViewBag.InventoryDropDown = inventoryDropDown;
             
+            //TimeFrame Drop-Down-list
+            List<SelectListItem> times = new List<SelectListItem>
+            {
+                new SelectListItem() {Text = "Year", Value = "Y"},
+                new SelectListItem() {Text = "Month", Value = "M"},
+                new SelectListItem() {Text = "Week", Value = "W"},
+                new SelectListItem() {Text = "Day", Value = "D"}
+            };
+
+            times.First().Selected = true;
+            ViewBag.TimeDropDown = times;
+
             return View();
         }
         
@@ -64,30 +76,53 @@ namespace BeanBag.Controllers
         }
         
         //Get items available for items available card
-        public int ItemsAvailable()
+        public int ItemsAvailable(string id, string time)
         {
-            var result = dashboardAnalyticsService.GetItemsAvailable(User.GetObjectId()); 
+            var result = dashboardAnalyticsService.GetItemsAvailable(id , time); 
             return result;
         }
 
         //Items sold for items card
-        public int ItemsSold()
+        public int ItemsSold(string id, string time)
         {
-            var result = dashboardAnalyticsService.GetItemsSold(User.GetObjectId()); 
+            var result = dashboardAnalyticsService.GetItemsSold(id , time); 
             return result;
         }
-        
+
         //Revenue 
-        public double Revenue()
+        public double Revenue(string id, string time)
         {
-            var result = dashboardAnalyticsService.GetRevenue(User.GetObjectId()); 
+            var result = dashboardAnalyticsService.GetRevenue(id , time); 
             return result;
         }
         
         //Growth
-        public double Growth()
+        public double SalesGrowth(string id, string time)
         {
-            var result = dashboardAnalyticsService.GetSalesGrowth(User.GetObjectId()); 
+            var result = dashboardAnalyticsService.GetSalesGrowth(id , time); 
+            return result;
+        }
+        
+            
+        //Item available percentage growth statistic
+        public double AvailableStat(string id, string time)
+        {
+            var result = dashboardAnalyticsService.ItemAvailableStat(id , time); 
+            return result;
+        }
+        
+               
+        //Item sold percentage growth statistic
+        public double SoldStat(string id, string time)
+        {
+            var result = dashboardAnalyticsService.ItemsSoldStat(id , time); 
+            return result;
+        }
+        
+        //Item revenue percentage growth statistic
+        public double RevenueStat(string id, string time)
+        {
+            var result = dashboardAnalyticsService.ItemsRevenueStat(id , time); 
             return result;
         }
     }
