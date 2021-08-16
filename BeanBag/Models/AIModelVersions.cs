@@ -21,6 +21,9 @@ namespace BeanBag.Models
         [Required]
         public Guid projectId { get; set; }
 
+        [ForeignKey("projectId")]
+        public virtual AIModel AIModel { get; set; }
+
         public string predictionUrl { get; set; }
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeanBag.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20210816112840_updated_item_and_inventory")]
-    partial class updated_item_and_inventory
+    [Migration("20210816170432_DB_Tables_Beta_version")]
+    partial class DB_Tables_Beta_version
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,6 +57,8 @@ namespace BeanBag.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("iterationId");
+
+                    b.HasIndex("projectId");
 
                     b.ToTable("AIModelIterations");
                 });
@@ -148,6 +150,17 @@ namespace BeanBag.Migrations
                     b.HasKey("userId");
 
                     b.ToTable("UserRoles");
+                });
+
+            modelBuilder.Entity("BeanBag.Models.AIModelVersions", b =>
+                {
+                    b.HasOne("BeanBag.Models.AIModel", "AIModel")
+                        .WithMany()
+                        .HasForeignKey("projectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AIModel");
                 });
 
             modelBuilder.Entity("BeanBag.Models.Item", b =>
