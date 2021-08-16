@@ -47,11 +47,9 @@ body {
     background-color: var(--main-color);
     padding: 12px 30px;
     border: none;
-    /* border-radius: 30px;*/
-    color: var(--off-white);
+    color: white;
     font-size: 16px;
     text-transform: capitalize;
-    /*    transition: all 05s ease;*/
     box-shadow: var(--shadow-black-100);
     font-weight: 500;
 }
@@ -84,6 +82,9 @@ body {
     /*  color: var(--off-white);
       background-color: transparent;*/
 }
+
+
+
 
 .clearfix {
     clear: both;
@@ -315,14 +316,13 @@ a[href^="https"] {
 .inventoryTable {
     border-color: var(--main-color);
 }
-thead th
+.inventoryTableHeader
 {
     /* doesn't want to show*/
     background-color: var(--main-color) !important;
     color:var(--off-white);
-
-
 }
+
 /* Responsive*/
 @media(max-width: 991px){
     /* .navbar-toggler{
