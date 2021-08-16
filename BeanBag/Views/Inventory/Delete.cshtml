@@ -5,23 +5,23 @@
 @{
     Layout = null;
 }
+
 <div class="modal-body ">
                                              
     <div class="form-group">
         <h6 class="text-muted"> Are you sure that you want to delete this inventory? </h6>
         <hr>
         <div class="stats mt-2">
-            
             <div class="d-flex justify-content-between p-price"><span>Name</span><span>@Model.name</span></div>
             <div class="d-flex justify-content-between p-price"><span>ID</span><span>@Model.Id</span></div>
-            <div class="d-flex justify-content-between p-price"><span>Date Created</span><span>-</span></div>
-            <div class="d-flex justify-content-between p-price"><span>Description</span><span>-</span></div>
+            <div class="d-flex justify-content-between p-price"><span>Date Created</span><span>@Model.createdDate</span></div>
+            <div class="d-flex justify-content-between p-price"><span>Description</span><span>@Model.description</span></div>
         </div>
         <input asp-for="Id" hidden/>
 
         <div asp-validation-summary="All" class="text-danger"></div>
     </div>
-                       </div>
+    </div>
 <div class="modal-footer ">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
     <input type="submit" class="btn btn-primary" value="Delete"/> <!--create button-->
