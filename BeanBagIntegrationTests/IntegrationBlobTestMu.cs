@@ -9,16 +9,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Xunit;
+using Microsoft.AspNetCore.Http;
 
 namespace BeanBagIntegrationTests
 {
-    public class IntegrationBlobTestMu 
+    public class IntegrationBlobTestMu
     {
-        public class BlobStorageFixture : IDisposable {
+        public class BlobStorageFixture : IDisposable
+        {
             readonly Process process;
 
-            public BlobStorageFixture() {
-                process = new Process {
+            public BlobStorageFixture()
+            {
+                process = new Process
+                {
                     StartInfo = {
                         UseShellExecute = false,
                         FileName = @"C:\Program Files (x86)\Microsoft SDKs\Azure\Storage Emulator\AzureStorageEmulator.exe",
@@ -30,47 +34,58 @@ namespace BeanBagIntegrationTests
                 StartAndWaitForExit("start");
             }
 
-            public void Dispose() {
+            public void Dispose()
+            {
                 StartAndWaitForExit("stop");
             }
 
-            void StartAndWaitForExit(string arguments) {
+            void StartAndWaitForExit(string arguments)
+            {
                 process.StartInfo.Arguments = arguments;
                 process.Start();
                 process.WaitForExit(10000);
             }
-        
 
-        public class FaceWhitelistTests : IClassFixture<BlobStorageFixture> {
-            public FaceWhitelistTests(BlobStorageFixture fixture) { }
 
-            [Fact]
-            public async Task WhitelistUser_NewUser_IsWhitelisted() {
-                var faceWhitelist = Create();
-                var userToWhiteList = new SlackUser {Id = Path.GetRandomFileName()};
+            public void upload_Item_Image(IFormFile file)
+            {
+                //ARRANGE
 
-                await faceWhitelist.WhitelistUser(userToWhiteList);
 
-                await VerifyUserIsWhiteListed(userToWhiteList);
+                //ACT
+
+
+                //ASSERT
+
+                
             }
 
-            // ... more test cases exist IRL
+            public void upload_Test_Images(IFormFileCollection testImages, string projectId)
+            {
+                //ARRANGE
 
-            static FaceWhitelist Create() =>
-                new FaceWhitelist(BlobStorageConfiguration.Local);
 
-            static async Task VerifyUserIsWhiteListed(SlackUser user) {
-                var storageAccount = CloudStorageAccount.Parse(BlobStorageConfiguration.Local.ConnectionString);
-                var blobClient = storageAccount.CreateCloudBlobClient();
-                var container = blobClient.GetContainerReference("whitelist");
-                using (var memoryStream = new MemoryStream()) {
-                    await container.GetBlockBlobReference(user.Id).DownloadToStreamAsync(memoryStream);
-                    var actualUserId = Encoding.UTF8.GetString(memoryStream.ToArray());
-                    Assert.Equal(user.Id, actualUserId);
-                }
+                //ACT
+
+
+                //ASSERT
+
             }
+
+            public void delete_Test_Image_Folder(string projectId)
+            {
+                //ARRANGE
+
+
+                //ACT
+
+
+                //ASSERT
+
+            }
+
+
+
         }
-        
-
     }
 }
