@@ -5,6 +5,7 @@
 @{
   //Get the value of the website theme colour here
   var color = _tenantService.GetTenantTheme(User.GetObjectId());
+  var logo = _tenantService.GetLogo(User.GetObjectId());
 } 
 
 <!DOCTYPE html>
@@ -88,7 +89,7 @@
   <header class="page-header">
     <nav>
       <a href="#0"  class="logo">
-        LOGO HERE
+        <img src="@logo" alt="LOGO HERE">
          <!---Company logo-->
         
       </a>
