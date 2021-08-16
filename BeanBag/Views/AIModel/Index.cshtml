@@ -11,17 +11,19 @@
 <link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
-<section class="search-and-user">
-    <span class="col-md-1 text-secondary ">
-        Train Models
-    </span>
-    <div class="admin-profile ">
-        <span class="greeting  ">
-            Total Models &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalModels</span>
-               
+    <section class="search-and-user">
+        
+        <span class="col-md-2 text-secondary ">
+            Train Models
         </span>
-    </div>
-</section>
+
+        <div class="admin-profile ">
+            <span class="greeting  ">
+                Total Models &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalModels</span>
+
+            </span>
+        </div>
+    </section>
     
      
 <div class="dashboard-wrapper">
@@ -123,7 +125,7 @@
                                                        class="btn delete" data-toggle="modal"
                                                        data-target="#exampleModal4" data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
                                                    
-                                                    <a asp-controller="AIModel" asp-action="ModelVersions" asp-route-InventoryId="@models.projectId" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Versions"><i class="fas fa-eye"> </i></button></a>
+                                                    <a asp-controller="AIModel" asp-action="ModelVersions" asp-route-projectId="@models.projectId" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Versions"><i class="fas fa-eye"> </i></button></a>
                                                     
                                                 </div>
                                             </td>
@@ -161,7 +163,7 @@
 </div>
      
      
-<!---Popup Form to create inventory -->
+<!---Popup Form to create model -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
         
@@ -176,10 +178,8 @@
             <form method="post" asp-action="CreateModel" >
                 <div class="modal-body">
                     <div class="form-group ">
-                        <input asp-for="Inventory.Id" hidden />
-                        <input asp-for="Inventory.userId" hidden />
-                               
-
+                        <input asp-for="AIModel.projectId" hidden />
+                                        
                         <label asp-for="AIModel.projectName" class="col-form-label">Model Name * </label> <!--Inventory Name-->
                         <input asp-for="AIModel.projectName" class="form-control"/> <!--input box-->
                         <label  class="col-form-label">Description *</label> <!-- Name-->
@@ -224,4 +224,38 @@ $('.edit').click(function (ev) {
         $('#exampleModal3').modal('show');
     });
 });
+
+
+//-- Delete 
+$('.delete').click(function (ev) {
+    ev.preventDefault(); // this is required
+
+    // get target action
+    let action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        let myModal = $("#exampleModal4");
+            myModal.find("form.data").html(data);
+        $('#exampleModal4').modal('show');
+    });
+});
+
+// --Upload 
+$('.uploading').click(function (ev) {
+    ev.preventDefault(); // this is required
+
+    // get target action
+    let action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        let myModal = $("#exampleModal2");
+            myModal.find("form.data").html(data);
+        $('#exampleModal2').modal('show');
+    });
+});
+
+  //ID tooltip
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
 </script >

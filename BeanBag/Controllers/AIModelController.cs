@@ -105,16 +105,12 @@ namespace BeanBag.Controllers
         }
         
 
-        [HttpGet]
-        public IActionResult CreateModel()
-        {
-            return View();
-        }
+    
 
         [HttpPost]
-        public async Task<IActionResult> CreateModel(string modelName)
+        public async Task<IActionResult> CreateModel(Pagination mods)
         {
-            Guid id = await aIService.createProject(modelName);
+            Guid id = await aIService.createProject(mods.AIModel.projectName);
 
             return LocalRedirect("/AIModel/TestImages?projectId=" + id.ToString());
         }
