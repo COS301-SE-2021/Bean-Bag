@@ -11,6 +11,7 @@ using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using BeanBag.Database;
 using BeanBag.Services;
+using Microsoft.Extensions.Azure;
 
 namespace BeanBag
 {
@@ -72,6 +73,7 @@ namespace BeanBag
             services.AddTransient<IBlobStorageService, BlobStorageService>();
 
             services.AddTransient<TenantService>();
+            services.AddTransient<TenantBlobStorageService>();
 
         }
 
