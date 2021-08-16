@@ -3,6 +3,7 @@
 /*  Global Css  */
 :root {
     --main-color:var(--greenSheen);/*#7857fe*/
+    --main-color-light:rgba(118,181,174,0.2);
     --color-1: #e91e63;
     --color-2: #f5ae10;
     --color-3: #09d69c;
@@ -36,27 +37,36 @@ body {
 
 }
 
+/* Cards*/
+.card-header{
+  background-color:var(--main-color-light);  
+}
+
+/*Buttons*/
 
 .btn-1 {
     background-color: var(--main-color);
     padding: 12px 30px;
     border: none;
-    border-radius: 30px;
+   /* border-radius: 30px;*/
     color: var(--off-white);
     font-size: 16px;
     text-transform: capitalize;
-    transition: all 05s ease;
+/*    transition: all 05s ease;*/
     box-shadow: var(--shadow-black-100);
     font-weight: 500;
 }
 
 .btn-1:focus {
-    box-shadow: var(--shadow-black-100);
+  /*  box-shadow: var(--shadow-black-100);*/
 }
-
+.btn-1:hover{
+    color: var(--off-white) !important;  
+    
+}
 .btn:hover {
     /* color: #f1f2f6;*/
-    background-color:rgba(87,140,255,0.5) ;/* put this colour inside a var */
+    /* background-color:rgba(87,140,255,0.5) ; put this colour inside a var */
 
 }
 .btn:visited{
@@ -72,8 +82,8 @@ body {
 }
 
 .btn.btn-light:hover {
-    color: var(--off-white);
-    background-color: transparent;
+  /*  color: var(--off-white);
+    background-color: transparent;*/
 }
 
 .clearfix {
@@ -184,21 +194,11 @@ ul {
     right: 0;
     height: 1px;
     background-color: #ffffff;
-    transition: all 0.5s ease;
+    /*transition: all 0.5s ease;*/
     transform: scale(0);
 }
 
-.navbar .nav-item .nav-link.active::before,
-.navbar .nav-item .nav-link:hover::before {
-    transform: scale(1);
-}
-.navbar-toggler{
-    padding: .25rem .75rem;
-    font-size:1.25rem;
-    line-height:1;
-    background-color: transparent;
-    border-radius: .25rem;
-}
+
 /*Home */
 .home {
     min-height: 92vh;
@@ -294,7 +294,7 @@ a[href^="https"] {
 .btn-2 {
     /*background-color: var(--off-white);*/
     padding: 12px 30px;
-    border-radius: 30px;
+   /* border-radius: 30px;*/
     border-color: var(--main-color);
     color: var(--main-color) !important;
     font-size: 16px;
@@ -456,4 +456,24 @@ thead th
 .colourButton{
     width:40px;
     height:40px;
+}
+.appearance{
+    width:1000px;
+    margin: auto;
+}
+
+.themeSelector{
+    padding: 10px;
+    border-radius: 10px;
+    border-color: gray;
+    /*: darkgray;*/
+}
+
+.element {
+    display: inline-block !important;
+
+}
+
+.element1{
+    margin-right: 15px;
 }
