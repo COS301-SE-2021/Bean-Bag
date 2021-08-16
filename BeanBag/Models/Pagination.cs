@@ -8,6 +8,10 @@ namespace BeanBag.Models
         public Inventory Inventory { get; set; }
         
         public Item Item { get; set; }
+        
+        public AIModel AIModel { get; set; }
+        
+        public AIModelVersions AIModelVersions { get; set; }
         public IPagedList<Inventory> PagedList{ get; set; }
 
         public IPagedList<Item> PagedListItems{ get; set; }

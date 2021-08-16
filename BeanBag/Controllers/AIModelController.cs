@@ -1,5 +1,4 @@
-﻿using BeanBag.Database;
-using BeanBag.Models;
+﻿using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Identity.Web;
+using X.PagedList;
 
 namespace BeanBag.Controllers
 {
@@ -21,11 +22,88 @@ namespace BeanBag.Controllers
             blobService = _blob;
         }
 
-        public IActionResult Index()
+   /*     public IActionResult Index()
         {
             List<AIModel> models = aIService.getAllModels();
             return View(models);
+        }*/
+        
+             
+         //This code adds a page parameter, a current sort order parameter, and a current filter parameter to the method signature
+        public IActionResult Index(string sortOrder, string currentFilter, string searchString, int? page,DateTime from, DateTime to)
+        {
+            if(User.Identity is {IsAuthenticated: true})
+            {
+                
+             //A ViewBag property provides the view with the current sort order, because this must be included in 
+             //  the paging links in order to keep the sort order the same while paging
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            List<AIModel> modelList;
+
+            //ViewBag.CurrentFilter, provides the view with the current filter string.
+            //he search string is changed when a value is entered in the text box and the submit button is pressed. In that case, the searchString parameter is not null.
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+
+            var model = from s in aIService.getAllModels()
+                select s;
+                //Search and match data, if search string is not null or empty
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    model = model.Where(s => s.projectName.Contains(searchString));
+                }
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        modelList = model.OrderByDescending(s => s.projectName).ToList();
+                        break;
+                 
+                    default:
+                        modelList = model.OrderBy(s => s.projectName).ToList();
+                        break;
+                }
+
+                //Date sorting --- need to add date created to DB 
+           /*     if (sortOrder == "date")
+                {
+                    modelList =( model.Where(t => t.createdDate > from && t.createdDate < to)).ToList();
+
+                }*/
+            //indicates the size of list
+            int pageSize = 5;
+            //set page to one is there is no value, ??  is called the null-coalescing operator.
+            int pageNumber = (page ?? 1);
+            //return the Model data with paged
+
+            AIModel mod = new AIModel();
+            Pagination viewModel = new Pagination();
+            IPagedList<AIModel> pagedList = modelList.ToPagedList(pageNumber, pageSize);
+            
+            viewModel.AIModel = mod;
+            viewModel.PagedListModels = pagedList;
+            @ViewBag.totalModels = aIService.getAllModels().Count;
+            
+
+            return View(viewModel);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
+
+           
         }
+        
 
         [HttpGet]
         public IActionResult CreateModel()
