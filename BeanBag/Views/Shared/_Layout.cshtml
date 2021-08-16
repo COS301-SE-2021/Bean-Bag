@@ -1,6 +1,6 @@
 ﻿@{
   //Get the value of the website theme colour here
-  var color = "GreenSheen";
+  var color = "Default";
 } 
 
 <!DOCTYPE html>
@@ -28,9 +28,9 @@
     else if(color=="OutrageousOrange"){
       <link rel="stylesheet" href="~/css/outrageousOrange.css" />
     }
-    else
+    else if(color=="Default")
     {
-      <link rel="stylesheet" href="~/css/cornflowerBlue.css" />
+      <link rel="stylesheet" href="~/css/default.css" />
     }
   
     <link rel="stylesheet" href="~/css/dashboard.css" />
