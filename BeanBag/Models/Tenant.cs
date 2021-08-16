@@ -11,5 +11,7 @@ namespace BeanBag.Models
         public string TenantName { get; set; }
         
         public string TenantTheme { get; set; }
+        
+        public string TenantLogo { get; set; }
     }
 }
