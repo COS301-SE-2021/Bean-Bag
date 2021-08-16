@@ -56,6 +56,8 @@ namespace BeanBag.Migrations
 
                     b.HasKey("iterationId");
 
+                    b.HasIndex("projectId");
+
                     b.ToTable("AIModelIterations");
                 });
 
@@ -146,6 +148,17 @@ namespace BeanBag.Migrations
                     b.HasKey("userId");
 
                     b.ToTable("UserRoles");
+                });
+
+            modelBuilder.Entity("BeanBag.Models.AIModelVersions", b =>
+                {
+                    b.HasOne("BeanBag.Models.AIModel", "AIModel")
+                        .WithMany()
+                        .HasForeignKey("projectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AIModel");
                 });
 
             modelBuilder.Entity("BeanBag.Models.Item", b =>
