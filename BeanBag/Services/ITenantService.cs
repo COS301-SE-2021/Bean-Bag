@@ -21,6 +21,8 @@ namespace BeanBag.Services
 
         public void SetLogo(string userId, string logo);
 
+        public string GetLogo(string userId);
+
         public bool SignUserUp(string userId, string tenantId);
 
         public bool SearchUser(string userId);

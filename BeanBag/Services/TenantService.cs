@@ -216,6 +216,29 @@ namespace BeanBag.Services
             
         }
 
+        public string GetLogo(string userId)
+        {
+            if (userId == null)
+            {
+                throw new Exception("User id is null");
+            }
+
+            if (SearchUser(userId) == false)
+            {
+                return "LOGO HERE";
+            }
+
+            var tenantId = GetUserTenantId(userId);
+
+            if (tenantId == null)
+            {
+                throw new Exception("Tenant id is null");
+            }
+
+            var tenant = _tenantDb.Tenant.Find(tenantId);
+            return tenant.TenantLogo;
+        }
+
         
         //User functions
         public bool SignUserUp(string userId, string tenantId)
