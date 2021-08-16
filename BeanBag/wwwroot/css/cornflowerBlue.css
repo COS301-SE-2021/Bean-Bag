@@ -47,11 +47,9 @@ body {
     background-color: var(--main-color);
     padding: 12px 30px;
     border: none;
-    /* border-radius: 30px;*/
-    color: var(--off-white);
+    color: white;
     font-size: 16px;
     text-transform: capitalize;
-    /*    transition: all 05s ease;*/
     box-shadow: var(--shadow-black-100);
     font-weight: 500;
 }
@@ -63,6 +61,7 @@ body {
     color: var(--off-white) !important;
 
 }
+
 .btn:hover {
     /* color: #f1f2f6;*/
     /* background-color:rgba(87,140,255,0.5) ; put this colour inside a var */
@@ -83,6 +82,19 @@ body {
 .btn.btn-light:hover {
     /*  color: var(--off-white);
       background-color: transparent;*/
+}
+
+.btn-3{
+    background-color: var(--main-color);
+    color:white;
+}
+.btn-3:visited{
+    background-color: var(--main-color) !important;
+    color:white !important;
+}
+.btn-3:hover{
+    color:white !important;
+    background-color: #2469ff !important; /* use an intense hue of the colour*/
 }
 
 .clearfix {
@@ -239,6 +251,10 @@ h2{
     margin: 15px;
 }
 
+.homeTable{
+    background: var(--off-white) !important;
+   color:black !important; 
+}
 
 
 /*QRCode */
@@ -315,13 +331,11 @@ a[href^="https"] {
 .inventoryTable {
     border-color: var(--main-color);
 }
-thead th
+.inventoryTableHeader
 {
     /* doesn't want to show*/
     background-color: var(--main-color) !important;
     color:var(--off-white);
-
-
 }
 /* Responsive*/
 @media(max-width: 991px){
