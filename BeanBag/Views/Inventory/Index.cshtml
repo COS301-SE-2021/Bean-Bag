@@ -82,7 +82,7 @@
                             @if (Model.PagedList.Any())
                             {
                                 <table class="table table-bordered table-striped">
-                                    <thead><tr>
+                                    <thead class="inventoryTableHeader"><tr>
                                         <th>#</th>
                                         <th>ID</th>
                                         <th>@Html.ActionLink("Inventory Name ", "Index", new {sortOrder = ViewBag.NameSortParm})
