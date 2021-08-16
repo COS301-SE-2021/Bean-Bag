@@ -123,8 +123,8 @@
                                                     <td>In Stock </td>
                                                     <td>N/A</td>
                                                 }
-                                                <td>- </td>
-                                                <td><div class="text-center justify-content-center p-3" ><i class="fas fa-square"></i></div></td>
+                                                <td>@items.condition </td>
+                                                <td><div class="text-center justify-content-center p-3" ><i class="fas fa-square" style="color: @items.colour"></i></div></td>
                                                 <td >
                                                     <div class="w-100 btn-group" role="group">
                                                         <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
