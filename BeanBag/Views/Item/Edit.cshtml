@@ -128,17 +128,17 @@
                                                         </div>
                                                         <!--need to do backend code-->
                                                         <div class="form-group row">
-                                                            <label for="color">Colour</label> &nbsp; &nbsp;<br>
-                                                            <input type="color" size="100px" name="favcolor" value="black">
+                                                            <label asp-for="colour">Colour</label> &nbsp; &nbsp;<br>
+                                                            <input asp-for="colour" type="color" size="100px" name="colour">
                                                         </div>
 
                                                         <div class="form-group row">
 
-                                                            <label for="condition" value="Condition">Condition</label> &nbsp; &nbsp;<br>
-                                                            <select name="Condition" class="form-control">
-                                                                <option value="new">New</option>
-                                                                <option value="pre owned">Pre-Owned</option>
-                                                                <option value="damaged">Damaged</option>
+                                                            <label asp-for="condition" value="Condition">Condition</label> &nbsp; &nbsp;<br>
+                                                            <select asp-for="condition" name="condition" class="form-control">
+                                                                <option value="New">New</option>
+                                                                <option value="Pre-Owned">Pre-Owned</option>
+                                                                <option value="Damaged">Damaged</option>
                                                             </select>
                                                         </div>
 

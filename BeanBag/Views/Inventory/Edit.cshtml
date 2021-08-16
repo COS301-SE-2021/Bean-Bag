@@ -1,0 +1,27 @@
+﻿@model Inventory
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> azureAdb2COptions
+@{
+    Layout = null;
+}
+<div class="modal-body">
+                    <div class="form-group ">
+                        <input asp-for="Id" hidden />
+                        <input asp-for="userId" hidden />
+                               
+
+                        <label asp-for="name" class="col-form-label" >Inventory Name *</label> <!--Inventory Name-->
+                        <input asp-for="name" class="form-control"/> <!--input box-->
+                        <label asp-for="description" class="col-form-label">Description *</label> <!--Description-->
+                        <input asp-for="description" class="form-control"/> <!--input box-->
+                    </div>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Save Changes"/> <!--create button-->
+                </div>
+
+
+
