@@ -180,6 +180,7 @@ namespace BeanBagIntegrationTests
         [Fact]
         public void Delete_Inventory_From_SQL()
         {
+            //ARRANGE
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
@@ -212,12 +213,16 @@ namespace BeanBagIntegrationTests
             
             Inventory thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
 
+            //ACT 
             query.CreateInventory(thenew);
 
             var isDeleted = query.DeleteInventory(thenew.Id , u2);
             
             var getInvs = query.FindInventory(theId2);
 
+            
+            
+            //ASSERT
             //Verify the results
             Assert.True(isDeleted);
             Assert.Null(getInvs);
