@@ -527,7 +527,7 @@ a[href^="https"] {
 .page-header .admin-menu button:hover,
 .page-header .admin-menu button:focus {
     background: var(--main-color-light);
-    color: var(--main-color-light);/*add this to theme css files*/
+    color: #78a2ff;/*add this to theme css files*/
 
 }
 
@@ -535,7 +535,7 @@ a[href^="https"] {
 .page-header .admin-menu a:focus svg,
 .page-header .admin-menu button:hover svg,
 .page-header .admin-menu button:focus svg {
-    fill: var(--main-color-light);; /*add this to theme css files*/
+    fill: #78a2ff; /*add this to theme css files*/
 }
 
 /* SWITCH STYLES
