@@ -23,12 +23,9 @@ namespace BeanBagIntegrationTests
         private readonly CloudBlobClient cloudBlobClient;
         private CloudBlobContainer cloudBlobContainer;
 
-        public IntegrationBlobTestBeta(BlobStorageFixture2 fixture) { }
-
-
         public IntegrationBlobTestBeta()
         {
-            cloudStorageAccount = CloudStorageAccount.Parse("UseDevelopmentStorage=true");
+            cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;EndpointSuffix=core.windows.net");
             cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
 
@@ -38,8 +35,26 @@ namespace BeanBagIntegrationTests
             //ARRANGE
             var fileMock = new Mock<IFormFile>();
             //Setup mock file using a memory stream
-            var content = "Hello World from a Fake File";
-            var fileName = "test.pdf";
+            var content = "File added for the purpose of integration testing!";
+            
+            var chars = "0123456789";
+            var stringChars = new char[5];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            var myGuidEnd = finalString;
+
+            string pdfEnd = finalString.Substring(0, 4);
+            
+            
+            var fileName = "test" + pdfEnd + ".pdf";
+            
             var ms = new MemoryStream();
             var writer = new StreamWriter(ms);
             writer.Write(content);
@@ -51,51 +66,23 @@ namespace BeanBagIntegrationTests
 
             var file = fileMock.Object;
 
-            cloudBlobContainer = cloudBlobClient.GetContainerReference("itemimagesBeta");
-
+            var myService = new BlobStorageService();
+            
+            cloudBlobContainer = cloudBlobClient.GetContainerReference("itemimages");
             CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(file.FileName);
             cloudBlockBlob.Properties.ContentType = file.ContentType;
 
-            var myser = new BlobStorageService();
-
-
             //ACT
 
-            await myser.uploadItemImage(file);
-
+            await myService.uploadItemImage(file);
+            var myUploadedFile = cloudBlobContainer.GetBlockBlobReference(file.FileName);
+            
 
             //ASSERT
+            Assert.NotNull(myUploadedFile);
         }
+        
 
-
-
-        [Fact]
-        public async Task upload_Test_Images()
-        {
-        //ARRANGE
- 
-
-        //ACT
-
-
-        //ASSERT
-
-        }
-
-
-
-        [Fact]
-        public async Task delete_Test_Image_Folder()
-        {
-        //ARRANGE
-      
-
-        //ACT
-
-
-        //ASSERT
-
-            }
 
 
 
