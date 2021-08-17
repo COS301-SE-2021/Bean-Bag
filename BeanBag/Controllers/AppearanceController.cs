@@ -33,7 +33,7 @@ namespace BeanBag.Controllers
             //Pass the theme into a function that will save it into the DB
             _tenantService.SetTenantTheme(User.GetObjectId(), theme);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Appearance");
         }
         
         
