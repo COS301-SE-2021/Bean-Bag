@@ -73,7 +73,7 @@
             
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title"  id="exampleModalTitle2">Select a Tenant</h5>
+					<h5 class="modal-title"  id="exampleModalTitle2">Sign up</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -88,9 +88,13 @@
 								<option value="">Select a tenant</option>
     
 								<!--Loop through tenant database and display names-->
-								@if (tenantList.Any())
+
+								@{
+									var enumerable = tenantList.ToList();
+								}
+								@if (enumerable.Any())
 								{
-									@foreach (var tenant in tenantList)
+									@foreach (var tenant in enumerable)
 									{
 										<option value="@tenant.TenantName">@tenant.TenantName</option>
 									}
