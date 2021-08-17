@@ -36,18 +36,36 @@ namespace BeanBagIntegrationTests
         [Fact]
         public void QueryInventoryFromSQLTest()
         {
-            Guid theId2 = new Guid();
+            var chars = "0123456789";
+            var stringChars = new char[5];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            var myGuidEnd = finalString;
+
+            string u2 = finalString.Substring(0, 4);
+            
+            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+
             Guid theId3 = new Guid();
             Guid theId4 = new Guid();
-            string u2 = "9999";
-            string u3 = "9998";
+           
+
             
             DateTime myDay = DateTime.MinValue;
+            
+
 
             //Add some monsters before querying
             _context.Inventories.Add(new Inventory { Id = theId2, name = "Leopard shorts", createdDate = myDay, userId = u2 });
             _context.Inventories.Add(new Inventory { Id = theId3, name = "Zebra shirt",  createdDate = myDay, userId = u2 });
-            _context.Inventories.Add(new Inventory { Id = theId4, name = "Kudu sandals" , createdDate = myDay, userId = u3 });
+            //_context.Inventories.Add(new Inventory { Id = theId4, name = "Kudu sandals" , createdDate = myDay, userId = u3 });
            
             _context.SaveChanges();
 
@@ -57,10 +75,66 @@ namespace BeanBagIntegrationTests
 
             //Verify the results
             Assert.Equal(2, getInvs.Count);
-           // var scaryMonster = scaryMonsters.First();
-           // Assert.Equal("Imposter Monster", scaryMonster.Name);
-           // Assert.Equal("Red", scaryMonster.Colour);
+            var toCheck = _context.Inventories.Find(theId2);
+            
+            
+           Assert.Equal("Leopard shorts", toCheck.name);
+           Assert.Equal(u2, toCheck.userId);
            // Assert.True(scaryMonster.IsScary);
+        }
+        
+        
+        
+        
+        
+        [Fact]
+        public void QueryInventoryFromSQLTest()
+        {
+            var chars = "0123456789";
+            var stringChars = new char[5];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            var myGuidEnd = finalString;
+
+            string u2 = finalString.Substring(0, 4);
+            
+            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+
+            Guid theId3 = new Guid();
+            Guid theId4 = new Guid();
+           
+
+            
+            DateTime myDay = DateTime.MinValue;
+            
+
+
+            //Add some monsters before querying
+            _context.Inventories.Add(new Inventory { Id = theId2, name = "Leopard shorts", createdDate = myDay, userId = u2 });
+            _context.Inventories.Add(new Inventory { Id = theId3, name = "Zebra shirt",  createdDate = myDay, userId = u2 });
+            //_context.Inventories.Add(new Inventory { Id = theId4, name = "Kudu sandals" , createdDate = myDay, userId = u3 });
+           
+            _context.SaveChanges();
+
+            //Execute the query
+            InventoryService query = new InventoryService(_context);
+            var getInvs = query.GetInventories(u2);
+
+            //Verify the results
+            Assert.Equal(2, getInvs.Count);
+            var toCheck = _context.Inventories.Find(theId2);
+            
+            
+            Assert.Equal("Leopard shorts", toCheck.name);
+            Assert.Equal(u2, toCheck.userId);
+            // Assert.True(scaryMonster.IsScary);
         }
 
     }
