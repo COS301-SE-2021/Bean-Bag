@@ -123,8 +123,8 @@
                                                     <td>In Stock </td>
                                                     <td>N/A</td>
                                                 }
-                                                <td>- </td>
-                                                <td><div class="text-center justify-content-center p-3" ><i class="fas fa-square"></i></div></td>
+                                                <td>@items.condition </td>
+                                                <td><div class="text-center justify-content-center p-3" ><i class="fas fa-square" style="color: @items.colour"></i></div></td>
                                                 <td >
                                                     <div class="w-100 btn-group" role="group">
                                                         <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
@@ -132,12 +132,12 @@
                                                            class="btn delete" data-toggle="modal"
                                                            data-target="#exampleModal4" data-id="@items.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
 
-                                                        <a href="@Url.Action("ViewQRCode", "Item", new {@items.Id})"
+                                                        <a href="@Url.Action("ViewQrCode", "Item", new {@items.Id})"
                                                            data-toggle="modal" data-target="#viewQRModal" data-id="@items.Id"
                                                            class="btn viewQR"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View QR Code"><i class="fas fa-qrcode"> </i></button></a>
 
 
-                                                        <a href="@Url.Action("PrintQRCode", "Item", new {@items.Id})"
+                                                        <a href="@Url.Action("PrintQrCode", "Item", new {@items.Id})"
                                                            data-toggle="modal" data-target="#printQRModal" data-id="@items.Id"
                                                            class="btn printQR"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Print QR Code"><i class="fas fa-print"> </i></button></a>
                                                     </div>
@@ -195,7 +195,9 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
+         
         </div>
+
     </div>
     
       <!---Popup Form to print QR modal -->

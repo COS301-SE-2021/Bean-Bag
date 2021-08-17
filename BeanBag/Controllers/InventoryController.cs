@@ -38,7 +38,7 @@ namespace BeanBag.Controllers
 
         
          //This code adds a page parameter, a current sort order parameter, and a current filter parameter to the method signature
-        public IActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public IActionResult Index(string sortOrder, string currentFilter, string searchString, int? page,DateTime from, DateTime to)
         {
             if(User.Identity is {IsAuthenticated: true})
             {
@@ -81,7 +81,12 @@ namespace BeanBag.Controllers
                         break;
                 }
 
-            
+                //Date sorting
+                if (sortOrder == "date")
+                {
+                    modelList =( model.Where(t => t.createdDate > from && t.createdDate < to)).ToList();
+
+                }
             //indicates the size of list
             int pageSize = 5;
             //set page to one is there is no value, ??  is called the null-coalescing operator.

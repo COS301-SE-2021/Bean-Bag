@@ -19,5 +19,6 @@ namespace BeanBag.Controllers
         {
             return RedirectToAction("Index", "LandingPage");
         }
+
     }
 }

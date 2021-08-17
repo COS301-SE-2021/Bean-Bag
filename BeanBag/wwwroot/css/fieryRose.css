@@ -489,3 +489,18 @@ a[href^="https"] {
 .websiteThemeCard{
     margin-bottom: 50px;
 }
+
+/*Account - Index */
+.button1 , .button2 {
+    display:inline-block;
+    /* additional code */
+}
+.button1{
+    margin-right: 15px;
+}
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -37,20 +37,25 @@
         <div class="row">
                 
             <!--Date sorts-->
-            <span class="col-md-0 ml-3 pt-1">
-                <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date</span>
-            <span class="col-md-2">
-                <input type="date" name="from_date" id="from_date" class="form-control dateFilter" placeholder="From Date" />
-            </span>
-                                
-            <span class="col-md-0 pt-1">
-                To Date</span>
-            <span class="col-md-2 ml-1">
-                <input type="date" name="to_date" id="to_date" class="form-control dateFilter" placeholder="To Date" />
-            </span>
-            <span class="col-md-2 mr-5">
-                <input type="button" name="search" id="btn_search" value="Go" class="btn btn-3" />
-            </span>
+                @using (Html.BeginForm())
+                               {
+                                   <div class="d-flex">
+                                   <span class="d-inline-block ml-3 pt-2">
+                                      <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date &nbsp;</span>
+                                   <span class=" d-inline-block">              
+                                   @Html.TextBox("from", null, new {@class = "form-control ", type="date"})
+                                </span>
+                                   <span class="d-inline-block pt-2">
+                                       &nbsp; &nbsp; To Date &nbsp;</span>
+                                   <span class=" d-inline-block">  
+                                   @Html.TextBox("to", null, new {@class = "form-control ", type="date" })
+                               </span>
+                                   @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
+                                   <span class="d-inline-block pl-2">
+                                       <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-primary"/>
+                                   </span>
+                                   </div>
+                               }
            
             <!--Search-->
             <div class="col-3 ml-auto ">
@@ -102,23 +107,27 @@
                                             <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@inventory.Id"><i class="fas fa-tag">  </i></button></td>
                                                                                               
                                             <td >@inventory.name</td>
-                                            <td >-</td>
-                                            <td >-</td>
+                                            <td >@inventory.createdDate</td>
+                                            <td >@inventory.description</td>
                                             <td >
                                                 <div class="w-100 btn-group" role="group">
                                                     
                                                      <a href="@Url.Action("Edit", "Inventory", new {@inventory.Id})"
                                                         class="btn edit" data-toggle="modal" data-target="#exampleModal3" 
                                                         data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
-
+                                                    
+                                             
+                                                    
                                                     <a href="@Url.Action("Delete", "Inventory", new {@inventory.Id})"
                                                        class="btn delete" data-toggle="modal"
                                                        data-target="#exampleModal4" data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
-
-                                                    <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Items"><i class="fas fa-eye"> </i></button></a>
-                                                    <a  class="btn" data-toggle="modal" data-target="#exampleModal2"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Add Item"><i class="fas fa-folder-plus"> </i></button></a> <!-- change button css-->
                                                    
-                                                        
+                                                    <a asp-controller="Inventory" asp-action="ViewItems" asp-route-InventoryId="@inventory.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Items"><i class="fas fa-eye"> </i></button></a>
+                                                     
+                                                    <a href="@Url.Action("UploadImage", "Item", new {@inventory.Id})" 
+                                                       class="btn uploading" data-toggle="modal"
+                                                        data-target="#exampleModal2" data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Add Item"><i class="fas fa-folder-plus"> </i></button></a>
+     
                                                 </div>
                                             </td>
                                         </tr>
@@ -263,6 +272,20 @@ $('.edit').click(function (ev) {
     });
 });
 
+// --Upload 
+$('.uploading').click(function (ev) {
+    ev.preventDefault(); // this is required
+
+    // get target action
+    let action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        let myModal = $("#exampleModal2");
+            myModal.find("form.data").html(data);
+        $('#exampleModal2').modal('show');
+    });
+});
+
 //-- Delete 
 $('.delete').click(function (ev) {
     ev.preventDefault(); // this is required
@@ -290,8 +313,7 @@ $('.delete').click(function (ev) {
     @{<partial name="_ValidationScriptsPartial" /> 
                                      <partial name="_DeleteInventory" /> 
                                      <partial name="_Edit" /> 
+                                     <partial name="_UploadImage" /> 
        
     }
 }
-
-

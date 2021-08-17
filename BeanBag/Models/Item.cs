@@ -48,6 +48,10 @@ namespace BeanBag.Models
         [DisplayName("Date Sold")]
         public DateTime soldDate { get; set; }
 
+        public string colour { get; set; }
+
+        public string condition { get; set; }
+
         
     }
 

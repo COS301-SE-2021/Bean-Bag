@@ -1,0 +1,62 @@
+﻿@model IEnumerable<AIModelVersions>
+<link rel="stylesheet" type="text/css" href="css\dashboard.css" />
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Model Versions</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="AIModel" asp-action="TrainModel" asp-route-projectId="@ViewBag.projectId" class="btn btn-primary">Train new version of model</a>
+        </div>
+    </div>
+    <br />
+    @if (Model.Any())
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Iteration Name
+                    </th>
+                    <th>
+                        Available To User
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var AIModelIterations in Model)
+                {
+                <tr>
+                    <td>@AIModelIterations.iterationName</td>
+                    <td>@AIModelIterations.availableToUser</td>
+                    <td>@AIModelIterations.status</td>
+                    <td>
+                        <!-- width="50%"-->
+                        <div class="w-100 btn-group" role="group">
+                            <a asp-controller="AIModel" asp-action="Edit" asp-route-projectId="@AIModelIterations.projectId" class="btn btn-secondary">Edit</a>
+                            <a asp-controller="AIModel" asp-action="DeleteModel" asp-route-projectId="@AIModelIterations.projectId" class="btn btn-danger">Delete</a>
+                            @if (AIModelIterations.status.Equals("Completed") && AIModelIterations.availableToUser == false)
+                            {
+                                <a asp-controller="AIModel" asp-action="PublishIteration" asp-route-projectId="@AIModelIterations.projectId" asp-route-iterationId="@AIModelIterations.iterationId" class="btn btn-success">Make available for item use</a>
+                            }
+                            else if(AIModelIterations.status.Equals("Completed") && AIModelIterations.availableToUser == true)
+                            {
+                                <a asp-controller="AIModel" asp-action="UnpublishIteration" asp-route-projectId="@AIModelIterations.projectId" asp-route-iterationId="@AIModelIterations.iterationId" class="btn btn-success">Make unavailable for item use</a>
+                            }
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+            else
+            {
+                <p>No Model Versions Yet</p>
+            }
+</div>
+
+

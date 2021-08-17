@@ -1,0 +1,61 @@
+﻿<section class="inventory d-flex justify-content-center">
+    <div class="col-1 "> </div>
+    <form method="post" enctype="multipart/form-data" asp-action="UploadTestImages" asp-controller="AIModel">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <br />
+        <div class="form-group row text-center">
+            <h3>Upload Image</h3>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                    <input hidden value="@Context.Request.Query["projectId"]" name="projectId" />
+                    <input id="upload" type="file" name="files" onchange="readURL(this);" class="form-control border-0" multiple>
+                    <label id="upload-label" for="upload" class="font-weight-light text-muted ">Upload Image</label>
+                    <div class="input-group-append">
+                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted text-center"></i><small class="text-uppercase font-weight-bold text-muted text-center "> <img src="../../wwwroot/images/upload-simple.svg" class="filter-colour2" alt="upload" /></small></label>
+                    </div>
+
+                </div>
+
+                <p class="font-italic text-secondary text-center"></p>
+                <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+
+                <br />
+                <label>Tags:</label>
+
+                <div id="TestImageTags">
+                    <input name="tags" type="text" />
+                    <input type="button" value="Add New Tag" onclick="DynamicText()" class="btn-success" />
+                </div>
+                <br />
+                <label>Done</label>
+                <input type="string" name="LastTestImages"/>
+                <br />
+                <input type="submit" value="Submit" class="btn btn-1" />
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </form>
+</section>
+
+@* This script functions is used to add dynamic text boxs to allow the user to enter as many tags as they desire with the uploaded test images *@
+<script>
+    function DynamicText()
+    {
+        var division = document.createElement('DIV');
+        division.innerHTML = AddTextBox("");
+        document.getElementById("TestImageTags").appendChild(division);
+    };
+
+    function AddTextBox(value)
+    {
+        return '<br/><div><input type="text" name="tags" /><input type="button" onclick="RemoveTextBox(this)" value="Remove Tag" class="btn-danger"/></div>';
+    };
+
+    function RemoveTextBox(div)
+    {
+        document.getElementById("TestImageTags").removeChild(div.parentNode.parentNode);
+    }
+</script>
