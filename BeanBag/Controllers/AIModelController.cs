@@ -117,6 +117,17 @@ namespace BeanBag.Controllers
 
         public IActionResult TestImages(Guid projectId)
         {
+            @ViewBag.ID = projectId;
+        
+            var mods = aIService.getAllModels();
+            for (int i = 0; i < mods.Count; i++)
+            {
+                if (mods[i].projectId.Equals(projectId))
+                {
+                    @ViewBag.Name = mods[i].projectName ;
+                }
+            }
+          
             return View();
         }
 
