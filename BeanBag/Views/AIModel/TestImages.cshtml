@@ -47,21 +47,23 @@
 
                                      </div> -->
                                      
-                                      <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                                          <input hidden value="@Context.Request.Query["projectId"]" name="projectId"/>
-                                          
-                                         
-                                          <input id="upload" type="file" name="files" onchange="readURL(this);" class="form-control border-0" multiple>
-                                                         <label id="upload-label" for="upload" class="font-weight-light text-muted ">Upload Image</label>
-                                                          <div class="input-group-append">
-                                                              <label for="upload" class="btn btn-light m-0 rounded-pill px-4 upload"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
-                                                              </div>
+                                     <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                                  
+                                         <input hidden value="@Context.Request.Query["projectId"]" name="projectId"/>
+
+                                         <input id="fileupload" multiple="multiple" type="file" name="files" class="form-control border-0" hidden>
                                      
-                                                     </div>
+                                         <label id="upload-label" for="fileupload" class="font-weight-light text-muted " value="Upload Image">Upload Image</label>
+                                         <div class="input-group-append ml-auto">
+                                             <label for="fileupload" class="btn btn-light m-0 rounded-pill px-4 upload "> <small class="text-uppercase font-weight-bold text-muted ml-auto">Choose file</small></label>
+                                         </div>
+
+                                     </div>
                                      
                                                      <p class="font-italic text-secondary text-center"></p>
                                      <div class="image-area mt-4 dropzone" id="uploader">
-                                         <img id="imageResult" src="#" alt=""  width="400" class="img-fluid rounded shadow-sm mx-auto d-block">
+                                          <div id="dvPreview">
+                                             </div>
                                      </div>
                                      
                                    
@@ -70,7 +72,7 @@
                              </div>
                          </div>
                   
-                         <div class="col-sm-3 ">
+                         <div class="col-sm-4 ">
                              <h5 class="text-muted pt-4 pl-2">Add tags</h5>
                              <div class="text-secondary pt-3 pb-3 pl-2"> <i class="fas fa-exclamation-circle"></i> Add tags to the images of the model </div>
                                   
@@ -101,14 +103,17 @@
                                              </tr>
                                              <tr id='addr1'></tr>
                                              </tbody>
+                                             
                                          </table>
-                                          <label>Done</label>
-                                                         <input type="string" name="LastTestImages"/>
-                                                         <br/>
                                      </div>
                                  </div>
-                                 <a id="add_row" class="btn btn-outline-secondary pull-left">Add Tag</a>
-                                 <a id='delete_row' class="pull-right btn btn-outline-secondary">Remove Tag </a>
+                                 <a id="add_row" class="btn btn-primary pull-left text-light">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                 <a id='delete_row' class="pull-right btn btn-primary text-light">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
+                                   <div class=" pl-4 form-check-inline form-group row ">
+                                                                                                                              <label class="form-check-label"  >Done &nbsp;</label>
+                                                                                                                              <input class="form-check-input" name="LastTestImages" type="checkbox"  >
+                                                                                                                          
+                                                                                                                              </div>
                              </div>
                       
                          </div>
@@ -119,7 +124,7 @@
                                           </div>
                   <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                      <input type="submit" class="btn btn-primary" value="Train Model"/> <!--create button-->
+                      <input type="submit" class="btn btn-primary" value="Create Model"/> <!--create button-->
                   </div>
 
 
@@ -134,7 +139,7 @@
 
         </div>
     </div>
-    
+   
 </section>
 
 <style>
@@ -171,6 +176,38 @@
     
 </script>
 
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+$(function () {
+    $("#fileupload").change(function () {
+        if (typeof (FileReader) != "undefined") {
+            var dvPreview = $("#dvPreview");
+            dvPreview.html("");
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+            $($(this)[0].files).each(function () {
+                var file = $(this);
+                if (regex.test(file[0].name.toLowerCase())) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $("<img />");
+                        img.attr("style", "height:100px;width: 100px");
+                        img.attr("src", e.target.result);
+                        dvPreview.append(img);
+                    }
+                    reader.readAsDataURL(file[0]);
+                } else {
+                    alert(file[0].name + " is not a valid image file.");
+                    dvPreview.html("");
+                    return false;
+                }
+            });
+        } else {
+            alert("This browser does not support HTML5 FileReader.");
+        }
+    });
+});
+</script>
 <!--
 
 <section class="inventory d-flex justify-content-center">
