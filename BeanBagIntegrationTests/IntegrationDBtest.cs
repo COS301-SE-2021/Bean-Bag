@@ -41,11 +41,13 @@ namespace BeanBagIntegrationTests
             Guid theId4 = new Guid();
             string u2 = "9999";
             string u3 = "9998";
+            
+            DateTime myDay = DateTime.MinValue;
 
             //Add some monsters before querying
-            _context.Inventories.Add(new Inventory { Id = theId2, name = "Leopard shorts", userId = u2 });
-            _context.Inventories.Add(new Inventory { Id = theId3, name = "Zebra shirt", userId = u2 });
-            _context.Inventories.Add(new Inventory { Id = theId4, name = "Kudu sandals", userId = u3 });
+            _context.Inventories.Add(new Inventory { Id = theId2, name = "Leopard shorts", createdDate = myDay, userId = u2 });
+            _context.Inventories.Add(new Inventory { Id = theId3, name = "Zebra shirt",  createdDate = myDay, userId = u2 });
+            _context.Inventories.Add(new Inventory { Id = theId4, name = "Kudu sandals" , createdDate = myDay, userId = u3 });
            
             _context.SaveChanges();
 
