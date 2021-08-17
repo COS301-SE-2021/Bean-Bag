@@ -163,7 +163,7 @@ ul {
     height: 280px;
 }
 
-/*  Navbar  */
+/*  Navbar  
 .navbar {
     background-color: var(--main-color);
     padding: 20px 0;
@@ -201,7 +201,7 @@ ul {
     right: 0;
     height: 1px;
     background-color: #ffffff;
-    /* transition: all 0.5s ease;*/
+    transition: all 0.5s ease;
     transform: scale(0);
 }
 
@@ -215,7 +215,8 @@ ul {
     line-height:1;
     background-color: transparent;
     border-radius: .25rem;
-}
+}*/
+
 /*Home */
 .home {
     min-height: 92vh;
@@ -509,4 +510,32 @@ for details on configuring this project to bundle and minify static web assets. 
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+/*Navbar */
+/* HEADER STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.page-header .admin-menu a:hover,
+.page-header .admin-menu a:focus,
+.page-header .admin-menu button:hover,
+.page-header .admin-menu button:focus {
+    background: var(--page-header-bgColor-hover);
+    color: #00b9eb;/*add this to theme css files*/
+
+}
+
+.page-header .admin-menu a:hover svg,
+.page-header .admin-menu a:focus svg,
+.page-header .admin-menu button:hover svg,
+.page-header .admin-menu button:focus svg {
+    fill: #00b9eb; /*add this to theme css files*/
+}
+
+/* SWITCH STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.switch span:first-child {
+
+    background: var(--switch-bgLightModeColor); /*add this to theme css files add main light color*/
+   
 }
