@@ -15,7 +15,7 @@ namespace BeanBag.Controllers
     {
         private readonly IAIService aIService;
         private readonly IBlobStorageService blobService;
-
+    
         public AIModelController(IAIService _ai, IBlobStorageService _blob)
         {
             aIService = _ai;

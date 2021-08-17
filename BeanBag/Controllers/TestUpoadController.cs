@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace BeanBag.Controllers
 {
-    public class StockController : Controller
+    public class TestUploadController : Controller
     {
         private IWebHostEnvironment hostingEnv;
 
-        public StockController(IWebHostEnvironment env)
+        public TestUploadController(IWebHostEnvironment env)
         {
             this.hostingEnv = env;
         }
