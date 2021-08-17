@@ -1,0 +1,107 @@
+﻿
+<section class="page-content">
+  <script src="dist/min/dropzone.min.css"></script>
+
+    <section class="search-and-user">
+
+        <span class="col-md-2 text-secondary ">
+            Create Model
+        </span>
+<hr>
+    </section>
+    <div class="dashboard-wrapper">
+        <div class="container-fluid  dashboard-content">
+            <hr>
+
+     <link href="dist/min/dropzone.min.css" rel="stylesheet">
+          <div class="card shadow p-1 mb-3 bg-body rounded">
+              <h5 class="card-header">Create Model </h5>
+                 <form id="form2" method="post" enctype="multipart/form-data" data-parsley-validate class="form-horizontal form-label-left">
+                            
+              <div class="card-body p-0 row">
+                     
+                            
+                  <div class="col-sm-8">
+
+                      <div class="form-group">
+                          <div><br>
+                              <h5 class="text-muted pl-4">Upload</h5>
+
+                              <div class="text-secondary pl-4 pt-3"> <i class="fas fa-exclamation-circle"></i> &nbsp;Allowed file extensions:<b> .jpg, .jpeg, .png. </b></div>
+                              <div class="text-secondary pl-4 pt-1"> <i class="fas fa-exclamation-circle"></i> &nbsp;Upload 5 images or more </div>
+
+                          </div>
+                          <label class="control-label col-md-2" for="first-name">
+
+                              <span class="required"></span>
+
+                          </label>
+
+                          <div class="p-3 pr-4" id="dropzone">
+
+                              <div action="/stock/Upload" class="dropzone" id="uploader">
+
+                                  <div class="text-muted"> Drop files here or click to upload. </div>
+
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="col-sm-4">
+                      <h5 class="text-muted pl-3 pt-4">Add tags</h5>
+                  </div>
+                  
+                  
+              </div>
+                  <div class="modal-footer ">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <input type="submit" class="btn btn-primary" value="Train Model"/> <!--create button-->
+                  </div>
+
+
+
+            </form>
+             </div>
+     
+  
+            <script src="/dist/min/dropzone.min.js"></script>
+ 
+
+
+        </div>
+    </div>
+    
+</section>
+
+<style>
+.dropzone{
+  border: 1px dashed grey;
+  border-radius: 5px;
+  
+
+}</style>
+
+@* This script functions is used to add dynamic text boxs to allow the user to enter as many tags as they desire with the uploaded test images *@
+<script>
+    function DynamicText()
+    {
+        let division = document.createElement('DIV');
+        division.innerHTML = AddTextBox("");
+        document.getElementById("TestImageTags").appendChild(division);
+    }
+
+    function AddTextBox(value)
+    {
+        return '<br/><div><input type="text" name="tags" /><input type="button" onclick="RemoveTextBox(this)" value="Remove Tag" class="btn-danger"/></div>';
+    }
+
+    function RemoveTextBox(div)
+    {
+        document.getElementById("TestImageTags").removeChild(div.parentNode.parentNode);
+    }
+    
+    
+    
+</script>
