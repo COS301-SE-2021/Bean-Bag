@@ -83,6 +83,18 @@ body {
   /*  color: var(--off-white);
     background-color: transparent;*/
 }
+.btn-3{
+    background-color: var(--main-color);
+    color:white;
+}
+.btn-3:visited{
+    background-color: var(--main-color) !important;
+    color:white !important;
+}
+.btn-3:hover{
+    color:white !important;
+    background-color: #76B5AE !important; /* use an intense hue of the colour*/
+}
 
 .clearfix {
     clear: both;
