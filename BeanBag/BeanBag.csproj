@@ -33,6 +33,11 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Dashboard\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\Stock\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\abstract-cuboid-building-4519ld.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\altimg.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\Classic-T-Shirt-Yellow-510x510.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\nasa-Q1p7bh3SHj8-unsplash.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\radowan-nakif-rehan-cYyqhdbJ9TI-unsplash.jpg" />
      </ItemGroup>
 
   <ItemGroup>
