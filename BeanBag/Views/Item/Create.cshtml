@@ -1,8 +1,11 @@
 ﻿@model Item
 @using Microsoft.Extensions.Options
 @using Microsoft.Identity.Web
-@inject IOptions<MicrosoftIdentityOptions> azureAdb2COptions
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
 
+@{
+    var options = _azureAdb2COptions.Value;
+}
 
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
@@ -117,10 +120,10 @@
                                                 
                                                <div class="form-group row">
 
-                                                    <input type="submit" class="btn btn-primary" value="Submit"/>
-                                                </div>
+            <input type="submit" class="btn btn-1" value="Create" />
+            <a asp-action="Index" asp-controller="Inventory" class="btn btn-2">Back</a>
 
-                                            </form>
+                                          </div>  </form>
                                         </div>
                                     </div>
                                 </div>

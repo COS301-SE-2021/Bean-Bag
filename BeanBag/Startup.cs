@@ -1,3 +1,4 @@
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +11,7 @@ using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using BeanBag.Database;
 using BeanBag.Services;
+using Microsoft.Extensions.Azure;
 
 namespace BeanBag
 {
@@ -21,7 +23,7 @@ namespace BeanBag
 
         }
 
-        public IConfiguration Configuration { get;}
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -29,14 +31,15 @@ namespace BeanBag
             // Azure B2C OpenIdConnect Authentication service setup
             services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApp(Configuration.GetSection("AzureAdB2C"));
+
             services.AddRazorPages().AddMicrosoftIdentityUI();
             
             services.Configure<OpenIdConnectOptions>(
                 OpenIdConnectDefaults.AuthenticationScheme, options =>
                 {
-                    options.Events.OnRedirectToIdentityProvider = async context =>
+                    options.Events.OnTokenValidated = async context =>
                     {
-                        context.Properties.RedirectUri = "/Home";
+                        context.Properties.RedirectUri = "/Account";
 
                         await Task.FromResult(0);
                     };
@@ -47,14 +50,19 @@ namespace BeanBag
                         
                         await Task.FromResult(0);
                     };
-                    
+
                 });
-            
+
             services.AddControllersWithViews();
 
             // Connecting to the sql server and to the specified DB using the appsettings.json ConnectionStrings defaultConnection contents
             services.AddDbContext<DBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
+            
+            // Connecting to Tenant DB
+            services.AddDbContext<TenantDbContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("TenantConnection"))
             );
 
             //Adding service classes to be used as a DI
@@ -64,11 +72,15 @@ namespace BeanBag
             services.AddTransient<IDashboardAnalyticsService, DashboardAnalyticsService>();
             services.AddTransient<IBlobStorageService, BlobStorageService>();
 
+            services.AddTransient<TenantService>();
+            services.AddTransient<TenantBlobStorageService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -94,6 +106,8 @@ namespace BeanBag
                     pattern: "{controller=LandingPage}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            
+            
         }
     }
 }

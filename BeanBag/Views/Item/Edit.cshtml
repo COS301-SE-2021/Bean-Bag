@@ -1,4 +1,12 @@
 ﻿@model Item
+
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+
+@{
+    var options = _azureAdb2COptions.Value;
+}
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
     <section class="ml-3" >
