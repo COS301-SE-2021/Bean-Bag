@@ -122,7 +122,7 @@ namespace BeanBag.Services
 
             if (SearchUser(userId) == false)
             {
-                return "GreenSheen";
+                return "Default";
             }
             
 
@@ -141,7 +141,7 @@ namespace BeanBag.Services
 
             if (theme == null)
             {
-                theme = "GreenSheen";
+                theme = "Default";
             }
 
             return theme;
@@ -173,7 +173,7 @@ namespace BeanBag.Services
             if (_tenantDb.Tenant.Find(_newTenantId) != null) return false;
 
             
-            var defaultTheme = "GreenSheen";
+            var defaultTheme = "Default";
 
                 //Create new tenant and add to db
             var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = defaultTheme};
