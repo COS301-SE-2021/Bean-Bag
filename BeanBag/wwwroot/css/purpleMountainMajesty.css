@@ -143,14 +143,14 @@ ul {
     margin: 10px;
 }
 
-.filter-colour {
+/*.filter-colour {
     filter: invert(57%) sepia(61%) saturate(4250%) hue-rotate(203deg) brightness(101%) contrast(100%);
     width: 60px;
     height: 60px;
     display: block;
     margin-left: auto;
     margin-right: auto;
-}
+}*/
 
 
 .empty-div {
