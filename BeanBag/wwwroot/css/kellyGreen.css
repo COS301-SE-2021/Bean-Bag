@@ -2,8 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 /*  Global Css  */
 :root {
-    --main-color:var(--greenSheen);/*#7857fe*/
-    --main-color-light:rgba(118,181,174,0.2);
+    --main-color:var(--kellyGreen);/*#7857fe*/
+    --main-color-light:rgba(76,187,23,0.2);
     --color-1: #e91e63;
     --color-2: #f5ae10;
     --color-3: #09d69c;
@@ -11,7 +11,7 @@
     /* ----- Theme colours -----*/
     --cornflowerBlue:#578CFF;
     --fieryRose: #FF5971;
-    --greenSheen:#76B5AE;
+    --kellyGreen:#18A558;
     --outrageousOrange:#FE7958;
     --purpleMountainMajesty:#967BB6;
     /*-------------------------------
