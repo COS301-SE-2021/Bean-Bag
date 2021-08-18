@@ -180,6 +180,27 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.SaveChanges();
         }
         
+        //NEGATIVE TEST
+        [Fact]
+        public void Get_Tenant_Name_Fail_Tenant_Is_Null()
+        {
+            //Arrange
+            //Tenant
+            var id = Guid.NewGuid().ToString();
+            const string name = "Tenant-name";
+
+            //Act
+            var query = new TenantService(_tenantDbContext);
+
+            var tenant = _tenantDbContext.Tenant.Find(id);
+
+            var exceptionId = Assert.Throws<Exception>(() => query.GetTenantName(null));
+
+            //Assert
+            Assert.Null(tenant);
+            Assert.Equal("User tenant id is null.", exceptionId.Message);
+
+        }
         
         //Tenant search
         //POSITIVE TEST
