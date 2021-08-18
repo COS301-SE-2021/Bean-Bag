@@ -252,7 +252,7 @@ namespace BeanBag.Controllers
         // This accepts the inventory model from the edit view above
         // This will allow us to make changes to the respected inventory
         [HttpPost]
-        public IActionResult EditPost(Inventory inventory)
+        public IActionResult Edit(Inventory inventory)
         {
             if(User.Identity is {IsAuthenticated: true})
             {

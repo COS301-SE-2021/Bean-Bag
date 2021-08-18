@@ -25,7 +25,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="QRCoder" Version="1.4.1" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
-    <PackageReference Include="X.PagedList" Version="8.1.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.1.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.analyzers" Version="0.10.0" />
@@ -33,8 +32,13 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Dashboard\Index.cshtml" />
-    <_ContentIncludedByDefault Remove="Pages\Appearance\Index.cshtml" />
-  </ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Stock\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\abstract-cuboid-building-4519ld.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\altimg.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\Classic-T-Shirt-Yellow-510x510.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\nasa-Q1p7bh3SHj8-unsplash.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\Files\radowan-nakif-rehan-cYyqhdbJ9TI-unsplash.jpg" />
+     </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Migrations\" />

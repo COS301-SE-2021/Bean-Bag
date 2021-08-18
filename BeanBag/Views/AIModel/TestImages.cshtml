@@ -1,8 +1,234 @@
-﻿<section class="inventory d-flex justify-content-center">
+﻿@model AIModel
+<section class="page-content">
+  <script src="dist/min/dropzone.min.css"></script>
+
+    <section class="search-and-user">
+
+        <span class="col-md-2 text-secondary ">
+            Create Model
+        </span>
+<hr>
+    </section>
+    <div class="dashboard-wrapper">
+        <div class="container-fluid  dashboard-content">
+            <hr>
+
+     <link href="dist/min/dropzone.min.css" rel="stylesheet">
+          <div class="card shadow p-1 mb-3 bg-body rounded">
+              <h5 class="card-header">Create Model </h5>
+              
+              
+              <form method="post" id="form2"  class="form-horizontal form-label-left" enctype="multipart/form-data" data-parsley-validate asp-action="UploadTestImages" asp-controller="AIModel">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                     <div class="card-body p-0 row">
+                     
+                        
+                         <div class="col-sm-8">
+
+                              
+                             <div class="form-group">
+                                 <input hidden value="@Context.Request.Query["projectId"]" name="projectId"/>
+                                 <div><br>
+                                     <h5 class="text-muted pl-4">Upload</h5>
+
+                                     <div class="text-secondary pl-4 pt-3"> <i class="fas fa-exclamation-circle"></i> &nbsp;Allowed file extensions:<b> .jpg, .jpeg, .png. </b></div>
+                                     <div class="text-secondary pl-4 pt-1"> <i class="fas fa-exclamation-circle"></i> &nbsp;Upload 5 images or more </div>
+
+                                 </div>
+                                 <label class="control-label col-md-2" for="first-name">
+
+                                     <span class="required"></span>
+
+                                 </label>
+
+                                 <div class="p-3 pr-3" id="dropzone">
+
+   
+                                     <!--   <div action="/AIModel/Upload" class="dropzone" id="uploader">
+                                         
+                                         <div class="text-muted"> Drop files here or click to upload. </div>
+
+                                     </div> -->
+                                     
+                                     <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                                  
+                                         <input hidden value="@Context.Request.Query["projectId"]" name="projectId"/>
+
+                                         <input id="fileupload" multiple="multiple" type="file" name="files" class="form-control border-0" hidden>
+                                     
+                                         <label id="upload-label" for="fileupload" class="font-weight-light text-muted " value="Upload Image">Upload Image</label>
+                                         <div class="input-group-append ml-auto">
+                                             <label for="fileupload" class="btn btn-light m-0 rounded-pill px-4 upload "> <small class="text-uppercase font-weight-bold text-muted ml-auto">Choose file</small></label>
+                                         </div>
+
+                                     </div>
+                                     
+                                                     <p class="font-italic text-secondary text-center"></p>
+                                     <div class="image-area mt-4 dropzone" id="uploader">
+                                          <div id="dvPreview">
+                                             </div>
+                                     </div>
+                                     
+                                   
+
+                                 </div>
+                             </div>
+                         </div>
+                  
+                         <div class="col-sm-4 ">
+                             
+                             <div class="pt-4">
+                                 <h5 class="text-muted pl-3">Model Details</h5>
+                                 <div class="pl-3 pt-2">
+                                   <div>  Model ID: &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;@ViewBag.ID </div>
+                                  <div>     Model Name: &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; @ViewBag.Name</div>
+                                     <div>  Model Description: &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; - </div>
+
+                                 </div>
+<hr>
+                             </div>
+                             <h5 class="text-muted pt-4 pl-3">Add tags</h5>
+                             <div class="text-secondary pt-3 pb-3 pl-3"> <i class="fas fa-exclamation-circle"></i> Add tags to the images of the model </div>
+
+
+
+                             <div class="container pt-3">
+                                 <div class="row clearfix">
+                                     <div class="col-md-12 column">
+                                         <table class="table table-bordered table-hover pr-5" id="tab_logic">
+                                             <thead>
+                                             <tr>
+                                                 <th >
+                                                     #
+                                                 </th>
+                                                 <th >
+                                                     Tag Name
+                                                 </th>
+                                             </tr>
+                                             </thead>
+                                             <tbody>
+                                             <tr id='addr0'>
+                                                 <td>
+                                                     1
+                                                 </td>
+                                                 <td>
+                                                     <input type="text" name='tags' placeholder='Name' class="form-control"/>
+                                                 </td>
+                                             </tr>
+                                             <tr id='addr1'></tr>
+                                             </tbody>
+
+                                         </table>
+                                     </div>
+                                 </div>
+                                 <a id="add_row" class="btn btn-primary pull-left text-light">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                 <a id='delete_row' class="pull-right btn btn-primary text-light">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
+                                 <div class=" pl-4 form-check-inline form-group row ">
+                                     <label class="form-check-label">Done &nbsp;</label>
+                                     <input class="form-check-input" name="LastTestImages" type="checkbox">
+
+                                 </div>
+                             </div>
+
+                         </div>
+                 
+                     </div>
+                         <div class="pt-4">
+                                              &nbsp;
+                                          </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <input type="submit" class="btn btn-primary" value="Create Model"/> <!--create button-->
+                  </div>
+
+
+
+            </form>
+             </div>
+     
+  
+            <script src="/dist/min/dropzone.min.js"></script>
+ 
+
+
+        </div>
+    </div>
+   
+</section>
+
+<style>
+.dropzone{
+  border: 1px dashed grey;
+  border-radius: 5px; 
+
+}
+</style>
+
+@* This script functions is used to add dynamic text boxs to allow the user to enter as many tags as
+ they desire with the uploaded test images *@
+
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+       $(document).ready(function(){
+           
+        var i=1;
+       $("#add_row").click(function(){
+        $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='tags"+i+"' type='text' placeholder='Name' class='form-control input-md'  /> " 
+         );
+        
+        $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+        i++; 
+       });
+       $("#delete_row").click(function(){
+      	 if(i>1){
+  		 $("#addr"+(i-1)).html('');
+  		 i--;
+  		 }
+  	 });
+  
+  });  
+    
+</script>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+$(function () {
+    $("#fileupload").change(function () {
+        if (typeof (FileReader) != "undefined") {
+            var dvPreview = $("#dvPreview");
+            dvPreview.html("");
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+            $($(this)[0].files).each(function () {
+                var file = $(this);
+                if (regex.test(file[0].name.toLowerCase())) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $("<img />");
+                        img.attr("style", "height:100px;width: 100px");
+                        img.attr("src", e.target.result);
+                        dvPreview.append(img);
+                    }
+                    reader.readAsDataURL(file[0]);
+                } else {
+                    alert(file[0].name + " is not a valid image file.");
+                    dvPreview.html("");
+                    return false;
+                }
+            });
+        } else {
+            alert("This browser does not support HTML5 FileReader.");
+        }
+    });
+});
+</script>
+<!--
+
+<section class="inventory d-flex justify-content-center">
     <div class="col-1 "> </div>
     <form method="post" enctype="multipart/form-data" asp-action="UploadTestImages" asp-controller="AIModel">
         <div asp-validation-summary="All" class="text-danger"></div>
-        <br />
+        <br/>
         <div class="form-group row text-center">
             <h3>Upload Image</h3>
         </div>
@@ -10,52 +236,62 @@
             <div class="col-2"></div>
             <div class="col-8">
                 <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                    <input hidden value="@Context.Request.Query["projectId"]" name="projectId" />
+                    <input hidden value="@Context.Request.Query["projectId"]" name="projectId"/>
                     <input id="upload" type="file" name="files" onchange="readURL(this);" class="form-control border-0" multiple>
                     <label id="upload-label" for="upload" class="font-weight-light text-muted ">Upload Image</label>
                     <div class="input-group-append">
-                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted text-center"></i><small class="text-uppercase font-weight-bold text-muted text-center "> <img src="../../wwwroot/images/upload-simple.svg" class="filter-colour2" alt="upload" /></small></label>
+                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4">
+                            <i class="fa fa-cloud-upload mr-2 text-muted text-center">upload</i>
+                       
+                        </label>
                     </div>
 
                 </div>
 
                 <p class="font-italic text-secondary text-center"></p>
-                <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                <div class="image-area mt-4">
+                    <img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
+                </div>
 
-                <br />
+                <br/>
                 <label>Tags:</label>
 
                 <div id="TestImageTags">
-                    <input name="tags" type="text" />
-                    <input type="button" value="Add New Tag" onclick="DynamicText()" class="btn-success" />
+                    <input name="tags" type="text"/>
+                    <input type="button" value="Add New Tag" onclick="DynamicText()" class="btn-success"/>
                 </div>
-                <br />
+                <br/>
                 <label>Done</label>
                 <input type="string" name="LastTestImages"/>
-                <br />
-                <input type="submit" value="Submit" class="btn btn-1" />
+                <br/>
+                <input type="submit" value="Submit" class="btn btn-1"/>
             </div>
             <div class="col-2"></div>
         </div>
     </form>
+
+
 </section>
 
 @* This script functions is used to add dynamic text boxs to allow the user to enter as many tags as they desire with the uploaded test images *@
 <script>
     function DynamicText()
     {
-        var division = document.createElement('DIV');
+        let division = document.createElement('DIV');
         division.innerHTML = AddTextBox("");
         document.getElementById("TestImageTags").appendChild(division);
-    };
+    }
 
     function AddTextBox(value)
     {
         return '<br/><div><input type="text" name="tags" /><input type="button" onclick="RemoveTextBox(this)" value="Remove Tag" class="btn-danger"/></div>';
-    };
+    }
 
     function RemoveTextBox(div)
     {
         document.getElementById("TestImageTags").removeChild(div.parentNode.parentNode);
     }
-</script>
+    
+    
+    
+</script>-->
