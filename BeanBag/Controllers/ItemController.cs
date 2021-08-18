@@ -37,14 +37,27 @@ namespace BeanBag.Controllers
         // This returns the upload-image view for item
         public IActionResult UploadImage(Guid inventoryId)
         {
-            
-            List<AIModelVersions> iterations = aIService.getAllAvailableIterations();
+            List<AIModel> aIModels = aIService.getAllModels();
 
-            IEnumerable<SelectListItem> iterationDropDown = iterations.Select(i => new SelectListItem
+            List<SelectListItem> iterationDropDown = new List<SelectListItem>();
+
+            foreach (var m in aIModels)
             {
-                Text = i.iterationName, 
-                Value = i.iterationId.ToString()
-            });
+                List<AIModelVersions> iterations = aIService.getAllAvailableIterationsOfModel(m.projectId);
+
+                SelectListGroup tempGroup = new SelectListGroup() { Name = m.projectName };
+
+                foreach (var i in iterations)
+                {
+
+                    iterationDropDown.Add(new SelectListItem
+                    {
+                        Group = tempGroup,
+                        Text = i.iterationName,
+                        Value = i.iterationId.ToString()
+                    });
+                }
+            }
 
             ViewBag.iterationDropDown = iterationDropDown;
 

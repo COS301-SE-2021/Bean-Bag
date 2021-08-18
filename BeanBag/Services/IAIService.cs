@@ -34,5 +34,7 @@ namespace BeanBag.Services
 
         public void unpublishIteration(Guid projectId, Guid iterationId);
 
+        public List<AIModelVersions> getAllAvailableIterationsOfModel(Guid projectId);
+
     }
 }

@@ -61,6 +61,8 @@ namespace BeanBag.Services
                 throw new Exception("Image url comes from invalid source");
 
             try {
+                
+
                 var result = predictionClient.ClassifyImageUrl(projectId, iterationName,
                 new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(imageURL));
 
@@ -69,8 +71,8 @@ namespace BeanBag.Services
                 foreach (var prediction in result.Predictions)
                 {
                     // The probability needs to be above 90% to be deemed accurate by the model
-                    if (prediction.Probability > 0.9)
-                        itemType += prediction.TagName + ",";
+                    //if (prediction.Probability > 0.9)
+                    itemType += prediction.TagName + ",";
 
                 }
 
@@ -370,6 +372,11 @@ namespace BeanBag.Services
             {
                 throw new Exception(e.ToString());
             }
+        }
+
+        public List<AIModelVersions> getAllAvailableIterationsOfModel(Guid projectId)
+        {
+            return _db.AIModelIterations.Where(i => i.availableToUser.Equals(true) && i.projectId.Equals(projectId)).ToList();
         }
     }
 }
