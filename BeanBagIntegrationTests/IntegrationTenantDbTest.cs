@@ -168,6 +168,7 @@ namespace BeanBagIntegrationTests
             //Act
             var query = new TenantService(_tenantDbContext);
             _tenantDbContext.Tenant.Add(newTenant);
+            _tenantDbContext.SaveChanges();
             _tenantDbContext.TenantUser.Add(newUser);
             _tenantDbContext.SaveChanges();
 
@@ -181,9 +182,10 @@ namespace BeanBagIntegrationTests
             Assert.Equal("Tenant-name", tenantName);
 
             //Delete from database
-            //_tenantDbContext.Remove(tenant);
-            //_tenantDbContext.Remove(user);
-           // _tenantDbContext.SaveChanges();
+            _tenantDbContext.Remove(user);
+            _tenantDbContext.SaveChanges();
+            _tenantDbContext.Remove(tenant);
+            _tenantDbContext.SaveChanges();
         }
         
         
