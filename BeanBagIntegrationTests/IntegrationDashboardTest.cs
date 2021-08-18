@@ -478,10 +478,16 @@ namespace BeanBagIntegrationTests
             
 
             
-            var m = dashService.GetSalesGrowth(theId2.ToString(), "W");
+            var m = dashService.GetSalesGrowth(theId2.ToString(), "D");
+            var n = dashService.GetSalesGrowth(theId2.ToString(), "W");
+            var o = dashService.GetSalesGrowth(theId2.ToString(), "M");
+            var p = dashService.GetSalesGrowth(theId2.ToString(), "Y");
             
             //ASSERT
             Assert.InRange(m, 0, Double.MaxValue);
+            Assert.InRange(n, 0, Double.MaxValue);
+            Assert.InRange(o, 0, Double.MaxValue);
+            Assert.InRange(p, 0, Double.MaxValue);
             itemSer.DeleteItem(itemId1);
             itemSer.DeleteItem(itemId2);
             invSer.DeleteInventory(theId2, u2);
@@ -601,10 +607,16 @@ namespace BeanBagIntegrationTests
             
 
             
-            var m = dashService.ItemsSoldStat(theId2.ToString(), "W");
+            var m = dashService.ItemsSoldStat(theId2.ToString(), "D");
+            var n = dashService.ItemsSoldStat(theId2.ToString(), "W");
+            var o = dashService.ItemsSoldStat(theId2.ToString(), "M");
+            var p = dashService.ItemsSoldStat(theId2.ToString(), "Y");
             
             //ASSERT
             Assert.InRange(m, 0, Double.MaxValue);
+            Assert.InRange(n, 0, Double.MaxValue);
+            Assert.InRange(o, 0, Double.MaxValue);
+            Assert.InRange(p, 0, Double.MaxValue);
             itemSer.DeleteItem(itemId1);
             itemSer.DeleteItem(itemId2);
             invSer.DeleteInventory(theId2, u2);
@@ -662,10 +674,16 @@ namespace BeanBagIntegrationTests
             
 
             
-            var m = dashService.ItemAvailableStat(theId2.ToString(), "W");
+            var m = dashService.ItemAvailableStat(theId2.ToString(), "D");
+            var n = dashService.ItemAvailableStat(theId2.ToString(), "W");
+            var o = dashService.ItemAvailableStat(theId2.ToString(), "M");
+            var p = dashService.ItemAvailableStat(theId2.ToString(), "Y");
             
             //ASSERT
             Assert.InRange(m, 0, Double.MaxValue);
+            Assert.InRange(n, 0, Double.MaxValue);
+            Assert.InRange(o, 0, Double.MaxValue);
+            Assert.InRange(p, 0, Double.MaxValue);
             itemSer.DeleteItem(itemId1);
             itemSer.DeleteItem(itemId2);
             invSer.DeleteInventory(theId2, u2);

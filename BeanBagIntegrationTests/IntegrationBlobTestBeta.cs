@@ -139,7 +139,7 @@ namespace BeanBagIntegrationTests
             Assert.NotNull(myUploadedFile);
         }
 
-        [Fact]
+       /* [Fact]
         public void Delete_Test_Image_Folder()
         {
             //ARRANGE
@@ -158,7 +158,7 @@ namespace BeanBagIntegrationTests
             
             //ASSERT
             Assert.Null(x);
-        } 
+        } */
         
     }
     
