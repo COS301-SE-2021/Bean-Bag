@@ -26,6 +26,32 @@ namespace BeanBagIntegrationTests
             _tenantDbContext = new TenantDbContext(builder.Options);
         }
         
+        //Test tenant creation
+        [Fact]
+        public void Test_Tenant_Creation_Success_Tenant_Added()
+        {
+            //Arrange
+            const string name = "Tenant-name";
+            
+            //Act
+            var query = new TenantService(_tenantDbContext);
+            var created = query.CreateNewTenant(name);
+
+            var tenantId = query.GetTenantId(name);
+
+            var tenant = _tenantDbContext.Tenant.Find(tenantId);
+
+            //Assert
+            Assert.True(created);
+            Assert.NotNull(tenantId);
+            Assert.NotNull(tenant);
+            
+            //Delete from the database
+            _tenantDbContext.Tenant.Remove(tenant);
+            _tenantDbContext.SaveChanges();
+
+        }
+        
         
         //Test to get a list of tenants from the database
         //POSITIVE TEST
@@ -89,6 +115,7 @@ namespace BeanBagIntegrationTests
             Assert.NotEqual(2+existing,tenantList.Count());
             
         }
+        
         
         //Get tenant id from current user
         //POSITIVE TEST
