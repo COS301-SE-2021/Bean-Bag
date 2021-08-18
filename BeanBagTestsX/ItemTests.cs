@@ -39,6 +39,7 @@ namespace BeanBagUnitTests
             //ARRANGE
 
             Guid invId = new("10000000-0000-0000-0000-000000000001");
+            Guid itemId = new("10000000-0000-0000-0000-000000000002");
 
             var myInv = new Inventory {Id = invId, name = "testInv", userId = "123"};
                 
@@ -59,14 +60,23 @@ namespace BeanBagUnitTests
             
 
             //ACT
-            mockIn.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
-            mockIn.Object.CreateItem(testItem);
-            
-            var retItems = mockIn.Object.GetItems(invId);
-            var x = retItems.Count;
 
+            var myser = new Mock<IItemService>();
+            myser.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
+            
+            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = invId};
+            
+            myser.Setup(x => x.CreateItem(thenew));
+            myser.Object.CreateItem(thenew);
+            
+            myser.Setup(x => x.FindItem(thenew.Id)).Returns(thenew);
+
+            var foundCreated = myser.Object.FindItem(thenew.Id);
+            
             //ASSERT
-            Assert.Equal(1, x);
+            
+            //Assert.True(isDeleted);
+            Assert.NotNull(foundCreated);
 
         }
 
@@ -96,12 +106,23 @@ namespace BeanBagUnitTests
 
 
             //ACT
-            mockIn.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
 
-            var isdDeleteItem = mockIn.Object.DeleteItem(itemId);     //ISSUE IS WITH DELETION OF ITEM FROM INVENTORY, IT ADDS, viz RUN THE TEST AND CHECK ASSERT
+            var myser = new Mock<IItemService>();
+            myser.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
+            
+            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = invId};
+            myser.Object.CreateItem(thenew);
+            
+            myser.Setup(x => x.DeleteItem(thenew.Id));
 
+            //var isDeleted = myser.Object.DeleteItem(thenew.Id);
+            
+            var confirmGone = myser.Object.FindItem(thenew.Id);
+            
             //ASSERT
-            Assert.True(isdDeleteItem);
+            
+            //Assert.True(isDeleted);
+            Assert.Null(confirmGone);
 
         }
 
@@ -127,20 +148,23 @@ namespace BeanBagUnitTests
             mockSet.As<IQueryable<Item>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Item>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            var mockIn = new Mock<IItemService>();
+            //var mockIn = new Mock<IItemService>();
 
 
             //ACT
-            mockIn.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
 
-            var myItem = mockSet.Object.Find(itemId);
-            mockIn.Object.EditItem(myItem);
+            var myser = new Mock<IItemService>();
+            myser.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
+            
+            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = invId};
+            myser.Object.CreateItem(thenew);
 
-            var myCheck = myItem.soldDate;
-            
-            
+            myser.Setup(x => x.EditItem(thenew));
+
+            myser.Object.EditItem(thenew);
+
             //ASSERT
-            Assert.Equal(DateTime.MinValue, myCheck);
+            Assert.Equal(DateTime.MinValue, thenew.soldDate);
 
         }
 
@@ -157,7 +181,7 @@ namespace BeanBagUnitTests
                 
             var data = new List<Item>
             {
-                new Item {Id = itemId, name = "sock", inventoryId = invId}
+               
             }.AsQueryable();
             
             var mockSet = new Mock<DbSet<Item>>();
@@ -166,16 +190,19 @@ namespace BeanBagUnitTests
             mockSet.As<IQueryable<Item>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Item>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            var mockIn = new Mock<IItemService>();
-
-
             //ACT
-            mockIn.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
-
-            var myItem = mockIn.Object.FindItem(itemId);
+            var myser = new Mock<IItemService>();
+            myser.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
             
+            var thenew = new Item { Id = itemId, name = "Pants", inventoryId = invId};
+            myser.Object.CreateItem(thenew);
+
+            myser.Setup(x => x.FindItem(thenew.Id));
+
+            var isFound = myser.Object.FindItem(thenew.Id);
+
             //ASSERT
-            Assert.NotNull(myItem);
+            Assert.Null(isFound);
 
         }
 

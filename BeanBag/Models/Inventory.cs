@@ -19,8 +19,6 @@ namespace BeanBag.Models
 
         public string userId { get; set; }
 
-        public string description { get; set; }
-
         public DateTime createdDate { get; set; }
     }
     

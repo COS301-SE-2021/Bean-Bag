@@ -16,6 +16,10 @@ namespace BeanBagIntegrationTests
             _factory = factory;
 
         }
+        
+        //blob
+        //db
+        //custom vision
 
         //Integration test defined to test if the webcontent pages are being hit when the system is run 
         [Theory]
