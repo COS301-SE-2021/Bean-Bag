@@ -379,52 +379,6 @@ a[href^="https"] {
 
 
 
-/*
-*
-* ==========================================
-* Uploading Image
-* ==========================================
-*
-*/
-#upload {
-    opacity: 0;
-}
-
-#upload-label {
-    position: absolute;
-    top: 50%;
-    left: 2rem;
-    transform: translateY(-50%);
-}
-
-.image-area {
-    border: 2px dashed lightslategray;
-    padding: 1rem;
-    position: relative;
-    width:300px;
-    height:300px;
-}
-
-.image-area::before {
-    content: 'Uploaded image result';
-    color: lightslategray;
-    font-weight: bold;
-    text-transform: uppercase;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 0.8rem;
-    z-index: 1;
-}
-
-.image-area img {
-    z-index: 2;
-    position: relative;
-    max-width:100%;/*check if size changes*/
-    max-height:100%;/*check if size changes*/
-}
-
 /* Item - Create*/
 .box{
     width:400px;
