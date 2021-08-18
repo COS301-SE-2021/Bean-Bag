@@ -185,5 +185,36 @@ namespace BeanBagIntegrationTests
             //_tenantDbContext.Remove(user);
            // _tenantDbContext.SaveChanges();
         }
+        
+        
+        //Tenant search
+        //POSITIVE TEST
+        [Fact]
+        public void Test_Tenant_Search_Success_Tenant_Found()
+        {
+            //Arrange
+            //Tenant
+            var id = Guid.NewGuid().ToString();
+            var name = "Tenant-name";
+            var newTenant = new Tenant { TenantId = id, TenantName = name };
+            
+            //Act
+            var query = new TenantService(_tenantDbContext);
+            _tenantDbContext.Tenant.Add(newTenant);
+            _tenantDbContext.SaveChanges();
+
+            var tenant = _tenantDbContext.Tenant.Find(id);
+            var searchTenant = query.SearchTenant(id);
+            
+            //Assert
+            Assert.NotNull(tenant);
+            Assert.True(searchTenant);
+            
+            //Delete from database
+            _tenantDbContext.Tenant.Remove(tenant);
+            _tenantDbContext.SaveChanges();
+        }
+        
+
     }
 }
