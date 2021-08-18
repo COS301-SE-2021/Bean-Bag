@@ -176,12 +176,14 @@ Testing the <b>Bean Bag</b> system:
 <a name="D1"/><h2> 🔵 Documentation</h3></a>
 All neccessary documentation related to the <b> Bean Bag</b> project.
 
-- [Software Requirements Specification Document](https://drive.google.com/drive/u/1/folders/1aOf_vzdIkNxeur8eyyou5kn9FHSUVCod)
-- [Architectural Document](https://drive.google.com/file/d/1bOr6wew3k5TFKAb9n3qYyJCWyn7ECS1o/view?usp=sharing)
-- [Technical Installation Guide](https://www.overleaf.com/project/60bf6e62809345fbe421d6e2)
-- [Coding Standards](https://www.overleaf.com/read/rgzpwvjjdkwq)
-- [User Manual](https://www.overleaf.com/read/tmsbffjmsfgc)
-- [Testing Policy](https://www.overleaf.com/read/vyyyndhcvjbd)
+- [Demo 1 | Software Requirements Specification Document](https://drive.google.com/drive/u/1/folders/1aOf_vzdIkNxeur8eyyou5kn9FHSUVCod)
+- [Demo 2 | Architectural Document](https://drive.google.com/file/d/1bOr6wew3k5TFKAb9n3qYyJCWyn7ECS1o/view?usp=sharing) 
+- [Demo 2 | User Manual](https://www.overleaf.com/read/tmsbffjmsfgc)
+- [Demo 2 | Coding Standards](https://www.overleaf.com/read/rgzpwvjjdkwq)
+- [Demo 3 | SRS - Architectural Document](https://drive.google.com/file/d/1bOr6wew3k5TFKAb9n3qYyJCWyn7ECS1o/view?usp=sharing)
+- [Demo 3 | Technical Installation Guide](https://www.overleaf.com/project/60bf6e62809345fbe421d6e2)
+- [Demo 3 | Coding Standards](https://www.overleaf.com/read/rgzpwvjjdkwq)
+- [Demo 3 | User Manual](https://www.overleaf.com/read/tmsbffjmsfgc)
 
 ---
 
