@@ -1,3 +1,4 @@
+name: BeanBag Master pipeline
 on:
   push:
     branches:
