@@ -34,7 +34,7 @@ namespace BeanBagIntegrationTests
         //Test to get a list of tenants from the database
         //POSITIVE TEST
         [Fact]
-        public void Get_Tenants_From_Database_Success()
+        public void Get_Tenants_From_Database_Success_Tenants_Added()
         {
             //Arrange
             var tenantId1 = Guid.NewGuid();
@@ -61,15 +61,45 @@ namespace BeanBagIntegrationTests
 
             
             //Assert
+            Assert.NotNull(tenantList);
             Assert.Equal(2+existing,tenantList.Count());
             Assert.Equal(tenantId1.ToString(),tenant.TenantId);
             Assert.Equal("Tenant-1", tenant.TenantName);
-            
-            
+
             //Delete tenants from database
             _tenantDbContext.Remove(_tenantDbContext.Tenant.Find(tenantId1.ToString()));
             _tenantDbContext.Remove(_tenantDbContext.Tenant.Find(tenantId2.ToString()));
             _tenantDbContext.SaveChanges();
+        }
+        
+        //NEGATIVE TEST
+        [Fact]
+        public void Get_Tenants_From_Database_Fail_Tenants_Not_Added()
+        {
+            //Arrange
+            var tenantId1 = Guid.NewGuid();
+            var tenantName1 = "Tenant-1";
+            var tenant1 = new Tenant {TenantId = tenantId1.ToString(), TenantName = tenantName1};
+            
+            var tenantId2 = Guid.NewGuid();
+            var tenantName2 = "Tenant-2";
+            var tenant2 = new Tenant {TenantId = tenantId2.ToString(), TenantName = tenantName2};
+            
+            var query = new TenantService(_tenantDbContext);
+            var tenantList = query.GetTenantList();
+            
+            
+            //Act
+            var queryExisting = new TenantService(_tenantDbContext);
+            var existing = queryExisting.GetTenantList().Count();
+
+            var tenant = _tenantDbContext.Tenant.Find(tenantId1.ToString());
+
+            
+            //Assert
+            Assert.Null(tenant);
+            Assert.NotEqual(2+existing,tenantList.Count());
+            
         }
         
     }
