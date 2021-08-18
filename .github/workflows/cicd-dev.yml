@@ -28,9 +28,9 @@ jobs:
       working-directory: ./BeanBag
       
     - name: Run automated unit tests 📋
-      run: dotnet test --nobuild
+      run: dotnet test --no-build --verbosity normal
       working-directory: ./BeanBagUnitTests
       
     - name: Run automated integration tests 📋
-      run: dotnet test --nobuild
+      run: dotnet test --no-build --verbosity normal
       working-directory: ./BeanBagIntegrationTests  
