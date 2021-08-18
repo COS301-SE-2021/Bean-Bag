@@ -30,7 +30,7 @@ namespace BeanBagIntegrationTests
         //Test to get a list of tenants from the database
         //POSITIVE TEST
         [Fact]
-        public void Get_Tenants_From_Database_Success_Tenants_Added()
+        public void Test_Get_Tenants_From_Database_Success_Tenants_Added()
         {
             //Arrange
             var tenantId1 = Guid.NewGuid();
@@ -70,7 +70,7 @@ namespace BeanBagIntegrationTests
         
         //NEGATIVE TEST
         [Fact]
-        public void Get_Tenants_From_Database_Fail_Tenants_Not_Added()
+        public void Test_Get_Tenants_From_Database_Fail_Tenants_Not_Added()
         {
             //Arrange
             var tenantId1 = Guid.NewGuid();
@@ -93,7 +93,7 @@ namespace BeanBagIntegrationTests
         //Get tenant id from current user
         //POSITIVE TEST
         [Fact]
-        public void Get_Tenant_Id_Success_Tenant_Exists()
+        public void Test_Get_Tenant_Id_Success_Tenant_Exists()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -123,7 +123,7 @@ namespace BeanBagIntegrationTests
         
         //NEGATIVE TEST
         [Fact]
-        public void Get_Tenant_Id_Failure_Tenant_Does_Not_Exist()
+        public void Test_Get_Tenant_Id_Failure_Tenant_Does_Not_Exist()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -145,7 +145,7 @@ namespace BeanBagIntegrationTests
         //Get name of the tenant
         //POSITIVE TEST
         [Fact]
-        public void Get_Tenant_Name_Success_Tenant_Exists()
+        public void Test_Get_Tenant_Name_Success_Tenant_Exists()
         {
             //Arrange
             //Tenant
@@ -182,7 +182,7 @@ namespace BeanBagIntegrationTests
         
         //NEGATIVE TEST
         [Fact]
-        public void Get_Tenant_Name_Fail_Tenant_Is_Null()
+        public void Test_Get_Tenant_Name_Fail_Tenant_Is_Null()
         {
             //Arrange
             //Tenant
