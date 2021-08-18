@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using Xunit;
+using Xunit.Sdk;
 
 namespace BeanBagIntegrationTests
 {
@@ -329,6 +330,20 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.SaveChanges();
             _tenantDbContext.Tenant.Remove(tenant);
             _tenantDbContext.SaveChanges();
+        }
+        
+        //NEGATIVE TEST
+        [Fact]
+        public void Test_Tenant_Id_Retrieval_Fail_User_Is_Null()
+        {
+            //Arrange
+            var query = new TenantService(_tenantDbContext);
+
+            //Act
+            var exception = Assert.Throws<Exception>(() => query.GetUserTenantId(null));
+
+            //Assert
+            Assert.Equal("User object id is null.", exception.Message);
         }
 
     }
