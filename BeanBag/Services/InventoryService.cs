@@ -24,6 +24,7 @@ namespace BeanBag.Services
 
         public void CreateInventory(Inventory newInventory)
         {
+            newInventory.createdDate = DateTime.Now;
             _db.Inventories.Add(newInventory);
             _db.SaveChanges();
         }
