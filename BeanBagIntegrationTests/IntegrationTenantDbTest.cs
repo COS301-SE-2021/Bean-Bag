@@ -129,5 +129,25 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.SaveChanges();
         }
         
+        //NEGATIVE TEST
+        [Fact]
+        public void Get_Tenant_Id_Failure_Tenant_Does_Not_Exist()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var tenantName = "Tenant-name";
+            
+            var newTenant = new Tenant { TenantId = id.ToString(), TenantName = tenantName };
+
+            //Act
+            var query = new TenantService(_tenantDbContext);
+            var tenant = _tenantDbContext.Tenant.Find(newTenant.TenantId);
+            var exception = Assert.Throws<Exception>(() => query.GetTenantId(null));
+
+            //Assert
+            Assert.Null(tenant);
+            Assert.Equal("Tenant name is null", exception.Message);
+        }
+        
     }
 }
