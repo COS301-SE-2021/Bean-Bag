@@ -1,18 +1,24 @@
 ﻿@using Microsoft.Extensions.Options
 @using Microsoft.Identity.Web
+@using BeanBag.Services
 @model IEnumerable<Item>
 @inject IOptions<MicrosoftIdentityOptions> azureAdb2COptions
-
+@inject TenantService _tenantService
+@{
+    var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
+}
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
  
 
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
+
 <section class="search-and-user ">
-    <span class="col-md-1 text-secondary">
-        Dashboard
+    <span class="md-2 text-secondary">
+        Dashboard | @tenant
     </span>
+
     <div class="admin-profile ">
         @{
             System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
@@ -22,7 +28,7 @@
 
             <span class="greeting  ">
 
-                Hello @User.Identity.Name </span>
+                Hello @User.Identity.Name</span>
 
         }
         <div>
@@ -33,7 +39,7 @@
 
 
     </div>
-    
+
 </section>
 
 
@@ -178,7 +184,7 @@
 
                             </tr>
 
-                            <tr>
+                            <tr class="">
                                 <th class="border-0">#</th>
                                 <th class="border-0">Image</th>
                                 <th class="border-0">Inventory </th>

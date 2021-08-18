@@ -10,13 +10,13 @@
                       
                        <div class="form-group">
                            
-    <h6 class="text-muted"> Are you sure that you want to delete this item? </h6>
+    <div class="text-muted"> Are you sure that you want to delete this item? </div>
                            <div class="about-product text-center mt-2">
-                               
+                                 <input asp-for="Id" hidden />
                                <img alt="Item Image" src="@Model.imageURL" width="150" class="p-3">
                                <div>
-                                   <h4>@Model.name </h4>
-                                   <b><i class="fas fa-tag"> </i> ITEM ID: @Model.Id</b>
+                                   <h5>@Model.name </h5>
+                                   <h6 class="text-muted"><i class="fas fa-tag"> </i> ITEM ID: @Model.Id</h6>
                                </div>
                            </div>
                               <hr>
@@ -38,15 +38,15 @@
                                    <div class="d-flex justify-content-between p-price"><span>Status</span><span>In Stock</span></div>
                                                                                                     
                                }
-                               <div class="d-flex justify-content-between p-price"><span>Condition</span><span> - </span></div>
-                               <div class="d-flex justify-content-between p-price"><span>Colour</span><span> - </span></div>
+                               <div class="d-flex justify-content-between p-price"><span>Condition</span><span> @Model.condition </span></div>
+                               <div class="d-flex justify-content-between p-price"><span>Colour</span><span><i class="fas fa-square" style="color: @Model.colour"></i></span></div>
                            </div>    </div>
                        
                        
 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <input type="submit" class="btn btn-primary" value="Delete"/> <!--create button-->
+                    <input type="submit" class="btn btn-3" value="Delete"/> <!--create button-->
                 </div>
 
         <partial name="_ValidationScriptsPartial" />

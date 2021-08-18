@@ -1,4 +1,13 @@
-﻿ 
+﻿@using BeanBag.Services
+@using Microsoft.Identity.Web
+@inject TenantService _tenantService
+
+@{
+  //Get the value of the website theme colour here
+  var color = _tenantService.GetTenantTheme(User.GetObjectId());
+  var logo = _tenantService.GetLogo(User.GetObjectId());
+} 
+
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -7,7 +16,32 @@
     <title>@ViewData["Title"] - BeanBag</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/dashboard.css"  />
+    @if(color == "GreenSheen")
+    {
+      <link rel="stylesheet" href="~/css/greenSheen.css" />
+    }else if(color == "FieryRose")
+    {
+      <link rel="stylesheet" href="~/css/fieryRose.css" />
+    }else if(color == "CornflowerBlue")
+    {
+      <link rel="stylesheet" href="~/css/cornflowerBlue.css" />
+    } 
+    else if (color == "PurpleMountainMajesty")
+    {
+      <link rel="stylesheet" href="~/css/purpleMountainMajesty.css" />
+    }
+    else if(color=="OutrageousOrange"){
+      <link rel="stylesheet" href="~/css/outrageousOrange.css" />
+    }
+    else if(color=="Default")
+    {
+      <link rel="stylesheet" href="~/css/default.css" />
+    }
+   
+  
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 <body>
   
@@ -55,7 +89,7 @@
   <header class="page-header">
     <nav>
       <a href="#0"  class="logo">
-        LOGO HERE
+        <img src="@logo" alt="LOGO HERE">
          <!---Company logo-->
         
       </a>
@@ -83,10 +117,12 @@
               </li>
               <li>
                 <li>
-                <a asp-area="" asp-controller="Home" asp-action="Index"> 
-                    <svg>
-                      <use xlink:href="#charts"></use>
-                    </svg>
+                  
+                  <a asp-area="" asp-controller="AIModel" asp-action="Index"> 
+                  <svg>
+                    <use xlink:href="#charts"></use>
+                  </svg>
+                  
                     <span>Train Models</span>
                   </a>
                 </li>
@@ -103,7 +139,7 @@
           <h3>Account</h3>
         </li>
         <li>
-               <a href="#0">
+               <a asp-area="" asp-controller="Appearance" asp-action="Index">
                  <svg>
                    <use xlink:href="#appearance"></use>
                  </svg>
@@ -111,12 +147,13 @@
                </a>
              </li>
         <li>
-                <a href="#0">
-                  <svg>
-                    <use xlink:href="#users"></use>
-                  </svg>
-                  <span>Profile</span>
-                </a>
+          
+            <li> <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="EditProfile">
+            <svg>
+              <use xlink:href="#users"></use>
+            </svg>
+            <span>Profile</span>
+          </a>
               </li>
               <li>
                 <a href="#0">

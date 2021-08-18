@@ -98,5 +98,20 @@ namespace BeanBag.Controllers
             aIService.unpublishIteration(projectId, iterationId);
             return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
         }
+
+        public IActionResult EditModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult DeleteModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult Edit()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

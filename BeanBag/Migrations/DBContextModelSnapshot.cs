@@ -56,6 +56,8 @@ namespace BeanBag.Migrations
 
                     b.HasKey("iterationId");
 
+                    b.HasIndex("projectId");
+
                     b.ToTable("AIModelIterations");
                 });
 
@@ -64,6 +66,12 @@ namespace BeanBag.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("createdDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("name")
                         .IsRequired()
@@ -84,6 +92,12 @@ namespace BeanBag.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("QRContents")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("colour")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("condition")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("entryDate")
@@ -134,6 +148,17 @@ namespace BeanBag.Migrations
                     b.HasKey("userId");
 
                     b.ToTable("UserRoles");
+                });
+
+            modelBuilder.Entity("BeanBag.Models.AIModelVersions", b =>
+                {
+                    b.HasOne("BeanBag.Models.AIModel", "AIModel")
+                        .WithMany()
+                        .HasForeignKey("projectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AIModel");
                 });
 
             modelBuilder.Entity("BeanBag.Models.Item", b =>

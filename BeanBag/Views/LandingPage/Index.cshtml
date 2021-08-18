@@ -1,10 +1,15 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 @{
        Layout = null;
 }
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 
 <link rel="stylesheet" href="css/splashscreen.css">
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -13,8 +18,7 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <!--Preloader Start-->
-
-
+<div id="show"></div>
 <!--Content-->
 <div class="container1">
 	<div data-aos="fade-zoom-in"
@@ -37,7 +41,7 @@
     	     data-aos-easing="ease-in-back"
     	     data-aos-delay="1500"
     	     data-aos-offset="0">
-    	    <!--start button, nothing above this is necessary -->
+    	   
                 <div class="svg-wrapper">
                   <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                     <rect id="shape" height="40" width="150" />
@@ -57,35 +61,45 @@
 
 	</div>
 
-<!--Navbar-->
+
 <nav class="navbar navbar-expand-md navbar-light">
 	<a href="#" class="navbar-brand">Bean Bag</a>
 	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	@{
-					System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
-				}
-				
-
+		System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+	}
+	
 	<div class="collapse navbar-collapse" id="collapsibleNavbar">
-		
 		<div class="navbar-nav ml-auto">
-			<li class="nav-item">
-						<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">  Login | SignUp
-					
-					<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-						<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-						<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-					</svg>
-			</a></li>
-			
-				
+			<li class="nav-item" >
+			</li>
 		</div>
 	</div>
-				
+	
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+    		
+			<div class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn"> Login | SignUp
+    					
+						<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+						</svg>
+					</a>
+				</li>
+			</div>
+			
+    	</div>
 	
 </nav>
+
+<script src="~/js/automation.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 <script>
   AOS.init();
