@@ -402,5 +402,32 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.SaveChanges();
         }
         
+        //NEGATIVE TEST
+        [Fact]
+        public void Test_User_Sign_Up_Fail_User_Not_Added_Tenant_Does_Not_Exist()
+        {
+            //Arrange
+            
+            //Tenant
+            var id = Guid.NewGuid().ToString();
+            //User
+            var userId = Guid.NewGuid().ToString();
+            
+            
+            //Act
+            var query = new TenantService(_tenantDbContext);
+
+            var signedUp = query.SignUserUp(userId, id);
+            
+            var tenant = _tenantDbContext.Tenant.Find(id);
+            var user = _tenantDbContext.TenantUser.Find(userId);
+            
+            //Assert
+            Assert.Null(tenant);
+            Assert.Null(user);
+            Assert.False(signedUp);
+
+        }
+        
     }
 }
