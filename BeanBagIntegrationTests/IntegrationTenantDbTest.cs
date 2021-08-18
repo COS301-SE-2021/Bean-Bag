@@ -361,6 +361,45 @@ namespace BeanBagIntegrationTests
             Assert.Equal("User does not exist in the database.", exception.Message);
 
         } 
+        
+        
+        //Test setting tenant theme
+        //POSITIVE TEST
+        [Fact]
+        public void Test_Setting_Theme_Success_Theme_Updated()
+        {
+            //Arrange
+            var id = Guid.NewGuid().ToString();
+            var newTenant = new Tenant { TenantId = id, TenantName = "Tenant-name" };
+
+            var userId = Guid.NewGuid().ToString();
+            var newUser = new TenantUser {UserObjectId = userId, UserTenantId = id};
+            
+            var query = new TenantService(_tenantDbContext);
+            
+            //Act
+            _tenantDbContext.Tenant.Add(newTenant);
+            _tenantDbContext.SaveChanges();
+            _tenantDbContext.TenantUser.Add(newUser);
+            _tenantDbContext.SaveChanges();
+
+            var updated = query.SetTenantTheme(userId, "Default");
+
+            var tenant = _tenantDbContext.Tenant.Find(id);
+            var user = _tenantDbContext.TenantUser.Find(userId);
+
+            //Assert
+            Assert.NotNull(tenant);
+            Assert.NotNull(user);
+            Assert.True(updated);
+            Assert.Equal("Default", tenant.TenantTheme);
+            
+            //Delete from the database
+            _tenantDbContext.TenantUser.Remove(user);
+            _tenantDbContext.SaveChanges();
+            _tenantDbContext.Tenant.Remove(tenant);
+            _tenantDbContext.SaveChanges();
+        }
 
     }
 }
