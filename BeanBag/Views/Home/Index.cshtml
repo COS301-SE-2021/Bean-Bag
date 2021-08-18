@@ -257,9 +257,12 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
     
-   
+    
+    
+    
       $(document).ready(function ()
       {
+            if(inventoryid)
             //------------- Ajax get items on change of the timespan ------------------//
              $("#TimeDropDown").change(function () {
                  
@@ -546,14 +549,16 @@
          
              
           //------ Ajax function to get dashboard on load ---------------//
-          
+                      
           
               let  selected=$("#InventoryDropDown Option:Selected");
               $('#inventory').text( selected.text());  
               
               let selectedTime=$("#TimeDropDown Option:Selected");
                $('#time').text( selected.text());  
-      
+
+          //Checking if user has an inventory, if not then create 'My First Inventory'    
+          
                                                          
                           //Items available
                            $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 

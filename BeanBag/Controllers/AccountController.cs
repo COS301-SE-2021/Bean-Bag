@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace BeanBag.Controllers
     public class AccountController : Controller
     {
         private readonly TenantService _tenantService;
+        private readonly IInventoryService _inventory;
 
-        public AccountController(TenantService tenantService)
+        public AccountController(TenantService tenantService, IInventoryService inventory)
         {
             _tenantService = tenantService;
+            _inventory = inventory;
         }
         
         [AllowAnonymous]
@@ -78,7 +81,18 @@ namespace BeanBag.Controllers
                     throw new Exception("Tenant does not exist");
                 }
             }
-            
+
+            //TEMPORARY FIX FOR NULL INVENTORY
+
+            Inventory newInventory = new Inventory()
+            {
+                name = "My First Inventory",
+                userId = userId,
+                description = "My first ever inventory to add new items to",
+                createdDate = DateTime.Now
+            };
+
+            _inventory.CreateInventory(newInventory);
 
             return RedirectToAction("Index", "Home");
         }
