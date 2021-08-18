@@ -48,7 +48,7 @@ body {
     background-color: #0275d8; /* btn-primary colour*/
     padding: 12px 30px;
     border: none;
-    color: var(--off-white);
+    color: white !important;
     font-size: 16px;
     text-transform: capitalize;
     /*    transition: all 05s ease;*/
@@ -60,7 +60,7 @@ body {
     /*  box-shadow: var(--shadow-black-100);*/
 }
 .btn-1:hover{
-    color: var(--off-white) !important;
+    color: white !important;
 
 }
 .btn-3{
