@@ -8,7 +8,7 @@ Developed by Polaris for <a href="https://www.agilebridge.co.za/" >Agile Bridge<
 ![Uptime Robot status](https://img.shields.io/uptimerobot/status/m788271158-bb7bc699e2e1865de72a0c39?style=flat-round&)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/Bean-Bag?style=flat-round&)
 
-![example workflow](https://github.com/COS301-SE-2021/Bean-Bag/actions/workflows/dotnet.yml/badge.svg?style=flat-round&)
+[![example workflow](https://github.com/COS301-SE-2021/Bean-Bag/actions/workflows/dotnet.yml/badge.svg?style=flat-round&)]
 [![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2021/Bean-Bag/badge.svg?branch=master)](https://coveralls.io/github/COS301-SE-2021/Bean-Bag?branch=master)
 
 ---
@@ -130,10 +130,12 @@ The Bean Bag project will make use of a mono-repo. All code and assets related t
     master ( build )
     − hotfix
       - develop ( build )
-            − backend−develop ( build )
-                  − module-develop ( build )
-                        − feature-module-feature_name
-            − frontend−develop ( build )
+            − develop-backend ( build )
+                  − develop-backend-module ( build )
+                        − feature-backend-module-feature_name
+            − develop-frontend ( build )
+                 − develop-module ( build )
+                       − feature-frontend-module-feature_name
 
 <h4 align="center"> Flow Management </h4>
 
@@ -142,7 +144,8 @@ The Bean Bag project will make use of a mono-repo. All code and assets related t
 - <b>develop </b>- this branch contains pre-production code.
 - <b>backend-develop</b> - this branch contains pre-production backend code.
 - <b>module-develop</b>- this branch contains the backend code for specific subsystems/modules in the system. When the features from the backend are complete, they are merged into module-develop.
-- <b>feature-module-feature_name</b> - this branch is used to develop new backend features for a specific module.
+- <b>feature-backend-module-feature_name</b> - this branch is used to develop new backend features for a specific module.
+- <b>feature-frontend-module-feature_name</b> - this branch is used to develop new frontend features for a specific module.
 - <b>frontend-develop</b> -this branch contains pre-production front-end code.
 
 ---
