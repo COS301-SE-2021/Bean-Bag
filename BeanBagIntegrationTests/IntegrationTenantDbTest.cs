@@ -33,13 +33,12 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             const string name = "Tenant-name";
+            var query = new TenantService(_tenantDbContext);
             
             //Act
-            var query = new TenantService(_tenantDbContext);
             var created = query.CreateNewTenant(name);
-
             var tenantId = query.GetTenantId(name);
-
+            
             var tenant = _tenantDbContext.Tenant.Find(tenantId);
 
             //Assert
@@ -58,10 +57,9 @@ namespace BeanBagIntegrationTests
         public void Test_Tenant_Creation_Fail_Tenant_Name_Is_Null()
         {
             //Arrange
-            const string name = "Tenant-name";
+            var query = new TenantService(_tenantDbContext);
             
             //Act
-            var query = new TenantService(_tenantDbContext);
             var exception = Assert.Throws<Exception>(() => query.CreateNewTenant(null));
 
             //Assert
@@ -230,7 +228,6 @@ namespace BeanBagIntegrationTests
             //Arrange
             //Tenant
             var id = Guid.NewGuid().ToString();
-            const string name = "Tenant-name";
 
             //Act
             var query = new TenantService(_tenantDbContext);
@@ -280,9 +277,7 @@ namespace BeanBagIntegrationTests
             //Arrange
             //Tenant
             var id = Guid.NewGuid().ToString();
-            var name = "Tenant-name";
-            var newTenant = new Tenant { TenantId = id, TenantName = name };
-            
+
             //Act
             var query = new TenantService(_tenantDbContext);
             
