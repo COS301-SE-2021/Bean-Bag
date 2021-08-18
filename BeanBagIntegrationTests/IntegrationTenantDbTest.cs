@@ -429,5 +429,34 @@ namespace BeanBagIntegrationTests
 
         }
         
+        //NEGATIVE TEST
+        [Fact]
+        public void Test_User_Sign_Up_Fail_User_Not_Added_Id_Is_Null()
+        {
+            //Arrange
+            
+            //Tenant
+            var id = Guid.NewGuid().ToString();
+            //User
+            var userId = Guid.NewGuid().ToString();
+            
+            
+            //Act
+            var query = new TenantService(_tenantDbContext);
+
+            var exceptionTenant = Assert.Throws<Exception>(() => query.SignUserUp(userId, null));
+            var exceptionUser = Assert.Throws<Exception>(() => query.SignUserUp(null, null));
+            
+            var tenant = _tenantDbContext.Tenant.Find(id);
+            var user = _tenantDbContext.TenantUser.Find(userId);
+            
+            //Assert
+            Assert.Null(tenant);
+            Assert.Null(user);
+            Assert.Equal("User or tenant id is null", exceptionTenant.Message);
+            Assert.Equal("User or tenant id is null", exceptionUser.Message);
+
+        }
+        
     }
 }
