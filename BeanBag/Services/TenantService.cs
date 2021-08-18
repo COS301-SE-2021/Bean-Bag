@@ -166,6 +166,16 @@ namespace BeanBag.Services
                 throw new Exception("Tenant name is null");
             }
 
+            var duplicate = (from tenant
+                    in _tenantDb.Tenant
+                where tenant.TenantName.Equals(tenantName)
+                select tenant.TenantName).FirstOrDefault();
+
+            if (duplicate != null)
+            {
+                return false;
+            }
+
             var id = Guid.NewGuid();
             
             _newTenantId = id.ToString();

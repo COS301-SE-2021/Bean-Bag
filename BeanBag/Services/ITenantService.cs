@@ -9,6 +9,8 @@ namespace BeanBag.Services
 
         public string GetUserTenantId(string userId);
 
+        public string GetTenantId(string tenantName);
+
         public string GetTenantTheme(string userId);
 
         public bool SetTenantTheme(string userId, string theme);
