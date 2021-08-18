@@ -44,21 +44,20 @@ namespace BeanBagIntegrationTests
             var tenantId2 = Guid.NewGuid();
             var tenantName2 = "Tenant-2";
             var tenant2 = new Tenant {TenantId = tenantId2.ToString(), TenantName = tenantName2};
-            
-            var query = new TenantService(_tenantDbContext);
-            var tenantList = query.GetTenantList();
-            
-            
+
             //Act
             var queryExisting = new TenantService(_tenantDbContext);
             var existing = queryExisting.GetTenantList().Count();
             
             _tenantDbContext.Tenant.Add(tenant1);
+            _tenantDbContext.SaveChanges();
             _tenantDbContext.Tenant.Add(tenant2);
             _tenantDbContext.SaveChanges();
             
+            var query = new TenantService(_tenantDbContext);
+            var tenantList = query.GetTenantList();
+            
             var tenant = _tenantDbContext.Tenant.Find(tenantId1.ToString());
-
             
             //Assert
             Assert.NotNull(tenantList);
@@ -67,8 +66,9 @@ namespace BeanBagIntegrationTests
             Assert.Equal("Tenant-1", tenant.TenantName);
 
             //Delete tenants from database
-            _tenantDbContext.Remove(_tenantDbContext.Tenant.Find(tenantId1.ToString()));
-            _tenantDbContext.Remove(_tenantDbContext.Tenant.Find(tenantId2.ToString()));
+            _tenantDbContext.Tenant.Remove(_tenantDbContext.Tenant.Find(tenantId1.ToString()));
+            _tenantDbContext.SaveChanges();
+            _tenantDbContext.Tenant.Remove(_tenantDbContext.Tenant.Find(tenantId2.ToString()));
             _tenantDbContext.SaveChanges();
         }
         
