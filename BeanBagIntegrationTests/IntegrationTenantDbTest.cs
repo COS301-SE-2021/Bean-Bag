@@ -102,5 +102,32 @@ namespace BeanBagIntegrationTests
             
         }
         
+        //Get tenant id from current user
+        //POSITIVE TEST
+        [Fact]
+        public void Get_Tenant_Id_Success_Tenant_Exists()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var tenantName = "Tenant-name";
+            
+            var newTenant = new Tenant { TenantId = id.ToString(), TenantName = tenantName };
+
+            //Act
+            var query = new TenantService(_tenantDbContext);
+            _tenantDbContext.Tenant.Add(newTenant);
+            _tenantDbContext.SaveChanges();
+
+            var tenant = _tenantDbContext.Tenant.Find(newTenant.TenantId);
+
+            //Assert
+            Assert.NotNull(tenant);
+            Assert.Equal("Tenant-name", tenant.TenantName);
+
+            //Delete from database
+            _tenantDbContext.Remove(tenant);
+            _tenantDbContext.SaveChanges();
+        }
+        
     }
 }
