@@ -181,7 +181,7 @@ All neccessary documentation related to the <b> Bean Bag</b> project.
 - [Demo 2 | User Manual](https://www.overleaf.com/read/tmsbffjmsfgc)
 - [Demo 2 | Coding Standards](https://www.overleaf.com/read/rgzpwvjjdkwq)
 - [Demo 3 | SRS - Architectural Document](https://drive.google.com/drive/folders/1viOpgJCb1BMFE4uqWRd7mbRtuZ_QopCi?usp=sharing)
-- [Demo 3 | Technical Installation Guide](https://www.overleaf.com/project/60bf6e62809345fbe421d6e2)
+- [Demo 3 | Technical Installation Guide](https://drive.google.com/drive/folders/1wIohf9eZYhcIg5I41J-6H5kgn2pTL3ek?usp=sharing)
 - [Demo 3 | Coding Standards](https://www.overleaf.com/read/rgzpwvjjdkwq)
 - [Demo 3 | User Manual](https://www.overleaf.com/read/tmsbffjmsfgc)
 
