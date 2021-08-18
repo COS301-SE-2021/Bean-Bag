@@ -80,7 +80,6 @@ namespace BeanBagIntegrationTests
             
            Assert.Equal("Leopard shorts", toCheck.name);
            Assert.Equal(u2, toCheck.userId);
-           // Assert.True(scaryMonster.IsScary);
         }
         
         
@@ -128,7 +127,6 @@ namespace BeanBagIntegrationTests
 
             //Verify the results
             Assert.NotNull(getInvs);
-            // Assert.True(scaryMonster.IsScary);
         }
         
         [Fact]
@@ -174,7 +172,6 @@ namespace BeanBagIntegrationTests
 
             //Verify the results
             Assert.True(isUpdated);
-            // Assert.True(scaryMonster.IsScary);
         }
         
         [Fact]
@@ -226,8 +223,56 @@ namespace BeanBagIntegrationTests
             //Verify the results
             Assert.True(isDeleted);
             Assert.Null(getInvs);
-            // Assert.True(scaryMonster.IsScary);
         }
+        
+        /*
+        [Fact]
+        public void Edit_Item()
+        {
+            //ARRANGE
+            var chars = "0123456789";
+            var stringChars = new char[5];
+            var random = new Random();
 
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            var myGuidEnd = finalString;
+
+            string u2 = finalString.Substring(0, 4);
+            string u3 = finalString.Substring(1, 4);
+            
+            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+            Guid itemId = new("00000000-0000-0000-0000-0000000" + u3 + "3");
+
+            DateTime myDay = DateTime.MinValue;
+            
+
+            //Execute the query
+            var query = new ItemService(_context);
+            
+            
+            
+            Inventory myinv = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
+            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = myinv.Id};
+
+            //ACT 
+            query.CreateItem(thenew);
+            query.EditItem(thenew);
+
+            
+
+            
+            
+            //ASSERT
+            
+            Assert.Equal(thenew.soldDate, DateTime.MinValue);
+            query.DeleteItem(thenew.Id);
+        }
+            */
     }
 }
