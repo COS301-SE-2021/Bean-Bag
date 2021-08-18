@@ -1,14 +1,10 @@
-﻿using BeanBag;
-using BeanBag.Database;
+﻿using BeanBag.Database;
 using BeanBag.Models;
 using BeanBag.Services;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace BeanBagIntegrationTests
@@ -78,23 +74,15 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             var tenantId1 = Guid.NewGuid();
-            var tenantName1 = "Tenant-1";
-            var tenant1 = new Tenant {TenantId = tenantId1.ToString(), TenantName = tenantName1};
-            
-            var tenantId2 = Guid.NewGuid();
-            var tenantName2 = "Tenant-2";
-            var tenant2 = new Tenant {TenantId = tenantId2.ToString(), TenantName = tenantName2};
-            
+
             var query = new TenantService(_tenantDbContext);
             var tenantList = query.GetTenantList();
-            
-            
+
             //Act
             var queryExisting = new TenantService(_tenantDbContext);
             var existing = queryExisting.GetTenantList().Count();
 
             var tenant = _tenantDbContext.Tenant.Find(tenantId1.ToString());
-
             
             //Assert
             Assert.Null(tenant);
@@ -118,10 +106,14 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.Tenant.Add(newTenant);
             _tenantDbContext.SaveChanges();
 
+            var tenantId = query.GetTenantId(tenantName);
+
             var tenant = _tenantDbContext.Tenant.Find(newTenant.TenantId);
 
             //Assert
             Assert.NotNull(tenant);
+            Assert.NotNull(tenantId);
+            Assert.Equal(id.ToString(), tenantId);
             Assert.Equal("Tenant-name", tenant.TenantName);
 
             //Delete from database
