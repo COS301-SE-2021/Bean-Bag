@@ -110,8 +110,7 @@ The technologies used to build the <b>Bean Bag </b> system.
 <p> <img alt=".Net" src="https://img.shields.io/badge/ASP.NET Core-5.0-5C2D91?style=flat-round&logo=.net&logoColor=white"/> <img alt="C#" src="https://img.shields.io/badge/C%23-%23239120.svg?style=flat-round&logo=c-sharp&logoColor=white"/></p>
 <h4>Frontend - Web App</h4>
 <p><img alt="HTML5" src="https://img.shields.io/badge/HTML5-%23E34F26.svg?style=flat-round&logo=html5&logoColor=white"/> <img alt="CSS3" src="https://img.shields.io/badge/CSS3-%231572B6.svg?style=flat-round&logo=CSS3&logoColor=white"/> <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-%23323330.svg?style=flat-round=javascript&logoColor=%23F7DF1E"/> <img alt="Bootstrap" src="https://img.shields.io/badge/Bootstrap-%23563D7C.svg?style=flat-round&logo=bootstrap&logoColor=white"/></p>
-<h4>AI and Analytics</h4>
-<img alt="Python" src="https://img.shields.io/badge/Python-%2314354C.svg?style=flat-round=python&logoColor=white"/>
+
 <h4>Cloud Services & Deployment</h4>
 <img alt="Azure" src="https://img.shields.io/badge/Microsoft_Azure-0089D6?style=flat-round&logo=microsoft-azure&logoColor=white"/>
 
