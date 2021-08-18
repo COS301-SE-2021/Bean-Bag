@@ -345,6 +345,22 @@ namespace BeanBagIntegrationTests
             //Assert
             Assert.Equal("User object id is null.", exception.Message);
         }
+        
+        //NEGATIVE TEST
+        [Fact]
+        public void Test_Tenant_Id_Retrieval_Fail_User_Does_Not_Exist()
+        {
+            //Arrange
+            var userId = Guid.NewGuid().ToString();
+            var query = new TenantService(_tenantDbContext);
+            
+            //Act
+            var exception = Assert.Throws<Exception>(() => query.GetUserTenantId(userId));
+            
+            //Assert
+            Assert.Equal("User does not exist in the database.", exception.Message);
+
+        } 
 
     }
 }
