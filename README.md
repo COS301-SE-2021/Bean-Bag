@@ -8,7 +8,7 @@ Developed by Polaris for <a href="https://www.agilebridge.co.za/" >Agile Bridge<
 ![Uptime Robot status](https://img.shields.io/uptimerobot/status/m788271158-bb7bc699e2e1865de72a0c39?style=flat-round&)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/Bean-Bag?style=flat-round&)
 
-[![example workflow](https://github.com/COS301-SE-2021/Bean-Bag/actions/workflows/dotnet.yml/badge.svg?branch=master)]
+[![Workflow](https://github.com/COS301-SE-2021/Bean-Bag/actions/workflows/cicd.yml/badge.svg?branch=master)]
 [![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2021/Bean-Bag/badge.svg?branch=master)](https://coveralls.io/github/COS301-SE-2021/Bean-Bag?branch=master)
 ---
 
