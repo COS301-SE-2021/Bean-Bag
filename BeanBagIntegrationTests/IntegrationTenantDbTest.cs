@@ -400,6 +400,21 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.Tenant.Remove(tenant);
             _tenantDbContext.SaveChanges();
         }
+        
+        //NEGATIVE TEST
+        [Fact]
+        public void Test_Setting_Theme_Fail_User_Is_Null()
+        {
+            //Arrange
+            var query = new TenantService(_tenantDbContext);
+            
+            //Act
+            var exception = Assert.Throws<Exception>(() => query.SetTenantTheme(null, "Default"));
+
+            //Assert
+            Assert.Equal("User id is null", exception.Message);
+            
+        }
 
     }
 }
