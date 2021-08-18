@@ -27,6 +27,7 @@ namespace BeanBagIntegrationTests
         }
         
         //Test tenant creation
+        //POSITIVE TEST
         [Fact]
         public void Test_Tenant_Creation_Success_Tenant_Added()
         {
@@ -50,6 +51,21 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.Tenant.Remove(tenant);
             _tenantDbContext.SaveChanges();
 
+        }
+        
+        //NEGATIVE TEST
+        [Fact]
+        public void Test_Tenant_Creation_Fail_Tenant_Name_Is_Null()
+        {
+            //Arrange
+            const string name = "Tenant-name";
+            
+            //Act
+            var query = new TenantService(_tenantDbContext);
+            var exception = Assert.Throws<Exception>(() => query.CreateNewTenant(null));
+
+            //Assert
+            Assert.Equal("Tenant name is null", exception.Message);
         }
         
         
