@@ -26,12 +26,16 @@ namespace BeanBag.Services
 
         public void CreateItem(Item newItem)
         {
-            newItem.entryDate = DateTime.Now;
-            _db.Items.Add(newItem);
-            _db.SaveChanges();
-            newItem = AddQRItem(newItem);
-            _db.Items.Update(newItem);
-            _db.SaveChanges();
+            if (newItem != null)
+            {
+                newItem.entryDate = DateTime.Now;
+                _db.Items.Add(newItem);
+                _db.SaveChanges();
+                newItem = AddQRItem(newItem);
+                _db.Items.Update(newItem);
+                _db.SaveChanges(); 
+            }
+            
         }
 
         public bool DeleteItem(Guid ItemId)
