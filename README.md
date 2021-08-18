@@ -139,12 +139,12 @@ The Bean Bag project will make use of a mono-repo. All code and assets related t
 
 - <b>master</b> - this branch contains production code. All development code is merged into master in sometime
 - <b>hotfix</b> - this branch is necessary to act immediately upon an undesired status of master.
-- <b>develop </b>- this branch contains pre-production code.
-- <b>backend-develop</b> - this branch contains pre-production backend code.
-- <b>module-develop</b>- this branch contains the backend code for specific subsystems/modules in the system. When the features from the backend are complete, they are merged into module-develop.
+- <b>develop</b>- this branch contains pre-production code.
+- <b>develop-backend</b> - this branch contains pre-production backend code.
+- <b>develop-module</b>- this branch contains the backend code for specific subsystems/modules in the system. When the features from the backend are complete, they are merged into module-develop.
 - <b>feature-backend-module-feature_name</b> - this branch is used to develop new backend features for a specific module.
 - <b>feature-frontend-module-feature_name</b> - this branch is used to develop new frontend features for a specific module.
-- <b>frontend-develop</b> -this branch contains pre-production front-end code.
+- <b>develop-frontend</b> -this branch contains pre-production front-end code.
 
 ---
 
@@ -181,7 +181,7 @@ All neccessary documentation related to the <b> Bean Bag</b> project.
 - [Demo 2 | Architectural Document](https://drive.google.com/file/d/1bOr6wew3k5TFKAb9n3qYyJCWyn7ECS1o/view?usp=sharing) 
 - [Demo 2 | User Manual](https://www.overleaf.com/read/tmsbffjmsfgc)
 - [Demo 2 | Coding Standards](https://www.overleaf.com/read/rgzpwvjjdkwq)
-- [Demo 3 | SRS - Architectural Document](https://drive.google.com/file/d/1bOr6wew3k5TFKAb9n3qYyJCWyn7ECS1o/view?usp=sharing)
+- [Demo 3 | SRS - Architectural Document](https://drive.google.com/drive/folders/1viOpgJCb1BMFE4uqWRd7mbRtuZ_QopCi?usp=sharing)
 - [Demo 3 | Technical Installation Guide](https://www.overleaf.com/project/60bf6e62809345fbe421d6e2)
 - [Demo 3 | Coding Standards](https://www.overleaf.com/read/rgzpwvjjdkwq)
 - [Demo 3 | User Manual](https://www.overleaf.com/read/tmsbffjmsfgc)
