@@ -364,6 +364,43 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.SaveChanges();
         }
         
+        //NEGATIVE TEST
+        [Fact]
+        public void Test_User_Sign_Up_Fail_User_Not_Added_Already_Exists()
+        {
+            //Arrange
+            
+            //Tenant
+            var id = Guid.NewGuid().ToString();
+            var newTenant = new Tenant { TenantId = id, TenantName = "Tenant-name" };
+            
+            //User
+            var userId = Guid.NewGuid().ToString();
+            
+            
+            //Act
+            var query = new TenantService(_tenantDbContext);
+            _tenantDbContext.Tenant.Add(newTenant);
+            _tenantDbContext.SaveChanges();
+
+            var signedUp = query.SignUserUp(userId, id);
+            var signedUpAgain = query.SignUserUp(userId, id);
+
+            var tenant = _tenantDbContext.Tenant.Find(id);
+            var user = _tenantDbContext.TenantUser.Find(userId);
+            
+            //Assert
+            Assert.NotNull(tenant);
+            Assert.NotNull(user);
+            Assert.True(signedUp);
+            Assert.False(signedUpAgain);
+            
+            //Delete from database
+            _tenantDbContext.TenantUser.Remove(user);
+            _tenantDbContext.SaveChanges();
+            _tenantDbContext.Tenant.Remove(tenant);
+            _tenantDbContext.SaveChanges();
+        }
         
     }
 }
