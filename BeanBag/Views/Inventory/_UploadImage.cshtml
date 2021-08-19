@@ -1,0 +1,23 @@
+﻿@model Pagination
+@addTagHelper *, Microsoft.AspNetCore.TagHelpers
+    
+
+<!---Popup Form to upload/add item -->
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+            
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"  id="exampleModalTitle2">Add Item <i class="fas fa-folder-plus"> </i></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                    
+            <form method="post"  asp-controller="Item" enctype="multipart/form-data" asp-action="UploadImage" class="data">
+              
+            </form>
+        </div>
+    </div>
+</div>

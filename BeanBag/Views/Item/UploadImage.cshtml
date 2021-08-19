@@ -1,86 +1,54 @@
-﻿@using Microsoft.Extensions.Options
+﻿@model Item
+@using Microsoft.Extensions.Options
 @using Microsoft.Identity.Web
-@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
-
+@inject IOptions<MicrosoftIdentityOptions> azureAdb2COptions
 @{
-    var options = _azureAdb2COptions.Value;
+    Layout = null;
 }
 
-<header>
+                <div class="modal-body">
+                    <div class="form-group ">
+                        
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm pt-2">
+                                    <label>Select Prediction Model:</label>
+                                </div>
+                                <div class="col-sm">
+                                    <select name="predictionModel" asp-items="@ViewBag.iterationDropDown" class="form-control">
+                                        <option selected>Selection</option>
+                                    </select>
+                                </div>
 
-    <nav class="navbar navbar-expand-lg fixed-top navbar-shrink">
-        <div class="container">
-            <!-- Brand -->
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bean Bag</a>
+                            </div>
+                        </div>
+<hr>
+                        <!-- Upload image input-->
+                        <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                            <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0">
+                            <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
+                            <div class="input-group-append">
+                                <label for="upload" class="btn btn-light m-0 rounded-pill px-4 upload"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                            </div>
+                        </div>
 
-            <!-- Toggler/collapsible Button -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <i class="fas fa-bars"> </i>
-            </button>
+                        <!-- Uploaded image area-->
+                        <div class="image-area mt-4 align-content-center"><img id="imageResult" src="#" alt="" width="500" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
 
-            <!-- Navbar links add active thing on the link to the current that you're on... -->
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav ml-auto">
-
-                    @{
-                        System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <!-- <li class="nav-item"><span class="navbar-toggler-icon"> Hello @User.Identity.Name</span>
-                        </li>-->
-
-                        @if (!string.IsNullOrEmpty(options.EditProfilePolicyId))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="EditProfile">Edit Profile</a>
-                            </li>
-                        }
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-
-<section class="inventory d-flex align-items-center">
-
-    <form method="post" enctype="multipart/form-data" asp-action="UploadImage" asp-controller="Item">
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <br/> 
-        <div class="form-group row">
-            <h3>Upload Image</h3>
-        </div>
-         <div class="col-2" ></div>  
-        <div class="col-8">
-            <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0">
-                <label id="upload-label" for="upload" class="font-weight-light text-muted ">Upload Image</label>
-                <div class="input-group-append">
-                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted text-center"></i><small class="text-uppercase font-weight-bold text-muted text-center "> <img src="../../wwwroot/images/upload-simple.svg" class="filter-colour2" alt="upload"/></small></label>
+                    </div>
+                    <div asp-validation-summary="All" class="text-danger"></div>
                 </div>
-            </div>       
-            
-            <p class="font-italic text-secondary text-center"></p>
-            <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                    
+                <div class="modal-footer ">
+                    <button type="button" class="btn btn-3" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn bbtn-2" value="Submit"/> <!--create button-->
+                </div>
 
-            <br/>
-            <input type="submit" value="Submit" class="btn btn-1"/>
-        </div>
-         <div class="col-2" ></div>  
-               
-            
-        
-    </form>
-</section>
-
-@*
-@section Scripts{
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
-}*@
+<!--<footer id="sticky-footer"  class="footer-copyright "> -->
+<!--class="border-top footer text-muted"-->
+<!-- <div class="container">
+    &copy; 2021 - BeanBag by <a class="agile-link" href="https://www.agilebridge.co.za/">Agile Bridge </a>
+    <br>
+    <a class="landing-page-image" href="https://www.freepik.com/vectors/box">Box vector created by vectorjuice - www.freepik.com</a>
+</div>
+</footer> -->

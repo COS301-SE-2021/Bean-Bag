@@ -1,0 +1,496 @@
+﻿/*  Fonts  */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+/*  Global Css  */
+:root {
+    --main-color: var(--purpleMountainMajesty);
+    --main-color-light:rgba(150,123,182,0.2);
+    --color-1: #e91e63;
+    --color-2: #f5ae10;
+    --color-3: #09d69c;
+    --bg-dark: #2b2c2f;
+    /* ----- Theme colours -----*/
+    --cornflowerBlue:#578CFF;
+    --fieryRose: #FF5971;
+    --greenSheen:#76B5AE;
+    --outrageousOrange:#FE7958;
+    --purpleMountainMajesty:#967BB6;
+    /*-------------------------------
+    --main-to-dark-color: var(--main-color);
+    --dark-to-main-color: var(--bg-dark);*/
+    --shadow-black-100: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --shadow-black-300: 0 5px 15px rgba(0, 0, 0, 0.3);
+    --black-900: #000000;
+    --black-400: #555555;
+    --black-100: #ffffff;
+    --off-white: #f1f2f6;
+    --black-alpha-100: rgba(0, 0, 0, 0.05);
+
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    overflow-x: hidden;
+    background-color: var(--off-white);
+    line-height: 1.5;
+
+}
+/* Cards*/
+.card-header{
+    background-color:var(--main-color-light);
+}
+
+/*Buttons*/
+
+.btn-1 {
+    background-color: var(--main-color);
+    padding: 12px 30px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    text-transform: capitalize;
+    box-shadow: var(--shadow-black-100);
+    font-weight: 500;
+}
+
+.btn-1:focus {
+    /*  box-shadow: var(--shadow-black-100);*/
+}
+.btn-1:hover{
+    color: var(--off-white) !important;
+
+}
+.btn:hover {
+    /* color: #f1f2f6;*/
+    /* background-color:rgba(87,140,255,0.5) ; put this colour inside a var */
+
+}
+.btn:visited{
+
+    color: var(--off-white);
+    background-color:var(--main-color) ;/* put this colour inside a var */
+}
+
+.btn.tableButton:visited{
+
+    color: var(--black-900) !important;
+
+}
+
+.btn.btn-light:hover {
+    /*  color: var(--off-white);
+      background-color: transparent;*/
+}
+
+.btn-3{
+    background-color: var(--main-color);
+    color:white;
+}
+.btn-3:visited{
+    background-color: var(--main-color) !important;
+    color:white !important;
+}
+.btn-3:hover{
+    color:white !important;
+    background-color: #896bad!important; /* use an intense hue of the colour*/
+}
+.clearfix {
+    clear: both;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none !important;
+}
+
+img {
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+ul {
+    list-style: none;
+}
+
+@keyframes spin_01 {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes zoomInOut_01 {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+/* fix padding on QRCode page*/
+.fixPadding {
+    padding-bottom: 25px;
+}
+
+.fixMargin {
+    margin: 10px;
+}
+
+/*.filter-colour {
+    filter: invert(57%) sepia(61%) saturate(4250%) hue-rotate(203deg) brightness(101%) contrast(100%);
+    width: 60px;
+    height: 60px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}*/
+
+
+.empty-div {
+    padding-top: 30px;
+}
+
+.content-item {
+    border-radius: 25px;
+    border: 2px solid var(--main-color);
+    padding: 20px;
+    width: 300px;
+    height: 280px;
+}
+
+/*  Navbar  
+.navbar {
+    background-color: var(--main-color);
+    padding: 20px 0;
+}
+
+.navbar > .container {
+    padding: 0 15px;
+}
+
+.navbar .navbar-brand {
+    font-size: 30px;
+    color: #ffffff;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.navbar .nav-item {
+    margin-left: 40px;
+}
+
+.navbar .nav-item .nav-link {
+    color: #ffffff;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 5px 0;
+    position: relative;
+}
+
+.navbar .nav-item .nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ffffff;
+    transform: scale(0);
+}
+
+.navbar .nav-item .nav-link.active::before,
+.navbar .nav-item .nav-link:hover::before {
+    transform: scale(1);
+}
+.navbar-toggler{
+    padding: .25rem .75rem;
+    font-size:1.25rem;
+    line-height:1;
+    background-color: transparent;
+    border-radius: .25rem;
+}*/
+
+/*Home */
+.home {
+    min-height: 92vh;
+    padding: 80px 0; /*Default value was 150px*/
+    background-color: var(--off-white);
+}
+h3{
+    color: var(--main-color) !important;
+}
+
+h2{
+    color:var(--main-color) !important;
+}
+.home-text h1 {
+    font-size: 45px;
+    font-weight: 700;
+    color: var(--main-color);
+    margin: 0 0 20px;
+}
+
+.home-text p {
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--main-color);
+    width: 100%;
+}
+
+.home-btn {
+    margin: 15px;
+}
+
+
+
+/*QRCode */
+
+.filter-colour2 {
+    filter: invert(57%) sepia(61%) saturate(4250%) hue-rotate(203deg) brightness(101%) contrast(100%);
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+small {
+    display: flex;
+    padding-bottom: 15px;
+}
+
+
+
+/* footer*/
+footer {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    background-color: var(--main-color);
+    padding: 15px 0;
+    color: #ffffff;
+    bottom: 0;
+    /*min-height: 8vh;*/
+    position: fixed;
+    width:100%
+}
+
+a[href^="https"] {
+    background-color: transparent;
+    text-decoration: underline;
+    color: #ffffff;
+}
+/*Inventory*/
+.createForm{
+    padding: 50px 0;
+
+}
+.inventory{
+    min-height: 60vh;
+    padding: 80px; /*Default value was 150px*/
+    background-color: var(--off-white);
+}
+.btn-option {
+    background-color: var(--main-color);
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    color: var(--off-white);
+    font-size: 16px;
+    text-transform: capitalize;
+    /*transition: all 05s ease;*/
+    box-shadow: var(--shadow-black-100);
+    font-weight: 500;
+}
+.btn-2 {
+    /*background-color: var(--off-white);*/
+    padding: 12px 30px;
+    border-color: var(--main-color);
+    color: var(--main-color) !important;
+    font-size: 16px;
+    text-transform: capitalize;
+
+    box-shadow: var(--shadow-black-100);
+    font-weight: 500;
+}
+/* This is the Inventory table's css*/
+.inventoryTable {
+    border-color: var(--main-color);
+}
+.inventoryTableHeader
+{
+    /* doesn't want to show*/
+    background-color: var(--main-color) !important;
+    color:var(--off-white);
+}
+/* Responsive*/
+@media(max-width: 991px){
+    /* .navbar-toggler{
+         background-color: var(--dark-to-main-color);
+         box-shadow:var(--shadow-black-300);
+         height:34px;
+         width: 44px;
+         padding:0;
+         font-size:17px;
+         color:#ffffff;
+     }
+     .navbar-nav{
+         background-color: var(--dark-to-main-color);
+         box-shadow:var(--shadow-black-300);
+         
+     }
+     .navbar .nav-item{
+         margin:0;
+         padding:5px 15px;
+     }
+     .navbar.navbar-shrink .navbar-toggler,
+     .navbar.navbar-shrink .navbar-nav{
+         background-color: var(--main-color);
+     }*/
+    .landing-text h1{
+        font-size:36px;
+
+    }
+    .landing-text p {
+        font-size: 16px;
+    }
+    .upload-image{
+        margin-bottom:80px;
+    }
+}
+@media(max-width: 767px){
+    .landing-text{
+        margin-bottom: 80px;
+    }
+    .landing-img img {
+        transform: scale(1.1, 1.1);
+    }
+}
+
+@media(max-width: 575px){
+    .home-text h1{
+        font-size:30px;
+
+    }
+    .home-text p{
+        font-size:16px;
+
+    }
+}
+
+
+
+/* Item - Create*/
+.box{
+    width:400px;
+    height:400px;
+}
+
+.box img {
+    z-index: 2;
+    position: relative;
+    max-width:100%;/*check if size changes*/
+    max-height:100%;/*check if size changes*/
+}
+
+.content-item2 {
+    border-radius: 25px;
+    border: 2px solid var(--main-color);
+    padding: 20px;
+    width: 450px;
+    height: 450px;
+}
+
+.content-item2 p{
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--main-color);
+    width: 100%;
+}
+
+.item-create{
+    min-height: 92vh;
+    padding: 80px; /*Default value was 150px*/
+    background-color: var(--off-white);
+}
+
+/* Appearance - Index*/
+.colourButton{
+    width:40px;
+    height:40px;
+}
+.appearance{
+    width:1000px;
+    margin: auto;
+}
+
+.themeSelector{
+    padding: 10px;
+    border-radius: 10px;
+    border-color: gray;
+    /*: darkgray;*/
+}
+
+.element {
+    display: inline-block !important;
+
+}
+
+.element1{
+    margin-right: 15px;
+}
+
+.websiteThemeCard{
+    margin-bottom: 50px;
+}
+
+/*Account - Index */
+.button1 , .button2 {
+    display:inline-block;
+    /* additional code */
+}
+.button1{
+    margin-right: 15px;
+}
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*Navbar */
+/* HEADER STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.page-header .admin-menu a:hover,
+.page-header .admin-menu a:focus,
+.page-header .admin-menu button:hover,
+.page-header .admin-menu button:focus {
+    background: var(--main-color-light);
+    color: #b498d4;/*add this to theme css files*/
+
+}
+
+.page-header .admin-menu a:hover svg,
+.page-header .admin-menu a:focus svg,
+.page-header .admin-menu button:hover svg,
+.page-header .admin-menu button:focus svg {
+    fill: #b498d4; /*add this to theme css files*/
+}
+
+/* SWITCH STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.switch span:first-child {
+
+    color: var(--main-color-light); /*add this to theme css files add main light color*/
+
+}

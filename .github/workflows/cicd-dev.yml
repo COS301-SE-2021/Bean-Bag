@@ -1,0 +1,36 @@
+name: Develop pipeline 
+
+on:
+  push:
+    branches:
+      - develop     
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code 🔔 
+      uses: actions/checkout@v2 
+      
+    - name: Setup .NET 🔧
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x'
+        
+    - name: Restore dependencies 🔑
+      run: dotnet restore
+      working-directory: ./BeanBag
+
+    - name: Build app 🚀
+      run: dotnet build --no-restore
+      working-directory: ./BeanBag
+      
+    - name: Run automated unit tests 📋
+      run: dotnet test --no-build --verbosity normal
+      working-directory: ./BeanBagUnitTests
+      
+    - name: Run automated integration tests 📋
+      run: dotnet test --no-build --verbosity normal
+      working-directory: ./BeanBagIntegrationTests  

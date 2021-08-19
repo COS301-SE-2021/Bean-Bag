@@ -1,100 +1,294 @@
-﻿@model IEnumerable<Item>
-@using Microsoft.Extensions.Options
-@using Microsoft.Identity.Web
-@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+﻿@model Pagination
+
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@{int i = 1;}
 
 @{
-    var options = _azureAdb2COptions.Value;
+    ViewBag.Title = "Items";
+}
+<link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
+<section class="page-content" xmlns="http://www.w3.org/1999/html">
+        
+<section class="ml-3">
+             <a asp-action="Index" asp-controller="Inventory" class="btn btn-secondary  rounded-pill "><i class="fas fa-chevron-left"> </i></a>
+                  
+    <span class="  md-2 text-secondary ">
+         
+        &nbsp; Inventory | Item List
+    </span>
+            <span class="float-right mr-2">
+                Total Items &nbsp; <span class="   rounded-circle rounded p-3">@ViewBag.totalItems</span>
+                <div>
+                </div></span>
+</section>
+
+    <div class="dashboard-wrapper">
+        <div class="container-fluid  dashboard-content">
+            <hr>
+            <br>
+           
+            <div class="row">
+                
+    
+                <!--Search-->
+                    @using (Html.BeginForm())
+                    {
+                        <div class="d-flex">
+                        <span class="d-inline-block ml-3 pt-2">
+                           <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date &nbsp;</span>
+                        <span class=" d-inline-block">              
+                        @Html.TextBox("from", null, new {@class = "form-control ", type="date"})
+                     </span>
+                        <span class="d-inline-block pt-2">
+                            &nbsp; &nbsp; To Date &nbsp;</span>
+                        <span class=" d-inline-block">  
+                        @Html.TextBox("to", null, new {@class = "form-control ", type="date" })
+                    </span>
+                        @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
+                        <span class="d-inline-block pl-2">
+                            <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3"/>
+                        </span>
+                        </div>
+                    }
+             
+                <div class="col-3 ml-auto">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                           @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 red-border", placeholder = "Search"})
+                            <div class="input-group-append">
+                                <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
+                                    <i class="fas fa-search text-grey"
+                                       aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!--Table with bootstrap class-->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <br>
+                    <div class="card shadow p-1 mb-4 bg-body rounded">
+                        <h5 class="card-header">Item List <span class="text-right float-right text-muted small">Inventory - @ViewBag.InventoryName </span></h5>
+                        <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
+                            <div>
+                                @if (Model.PagedListItems.Any())
+                                {
+                                    <table class="table table-bordered table-striped">
+                                        <thead class="inventoryTableHeader">
+
+                                        <tr>
+                                            <th>#</th>
+                                            <th>ID</th>
+                                            <th>Item</th>
+                                            <th>@Html.ActionLink("Name", "ViewItems", new {sortOrder = ViewBag.NameSortParm, inventoryId=@ViewBag.InventoryId})
+                                                <i class="fas fa-chevron-down text-grey"
+                                                   aria-hidden="true"></i></th>
+                                            <th>Category</th>
+                                            <th>Entry Date</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Status</th>
+                                            <th> Date Sold</th>
+
+
+                                            <th> Condition</th>
+                                            <th> Colour</th>
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+
+                                        </thead>
+
+                                        <tbody>
+                                        @foreach (var items in Model.PagedListItems)
+                                        {
+                                            <tr>
+                                                <td >@i</td>
+                                                @{ i++; }
+                                                <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@items.Id"><i class="fas fa-tag"> </i></button></td>
+                                                <td><img src="@items.imageURL" class="rounded" width="60" alt="Item Image"></td>
+                                                <td>@items.name</td>
+                                                <td>@items.type</td>
+                                                <td>@items.entryDate</td>
+                                                <td>R @items.price</td>
+                                                <td>@items.quantity</td>
+                                                @if (@items.isSold)
+                                                {
+                                                    <td>Sold</td>
+                                                    <td>@items.soldDate</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>In Stock </td>
+                                                    <td>N/A</td>
+                                                }
+                                                <td>@items.condition </td>
+                                                <td><div class="text-center justify-content-center p-3" ><i class="fas fa-square" style="color: @items.colour"></i></div></td>
+                                                <td >
+                                                    <div class="w-100 btn-group" role="group">
+                                                        <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
+                                                        <a href="@Url.Action("Delete", "Item", new {@items.Id})"
+                                                           class="btn delete" data-toggle="modal"
+                                                           data-target="#exampleModal4" data-id="@items.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
+
+                                                        <a href="@Url.Action("ViewQrCode", "Item", new {@items.Id})"
+                                                           data-toggle="modal" data-target="#viewQRModal" data-id="@items.Id"
+                                                           class="btn viewQR"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View QR Code"><i class="fas fa-qrcode"> </i></button></a>
+
+
+                                                        <a href="@Url.Action("PrintQrCode", "Item", new {@items.Id})"
+                                                           data-toggle="modal" data-target="#printQRModal" data-id="@items.Id"
+                                                           class="btn printQR"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Print QR Code"><i class="fas fa-print"> </i></button></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                        </tbody>
+                                    </table>
+                                }
+                                else
+                                {
+                                    <p>No Items in Inventory : @ViewBag.InventoryName </p>}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+                
+        
+            <!--Code to show curent page and page number-->
+          
+            <div >    @Html.PagedListPager(Model.PagedListItems, page => Url.Action("ViewItems",  new {@ViewBag.InventoryId, page}), new PagedListRenderOptions
+                      {
+                          DisplayLinkToIndividualPages = true,
+                          DisplayPageCountAndCurrentLocation = false,
+                          MaximumPageNumbersToDisplay = 10,
+                          LiElementClasses = new[] {"page-item"},
+                          PageClasses = new[] {"page-link"},
+                      })
+                
+            </div>
+            <!--Code to show current page and page number-->
+            <div >Showing @(Model.PagedListItems.PageCount < Model.PagedListItems.PageNumber ? 0 : Model.PagedListItems.PageNumber) out of @Model.PagedListItems.PageCount entries
+            </div>
+        </div>
+    </div>
+    
+    <!---Popup Form to view QR modal -->
+    <div class="modal fade" id="viewQRModal" tabindex="-1" role="dialog" aria-labelledby="viewQRModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" role="document">
+        
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"  id="viewQRModalTitle">Item QR Code <i class="fas fa-qrcode"> </i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body  text-center align-content-center">
+                    <div class="QRImage text-center align-content-center">
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+         
+        </div>
+
+    </div>
+    
+      <!---Popup Form to print QR modal -->
+        <div class="modal fade" id="printQRModal" tabindex="-1" role="dialog" aria-labelledby="viewQRModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog" role="document">
+            
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"  id="printQRModalTitle">Print QR Code <i class="fas fa-print"> </i></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body printQR">
+                        
+                        </div>
+                        <div class="modal-footer ">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    
+</section>
+
+
+<!--AJAX and Javascript code--> 
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+
+  AOS.init();
+  
+  //ID tooltip
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+  
+ //Delete
+$('.delete').click(function (ev) {
+    ev.preventDefault(); // this is required
+
+    // get target action
+    var action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        $mymodal = $("#exampleModal4");
+            $mymodal.find("form.data").html(data);
+        $('#exampleModal4').modal('show');
+    });
+});
+  
+ //View QR
+$('.viewQR').click(function (ev) {
+    ev.preventDefault(); 
+
+    // get target action
+    var action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        $mymodal = $("#viewQRModal");
+          $mymodal.find("div.QRImage").html('<img src='+data+' width="300" class="align-content-center">');
+        $('#viewQRModal').modal('show');
+    });
+});
+
+ //Print QR
+$('.printQR').click(function (ev) {
+    ev.preventDefault(); // this is required
+
+    // get target action
+    var action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        $mymodal = $("#printQRModal");
+        if(data!=null){
+          $mymodal.find("div.printQR").html('<h6 class="text-muted"> QRCode has been saved to your C Drive for printing at :</h6>  '+ 
+          ' <br> C:/Users/Public/Pictures/'+ data + '.png');
+
+        $('#printQRModal').modal('show');}
+        else
+         {   
+             $mymodal.find("div.printQR").html('QR Code cannot be printed');
+         }
+    });
+});
+
+</script>
+@section Scripts{
+    @{<partial name="_ValidationScriptsPartial"/> <partial name="_DeleteItem" /> 
+    }
 }
 
-<header>
-
-    <nav class="navbar navbar-expand-lg fixed-top navbar-shrink">
-        <div class="container">
-            <!-- Brand -->
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bean Bag</a>
-
-            <!-- Toggler/collapsible Button -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <i class="fas fa-bars"> </i>
-            </button>
-
-            <!-- Navbar links add active thing on the link to the current that you're on... -->
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav ml-auto">
-
-                    @{
-                        System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <!-- <li class="nav-item"><span class="navbar-toggler-icon"> Hello @User.Identity.Name</span>
-                        </li>-->
-
-                        @if (!string.IsNullOrEmpty(options.EditProfilePolicyId))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="EditProfile">Edit Profile</a>
-                            </li>
-                        }
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Logout</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-
-<section class="inventory d-flex align-items-center">
-    <div class="container p-3">
-        <div class="row pt-4">
-            <div class="col-6">
-                <h2 class="text-primary">Inventory List</h2><br/>
-                <h4 class="text-secondary">@ViewBag.InventoryName</h4>
-            </div>
-            <div class="col-6 text-right">
-                <a asp-controller="Inventory" asp-action="Index" class="btn btn-primary">Back</a>
-            </div>
-        </div>
-        <br />
-        @if (Model.Count() > 0)
-        {
-            <table class="table table-bordered table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>
-                            Item Name
-                        </th>
-                        <th>
-                            Item Type
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td width="50%">@item.name</td>
-                            <td width="50%">@item.type</td>
-                            <td width="50%">
-                                <div class="w-100 btn-group" role="group">
-                                    <a asp-controller="Item" asp-action="Edit" asp-route-Id="@item.Id" class="btn ">Edit</a>
-                                    <a asp-controller="Item" asp-action="Delete" asp-route-Id="@item.Id" class="btn ">Delete</a>
-                                    <a asp-controller="Item" asp-action="ViewQRCode" asp-route-Id="@item.Id" class="btn ">View QR Code</a>
-                                    <a asp-controller="Item" asp-action="PrintQRCode" asp-route-Id="@item.Id" class="btn ">Print QR Code</a>            
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <p>No items yet</p>
-        }
-    </div>
-</section>
