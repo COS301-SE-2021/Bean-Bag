@@ -77,7 +77,7 @@
                 
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <br>
-                <div class="card shadow p-1 mb-4 bg-body rounded" >
+                <div class="card shadow  mb-4 bg-body rounded" >
                     <h5 class="card-header">Inventory List
                         
                          
@@ -87,7 +87,7 @@
                             @if (Model.PagedList.Any())
                             {
                                 <table class="table table-bordered table-striped">
-                                    <thead class="inventoryTableHeader"><tr>
+                                    <thead ><tr>
                                         <th>#</th>
                                         <th>ID</th>
                                         <th>@Html.ActionLink("Inventory Name ", "Index", new {sortOrder = ViewBag.NameSortParm})
