@@ -83,10 +83,10 @@ svg {
     right: 0;
     bottom: 0;
     overflow: auto;
-    padding-top: 20px;
     width: var(--page-header-width);
     color: var(--page-header-txtColor);
     background: var(--page-header-bgColor);
+
 }
 
 /*In case you prefer an absolutely positioned header that covers the full page height, add these styles*/
@@ -115,16 +115,23 @@ svg {
     display: flex;
     flex-direction: column;
     min-height: 100%;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .page-header .logo {
     display: block;
-    margin: 0 15px;
+    width: var(--page-header-width);
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .page-header .logo svg {
-    max-width: 120px;
+    max-width: 100%;
     fill: var(--white);
+    top: 0;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .page-header .toggle-mob-menu {
