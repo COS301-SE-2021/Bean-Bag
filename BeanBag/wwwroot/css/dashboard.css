@@ -510,7 +510,7 @@ svg {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .light-mode {
     --page-header-bgColor: #f1efec;
-    --page-header-bgColor-hover: #b9e4e0;
+    --page-header-bgColor-hover: var(--main-color-light);
     --page-header-txtColor: #2c303a;
     --page-header-headingColor: #979595;
     --page-content-bgColor: #fff;

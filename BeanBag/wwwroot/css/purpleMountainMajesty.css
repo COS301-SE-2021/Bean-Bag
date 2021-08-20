@@ -475,7 +475,9 @@ a[href^="https"] {
 .page-header .admin-menu a:focus,
 .page-header .admin-menu button:hover,
 .page-header .admin-menu button:focus {
-    background: var(--main-color-light);
+   /* background: var(--main-color-light);*/
+
+    background: var(--page-header-bgColor-hover);
     color: #b498d4;/*add this to theme css files*/
 
 }
@@ -496,9 +498,17 @@ a[href^="https"] {
 }
 
 
-/*dash stuff*/
+/*dash stuff and paging*/
 
 .text-color
 {
     color: #7538aa;
+}
+
+/*paging*/
+
+.active {
+    color: #ffffff;
+    cursor: default;
+    background-color: #7538aa;
 }

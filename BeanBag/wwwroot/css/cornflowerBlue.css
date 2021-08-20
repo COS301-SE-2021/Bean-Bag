@@ -480,7 +480,9 @@ a[href^="https"] {
 .page-header .admin-menu a:focus,
 .page-header .admin-menu button:hover,
 .page-header .admin-menu button:focus {
-    background: var(--main-color-light);
+   /* background: var(--main-color-light);*/
+
+    background: var(--page-header-bgColor-hover);
     color: #84aafd;/*add this to theme css files*/
 
 }
@@ -499,6 +501,8 @@ a[href^="https"] {
     color: var(--main-color-light); /*add this to theme css files add main light color*/
 
 }
+
+
 .text-color
 {
     color: #0754f1;
