@@ -54,7 +54,7 @@
     
     <span class="col-md-2">
         <div>
-           <h5>  <label class="badge " >View By</label></h5>
+           <h5>  <label class="badge " style="color: #323232 " >View By</label></h5>
         @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null, new {@class = "form-control shadow-sm bg-body rounded-lg "})
         
   
@@ -64,7 +64,7 @@
     </span>
     <span class="col-md-2">
         <div >
-                <h5>  <label class="badge " >Select Inventory</label></h5>
+                <h5>  <label class="badge " style="color: #323232">Select Inventory</label></h5>
         @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, null, new {@class = "form-control shadow-sm  bg-body rounded-lg"})
 </div>
     </span>
@@ -87,7 +87,7 @@
                 <div class="card-body">
                     <h5 class="text-muted ">Items Added</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 "  style="color: #7538aa" id="itemsAvailable" >0 </h1>
+                        <h1 class="mb-1 text-color "  id="itemsAvailable" >0 </h1>
                     </div>
                     <span id="addedStat" style="color: #155724"> </span>
 
@@ -107,7 +107,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Items Sold</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 " style="color: #7538aa" id="itemsSold">0 </h1>
+                        <h1 class="mb-1 text-color"  id="itemsSold">0 </h1>
                     </div>
 
                     <span id="soldStat"> </span>
@@ -128,7 +128,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Revenue</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 " style="color: #7538aa" id="revenue"> R0.00</h1>
+                        <h1 class="mb-1 text-color"  id="revenue"> R0.00</h1>
                     </div>
                     <span id="revStat" style="color: #155724"> </span>
 
@@ -150,7 +150,7 @@
                 <div class="card-body">
                     <h5 class="text-muted">Sales Growth</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 " id="growth" style="color: #7538aa">+0% </h1>
+                        <h1 class="mb-1 text-color" id="growth">+0% </h1>
                     </div>
 
                 </div>
@@ -160,7 +160,7 @@
     </div>
     <!-- /. metric -->
 </div>
-<br> <br>
+<br> 
 <div class="row">
     <!-- ============================================================== -->
     <!-- recent products  -->
