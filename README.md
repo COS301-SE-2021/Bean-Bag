@@ -204,5 +204,5 @@ Video demonstrations about the progression of the Bean Bag project.
 
 - [Demo Video 1 - 📅 4 June 2021](https://drive.google.com/drive/u/1/folders/18UvquRIEvCKuZyfEESXBXh2mFWG5_VYl)
 - [Demo Video 2 - 📅 21 June 2021](https://drive.google.com/file/d/1-rO9bH5BukctFnMlDfORGhOYwjJ4PBqt/view?usp=sharing)
-- [Demo Video 3](https://drive.google.com/file/d/1VicHezcaoN3IKF0C1gvke_1hCKhfS8Eh/view?usp=sharing)
+- [Demo Video 3](https://drive.google.com/file/d/1fXkJ_2Vc2-jhoxGDvmL-n-uTO6VBS7DH/view?usp=sharing)
 - [Demo Video 4](https://drive.google.com/open?id=)
