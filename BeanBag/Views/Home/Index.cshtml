@@ -3,14 +3,13 @@
 @using BeanBag.Services
 @model IEnumerable<Item>
 @inject IOptions<MicrosoftIdentityOptions> azureAdb2COptions
-@inject TenantService _tenantService
+@inject TenantService tenantService
 @{
-    var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
+    var tenant = tenantService.GetTenantName(tenantService.GetUserTenantId(User.GetObjectId()));
 }
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
 
 <section class="search-and-user ">
@@ -26,7 +25,6 @@
         {
 
             <span class="greeting  ">
-
                 Hello @User.Identity.Name</span>
 
         }
@@ -48,6 +46,8 @@
 
 <hr>
 <br>
+
+@if(ViewBag.hasItems==true){
 <!--Date picker -->
 <div class="row">
 
@@ -247,6 +247,12 @@
     <!-- end total items  -->
     <!-- ============================================================== -->
 </div>
+}
+else
+{
+    await Html.RenderPartialAsync("_DashboardEmptyState");   
+    
+}
 
 
 </div>

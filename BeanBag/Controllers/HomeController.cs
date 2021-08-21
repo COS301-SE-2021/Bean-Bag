@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.Linq;
+using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,13 +13,15 @@ namespace BeanBag.Controllers
     {
         private readonly IInventoryService inventoryService;
         private readonly IDashboardAnalyticsService dashboardAnalyticsService;
+        private readonly IItemService itemService;
 
         //Constructor
-        public HomeController(IInventoryService inv, IDashboardAnalyticsService dash)
+        public HomeController(IInventoryService inv, IDashboardAnalyticsService dash, IItemService itm)
         {
             // Inits the db context allowing us to use CRUD operations on the inventory table
             inventoryService = inv;
             dashboardAnalyticsService = dash;
+            itemService = itm;
         }
 
         //Index page, returns drop-down-lists and the page view
@@ -49,6 +52,21 @@ namespace BeanBag.Controllers
 
             times.First().Selected = true;
             ViewBag.TimeDropDown = times;
+            ViewBag.hasItems = true;
+
+            //Checking inventories for an empty state 
+            foreach (var t in inventories)
+            {
+                ViewBag.wtf = itemService.GetItems(t.Id);
+                
+                if (inventories.Count==0 || itemService.GetItems(t.Id).Count ==0)
+                {
+                    ViewBag.hasItems = false;
+              
+                    break;
+                }
+                
+            }
 
             return View();
         }
