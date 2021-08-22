@@ -41,6 +41,7 @@
     <_ContentIncludedByDefault Remove="wwwroot\Files\Classic-T-Shirt-Yellow-510x510.jpg" />
     <_ContentIncludedByDefault Remove="wwwroot\Files\nasa-Q1p7bh3SHj8-unsplash.jpg" />
     <_ContentIncludedByDefault Remove="wwwroot\Files\radowan-nakif-rehan-cYyqhdbJ9TI-unsplash.jpg" />
+    <_ContentIncludedByDefault Remove="Views\TestUpload\Index.cshtml" />
      </ItemGroup>
 
   <ItemGroup>
