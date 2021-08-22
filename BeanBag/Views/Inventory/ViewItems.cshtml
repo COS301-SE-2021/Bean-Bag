@@ -11,7 +11,7 @@
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
         
 <section class="ml-3">
-             <a asp-action="Index" asp-controller="Inventory" class="btn btn-secondary  rounded-pill "><i class="fas fa-chevron-left"> </i></a>
+             <a asp-action="Index" asp-controller="Inventory" class="btn " ><i class="fas fa-chevron-left text-color"> </i></a>
                   
     <span class="  md-2 text-secondary ">
          
@@ -27,8 +27,14 @@
         <div class="container-fluid  dashboard-content">
             <hr>
             <br>
-           
             <div class="row">
+           
+                <div class=" mr-3 ml-auto">
+                    <button  class="btn btn-3 shadow-sm bg-body rounded pdf" >Generate report &nbsp;  <i class="fas fa-file-pdf"></i></button>
+                </div>
+            </div>
+             <br>
+            <div class="row" id="pdfContainer">
                 
     
                 <!--Search-->
@@ -288,6 +294,16 @@ $('.printQR').click(function (ev) {
     });
 });
 
+//Generating the pdf 
+
+    $('.pdf').click(function() {
+       
+        window.open('/Inventory/GenerateReport/'+ "jsshext",  '_blank')
+
+           
+});
+
+    
 </script>
 @section Scripts{
     @{<partial name="_ValidationScriptsPartial"/> <partial name="_DeleteItem" /> 
