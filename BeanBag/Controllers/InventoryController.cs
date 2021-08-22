@@ -16,7 +16,8 @@ namespace BeanBag.Controllers
     {
         // This variable is used to interact with the Database/DBContext class. Allows us to save, update and delete records 
         private readonly DBContext db;
-        private readonly IInventoryService inventoryService;
+        private readonly IInventoryService inventoryService; 
+
 
         public InventoryController(DBContext db, IInventoryService inv)
         {
@@ -329,12 +330,12 @@ namespace BeanBag.Controllers
         }
 
         //This function generates a report of all the items for the current inventory the user is viewing
-        public IActionResult GenerateReport(string html)
+        public IActionResult GenerateReport()
         {
-           
-            html = "hey";
+            var report = System.IO.File.ReadAllText( @"Views\Inventory\PDFReport.cshtml");
+
             HtmlToPdf pdf = new HtmlToPdf();
-            PdfDocument doc = pdf.ConvertHtmlString(html);
+            PdfDocument doc = pdf.ConvertHtmlString(report);
             byte[] completePdf = doc.Save();
             doc.Close();
             return File(completePdf,"application/pdf","BeanBagInventoryReport.pdf");
