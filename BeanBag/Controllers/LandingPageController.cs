@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BeanBag.Controllers
 {
-    // This is the Landing page controller.
+    // This controller is used to return the view of the landing page to the user.
     [AllowAnonymous]
     public class LandingPageController : Controller
     {
@@ -19,6 +19,5 @@ namespace BeanBag.Controllers
         {
             return RedirectToAction("Index", "LandingPage");
         }
-
     }
 }
