@@ -7,14 +7,9 @@
 }
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
-<link rel = "icon" href = 
-"https://img.icons8.com/ios/50/ffffff/circled-b.png" 
-        type = "image/x-icon">
+<link rel = "icon" href ="https://img.icons8.com/ios/50/ffffff/circled-b.png" type = "image/x-icon">
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -24,15 +19,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
-    
+	
 	<section class="search-and-user">
+		
 		<span class="col-md-1 text-secondary ">
 			Tenant Account
 		</span>
-
-
-
+		
 	</section>
+	
 	<div class="centered">
 		<!--Tenant Creation-->
 		<!--Create tenant button-->
@@ -47,6 +42,7 @@
 			<a  class="btn btn-1 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal2">Select a tenant </a> <!-- change button css---->
 		</div>
 	</div>	
+	
 	<!---Popup Form to create tenant-->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog" role="document">
@@ -77,16 +73,10 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
+	
 	<!---Popup Form to select tenant-->
 	<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle2" aria-hidden="true">
 		<div class="modal-dialog modal-dialog" role="document">
-            
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title"  id="exampleModalTitle2">Sign up</h5>
@@ -97,14 +87,12 @@
                     
 				<form method="post" asp-action="SelectTenant">
 					<div class="modal-body">
-    					
 						<div class="form-group">
 							<label for="tenant" class="col-form-label">Tenant</label>
 							<select class="themeSelector" name="tenant" id="tenant" required>
 								<option value="">Select a tenant</option>
     
 								<!--Loop through tenant database and display names-->
-
 								@{
 									var enumerable = tenantList.ToList();
 								}
@@ -115,31 +103,20 @@
 										<option value="@tenant.TenantName">@tenant.TenantName</option>
 									}
 								}
-    							
 							</select>
 						</div>
-    
 						<div asp-validation-summary="All" class="text-danger"></div>
-    	                    
 					</div>
     				
 					<div class="modal-footer ">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
 						<input type="submit" class="btn btn-primary" value="Select" onclick="tenantSelected()"/> <!--create button-->
 					</div>
-
 				</form>
-                       
 			</div>
 		</div>
 	</div>
-	
 </section>
 
+<!--Scripts-->
 <script src="js/automation.js"></script>
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script>
-  AOS.init();
-</script>
