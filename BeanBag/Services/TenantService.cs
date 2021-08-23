@@ -91,6 +91,7 @@ namespace BeanBag.Services
             return tenantId;
         }
         
+        //Set the theme of the signed in tenant 
         public bool SetTenantTheme(string userId, string theme)
         {
             if (userId == null)
