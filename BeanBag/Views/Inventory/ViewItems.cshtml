@@ -11,7 +11,7 @@
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
         
 <section class="ml-3">
-             <a asp-action="Index" asp-controller="Inventory" class="btn btn-secondary  rounded-pill "><i class="fas fa-chevron-left"> </i></a>
+             <a asp-action="Index" asp-controller="Inventory" class="btn " ><i class="fas fa-chevron-left text-color"> </i></a>
                   
     <span class="  md-2 text-secondary ">
          
@@ -27,8 +27,15 @@
         <div class="container-fluid  dashboard-content">
             <hr>
             <br>
-           
             <div class="row">
+           
+                <div class=" mr-3 ml-auto">
+                    <button   onclick="printDiv('viewInventoryModal')" class="btn btn-3 shadow-sm bg-body rounded pdf" >Generate report &nbsp;  <i class="fas fa-file-pdf"></i></button>
+        
+                    </div>
+            </div>
+             <br>
+            <div class="row" id="pdfContainer">
                 
     
                 <!--Search-->
@@ -69,14 +76,14 @@
                 <!--Table with bootstrap class-->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <br>
-                    <div class="card shadow p-1 mb-4 bg-body rounded">
+                    <div class="card shadow mb-4 bg-body rounded">
                         <h5 class="card-header">Item List <span class="text-right float-right text-muted small">Inventory - @ViewBag.InventoryName </span></h5>
                         <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
                             <div>
                                 @if (Model.PagedListItems.Any())
                                 {
                                     <table class="table table-bordered table-striped">
-                                        <thead class="inventoryTableHeader">
+                                        <thead >
 
                                         <tr>
                                             <th>#</th>
@@ -165,8 +172,10 @@
                           DisplayLinkToIndividualPages = true,
                           DisplayPageCountAndCurrentLocation = false,
                           MaximumPageNumbersToDisplay = 10,
-                          LiElementClasses = new[] {"page-item"},
-                          PageClasses = new[] {"page-link"},
+                          LiElementClasses = new[] {"page-item, bg-light"},
+                          PageClasses = new[] {"page-link",  "text-color",  "bg-light"}, 
+
+
                       })
                 
             </div>
@@ -201,26 +210,39 @@
     </div>
     
       <!---Popup Form to print QR modal -->
-        <div class="modal fade" id="printQRModal" tabindex="-1" role="dialog" aria-labelledby="viewQRModalTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog" role="document">
+<div class="modal fade" id="printQRModal" tabindex="-1" role="dialog" aria-labelledby="viewQRModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
             
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"  id="printQRModalTitle">Print QR Code <i class="fas fa-print"> </i></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body printQR">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"  id="printQRModalTitle">Print QR Code <i class="fas fa-print"> </i></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body printQR">
                         
-                        </div>
-                        <div class="modal-footer ">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
-                        </div>
-                </div>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
             </div>
         </div>
-    
+    </div>
+</div>
+
+
+      <!---Popup Form to print QR modal -->
+<div class="modal fade" id="viewInventoryModal" >
+        <div class="modal-body invItems">
+                   <partial name="pdfReportPrint" />      
+            </div>
+</div>
+
+<div id="printableArea">
+  
+</div>
+
+
 </section>
 
 
@@ -286,9 +308,36 @@ $('.printQR').click(function (ev) {
     });
 });
 
+
+ //generate inventory items
+$('.invItems').click(function (ev) {
+    ev.preventDefault(); 
+
+    // get target action
+    var action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        $mymodal = $("#viewInventoryModal");
+          $mymodal.find("div.invItems").html(' hh');
+        $('#viewInventoryModal').modal('show');
+    });
+});
+
+//Generating the pdf 
+
+function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;
+}
+    
 </script>
 @section Scripts{
     @{<partial name="_ValidationScriptsPartial"/> <partial name="_DeleteItem" /> 
     }
 }
+
+
 

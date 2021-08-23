@@ -494,3 +494,7 @@ a[href^="https"] {
     background: var(--switch-bgLightModeColor); /*add this to theme css files add main light color*/
    
 }
+.text-color
+{
+    color: #0754f1;
+}

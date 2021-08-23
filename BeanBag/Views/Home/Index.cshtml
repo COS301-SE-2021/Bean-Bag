@@ -3,15 +3,13 @@
 @using BeanBag.Services
 @model IEnumerable<Item>
 @inject IOptions<MicrosoftIdentityOptions> azureAdb2COptions
-@inject TenantService _tenantService
+@inject TenantService tenantService
 @{
-    var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
+    var tenant = tenantService.GetTenantName(tenantService.GetUserTenantId(User.GetObjectId()));
 }
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
- 
-
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
 
 <section class="search-and-user ">
@@ -19,7 +17,7 @@
         Dashboard | @tenant
     </span>
 
-    <div class="admin-profile ">
+    <div class="admin-profile pr-3">
         @{
             System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
         }
@@ -27,13 +25,12 @@
         {
 
             <span class="greeting  ">
-
                 Hello @User.Identity.Name</span>
 
         }
         <div>
-            <svg>
-                <use xlink:href="#users"></use>
+            <svg class="text-secondary">
+                <use xlink:href="#users" class="text-secondary "></use>
             </svg>
         </div>
 
@@ -49,23 +46,27 @@
 
 <hr>
 <br>
+
+@if(ViewBag.hasItems==true){
 <!--Date picker -->
 <div class="row">
+
     
-    <span class="col-md-1">
-        View By
+    <span class="col-md-2">
+        <div>
+           <h5>  <label class="badge " style="color: #323232 " >View By</label></h5>
+        @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null, new {@class = "form-control shadow-sm bg-body rounded-lg "})
+        
+  
+
+
+        </div>
     </span>
     <span class="col-md-2">
-        @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null, new {@class = "form-control shadow-sm bg-body rounded"})
-
-    </span>
-
-    <span class="col-md-1">
-        Select Inventory
-    </span>
-    <span class="col-md-2">
-        @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, null, new {@class = "form-control shadow-sm  bg-body rounded"})
-
+        <div >
+                <h5>  <label class="badge " style="color: #323232">Select Inventory</label></h5>
+        @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, null, new {@class = "form-control shadow-sm  bg-body rounded-lg"})
+</div>
     </span>
 
 
@@ -82,13 +83,13 @@
              data-aos-easing="ease-in-back"
              data-aos-delay="1200"
              data-aos-offset="0">
-            <div class="card shadow p-1 mb-3 bg-body rounded">
+            <div class="card shadow p-1 mb-3 bg-body rounded-lg">
                 <div class="card-body">
-                    <h5 class="text-muted">Items Added</h5>
+                    <h5 class="text-muted ">Items Added</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 text-primary" id="itemsAvailable">0 </h1>
+                        <h1 class="mb-1 text-color "  id="itemsAvailable" >0 </h1>
                     </div>
-                    <span id="addedStat"> </span>
+                    <span id="addedStat" style="color: #155724"> </span>
 
                 </div>
             </div>
@@ -102,11 +103,11 @@
              data-aos-easing="ease-in-back"
              data-aos-delay="1000"
              data-aos-offset="0">
-            <div class="card shadow p-1 mb-3 bg-body rounded">
+            <div class="card shadow p-1 mb-3 bg-body rounded-lg">
                 <div class="card-body">
                     <h5 class="text-muted">Items Sold</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 text-primary" id="itemsSold">0 </h1>
+                        <h1 class="mb-1 text-color"  id="itemsSold">0 </h1>
                     </div>
 
                     <span id="soldStat"> </span>
@@ -123,13 +124,13 @@
              data-aos-easing="ease-in-back"
              data-aos-delay="800"
              data-aos-offset="0">
-            <div class="card shadow p-1 mb-3 bg-body rounded">
+            <div class="card shadow p-1 mb-3 bg-body rounded-lg">
                 <div class="card-body">
                     <h5 class="text-muted">Revenue</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 text-primary" id="revenue"> R0.00</h1>
+                        <h1 class="mb-1 text-color"  id="revenue"> R0.00</h1>
                     </div>
-                    <span id="revStat"> </span>
+                    <span id="revStat" style="color: #155724"> </span>
 
                 </div>
 
@@ -145,11 +146,11 @@
              data-aos-easing="ease-in-back"
              data-aos-delay="600"
              data-aos-offset="0">
-            <div class="card shadow p-1 mb-3 bg-body rounded">
+            <div class="card shadow p-1 mb-3 bg-body rounded-lg">
                 <div class="card-body">
                     <h5 class="text-muted">Sales Growth</h5>
                     <div class="metric-value d-inline-block">
-                        <h1 class="mb-1 text-primary" id="growth">+0% </h1>
+                        <h1 class="mb-1 text-color" id="growth">+0% </h1>
                     </div>
 
                 </div>
@@ -159,7 +160,7 @@
     </div>
     <!-- /. metric -->
 </div>
-<br> <br>
+<br> 
 <div class="row">
     <!-- ============================================================== -->
     <!-- recent products  -->
@@ -170,7 +171,7 @@
              data-aos-delay="400"
              data-aos-offset="0">
 
-            <div class="card shadow p-1 mb-3 bg-body rounded" id="CategoryID">
+            <div class="card shadow  mb-3 bg-body rounded-lg" id="CategoryID">
                 <h5 class="card-header">Recently Added Items </h5>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -214,7 +215,7 @@
              data-aos-delay="50"
              data-aos-offset="0">
 
-            <div class="card shadow p-1 mb-3 bg-body rounded">
+            <div class="card shadow mb-3 bg-body rounded-lg">
                 <h5 class="card-header">Total Items</h5>
                 <div class="card-body">
 
@@ -246,6 +247,12 @@
     <!-- end total items  -->
     <!-- ============================================================== -->
 </div>
+}
+else
+{
+    await Html.RenderPartialAsync("_DashboardEmptyState");   
+    
+}
 
 
 </div>
@@ -436,7 +443,7 @@
 '                                      '+
 '                                <td>'+x+'</td>'+
 '                                <td>'+
-'                                    <div class="m-r-10"><img src="'+item.imageURL+'" alt="user" class="rounded" width="95"></div>'+
+'                                    <div class="m-r-10"><img src="'+item.imageURL+'" alt="user" class="rounded" width="80"></div>'+
 '                                </td>'+
 '                                <td>'+selected.text()+'</td>'+
 '                                <td>'+item.name+'</td>'+
@@ -473,12 +480,12 @@
                                            {
                                                item1=item.type;
                                                quantity1= item.qsum;
-                                               boxColor= "#5969ff";
+                                               boxColor= "#9065e5";
                                            }else if (i===1 )
                                            {
                                                item2=item.type;
                                                quantity2= item.qsum;
-                                               boxColor= "#ff407b";
+                                               boxColor= "#e54594";
                                            }else {
                                                 item3=item.type;
                                                 quantity3= item.qsum;
@@ -500,7 +507,7 @@
                                             
                                            if (other!==0){
                                              items += '<p>'+
-                                                            '                            <span class="fa-xs mr-1 legend-title" style="color:#ffc750"><i class="fa fa-fw fa-square-full"></i></span><span class="legend-text"> Other </span>'+
+                                                            '                            <span class="fa-xs mr-1 legend-title" style="color:#e5b045"><i class="fa fa-fw fa-square-full"></i></span><span class="legend-text"> Other </span>'+
                                                             '                            <span class="float-right">'+other+'</span>'+
                                                             '                        </p>';}
                                            $("#topItems").html(items);  
@@ -519,10 +526,10 @@
                                                 labels: [item1, item2, item3, "Other"],
                                                 datasets: [{
                                                     backgroundColor: [
-                                                        "#5969ff",
-                                                        "#ff407b",
-                                                        "#25d5f2",
-                                                        "#ffc750"
+                                                        "#9065e5",
+                                                        "#e54594",
+                                                        "#45c5b0",
+                                                        "#e5b045"
                                                     ],
                                                     data: [quantity1, quantity2, quantity3, other]
                                                 }]
@@ -639,7 +646,7 @@
 '                                      '+
 '                                <td>'+x+'</td>'+
 '                                <td>'+
-'                                    <div class="m-r-10"><img src="'+item.imageURL+'" alt="user" class="rounded" width="95"></div>'+
+'                                    <div class="m-r-10"><img src="'+item.imageURL+'" alt="user" class="rounded" width="80"></div>'+
 '                                </td>'+
 '                                <td>'+selected.text()+'</td>'+
 '                                <td>'+item.name+'</td>'+
@@ -674,16 +681,16 @@
                                     {
                                         item1=item.type;
                                         quantity1= item.qsum;
-                                        boxColor= "#5969ff";
+                                        boxColor= "#9065e5";
                                     }else if (i===1 )
                                     {
                                         item2=item.type;
                                         quantity2= item.qsum;
-                                        boxColor= "#ff407b";
+                                        boxColor= "#e54594";
                                     }else {
                                          item3=item.type;
                                          quantity3= item.qsum;
-                                         boxColor= "#25d5f2";
+                                         boxColor= "#45c5b0";
                                     }
                                                 
                                         
@@ -701,7 +708,7 @@
                                      
                                     if (other!==0){
                                       items += '<p>'+
-                                                     '                            <span class="fa-xs mr-1 legend-title" style="color:#ffc750"><i class="fa fa-fw fa-square-full"></i></span><span class="legend-text"> Other </span>'+
+                                                     '                            <span class="fa-xs mr-1 legend-title" style="color:#e5b045"><i class="fa fa-fw fa-square-full"></i></span><span class="legend-text"> Other </span>'+
                                                      '                            <span class="float-right">'+other+'</span>'+
                                                      '                        </p>';}
                                     $("#topItems").html(items);  
@@ -720,10 +727,10 @@
                                          labels: [item1, item2, item3, "Other"],
                                          datasets: [{
                                              backgroundColor: [
-                                                 "#5969ff",
-                                                 "#ff407b",
-                                                 "#25d5f2",
-                                                 "#ffc750"
+                                                 "#9065e5",
+                                                 "#e54594",
+                                                 "#45c5b0",
+                                                 "#e5b045"
                                              ],
                                              data: [quantity1, quantity2, quantity3, other]
                                          }]

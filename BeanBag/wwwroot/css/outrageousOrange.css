@@ -475,8 +475,10 @@ a[href^="https"] {
 .page-header .admin-menu a:focus,
 .page-header .admin-menu button:hover,
 .page-header .admin-menu button:focus {
-    background: var(--main-color-light);
-    color: #fc4012;/*add this to theme css files*/
+  /*  background: var(--main-color-light);*/
+
+    background: var(--page-header-bgColor-hover);
+    color: #fa987e;/*add this to theme css files*/
 
 }
 
@@ -484,7 +486,7 @@ a[href^="https"] {
 .page-header .admin-menu a:focus svg,
 .page-header .admin-menu button:hover svg,
 .page-header .admin-menu button:focus svg {
-    fill: #fc4012; /*add this to theme css files*/
+    fill: #fa987e; /*add this to theme css files*/
 }
 
 /* SWITCH STYLES
@@ -493,4 +495,10 @@ a[href^="https"] {
 
     color: var(--main-color-light); /*add this to theme css files add main light color*/
 
+}
+
+/* Dash stuff*/
+.text-color
+{
+    color: #e9573f;
 }

@@ -4,7 +4,7 @@
 :root {
     --main-color:var(--fieryRose);/*#7857fe*/
     --main-color-light:rgba(255,89,113,0.2);
-    --color-1: #e91e63;
+    --color-1: #d22a61;
     --color-2: #f5ae10;
     --color-3: #09d69c;
     --bg-dark: #2b2c2f;
@@ -479,8 +479,10 @@ a[href^="https"] {
 .page-header .admin-menu a:focus,
 .page-header .admin-menu button:hover,
 .page-header .admin-menu button:focus {
-    background: var(--main-color-light);
-    color: var(--color-1);/*add this to theme css files*/
+   /* background: var(--main-color-light);*/
+
+    background: var(--page-header-bgColor-hover);
+    color: #fd6489;/*add this to theme css files*/
 
 }
 
@@ -488,7 +490,7 @@ a[href^="https"] {
 .page-header .admin-menu a:focus svg,
 .page-header .admin-menu button:hover svg,
 .page-header .admin-menu button:focus svg {
-    fill: var(--color-1); /*add this to theme css files*/
+    fill: #fd6489; /*add this to theme css files*/
 }
 
 /* SWITCH STYLES
@@ -497,4 +499,9 @@ a[href^="https"] {
 
     color: var(--main-color-light); /*add this to theme css files add main light color*/
 
+}
+
+.text-color
+{
+    color: #b31f5a;
 }
