@@ -75,6 +75,7 @@ namespace BeanBag.Services
             return tenantName;
         }
         
+        //Get tenant id from the database using tenant name
         public string GetTenantId(string tenantName)
         {
             if (tenantName == null)
