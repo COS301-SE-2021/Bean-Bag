@@ -15,7 +15,7 @@
     
 
     <section class="ml-3">
-                 <a asp-action="Index" asp-controller="AIModel" asp-route-inventoryId="@ViewBag.InventoryId" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
+                 <a asp-action="Index" asp-controller="AiModel" asp-route-inventoryId="@ViewBag.InventoryId" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
        
         <span class="  md-2 text-secondary ">
              
@@ -33,7 +33,7 @@
         <div class="row">
 
             <div class=" mr-3 ml-auto">
-                <a asp-controller="AIModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a>
+                <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a>
             </div>
             </div>
         <br>
@@ -143,24 +143,24 @@
                                             <td >
                                                 <div class="w-100 btn-group" role="group">
                                                     
-                                                     <a href="@Url.Action("Edit", "AIModel", new {@models.projectId})"
+                                                     <a href="@Url.Action("EditVersion", "AiModel", new {@models.projectId})"
                                                         class="btn edit" data-toggle="modal" data-target="#exampleModal3" 
                                                         data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
                                                     
                                              
                                                     
-                                                    <a href="@Url.Action("DeleteModel", "AIModel", new {@models.projectId})"
+                                                    <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.projectId})"
                                                        class="btn delete" data-toggle="modal"
                                                        data-target="#exampleModal4" data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
                                                     
                                                     
                                                      @if (models.status.Equals("Completed") && models.availableToUser == false)
                                                      {
-                                                         <a asp-controller="AIModel"  class="btn "  asp-action="PublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.iterationId"><button data-toggle="tooltip" data-placement="top" class="btn " title="Enable for item cataloging"> <i class="fa fa-toggle-off fa-lg pt-1" aria-hidden="true"></i></button></a>
+                                                         <a asp-controller="AiModel"  class="btn "  asp-action="PublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.iterationId"><button data-toggle="tooltip" data-placement="top" class="btn " title="Enable for item cataloging"> <i class="fa fa-toggle-off fa-lg pt-1" aria-hidden="true"></i></button></a>
                                                                                     
                                                      }else if(models.status.Equals("Completed") && models.availableToUser == true)
                                                      {
-                                                         <a asp-controller="AIModel"  class="btn "  asp-action="UnpublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.iterationId"><button data-toggle="tooltip" data-placement="top" class="btn " title="Disable for item cataloging"> <i class="fa fa-toggle-on fa-lg pt-1" aria-hidden="true"></i></button></a>
+                                                         <a asp-controller="AiModel"  class="btn "  asp-action="UnpublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.iterationId"><button data-toggle="tooltip" data-placement="top" class="btn " title="Disable for item cataloging"> <i class="fa fa-toggle-on fa-lg pt-1" aria-hidden="true"></i></button></a>
                                                   }
                                                </div>
                                             </td>

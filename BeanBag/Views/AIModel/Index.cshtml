@@ -33,7 +33,7 @@
         <div class="row">
 
             <div class=" mr-3 ml-auto">
-                <a asp-controller="AIModel" asp-action="CreateModel" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Model &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a>
+                <a asp-controller="AiModel" asp-action="CreateModel" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Model &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a>
             </div>
             </div>
         <br>
@@ -115,17 +115,17 @@
                                             <td >
                                                 <div class="w-100 btn-group" role="group">
                                                     
-                                                     <a href="@Url.Action("EditModel", "AIModel", new {@models.projectId})"
+                                                     <a href="@Url.Action("EditModel", "AiModel", new {@models.projectId})"
                                                         class="btn edit" data-toggle="modal" data-target="#exampleModal3" 
                                                         data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
                                                     
                                              
                                                     
-                                                    <a href="@Url.Action("DeleteModel", "AIModel", new {@models.projectId})"
+                                                    <a href="@Url.Action("DeleteModel", "AiModel", new {@models.projectId})"
                                                        class="btn delete" data-toggle="modal"
                                                        data-target="#exampleModal4" data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
                                                    
-                                                    <a asp-controller="AIModel" asp-action="ModelVersions" asp-route-projectId="@models.projectId" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Versions"><i class="fas fa-eye"> </i></button></a>
+                                                    <a asp-controller="AiModel" asp-action="ModelVersions" asp-route-projectId="@models.projectId" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Versions"><i class="fas fa-eye"> </i></button></a>
                                                     
                                                 </div>
                                             </td>
