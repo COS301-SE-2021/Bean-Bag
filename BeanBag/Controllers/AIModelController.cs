@@ -197,12 +197,9 @@ namespace BeanBag.Controllers
             @ViewBag.ID = projectId;
         
             var mods = aIService.getAllModels();
-            for (int i = 0; i < mods.Count; i++)
+            foreach (var t in mods.Where(t => t.projectId.Equals(projectId)))
             {
-                if (mods[i].projectId.Equals(projectId))
-                {
-                    @ViewBag.Name = mods[i].projectName ;
-                }
+                @ViewBag.Name = t.projectName ;
             }
             return View();
         }
@@ -216,7 +213,7 @@ namespace BeanBag.Controllers
             //Checking if images are more than 5
             if(files.Count < 5)
             {
-                //Change this erro handling
+                //Change this error handling
                 return Ok("Image count less than 5");
             }
             
