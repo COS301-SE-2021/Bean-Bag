@@ -1,22 +1,8 @@
-body{
-    margin-top:20px;
-    color: #484b51;
-}
+
 .text-secondary-d1 {
     color: #728299!important;
 }
-.page-header {
-    margin: 0 0 1rem;
-    padding-bottom: 1rem;
-    padding-top: .5rem;
-    border-bottom: 1px dotted #e2e2e2;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -ms-flex-align: center;
-    align-items: center;
-}
+
 .page-title {
     padding: 0;
     margin: 0;
@@ -75,10 +61,7 @@ hr {
 .bgc-default-l4, .bgc-h-default-l4:hover {
     background-color: #f3f8fa!important;
 }
-.page-header .page-tools {
-    -ms-flex-item-align: end;
-    align-self: flex-end;
-}
+
 
 .btn-light {
     color: #757984;
