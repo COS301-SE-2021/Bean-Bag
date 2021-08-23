@@ -43,6 +43,7 @@
     <_ContentIncludedByDefault Remove="wwwroot\Files\radowan-nakif-rehan-cYyqhdbJ9TI-unsplash.jpg" />
     <_ContentIncludedByDefault Remove="Views\TestUpload\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\PDFGenerator\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Profile\UserProfile.cshtml" />
      </ItemGroup>
 
   <ItemGroup>
