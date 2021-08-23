@@ -1,5 +1,4 @@
-﻿<!--Changed model type to that of pagedList-->
-@model Pagination
+﻿@model Pagination
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
 @{int i = 1;}
@@ -9,34 +8,36 @@
 }
 
 <link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
-
     <section class="ml-3">
-                 <a asp-action="Index" asp-controller="AiModel" asp-route-inventoryId="@ViewBag.InventoryId" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
-       
+        <a asp-action="Index" asp-controller="AiModel" asp-route-inventoryId="@ViewBag.InventoryId" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
+
         <span class="  md-2 text-secondary ">
-             
             &nbsp; Inventory | Item List
         </span>
-                <span class="float-right mr-2">
-                  Total Versions &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalModels</span>
-      <div>
-                    </div></span>
+        
+        <span class="float-right mr-2">
+            Total Versions &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalModels</span>
+        </span>
+        
     </section> 
-<div class="dashboard-wrapper">
+    
+    <div class="dashboard-wrapper">
     <div class="container-fluid  dashboard-content">
+    
         <hr>
-            
+        
         <div class="row">
-
+            
             <div class=" mr-3 ml-auto">
-                <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a>
+                <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
             </div>
-            </div>
+        </div>
+        
         <br>
+        
         <div class="row">
                 
             <!--Date sorts-->
@@ -74,17 +75,12 @@
                     </div>
                 }                                                                                                                                                                                                     
             </div>
-            
 
             <!--Table with bootstrap class .table and .table-condensed-->
-                
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <br>
                 <div class="card shadow  mb-4 bg-body rounded" >
-                    <h5 class="card-header">Model Versions List
-                        
-                         
-                    </h5>
+                    <h5 class="card-header">Model Versions List</h5>
                     <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
                         <div>
                             @if (Model.PagedListVersions.Any())
@@ -93,41 +89,37 @@
                                     <thead><tr>
                                         <th>#</th>
                                         <th>ID</th>
-                                        <th>@Html.ActionLink("Iteration Name ", "ModelVersions", new {sortOrder = ViewBag.NameSortParm, ProjectId=ViewBag.ProjectId})
+                                        <th>@Html.ActionLink("Iteration Name ", "ModelVersions", new {sortOrder = ViewBag.NameSortParm, ViewBag.ProjectId})
                                             <i class="fas fa-chevron-down text-grey"
                                                aria-hidden="true"></i></th>
                                             
                                         <th>Date Created</th>
                                         <th>Description</th>
-                                        
                                         <th>Available for item cataloging</th>
-                                        
                                         <th>Training Status</th>
-                                        
                                         <th class="text-center colspan-2">Actions</th>
                                     </tr>
-                                    </thead><tbody>
+                                    </thead>
+                                    <tbody>
                                     @foreach (var models in Model.PagedListVersions)
                                     {
                                         <tr>
                                             <td >@i</td>
                                             @{ i++; }
                                             <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.projectId"><i class="fas fa-tag">  </i></button></td>
-                                                                                              
                                             <td >@models.iterationName</td>
-                                              <td >-</td>
-                                                                                        <td >-</td>
-                                            <td > @if(@models.availableToUser==true)
+                                            <td >-</td>
+                                            <td >-</td>
+                                            <td > @if(@models.availableToUser)
                                             
-                                                                                                {
-                                                                                                    <span> Available  &nbsp; </span>  <i class="fa fa-check-circle text-success"></i>
-                                                                                                           }
-                                                                                                else
-                                                                                                {
-                                                                                                    <span> Unavailable  &nbsp; </span>  <i class="fas fa-times-circle text-danger"></i>
+                                                  {
+                                                      <span> Available  &nbsp; </span>  <i class="fa fa-check-circle text-success"></i>
+                                                  }
+                                                  else
+                                                  {
+                                                      <span> Unavailable  &nbsp; </span>  <i class="fas fa-times-circle text-danger"></i>
                                                                                        
-                                                                                                }</td>
-                                            
+                                                  }</td>
                                             
                                             <td > @if(@models.status.Equals("Completed"))
                                                 {
@@ -137,9 +129,7 @@
                                                 {
                                                    <span> Training  &nbsp; </span>  <i class="fa fa-spinner fa-pulse fa-fw text-info"></i>
                                                 }
-                                            
                                             </td>
-                                          
                                             <td >
                                                 <div class="w-100 btn-group" role="group">
                                                     
@@ -147,18 +137,15 @@
                                                         class="btn edit" data-toggle="modal" data-target="#exampleModal3" 
                                                         data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
                                                     
-                                             
-                                                    
                                                     <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.projectId})"
                                                        class="btn delete" data-toggle="modal"
                                                        data-target="#exampleModal4" data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
-                                                    
                                                     
                                                      @if (models.status.Equals("Completed") && models.availableToUser == false)
                                                      {
                                                          <a asp-controller="AiModel"  class="btn "  asp-action="PublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.iterationId"><button data-toggle="tooltip" data-placement="top" class="btn " title="Enable for item cataloging"> <i class="fa fa-toggle-off fa-lg pt-1" aria-hidden="true"></i></button></a>
                                                                                     
-                                                     }else if(models.status.Equals("Completed") && models.availableToUser == true)
+                                                     }else if(models.status.Equals("Completed") && models.availableToUser)
                                                      {
                                                          <a asp-controller="AiModel"  class="btn "  asp-action="UnpublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.iterationId"><button data-toggle="tooltip" data-placement="top" class="btn " title="Disable for item cataloging"> <i class="fa fa-toggle-on fa-lg pt-1" aria-hidden="true"></i></button></a>
                                                   }
@@ -176,37 +163,39 @@
                 </div>
             </div>
         </div>
-      
-                
         
-        <!--Code to show curent page and page number-->
-          
-        <div >    @Html.PagedListPager(Model.PagedListVersions, page => Url.Action("ModelVersions", new {page}), new PagedListRenderOptions
-                  {
-                      DisplayLinkToIndividualPages = true,
-                      DisplayPageCountAndCurrentLocation = false,
-                      MaximumPageNumbersToDisplay = 10,
-                      LiElementClasses = new[] {"page-item, bg-light"},
-                      PageClasses = new[] {"page-link",  "text-color",  "bg-light"}, 
-
-
-                  })
-                
-        </div>
         <!--Code to show current page and page number-->
-        <div >Showing @(Model.PagedListVersions.PageCount < Model.PagedListVersions.PageNumber ? 0 : Model.PagedListVersions.PageNumber) out of @Model.PagedListVersions.PageCount entries
+          
+        <div> 
+            @Html.PagedListPager(Model.PagedListVersions, page => Url.Action("ModelVersions", new {page}), new PagedListRenderOptions
+            {
+                DisplayLinkToIndividualPages = true,
+                DisplayPageCountAndCurrentLocation = false,
+                MaximumPageNumbersToDisplay = 10,
+                LiElementClasses = new[] {"page-item, bg-light"},
+                PageClasses = new[] {"page-link",  "text-color",  "bg-light"}, 
+
+
+            })
         </div>
+        
+        <!--Code to show current page and page number-->
+        <div>
+            Showing @(Model.PagedListVersions.PageCount < Model.PagedListVersions.PageNumber ? 0 : Model.PagedListVersions.PageNumber) out of @Model.PagedListVersions.PageCount entries
+        </div>
+        
     </div>
 </div>
-     
-    
 </section>
 
+
+<!--Scripts-->
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
+
 //Animations
 AOS.init();
 </script>
@@ -214,11 +203,10 @@ AOS.init();
 <script type="text/javascript">
 //Popups 
 
-// --Edit 
+// Edit 
 $('.edit').click(function (ev) {
-    ev.preventDefault(); // this is required
+    ev.preventDefault(); 
 
-    // get target action
     let action = $(this).attr('href');
 
     $.get(action, function (data) {
@@ -228,12 +216,10 @@ $('.edit').click(function (ev) {
     });
 });
 
-
-//-- Delete 
+// Delete 
 $('.delete').click(function (ev) {
-    ev.preventDefault(); // this is required
+    ev.preventDefault(); 
 
-    // get target action
     let action = $(this).attr('href');
 
     $.get(action, function (data) {
@@ -243,11 +229,10 @@ $('.delete').click(function (ev) {
     });
 });
 
-// --Upload 
+// Upload 
 $('.uploading').click(function (ev) {
-    ev.preventDefault(); // this is required
-
-    // get target action
+    ev.preventDefault(); 
+    
     let action = $(this).attr('href');
 
     $.get(action, function (data) {
@@ -257,9 +242,9 @@ $('.uploading').click(function (ev) {
     });
 });
 
-  //ID tooltip
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
+// ID tooltip
+$(function () {
+   $('[data-toggle="tooltip"]').tooltip()
 })
 </script >
 
