@@ -11,14 +11,14 @@ namespace BeanBag.Controllers
     public class AppearanceController : Controller
     {
         // Global variables needed for calling the service classes.
-        private readonly TenantService tenantService;
-        private readonly TenantBlobStorageService tenantBlobStorageService;
+        private readonly TenantService _tenantService;
+        private readonly TenantBlobStorageService _tenantBlobStorageService;
 
         // Constructor.
         public AppearanceController(TenantService tenantService, TenantBlobStorageService tenantBlobStorageService)
         {
-            this.tenantService = tenantService;
-            this.tenantBlobStorageService = tenantBlobStorageService;
+            this._tenantService = tenantService;
+            this._tenantBlobStorageService = tenantBlobStorageService;
         }
 
         // This function sends a response to the Home Index page.
@@ -35,7 +35,7 @@ namespace BeanBag.Controllers
             string theme = Request.Form["theme"];
             
             //Pass the theme into a function that will save it into the DB
-            tenantService.SetTenantTheme(User.GetObjectId(), theme);
+            _tenantService.SetTenantTheme(User.GetObjectId(), theme);
 
             return RedirectToAction("Index", "Appearance");
         }
@@ -44,8 +44,8 @@ namespace BeanBag.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadLogo([FromForm(Name = "file")] IFormFile file)
         {
-            var image = await tenantBlobStorageService.UploadLogoImage(file);
-            tenantService.SetLogo(User.GetObjectId(),image);
+            var image = await _tenantBlobStorageService.UploadLogoImage(file);
+            _tenantService.SetLogo(User.GetObjectId(),image);
 
             return RedirectToAction("Index", "Appearance");
 

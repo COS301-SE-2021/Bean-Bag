@@ -15,14 +15,14 @@ namespace BeanBag.Controllers
     public class AiModelController : Controller
     {
         // Global variables needed for calling the service classes.
-        private readonly IAIService aIService;
-        private readonly IBlobStorageService blobService;
+        private readonly IAIService _aIService;
+        private readonly IBlobStorageService _blobService;
     
         // Constructor.
         public AiModelController(IAIService aIService, IBlobStorageService blobService)
         {
-            this.aIService = aIService;
-            this.blobService = blobService;
+            _aIService = aIService;
+            _blobService = blobService;
         }
 
         /* This function adds a page parameter, a current sort order parameter, and a current filter
@@ -54,7 +54,7 @@ namespace BeanBag.Controllers
             ViewBag.CurrentFilter = searchString;
 
 
-            var model = from s in aIService.getAllModels() select s;
+            var model = from s in _aIService.getAllModels() select s;
             
                 //Search and match data, if search string is not null or empty
                 if (!String.IsNullOrEmpty(searchString))
@@ -92,7 +92,7 @@ namespace BeanBag.Controllers
             
             viewModel.AIModel = mod;
             viewModel.PagedListModels = pagedList;
-            @ViewBag.totalModels = aIService.getAllModels().Count;
+            @ViewBag.totalModels = _aIService.getAllModels().Count;
             
 
             return View(viewModel);
@@ -133,7 +133,7 @@ namespace BeanBag.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var model = from s in aIService.getProjectIterations(projectId) 
+            var model = from s in _aIService.getProjectIterations(projectId) 
                 select s;
             
                 //Search and match data, if search string is not null or empty
@@ -171,7 +171,7 @@ namespace BeanBag.Controllers
             
             viewModel.AIModelVersions = mod;
             viewModel.PagedListVersions = pagedList;
-            @ViewBag.totalModels = aIService.getProjectIterations(projectId).Count;
+            @ViewBag.totalModels = _aIService.getProjectIterations(projectId).Count;
             ViewBag.projectId = projectId;
         
             return View(viewModel);
@@ -186,7 +186,7 @@ namespace BeanBag.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateModel(Pagination mods)
         {
-            Guid id = await aIService.createProject(mods.AIModel.projectName);
+            Guid id = await _aIService.createProject(mods.AIModel.projectName);
 
             return LocalRedirect("/AIModel/TestImages?projectId=" + id.ToString());
         }
@@ -196,7 +196,7 @@ namespace BeanBag.Controllers
         {
             @ViewBag.ID = projectId;
         
-            var mods = aIService.getAllModels();
+            var mods = _aIService.getAllModels();
             foreach (var t in mods.Where(t => t.projectId.Equals(projectId)))
             {
                 @ViewBag.Name = t.projectName ;
@@ -226,8 +226,8 @@ namespace BeanBag.Controllers
                 }
             }
             
-            List<string> imageUrls = await blobService.uploadTestImages(files, projectId.ToString());
-            aIService.uploadTestImages(imageUrls, tags, projectId);
+            List<string> imageUrls = await _blobService.uploadTestImages(files, projectId.ToString());
+            _aIService.uploadTestImages(imageUrls, tags, projectId);
 
             if (lastTestImages != null)
                 return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
@@ -238,21 +238,21 @@ namespace BeanBag.Controllers
         // This function allows the user to train the AI model they had created by calling TrainModel AI Model service.
         public IActionResult TrainModel(Guid projectId)
         {
-            aIService.trainModel(projectId);
+            _aIService.trainModel(projectId);
             return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
         }
 
         // This function allows the user to publish an iteration by calling the PublishIteration AI Model service.
         public IActionResult PublishIteration(Guid projectId, Guid iterationId)
         {
-            aIService.publishIteration(projectId, iterationId);
+            _aIService.publishIteration(projectId, iterationId);
             return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
         }
 
         // This function allows the user to publish an iteration by calling the publishIteration AI Model service.
         public IActionResult UnpublishIteration(Guid projectId, Guid iterationId)
         {
-            aIService.unpublishIteration(projectId, iterationId);
+            _aIService.unpublishIteration(projectId, iterationId);
             return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
         }
 

@@ -12,23 +12,23 @@ namespace BeanBag.Controllers
     public  class  HomeController : Controller
     {
         // Global variables needed for calling the service classes.
-        private readonly IInventoryService inventoryService;
-        private readonly IDashboardAnalyticsService dashboardAnalyticsService;
-        private readonly IItemService itemService;
+        private readonly IInventoryService _inventoryService;
+        private readonly IDashboardAnalyticsService _dashboardAnalyticsService;
+        private readonly IItemService _itemService;
 
         // Constructor.
         public HomeController(IInventoryService inv, IDashboardAnalyticsService dash, IItemService itm)
         { 
-            inventoryService = inv;
-            dashboardAnalyticsService = dash;
-            itemService = itm;
+            _inventoryService = inv;
+            _dashboardAnalyticsService = dash;
+            _itemService = itm;
         }
 
         // This function returns the Index page for the dashboard, returns drop-down-lists for the page view.
         public IActionResult Index()
         {
             //Inventory Drop-Down-List
-            var inventories = inventoryService.GetInventories(User.GetObjectId());
+            var inventories = _inventoryService.GetInventories(User.GetObjectId());
             IEnumerable < SelectListItem > inventoryDropDown = inventories.Select(i => new SelectListItem
                 {
                     Text = i.name,
@@ -57,7 +57,7 @@ namespace BeanBag.Controllers
             // Checking inventories for an empty state 
             foreach (var t in inventories)
             {
-                if (inventories.Count==0 || itemService.GetItems(t.Id).Count ==0)
+                if (inventories.Count==0 || _itemService.GetItems(t.Id).Count ==0)
                 {
                     ViewBag.hasItems = false;
                     break;
@@ -70,14 +70,14 @@ namespace BeanBag.Controllers
         // This function gets the recent items for recently added items card.
         public JsonResult GetItems(string id)
         {
-            var result = dashboardAnalyticsService.GetRecentItems(id);
+            var result = _dashboardAnalyticsService.GetRecentItems(id);
             return Json(result);  
         }
 
         // This function gets the total items for total items card.
         public int TotalItems(string id)
         {
-            var result = dashboardAnalyticsService.GetTotalItems(id);
+            var result = _dashboardAnalyticsService.GetTotalItems(id);
             return result;
             
         }
@@ -85,35 +85,35 @@ namespace BeanBag.Controllers
         // This function gets the  top 3 items for the chart in the total items card.
         public JsonResult TopItems(string id , int total)
         {
-            var result = dashboardAnalyticsService.GetTopItems(id);
+            var result = _dashboardAnalyticsService.GetTopItems(id);
             return Json(result);  
         }
         
         // This function gets the  items available for items available card.
         public int ItemsAvailable(string id, string time)
         {
-            var result = dashboardAnalyticsService.GetItemsAvailable(id , time); 
+            var result = _dashboardAnalyticsService.GetItemsAvailable(id , time); 
             return result;
         }
 
         // This function gets the items sold for items card.
         public int ItemsSold(string id, string time)
         {
-            var result = dashboardAnalyticsService.GetItemsSold(id , time); 
+            var result = _dashboardAnalyticsService.GetItemsSold(id , time); 
             return result;
         }
 
         //This function gets the revenue over a specific time.
         public double Revenue(string id, string time)
         {
-            var result = dashboardAnalyticsService.GetRevenue(id , time); 
+            var result = _dashboardAnalyticsService.GetRevenue(id , time); 
             return result;
         }
         
         //This function gets the sales growth over a specific time.
         public double SalesGrowth(string id, string time)
         {
-            var result = dashboardAnalyticsService.GetSalesGrowth(id , time); 
+            var result = _dashboardAnalyticsService.GetSalesGrowth(id , time); 
             return result;
         }
         
@@ -121,7 +121,7 @@ namespace BeanBag.Controllers
         // This function gets the item available percentage growth statistic over a specific time.
         public double AvailableStat(string id, string time)
         {
-            var result = dashboardAnalyticsService.ItemAvailableStat(id , time); 
+            var result = _dashboardAnalyticsService.ItemAvailableStat(id , time); 
             return result;
         }
         
@@ -129,14 +129,14 @@ namespace BeanBag.Controllers
         //This function gets the item sold percentage growth statistic over a specific time.
         public double SoldStat(string id, string time)
         {
-            var result = dashboardAnalyticsService.ItemsSoldStat(id , time); 
+            var result = _dashboardAnalyticsService.ItemsSoldStat(id , time); 
             return result;
         }
         
         //This function gets the item revenue percentage growth statistic over a specific time.
         public double RevenueStat(string id, string time)
         {
-            var result = dashboardAnalyticsService.ItemsRevenueStat(id , time); 
+            var result = _dashboardAnalyticsService.ItemsRevenueStat(id , time); 
             return result;
         }
     }

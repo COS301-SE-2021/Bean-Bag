@@ -12,14 +12,14 @@ namespace BeanBag.Controllers
     public class AccountController : Controller
     {
         // Global variables needed for calling the service classes.
-        private readonly TenantService tenantService;
-        private readonly IInventoryService inventory;
+        private readonly TenantService _tenantService;
+        private readonly IInventoryService _inventory;
 
         // Constructor.
         public AccountController(TenantService tenantService, IInventoryService inventory)
         {
-            this.tenantService = tenantService;
-            this.inventory = inventory;
+            _tenantService = tenantService;
+            _inventory = inventory;
         }
         
         // This function returns the view for the Account page.
@@ -30,7 +30,7 @@ namespace BeanBag.Controllers
             {
                 throw new Exception("User ID is null");
             }
-            else if (tenantService.SearchUser(User.GetObjectId()))
+            else if (_tenantService.SearchUser(User.GetObjectId()))
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -48,7 +48,7 @@ namespace BeanBag.Controllers
             }
             else
             {
-                tenantService.CreateNewTenant(tenantName);
+                _tenantService.CreateNewTenant(tenantName);
             }
             return RedirectToAction("Index");
         }
@@ -66,16 +66,16 @@ namespace BeanBag.Controllers
             //Check if user is new
             var userId = User.GetObjectId();
             var currentTenantName = tenant;
-            var currentTenantId = tenantService.GetTenantId(currentTenantName);
+            var currentTenantId = _tenantService.GetTenantId(currentTenantName);
 
-            if (tenantService.SearchUser(userId) == false)
+            if (_tenantService.SearchUser(userId) == false)
             {
                 //User is new - add user to database
                 //Verify tenant
-                if (tenantService.SearchTenant(currentTenantId))
+                if (_tenantService.SearchTenant(currentTenantId))
                 {
                     //Verified
-                    tenantService.SignUserUp(userId, currentTenantId);
+                    _tenantService.SignUserUp(userId, currentTenantId);
                 }
                 else
                 {
@@ -91,7 +91,7 @@ namespace BeanBag.Controllers
                 description = "My first ever inventory to add new items to",
                 createdDate = DateTime.Now
             };
-            inventory.CreateInventory(newInventory);
+            _inventory.CreateInventory(newInventory);
 
             return RedirectToAction("Index", "Home");
         }

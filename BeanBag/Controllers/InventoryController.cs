@@ -15,25 +15,25 @@ namespace BeanBag.Controllers
     {
         /* This variable is used to interact with the Database/DBContext class.
            Allows us to save, update and delete records */
-        private readonly DBContext db;
-        private readonly IInventoryService inventoryService;
+        private readonly DBContext _db;
+        private readonly IInventoryService _inventoryService;
 
         // Constructor.
         public InventoryController(DBContext db, IInventoryService inv)
         {
             // Inits the db context allowing us to use CRUD operations on the inventory table
-            this.db = db;
-            inventoryService = inv;
+            _db = db;
+            _inventoryService = inv;
         }
 
         public void CheckUserRole()
         {
-            var user = db.UserRoles.Find(User.GetObjectId());
+            var user = _db.UserRoles.Find(User.GetObjectId());
             if(user == null)
             {
                 user = new UserRoles { userId = User.GetObjectId(), role = "U" };
-                db.UserRoles.Add(user);
-                db.SaveChanges();
+                _db.UserRoles.Add(user);
+                _db.SaveChanges();
             }
         }
 
@@ -65,7 +65,7 @@ namespace BeanBag.Controllers
             ViewBag.CurrentFilter = searchString;
 
 
-            var model = from s in inventoryService.GetInventories(User.GetObjectId())
+            var model = from s in _inventoryService.GetInventories(User.GetObjectId())
                 select s;
                 //Search and match data, if search string is not null or empty
                 if (!String.IsNullOrEmpty(searchString))
@@ -103,7 +103,7 @@ namespace BeanBag.Controllers
             
             viewModel.Inventory = inventory;
             viewModel.PagedList = pagedList;
-            @ViewBag.totalInventories = inventoryService.GetInventories(User.GetObjectId()).Count;
+            @ViewBag.totalInventories = _inventoryService.GetInventories(User.GetObjectId()).Count;
             
             //Checking user role is in DB
             CheckUserRole();
@@ -127,7 +127,7 @@ namespace BeanBag.Controllers
                 // Checks to see that the newInventory is valid (that the fields filled in the create view are present)
                 if (ModelState.IsValid)
                 {
-                    inventoryService.CreateInventory(inventories.Inventory);
+                    _inventoryService.CreateInventory(inventories.Inventory);
 
                     // Returns back to inventory/index
                      return RedirectToAction("Index");
@@ -170,7 +170,7 @@ namespace BeanBag.Controllers
             ViewBag.CurrentFilter = searchString;
 
 
-            var model =  from i in db.Items where i.inventoryId.Equals(inventoryId) select i;
+            var model =  from i in _db.Items where i.inventoryId.Equals(inventoryId) select i;
                 //Search and match data, if search string is not null or empty
                 if (!String.IsNullOrEmpty(searchString))
                 {
@@ -206,7 +206,7 @@ namespace BeanBag.Controllers
             IPagedList<Item> pagedList = modelList.ToPagedList(pageNumber, pageSize);
             
             viewModel.Item = items;
-            ViewBag.InventoryName = inventoryService.FindInventory(inventoryId).name;
+            ViewBag.InventoryName = _inventoryService.FindInventory(inventoryId).name;
             ViewBag.InventoryId= inventoryId;
             viewModel.PagedListItems = pagedList;
             @ViewBag.totalItems = pagedList.Count;
@@ -230,7 +230,7 @@ namespace BeanBag.Controllers
         if(User.Identity is {IsAuthenticated: true})
             {
                 // Find the inventory in the inventory table using the inventory ID
-                var inventory = inventoryService.FindInventory(id);
+                var inventory = _inventoryService.FindInventory(id);
 
                 if(inventory.userId == User.GetObjectId())
                 {
@@ -257,7 +257,7 @@ namespace BeanBag.Controllers
                 // Making sure that the inventory is valid before applying the changes into the DB
                 if (ModelState.IsValid)
                 {
-                    if(inventoryService.EditInventory(User.GetObjectId(), inventory))
+                    if(_inventoryService.EditInventory(User.GetObjectId(), inventory))
                     {
                         return RedirectToAction("Index");
                     }
@@ -281,7 +281,7 @@ namespace BeanBag.Controllers
         {
             if(User.Identity is {IsAuthenticated: true})
             {
-                if(inventoryService.DeleteInventory(id, User.GetObjectId()))
+                if(_inventoryService.DeleteInventory(id, User.GetObjectId()))
                 {
                     return RedirectToAction("Index");
                 }
@@ -304,7 +304,7 @@ namespace BeanBag.Controllers
             if(User.Identity is {IsAuthenticated: true})
             {
                 // Find the inventory in the inventory table using the inventory ID
-                var inventory = inventoryService.FindInventory(id);
+                var inventory = _inventoryService.FindInventory(id);
                 if (inventory == null)
                 {
                     return NotFound();
