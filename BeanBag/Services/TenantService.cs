@@ -19,6 +19,7 @@ namespace BeanBag.Services
         
         
         //Tenant functions
+        //Get tenant id from user's object id
         public string GetUserTenantId(string userId)
         {
             if (userId == null)
