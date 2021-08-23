@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Identity.Web;
 using BeanBag.Services;
-using SelectPdf;
 using X.PagedList;
 
 namespace BeanBag.Controllers
@@ -329,20 +328,7 @@ namespace BeanBag.Controllers
             }
         }
 
-        //This function generates a report of all the items for the current inventory the user is viewing
-        public IActionResult GenerateReport()
-        {
-            var report = System.IO.File.ReadAllText( @"Views\Inventory\PDFReport.cshtml");
-
-            HtmlToPdf pdf = new HtmlToPdf();
-            PdfDocument doc = pdf.ConvertHtmlString(report);
-            byte[] completePdf = doc.Save();
-            doc.Close();
-            return File(completePdf,"application/pdf","BeanBagInventoryReport.pdf");
-            
-
-
-        }
+       
     }
     
     

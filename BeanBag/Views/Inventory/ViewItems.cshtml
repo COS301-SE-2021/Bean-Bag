@@ -30,8 +30,9 @@
             <div class="row">
            
                 <div class=" mr-3 ml-auto">
-                    <button  class="btn btn-3 shadow-sm bg-body rounded pdf" >Generate report &nbsp;  <i class="fas fa-file-pdf"></i></button>
-                </div>
+                    <button   onclick="printDiv('viewInventoryModal')" class="btn btn-3 shadow-sm bg-body rounded pdf" >Generate report &nbsp;  <i class="fas fa-file-pdf"></i></button>
+        
+                    </div>
             </div>
              <br>
             <div class="row" id="pdfContainer">
@@ -209,26 +210,43 @@
     </div>
     
       <!---Popup Form to print QR modal -->
-        <div class="modal fade" id="printQRModal" tabindex="-1" role="dialog" aria-labelledby="viewQRModalTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog" role="document">
+<div class="modal fade" id="printQRModal" tabindex="-1" role="dialog" aria-labelledby="viewQRModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
             
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"  id="printQRModalTitle">Print QR Code <i class="fas fa-print"> </i></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body printQR">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"  id="printQRModalTitle">Print QR Code <i class="fas fa-print"> </i></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body printQR">
                         
-                        </div>
-                        <div class="modal-footer ">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
-                        </div>
-                </div>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
             </div>
         </div>
-    
+    </div>
+</div>
+
+
+      <!---Popup Form to print QR modal -->
+<div class="modal fade" id="viewInventoryModal" tabindex="-1" role="dialog" aria-labelledby="viewInventoryModaltitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+     
+            <div class="modal-body invItems">
+                   <partial name="pdfReportPrint" />      
+            </div>
+           
+    </div>
+</div>
+
+<div id="printableArea">
+  
+</div>
+
+
 </section>
 
 
@@ -294,19 +312,36 @@ $('.printQR').click(function (ev) {
     });
 });
 
-//Generating the pdf 
 
-    $('.pdf').click(function() {
-       
-        window.open('/Inventory/GenerateReport/',  '_blank')
+ //generate inventory items
+$('.invItems').click(function (ev) {
+    ev.preventDefault(); 
 
-           
+    // get target action
+    var action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        $mymodal = $("#viewInventoryModal");
+          $mymodal.find("div.invItems").html(' hh');
+        $('#viewInventoryModal').modal('show');
+    });
 });
 
+//Generating the pdf 
+
+function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;
+}
     
 </script>
 @section Scripts{
     @{<partial name="_ValidationScriptsPartial"/> <partial name="_DeleteItem" /> 
     }
 }
+
+
 

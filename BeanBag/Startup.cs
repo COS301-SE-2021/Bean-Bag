@@ -11,7 +11,6 @@ using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using BeanBag.Database;
 using BeanBag.Services;
-using Microsoft.Extensions.Azure;
 
 namespace BeanBag
 {
@@ -74,7 +73,7 @@ namespace BeanBag
 
             services.AddTransient<TenantService>();
             services.AddTransient<TenantBlobStorageService>();
-
+    
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
