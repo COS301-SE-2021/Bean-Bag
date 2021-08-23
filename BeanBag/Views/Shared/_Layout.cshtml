@@ -1,15 +1,17 @@
 ﻿@using BeanBag.Services
 @using Microsoft.Identity.Web
-@inject TenantService _tenantService
+@inject TenantService tenantService
 
 @{
   //Get the value of the website theme colour here
-  var color = _tenantService.GetTenantTheme(User.GetObjectId());
-  var logo = _tenantService.GetLogo(User.GetObjectId());
+  var color = tenantService.GetTenantTheme(User.GetObjectId());
+  var logo = tenantService.GetLogo(User.GetObjectId());
 } 
-
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
+   <link rel = "icon" href = 
+"https://img.icons8.com/ios/50/ffffff/circled-b.png" 
+        type = "image/x-icon">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -34,6 +36,10 @@
       <link rel="stylesheet" href="~/css/outrageousOrange.css" />
     }
     else if(color=="Default")
+    {
+      <link rel="stylesheet" href="~/css/default.css" />
+    }
+    else
     {
       <link rel="stylesheet" href="~/css/default.css" />
     }
@@ -88,11 +94,13 @@
   <!-- Header-->
   <header class="page-header">
     <nav>
-      <a href="#0"  class="logo">
-        <img src="@logo" alt="Bean Bag">
-         <!---Company logo-->
+      <a  >
+        <img src="@logo"  alt="Bean Bag" >
+        <!---Company logo-->
         
       </a>
+      
+      
       <button class="toggle-mob-menu" aria-expanded="false" aria-label="open menu">
         <svg width="20" height="20" aria-hidden="true">
           <use xlink:href="#down"></use>
@@ -123,7 +131,7 @@
                     <use xlink:href="#charts"></use>
                   </svg>
                   
-                    <span>Train Models</span>
+                    <span>AI Models</span>
                   </a>
                 </li>
                   <li>

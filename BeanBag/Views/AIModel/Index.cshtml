@@ -14,7 +14,7 @@
     <section class="search-and-user">
         
         <span class="col-md-2 text-secondary ">
-             Models
+             AI Models
         </span>
 
         <div class="admin-profile ">
@@ -55,7 +55,7 @@
                                </span>
                                    @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
                                    <span class="d-inline-block pl-2">
-                                       <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3btn"/>
+                                       <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3"/>
                                    </span>
                                    </div>
                                }
@@ -80,7 +80,7 @@
                 
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <br>
-                <div class="card shadow p-1 mb-4 bg-body rounded" >
+                <div class="card shadow mb-4 bg-body rounded" >
                     <h5 class="card-header">Model List
                         
                          
@@ -151,8 +151,11 @@
                       DisplayLinkToIndividualPages = true,
                       DisplayPageCountAndCurrentLocation = false,
                       MaximumPageNumbersToDisplay = 10,
-                      LiElementClasses = new[] {"page-item"},
-                      PageClasses = new[] {"page-link"},
+                      LiElementClasses = new[] {"page-item, bg-light"},
+                      PageClasses = new[] {"page-link",  "text-color",  "bg-light"}, 
+                   
+                      
+
                   })
                 
         </div>
@@ -188,7 +191,7 @@
                     <div asp-validation-summary="All" class="text-danger"></div>
                 </div>
                 <div class="modal-footer ">
-                    <button type="button" class="btn btn-2" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <input type="submit" class="btn btn-3" value="Create"/> <!--create button-->
                 </div>
             </form>

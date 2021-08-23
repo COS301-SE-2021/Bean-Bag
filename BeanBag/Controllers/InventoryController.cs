@@ -15,8 +15,8 @@ namespace BeanBag.Controllers
     {
         // This variable is used to interact with the Database/DBContext class. Allows us to save, update and delete records 
         private readonly DBContext db;
+        private readonly IInventoryService inventoryService; 
 
-        private readonly IInventoryService inventoryService;
 
         public InventoryController(DBContext db, IInventoryService inv)
         {
@@ -70,21 +70,23 @@ namespace BeanBag.Controllers
                 {
                     model = model.Where(s => s.name.Contains(searchString));
                 }
+
+                var inventories = model.ToList();
                 switch (sortOrder)
                 {
                     case "name_desc":
-                        modelList = model.OrderByDescending(s => s.name).ToList();
+                        modelList = inventories.OrderByDescending(s => s.name).ToList();
                         break;
                  
                     default:
-                        modelList = model.OrderBy(s => s.name).ToList();
+                        modelList = inventories.OrderBy(s => s.name).ToList();
                         break;
                 }
 
                 //Date sorting
                 if (sortOrder == "date")
                 {
-                    modelList =( model.Where(t => t.createdDate > from && t.createdDate < to)).ToList();
+                    modelList =( inventories.Where(t => t.createdDate > from && t.createdDate < to)).ToList();
 
                 }
             //indicates the size of list
@@ -325,6 +327,8 @@ namespace BeanBag.Controllers
                 return LocalRedirect("/");
             }
         }
+
+       
     }
     
     
