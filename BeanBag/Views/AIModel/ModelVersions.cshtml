@@ -13,21 +13,19 @@
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
-    <section class="search-and-user">
-        
-        <span class="col-md-2 text-secondary ">
-            Model Versions
+
+    <section class="ml-3">
+                 <a asp-action="Index" asp-controller="AIModel" asp-route-inventoryId="@ViewBag.InventoryId" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
+       
+        <span class="  md-2 text-secondary ">
+             
+            &nbsp; Inventory | Item List
         </span>
-
-        <div class="admin-profile ">
-            <span class="greeting  ">
-                Total Versions &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalModels</span>
-
-            </span>
-        </div>
-    </section>
-    
-     
+                <span class="float-right mr-2">
+                  Total Versions &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalModels</span>
+      <div>
+                    </div></span>
+    </section> 
 <div class="dashboard-wrapper">
     <div class="container-fluid  dashboard-content">
         <hr>
