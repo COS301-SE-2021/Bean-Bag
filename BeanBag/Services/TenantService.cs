@@ -116,6 +116,7 @@ namespace BeanBag.Services
 
         }
         
+        //Get the theme of the tenant to load on sign in
         public string GetTenantTheme(string userId)
         {
             // return default when user is not signed in - Layout
