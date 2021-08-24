@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace BeanBag.Services
 {
+    // The AI service class is used by the AIModel controller to create and train AI models as well as publish iterations of the model
     public class AIService : IAIService
     {
         //MAKE SURE TO REMOVE THIS TRAINING KEY. IT IS LIKE THE PASSWORD FOR OUR AI PROJECTS
@@ -18,12 +19,13 @@ namespace BeanBag.Services
         private readonly string key = "3fcb002210614500aaf87a89c79603d1";
         private readonly string predictionResourceId = "/subscriptions/5385f64c-2176-4307-bc1b-1cc4ee7f36e3/resourceGroups/Bean-Bag-Resource-Group/providers/Microsoft.CognitiveServices/accounts/Bean-Bag-Platform-AI-Models";
 
+        // Variables
         private CustomVisionTrainingClient trainingClient;
         private CustomVisionPredictionClient predictionClient;
-
         private readonly DBContext _db;
         private readonly IBlobStorageService _blob;
 
+        //Constructor
         public AIService(DBContext db, IBlobStorageService blob)
         {
             trainingClient = new CustomVisionTrainingClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.ApiKeyServiceClientCredentials(key))
@@ -41,7 +43,7 @@ namespace BeanBag.Services
             };
         }
 
-        // This method is used to return the tags (item type) of an item image
+        // This method is used to return the tags (item type) from a specified model for an item image 
         public string predict(Guid projectId, string iterationName, string imageURL)
         {
             if (projectId == Guid.Empty)
@@ -60,9 +62,8 @@ namespace BeanBag.Services
             if (!imageURL.Contains("https://polarisblobstorage.blob.core.windows.net/itemimages/"))
                 throw new Exception("Image url comes from invalid source");
 
-            try {
-                
-
+            try 
+            {             
                 var result = predictionClient.ClassifyImageUrl(projectId, iterationName,
                 new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(imageURL));
 
@@ -280,11 +281,6 @@ namespace BeanBag.Services
             _db.SaveChanges();
         }
 
-        //public List<AIModelVersions> getAllIterations()
-        //{
-        //    return _db.AIModelIterations.ToList();
-        //}
-
         // This method is used to retrieve all available to user iterations from the DB
         public List<AIModelVersions> getAllAvailableIterations()
         {
@@ -302,7 +298,8 @@ namespace BeanBag.Services
         // This method is used to retrieve all of the AI Model projects in the DB
         public List<AIModel> getAllModels()
         {
-            try {
+            try 
+            {
                 return _db.AIModels.ToList();
             }
             catch(Exception e)
@@ -318,7 +315,8 @@ namespace BeanBag.Services
             if (iterationId == Guid.Empty)
                 throw new Exception(endpoint.ToString());
             
-            try {
+            try 
+            {
                 return _db.AIModelIterations.Find(iterationId);
             }
             catch(Exception e)

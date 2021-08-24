@@ -6,15 +6,20 @@ using System.Linq;
 
 namespace BeanBag.Services
 {
+    // This service class is used to handle any data that is related to an inventory's items.
+    // This service class main focus is to bridge the the item controller to the DB
     public class ItemService : IItemService
     {
+        // Variables
         private readonly DBContext _db;
 
+        // Constructor
         public ItemService(DBContext db)
         {
             _db = db;
         }
 
+        // This method is used to add the QR code link to the to the item variable QRContents
         public Item AddQRItem(Item item)
         {
             if (item != null)
@@ -24,6 +29,7 @@ namespace BeanBag.Services
             return item;
         }
 
+        // This method is used to store a newly created item into the DB
         public void CreateItem(Item newItem)
         {
             if (newItem != null)
@@ -38,6 +44,7 @@ namespace BeanBag.Services
             
         }
 
+        // This method is used to delete a specfied item from the DB using the primary key itemId
         public bool DeleteItem(Guid ItemId)
         {
             var item = FindItem(ItemId);
@@ -50,6 +57,7 @@ namespace BeanBag.Services
             return true;
         }
 
+        // This method is used to update an item's information in the DB
         public void EditItem(Item item)
         {
             if (item != null)
@@ -62,18 +70,21 @@ namespace BeanBag.Services
             
         }
 
+        // This method is used to find a specified item using the primary key itemId
         public Item FindItem(Guid ItemId)
         {
             Item item = _db.Items.Find(ItemId);
             return item;
         }
 
+        // This method is used to retrieve all items belonging to an inventory using the inventoryId variable
         public List<Item> GetItems(Guid InventoryId)
         {
             var items = (from i in _db.Items where i.inventoryId.Equals(InventoryId) select i).ToList();
             return items;
         }
 
+        // This method is used to return an inventoryId beloning to a specified item using the itemId
         public Guid GetInventoryIdFromItem(Guid ItemId)
         {
             var item = FindItem(ItemId);
