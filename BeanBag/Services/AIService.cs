@@ -14,26 +14,22 @@ namespace BeanBag.Services
     // The AI service class is used by the AIModel controller to create and train AI models as well as publish iterations of the model
     public class AIService : IAIService
     {
-        //MAKE SURE TO REMOVE THIS TRAINING KEY. IT IS LIKE THE PASSWORD FOR OUR AI PROJECTS
-        private readonly string endpoint = "https://uksouth.api.cognitive.microsoft.com/";
-
-        private readonly string key = "3fcb002210614500aaf87a89c79603d1";
-        private readonly string predictionResourceId = "/subscriptions/5385f64c-2176-4307-bc1b-1cc4ee7f36e3/resourceGroups/Bean-Bag-Resource-Group/providers/Microsoft.CognitiveServices/accounts/Bean-Bag-Platform-AI-Models";
-
         // Variables
         private CustomVisionTrainingClient trainingClient;
         private CustomVisionPredictionClient predictionClient;
         private readonly DBContext _db;
         private readonly IBlobStorageService _blob;
-        //private readonly IConfiguration config;
+        private string resourceId;
 
         //Constructor
         public AIService(DBContext db, IBlobStorageService blob, IConfiguration config)
         {
+            string key = config.GetValue<string>("Secruity:CustomVision:Key");
+            resourceId = config.GetValue<string>("Secruity:CustomVision:ResourceId");
 
             trainingClient = new CustomVisionTrainingClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.ApiKeyServiceClientCredentials(key))
             {
-                Endpoint = endpoint
+                Endpoint = config.GetValue<string>("Secruity:CustomVision:Endpoint")
             };
 
             _db = db;
@@ -42,7 +38,7 @@ namespace BeanBag.Services
             predictionClient = new CustomVisionPredictionClient
                 (new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.ApiKeyServiceClientCredentials(key))
             {
-                Endpoint = endpoint
+                Endpoint = config.GetValue<string>("Secruity:CustomVision:Endpoint")
             };
         }
 
@@ -316,7 +312,7 @@ namespace BeanBag.Services
         public AIModelVersions getIteration(Guid iterationId)
         {
             if (iterationId == Guid.Empty)
-                throw new Exception(endpoint.ToString());
+                throw new Exception("Iteration Id is null.");
             
             try 
             {
@@ -340,7 +336,7 @@ namespace BeanBag.Services
             try
             {
                 string iterationName = trainingClient.GetIteration(projectId, iterationId).Name;
-                trainingClient.PublishIteration(projectId, iterationId, iterationName, predictionResourceId);
+                trainingClient.PublishIteration(projectId, iterationId, iterationName, resourceId);
 
                 var iteration = _db.AIModelIterations.Find(iterationId);
                 iteration.availableToUser = true;
@@ -375,6 +371,7 @@ namespace BeanBag.Services
             }
         }
 
+        // This method returns all iterations available to the user that belongs to a model
         public List<AIModelVersions> getAllAvailableIterationsOfModel(Guid projectId)
         {
             return _db.AIModelIterations.Where(i => i.availableToUser.Equals(true) && i.projectId.Equals(projectId)).ToList();
