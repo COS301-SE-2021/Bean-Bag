@@ -69,7 +69,7 @@ namespace BeanBag.Services
             
         }
 
-        // This method ius used to delete a folder of test images used to train an AI model
+        // This method is used to delete a folder of test images used to train an AI model
         public async void DeleteTestImageFolder(string projectId)
         {
             _cloudBlobContainer = _cloudBlobClient.GetContainerReference("modeltestimages");
