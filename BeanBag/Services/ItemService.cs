@@ -20,7 +20,7 @@ namespace BeanBag.Services
         }
 
         // This method is used to add the QR code link to the to the item variable QRContents
-        public Item AddQRItem(Item item)
+        public Item AddQrItem(Item item)
         {
             if (item != null)
             {
@@ -37,17 +37,17 @@ namespace BeanBag.Services
                 newItem.entryDate = DateTime.Now;
                 _db.Items.Add(newItem);
                 _db.SaveChanges();
-                newItem = AddQRItem(newItem);
+                newItem = AddQrItem(newItem);
                 _db.Items.Update(newItem);
                 _db.SaveChanges(); 
             }
             
         }
 
-        // This method is used to delete a specfied item from the DB using the primary key itemId
-        public bool DeleteItem(Guid ItemId)
+        // This method is used to delete a specified item from the DB using the primary key itemId
+        public bool DeleteItem(Guid itemId)
         {
-            var item = FindItem(ItemId);
+            var item = FindItem(itemId);
 
             if (item == null)
                 return false;
@@ -71,23 +71,23 @@ namespace BeanBag.Services
         }
 
         // This method is used to find a specified item using the primary key itemId
-        public Item FindItem(Guid ItemId)
+        public Item FindItem(Guid itemId)
         {
-            Item item = _db.Items.Find(ItemId);
+            Item item = _db.Items.Find(itemId);
             return item;
         }
 
         // This method is used to retrieve all items belonging to an inventory using the inventoryId variable
-        public List<Item> GetItems(Guid InventoryId)
+        public List<Item> GetItems(Guid inventoryId)
         {
-            var items = (from i in _db.Items where i.inventoryId.Equals(InventoryId) select i).ToList();
+            var items = (from i in _db.Items where i.inventoryId.Equals(inventoryId) select i).ToList();
             return items;
         }
 
-        // This method is used to return an inventoryId beloning to a specified item using the itemId
-        public Guid GetInventoryIdFromItem(Guid ItemId)
+        // This method is used to return an inventoryId belonging to a specified item using the itemId
+        public Guid GetInventoryIdFromItem(Guid itemId)
         {
-            var item = FindItem(ItemId);
+            var item = FindItem(itemId);
             if (item == null)
                 return Guid.Empty;
 

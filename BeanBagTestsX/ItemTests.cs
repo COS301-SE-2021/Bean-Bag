@@ -25,7 +25,7 @@ namespace BeanBagUnitTests
             var mockIn = new Mock<IItemService>();
             
             //ACT
-            mockIn.Object.AddQRItem(testItem);
+            mockIn.Object.AddQrItem(testItem);
 
             //ASSERT
             Assert.NotEqual("", testItem.QRContents);

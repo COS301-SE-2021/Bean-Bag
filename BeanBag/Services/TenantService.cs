@@ -135,13 +135,8 @@ namespace BeanBag.Services
             var theme = (from item
                     in _tenantDb.Tenant
                 where item.TenantId.Equals(userTenantId)
-                select item.TenantTheme).Single();
+                select item.TenantTheme).Single() ?? "Default";
 
-
-            if (theme == null)
-            {
-                theme = "Default";
-            }
 
             return theme;
 

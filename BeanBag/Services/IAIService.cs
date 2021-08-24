@@ -5,35 +5,34 @@ using System.Threading.Tasks;
 
 namespace BeanBag.Services
 {
-    public interface IAIService
+    // This class is an interface for the AI service.
+    public interface IAiService
     {
-        public string predict(Guid projectId, string iterationName, string imageURL);
+        public string Predict(Guid projectId, string iterationName, string imageUrl);
 
-        public Task<Guid> createProject(string projectName);
+        public Task<Guid> CreateProject(string projectName);
 
-        public void deleteProject(Guid projectId);
+        public void DeleteProject(Guid projectId);
 
-        public void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId);
+        public void UploadTestImages(List<string> imageUrls, string[] tags, Guid projectId);
 
-        public void trainModel(Guid projectId);
+        public void TrainModel(Guid projectId);
 
-        public void deleteIteration(Guid iterationId);
+        public void DeleteIteration(Guid iterationId);
+        
+        public List<AIModelVersions> GetAllAvailableIterations();
 
-        //public List<AIModelVersions> getAllIterations();
+        public List<AIModel> GetAllModels();
 
-        public List<AIModelVersions> getAllAvailableIterations();
+        public List<AIModelVersions> GetProjectIterations(Guid projectId);
 
-        public List<AIModel> getAllModels();
+        public AIModelVersions GetIteration(Guid iterationId);
 
-        public List<AIModelVersions> getProjectIterations(Guid projectId);
+        public void PublishIteration(Guid projectId, Guid iterationId);
 
-        public AIModelVersions getIteration(Guid iterationId);
+        public void UnpublishIteration(Guid projectId, Guid iterationId);
 
-        public void publishIteration(Guid projectId, Guid iterationId);
-
-        public void unpublishIteration(Guid projectId, Guid iterationId);
-
-        public List<AIModelVersions> getAllAvailableIterationsOfModel(Guid projectId);
+        public List<AIModelVersions> GetAllAvailableIterationsOfModel(Guid projectId);
 
     }
 }

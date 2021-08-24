@@ -21,11 +21,11 @@ namespace BeanBag.Controllers
         // Global variables needed for calling the service classes.
         private readonly IItemService _itemService;
         private readonly IInventoryService _inventoryService;
-        private readonly IAIService _aIService;
+        private readonly IAiService _aIService;
         private readonly IBlobStorageService _blobStorageService;
 
         // Constructor. 
-        public ItemController(IItemService iss, IInventoryService inv, IAIService aI, IBlobStorageService blob)
+        public ItemController(IItemService iss, IInventoryService inv, IAiService aI, IBlobStorageService blob)
         {
       
             _itemService = iss;
@@ -37,12 +37,12 @@ namespace BeanBag.Controllers
         // This function returns the upload-image view for an item given a unique inventory ID.
         public IActionResult UploadImage(Guid inventoryId)
         {
-            List<AIModel> aIModels = _aIService.getAllModels();
+            List<AIModel> aIModels = _aIService.GetAllModels();
             List<SelectListItem> iterationDropDown = new List<SelectListItem>();
 
             foreach (var m in aIModels)
             {
-                List<AIModelVersions> iterations = _aIService.getAllAvailableIterationsOfModel(m.projectId);
+                List<AIModelVersions> iterations = _aIService.GetAllAvailableIterationsOfModel(m.projectId);
                 SelectListGroup tempGroup = new SelectListGroup() { Name = m.projectName };
 
                 foreach (var i in iterations)
@@ -65,9 +65,9 @@ namespace BeanBag.Controllers
         public async Task<IActionResult> UploadImage([FromForm(Name = "file")] IFormFile file, 
             [FromForm(Name = "predictionModel")] string predictionModelId)
         {
-            AIModelVersions iteration = _aIService.getIteration(Guid.Parse(predictionModelId));
-            string imageUrl = await _blobStorageService.uploadItemImage(file);
-            string prediction = _aIService.predict(iteration.projectId, iteration.iterationName, imageUrl);
+            AIModelVersions iteration = _aIService.GetIteration(Guid.Parse(predictionModelId));
+            string imageUrl = await _blobStorageService.UploadItemImage(file);
+            string prediction = _aIService.Predict(iteration.projectId, iteration.iterationName, imageUrl);
 
             return LocalRedirect("/Item/Create?imageUrl="+ imageUrl + "&itemType="+ prediction);
         }

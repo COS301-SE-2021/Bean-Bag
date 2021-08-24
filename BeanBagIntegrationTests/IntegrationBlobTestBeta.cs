@@ -76,7 +76,7 @@ namespace BeanBagIntegrationTests
 
             //ACT
 
-            await myService.uploadItemImage(file);
+            await myService.UploadItemImage(file);
             var myUploadedFile = cloudBlobContainer.GetBlockBlobReference(file.FileName);
 
             //ASSERT
@@ -129,7 +129,7 @@ namespace BeanBagIntegrationTests
 
             //ACT
 
-            await myService.uploadItemImage(file);
+            await myService.UploadItemImage(file);
             var myUploadedFile = cloudBlobContainer.GetBlockBlobReference(file.FileName);
 
             //ASSERT

@@ -12,22 +12,22 @@ using System.Threading.Tasks;
 namespace BeanBag.Services
 {
     // The AI service class is used by the AIModel controller to create and train AI models as well as publish iterations of the model
-    public class AIService : IAIService
+    public class AiService : IAiService
     {
         // Variables
-        private CustomVisionTrainingClient trainingClient;
-        private CustomVisionPredictionClient predictionClient;
+        private readonly CustomVisionTrainingClient _trainingClient;
+        private readonly CustomVisionPredictionClient _predictionClient;
         private readonly DBContext _db;
         private readonly IBlobStorageService _blob;
-        private string resourceId;
+        private readonly string _resourceId;
 
         //Constructor
-        public AIService(DBContext db, IBlobStorageService blob, IConfiguration config)
+        public AiService(DBContext db, IBlobStorageService blob, IConfiguration config)
         {
             string key = config.GetValue<string>("CustomVision:Key");
-            resourceId = config.GetValue<string>("CustomVision:ResourceId");
+            _resourceId = config.GetValue<string>("CustomVision:ResourceId");
 
-            trainingClient = new CustomVisionTrainingClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.ApiKeyServiceClientCredentials(key))
+            _trainingClient = new CustomVisionTrainingClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.ApiKeyServiceClientCredentials(key))
             {
                 Endpoint = config.GetValue<string>("CustomVision:Endpoint")
             };
@@ -35,7 +35,7 @@ namespace BeanBag.Services
             _db = db;
             _blob = blob;
 
-            predictionClient = new CustomVisionPredictionClient
+            _predictionClient = new CustomVisionPredictionClient
                 (new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.ApiKeyServiceClientCredentials(key))
             {
                 Endpoint = config.GetValue<string>("CustomVision:Endpoint")
@@ -43,28 +43,28 @@ namespace BeanBag.Services
         }
 
         // This method is used to return the tags (item type) from a specified model for an item image 
-        public string predict(Guid projectId, string iterationName, string imageURL)
+        public string Predict(Guid projectId, string iterationName, string imageUrl)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project Id is null");
 
-            if (trainingClient.GetProject(projectId) == null)
+            if (_trainingClient.GetProject(projectId) == null)
                 throw new Exception("No Custom Vision project exists with Guid " + projectId.ToString());
 
             if (iterationName.Equals("") || iterationName.Equals(" "))
-                throw new Exception("Invalid itertaion name");
+                throw new Exception("Invalid iteration name");
 
-            if (imageURL.Equals("") || imageURL.Equals(" "))
+            if (imageUrl.Equals("") || imageUrl.Equals(" "))
                 throw new Exception("Invalid image url");
 
             //This is used to check that the image url comes from a valid source that being the polaris blob storage
-            if (!imageURL.Contains("https://polarisblobstorage.blob.core.windows.net/itemimages/"))
+            if (!imageUrl.Contains("https://polarisblobstorage.blob.core.windows.net/itemimages/"))
                 throw new Exception("Image url comes from invalid source");
 
             try 
             {             
-                var result = predictionClient.ClassifyImageUrl(projectId, iterationName,
-                new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(imageURL));
+                var result = _predictionClient.ClassifyImageUrl(projectId, iterationName,
+                new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(imageUrl));
 
                 string itemType = "";
 
@@ -88,14 +88,14 @@ namespace BeanBag.Services
         }
 
         // This method is used to create a new project (model) in custom vision
-        public async Task<Guid> createProject(string projectName)
+        public async Task<Guid> CreateProject(string projectName)
         {
             if (projectName.Equals("") || projectName.Equals(" "))
                 throw new Exception("Invalid project name");
 
             try
             {
-                Project newProject = await trainingClient.CreateProjectAsync(projectName);
+                Project newProject = await _trainingClient.CreateProjectAsync(projectName);
 
                 AIModel newModel = new AIModel()
                 {
@@ -105,7 +105,7 @@ namespace BeanBag.Services
 
                 await _db.AIModels.AddAsync(newModel);
 
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
 
                 return newModel.projectId;
             }
@@ -117,7 +117,7 @@ namespace BeanBag.Services
         }
 
         // This method deletes a custom vision project from the DB and custom vision service
-        public void deleteProject(Guid projectId)
+        public void DeleteProject(Guid projectId)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
@@ -125,14 +125,14 @@ namespace BeanBag.Services
             try
             {
                 // 1) removing test images from blob storage
-                _blob.deleteTestImageFolder(projectId.ToString());
+                _blob.DeleteTestImageFolder(projectId.ToString());
 
                 // 2) Deleting from Custom Vision and iterations
-                var iterations = trainingClient.GetIterations(projectId);
+                var iterations = _trainingClient.GetIterations(projectId);
                 foreach (var i in iterations)
-                    deleteIteration(i.Id);
+                    DeleteIteration(i.Id);
 
-                trainingClient.DeleteProject(projectId);
+                _trainingClient.DeleteProject(projectId);
 
                 // 3) Deleting from DB
                 AIModel model = _db.AIModels.Find(projectId);
@@ -147,12 +147,12 @@ namespace BeanBag.Services
         }
 
         // This method is used to upload a set of test images into the Azure blob storage and then into the custom vision project
-        public async void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
+        public async void UploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
 
-            if (trainingClient.GetProject(projectId) == null)
+            if (await _trainingClient.GetProjectAsync(projectId) == null)
                 throw new Exception("Custom vision project does not exist with project id " + projectId.ToString());
 
             try
@@ -160,17 +160,17 @@ namespace BeanBag.Services
                 List<Guid> imageTagsId = new List<Guid>();
                 foreach(var tag in tags)
                 {
-                    imageTagsId.Add(trainingClient.CreateTag(projectId, tag).Id);
+                    imageTagsId.Add((await _trainingClient.CreateTagAsync(projectId, tag)).Id);
                 }
 
                 List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
 
                 foreach(var url in imageUrls)
                 {
-                    images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
+                    images.Add(new ImageUrlCreateEntry(url, imageTagsId));
                 }
 
-                await trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
+                await _trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
             }
             catch(Exception e)
             {
@@ -180,25 +180,25 @@ namespace BeanBag.Services
         }
 
         // This method trains the model with the test images and creates a new iteration
-        public void trainModel(Guid projectId)
+        public void TrainModel(Guid projectId)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
 
-            if (trainingClient.GetProject(projectId) == null)
+            if (_trainingClient.GetProject(projectId) == null)
                 throw new Exception("Custom Vision project does not exist with projectId " + projectId.ToString());
 
             try
             {
-                var iteration = trainingClient.TrainProject(projectId);
-                string projectName = trainingClient.GetProject(projectId).Name;
+                var iteration = _trainingClient.TrainProject(projectId);
+                // string projectName = _trainingClient.GetProject(projectId).Name;
 
                 AIModelVersions newModelVersion = new AIModelVersions()
                 {
                     iterationName = iteration.Name,
                     availableToUser = false,
                     iterationId = iteration.Id,
-                    status = iteration.Status.ToString(),
+                    status = iteration.Status,
                     projectId = projectId
                 };
 
@@ -213,7 +213,7 @@ namespace BeanBag.Services
         }
 
         // This method deletes an iteration from the custom vision service as well as from the DB
-        public void deleteIteration(Guid iterationId)
+        public void DeleteIteration(Guid iterationId)
         {
             if (iterationId == Guid.Empty)
                 throw new Exception("Iteration id is null");
@@ -226,9 +226,9 @@ namespace BeanBag.Services
             try
             {
                 if(iteration.availableToUser)
-                    trainingClient.UnpublishIteration(iteration.projectId, iterationId);
+                    _trainingClient.UnpublishIteration(iteration.projectId, iterationId);
 
-                trainingClient.DeleteIteration(iteration.projectId, iterationId);
+                _trainingClient.DeleteIteration(iteration.projectId, iterationId);
 
                 _db.AIModelIterations.Remove(iteration);
                 _db.SaveChanges();
@@ -240,21 +240,21 @@ namespace BeanBag.Services
         }
 
         // This method returns all of the iterations related to a custom vision project
-        public List<AIModelVersions> getProjectIterations(Guid projectId)
+        public List<AIModelVersions> GetProjectIterations(Guid projectId)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
-            if (trainingClient.GetProject(projectId) == null)
+            if (_trainingClient.GetProject(projectId) == null)
                 throw new Exception("Custom Vision project does not exist with project id " + projectId.ToString());
 
             try
             {
-                var iterations = trainingClient.GetIterations(projectId);
+                var iterations = _trainingClient.GetIterations(projectId);
 
                 if (iterations.Count == 0)
                     return new List<AIModelVersions>();
 
-                updateProjectIterationsStatus(iterations.ToList());
+                UpdateProjectIterationsStatus(iterations.ToList());
 
                 return (from i in _db.AIModelIterations where i.projectId.Equals(projectId) select i).ToList();
             }
@@ -266,7 +266,7 @@ namespace BeanBag.Services
         }
 
         // This method is used to update the project iterations status in the DB
-        public void updateProjectIterationsStatus(List<Iteration> iterations)
+        private void UpdateProjectIterationsStatus(List<Iteration> iterations)
         {
             if (iterations.Count == 0)
                 throw new Exception("List of iterations is empty");
@@ -281,7 +281,7 @@ namespace BeanBag.Services
         }
 
         // This method is used to retrieve all available to user iterations from the DB
-        public List<AIModelVersions> getAllAvailableIterations()
+        public List<AIModelVersions> GetAllAvailableIterations()
         {
             try
             {
@@ -295,7 +295,7 @@ namespace BeanBag.Services
         }
 
         // This method is used to retrieve all of the AI Model projects in the DB
-        public List<AIModel> getAllModels()
+        public List<AIModel> GetAllModels()
         {
             try 
             {
@@ -309,7 +309,7 @@ namespace BeanBag.Services
         }
 
         // This method is used to retrieve a single iteration from the DB
-        public AIModelVersions getIteration(Guid iterationId)
+        public AIModelVersions GetIteration(Guid iterationId)
         {
             if (iterationId == Guid.Empty)
                 throw new Exception("Iteration Id is null.");
@@ -326,7 +326,7 @@ namespace BeanBag.Services
         }
 
         // This method is used to publish an iteration thus making it available to the user 
-        public void publishIteration(Guid projectId, Guid iterationId)
+        public void PublishIteration(Guid projectId, Guid iterationId)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
@@ -335,8 +335,8 @@ namespace BeanBag.Services
 
             try
             {
-                string iterationName = trainingClient.GetIteration(projectId, iterationId).Name;
-                trainingClient.PublishIteration(projectId, iterationId, iterationName, resourceId);
+                string iterationName = _trainingClient.GetIteration(projectId, iterationId).Name;
+                _trainingClient.PublishIteration(projectId, iterationId, iterationName, _resourceId);
 
                 var iteration = _db.AIModelIterations.Find(iterationId);
                 iteration.availableToUser = true;
@@ -351,7 +351,7 @@ namespace BeanBag.Services
         }
 
         // This method is used to unpublish an iteration thus making it unavailable to the user
-        public void unpublishIteration(Guid projectId, Guid iterationId)
+        public void UnpublishIteration(Guid projectId, Guid iterationId)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
@@ -360,7 +360,7 @@ namespace BeanBag.Services
 
             try
             {
-                trainingClient.UnpublishIteration(projectId, iterationId);
+                _trainingClient.UnpublishIteration(projectId, iterationId);
 
                 _db.AIModelIterations.Find(iterationId).availableToUser = false;
                 _db.SaveChanges();
@@ -372,7 +372,7 @@ namespace BeanBag.Services
         }
 
         // This method returns all iterations available to the user that belongs to a model
-        public List<AIModelVersions> getAllAvailableIterationsOfModel(Guid projectId)
+        public List<AIModelVersions> GetAllAvailableIterationsOfModel(Guid projectId)
         {
             return _db.AIModelIterations.Where(i => i.availableToUser.Equals(true) && i.projectId.Equals(projectId)).ToList();
         }

@@ -67,7 +67,7 @@ namespace BeanBag
             //Adding service classes to be used as a DI
             services.AddTransient<IInventoryService, InventoryService>();
             services.AddTransient<IItemService, ItemService>();
-            services.AddTransient<IAIService, AIService>();
+            services.AddTransient<IAiService, AiService>();
             services.AddTransient<IDashboardAnalyticsService, DashboardAnalyticsService>();
             services.AddTransient<IBlobStorageService, BlobStorageService>();
 
