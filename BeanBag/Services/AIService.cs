@@ -24,12 +24,12 @@ namespace BeanBag.Services
         //Constructor
         public AIService(DBContext db, IBlobStorageService blob, IConfiguration config)
         {
-            string key = config.GetValue<string>("Secruity:CustomVision:Key");
-            resourceId = config.GetValue<string>("Secruity:CustomVision:ResourceId");
+            string key = config.GetValue<string>("CustomVision:Key");
+            resourceId = config.GetValue<string>("CustomVision:ResourceId");
 
             trainingClient = new CustomVisionTrainingClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.ApiKeyServiceClientCredentials(key))
             {
-                Endpoint = config.GetValue<string>("Secruity:CustomVision:Endpoint")
+                Endpoint = config.GetValue<string>("CustomVision:Endpoint")
             };
 
             _db = db;
@@ -38,7 +38,7 @@ namespace BeanBag.Services
             predictionClient = new CustomVisionPredictionClient
                 (new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.ApiKeyServiceClientCredentials(key))
             {
-                Endpoint = config.GetValue<string>("Secruity:CustomVision:Endpoint")
+                Endpoint = config.GetValue<string>("CustomVision:Endpoint")
             };
         }
 

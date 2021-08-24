@@ -20,7 +20,7 @@ namespace BeanBag.Services
         // Constructor
         public BlobStorageService(IConfiguration config)
         {
-            cloudStorageAccount = CloudStorageAccount.Parse(config.GetValue<string>("Secruity:AzureBlobStorage:ConnectionString"));
+            cloudStorageAccount = CloudStorageAccount.Parse(config.GetValue<string>("AzureBlobStorage:ConnectionString"));
 
             //cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;EndpointSuffix=core.windows.net");
             cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
