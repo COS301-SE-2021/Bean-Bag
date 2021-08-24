@@ -6,7 +6,7 @@
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
     <section class="ml-3">
-        <a asp-action="Index" asp-controller="Inventory" class="btn btn-secondary  rounded-pill "><i class="fas fa-chevron-left"> </i></a>
+        <a asp-action="Index" asp-controller="Inventory" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
         <span class="col-md-1 text-secondary ">
             Inventory | Add Item
         </span>
@@ -22,14 +22,14 @@
                 <!-- Item image  -->
                 <!-- ============================================================== -->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="card shadow p-1 mb-3 bg-body rounded " data-aos="zoom-in" data-aos-duration="1000">
+                    <div class="card shadow mb-3 bg-body rounded " data-aos="zoom-in" data-aos-duration="1000">
                         <h5 class="card-header">Add Item <i class="fas fa-plus-folder"> </i> </h5>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm p-3">
                                     <div >
                                         <div >
-                                            <div class="card shadow p-1 mb-3 bg-body rounded">
+                                            <div class="card shadow  mb-3 bg-body rounded">
                                                 <div class="card-body ">
                                                     <p class=" text-muted text-uppercase medium"><i class="fas fa-camera"></i> &nbsp; Detected Item Type: @ViewBag.itemType </p>
                                                     <hr> <br>
@@ -101,8 +101,8 @@
 
                                         <div class="form-group row">
 
-                                            <input type="submit" class="btn btn-3" value="Submit"/>
-                                            <a asp-action="Index" asp-controller="Inventory" class="btn btn-2">Back</a>
+                                            <input type="submit" class="btn btn-3" value="Create"/>
+                                          
                                         </div>
                                     </form>
 
