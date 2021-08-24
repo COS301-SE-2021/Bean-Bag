@@ -54,13 +54,19 @@ namespace BeanBag.Controllers
             ViewBag.TimeDropDown = times;
             ViewBag.hasItems = true;
 
+            if (inventories.Count==0)
+            {
+                ViewBag.hasItems = false;
+                return View();
+            }
+
             // Checking inventories for an empty state 
             foreach (var t in inventories)
             {
-                if (inventories.Count==0 || _itemService.GetItems(t.Id).Count ==0)
+                if (  _itemService.GetItems(t.Id).Count ==0)
                 {
                     ViewBag.hasItems = false;
-                    break;
+                    return View();
                 }
             }
 
