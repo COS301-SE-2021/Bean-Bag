@@ -3,6 +3,7 @@ using BeanBag.Models;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +25,12 @@ namespace BeanBag.Services
         private CustomVisionPredictionClient predictionClient;
         private readonly DBContext _db;
         private readonly IBlobStorageService _blob;
+        private readonly IConfiguration config;
 
         //Constructor
-        public AIService(DBContext db, IBlobStorageService blob)
+        public AIService(DBContext db, IBlobStorageService blob, IConfiguration config)
         {
+
             trainingClient = new CustomVisionTrainingClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.ApiKeyServiceClientCredentials(key))
             {
                 Endpoint = endpoint
