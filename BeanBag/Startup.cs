@@ -56,12 +56,12 @@ namespace BeanBag
 
             // Connecting to the sql server and to the specified DB using the appsettings.json ConnectionStrings defaultConnection contents
             services.AddDbContext<DBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                options.UseSqlServer(Configuration["Secruity:Database:ConnectionString"])
             );
             
             // Connecting to Tenant DB
             services.AddDbContext<TenantDbContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("TenantConnection"))
+                options.UseSqlServer(Configuration["Secruity:Database:TenantConnection"])
             );
 
             //Adding service classes to be used as a DI

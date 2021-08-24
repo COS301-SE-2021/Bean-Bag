@@ -25,7 +25,7 @@ namespace BeanBag.Services
         private CustomVisionPredictionClient predictionClient;
         private readonly DBContext _db;
         private readonly IBlobStorageService _blob;
-        private readonly IConfiguration config;
+        //private readonly IConfiguration config;
 
         //Constructor
         public AIService(DBContext db, IBlobStorageService blob, IConfiguration config)
