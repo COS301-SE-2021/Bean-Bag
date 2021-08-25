@@ -36,11 +36,12 @@ namespace BeanBagIntegrationTests
         [Fact]
         public void Query_Inventory_From_SQL_Test()
         {
+            //ARRANGE
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -49,31 +50,25 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
+            var u2 = finalString.Substring(0, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
 
-            Guid theId3 = new Guid();
-            Guid theId4 = new Guid();
-           
-
+            var theId3 = new Guid();
+            var theId4 = new Guid();
             
-            DateTime myDay = DateTime.MinValue;
+            var myDay = DateTime.MinValue;
             
-
-
-            //Add some monsters before querying
+            //ACT
             _context.Inventories.Add(new Inventory { Id = theId2, name = "Leopard shorts", createdDate = myDay, userId = u2 });
             _context.Inventories.Add(new Inventory { Id = theId3, name = "Zebra shirt",  createdDate = myDay, userId = u2 });
-            //_context.Inventories.Add(new Inventory { Id = theId4, name = "Kudu sandals" , createdDate = myDay, userId = u3 });
            
             _context.SaveChanges();
 
-            //Execute the query
             InventoryService query = new InventoryService(_context);
             var getInvs = query.GetInventories(u2);
 
-            //Verify the results
+            //ASSERT
             Assert.Equal(2, getInvs.Count);
             var toCheck = _context.Inventories.Find(theId2);
             
@@ -89,11 +84,12 @@ namespace BeanBagIntegrationTests
         [Fact]
         public void Create_Inventory_From_SQL()
         {
+            //ARRANGE
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -102,41 +98,37 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
+            var u2 = finalString.Substring(0, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
 
-            Guid theId3 = new Guid();
-            Guid theId4 = new Guid();
-           
+            var theId3 = new Guid();
+            var theId4 = new Guid();
+            
+            var myDay = DateTime.MinValue;
 
-            
-            DateTime myDay = DateTime.MinValue;
-            
+            //ACT
+            var query = new InventoryService(_context);
 
-            //Execute the query
-            InventoryService query = new InventoryService(_context);
-            
-            
-            
-            Inventory thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
+            var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
 
             query.CreateInventory(thenew);
             
             var getInvs = query.FindInventory(theId2);
 
-            //Verify the results
+            //ASSERT
             Assert.NotNull(getInvs);
         }
         
         [Fact]
         public void Edit_Inventory_From_SQL()
         {
+            //ARRANGE
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -145,24 +137,20 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
+            var u2 = finalString.Substring(0, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
 
-            Guid theId3 = new Guid();
-            Guid theId4 = new Guid();
-           
+            var theId3 = new Guid();
+            var theId4 = new Guid();
 
+            var myDay = DateTime.MinValue;
             
-            DateTime myDay = DateTime.MinValue;
+            //ACT
             
+            var query = new InventoryService(_context);
 
-            //Execute the query
-            InventoryService query = new InventoryService(_context);
-            
-            
-            
-            Inventory thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
+            var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
 
             query.CreateInventory(thenew);
 
@@ -170,7 +158,7 @@ namespace BeanBagIntegrationTests
             
             var getInvs = query.FindInventory(theId2);
 
-            //Verify the results
+            //ASSERT
             Assert.True(isUpdated);
         }
         
@@ -182,7 +170,7 @@ namespace BeanBagIntegrationTests
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -191,36 +179,28 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
+            var u2 = finalString.Substring(0, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
 
-            Guid theId3 = new Guid();
-            Guid theId4 = new Guid();
-           
-
+            var theId3 = new Guid();
+            var theId4 = new Guid();
             
             DateTime myDay = DateTime.MinValue;
             
-
-            //Execute the query
-            InventoryService query = new InventoryService(_context);
+            var query = new InventoryService(_context);
             
-            
-            
-            Inventory thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
+            var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
 
             //ACT 
+            
             query.CreateInventory(thenew);
 
             var isDeleted = query.DeleteInventory(thenew.Id , u2);
             
             var getInvs = query.FindInventory(theId2);
 
-            
-            
             //ASSERT
-            //Verify the results
             Assert.True(isDeleted);
             Assert.Null(getInvs);
         }
