@@ -1,23 +1,204 @@
-﻿@using BeanBag.Services
+﻿
+@using BeanBag.Services
 
 @inject TenantService _tenantService
 @{
 	var tenantList = _tenantService.GetTenantList();
 	Layout = null;
 }
+@model Pagination
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel = "icon" href ="https://img.icons8.com/ios/50/ffffff/circled-b.png" type = "image/x-icon">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+       <link rel="stylesheet" href="~/css/dashboard.css" />
+	<title>Tenant</title>
+</head>
+<body>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
-<link rel = "icon" href ="https://img.icons8.com/ios/50/ffffff/circled-b.png" type = "image/x-icon">
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<link rel="stylesheet" href="~/css/default.css" />
-<link rel="stylesheet" href="~/css/dashboard.css" />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.gstatic.com">
+<!--Nav-->
+<nav class="navbar navbar-expand-md navbar-light">
+	<a href="#" class="navbar-brand">Bean Bag</a>
+	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	@{
+		System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+	}
+	
+	<div class="collapse navbar-collapse">
+		<div class="navbar-nav ml-auto">
+			<li class="nav-item" >
+			</li>
+		</div>
+	</div>
+	
+	<div class="collapse navbar-collapse"  id="collapsibleNavbar">
+		<div class="navbar-nav ml-auto">
+			<li class="nav-item">
+				
+				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">
+					SignOut <svg   xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                                                                    							<path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                                                                    							<path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                                                                    							</svg>
+				</a>
+
+			</li>
+		</div>
+		
+	</div>
+
+</nav>
+<br>
+	<div class="row pl-5 pr-5">
+        
+		<div class="pl-3 mr-3">
+			<a asp-action="CreateTenant" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Tenant &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a> 
+		</div>
+		
+		<!--Search-->
+	
+                 <div class=" ml-auto pr-2 ">
+                     @using (Html.BeginForm())
+                     {
+                         <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                             @Html.TextBox("SearchString", null, new {@class = "form-control  my-0 py-1 red-border", placeholder = "Search Tenants"})
+                             <div class="input-group-append">
+                                 <button class="input-group-text " value="Search" type="submit" id="basic-text1"> <i class="fas fa-search text-grey" aria-hidden="true"></i></button>
+                             </div>
+                         </div>
+                     }
+                 </div>
+	</div>
+<div class="container pt-4 pb-3">
+
+	<div class="row pt-5 m-auto pl-0">
+		<div class="col-md-3 col-sm-6">
+
+			<!-- Copy the content below until next comment -->
+			<div class="card card-custom bg-white border-white border-0">
+				<div class="card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);"></div>
+				<div class="card-custom-avatar">
+					<img class="img-fluid" src="http://res.cloudinary.com/d3/image/upload/c_pad,g_center,h_200,q_auto:eco,w_200/bootstrap-logo_u3c8dx.jpg" alt="Avatar"/>
+				</div>
+				<div class="card-body" style="overflow-y: auto">
+					<h4 class="card-title">Card title</h4>
+					<p class="card-text">Card has minimum height set but will expand if more space is needed for card body content.</p>
+				</div>
+				<div class="card-footer ml-auto" style="background: inherit; border-color: inherit;">
+					<a href="#" class="btn ml-auto btn-light text-right rounded-circle">
+						<img src="https://img.icons8.com/cotton/64/000000/login-rounded-right--v1.png" alt="login" width="30"/> 
+                        			
+					</a>
+					</div>
+			</div>
+			<!-- Copy until here -->
+
+		</div>
+		<div class="col-md-3 col-sm-6">
+        
+			<!-- Copy the content below until next comment -->
+			<div class="card card-custom bg-white border-white border-0">
+				<div class="card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);"></div>
+				<div class="card-custom-avatar">
+					<img class="img-fluid" src="http://res.cloudinary.com/d3/image/upload/c_pad,g_center,h_200,q_auto:eco,w_200/bootstrap-logo_u3c8dx.jpg" alt="Avatar"/>
+				</div>
+				<div class="card-body" style="overflow-y: auto">
+					<h4 class="card-title">Card title</h4>
+					<p class="card-text">Card has minimum height set but will expand if more space is needed for card body content. </p>
+				</div>
+				<div class="card-footer ml-auto" style="background: inherit; border-color: inherit;">
+						<a href="#" class="btn ml-auto btn-light text-right rounded-circle">
+                    						<img src="https://img.icons8.com/cotton/64/000000/login-rounded-right--v1.png" alt="login" width="30"/> 
+                                     
+					 </a>
+				</div>
+			</div>
+			<!-- Copy until here -->
+        
+		</div>
+		<div class="col-md-3 col-sm-6">
+        
+			<!-- Copy the content below until next comment -->
+			<div class="card card-custom bg-white border-white border-0">
+				<div class="card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);"></div>
+				<div class="card-custom-avatar">
+					<img class="img-fluid" src="http://res.cloudinary.com/d3/image/upload/c_pad,g_center,h_200,q_auto:eco,w_200/bootstrap-logo_u3c8dx.jpg" alt="Avatar"/>
+				</div>
+				<div class="card-body" style="overflow-y: auto">
+					<h4 class="card-title">Card title</h4>
+					<p class="card-text">Card has minimum height set but will expand if more space is needed for card body content. </p>
+				</div>
+				<div class="card-footer ml-auto" style="background: inherit; border-color: inherit;">
+					<a href="#" class="btn ml-auto btn-light text-right rounded-circle">
+                						<img src="https://img.icons8.com/cotton/64/000000/login-rounded-right--v1.png" alt="login" width="30"/> 
+                                  </a>
+				</div>
+			</div>
+			<!-- Copy until here -->
+        
+		</div>
+		<div class="col-md-3 col-sm-6">
+                
+			<!-- Copy the content below until next comment -->
+			<div class="card card-custom bg-white border-white border-0">
+				<div class="card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);"></div>
+				<div class="card-custom-avatar">
+					<img class="img-fluid" src="http://res.cloudinary.com/d3/image/upload/c_pad,g_center,h_200,q_auto:eco,w_200/bootstrap-logo_u3c8dx.jpg" alt="Avatar"/>
+				</div>
+				<div class="card-body" style="overflow-y: auto">
+					<h4 class="card-title">Card title</h4>
+					<p class="card-text">Card has minimum height set but will expand if more space is needed for card body content.</p>
+				</div>
+				<div class="card-footer ml-auto" style="background: inherit; border-color: inherit;">
+					<a href="#" class="btn ml-auto btn-light text-right rounded-circle">
+                						<img src="https://img.icons8.com/cotton/64/000000/login-rounded-right--v1.png" alt="login" width="30"/> 
+                                 </a>
+				</div>
+			</div>
+			<!-- Copy until here -->
+                
+		</div>
+
+
+	</div>
+	
+</div>
+<br>
+<br>
+	    <!--Code to show current page and page number-->
+              
+                 <div class="pl-5 pt-5">    
+                     @Html.PagedListPager(Model.PagedListTenants, page => Url.Action("Index", new {page}), new PagedListRenderOptions
+                     {
+                         DisplayLinkToIndividualPages = true,
+                         DisplayPageCountAndCurrentLocation = false,
+                         MaximumPageNumbersToDisplay = 10,
+                         LiElementClasses = new[] {"page-item"},
+                         PageClasses = new[] {"page-link"}, 
+                       
+                          
+    
+                     })
+                 </div>
+                 
+                 <!--Code to show current page and page number-->
+                 <div class="pl-5">
+                     Showing @(Model.PagedListTenants.PageCount < Model.PagedListTenants.PageNumber ? 0 : Model.PagedListTenants.PageNumber) out of @Model.PagedListTenants.PageCount tenants
+                 </div>
+
+</body>
+</html>
+
+<!--
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
 	
 	<section class="search-and-user">
@@ -28,23 +209,23 @@
 		
 	</section>
 	
-	<div class="centered">
+	<div class="centered"> -->
 		<!--Tenant Creation-->
 		<!--Create tenant button-->
-		<div class="button1">
+	<!--	<div class="button1">
 			<a asp-controller="Account" asp-action="CreateTenant" class="btn btn-2 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Tenant &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
-			                                                                                                                                                 aria-hidden="true"></i></a> <!-- change button css---->
-		</div>
+			                                                                                                                                                 aria-hidden="true"></i></a>--> <!-- change button css---->
+	<!--	</div> -->
 
 		<!--Tenant Selection-->
 		<!--Create tenant selection button-->
-		<div id="select-tenant" class="button2">
-			<a  class="btn btn-1 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal2">Select a tenant </a> <!-- change button css---->
-		</div>
-	</div>	
+	<!--	<div id="select-tenant" class="button2">
+			<a  class="btn btn-1 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal2">Select a tenant </a> --> <!-- change button css---->
+	<!--	</div>
+	</div>	-->
 	
 	<!---Popup Form to create tenant-->
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+<!--	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog" role="document">
         
 			<div class="modal-content">
@@ -59,23 +240,23 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="tenantName" class="col-form-label">Tenant name</label>
-							<input type="text" id="tenantName" name="tenantName" class="form-control"/> <!--input box-->
-						</div>
+							<input type="text" id="tenantName" name="tenantName" class="form-control"/> --> <!--input box-->
+						<!--</div>
 						<div asp-validation-summary="All" class="text-danger"></div>
 	                    
 					</div>
 					<div class="modal-footer ">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<input type="submit" class="btn btn-primary" value="Create"/> <!--create button-->
-					</div>
+						<input type="submit" class="btn btn-primary" value="Create"/> --><!--create button-->
+			<!--		</div>
 				</form>
                    
 			</div>
 		</div>
-	</div>
+	</div>-->
 	
 	<!---Popup Form to select tenant-->
-	<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle2" aria-hidden="true">
+<!--	<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle2" aria-hidden="true">
 		<div class="modal-dialog modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -90,7 +271,7 @@
 						<div class="form-group">
 							<label for="tenant" class="col-form-label">Tenant</label>
 							<select class="themeSelector" name="tenant" id="tenant" required>
-								<option value="">Select a tenant</option>
+								<option value="">Select a tenant</option> -->
     
 								<!--Loop through tenant database and display names-->
 								@{
@@ -98,25 +279,144 @@
 								}
 								@if (enumerable.Any())
 								{
-									@foreach (var tenant in enumerable)
-									{
-										<option value="@tenant.TenantName">@tenant.TenantName</option>
-									}
+								//	@foreach (var tenant in enumerable)
+								//	{
+								//		<option value="@tenant.TenantName">@tenant.TenantName</option>
+								//	}
 								}
-							</select>
+						<!--	</select>
 						</div>
 						<div asp-validation-summary="All" class="text-danger"></div>
 					</div>
     				
 					<div class="modal-footer ">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-						<input type="submit" class="btn btn-primary" value="Select" onclick="tenantSelected()"/> <!--create button-->
-					</div>
+						<input type="submit" class="btn btn-primary" value="Select" onclick="tenantSelected()"/> --><!--create button-->
+				<!--	</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </section>
-
+-->
 <!--Scripts-->
 <script src="js/automation.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<style>
+	.card-custom {
+      overflow: hidden;
+      min-height: 450px;
+      box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+    }
+    
+    .card-custom-img {
+      height: 200px;
+      min-height: 200px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      border-color: inherit;
+    }
+    
+    /* First border-left-width setting is a fallback */
+    .card-custom-img::after {
+      position: absolute;
+      content: '';
+      top: 161px;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-top-width: 40px;
+      border-right-width: 0;
+      border-bottom-width: 0;
+      border-left-width: 545px;
+      border-left-width: calc(575px - 5vw);
+      border-top-color: transparent;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: inherit;
+    }
+    
+    .card-custom-avatar img {
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+      position: absolute;
+      top: 100px;
+      left: 1.25rem;
+      width: 100px;
+      height: 100px;
+    }
+
+/*  Navbar  */
+.navbar {
+    background-color: transparent;
+    padding: 10px 0 10px 13px;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 10px;
+    color: black;
+}
+
+.navbar > .container {
+    padding: 0 45px;
+}
+
+.navbar .navbar-brand {
+    font-size: 30px;
+    color: black;
+    text-transform: capitalize;
+    margin-left: 40px;
+    font-weight: 600;
+}
+
+.navbar .nav-item {
+    margin-right: 40px;
+    color: black;
+}
+
+.navbar .nav-item .nav-link {
+    color: #100f0f;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 5px 0;
+    position: relative;
+    text-decoration: none;
+}
+
+.navbar .nav-item .nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ffffff;
+    transition: all 0.5s ease;
+    transform: scale(0);
+    color:black ;
+    font-family: 'Poppins', sans-serif;
+
+    text-decoration: none;
+}
+
+.navbar .nav-item .nav-link.active::before,
+.navbar .nav-item .nav-link:hover::before {
+    transform: scale(1);
+    text-decoration: none;
+    color: black;
+}
+.navbar-toggler{
+    padding: .25rem .75rem;
+    font-size:1.25rem;
+    line-height:1;
+    background-color: transparent;
+    border-radius: .25rem;
+}
+
+
+</style>
