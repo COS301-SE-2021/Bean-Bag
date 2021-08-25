@@ -65,10 +65,10 @@ namespace BeanBag.Controllers
                     model = model.Where(s => s.TenantName.Contains(searchString));
                 }
 
-                var inventories = model.ToList();
+                var tenants = model.ToList();
             
                 //Sort card list of tenants alphabetically
-                var modelList = inventories.OrderByDescending(s => s.TenantName).ToList();
+                var modelList = tenants.OrderByDescending(s => s.TenantName).ToList();
                 
                 
             //indicates the size of list 4 card items per page
