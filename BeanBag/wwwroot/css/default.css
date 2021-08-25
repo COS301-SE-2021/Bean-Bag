@@ -45,7 +45,7 @@ body {
 
 /*Buttons*/
 .btn-1 {
-    background-color: #0275d8; /* btn-primary colour*/
+    background-color: #007bff; /* btn-primary colour*/
     padding: 12px 30px;
     border: none;
     color: white !important;
@@ -64,16 +64,16 @@ body {
 
 }
 .btn-3{
-    background-color: #0275d8;
+    background-color: #007bff;
     color:white;
 }
 .btn-3:visited{
-    background-color: #0275d8 !important;
+    background-color: #007bff !important;
     color:white !important;  
 }
 .btn-3:hover{
     color:white !important;
-    background-color: #0262b5!important; /* use an intense hue of the colour*/
+    background-color: #467fd0 !important; /* use an intense hue of the colour*/
 }
 
 .btn:visited{
