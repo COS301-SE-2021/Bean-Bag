@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web;
+using X.PagedList;
 
 namespace BeanBag.Controllers
 {
@@ -21,10 +23,11 @@ namespace BeanBag.Controllers
             _tenantService = tenantService;
             _inventory = inventory;
         }
-        
-        // This function returns the view for the Account page.
-        [AllowAnonymous]
-        public IActionResult Index()
+
+        /* This function adds a page parameter, a current sort order parameter, and a current filter
+        parameter to the method signature and returns the Tenant Index page view. */
+         [AllowAnonymous]
+        public IActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             if (User.GetObjectId() == null)
             {
@@ -34,9 +37,56 @@ namespace BeanBag.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View();
+            
+             //A ViewBag property provides the view with the current sort order, because this must be included in 
+             //the paging links in order to keep the sort order the same while paging
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            //ViewBag.CurrentFilter, provides the view with the current filter string.
+            //he search string is changed when a value is entered in the text box and the submit button is pressed. In that case, the searchString parameter is not null.
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+
+            var model = from s in _tenantService.GetTenantList()
+                select s;
+                //Search and match data, if search string is not null or empty
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    model = model.Where(s => s.TenantName.Contains(searchString));
+                }
+
+                var inventories = model.ToList();
+            
+                //Sort card list of tenants alphabetically
+                var modelList = inventories.OrderByDescending(s => s.TenantName).ToList();
+                
+                
+            //indicates the size of list 4 card items per page
+            int pageSize = 4;
+            //set page to one is there is no value, ??  is called the null-coalescing operator.
+            int pageNumber = (page ?? 1);
+            //return the Model data with paged
+
+            Tenant tenant = new Tenant();
+            Pagination viewModel = new Pagination();
+            IPagedList<Tenant> pagedList = modelList.ToPagedList(pageNumber, pageSize);
+            
+            viewModel.Tenant = tenant;
+            viewModel.PagedListTenants = pagedList;
+     
+            return View(viewModel);
+         
         }
-        
         
         // This function allows a user to create a new tenant.
         [HttpPost]
