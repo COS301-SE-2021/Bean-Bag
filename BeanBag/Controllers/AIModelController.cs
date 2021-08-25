@@ -90,7 +90,7 @@ namespace BeanBag.Controllers
             Pagination viewModel = new Pagination();
             IPagedList<AIModel> pagedList = modelList.ToPagedList(pageNumber, pageSize);
             
-            viewModel.AIModel = mod;
+            viewModel.AiModel = mod;
             viewModel.PagedListModels = pagedList;
             @ViewBag.totalModels = _aIService.GetAllModels().Count;
             
@@ -164,12 +164,10 @@ namespace BeanBag.Controllers
             //set page to one is there is no value, ??  is called the null-coalescing operator.
             int pageNumber = (page ?? 1);
             
-            //Setting models to be returned to the view
-            AIModelVersions mod = new AIModelVersions();
+            //Setting models to be returned to the view\
             Pagination viewModel = new Pagination();
             IPagedList<AIModelVersions> pagedList = modelList.ToPagedList(pageNumber, pageSize);
-            
-            viewModel.AIModelVersions = mod;
+
             viewModel.PagedListVersions = pagedList;
             @ViewBag.totalModels = _aIService.GetProjectIterations(projectId).Count;
             ViewBag.projectId = projectId;
@@ -186,7 +184,7 @@ namespace BeanBag.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateModel(Pagination mods)
         {
-            Guid id = await _aIService.CreateProject(mods.AIModel.projectName);
+            Guid id = await _aIService.CreateProject(mods.AiModel.projectName);
 
             return LocalRedirect("/AIModel/TestImages?projectId=" + id.ToString());
         }
