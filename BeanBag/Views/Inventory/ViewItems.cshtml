@@ -13,16 +13,12 @@
         
 
 <!--header -->
-<section class="ml-3">
+<section class="ml-2">
     <a asp-action="Index" asp-controller="Inventory" class="btn " ><i class="fas fa-chevron-left text-color"> </i></a>
     <span class="  md-2 text-secondary ">
         &nbsp; Inventory | Item List
     </span>
-    <span class="float-right mr-2">
-        Total Items &nbsp; <span class="   rounded-circle rounded p-3">@ViewBag.totalItems</span>
-        <div>
-        </div>
-    </span>
+   
 </section>
 
 
@@ -34,14 +30,13 @@
             
             <!--pdf-->
             <div class="row">
+                    <b class="pl-3">Total Items &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalItems</span>
                 <div class=" mr-3 ml-auto">
-                    <button   onclick="printDiv('viewInventoryModal')" class="btn btn-3 shadow-sm bg-body rounded pdf" >Generate report &nbsp;  <i class="fas fa-file-pdf"></i></button>
+                    <button onclick="printDiv('viewInventoryModal')" class="btn btn-3 shadow-sm bg-body rounded pdf">Generate report &nbsp; <i class="fas fa-file-pdf"></i></button>
                 </div>
             </div>
             
-            <br>
-            
-            <div class="row" >
+            <div class="row pt-3" >
                 <!--Date Search-->
                 @using (Html.BeginForm())
                 {
@@ -87,7 +82,7 @@
                             <div>
                                 @if (Model.PagedListItems.Any())
                                 {
-                                    <table class="table table-bordered table-striped">
+                                    <table class="table table-striped text-center">
                                         <thead >
                                         <tr>
                                             <th>#</th>
@@ -104,52 +99,64 @@
                                             <th> Date Sold</th>
                                             <th> Condition</th>
                                             <th> Colour</th>
-                                            <th class="text-center">Actions</th>
+                                            <th class="text-center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         
                                         @foreach (var items in Model.PagedListItems)
                                         {
-                                            <tr>
-                                                <td >@i</td>
+                                            <tr >
+                                                <td class="pt-4" >@i</td>
                                                 @{ i++; }
-                                                <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@items.Id"><i class="fas fa-tag"> </i></button></td>
+                                                <td ><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@items.Id">
+                                                   
+                                                    <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/></button></td>
                                                 <td><img src="@items.imageURL" class="rounded" width="60" alt="Item Image"></td>
-                                                <td>@items.name</td>
-                                                <td>@items.type</td>
-                                                <td>@items.entryDate</td>
-                                                <td>R @items.price</td>
-                                                <td>@items.quantity</td>
+                                                <td class="pt-4">@items.name</td>
+                                                <td class="pt-4">@items.type</td>
+                                                <td class="pt-4">@items.entryDate</td>
+                                                <td class="pt-4">R @items.price</td>
+                                                <td class="pt-4">@items.quantity</td>
                                                 @if (@items.isSold)
                                                 {
-                                                    <td>Sold</td>
-                                                    <td>@items.soldDate</td>
+                                                    <td class="pt-4">Sold <img alt="" width="15" src="https://img.icons8.com/emoji/48/000000/red-circle-emoji.png"/></td>
+                                                    <td class="pt-4">@items.soldDate</td>
                                                 }
                                                 else
                                                 {
-                                                    <td>In Stock </td>
-                                                    <td>N/A</td>
+                                                    <td class="pt-4">In Stock &nbsp; <img alt="" width="15" src="https://img.icons8.com/emoji/48/000000/green-circle-emoji.png"/> </td>
+                                                    <td class="pt-4">N/A</td>
                                                 }
-                                                <td>@items.condition </td>
+                                                <td class="pt-4">@items.condition </td>
                                                 <td>
                                                     <div class="text-center justify-content-center p-3"><i class="fas fa-square" style="color: @items.colour"></i></div></td>
                                                 <td >
-                                                    <div class="w-100 btn-group" role="group">
-                                                        <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
-                                                        <a href="@Url.Action("Delete", "Item", new {@items.Id})"
-                                                           class="btn delete" data-toggle="modal"
-                                                           data-target="#exampleModal4" data-id="@items.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
+                                                    <div class="btn-group dropleft">
+                                                        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                       <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" class="pt-3" data-toggle="tooltip" data-placement="top" title="Actions" width="20" alt=""/>
+                                                                                                        
+                                                        </button>
+                                                        <div class="dropdown-menu w-50">
+                                                              <h6 class="dropdown-header">Actions</h6>
+                                                            <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn "><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
 
-                                                        <a href="@Url.Action("ViewQrCode", "Item", new {@items.Id})"
-                                                           data-toggle="modal" data-target="#viewQRModal" data-id="@items.Id"
-                                                           class="btn viewQR"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View QR Code"><i class="fas fa-qrcode"> </i></button></a>
+                                                            <a href="@Url.Action("Delete", "Item", new {@items.Id})"
+                                                               class="btn delete" data-toggle="modal"
+                                                               data-target="#exampleModal4" data-id="@items.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"> <i class="fas fa-trash"> </i></button></a>
+
+                                                            <a href="@Url.Action("ViewQrCode", "Item", new {@items.Id})"
+                                                               data-toggle="modal" data-target="#viewQRModal" data-id="@items.Id"
+                                                               class="btn viewQR "><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View QR Code"> <i class="fas fa-qrcode"> </i></button></a>
 
 
-                                                        <a href="@Url.Action("PrintQrCode", "Item", new {@items.Id})"
-                                                           data-toggle="modal" data-target="#printQRModal" data-id="@items.Id"
-                                                           class="btn printQR"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Print QR Code"><i class="fas fa-print"> </i></button></a>
+                                                            <a href="@Url.Action("PrintQrCode", "Item", new {@items.Id})"
+                                                               data-toggle="modal" data-target="#printQRModal" data-id="@items.Id"
+                                                               class="btn printQR"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Print QR Code"><i class="fas fa-print"> </i></button></a>
+
+                                                        </div>
                                                     </div>
+                                                    
                                                 </td>
                                             </tr>
                                         }
