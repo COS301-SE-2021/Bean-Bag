@@ -20,7 +20,6 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="stylesheet" href="~/css/dashboard.css" />
 	<link rel="stylesheet" href="~/css/tenant.css" />
-	<link rel="stylesheet" href="~/css/default.css" />
 	<title>Tenant</title>
 </head>
 <body>
@@ -86,93 +85,38 @@
 <div class="container pt-4 ">
 
 	<div class="row pt-5 m-auto pl-0">
-		<div class="col-md-3 col-sm-6">
+		
+		 @if (Model.PagedListTenants.Any())
+		 {
+			 @foreach (var models in Model.PagedListTenants)
+			 {
+				 <div class="col-md-3 col-sm-6">
 
-			<!-- Copy the content below until next comment -->
-			<div class="card card-custom bg-white border-white border-0">
-				<div class="card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);"></div>
-				<div class="card-custom-avatar">
-					<img class="img-fluid" src="http://res.cloudinary.com/d3/image/upload/c_pad,g_center,h_200,q_auto:eco,w_200/bootstrap-logo_u3c8dx.jpg" alt="Avatar"/>
-				</div>
-				<div class="card-body" style="overflow-y: auto">
-					<h4 class="card-title">Card title</h4>
-					<p class="card-text">Card has minimum height set but will expand if more space is needed for card body content.</p>
-				</div>
-				<div class="card-footer ml-auto" style="background: inherit; border-color: inherit;">
-					<a href="#" class="btn ml-auto btn-light text-right rounded-circle">
-						<img src="https://img.icons8.com/cotton/64/000000/login-rounded-right--v1.png" alt="login" width="30"/> 
-                        			
-					</a>
-				</div>
-			</div>
-			<!-- Copy until here -->
+					 <!-- Copy the content below until next comment -->
+					 <div class="card card-custom bg-white border-white border-0">
+						 <div class="card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);"></div>
+						 <div class="card-custom-avatar">
+							 <img class="img-fluid" src=@models.TenantLogo alt="Avatar"/>
+						 </div>
+						 <div class="card-body" style="overflow-y: auto">
+							 <h4 class="card-title">@models.TenantName</h4>
+							 <p class="card-text">Add some tenant details here like email company address stuff like that area.</p>
+						 </div>
+						 <div class="card-footer ml-auto" style="background: inherit; border-color: inherit;">
+							 <a href="@Url.Action("SelectTenant", "Account", new {@models.TenantName})" data-id="@models.TenantName "
+							    class="btn ml-auto btn-light text-right rounded-circle">
+								  <img src="https://img.icons8.com/cotton/64/000000/login-rounded-right--v1.png" alt="login" width="30"/>
 
-		</div>
-		<div class="col-md-3 col-sm-6">
-        
-			<!-- Copy the content below until next comment -->
-			<div class="card card-custom bg-white border-white border-0">
-				<div class="card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);"></div>
-				<div class="card-custom-avatar">
-					<img class="img-fluid" src="http://res.cloudinary.com/d3/image/upload/c_pad,g_center,h_200,q_auto:eco,w_200/bootstrap-logo_u3c8dx.jpg" alt="Avatar"/>
-				</div>
-				<div class="card-body" style="overflow-y: auto">
-					<h4 class="card-title">Card title</h4>
-					<p class="card-text">Card has minimum height set but will expand if more space is needed for card body content. </p>
-				</div>
-				<div class="card-footer ml-auto" style="background: inherit; border-color: inherit;">
-					<a href="#" class="btn ml-auto btn-light text-right rounded-circle">
-						<img src="https://img.icons8.com/cotton/64/000000/login-rounded-right--v1.png" alt="login" width="30"/> 
-                                     
-					</a>
-				</div>
-			</div>
-			<!-- Copy until here -->
-        
-		</div>
-		<div class="col-md-3 col-sm-6">
-        
-			<!-- Copy the content below until next comment -->
-			<div class="card card-custom bg-white border-white border-0">
-				<div class="card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);"></div>
-				<div class="card-custom-avatar">
-					<img class="img-fluid" src="http://res.cloudinary.com/d3/image/upload/c_pad,g_center,h_200,q_auto:eco,w_200/bootstrap-logo_u3c8dx.jpg" alt="Avatar"/>
-				</div>
-				<div class="card-body" style="overflow-y: auto">
-					<h4 class="card-title">Card title</h4>
-					<p class="card-text">Card has minimum height set but will expand if more space is needed for card body content. </p>
-				</div>
-				<div class="card-footer ml-auto" style="background: inherit; border-color: inherit;">
-					<a href="#" class="btn ml-auto btn-light text-right rounded-circle">
-						<img src="https://img.icons8.com/cotton/64/000000/login-rounded-right--v1.png" alt="login" width="30"/> 
-					</a>
-				</div>
-			</div>
-			<!-- Copy until here -->
-        
-		</div>
-		<div class="col-md-3 col-sm-6">
-                
-			<!-- Copy the content below until next comment -->
-			<div class="card card-custom bg-white border-white border-0">
-				<div class="card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);"></div>
-				<div class="card-custom-avatar">
-					<img class="img-fluid" src="http://res.cloudinary.com/d3/image/upload/c_pad,g_center,h_200,q_auto:eco,w_200/bootstrap-logo_u3c8dx.jpg" alt="Avatar"/>
-				</div>
-				<div class="card-body" style="overflow-y: auto">
-					<h4 class="card-title">Card title</h4>
-					<p class="card-text">Card has minimum height set but will expand if more space is needed for card body content.</p>
-				</div>
-				<div class="card-footer ml-auto" style="background: inherit; border-color: inherit;">
-					<a href="#" class="btn ml-auto btn-light text-right rounded-circle">
-						<img src="https://img.icons8.com/cotton/64/000000/login-rounded-right--v1.png" alt="login" width="30"/> 
-					</a>
-				</div>
-			</div>
-			<!-- Copy until here -->
-                
-		</div>
-
+							 </a>
+					 </div>
+					 </div>
+					 <!-- Copy until here -->
+				 </div>
+			 }
+		 } else
+          		 {
+          			 <div> <h3> There are no tenants </h3></div>
+          		 }
 
 	</div>
 	
@@ -196,7 +140,7 @@
                  
 <!--Code to show current page and page number-->
 <div class="pl-5">
-	Showing @(Model.PagedListTenants.PageCount < Model.PagedListTenants.PageNumber ? 0 : Model.PagedListTenants.PageNumber) out of @Model.PagedListTenants.PageCount pages
+	Showing @(Model.PagedListTenants.PageCount < Model.PagedListTenants.PageNumber ? 0 : Model.PagedListTenants.PageNumber) out of @Model.PagedListTenants.PageCount results
 </div>
 
 </body>
