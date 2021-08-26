@@ -153,7 +153,7 @@ namespace BeanBag.Services
             return list;
         }
         
-        public bool CreateNewTenant(string tenantName)
+        public bool CreateNewTenant(string tenantName, string tenantEmail)
         {
             if (tenantName == null)
             {
