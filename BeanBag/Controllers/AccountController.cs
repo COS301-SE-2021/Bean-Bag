@@ -151,9 +151,7 @@ namespace BeanBag.Controllers
             _inventory.CreateInventory(newInventory);
             
             //logo for first time user 
-            _tenantService.SetLogo(User.GetObjectId(), "/images/beanbaglogo.png");
-
-
+     
             return RedirectToAction("Index", "Home");
         }
 
