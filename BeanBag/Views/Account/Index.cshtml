@@ -128,26 +128,27 @@
 </div>
 
 <!--Code to show current page and page number-->
-              <div class="text-center align-content-center">
-<div class="pl-5 pt-3 text-center ">
-	@Html.PagedListPager(Model.PagedListTenants, page => Url.Action("Index", new {page}), new PagedListRenderOptions
-	{
-		DisplayLinkToIndividualPages = true,
-		DisplayPageCountAndCurrentLocation = false,
-		MaximumPageNumbersToDisplay = 10,
-		LiElementClasses = new[] {"page-item" , "bg-light","text-dark"},
-		PageClasses = new[] {"page-link", "bg-light","text-dark" }, 
+<div >
+	<div class="pl-5 pt-3 ">
+		@Html.PagedListPager(Model.PagedListTenants, page => Url.Action("Index", new {page}), new PagedListRenderOptions
+		{
+			DisplayLinkToIndividualPages = true,
+			DisplayPageCountAndCurrentLocation = false,
+			MaximumPageNumbersToDisplay = 10,
+			LiElementClasses = new[] {"page-item" , "bg-light","text-dark"},
+			PageClasses = new[] {"page-link", "bg-light","text-dark" }, 
                        
                           
     
-	})
-</div>
+		})
+	</div>
                  
-<!--Code to show current page and page number-->
-<div class="pl-5">
-	Showing @(Model.PagedListTenants.PageCount < Model.PagedListTenants.PageNumber ? 0 : Model.PagedListTenants.PageNumber) out of @Model.PagedListTenants.PageCount results
+	<!--Code to show current page and page number-->
+	<div class="pl-5">
+		Showing @(Model.PagedListTenants.PageCount < Model.PagedListTenants.PageNumber ? 0 : Model.PagedListTenants.PageNumber) out of @Model.PagedListTenants.PageCount results
+	</div>
 </div>
-</div>
+
 </body>
 </html>
 
