@@ -195,7 +195,7 @@ namespace BeanBag.Services
             const string defaultTheme = "Default";
             const string defaultSubscription = "Free";
 
-                //Create new tenant and add to db
+            //Create new tenant and add to db
             var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = defaultTheme, 
                 TenantEmail = tenantEmail, TenantAddress = tenantAddress, TenantNumber = tenantNumber, TenantSubscription = defaultSubscription};
 
@@ -262,7 +262,7 @@ namespace BeanBag.Services
 
         
         //User functions
-        public bool SignUserUp(string userId, string tenantId)
+        public bool SignUserUp(string userId, string tenantId, string userName)
         {
             if (userId == null || tenantId == null)
             {
@@ -274,7 +274,7 @@ namespace BeanBag.Services
             
             //Specified tenant does not exist
             if (_tenantDb.Tenant.Find(tenantId) == null) return false;
-            
+
             //Create new user
             var newUser = new TenantUser {UserObjectId = userId, UserTenantId = tenantId};
             _tenantDb.Add(newUser);

@@ -118,6 +118,12 @@ namespace BeanBag.Controllers
             var userId = User.GetObjectId();
             var currentTenantName = tenant;
             var currentTenantId = _tenantService.GetTenantId(currentTenantName);
+            var userName = "";
+            
+            if (User.Identity != null)
+            {
+                userName = User.Identity.Name;
+            }
 
             if (_tenantService.SearchUser(userId) == false)
             {
@@ -126,7 +132,7 @@ namespace BeanBag.Controllers
                 if (_tenantService.SearchTenant(currentTenantId))
                 {
                     //Verified
-                    _tenantService.SignUserUp(userId, currentTenantId);
+                    _tenantService.SignUserUp(userId, currentTenantId, userName);
                 }
                 else
                 {

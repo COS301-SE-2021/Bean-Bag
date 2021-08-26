@@ -16,7 +16,7 @@ namespace BeanBag.Services
         public IEnumerable<Tenant> GetTenantList();
         public void SetLogo(string userId, string logo);
         public string GetLogo(string userId);
-        public bool SignUserUp(string userId, string tenantId);
+        public bool SignUserUp(string userId, string tenantId, string userName);
         public bool SearchUser(string userId);
 
     }
