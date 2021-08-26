@@ -53,7 +53,7 @@ namespace BeanBagIntegrationTests
         }
         */
         //NEGATIVE TEST
-        [Fact]
+   /*     [Fact]
         public void Test_Tenant_Creation_Fail_Tenant_Name_Is_Null()
         {
             //Arrange
@@ -65,7 +65,7 @@ namespace BeanBagIntegrationTests
             //Assert
             Assert.Equal("Tenant name is null", exception.Message);
         }
-        
+       */ 
         
         //Test to get a list of tenants from the database
         //POSITIVE TEST

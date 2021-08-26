@@ -8,6 +8,10 @@ namespace BeanBag.Models
         public string TenantId { get; set; }
         [Required]
         public string TenantName { get; set; }
+        public string TenantEmail { get; set; }
+        
+        public string TenantNumber { get; set; }
+        public string TenantAddress { get; set; }
         public string TenantTheme { get; set; }
         public string TenantLogo { get; set; }
     }
