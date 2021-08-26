@@ -6,6 +6,9 @@ using BeanBag.Models;
 
 namespace BeanBag.Services
 {
+    /* This service implements all the Tenant interface functions and provides interaction
+     with the Tenant database */
+    
     public class TenantService : ITenantService
     {
         private readonly TenantDbContext _tenantDb;
@@ -45,6 +48,8 @@ namespace BeanBag.Services
             return tenantId;
         }
         
+        /*Retrieves the name of the tenant from the database - based on the
+         id of the tenant*/
         public string GetTenantName(string userTenantId)
         {
             if (userTenantId == null)
@@ -72,6 +77,7 @@ namespace BeanBag.Services
             return tenantName;
         }
         
+        /* Retrieves the name of the tenant from the database - based on the tenant name */
         public string GetTenantId(string tenantName)
         {
             if (tenantName == null)
@@ -87,6 +93,7 @@ namespace BeanBag.Services
             return tenantId;
         }
         
+        /* Sets the theme of the tenant */
         public bool SetTenantTheme(string userId, string theme)
         {
             if (userId == null)
@@ -111,6 +118,7 @@ namespace BeanBag.Services
 
         }
         
+        /* Retrieves the theme of the tenant to load */
         public string GetTenantTheme(string userId)
         {
             // return default when user is not signed in - Layout
@@ -142,6 +150,7 @@ namespace BeanBag.Services
 
         }
 
+        /* Retrieves a list of all existing tenants in the database */
         public IEnumerable<Tenant> GetTenantList()
         {
             var tenants = from tenant
@@ -153,6 +162,7 @@ namespace BeanBag.Services
             return list;
         }
         
+        /* Creates a new tenant and adds tenant to the database */
         public bool CreateNewTenant(string tenantName, string tenantAddress, string tenantEmail, string tenantNumber)
         {
             if (tenantName == null)
@@ -209,6 +219,7 @@ namespace BeanBag.Services
 
         }
 
+        /* Searches database for tenant by tenant id */
         public bool SearchTenant(string tenantId)
         {
             if (tenantId == null)
@@ -219,6 +230,7 @@ namespace BeanBag.Services
             return _tenantDb.Tenant.Find(tenantId) != null;
         }
 
+        /* Sets the logo for the tenant */
         public void SetLogo(string userId, string logo)
         {
             if (userId == null)
@@ -240,6 +252,7 @@ namespace BeanBag.Services
             
         }
 
+        /* Retrieves the tenant logo */
         public string GetLogo(string userId)
         {
             if (userId == null)
@@ -265,6 +278,7 @@ namespace BeanBag.Services
 
         
         //User functions
+        /* Signs the user up and adds user to the user table in the database */
         public bool SignUserUp(string userId, string tenantId, string userName)
         {
             if (userId == null || tenantId == null)
@@ -287,6 +301,7 @@ namespace BeanBag.Services
 
         }
 
+        /* Searches for user in the database by user id */
         public bool SearchUser(string userId)
         {
             if (userId == null)
