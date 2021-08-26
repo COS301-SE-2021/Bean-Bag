@@ -72,7 +72,7 @@ namespace BeanBag.Controllers
 
                 
             //indicates the size of list 4 card items per page
-            int pageSize = 4;
+            int pageSize = 3;
             //set page to one is there is no value, ??  is called the null-coalescing operator.
             int pageNumber = (page ?? 1);
             //return the Model data with paged
@@ -155,5 +155,16 @@ namespace BeanBag.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // This function returns the subscription page 
+        public IActionResult PaymentSubscription()
+        {
+            return View();
+        }
+        
+        // This function returns the payment processing page 
+        public IActionResult ProcessPayment()
+        {
+            return View();
+        }
     }
 }
