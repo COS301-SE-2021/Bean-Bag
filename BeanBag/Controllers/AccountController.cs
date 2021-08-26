@@ -155,5 +155,16 @@ namespace BeanBag.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // This function returns the subscription page 
+        public IActionResult PaymentSubscription()
+        {
+            return View();
+        }
+        
+        // This function returns the payment processing page 
+        public IActionResult ProcessPayment()
+        {
+            return View();
+        }
     }
 }

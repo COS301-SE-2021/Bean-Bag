@@ -1,1 +1,8 @@
 ﻿
+@using BeanBag.Services
+
+@inject TenantService _tenantService
+@{
+	var tenantList = _tenantService.GetTenantList();
+	Layout = null;
+}
