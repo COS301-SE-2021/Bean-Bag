@@ -276,7 +276,7 @@ namespace BeanBag.Services
             if (_tenantDb.Tenant.Find(tenantId) == null) return false;
 
             //Create new user
-            var newUser = new TenantUser {UserObjectId = userId, UserTenantId = tenantId};
+            var newUser = new TenantUser {UserObjectId = userId, UserTenantId = tenantId, UserName = userName};
             _tenantDb.Add(newUser);
             _tenantDb.SaveChanges();
 
