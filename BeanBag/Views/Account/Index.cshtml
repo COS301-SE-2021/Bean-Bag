@@ -128,7 +128,7 @@
 </div>
 
 <!--Code to show current page and page number-->
-              
+              <div class="text-center align-content-center">
 <div class="pl-5 pt-3 text-center ">
 	@Html.PagedListPager(Model.PagedListTenants, page => Url.Action("Index", new {page}), new PagedListRenderOptions
 	{
@@ -147,7 +147,7 @@
 <div class="pl-5">
 	Showing @(Model.PagedListTenants.PageCount < Model.PagedListTenants.PageNumber ? 0 : Model.PagedListTenants.PageNumber) out of @Model.PagedListTenants.PageCount results
 </div>
-
+</div>
 </body>
 </html>
 
