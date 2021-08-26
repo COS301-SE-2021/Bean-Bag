@@ -194,10 +194,13 @@ namespace BeanBag.Services
             
             const string defaultTheme = "Default";
             const string defaultSubscription = "Free";
+            const string defaultLogo = "/images/beanbaglogo.png";
 
             //Create new tenant and add to db
             var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = defaultTheme, 
-                TenantEmail = tenantEmail, TenantAddress = tenantAddress, TenantNumber = tenantNumber, TenantSubscription = defaultSubscription};
+                TenantEmail = tenantEmail, TenantAddress = tenantAddress, TenantNumber = tenantNumber, TenantSubscription = defaultSubscription,
+                TenantLogo = defaultLogo
+            };
 
             _tenantDb.Tenant.Add(newTenant);
             _tenantDb.SaveChanges();
