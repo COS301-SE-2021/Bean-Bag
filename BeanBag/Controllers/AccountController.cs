@@ -68,8 +68,8 @@ namespace BeanBag.Controllers
                 var tenants = model.ToList();
             
                 //Sort card list of tenants alphabetically
-                var modelList = tenants.OrderByDescending(s => s.TenantName).ToList();
-                
+                var modelList = tenants.OrderBy(s => s.TenantName).ToList();
+
                 
             //indicates the size of list 4 card items per page
             int pageSize = 4;
@@ -98,14 +98,15 @@ namespace BeanBag.Controllers
             }
             else
             {
-                _tenantService.CreateNewTenant(tenantName);
+                
+                _tenantService.CreateNewTenant(tenantName); 
             }
             return RedirectToAction("Index");
         }
 
         /* This function allows a user to select a tenant and generates
          a new user inventory for demonstration purposes*/
-        [HttpPost]
+     
         public IActionResult SelectTenant(string tenant)
         {
             if (tenant == null)
@@ -142,6 +143,10 @@ namespace BeanBag.Controllers
                 createdDate = DateTime.Now
             };
             _inventory.CreateInventory(newInventory);
+            
+            //logo for first time user 
+            _tenantService.SetLogo(User.GetObjectId(), "/images/beanbaglogo.png");
+
 
             return RedirectToAction("Index", "Home");
         }
