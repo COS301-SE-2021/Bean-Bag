@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
+	
 	<link rel="stylesheet" href="~/css/dashboard.css" />
 	<link rel="stylesheet" href="~/css/tenant.css" />
 	<title>Tenant</title>
@@ -42,15 +43,34 @@
 	</div>
 	
 	<div class="collapse navbar-collapse"  id="collapsibleNavbar">
-		<div class="navbar-nav ml-auto">
+		<div class="navbar-nav ml-auto  pt-1" >
 			<li class="nav-item">
 				
-				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">
-					SignOut
-				</a>
+				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="PaymentSubscription">
+                					Pricing Plans</a>
+
+			
 
 			</li>
+		<li class="nav-item">	<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">
+                             					SignOut
+                             				</a>
+		</li>		
 		
+            		<li class="nav-item">	<!--Search-->
+                                            	
+                                            	<div >
+                                            		@using (Html.BeginForm())
+                                            		{
+                                            			<div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                                            				@Html.TextBox("SearchString", null, new {@class = "form-control  my-0 py-1 red-border", placeholder = "Search Tenants"})
+                                            				<div class="input-group-append">
+                                            					<button class="input-group-text " value="Search" type="submit" id="basic-text1"> <i class="fas fa-search text-grey" aria-hidden="true"></i></button>
+                                            				</div>
+                                            			</div>
+                                            		}
+                                            	</div>
+                    	</li>		
 		</div>
 		
 	</div>
@@ -62,39 +82,24 @@
 </div>
 
 <br>
-<div class="row pl-5 pr-5">
         
-	<div class="pl-3 mr-3">
-		<a asp-controller="Account" asp-action="CreateTenant" class="btn btn-primary shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Tenant &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a> 
+	<div class="text-center">
+		<a asp-controller="Account" asp-action="CreateTenant" class="btn btn-outline-light shadow-sm bg-body create rounded colors" data-toggle="modal" data-target="#exampleModal">New Tenant &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a> 
 	</div>
 		
-	<!--Search-->
-	
-	<div class=" ml-auto pr-1">
-		@using (Html.BeginForm())
-		{
-			<div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
-				@Html.TextBox("SearchString", null, new {@class = "form-control  my-0 py-1 red-border", placeholder = "Search Tenants"})
-				<div class="input-group-append">
-					<button class="input-group-text " value="Search" type="submit" id="basic-text1"> <i class="fas fa-search text-grey" aria-hidden="true"></i></button>
-				</div>
-			</div>
-		}
-	</div>
-</div>
+
 <div class="container pt-4 ">
 
-	<div class="row pt-5 m-auto pl-0">
+	<div class="row pt-5 m-auto pl-0 pr-0">
 		
 		 @if (Model.PagedListTenants.Any())
 		 {
 			 @foreach (var models in Model.PagedListTenants)
 			 {
-				 <div class="col-md-3 col-sm-6">
-
+				   <div class="col-lg-4 col-md-12 mb-4">
 					 <!-- Copy the content below until next comment -->
 					 <div class="card card-custom bg-white border-white border-0">
-						 <div class="card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);"></div>
+						 <div class="card-custom-img" ></div>
 						 <div class="card-custom-avatar">
 							 <img class="img-fluid" src=@models.TenantLogo />
 						 </div>
@@ -124,14 +129,14 @@
 
 <!--Code to show current page and page number-->
               
-<div class="pl-5 pt-5">    
+<div class="pl-5 pt-3 text-center ">
 	@Html.PagedListPager(Model.PagedListTenants, page => Url.Action("Index", new {page}), new PagedListRenderOptions
 	{
 		DisplayLinkToIndividualPages = true,
 		DisplayPageCountAndCurrentLocation = false,
 		MaximumPageNumbersToDisplay = 10,
-		LiElementClasses = new[] {"page-item"},
-		PageClasses = new[] {"page-link"}, 
+		LiElementClasses = new[] {"page-item" , "bg-light","text-dark"},
+		PageClasses = new[] {"page-link", "bg-light","text-dark" }, 
                        
                           
     
@@ -196,78 +201,6 @@
 		</div>
 	</div>
 
-
-<!--
-<section class="page-content" xmlns="http://www.w3.org/1999/html">
-	
-	<section class="search-and-user">
-		
-		<span class="col-md-1 text-secondary ">
-			Tenant Account
-		</span>
-		
-	</section>
-	
-	<div class="centered"> -->
-		<!--Tenant Creation-->
-		<!--Create tenant button-->
-	<!--	<div class="button1">
-			<a asp-controller="Account" asp-action="CreateTenant" class="btn btn-2 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Tenant &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
-			                                                                                                                                                 aria-hidden="true"></i></a>--> <!-- change button css---->
-	<!--	</div> -->
-
-		<!--Tenant Selection-->
-		<!--Create tenant selection button-->
-	<!--	<div id="select-tenant" class="button2">
-			<a  class="btn btn-1 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal2">Select a tenant </a> --> <!-- change button css---->
-	<!--	</div>
-	</div>	-->
-	
-	
-	<!---Popup Form to select tenant-->
-<!--	<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle2" aria-hidden="true">
-		<div class="modal-dialog modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title"  id="exampleModalTitle2">Sign up</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-                    
-				<form method="post" asp-action="SelectTenant">
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="tenant" class="col-form-label">Tenant</label>
-							<select class="themeSelector" name="tenant" id="tenant" required>
-								<option value="">Select a tenant</option> -->
-    
-								<!--Loop through tenant database and display names-->
-								@{
-									var enumerable = tenantList.ToList();
-								}
-								@if (enumerable.Any())
-								{
-								//	@foreach (var tenant in enumerable)
-								//	{
-								//		<option value="@tenant.TenantName">@tenant.TenantName</option>
-								//	}
-								}
-						<!--	</select>
-						</div>
-						<div asp-validation-summary="All" class="text-danger"></div>
-					</div>
-    				
-					<div class="modal-footer ">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-						<input type="submit" class="btn btn-primary" value="Select" onclick="tenantSelected()"/> --><!--create button-->
-				<!--	</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</section>
--->
 <!--Scripts-->
 <script src="js/automation.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
