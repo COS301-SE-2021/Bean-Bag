@@ -153,7 +153,7 @@ namespace BeanBag.Services
             return list;
         }
         
-        public bool CreateNewTenant(string tenantName, string tenantAddress, string tenantEmail)
+        public bool CreateNewTenant(string tenantName, string tenantAddress, string tenantEmail, string tenantNumber)
         {
             if (tenantName == null)
             {
@@ -168,6 +168,11 @@ namespace BeanBag.Services
             if (tenantAddress == null)
             {
                 throw new Exception("Tenant address is null");
+            }
+
+            if (tenantNumber == null)
+            {
+                throw new Exception("Tenant number is null");
             }
 
             var duplicate = (from tenant
@@ -191,7 +196,7 @@ namespace BeanBag.Services
 
                 //Create new tenant and add to db
             var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = defaultTheme, 
-                TenantEmail = tenantEmail, TenantAddress = tenantAddress};
+                TenantEmail = tenantEmail, TenantAddress = tenantAddress, TenantNumber = tenantNumber};
 
             _tenantDb.Tenant.Add(newTenant);
             _tenantDb.SaveChanges();

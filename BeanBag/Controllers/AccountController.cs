@@ -90,7 +90,7 @@ namespace BeanBag.Controllers
         
         // This function allows a user to create a new tenant.
         [HttpPost]
-        public IActionResult CreateTenant(string tenantName, string tenantAddress, string tenantEmail)
+        public IActionResult CreateTenant(string tenantName, string tenantAddress, string tenantEmail, string tenantNumber)
         {
             if (tenantName == null)
             {
@@ -99,7 +99,7 @@ namespace BeanBag.Controllers
             else
             {
                 
-                _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail); 
+                _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber); 
             }
             return RedirectToAction("Index");
         }
