@@ -160,6 +160,11 @@ namespace BeanBag.Services
                 throw new Exception("Tenant name is null");
             }
 
+            if (tenantEmail == null)
+            {
+                throw new Exception("Tenant email is null");
+            }
+
             var duplicate = (from tenant
                     in _tenantDb.Tenant
                 where tenant.TenantName.Equals(tenantName)
@@ -177,10 +182,10 @@ namespace BeanBag.Services
             if (_tenantDb.Tenant.Find(_newTenantId) != null) return false;
 
             
-            var defaultTheme = "Default";
+            const string defaultTheme = "Default";
 
                 //Create new tenant and add to db
-            var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = defaultTheme};
+            var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = defaultTheme, TenantEmail = tenantEmail};
 
             _tenantDb.Tenant.Add(newTenant);
             _tenantDb.SaveChanges();
