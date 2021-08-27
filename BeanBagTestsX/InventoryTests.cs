@@ -32,7 +32,7 @@ namespace BeanBagUnitTests
             var data = new List<Inventory>
             {
                 new Inventory { Id = theId1, name = "Mums 1", userId = u1 },
-                new Inventory { Id = theId1, name = "Mums 1.2", userId = u1 },
+                new Inventory { Id = theId2, name = "Mums 1.2", userId = u1 },
             }.AsQueryable();
 
             var mockSet = new Mock<DbSet<Inventory>>();
@@ -61,16 +61,18 @@ namespace BeanBagUnitTests
         public void Creating_An_Inventory()
         {
             //ARRANGE
-            Guid theId2 = new("00000000-0000-0000-0000-000000000001");
+            Guid theId1 = new("00000000-0000-0000-0000-000000000001");
+            Guid theId2 = new("00000000-0000-0000-0000-000000000002");
 
             string u1 = "xxx";
             string u2 = "yyy";
 
             var mockIn = new Mock<IInventoryService>();
 
-            var data = new List<Inventory>()
+            var data = new List<Inventory>
             {
-
+                new Inventory { Id = theId1, name = "Mums 1", userId = u1 },
+                new Inventory { Id = theId2, name = "Mums 1.2", userId = u1 },
             }.AsQueryable();
 
             var mockSet = new Mock<DbSet<Inventory>>();
@@ -79,24 +81,17 @@ namespace BeanBagUnitTests
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
+
             //ACT
-
-            Mock<IInventoryService> myser = new Mock<IInventoryService>();
-            myser.Setup(x => x.GetInventories(u1)).Returns(mockSet.Object.ToList());
-
             
-
-            Inventory thenew = new Inventory { Id = theId2, name = "Mums 2", userId = u2 };
-            myser.Setup(x => x.CreateInventory(thenew));
-            myser.Object.CreateInventory(thenew);
-
-            myser.Setup(x => x.FindInventory(thenew.Id)).Returns(thenew);
-
-            var worked = myser.Object.FindInventory(theId2);
-            //var worked = myser.Object.GetInventories(u2);
-
+            var dbMock = new Mock<DBContext>();
+            dbMock.Setup(x => x.Set<Inventory>()).Returns(mockSet.Object);
+            var myser = new InventoryService(dbMock.Object);
+            
+            var tinvs = myser.FindInventory(theId1);
+            
             //ASSERT
-            Assert.NotNull(worked);
+            Assert.Equal(theId2, tinvs.Id);
         }
 
 
@@ -114,10 +109,10 @@ namespace BeanBagUnitTests
 
             var mockIn = new Mock<IInventoryService>();
 
-            var data = new List<Inventory>()
+            var data = new List<Inventory>
             {
-                new Inventory { Id = theId1, name = "testinv 1", userId = u1},
-                new Inventory { Id = theId2, name = "testinv 2", userId = u1},
+                new Inventory { Id = theId1, name = "Mums 1", userId = u1 },
+                new Inventory { Id = theId2, name = "Mums 1.2", userId = u1 },
             }.AsQueryable();
 
             var mockSet = new Mock<DbSet<Inventory>>();
@@ -126,20 +121,19 @@ namespace BeanBagUnitTests
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
+
             //ACT
-
-            Mock<IInventoryService> myser = new Mock<IInventoryService>();
-            myser.Setup(x => x.GetInventories(u1)).Returns(mockSet.Object.ToList());
             
-            var thenew = new Inventory { Id = theId2, name = "Mums 2", userId = u2 };
-            myser.Object.CreateInventory(thenew);
-
-            myser.Setup(x => x.DeleteInventory(theId2, u2));
-
-            var worked = myser.Object.FindInventory(theId2);
-
+            var dbMock = new Mock<DBContext>();
+            dbMock.Setup(x => x.Set<Inventory>()).Returns(mockSet.Object);
+            var myser = new InventoryService(dbMock.Object);
+            
+            var isDeleted = myser.DeleteInventory(theId2, u1);
+            var tinvs = myser.GetInventories(u1);
+            
             //ASSERT
-            Assert.Null(worked);
+            Assert.True(isDeleted);
+            Assert.Equal(1 , tinvs.Count);
         }
         
         
@@ -155,10 +149,10 @@ namespace BeanBagUnitTests
 
             var mockIn = new Mock<IInventoryService>();
 
-            var data = new List<Inventory>()
+            var data = new List<Inventory>
             {
-                new Inventory { Id = theId1, name = "testinv 1", userId = u1},
-                new Inventory { Id = theId2, name = "testinv 2", userId = u1},
+                new Inventory { Id = theId1, name = "Mums 1", userId = u1 },
+                new Inventory { Id = theId2, name = "Mums 1.2", userId = u1 },
             }.AsQueryable();
 
             var mockSet = new Mock<DbSet<Inventory>>();
@@ -167,20 +161,17 @@ namespace BeanBagUnitTests
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
+
             //ACT
-
-            Mock<IInventoryService> myser = new Mock<IInventoryService>();
-            myser.Setup(x => x.GetInventories(u1)).Returns(mockSet.Object.ToList());
             
-            var thenew = new Inventory { Id = theId2, name = "Mums 2", userId = u2 };
-            myser.Object.CreateInventory(thenew);
-
-            myser.Setup(x => x.EditInventory(u1, thenew));
-
-            var worked = myser.Object.FindInventory(thenew.Id);
+            var dbMock = new Mock<DBContext>();
+            dbMock.Setup(x => x.Set<Inventory>()).Returns(mockSet.Object);
+            var myser = new InventoryService(dbMock.Object);
+            
+            var isEdited = myser.EditInventory(u1, myser.FindInventory(theId2));
 
             //ASSERT
-            Assert.Null(worked);
+            Assert.True(isEdited);
         }
         
         
