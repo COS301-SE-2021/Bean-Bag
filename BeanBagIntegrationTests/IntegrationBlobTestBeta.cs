@@ -26,23 +26,25 @@ namespace BeanBagIntegrationTests
 
         public IntegrationBlobTestBeta()
         {
-            cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;EndpointSuffix=core.windows.net");
+            cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;" +
+                                                            "AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;" +
+                                                            "EndpointSuffix=core.windows.net");
             cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
 
         [Fact]
-        public async Task Upload_Item_Image()
+        public async Task Upload_Item_Image_Valid()
         {
             //ARRANGE
             var fileMock = new Mock<IFormFile>();
-            //Setup mock file using a memory stream
+            
             var content = "File added for the purpose of integration testing!";
             
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -51,8 +53,7 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string pdfEnd = finalString.Substring(0, 4);
-            
+            var pdfEnd = finalString.Substring(0, 4);
             
             var fileName = "test" + pdfEnd + ".pdf";
             
@@ -77,28 +78,26 @@ namespace BeanBagIntegrationTests
 
             await myService.uploadItemImage(file);
             var myUploadedFile = cloudBlobContainer.GetBlockBlobReference(file.FileName);
-            
 
             //ASSERT
             Assert.NotNull(myUploadedFile);
         }
 
         [Fact]
-        public async Task Upload_Test_Images()
+        public async Task Upload_Test_Images_Valid()
         {
-            IFormFileCollection testImages; 
-            var projectId = "";
-            
+            IFormFileCollection testImages;
+
             //ARRANGE
             var fileMock = new Mock<IFormFile>();
-            //Setup mock file using a memory stream
+            
             var content = "File added for the purpose of integration testing!";
             
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -107,8 +106,7 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string pdfEnd = finalString.Substring(0, 4);
-            
+            var pdfEnd = finalString.Substring(0, 4);
             
             var fileName = "test" + pdfEnd + ".pdf";
             
@@ -133,33 +131,11 @@ namespace BeanBagIntegrationTests
 
             await myService.uploadItemImage(file);
             var myUploadedFile = cloudBlobContainer.GetBlockBlobReference(file.FileName);
-            
 
             //ASSERT
             Assert.NotNull(myUploadedFile);
         }
 
-       /* [Fact]
-        public void Delete_Test_Image_Folder()
-        {
-            //ARRANGE
-            var str = "";
-            var mycon = new Guid(str);
-            
-            var projectId = mycon.ToString();
-
-            var blobSer = new BlobStorageService();
-            
-            
-            //ACT
-            
-            blobSer.deleteTestImageFolder(projectId);
-            var x = cloudBlobClient.GetContainerReference("modeltestimages").GetBlockBlobReference(projectId);
-            
-            //ASSERT
-            Assert.Null(x);
-        } */
-        
     }
     
 }

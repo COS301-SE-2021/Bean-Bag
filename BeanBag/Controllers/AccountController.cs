@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.Design;
 using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -8,35 +7,39 @@ using Microsoft.Identity.Web;
 
 namespace BeanBag.Controllers
 {
+    /* This controller is used to send and retrieve data to the account
+    view using tenant service and inventory service functions. */
     public class AccountController : Controller
     {
+        // Global variables needed for calling the service classes.
         private readonly TenantService _tenantService;
         private readonly IInventoryService _inventory;
 
+        // Constructor.
         public AccountController(TenantService tenantService, IInventoryService inventory)
         {
             _tenantService = tenantService;
             _inventory = inventory;
         }
         
+        // This function returns the view for the Account page.
         [AllowAnonymous]
         public IActionResult Index()
         {
             if (User.GetObjectId() == null)
             {
-                throw new Exception("User id is null");
+                throw new Exception("User ID is null");
             }
-
-            if (_tenantService.SearchUser(User.GetObjectId()))
+            else if (_tenantService.SearchUser(User.GetObjectId()))
             {
                 return RedirectToAction("Index", "Home");
             }
-            
             return View();
         }
         
+        
+        // This function allows a user to create a new tenant.
         [HttpPost]
-        // Allows user to create a new tenant
         public IActionResult CreateTenant(string tenantName)
         {
             if (tenantName == null)
@@ -47,12 +50,12 @@ namespace BeanBag.Controllers
             {
                 _tenantService.CreateNewTenant(tenantName);
             }
-
             return RedirectToAction("Index");
         }
 
+        /* This function allows a user to select a tenant and generates
+         a new user inventory for demonstration purposes*/
         [HttpPost]
-        // Allows user to select a tenant 
         public IActionResult SelectTenant(string tenant)
         {
             if (tenant == null)
@@ -62,9 +65,7 @@ namespace BeanBag.Controllers
 
             //Check if user is new
             var userId = User.GetObjectId();
-            
             var currentTenantName = tenant;
-
             var currentTenantId = _tenantService.GetTenantId(currentTenantName);
 
             if (_tenantService.SearchUser(userId) == false)
@@ -82,8 +83,7 @@ namespace BeanBag.Controllers
                 }
             }
 
-            //TEMPORARY FIX FOR NULL INVENTORY
-
+            //New inventory created for first time user.
             Inventory newInventory = new Inventory()
             {
                 name = "My First Inventory",
@@ -91,7 +91,6 @@ namespace BeanBag.Controllers
                 description = "My first ever inventory to add new items to",
                 createdDate = DateTime.Now
             };
-
             _inventory.CreateInventory(newInventory);
 
             return RedirectToAction("Index", "Home");

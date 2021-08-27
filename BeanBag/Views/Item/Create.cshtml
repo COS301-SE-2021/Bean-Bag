@@ -3,67 +3,47 @@
 @using Microsoft.Identity.Web
 @inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
 
-@{
-    var options = _azureAdb2COptions.Value;
-}
-
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
     <section class="ml-3">
-            <a asp-action="Index" asp-controller="Inventory" class="btn btn-secondary  rounded-pill "><i class="fas fa-chevron-left"> </i></a>
-               
+        <a asp-action="Index" asp-controller="Inventory" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
         <span class="col-md-1 text-secondary ">
             Inventory | Add Item
         </span>
-
     </section>
-    
-     
+
     <div class="dashboard-wrapper">
         <div class="container-fluid  dashboard-content">
             <hr>
             <br>
 
             <div class="row">
-                
-                
- 
                 <!-- ============================================================== -->
-                <!-- recent products  -->
+                <!-- Item image  -->
                 <!-- ============================================================== -->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                   
-                        <div class="card shadow p-1 mb-3 bg-body rounded " data-aos="zoom-in"  data-aos-duration="1000">
-                            <h5 class="card-header">Add Item <i class="fas fa-plus-folder"> </i> </h5>
-                            <div class="card-body">
-
-                                
-                                <div class="row">
-                                                   
-                                    <div class="col-sm p-3">
+                    <div class="card shadow mb-3 bg-body rounded " data-aos="zoom-in" data-aos-duration="1000">
+                        <h5 class="card-header">Add Item <i class="fas fa-plus-folder"> </i> </h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm p-3">
+                                    <div >
                                         <div >
-                                            <div >
-                                                    
-                                                <div class="card shadow p-1 mb-3 bg-body rounded">
-                                                    <div class="card-body ">
-                                                        <p class=" text-muted text-uppercase medium"><i class="fas fa-camera"></i>  &nbsp; Detected Item Type: @ViewBag.itemType </p>
-                                                        <hr> <br>
-                                                        <div id="mdb-lightbox-ui"></div>
-                                                    
-                                                        <div class="mdb-lightbox">
-                                                    
-                                                            <div class="row product-gallery mx-1 d-flex justify-content-center">
-                                                    
-                                                                <div class="col-7 mb-0">
-                                                                    <figure class="view overlay rounded z-depth-1 main-img">
-                                                                        <a href="@ViewBag.imageUrl"
-                                                                           data-size="110x223">
-                                                                            <img  src="@ViewBag.imageUrl"
-                                                                                 class="img-fluid z-depth-1" alt="">
-                                                                        </a>
-                                                                    </figure>
-                                                                </div>
-                                                    
+                                            <div class="card shadow  mb-3 bg-body rounded">
+                                                <div class="card-body ">
+                                                    <p class=" text-muted text-uppercase medium"><i class="fas fa-camera"></i> &nbsp; Detected Item Type: @ViewBag.itemType </p>
+                                                    <hr> <br>
+                                                    <div id="mdb-lightbox-ui"></div>
+                                                    <div class="mdb-lightbox">
+                                                        <div class="row product-gallery mx-1 d-flex justify-content-center">
+                                                            <div class="col-7 mb-0">
+                                                                <figure class="view overlay rounded z-depth-1 main-img">
+                                                                    <a href="@ViewBag.imageUrl"
+                                                                       data-size="110x223">
+                                                                        <img src="@ViewBag.imageUrl"
+                                                                             class="img-fluid z-depth-1" alt="">
+                                                                    </a>
+                                                                </figure>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -71,114 +51,80 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm pl-5 pr-5 pt-3">
-                                
-                                            
-                                            <form method="post" asp-action="Create" asp-controller="Item">
-                               <div class="form-group row">                                               
-                    <h5 class="text-muted">Item Details</h5>     <hr></div>
-                                             
-                                                <div asp-validation-summary="All" class="text-danger"></div>
-                                                <input asp-for="imageURL" class="form-control" value="@ViewBag.imageUrl" hidden/>
-                                                <input asp-for="type" class="form-control" value="@ViewBag.itemType" hidden/>
-
-                                                <div class="form-group row">
-                                                    <label asp-for="name"></label>
-                                                    <input asp-for="name" class="form-control"/>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label asp-for="price"></label>
-                                                    <input asp-for="price" class="form-control"/>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label asp-for="quantity"></label>
-                                                    <input asp-for="quantity" class="form-control"/>
-                                                </div>
-                                                
-                                                <div class="form-group row">
-                                                    <label asp-for="colour">Colour</label> &nbsp; &nbsp;<br>
-                                                    <input asp-for="colour" type="color" size="100px" name="color">
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label asp-for="inventoryId" value="Inventory"></label>
-                                                    <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
-                                                        <option selected>Select Inventory</option>
-                                                    </select>
-                                                </div>
-                                                
-                                                <div class="form-group row">
-                                                       <label asp-for="condition" value="Condition">Condition</label> &nbsp; &nbsp;<br>
-                                                    <select asp-for="condition" name="condition"  class="form-control">
-                                                        <option value="New">New</option>
-                                                        <option value="Pre-Owned">Pre-Owned</option>
-                                                        <option value="Damaged">Damaged</option>
-                                                    </select>
-                                                </div>
-                                                
-                                                <div class="form-group row">
-
-                                                    <input type="submit" class="btn btn-3" value="Submit"/>
-                                                    <a asp-action="Index" asp-controller="Inventory" class="btn btn-2">Back</a>           
-                                                </div>
-
-
-                                            </form>
-                                        </div>
-                                    </div>
                                 </div>
-                    
 
+                                <!--Create item form-->
+                                <div class="col-sm pl-5 pr-5 pt-3">
+                                    <form method="post" asp-action="Create" asp-controller="Item">
+                                        <div class="form-group row">
+                                            <h5 class="text-muted">Item Details</h5> <hr></div>
 
-                            
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        <input asp-for="imageURL" class="form-control" value="@ViewBag.imageUrl" hidden/>
+                                        <input asp-for="type" class="form-control" value="@ViewBag.itemType" hidden/>
+
+                                        <div class="form-group row">
+                                            <label asp-for="name"></label>
+                                            <input asp-for="name" class="form-control"/>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label asp-for="price"></label>
+                                            <input asp-for="price" class="form-control"/>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label asp-for="quantity"></label>
+                                            <input asp-for="quantity" class="form-control"/>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label asp-for="colour">Colour</label> &nbsp; &nbsp;<br>
+                                            <input asp-for="colour" type="color" size="100px" name="color">
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label asp-for="inventoryId" value="Inventory"></label>
+                                            <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
+                                                <option selected>Select Inventory</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label asp-for="condition" value="Condition">Condition</label> &nbsp; &nbsp;<br>
+                                            <select asp-for="condition" name="condition" class="form-control">
+                                                <option value="New">New</option>
+                                                <option value="Pre-Owned">Pre-Owned</option>
+                                                <option value="Damaged">Damaged</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group row">
+
+                                            <input type="submit" class="btn btn-3" value="Create"/>
+                                          
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-               
             </div>
-
-            <!-- ============================================================== -->
-            <!-- end  -->
-            <!-- ============================================================== -->
-
         </div>
-        
-
+        <!-- ============================================================== -->
+        <!-- end  -->
+        <!-- ============================================================== -->
+    </div>
 </section>
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
-
-
-<!--Section: Block Content-->
-
-
+<!--Scripts-->
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />
     }
-    
-    
 }
-
-<script>
-
-$(document).ready(function () {
-  // MDB Lightbox Init
-  $(function () {
-    $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
-  });
-});
-</script>
 <script>
   AOS.init();
 </script>

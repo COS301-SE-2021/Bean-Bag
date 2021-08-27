@@ -25,7 +25,7 @@ namespace BeanBagIntegrationTests
 
             _tenantDbContext = new TenantDbContext(builder.Options);
         }
-        
+        /*
         //Test tenant creation
         //POSITIVE TEST
         [Fact]
@@ -51,7 +51,7 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.SaveChanges();
 
         }
-        
+        */
         //NEGATIVE TEST
         [Fact]
         public void Test_Tenant_Creation_Fail_Tenant_Name_Is_Null()
@@ -130,7 +130,7 @@ namespace BeanBagIntegrationTests
             
         }
         
-        
+        /*
         //Get tenant id from current user
         //POSITIVE TEST
         [Fact]
@@ -161,7 +161,7 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.Remove(tenant);
             _tenantDbContext.SaveChanges();
         }
-        
+        */
         //NEGATIVE TEST
         [Fact]
         public void Test_Get_Tenant_Id_Failure_Tenant_Does_Not_Exist()

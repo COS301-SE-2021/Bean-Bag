@@ -17,28 +17,24 @@ namespace BeanBagIntegrationTests
 
         }
         
-        //blob
-        //db
-        //custom vision
-
         //Integration test defined to test if the webcontent pages are being hit when the system is run 
         [Theory]
         [InlineData("/")]
-        /*[InlineData("/Home/Home")]
-        [InlineData("/Home/Invetory")]
-        [InlineData("/Home/Item")]
-        [InlineData("/Home/LandingPage")]*/
         public async Task GetHttpRequest(string url)
         {
             //ARRANGE
+            
             var client = _factory.CreateClient();
 
             //ACT
+            
             var response = await client.GetAsync(url);
 
             //ASSERT
+            
             response.EnsureSuccessStatusCode();
             Assert.Equal("text/html; charset=utf-8", response.Content.Headers.ContentType.ToString());
+            
         }
     }
 }

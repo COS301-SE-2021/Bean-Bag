@@ -12,7 +12,7 @@ namespace BeanBagIntegrationTests
     public class IntegrationDashboardTest
     {
         
-        DBContext _context;
+        private readonly DBContext _context;
 
         public IntegrationDashboardTest()
         {
@@ -22,7 +22,9 @@ namespace BeanBagIntegrationTests
 
             var builder = new DbContextOptionsBuilder<DBContext>();
 
-            builder.UseSqlServer($"Server=tcp:polariscapestone.database.windows.net,1433;Initial Catalog=Bean-Bag-Platform-DB;Persist Security Info=False;User ID=polaris; Password=MNRSSp103;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")
+            builder.UseSqlServer($"Server=tcp:polariscapestone.database.windows.net,1433;Initial Catalog=Bean-Bag-Platform-DB;" +
+                                 $"Persist Security Info=False;User ID=polaris; Password=MNRSSp103;MultipleActiveResultSets=False;Encrypt=True;" +
+                                 $"TrustServerCertificate=False;Connection Timeout=30;")
                 .UseInternalServiceProvider(serviceProvider);
 
             _context = new DBContext(builder.Options);
@@ -30,19 +32,16 @@ namespace BeanBagIntegrationTests
         }
         
         [Fact]
-        public void Get_Recent_Items()
+        public void Get_Recent_Items_Valid()
         {
             //ARRANGE
             var dashService = new DashboardAnalyticsService(_context);
-
             
-            
-            //--------------random string generator for GUIDs-------------
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -51,22 +50,17 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
-            string u3 = finalString.Substring(1, 4);
+            var u2 = finalString.Substring(0, 4);
+            var u3 = finalString.Substring(1, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
 
             Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
             Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
-
-           
-
             
-            DateTime myDay = DateTime.MinValue;
+            var myDay = DateTime.MinValue;
             
-            //-----------------------------------------
-
-            Inventory thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+            var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
             
             var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes"};
 
@@ -81,8 +75,6 @@ namespace BeanBagIntegrationTests
             itemSer.CreateItem(item1);
             itemSer.CreateItem(item2);
             
-
-            
             var m = dashService.GetRecentItems(theId2.ToString());
             
             //ASSERT
@@ -94,19 +86,16 @@ namespace BeanBagIntegrationTests
         }
 
         [Fact]
-        public void Get_Total_Items()
+        public void Get_Total_Items_Valid()
         {
             //ARRANGE
             var dashService = new DashboardAnalyticsService(_context);
-
             
-            
-            //--------------random string generator for GUIDs-------------
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -115,22 +104,17 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
-            string u3 = finalString.Substring(1, 4);
+            var u2 = finalString.Substring(0, 4);
+            var u3 = finalString.Substring(1, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
 
             Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
             Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
-
-           
-
             
-            DateTime myDay = DateTime.MinValue;
-            
-            //-----------------------------------------
+            var myDay = DateTime.MinValue;
 
-            Inventory thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+            var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
             
             var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", quantity = 2};
 
@@ -144,9 +128,7 @@ namespace BeanBagIntegrationTests
             invSer.CreateInventory(thenew);
             itemSer.CreateItem(item1);
             itemSer.CreateItem(item2);
-            
 
-            
             var m = dashService.GetTotalItems(theId2.ToString());
             
             //ASSERT
@@ -157,17 +139,16 @@ namespace BeanBagIntegrationTests
         }
         
         [Fact]
-        public void Get_Top_Items()
+        public void Get_Top_Items_Valid()
         {
             //ARRANGE
             var dashService = new DashboardAnalyticsService(_context);
-            
-            //--------------random string generator for GUIDs-------------
+
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -176,8 +157,8 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
-            string u3 = finalString.Substring(1, 4);
+            var u2 = finalString.Substring(0, 4);
+            var u3 = finalString.Substring(1, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
 
@@ -185,13 +166,8 @@ namespace BeanBagIntegrationTests
             Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
             Guid itemId3 = new("10000000-0000-0000-0500-00000000"+ u3);
             Guid itemId4 = new("10000000-0000-0000-4000-00000000"+ u3);
-
-           
-
             
             DateTime myDay = DateTime.MinValue;
-            
-            //-----------------------------------------
 
             Inventory thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
             
@@ -210,8 +186,6 @@ namespace BeanBagIntegrationTests
             itemSer.CreateItem(item1);
             itemSer.CreateItem(item2);
             
-
-            
             var m = dashService.GetTopItems(theId2.ToString());
             
             //ASSERT
@@ -222,17 +196,16 @@ namespace BeanBagIntegrationTests
         }
     
         [Fact]
-        public void Get_Items_Available()
+        public void Get_Items_Available_Valid()
         {
             //ARRANGE
             var dashService = new DashboardAnalyticsService(_context);
-            
-            //--------------random string generator for GUIDs-------------
+
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -241,22 +214,17 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
-            string u3 = finalString.Substring(1, 4);
+            var u2 = finalString.Substring(0, 4);
+            var u3 = finalString.Substring(1, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
 
             Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
             Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
 
-           
+            var myDay = DateTime.Now;
 
-            
-            DateTime myDay = DateTime.Now;
-            
-            //-----------------------------------------
-
-            Inventory thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+            var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
             
             var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now, quantity = 5};
 
@@ -270,8 +238,6 @@ namespace BeanBagIntegrationTests
             invSer.CreateInventory(thenew);
             itemSer.CreateItem(item1);
             itemSer.CreateItem(item2);
-            
-
             
             var m = dashService.GetItemsAvailable(theId2.ToString(), "D");
             var n = dashService.GetItemsAvailable(theId2.ToString(), "W");
@@ -291,17 +257,16 @@ namespace BeanBagIntegrationTests
         }
 
         [Fact]
-        public void Get_Items_Sold()
+        public void Get_Items_Sold_Valid()
         {
             //ARRANGE
             var dashService = new DashboardAnalyticsService(_context);
-            
-            //--------------random string generator for GUIDs-------------
+
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -310,22 +275,17 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
-            string u3 = finalString.Substring(1, 4);
+            var u2 = finalString.Substring(0, 4);
+            var u3 = finalString.Substring(1, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
 
             Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
             Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
-
-           
-
             
-            DateTime myDay = DateTime.Now;
-            
-            //-----------------------------------------
+            var myDay = DateTime.Now;
 
-            Inventory thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+            var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
             
             var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now, quantity = 1, isSold = true};
 
@@ -339,8 +299,6 @@ namespace BeanBagIntegrationTests
             invSer.CreateInventory(thenew);
             itemSer.CreateItem(item1);
             itemSer.CreateItem(item2);
-            
-
             
             var m = dashService.GetItemsSold(theId2.ToString(), "D");
             var n = dashService.GetItemsSold(theId2.ToString(), "W");
@@ -359,17 +317,16 @@ namespace BeanBagIntegrationTests
         }
 
         [Fact]
-        public void Get_Revenue()
+        public void Get_Revenue_Valid()
         {
             //ARRANGE
             var dashService = new DashboardAnalyticsService(_context);
-            
-            //--------------random string generator for GUIDs-------------
+
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -378,26 +335,24 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
-            string u3 = finalString.Substring(1, 4);
+            var u2 = finalString.Substring(0, 4);
+            var u3 = finalString.Substring(1, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
-
             Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
             Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
 
-           
-
-            
-            DateTime myDay = DateTime.Now;
+            var myDay = DateTime.Now;
             
             //-----------------------------------------
 
-            Inventory thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+            var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
             
-            var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now, quantity = 1, isSold = true, price = 100};
+            var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now
+                , quantity = 1, isSold = true, price = 100};
 
-            var item2 = new Item { Id = itemId2, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now, quantity = 2, isSold = true, price = 200};
+            var item2 = new Item { Id = itemId2, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now
+                , quantity = 2, isSold = true, price = 200};
 
             var invSer = new InventoryService(_context);
             var itemSer = new ItemService(_context);
@@ -407,9 +362,7 @@ namespace BeanBagIntegrationTests
             invSer.CreateInventory(thenew);
             itemSer.CreateItem(item1);
             itemSer.CreateItem(item2);
-            
-
-            
+   
             var m = dashService.GetRevenue(theId2.ToString(), "D");
             var n = dashService.GetRevenue(theId2.ToString(), "M");
             var o = dashService.GetRevenue(theId2.ToString(), "W");
@@ -427,17 +380,16 @@ namespace BeanBagIntegrationTests
         }
 
         [Fact]
-        public void Get_Sales_Growth()
+        public void Get_Sales_Growth_Valid()
         {
             //ARRANGE
             var dashService = new DashboardAnalyticsService(_context);
             
-            //--------------random string generator for GUIDs-------------
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -446,22 +398,17 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
-            string u3 = finalString.Substring(1, 4);
+            var u2 = finalString.Substring(0, 4);
+            var u3 = finalString.Substring(1, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
 
             Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
             Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
-
-           
-
             
-            DateTime myDay = DateTime.Now;
-            
-            //-----------------------------------------
+            var myDay = DateTime.Now;
 
-            Inventory thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+            var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
             
             var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
 
@@ -476,8 +423,6 @@ namespace BeanBagIntegrationTests
             itemSer.CreateItem(item1);
             itemSer.CreateItem(item2);
             
-
-            
             var m = dashService.GetSalesGrowth(theId2.ToString(), "D");
             var n = dashService.GetSalesGrowth(theId2.ToString(), "W");
             var o = dashService.GetSalesGrowth(theId2.ToString(), "M");
@@ -491,22 +436,20 @@ namespace BeanBagIntegrationTests
             itemSer.DeleteItem(itemId1);
             itemSer.DeleteItem(itemId2);
             invSer.DeleteInventory(theId2, u2);
-            
         }
         
         [Fact]
-        public void Items_Revenue_Stat()
+        public void Items_Revenue_Stat_Valid()
         {
      
             //ARRANGE
             var dashService = new DashboardAnalyticsService(_context);
-            
-            //--------------random string generator for GUIDs-------------
+ 
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -515,22 +458,16 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
-            string u3 = finalString.Substring(1, 4);
+            var u2 = finalString.Substring(0, 4);
+            var u3 = finalString.Substring(1, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
-
             Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
             Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
 
-           
+            var myDay = DateTime.Now;
 
-            
-            DateTime myDay = DateTime.Now;
-            
-            //-----------------------------------------
-
-            Inventory thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+            var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
             
             var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
 
@@ -555,18 +492,17 @@ namespace BeanBagIntegrationTests
         }
 
         [Fact]
-        public void Items_Sold_Stat()
+        public void Items_Sold_Stat_Valid()
         {
      
             //ARRANGE
             var dashService = new DashboardAnalyticsService(_context);
             
-            //--------------random string generator for GUIDs-------------
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -575,22 +511,16 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
-            string u3 = finalString.Substring(1, 4);
+            var u2 = finalString.Substring(0, 4);
+            var u3 = finalString.Substring(1, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
-
             Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
             Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
 
-           
+            var myDay = DateTime.Now;
 
-            
-            DateTime myDay = DateTime.Now;
-            
-            //-----------------------------------------
-
-            Inventory thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+            var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
             
             var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
 
@@ -604,8 +534,6 @@ namespace BeanBagIntegrationTests
             invSer.CreateInventory(thenew);
             itemSer.CreateItem(item1);
             itemSer.CreateItem(item2);
-            
-
             
             var m = dashService.ItemsSoldStat(theId2.ToString(), "D");
             var n = dashService.ItemsSoldStat(theId2.ToString(), "W");
@@ -623,17 +551,16 @@ namespace BeanBagIntegrationTests
         }
         
         [Fact]
-        public void Item_Available_Stat()
+        public void Item_Available_Stat_Valid()
         {
             //ARRANGE
             var dashService = new DashboardAnalyticsService(_context);
             
-            //--------------random string generator for GUIDs-------------
             var chars = "0123456789";
             var stringChars = new char[5];
             var random = new Random();
 
-            for (int i = 0; i < stringChars.Length; i++)
+            for (var i = 0; i < stringChars.Length; i++)
             {
                 stringChars[i] = chars[random.Next(chars.Length)];
             }
@@ -642,22 +569,16 @@ namespace BeanBagIntegrationTests
 
             var myGuidEnd = finalString;
 
-            string u2 = finalString.Substring(0, 4);
-            string u3 = finalString.Substring(1, 4);
+            var u2 = finalString.Substring(0, 4);
+            var u3 = finalString.Substring(1, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
-
             Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
             Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
-
-           
-
             
-            DateTime myDay = DateTime.Now;
-            
-            //-----------------------------------------
+            var myDay = DateTime.Now;
 
-            Inventory thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+            var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
             
             var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
 
@@ -671,8 +592,6 @@ namespace BeanBagIntegrationTests
             invSer.CreateInventory(thenew);
             itemSer.CreateItem(item1);
             itemSer.CreateItem(item2);
-            
-
             
             var m = dashService.ItemAvailableStat(theId2.ToString(), "D");
             var n = dashService.ItemAvailableStat(theId2.ToString(), "W");

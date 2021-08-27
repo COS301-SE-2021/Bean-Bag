@@ -14,42 +14,39 @@ using BeanBag.Services;
 
 namespace BeanBag.Controllers
 {
+    /* This controller is used to send and retrieve data to the Item
+       views using tenant, inventory, blob storage and AI service functions. */
     public class ItemController : Controller
     {
-        private readonly IItemService itemService;
-        private readonly IInventoryService inventoryService;
-        private readonly IAIService aIService;
-        private readonly IBlobStorageService blobStorageService;
+        // Global variables needed for calling the service classes.
+        private readonly IItemService _itemService;
+        private readonly IInventoryService _inventoryService;
+        private readonly IAIService _aIService;
+        private readonly IBlobStorageService _blobStorageService;
 
-        // This variable is used to interact with the Database/DBContext class. Allows us to save, update and delete records 
-        //private readonly DBContext _db;
-        // The connection string is exposed. Will need to figure out a way of getting it out of appsetting.json. Maybe init in startup like db context ?
-        
-        public ItemController(IItemService iss, IInventoryService invs, IAIService aI, IBlobStorageService blob)
+        // Constructor. 
+        public ItemController(IItemService iss, IInventoryService inv, IAIService aI, IBlobStorageService blob)
         {
       
-            itemService = iss;
-            inventoryService = invs;
-            aIService = aI;
-            blobStorageService = blob;
+            _itemService = iss;
+            _inventoryService = inv;
+            _aIService = aI;
+            _blobStorageService = blob;
         }
         
-        // This returns the upload-image view for item
+        // This function returns the upload-image view for an item given a unique inventory ID.
         public IActionResult UploadImage(Guid inventoryId)
         {
-            List<AIModel> aIModels = aIService.getAllModels();
-
+            List<AIModel> aIModels = _aIService.getAllModels();
             List<SelectListItem> iterationDropDown = new List<SelectListItem>();
 
             foreach (var m in aIModels)
             {
-                List<AIModelVersions> iterations = aIService.getAllAvailableIterationsOfModel(m.projectId);
-
+                List<AIModelVersions> iterations = _aIService.getAllAvailableIterationsOfModel(m.projectId);
                 SelectListGroup tempGroup = new SelectListGroup() { Name = m.projectName };
 
                 foreach (var i in iterations)
                 {
-
                     iterationDropDown.Add(new SelectListItem
                     {
                         Group = tempGroup,
@@ -58,33 +55,31 @@ namespace BeanBag.Controllers
                     });
                 }
             }
-
             ViewBag.iterationDropDown = iterationDropDown;
-
             return View();
         }
 
-        // This takes in an image file to be uploaded into the Azure blob container
-        // This method also uses the custom vision AI that will predict what type of item is in the image
+        /* This function takes in an image file to be uploaded into the Azure blob container.
+           This method also uses the custom vision AI that will predict what type of item is in the image.*/
         [HttpPost]
-        public async Task<IActionResult> UploadImage([FromForm(Name = "file")] IFormFile file, [FromForm(Name = "predictionModel")] string predictionModelId)
+        public async Task<IActionResult> UploadImage([FromForm(Name = "file")] IFormFile file, 
+            [FromForm(Name = "predictionModel")] string predictionModelId)
         {
-            AIModelVersions iteration = aIService.getIteration(Guid.Parse(predictionModelId));
-            string imageUrl = await blobStorageService.uploadItemImage(file);
-            string prediction = aIService.predict(iteration.projectId, iteration.iterationName, imageUrl);
+            AIModelVersions iteration = _aIService.getIteration(Guid.Parse(predictionModelId));
+            string imageUrl = await _blobStorageService.uploadItemImage(file);
+            string prediction = _aIService.predict(iteration.projectId, iteration.iterationName, imageUrl);
 
             return LocalRedirect("/Item/Create?imageUrl="+ imageUrl + "&itemType="+ prediction);
         }
 
-        // Get method for create
-        // Returns Create view
-        // The create page needs to accept an imageURL and item type
-        // This method is only called once the image of the item is uploaded
+        /* This function is the GET method for creating an item and returns Create View.
+           The create page needs to accept an imageURL and item type
+           This method is only called once the image of the item is uploaded */
         public IActionResult Create(string imageUrl, string itemType)
         {
             // This creates a list of the different inventories available to put the item into
 
-            var inventories = inventoryService.GetInventories(User.GetObjectId());
+            var inventories = _inventoryService.GetInventories(User.GetObjectId());
 
             IEnumerable < SelectListItem > inventoryDropDown = inventories.Select(i => new SelectListItem
             {
@@ -93,7 +88,8 @@ namespace BeanBag.Controllers
             });
 
             // View bag allows the controller to pass information into the view
-            // We are passing the inventoryDrop drown as well as the automated imageURL and itemType from the imageUpload POST method
+            // We are passing the inventoryDrop drown as well as the automated imageURL and
+            // itemType from the imageUpload POST method
 
             ViewBag.InventoryDropDown = inventoryDropDown;
             ViewBag.itemType = itemType;
@@ -102,14 +98,14 @@ namespace BeanBag.Controllers
             return View();
         }
 
-        // Post method for create
-        // Takes in form from Create view to add a new item to the DB
+        // This function is the POST method for create.
+        // Takes in form from Create view to add a new item to the DB.
         [HttpPost]
         public IActionResult Create(Item newItem)
         {
             if(ModelState.IsValid)
             {
-                itemService.CreateItem(newItem);
+                _itemService.CreateItem(newItem);
                 
                 // Returns back to the viewItems view for the inventory using the inventoryId
                 return LocalRedirect("/Inventory/ViewItems?InventoryId="+newItem.inventoryId.ToString());
@@ -118,12 +114,13 @@ namespace BeanBag.Controllers
             return View(newItem);
         }
 
-        // This is the GET method of item edit
-        // This returns the view of an item that is being edited
-        // Accepts an itemId in order to return a view of the item that needs to be edited with it's respective information passed along
+        /* This function is the GET method of Edit Item. This returns the view of an item that is being edited
+           Accepts an itemId in order to return a view of the item that needs to be edited with it's respective
+           information passed along*/
         public IActionResult Edit(Guid id)
         {
-            var item = itemService.FindItem(id);
+            var item = _itemService.FindItem(id);
+            
             // Does the item exist in the table 
             if(item == null)
             {
@@ -131,7 +128,7 @@ namespace BeanBag.Controllers
             }
 
             // This creates a list of the different inventories available to put the item into
-            var inventories = inventoryService.GetInventories(User.GetObjectId());
+            var inventories = _inventoryService.GetInventories(User.GetObjectId());
 
             IEnumerable<SelectListItem> inventoryDropDown = inventories.Select(i => new SelectListItem
             {
@@ -147,42 +144,41 @@ namespace BeanBag.Controllers
             return View(item);
         }
 
-        // This is the POST method for edit Item
+        // This function is the POST method for Edit Item.
        [HttpPost]
         public IActionResult Edit(Item item)
         {
             // Makes sure that 
             if(ModelState.IsValid)
             {
-                itemService.EditItem(item);
+                _itemService.EditItem(item);
 
                 return LocalRedirect("/Inventory/ViewItems?InventoryId=" + item.inventoryId.ToString());
             }
             return Ok(item);
-            //return LocalRedirect("/Item/Edit?ItemId="+item.Id);
         }
 
-        // This is the GET method for delete item
+        // This function is the GET method for Delete Item.
         public IActionResult Delete(Guid id)
         {
-            var item = itemService.FindItem(id);
+            var item = _itemService.FindItem(id);
             // Does the item exist in the item table
             if (item == null)
             {
                 return NotFound();
             }
 
-            ViewBag.InventoryName = inventoryService.FindInventory(item.inventoryId).name;
+            ViewBag.InventoryName = _inventoryService.FindInventory(item.inventoryId).name;
             ViewBag.InventoryId = item.inventoryId;
             return View(item);
         }
 
-        // This is the POST method for delete item
+        // This function is the POST method for Delete Item.
         [HttpPost]
         public IActionResult DeletePost(Guid id)
         {
-            string inventoryId = itemService.GetInventoryIdFromItem(id).ToString();
-            itemService.DeleteItem(id);
+            string inventoryId = _itemService.GetInventoryIdFromItem(id).ToString();
+            _itemService.DeleteItem(id);
 
             // Returns back to the view items in inventory using the inventory ID
             // The reason why we can still use item.inventoryId is because it is still an intact variable
@@ -190,10 +186,10 @@ namespace BeanBag.Controllers
             return LocalRedirect("/Inventory/ViewItems?InventoryId=" + inventoryId);
         }
         
-        // Define a function to generate a QR code every time we want to view it
+        // This function allows the user to view a QRCode of an Inventory given the ID by returning an image of it.
         public string ViewQrCode(Guid id)
         {
-            var item = itemService.FindItem(id);
+            var item = _itemService.FindItem(id);
 
             if(item == null)
             {
@@ -213,13 +209,12 @@ namespace BeanBag.Controllers
 
                 return  ViewBag.QRCode;
             }
-             
         }
         
-        
+        // This function allows a user to print a QR Code given a specific Inventory ID.
         public string PrintQrCode(Guid id)
         {
-            var item = itemService.FindItem(id);
+            var item = _itemService.FindItem(id);
 
             if (item == null)
             {
@@ -236,9 +231,7 @@ namespace BeanBag.Controllers
                 bitmap.Save("C:/Users/Public/Pictures/"+id +".png");
 
                 return id.ToString();
-                
             }
-             
         }
     }
 }

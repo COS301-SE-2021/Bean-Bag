@@ -1,120 +1,113 @@
 ﻿@using Microsoft.Extensions.Options
 @using Microsoft.Identity.Web
-@using BeanBag.Services
 @inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
-
-
 @{
-   //Which model will the colour themes view use?
-    var options = _azureAdb2COptions.Value;
-
     Layout = "_Layout";
 }
 
-<section class=" inventory d-flex justify-content-center" xmlns="http://www.w3.org/1999/html">
+<link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
+
+<section class="page-content" xmlns="http://www.w3.org/1999/html">
     
-     <!--<section class="search-and-user ">
-         <span class="md-2 text-secondary pl-3">
+    <section class="search-and-user">
+        <span class="col-md-2 text-secondary ">
              Appearance 
-         </span>
-
-     </section>  -->
+        </span>
+    </section>
     
-    <div class="container">
-        <div class="col-2"> </div>
-        <div class="col-10 appearance">
-            <div class="card websiteThemeCard">
-                <h5 class="card-header">Website Theme</h5>
-                <div class="card-body">
-                    <!--<h5 class="card-title">Pick theme colour</h5>-->
-                    <div>
+     
+<div class="dashboard-wrapper">
+    <div class="container-fluid  dashboard-content">
+        <hr>
+            <br>
+        <div class="row">
+            <div class="col-sm">
+                <div class="card ">
+                    <h5 class="card-header">Website Theme</h5>
+                    <div class="card-body">
+                        <!--Theme picker-->
+                        <h5> <label class="badge " style="color: #323232 ">Select a theme</label></h5>
+                        <div class="pl-2">
+                            <form method="post" asp-action="ChangeThemeColour" asp-controller="Appearance">
+                                <div class="row pl-2">
 
-                        <form method="post" asp-action="ChangeThemeColour" asp-controller="Appearance">
-
-
-                            <div class="element element1">
-                                <select class="themeSelector" aria-label="Default select example" name="theme">
-                                    <option value="">Select a theme</option>
-                                    <option value="Default">Default</option>
-                                    <option value="CornflowerBlue">Cornflower Blue</option>
-                                    <option value="FieryRose">Fiery Rose</option>
-                                    <option value="KellySheen">Kelly Sheen</option>
-                                    <option value="OutrageousOrange">Outrageous Orange</option>
-                                    <option value="PurpleMountainMajesty">Purple Mountain Majesty</option>
-                                </select>
-                            </div>
-
-                            <div class="element">
-                                <input class="btn btn-1" type="submit" value="Change colour theme"/>
-                            </div>
-
-
-                        </form>
-
-
-
-
-                        <!---Popup Form to upload logo image -->
-                        <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle3" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog" role="document">
-
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalTitle3">Upload logo</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-
-                                    <form method="post" enctype="multipart/form-data" asp-action="UploadLogo" asp-controller="Appearance">
-                                        <div class="modal-body">
-                                            <div class="form-group ">
-
-
-                                                <!-- Upload image input-->
-                                                <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                                                    <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0">
-                                                    <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
-                                                    <div class="input-group-append">
-                                                        <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Uploaded image area-->
-                                                 <div class="image-area mt-4 align-content-center"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-
-                                            </div>
-                                            <div asp-validation-summary="All" class="text-danger"></div>
-                                        </div>
-
-                                        <div class="modal-footer ">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <input type="submit" class="btn btn-3" value="Submit"/> <!--create button-->
-                                        </div>
-                                    </form>
-
+                                    <select aria-label="Default select example" name="theme" class="form-control shadow-sm bg-body rounded-lg col-md-4 ">
+                                        <option value="">Select a theme</option>
+                                        <option value="Default">Default</option>
+                                        <option value="CornflowerBlue">Cornflower Blue</option>
+                                        <option value="FieryRose">Fiery Rose</option>
+                                        <option value="KellySheen">Kelly Sheen</option>
+                                        <option value="OutrageousOrange">Outrageous Orange</option>
+                                        <option value="PurpleMountainMajesty">Purple Mountain Majesty</option>
+                                    </select>
+                                    <span> &nbsp; &nbsp;</span>
+                                    <input class="btn btn-3 pl-2 col-md-3" type="submit" value="Change colour theme"/>
                                 </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> 
+                </div>
+                        
+            <div class="col-sm">
+                
+                <!---Popup Form to upload logo image -->
+                <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle3" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalTitle3">Upload logo</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form method="post" enctype="multipart/form-data" asp-action="UploadLogo" asp-controller="Appearance">
+                                <div class="modal-body">
+                                    <div class="form-group ">
+
+                                        <!-- Upload image input-->
+                                        <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                                            <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0">
+                                            <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
+                                            <div class="input-group-append">
+                                                <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                                            </div>
+                                        </div>
+
+                                        <!-- Uploaded image area-->
+                                        <div class="image-area mt-4 align-content-center"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                                    </div>
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                </div>
+
+                                <div class="modal-footer ">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-3" value="Submit"/> <!--create button-->
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--Upload logo card button-->
+                <div class="card">
+                    <h5 class="card-header">Upload Company Logo</h5>
+                    <div class="card-body">
+                        <div>
+                            <div class="ml-auto ">
+                                <h5> <label class="badge " style="color: #323232 ">Upload a company logo </label></h5>
+
+                                <a asp-controller="Appearance" asp-action="UploadLogo" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal3">Upload Image
+                                    <i class="fa fa-upload"
+                                       aria-hidden="true"></i></a>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
+                
             </div>
-
-            <div class="card">
-                <h5 class="card-header">Upload Company Logo</h5>
-                <div class="card-body">
-
-                    <div>
-                        <div class="ml-auto ">
-                            <a asp-controller="Appearance" asp-action="UploadLogo" class="btn btn-1 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal3">Upload Image
-                                <i class="fa fa-upload"
-                                   aria-hidden="true"></i></a>
-                        </div>
-
-                    </div>
-                </div>
             </div>
         </div>
     </div>

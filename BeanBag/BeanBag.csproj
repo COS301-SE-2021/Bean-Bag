@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>8a950473-ee82-4fd9-805e-d5ce8f33d4ce</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -42,6 +43,8 @@
     <_ContentIncludedByDefault Remove="wwwroot\Files\nasa-Q1p7bh3SHj8-unsplash.jpg" />
     <_ContentIncludedByDefault Remove="wwwroot\Files\radowan-nakif-rehan-cYyqhdbJ9TI-unsplash.jpg" />
     <_ContentIncludedByDefault Remove="Views\TestUpload\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\PDFGenerator\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Profile\UserProfile.cshtml" />
      </ItemGroup>
 
   <ItemGroup>

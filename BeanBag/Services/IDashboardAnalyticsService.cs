@@ -2,6 +2,7 @@
 
 namespace BeanBag.Services
 {
+    // This class is an interface for the Dashboard Analytics service.
     public interface IDashboardAnalyticsService
     {
         public IOrderedQueryable GetRecentItems(string id);

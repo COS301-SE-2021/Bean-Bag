@@ -16,8 +16,7 @@ namespace BeanBag.Services
         {
             _tenantDb = context;
         }
-        
-        
+
         //Tenant functions
         //Get tenant id from user's object id
         public string GetUserTenantId(string userId)
