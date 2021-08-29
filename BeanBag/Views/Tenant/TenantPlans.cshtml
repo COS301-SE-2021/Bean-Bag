@@ -1,8 +1,7 @@
 ﻿@using BeanBag.Services
-
 @inject TenantService _tenantService
 @{
-    var tenantList = _tenantService.GetTenantList();
+   
     Layout = null;
 }
 <!doctype html>
@@ -48,7 +47,7 @@
 		<div class="navbar-nav ml-auto  pt-1" >
 			<li class="nav-item">
 				
-				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="Index">
+				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Tenant" asp-action="Index">
                 					Tenants</a>
 
 			
@@ -143,11 +142,11 @@
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item"><img  width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png"/> Cras justo odio</li>
-            <li class="list-group-item"><img  width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png"/> Dapibus ac facilisis in</li>
-            <li class="list-group-item"><img  width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png"/> Vestibulum at eros</li>
+            <li class="list-group-item"><img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> Cras justo odio</li>
+            <li class="list-group-item"><img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> Dapibus ac facilisis in</li>
+            <li class="list-group-item"><img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> Vestibulum at eros</li>
            <li class="list-group-item">
-                      <img  width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png"/> Vestibulum at eros</li> </ul>
+	           <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> Vestibulum at eros</li> </ul>
 	        <div class="card-body text-center ml-auto">
 		     	<a class="btn btn-outline-light shadow-sm bg-body create rounded colors" data-toggle="modal" data-target="#exampleModal2">Select</a> 
 
@@ -185,8 +184,20 @@
                     
 			<!-- Paypal info -->
 			<div  class="tab-pane  pt-3">
-				<p> <a type="button" class="btn btn-outline-light shadow-sm bg-body create rounded colors"> Proceed to payment</a> </p>
-            				<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
+				<!--Pay-fast checkout-->
+                				<form action="https://sandbox.payfast.co.za/eng/process" method="post">
+                                   <input type="hidden" name="merchant_id" value="10023747">
+                                   <input type="hidden" name="merchant_key" value="jiuejttejgq04">
+                                   <input type="hidden" name="return_url" value="https://de55-102-250-1-186.ngrok.io/Payment/SuccessPayment">
+                                   <input type="hidden" name="cancel_url" value="https://de55-102-250-1-186.ngrok.io/Payment/CancelPayment">
+                                   <input type="hidden" name="notify_url" value="https://de55-102-250-1-186.ngrok.io/Payment/NotifyPayment">
+                
+                                   <input type="hidden" name="amount" value="500.00">
+                                   <input type="hidden" name="item_name" value="Standard BeanBag Account">
+                                   <input type="submit" class="btn btn-outline-light shadow-sm bg-body create rounded colors" value="Proceed to payment"/> 
+                                   			
+                                </form>
+				<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
 			</div> <!-- End -->
                    
 			</div>

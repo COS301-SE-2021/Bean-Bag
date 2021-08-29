@@ -9,5 +9,10 @@ namespace BeanBag.Controllers
         {
             return View();
         }
+
+        public IActionResult Billing()
+        {
+            return View();
+        }
     }
 }

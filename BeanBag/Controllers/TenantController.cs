@@ -11,14 +11,14 @@ namespace BeanBag.Controllers
 {
     /* This controller is used to send and retrieve data to the account
     view using tenant service and inventory service functions. */
-    public class AccountController : Controller
+    public class TenantController : Controller
     {
         // Global variables needed for calling the service classes.
         private readonly TenantService _tenantService;
         private readonly IInventoryService _inventory;
 
         // Constructor.
-        public AccountController(TenantService tenantService, IInventoryService inventory)
+        public TenantController(TenantService tenantService, IInventoryService inventory)
         {
             _tenantService = tenantService;
             _inventory = inventory;
@@ -156,15 +156,10 @@ namespace BeanBag.Controllers
         }
 
         // This function returns the subscription page 
-        public IActionResult PaymentSubscription()
+        public IActionResult TenantPlans()
         {
             return View();
         }
-        
-        // This function returns the payment processing page 
-        public IActionResult ProcessPayment()
-        {
-            return View();
-        }
+     
     }
 }

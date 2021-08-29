@@ -3,7 +3,6 @@
 
 @inject TenantService _tenantService
 @{
-	var tenantList = _tenantService.GetTenantList();
 	Layout = null;
 }
 @model Pagination
@@ -46,7 +45,7 @@
 		<div class="navbar-nav ml-auto  pt-2" >
 			<li class="nav-item">
 				
-				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="PaymentSubscription">
+				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Tenant" asp-action="TenantPlans">
                 					Pricing Plans</a>
 
 			
@@ -84,7 +83,7 @@
 <br>
         
 	<div class="text-center">
-		<a asp-controller="Account" asp-action="CreateTenant" class="btn btn-outline-light shadow-sm bg-body create rounded colors" data-toggle="modal" data-target="#exampleModal">New Tenant &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a> 
+		<a asp-controller="Tenant" asp-action="CreateTenant" class="btn btn-outline-light shadow-sm bg-body create rounded colors" data-toggle="modal" data-target="#exampleModal">New Tenant &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a> 
 	</div>
 		
 
@@ -101,14 +100,14 @@
 					 <div class="card card-custom bg-white border-white border-0">
 						 <div class="card-custom-img" ></div>
 						 <div class="card-custom-avatar">
-							 <img class="img-fluid" src=@models.TenantLogo />
+							 <img class="img-fluid" src=@models.TenantLogo alt=""/>
 						 </div>
 						 <div class="card-body" style="overflow-y: auto">
 							 <h4 class="card-title">@models.TenantName</h4>
 							 <p class="card-text">Add some tenant details here like email company address stuff like that area.</p>
 						 </div>
 						 <div class="card-footer ml-auto" style="background: inherit; border-color: inherit;">
-							 <a href="@Url.Action("SelectTenant", "Account", new {tenant= @models.TenantName})" data-id="@models.TenantName "
+							 <a href="@Url.Action("SelectTenant", "Tenant", new {tenant= @models.TenantName})" data-id="@models.TenantName "
 							    class="btn ml-auto btn-light text-right rounded-circle">
 								  <img src="https://img.icons8.com/cotton/64/000000/login-rounded-right--v1.png" alt="login" width="30"/>
 
