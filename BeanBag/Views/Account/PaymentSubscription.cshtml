@@ -157,6 +157,9 @@
     </div>    
   </div></div>
 
+<!--Payment testing stuff-->
+
+
 </body>
 </html>
 
@@ -212,8 +215,21 @@
                     
 			<!-- Paypal info -->
 			<div id="paypal" class="tab-pane  pt-3">
-			
-				<p> <a type="button" class="btn btn-outline-light shadow-sm bg-body create rounded colors"> Proceed to payment</a> </p>
+				
+				<!--Pay-fast checkout-->
+				<form action="https://sandbox.payfast.co.za/eng/process" method="post">
+                   <input type="hidden" name="merchant_id" value="10023747">
+                   <input type="hidden" name="merchant_key" value="jiuejttejgq04">
+                   <input type="hidden" name="return_url" value="https://www.example.com/success">
+                   <input type="hidden" name="cancel_url" value="https://www.example.com/cancel">
+                   <input type="hidden" name="notify_url" value="https://www.example.com/notify">
+
+                   <input type="hidden" name="amount" value="1000.00">
+                   <input type="hidden" name="item_name" value="Premium BeanBag Account">
+                   <input type="submit" class="btn btn-outline-light shadow-sm bg-body create rounded colors" value="Proceed to payment"/> 
+                   			
+                </form>
+				
 				<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
 			</div> <!-- End -->
                    
