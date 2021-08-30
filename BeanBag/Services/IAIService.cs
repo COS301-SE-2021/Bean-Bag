@@ -7,7 +7,7 @@ namespace BeanBag.Services
 {
     public interface IAIService
     {
-        public string predict(Guid projectId, string iterationName, string imageURL);
+        public List<AIPrediction> predict(Guid projectId, string iterationName, string imageURL);
 
         public Task<Guid> createProject(string projectName);
 

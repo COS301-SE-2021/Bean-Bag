@@ -67,15 +67,16 @@ namespace BeanBag.Controllers
         {
             AIModelVersions iteration = _aIService.getIteration(Guid.Parse(predictionModelId));
             string imageUrl = await _blobStorageService.uploadItemImage(file);
-            string prediction = _aIService.predict(iteration.projectId, iteration.iterationName, imageUrl);
+            ViewBag.listPredictions = _aIService.predict(iteration.projectId, iteration.iterationName, imageUrl);
 
-            return LocalRedirect("/Item/Create?imageUrl="+ imageUrl + "&itemType="+ prediction);
+
+            return LocalRedirect("/Item/Create?imageUrl="+ imageUrl);
         }
 
         /* This function is the GET method for creating an item and returns Create View.
            The create page needs to accept an imageURL and item type
            This method is only called once the image of the item is uploaded */
-        public IActionResult Create(string imageUrl, string itemType)
+        public IActionResult Create(string imageUrl)
         {
             // This creates a list of the different inventories available to put the item into
 
@@ -92,7 +93,6 @@ namespace BeanBag.Controllers
             // itemType from the imageUpload POST method
 
             ViewBag.InventoryDropDown = inventoryDropDown;
-            ViewBag.itemType = itemType;
             ViewBag.imageUrl = imageUrl;
 
             return View();

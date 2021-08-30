@@ -43,7 +43,7 @@ namespace BeanBag.Services
         }
 
         // This method is used to return the tags (item type) from a specified model for an item image 
-        public string predict(Guid projectId, string iterationName, string imageURL)
+        public List<AIPrediction> predict(Guid projectId, string iterationName, string imageURL)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project Id is null");
@@ -66,20 +66,23 @@ namespace BeanBag.Services
                 var result = predictionClient.ClassifyImageUrl(projectId, iterationName,
                 new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(imageURL));
 
-                string itemType = "";
+                List<AIPrediction> listPred = new List<AIPrediction>();
 
                 foreach (var prediction in result.Predictions)
                 {
-                    // The probability needs to be above 90% to be deemed accurate by the model
-                    //if (prediction.Probability > 0.9)
-                    itemType += prediction.TagName + ",";
-
+                    if (prediction.Probability > 0.75)
+                    {
+                        listPred.Add(new AIPrediction
+                        {
+                            tagName = prediction.TagName,
+                            percentage = prediction.Probability * 100
+                        });
+                    }
+                    
+                    
                 }
 
-                if (itemType.Length > 0)
-                    itemType = itemType.Remove(itemType.Length - 1, 1);
-
-                return itemType;
+                return listPred;
             }
             catch(Exception e)
             {
