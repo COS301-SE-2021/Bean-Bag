@@ -311,5 +311,31 @@ namespace BeanBag.Services
 
             return _tenantDb.TenantUser.Find(userId) != null;
         }
+        
+        /* Returns a list of the users belonging to a specific tenant */
+        public IEnumerable<TenantUser> GetUserList(string userId)
+        {
+            if (userId == null)
+            {
+                throw new Exception("User id is null");
+            }
+
+            var tenantId = GetUserTenantId(userId);
+
+            if (tenantId == null)
+            {
+                throw new Exception("Tenant id is null");
+            }
+
+            var users = from user
+                    in _tenantDb.TenantUser
+                where user.UserTenantId.Equals(tenantId)
+                select user;
+
+            var userList = users.ToList();
+
+            return userList;
+
+        }
     }
 }
