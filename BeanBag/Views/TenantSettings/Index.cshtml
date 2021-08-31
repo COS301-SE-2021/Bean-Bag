@@ -10,8 +10,7 @@
 @{
     ViewBag.Title = "TenantUser";
 }
-@using X.PagedList.Mvc.Core
-@using X.PagedList.Web.Common
+
 @{int i = 1;}
 
 <link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
@@ -70,7 +69,8 @@
         
         
         <div class="row">
-            
+            <br>
+            <hr>
             <!--Search-->
             <div class="col-3 ml-auto ">
                 @using (Html.BeginForm())
@@ -83,17 +83,17 @@
                                    aria-hidden="true"></i></button>
                         </div>
                     </div>
-                }                                                                                                                                                                                                     
+                }
             </div>
-            
+
             <!--Table with bootstrap class .table and .table-condensed-->
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <br>
-                <div class="card shadow  mb-4 bg-body rounded" >
+                <div class="card shadow  mb-4 bg-body rounded">
                     <h5 class="card-header">Users
                     </h5>
-                    
-                    <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
+
+                    <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
                         <div>
                             @if (Model.PagedListTenantUsers.Any())
                             {
@@ -102,7 +102,7 @@
                                     <th>#</th>
                                     <th>User</th>
                                     </thead>
-                                    
+
                                     <tbody>
                                     @foreach (var user in Model.PagedListTenantUsers)
                                     {
@@ -117,7 +117,8 @@
                                 </table>
                             }
                             else
-                            {<p>No Users</p>}
+                            {
+                                <p>No Users</p>}
                         </div>
                     </div>
                 </div>
