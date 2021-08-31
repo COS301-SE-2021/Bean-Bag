@@ -58,6 +58,11 @@
                             @if (Model.PagedListTenantUsers.Any())
                             {
                                 <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <th>#</th>
+                                    <th>User</th>
+                                    </thead>
+                                    
                                     <tbody>
                                     @foreach (var user in Model.PagedListTenantUsers)
                                     {
