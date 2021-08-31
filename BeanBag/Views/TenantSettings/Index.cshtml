@@ -1,6 +1,10 @@
 ﻿@using BeanBag.Services
+@using Microsoft.Identity.Web
 
 @inject TenantService _tenantService
+@{
+    var tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
+}
 
 @model Pagination
 @{
@@ -27,6 +31,42 @@
 <div class="dashboard-wrapper">
     <div class="container-fluid  dashboard-content">
         <hr>
+        
+                    <!--Table with bootstrap class .table and .table-condensed-->
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <br>
+                        <div class="card shadow  mb-4 bg-body rounded" >
+                            <h5 class="card-header">Tenant details
+                            </h5>
+                            
+                            <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
+                                <div>
+                                    @if (tenant != null)
+                                    {
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                            <th>Name</th>
+                                            <th>Address</th>
+                                            <th>Number</th>
+                                            <th>Email</th>
+                                            <th>Subscription</th>
+                                            </thead>
+                                            
+                                            <tbody>
+                                            <tr>
+                                                <td>@tenant.TenantName</td>
+                                                <td>@tenant.TenantAddress</td>
+                                                <td>@tenant.TenantNumber</td>
+                                                <td>@tenant.TenantEmail</td>
+                                                <td>@tenant.TenantSubscription</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
         
         
         <div class="row">
