@@ -8,6 +8,7 @@ namespace BeanBag.Models
         [Key]
         public Guid projectId { get; set; }
 
+        [Required]
         public string projectName { get; set; }
     }
 }
