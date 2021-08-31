@@ -93,6 +93,21 @@ namespace BeanBag.Services
             return tenantId;
         }
         
+        /* Retrieve the current tenant from the user id */
+        public Tenant GetCurrentTenant(string userId)
+        {
+            if (userId == null)
+            {
+                throw new Exception("User id is null");
+            }
+
+            var tenantId = GetUserTenantId(userId);
+
+            var tenant = _tenantDb.Tenant.Find(tenantId);
+
+            return tenant;
+        }
+        
         /* Sets the theme of the tenant */
         public bool SetTenantTheme(string userId, string theme)
         {

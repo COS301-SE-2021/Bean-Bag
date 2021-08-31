@@ -9,6 +9,7 @@ namespace BeanBag.Services
         public string GetTenantName(string tenantId);
         public string GetUserTenantId(string userId);
         public string GetTenantId(string tenantName);
+        public Tenant GetCurrentTenant(string userId);
         public string GetTenantTheme(string userId);
         public bool SetTenantTheme(string userId, string theme);
         public bool CreateNewTenant(string tenantName, string address, string email, string number);
@@ -18,7 +19,6 @@ namespace BeanBag.Services
         public string GetLogo(string userId);
         public bool SignUserUp(string userId, string tenantId, string userName);
         public bool SearchUser(string userId);
-
         public IEnumerable<TenantUser> GetUserList(string userId);
 
     }
