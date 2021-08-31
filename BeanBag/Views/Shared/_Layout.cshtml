@@ -147,18 +147,19 @@
               <li>
           
               <li> <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="EditProfile">
-                <svg>
-                  <use xlink:href="#users"></use>
-                </svg>
+                  <svg>
+                    <use xlink:href="#users"></use>
+                  </svg>
                   <span>Profile</span>
-                  </a>
-                </li>
+                </a>
+              </li>
+              
               <li>
-                <a href="">
+                <a asp-area="" asp-controller="TenantSettings" asp-action="Index">
                   <svg>
                     <use xlink:href="#options"></use>
                   </svg>
-                  <span>Settings</span>
+                  <span>Tenant Settings</span>
                 </a>
               </li>
               
