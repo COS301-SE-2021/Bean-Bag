@@ -23,7 +23,7 @@ namespace BeanBag.Controllers
         }
 
         [AllowAnonymous]
-    public IActionResult Index(string sortOrder, string currentFilter, string searchString,
+        public IActionResult Index(string sortOrder, string currentFilter, string searchString,
             int? page,DateTime from, DateTime to)
         {
             if(User.Identity is {IsAuthenticated: true})
@@ -33,7 +33,7 @@ namespace BeanBag.Controllers
              //the paging links in order to keep the sort order the same while paging
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            List<TenantUser> modelList;
+            IEnumerable<TenantUser> modelList;
 
             //ViewBag.CurrentFilter, provides the view with the current filter string.
             //he search string is changed when a value is entered in the text box and the submit button is pressed. In that case, the searchString parameter is not null.
