@@ -1,2 +1,97 @@
-﻿
+﻿@using BeanBag.Services
 
+@inject TenantService _tenantService
+
+@model Pagination
+@{
+    ViewBag.Title = "TenantUser";
+}
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@{int i = 1;}
+
+<link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
+<section class="page-content" xmlns="http://www.w3.org/1999/html">
+    
+    
+<!--header-->
+    <section class="search-and-user">
+    <span class="col-md-1 text-secondary ">Tenant Settings</span>
+        <div class="admin-profile ">
+          
+        </div>
+        </section>
+    
+     
+<!--Wrapper-->
+<div class="dashboard-wrapper">
+    <div class="container-fluid  dashboard-content">
+        <hr>
+        
+        
+        <div class="row">
+            
+            <!--Search-->
+            <div class="col-3 ml-auto ">
+                @using (Html.BeginForm())
+                {
+                    <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                        @Html.TextBox("SearchString", null, new {@class = "form-control  my-0 py-1 red-border", placeholder = "Search"})
+                        <div class="input-group-append">
+                            <button class="input-group-text " value="Search" type="submit" id="basic-text1">
+                                <i class="fas fa-search text-grey"
+                                   aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                }                                                                                                                                                                                                     
+            </div>
+            
+            <!--Table with bootstrap class .table and .table-condensed-->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <br>
+                <div class="card shadow  mb-4 bg-body rounded" >
+                    <h5 class="card-header">Users
+                    </h5>
+                    
+                    <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
+                        <div>
+                            @if (Model.PagedListTenantUsers.Any())
+                            {
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                    @foreach (var user in Model.PagedListTenantUsers)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            @{ i++; }
+                                            <td>@user.UserName</td>
+
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {<p>No Users</p>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+      </div>
+</div>
+
+
+</section>
+
+<!--Scripts-->
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script>
+//Animations
+AOS.init();
+</script>
