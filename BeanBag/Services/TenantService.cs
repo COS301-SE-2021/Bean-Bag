@@ -291,6 +291,13 @@ namespace BeanBag.Services
             return tenant.TenantLogo;
         }
 
+        /* Generate a random GUID code for the tenant */
+        public string GenerateCode()
+        {
+            var code = Guid.NewGuid();
+
+            return code.ToString();
+        }
         
         //User functions
         /* Signs the user up and adds user to the user table in the database */
