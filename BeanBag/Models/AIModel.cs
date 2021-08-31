@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BeanBag.Models
@@ -9,6 +10,7 @@ namespace BeanBag.Models
         public Guid projectId { get; set; }
 
         [Required]
+        [DisplayName("Model Name")]
         public string projectName { get; set; }
     }
 }
