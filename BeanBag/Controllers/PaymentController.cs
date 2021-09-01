@@ -45,7 +45,7 @@ namespace BeanBag.Controllers
             request.Add("COUNTRY", "ZAF");
 
             // get authenticated user's email
-            // use a valid email, pay=gate will send a transaction confirmation to it
+            // use a valid email, pay-gate will send a transaction confirmation to it
             if(User.Identity is {IsAuthenticated: true})
             {
                 request.Add("EMAIL", _paymentService.GetAuthenticatedUser().Email);
