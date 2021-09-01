@@ -11,9 +11,11 @@ namespace BeanBag.Models
 
         public string projectName { get; set; }
 
-        public Guid tenantId { get; set; }
+        //public string description { get; set; }
 
-        [ForeignKey("tenantId")]
-        public virtual Tenant tenant { get; set; }
+        //public Guid tenantId { get; set; }
+
+        //[ForeignKey("tenantId")]
+        //public virtual Tenant tenant { get; set; }
     }
 }

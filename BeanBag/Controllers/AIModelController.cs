@@ -257,15 +257,17 @@ namespace BeanBag.Controllers
         }
 
         // This function allows the user to edit a model by calling the EditModel AI Model service.
-        public IActionResult EditModel()
+        public IActionResult EditModel(Guid projectId, string projectName, string description)
         {
-            throw new NotImplementedException();
+            _aIService.editProject(projectId, projectName, description);
+            return LocalRedirect("/AIModel");
         }
 
         // This function allows the user to delete a model by calling the DeleteModel AI Model service.
-        public IActionResult DeleteModel()
+        public IActionResult DeleteModel(Guid projectId)
         {
-            throw new NotImplementedException();
+            _aIService.deleteProject(projectId);
+            return LocalRedirect("/AIModel");
         }
 
         // This function allows the user to edit a model version by calling the EditVersion AI Model service.
@@ -275,9 +277,10 @@ namespace BeanBag.Controllers
         }
         
         // This function allows the user to delete a model version by calling the DeleteVersion AI Model service.
-        public IActionResult DeleteVersion()
+        public IActionResult DeleteVersion(Guid projectId, Guid iterationId)
         {
-            throw new NotImplementedException();
+            _aIService.deleteIteration(iterationId);
+            return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
         }
     }
 }

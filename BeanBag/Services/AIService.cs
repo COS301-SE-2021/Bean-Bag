@@ -149,6 +149,23 @@ namespace BeanBag.Services
             }
         }
 
+        // This method edits the name of the custom vision project as well as the description of the model. Reflects in the DB
+        public void editProject(Guid projectId, string projectName, string description)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project id is null");
+
+            //Changing the name in custom vision
+            trainingClient.GetProject(projectId).Name = projectName;
+
+            var project = _db.AIModels.Find(projectId);
+
+            project.projectName = projectName;
+            //project.description = description;
+            _db.AIModels.Update(project);
+
+        }
+
         // This method is used to upload a set of test images into the Azure blob storage and then into the custom vision project
         public async void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
         {
