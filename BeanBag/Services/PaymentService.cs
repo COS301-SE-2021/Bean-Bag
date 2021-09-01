@@ -9,19 +9,21 @@ using BeanBag.Models;
 
 namespace BeanBag.Services
 {
+    // This service class is used to handle any data that is related to the payment and transaction process.
+    // This service class main focus is to bridge the the payment controller to the DB and encryption hashing.
     public class PaymentService : IPaymentService
     {
-      //  private readonly TenantDbContext context;
          private readonly TransactionDbContext _transactionDb;
 
          //Constructor sets database context
-         public PaymentService( TransactionDbContext transactionDb)
+         public PaymentService(TransactionDbContext transactionDb)
          {
              _transactionDb = transactionDb;
          }
 
         #region Utilities
-        /** Encode dictionary to Url string */
+        
+        // This function is used to Encode dictionary to Url string 
         public string ToUrlEncodedString(Dictionary<string, string> request)
         {
             StringBuilder builder = new StringBuilder();
@@ -39,7 +41,7 @@ namespace BeanBag.Services
             return result;
         }
 
-        /** Convert query string to dictionary */
+        // This function converts a query string to dictionary 
         public Dictionary<string, string> ToDictionary(string response)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
@@ -59,6 +61,7 @@ namespace BeanBag.Services
         // Adapted from
         // https://msdn.microsoft.com/en-us/library/system.security.cryptography.md5(v=vs.110).aspx
 
+        // This function computes a hashcode, this is for security purposes
         public string GetMd5Hash(Dictionary<string, string> data, string encryptionKey)
         {
             using MD5 md5Hash = MD5.Create();
@@ -81,6 +84,7 @@ namespace BeanBag.Services
             return sBuilder.ToString();
         }
 
+        // This function verifies that the encryption hashing took place 
         public bool VerifyMd5Hash(Dictionary<string, string> data, string encryptionKey, string hash)
         {
             Dictionary<string, string> hashDict = new Dictionary<string, string>();
@@ -106,11 +110,12 @@ namespace BeanBag.Services
                 return false;
             }
         }
-
         #endregion MD5 Hash
 
         
         #region Transactions 
+        
+        // This function adds a transaction to the transaction DB 
         public bool AddTransaction(Dictionary<string, string> request, string payRequestId)
         {
             try
@@ -141,6 +146,7 @@ namespace BeanBag.Services
 
         }
 
+        //This function updates a transaction in the transaction DB 
         public bool UpdateTransaction(Dictionary<string, string> request, string payRequestId)
         {
             bool isUpdated = false;
@@ -165,8 +171,6 @@ namespace BeanBag.Services
         }
 
         #endregion Transaction
-
-     
-    
+        
     }
 }
