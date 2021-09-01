@@ -7,25 +7,47 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap CSS -->
+	<!-- Bootstrap CSS -->
 
 	<link rel = "icon" href ="https://img.icons8.com/ios/50/ffffff/circled-b.png" type = "image/x-icon">
-  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
   
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-  <link rel="stylesheet" href="~/css/dashboard.css" />
-  <link rel="stylesheet" href="~/css/tenant.css" />
+	<link rel="stylesheet" href="~/css/dashboard.css" />
+	<link rel="stylesheet" href="~/css/tenant.css" />
   
-  <title> Pricing </title>
+	<title> Pricing </title>
 
 </head>
+
+
+<style>
+    .hidden {
+        display: none;
+    }
+
+    li {
+        font-size: 18px;
+        list-style-type: none;
+    }
+
+    #results {
+        display: block;
+        text-align: center;
+    }
+
+    #paygate {
+        display: none;
+    }
+</style>
+
 <!--Nav-->
 <nav class="navbar navbar-expand-md navbar-light">
 	<a href="#" class="navbar-brand">Bean Bag</a>
@@ -177,41 +199,26 @@
 			</div>
 			<div class="p-3">
 			<div >
-	<h6 class="pb-4">Standard</h6>
+	<h6 class="pb-4 pl-1">Standard Plan</h6>
               
-				<img width="150" class="pl-1 pb-2" src="~/images/payfastlogo.png" alt=""/>
+				<img width="150" class="pb-2" src="~/images/payfastlogo.png" alt=""/>
 			</div> <!-- End -->
                     
 			<!-- Paypal info -->
 			<div  class="tab-pane  pt-3">
 				<!--Pay-fast checkout-->
 				
-					<button id="btn-pay" class="btn btn-outline-light shadow-sm bg-body create rounded colors" > 
-						Proceed to payment 
-						</button>
-				
-				<!--Paygate form -->
-                				<div class="hidden">
-                					<form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
-                						<input id="PAY_REQUEST_ID" name="PAY_REQUEST_ID" type="hidden"/>
-                						<input id="CHECKSUM" name="CHECKSUM" type="hidden"/>
-                						<input id="REDIRECT" type="submit"/>
-                					</form></div>
-				
-				<!--
-				Payfast payment -- being switched out for paygate 
-				<form action="https://sandbox.payfast.co.za/eng/process" method="post">
-                                   <input type="hidden" name="merchant_id" value="10023747">
-                                   <input type="hidden" name="merchant_key" value="jiuejttejgq04">
-                                   <input type="hidden" name="return_url" value="https://de55-102-250-1-186.ngrok.io/Payment/SuccessPayment">
-                                   <input type="hidden" name="cancel_url" value="https://de55-102-250-1-186.ngrok.io/Payment/CancelPayment">
-                                   <input type="hidden" name="notify_url" value="https://de55-102-250-1-186.ngrok.io/Payment/NotifyPayment">
-                
-                                   <input type="hidden" name="amount" value="500.00">
-                                   <input type="hidden" name="item_name" value="Standard BeanBag Account">
-                                   <input type="submit" class="btn btn-outline-light shadow-sm bg-body create rounded colors" value="Proceed to payment"/> 
-                                   			
-                                </form>-->
+			  <button class="btn btn-outline-light shadow-sm bg-body create rounded colors"  id="btn-pay" >Proceed to payment</button> 
+				<ul class="text-info pb-2" id="results"></ul>
+                                    
+                                <div class="hidden">
+                                    <form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
+                                        <input id="PAY_REQUEST_ID" name="PAY_REQUEST_ID" type="hidden" />
+                                        <input id="CHECKSUM" name="CHECKSUM" type="hidden" />
+                                        <input id="REDIRECT" type="submit" />
+                                    </form>
+                                </div>
+
 				<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
 			</div> <!-- End -->
                    
@@ -234,41 +241,24 @@
 			</div>
 			<div class="p-3">
 				<div >
-						<h6 class="pb-4">Premium</h6>
+						<h6 class="pb-4 pl-1">Premium Plan</h6>
 				<!-- Credit card form tabs -->
-				<img width="150" class="pl-1 pb-2" src="~/images/payfastlogo.png" alt=""/>
+				<img width="150" class=" pb-2" src="~/images/payfastlogo.png" alt=""/>
             				</div> <!-- End -->
                     
 			<!-- Paypal info -->
 			<div id="paypal" class="tab-pane  pt-3">
 				
-				<button id="btn-pay" class="btn btn-outline-light shadow-sm bg-body create rounded colors" > 
-                           Proceed to payment     				
-				</button>
+        <button class="btn btn-outline-light shadow-sm bg-body create rounded colors"  id="btn-pay2" >Proceed to payment</button> 
+			  <ul class="text-info pb-2" id="results2"></ul>
+                    <div class="hidden">
+                        <form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
+                            <input id="PAY_REQUEST_ID2" name="PAY_REQUEST_ID" type="hidden" />
+                            <input id="CHECKSUM2" name="CHECKSUM" type="hidden" />
+                            <input id="REDIRECT2" type="submit" />
+                        </form>
+                    </div>
 				
-				<!--Paygate form -->
-				<div class="hidden">
-					<form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
-						<input id="PAY_REQUEST_ID" name="PAY_REQUEST_ID" type="hidden"/>
-						<input id="CHECKSUM" name="CHECKSUM" type="hidden"/>
-						<input id="REDIRECT" type="submit"/>
-					</form>
-					</div>
-				
-			
-				<!--
-				Payfast payment -- being switched out for paygate 
-				<form action="https://sandbox.payfast.co.za/eng/process" method="post">
-					<input type="hidden" name="merchant_id" value="10023747">
-					<input type="hidden" name="merchant_key" value="jiuejttejgq04">
-					<input type="hidden" name="return_url" value="https://de55-102-250-1-186.ngrok.io/Payment/SuccessPayment">
-					<input type="hidden" name="cancel_url" value="https://de55-102-250-1-186.ngrok.io/Payment/CancelPayment">
-					<input type="hidden" name="notify_url" value="https://de55-102-250-1-186.ngrok.io/Payment/NotifyPayment">
-					
-					<input type="hidden" name="amount" value="1000.00">
-					<input type="hidden" name="item_name" value="Premium BeanBag Account">
-					<input type="submit" class="btn btn-outline-light shadow-sm bg-body create rounded colors" value="Proceed to payment"/> 
-				</form>-->
 				
 				<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
 			</div> <!-- End -->
@@ -282,17 +272,22 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
+
+//For standard payment - Get Request
     $('#btn-pay').on('click', function () {
         let node = document.createElement("li");
         node.innerText = "Processing...";
         document.querySelector("#results").appendChild(node);
 
-        $.get(`/pay/getrequest`)
+        $.get(`/payment/getrequest`)
             .done(data => success(data))
             .fail(err => error(err));
     });
-
+    
+    
+    
     function success(data) {
         let requestNode = document.createElement("li");
         requestNode.innerText = "Request retrieved";
@@ -318,5 +313,45 @@
         node.innerText = data;
         document.querySelector("#results").appendChild(node);
     }
+    
+    
+//For premium payment - Get Request
+    $('#btn-pay2').on('click', function () {
+        let node = document.createElement("li");
+        node.innerText = "Processing...";
+        document.querySelector("#results").appendChild(node);
+
+        $.get(`/payment/getrequest`)
+            .done(data => success2(data))
+            .fail(err => error(err));
+    });
+    
+     function success2(data) {
+            let requestNode = document.createElement("li");
+            requestNode.innerText = "Request retrieved";
+            document.querySelector("#results2").appendChild(requestNode);
+    
+            requestNode.innerText = data.message;
+            if (data.success) {
+                $("#PAY_REQUEST_ID2").val(data.results.PAY_REQUEST_ID);
+                $("#CHECKSUM2").val(data.results.CHECKSUM);
+    
+    
+                let redirectNode = document.createElement("li");
+                redirectNode.innerText = "Redirecting...";
+                document.querySelector("#results2").appendChild(redirectNode);
+    
+                document.querySelector("#REDIRECT2").click();
+            }
+        }
+        
+       
+    function error2(data) {
+        console.log("Error");
+        let node = document.createElement("li");
+        node.innerText = data;
+        document.querySelector("#results2").appendChild(node);
+    }
+     
 </script>
 
