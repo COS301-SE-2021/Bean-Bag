@@ -12,11 +12,18 @@ namespace BeanBag.Controllers
 {
     public class PaymentController : Controller
     {
-        private readonly IPaymentService paymentService;
+        private readonly IPaymentService _paymentService;
         
         //For testing purposes, an actual merchant would require the actual Pay-gate key and ID 
-        readonly string PayGateID = "10011072130";
-        readonly string _payGateKey = "secret";
+        private const string PayGateId = "10011072130";
+        private const string PayGateKey = "secret";
+
+        //Constructor
+        public PaymentController(IPaymentService paymentService)
+        {
+            _paymentService = paymentService;
+        }
+
         public async Task<JsonResult> GetRequest()
         {
             HttpClient http = new HttpClient();
@@ -27,9 +34,9 @@ namespace BeanBag.Controllers
             
             string paymentAmount = (50 * 100).ToString("00"); // amount int cents e.i 50 rands is 5000 cents
 
-            request.Add("PAYGATE_ID", "10011072130");
-            request.Add("REFERENCE", "pgtest_"); // Payment ref e.g ORDER NUMBER
-            request.Add("AMOUNT", "5000");
+            request.Add("PAYGATE_ID", PayGateId);
+            request.Add("REFERENCE", "Beanbag Standard Order"); // Payment ref e.g ORDER NUMBER
+            request.Add("AMOUNT", paymentAmount);
             request.Add("CURRENCY", "ZAR"); // South Africa
             //return URL needs to be secure, determine this url once the 
             request.Add("RETURN_URL", "https://6cdc-102-250-1-245.ngrok.io");
@@ -39,13 +46,18 @@ namespace BeanBag.Controllers
 
             // get authenticated user's email
             // use a valid email, pay=gate will send a transaction confirmation to it
-          
-            // put your own email address for the payment confirmation (dev only)
-            request.Add("EMAIL", "chrafnadax@gmail.com");
+            if(User.Identity is {IsAuthenticated: true})
+            {
+                request.Add("EMAIL", _paymentService.GetAuthenticatedUser().Email);
+            } else
+            {
+                // put your own email address for the payment confirmation (dev only)
+                request.Add("EMAIL", "chrafnadax@gmail.com>");
+            }
             
-            request.Add("CHECKSUM", paymentService.GetMd5Hash(request, _payGateKey));
+            request.Add("CHECKSUM", _paymentService.GetMd5Hash(request, PayGateKey));
 
-            string requestString = paymentService.ToUrlEncodedString(request);
+            string requestString = _paymentService.ToUrlEncodedString(request);
             StringContent content = new StringContent(requestString, Encoding.UTF8, "application/x-www-form-urlencoded");
             HttpResponseMessage response = await http.PostAsync("https://secure.paygate.co.za/payweb3/initiate.trans", content);
 
@@ -54,7 +66,7 @@ namespace BeanBag.Controllers
 
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            Dictionary<string, string> results = paymentService.ToDictionary(responseContent);
+            Dictionary<string, string> results = _paymentService.ToDictionary(responseContent);
 
             if (results.Keys.Contains("ERROR"))
             {
@@ -65,7 +77,7 @@ namespace BeanBag.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            if (!paymentService.VerifyMd5Hash(results, _payGateKey, results["CHECKSUM"]))
+            if (!_paymentService.VerifyMd5Hash(results, PayGateKey, results["CHECKSUM"]))
             {
                 return Json(new
                 {
@@ -74,8 +86,8 @@ namespace BeanBag.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            bool IsRecorded = paymentService.AddTransaction(request, results["PAY_REQUEST_ID"]);
-            if (IsRecorded)
+            bool isRecorded = _paymentService.AddTransaction(request, results["PAY_REQUEST_ID"]);
+            if (isRecorded)
             {
                 return Json(new
                 {
@@ -109,12 +121,12 @@ namespace BeanBag.Controllers
 
             // Reorder attributes for MD5 check
             Dictionary<string, string> validationSet = new Dictionary<string, string>();
-            validationSet.Add("PAYGATE_ID", PayGateID);
+            validationSet.Add("PAYGATE_ID", PayGateId);
             validationSet.Add("PAY_REQUEST_ID", results["PAY_REQUEST_ID"]);
             validationSet.Add("TRANSACTION_STATUS", results["TRANSACTION_STATUS"]);
             validationSet.Add("REFERENCE", transaction.REFERENCE);
 
-            if (!paymentService.VerifyMd5Hash(validationSet, _payGateKey, results["CHECKSUM"]))
+            if (!_paymentService.VerifyMd5Hash(validationSet, PayGateKey, results["CHECKSUM"]))
             {
                 // checksum error
                 return RedirectToAction("Failed");
@@ -142,18 +154,18 @@ namespace BeanBag.Controllers
             return RedirectToAction("Complete", new { id = results["TRANSACTION_STATUS"] });
         }
 
-        private async Task VerifyTransaction(string responseContent, string referrence)
+        private async Task VerifyTransaction(string responseContents, string reference)
         {
             HttpClient client = new HttpClient();
-            Dictionary<string, string> response = paymentService.ToDictionary(responseContent);
+            Dictionary<string, string> response = _paymentService.ToDictionary(responseContents);
             Dictionary<string, string> request = new Dictionary<string, string>();
 
-            request.Add("PAYGATE_ID", PayGateID);
+            request.Add("PAYGATE_ID", PayGateId);
             request.Add("PAY_REQUEST_ID", response["PAY_REQUEST_ID"]);
-            request.Add("REFERENCE", referrence);
-            request.Add("CHECKSUM", paymentService.GetMd5Hash(request, _payGateKey));
+            request.Add("REFERENCE", reference);
+            request.Add("CHECKSUM", _paymentService.GetMd5Hash(request, PayGateKey));
 
-            string requestString = paymentService.ToUrlEncodedString(request);
+            string requestString = _paymentService.ToUrlEncodedString(request);
 
             StringContent content = new StringContent(requestString, Encoding.UTF8, "application/x-www-form-urlencoded");
 
@@ -161,12 +173,12 @@ namespace BeanBag.Controllers
             HttpResponseMessage res = await client.PostAsync("https://secure.paygate.co.za/payweb3/query.trans", content);
             res.EnsureSuccessStatusCode();
 
-            string _responseContent = await res.Content.ReadAsStringAsync();
+            string responseContent = await res.Content.ReadAsStringAsync();
 
-            Dictionary<string, string> results = paymentService.ToDictionary(_responseContent);
+            Dictionary<string, string> results = _paymentService.ToDictionary(responseContent);
             if (!results.Keys.Contains("ERROR"))
             {
-                paymentService.UpdateTransaction(results, results["PAY_REQUEST_ID"]);
+                _paymentService.UpdateTransaction(results, results["PAY_REQUEST_ID"]);
             }
 
         }
