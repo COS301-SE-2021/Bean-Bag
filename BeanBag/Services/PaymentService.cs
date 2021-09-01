@@ -13,13 +13,13 @@ namespace BeanBag.Services
     // This service class main focus is to bridge the the payment controller to payment service functions.
     public class PaymentService : IPaymentService
     {
-         private readonly TransactionDbContext _transactionDb;
+        // private readonly TransactionDbContext _transactionDb;
 
          //Constructor sets database context
-         public PaymentService(TransactionDbContext transactionDb)
+       /*  public PaymentService(TransactionDbContext transactionDb)
          {
              _transactionDb = transactionDb;
-         }
+         }*/
 
         #region Utilities
         
@@ -116,7 +116,7 @@ namespace BeanBag.Services
         #region Transactions 
         
         // This function adds a transaction to the transaction DB 
-        public bool AddTransaction(Dictionary<string, string> request, string payRequestId)
+      /*  public bool AddTransaction(Dictionary<string, string> request, string payRequestId)
         {
             try
             {
@@ -168,7 +168,7 @@ namespace BeanBag.Services
             }
 
             return isUpdated;
-        }
+        }*/
 
         #endregion Transaction
         
