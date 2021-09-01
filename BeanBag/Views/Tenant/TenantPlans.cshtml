@@ -34,15 +34,8 @@
     }
 
     li {
-        font-size: 18px;
         list-style-type: none;
     }
-
-    #results {
-        display: block;
-        text-align: center;
-    }
-
     #paygate {
         display: none;
     }
@@ -198,31 +191,35 @@
 				</button>
 			</div>
 			<div class="p-3">
-			<div >
-	<h6 class="pb-4 pl-1">Standard Plan</h6>
+				<div >
+					<h6 class="pb-4 pl-1">Standard Plan</h6>
               
-				<img width="150" class="pb-2" src="~/images/payfastlogo.png" alt=""/>
-			</div> <!-- End -->
+					<img width="150" class="pb-2" src="~/images/payfastlogo.png" alt=""/>
+				</div> <!-- End -->
                     
-			<!-- Paypal info -->
-			<div  class="tab-pane  pt-3">
-				<!--Pay-fast checkout-->
+				<!-- Paypal info -->
+				<div  class="tab-pane  pt-3">
+					<!--Pay-fast checkout-->
 				
-			  <button class="btn btn-outline-light shadow-sm bg-body create rounded colors"  id="btn-pay" >Proceed to payment</button> 
-				<ul class="text-info pb-2" id="results"></ul>
+					<button class="btn btn-outline-light shadow-sm bg-body create rounded colors pb-2"  id="btn-pay" >Proceed to payment</button> 
+				
+					<ul class="text-info pt-1 " id="results"></ul>
                                     
-                                <div class="hidden">
-                                    <form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
-                                        <input id="PAY_REQUEST_ID" name="PAY_REQUEST_ID" type="hidden" />
-                                        <input id="CHECKSUM" name="CHECKSUM" type="hidden" />
-                                        <input id="REDIRECT" type="submit" />
-                                    </form>
-                                </div>
+					<div class="hidden">
+						<form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
+							<input id="PAY_REQUEST_ID" name="PAY_REQUEST_ID" type="hidden" />
+							<input id="CHECKSUM" name="CHECKSUM" type="hidden" />
+							<input id="REDIRECT" type="submit" />
+						</form>
+					</div>
 
-				<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
-			</div> <!-- End -->
-                   
+				</div> <!-- End -->
+						<DIV class="pt-1">
+                            					<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
+                            				</DIV>   		  
 			</div>
+			
+	
 		</div>
 		</div>
 </div>
@@ -241,34 +238,38 @@
 			</div>
 			<div class="p-3">
 				<div >
-						<h6 class="pb-4 pl-1">Premium Plan</h6>
-				<!-- Credit card form tabs -->
-				<img width="150" class=" pb-2" src="~/images/payfastlogo.png" alt=""/>
-            				</div> <!-- End -->
-                    
-			<!-- Paypal info -->
-			<div id="paypal" class="tab-pane  pt-3">
+					<h6 class="pb-4 pl-1">Premium Plan</h6>
+					<!-- Credit card form tabs -->
+					<img width="150" class=" pb-2" src="~/images/payfastlogo.png" alt=""/>
+				</div> <!-- End -->
+				<!-- Paypal info -->
+				<div  class="tab-pane  pt-3">
+					<!--Pay-fast checkout-->
+        				
+					<button class="btn btn-outline-light shadow-sm bg-body create rounded colors pb-2"  id="btn-pay2" >Proceed to payment</button> 
+        				
+					<ul class="text-info pt-1" id="results2"></ul>
+                                            
+					<div class="hidden">
+						<form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
+							<input id="PAY_REQUEST_ID2" name="PAY_REQUEST_ID" type="hidden" />
+							<input id="CHECKSUM2" name="CHECKSUM" type="hidden" />
+							<input id="REDIRECT2" type="submit" />
+						</form>
+					</div>
+        
+	   
+				</div>
+	        	<DIV class="pt-1">
+                        					<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
+                        				</DIV> 
 				
-        <button class="btn btn-outline-light shadow-sm bg-body create rounded colors"  id="btn-pay2" >Proceed to payment</button> 
-			  <ul class="text-info pb-2" id="results2"></ul>
-                    <div class="hidden">
-                        <form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
-                            <input id="PAY_REQUEST_ID2" name="PAY_REQUEST_ID" type="hidden" />
-                            <input id="CHECKSUM2" name="CHECKSUM" type="hidden" />
-                            <input id="REDIRECT2" type="submit" />
-                        </form>
-                    </div>
-				
-				
-				<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
-			</div> <!-- End -->
-                   
-			</div>
+			</div>	
+		
 		</div>
-		</div>
-</div>
 
-
+	</div>
+	
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
@@ -319,7 +320,7 @@
     $('#btn-pay2').on('click', function () {
         let node = document.createElement("li");
         node.innerText = "Processing...";
-        document.querySelector("#results").appendChild(node);
+        document.querySelector("#results2").appendChild(node);
 
         $.get(`/payment/getrequest`)
             .done(data => success2(data))
@@ -353,5 +354,5 @@
         document.querySelector("#results2").appendChild(node);
     }
      
-</script>
+</script></div>
 
