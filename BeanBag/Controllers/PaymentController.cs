@@ -21,27 +21,34 @@ namespace BeanBag.Controllers
             _payment = payment;
         }
 
+        // This function is the get request for the payment gateway and will accept the payment amount
         public async Task<IActionResult> GetRequest()
         {
             HttpClient http = new HttpClient();
-            Dictionary<string, string> request = new Dictionary<string, string>();
-            string paymentAmount = (50 * 100).ToString("00"); // amount int cents e.i 50 rands is 5000 cents
+            Dictionary<string, string> request = new Dictionary<string, string>
+            {
+                {"PAYGATE_ID", "10011072130"},
+                {"REFERENCE", "test"},
+                {"AMOUNT", "5000"},
+                {"CURRENCY", "ZAR"},
+                {"RETURN_URL", "https://6cdc-102-250-1-245.ngrok.io"},
+                {"TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
+                {"LOCALE", "en-za"},
+                {"COUNTRY", "ZAF"},
+                {"EMAIL", "chrafnadax@gmail.com"}
+            };
 
-            request.Add("PAYGATE_ID", "10011072130");
-            request.Add("REFERENCE", "pgtest_"); // Payment ref e.g ORDER NUMBER
-            request.Add("AMOUNT", "5000");
-            request.Add("CURRENCY", "ZAR"); // South Africa
-            request.Add("RETURN_URL", "https://6cdc-102-250-1-245.ngrok.io");
-            request.Add("TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            request.Add("LOCALE", "en-za");
-            request.Add("COUNTRY", "ZAF");
+            //Get this from parameter get request
+            // string paymentAmount = (50 * 100).ToString("00"); // amount int cents e.i 50 rands is 5000 cents
+
+            // Payment ref e.g ORDER NUMBER
+            // South Africa
 
             // get authenticated user's email
             // use a valid email, pay=gate will send a transaction confirmation to it
-          
-                // put your own email address for the payment confirmation (dev only)
-                request.Add("EMAIL", "chrafnadax@gmail.com");
-            
+
+            // put your own email address for the payment confirmation (dev only)
+
             request.Add("CHECKSUM", _payment.GetMd5Hash(request, _payGateKey));
 
             string requestString = _payment.ToUrlEncodedString(request);
@@ -83,8 +90,7 @@ namespace BeanBag.Controllers
                     message = "Request completed successfully",
                     results
                 });
-            }
-          /*  return Json(new
+            } /*  return Json(new
             {
                 success = false,
                 message = "Failed to record a transaction"
@@ -103,16 +109,18 @@ namespace BeanBag.Controllers
 
             if (transaction == null)
             {
-                // Unable to reconsile transaction
+                // Unable to reconcile transaction
                 return RedirectToAction("Failed");
             }
 
             // Reorder attributes for MD5 check
-            Dictionary<string, string> validationSet = new Dictionary<string, string>();
-            validationSet.Add("PAYGATE_ID", PayGateID);
-            validationSet.Add("PAY_REQUEST_ID", results["PAY_REQUEST_ID"]);
-            validationSet.Add("TRANSACTION_STATUS", results["TRANSACTION_STATUS"]);
-            validationSet.Add("REFERENCE", transaction.REFERENCE);
+            Dictionary<string, string> validationSet = new Dictionary<string, string>
+            {
+                {"PAYGATE_ID", PayGateID},
+                {"PAY_REQUEST_ID", results["PAY_REQUEST_ID"]},
+                {"TRANSACTION_STATUS", results["TRANSACTION_STATUS"]},
+                {"REFERENCE", transaction.REFERENCE}
+            };
 
             if (!_payment.VerifyMd5Hash(validationSet, _payGateKey, results["CHECKSUM"]))
             {
@@ -120,14 +128,14 @@ namespace BeanBag.Controllers
                 return RedirectToAction("Failed");
             }
             
-            /** Payment Status 
-             * -2 = Unable to reconsile transaction
-             * -1 = Checksum Error
-             * 0 = Pending
-             * 1 = Approved
-             * 2 = Declined
-             * 3 = Cancelled
-             * 4 = User Cancelled
+            /* Payment Status 
+             -2 = Unable to reconcile transaction
+              -1 = Checksum Error
+              0 = Pending
+              1 = Approved
+              2 = Declined
+              3 = Cancelled
+              4 = User Cancelled
              */
             
             int paymentStatus = int.Parse(results["TRANSACTION_STATUS"]);
@@ -142,15 +150,15 @@ namespace BeanBag.Controllers
             return RedirectToAction("Complete", new { id = results["TRANSACTION_STATUS"] });
         }
 
-        private async Task VerifyTransaction(string responseContent, string Referrence)
+        private async Task VerifyTransaction(string responseContent, string reference)
         {
             HttpClient client = new HttpClient();
             Dictionary<string, string> response = _payment.ToDictionary(responseContent);
-            Dictionary<string, string> request = new Dictionary<string, string>();
+            Dictionary<string, string> request = new Dictionary<string, string>
+            {
+                {"PAYGATE_ID", PayGateID}, {"PAY_REQUEST_ID", response["PAY_REQUEST_ID"]}, {"REFERENCE", reference}
+            };
 
-            request.Add("PAYGATE_ID", PayGateID);
-            request.Add("PAY_REQUEST_ID", response["PAY_REQUEST_ID"]);
-            request.Add("REFERENCE", Referrence);
             request.Add("CHECKSUM", _payment.GetMd5Hash(request, _payGateKey));
 
             string requestString = _payment.ToUrlEncodedString(request);
@@ -161,9 +169,9 @@ namespace BeanBag.Controllers
             HttpResponseMessage res = await client.PostAsync("https://secure.paygate.co.za/payweb3/query.trans", content);
             res.EnsureSuccessStatusCode();
 
-            string _responseContent = await res.Content.ReadAsStringAsync();
+            string responseContents= await res.Content.ReadAsStringAsync();
 
-            Dictionary<string, string> results = _payment.ToDictionary(_responseContent);
+            Dictionary<string, string> results = _payment.ToDictionary(responseContents);
             if (!results.Keys.Contains("ERROR"))
             {
                 _payment.UpdateTransaction(results, results["PAY_REQUEST_ID"]);
@@ -173,11 +181,11 @@ namespace BeanBag.Controllers
 
         public ViewResult Complete(int? id)
         {
-            string status = "Unknown";
+            string status;
             switch (id.ToString())
             {
                 case "-2":
-                    status = "Unable to reconsile transaction";
+                    status = "Unable to reconcile transaction";
                     break;
                 case "-1":
                     status = "Checksum Error. The values have been altered";
