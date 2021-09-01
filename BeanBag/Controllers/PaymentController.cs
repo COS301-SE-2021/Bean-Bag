@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BeanBag.Controllers
 {
@@ -48,13 +48,16 @@ namespace BeanBag.Controllers
             // use a valid email, pay-gate will send a transaction confirmation to it
             if(User.Identity is {IsAuthenticated: true})
             {
-                request.Add("EMAIL", _paymentService.GetAuthenticatedUser().Email);
+                //how to get the users email?
+               // request.Add("EMAIL", User.Identity.Name);
             } else
             {
                 // put your own email address for the payment confirmation (dev only)
-                request.Add("EMAIL", "chrafnadax@gmail.com>");
+              //  request.Add("EMAIL", "chrafnadax@gmail.com");
             }
             
+            //Using my email for testing purposes
+            request.Add("EMAIL", "chrafnadax@gmail.com");
             request.Add("CHECKSUM", _paymentService.GetMd5Hash(request, PayGateKey));
 
             string requestString = _paymentService.ToUrlEncodedString(request);
@@ -74,7 +77,7 @@ namespace BeanBag.Controllers
                 {
                     success = false,
                     message = "An error occured while initiating your request"
-                }, JsonRequestBehavior.AllowGet);
+                },  new Newtonsoft.Json.JsonSerializerSettings());
             }
 
             if (!_paymentService.VerifyMd5Hash(results, PayGateKey, results["CHECKSUM"]))
@@ -83,7 +86,7 @@ namespace BeanBag.Controllers
                 {
                     success = false,
                     message = "MD5 verification failed"
-                }, JsonRequestBehavior.AllowGet);
+                },  new Newtonsoft.Json.JsonSerializerSettings());
             }
 
             bool isRecorded = _paymentService.AddTransaction(request, results["PAY_REQUEST_ID"]);
@@ -94,13 +97,13 @@ namespace BeanBag.Controllers
                     success = true,
                     message = "Request completed successfully",
                     results
-                }, JsonRequestBehavior.AllowGet);
+                },  new Newtonsoft.Json.JsonSerializerSettings());
             }
             return Json(new
             {
                 success = false,
                 message = "Failed to record a transaction"
-            }, JsonRequestBehavior.AllowGet);
+            },  new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         // This is your return url from Paygate
@@ -108,23 +111,25 @@ namespace BeanBag.Controllers
         [HttpPost]
         public async Task<ActionResult> CompletePayment()
         {
-            string responseContent = Request.Params.ToString();
-            Dictionary<string, string> results = _payment.ToDictionary(responseContent);
+            string responseContent = Request.ToString();
+            Dictionary<string, string> results = _paymentService.ToDictionary(responseContent);
 
-            DbLoggerCategory.Database.Transaction transaction = _payment.GetTransaction(results["PAY_REQUEST_ID"]);
+            Transaction transaction = _paymentService.GetTransaction(results["PAY_REQUEST_ID"]);
 
             if (transaction == null)
             {
                 // Unable to reconcile transaction
-                return RedirectToAction("Failed");
+                return  RedirectToAction("Failed");
             }
 
             // Reorder attributes for MD5 check
-            Dictionary<string, string> validationSet = new Dictionary<string, string>();
-            validationSet.Add("PAYGATE_ID", PayGateId);
-            validationSet.Add("PAY_REQUEST_ID", results["PAY_REQUEST_ID"]);
-            validationSet.Add("TRANSACTION_STATUS", results["TRANSACTION_STATUS"]);
-            validationSet.Add("REFERENCE", transaction.REFERENCE);
+            Dictionary<string, string> validationSet = new Dictionary<string, string>
+            {
+                {"PAYGATE_ID", PayGateId},
+                {"PAY_REQUEST_ID", results["PAY_REQUEST_ID"]},
+                {"TRANSACTION_STATUS", results["TRANSACTION_STATUS"]}
+            };
+            // validationSet.Add("REFERENCE", transaction.REFERENCE);
 
             if (!_paymentService.VerifyMd5Hash(validationSet, PayGateKey, results["CHECKSUM"]))
             {
@@ -146,7 +151,6 @@ namespace BeanBag.Controllers
             if(paymentStatus == 1)
             {
                 // Yey, payment approved
-                // Do something useful
             }
             // Query paygate transaction details
             // And update user transaction on your database
@@ -158,11 +162,11 @@ namespace BeanBag.Controllers
         {
             HttpClient client = new HttpClient();
             Dictionary<string, string> response = _paymentService.ToDictionary(responseContents);
-            Dictionary<string, string> request = new Dictionary<string, string>();
+            Dictionary<string, string> request = new Dictionary<string, string>
+            {
+                {"PAYGATE_ID", PayGateId}, {"PAY_REQUEST_ID", response["PAY_REQUEST_ID"]}, {"REFERENCE", reference}
+            };
 
-            request.Add("PAYGATE_ID", PayGateId);
-            request.Add("PAY_REQUEST_ID", response["PAY_REQUEST_ID"]);
-            request.Add("REFERENCE", reference);
             request.Add("CHECKSUM", _paymentService.GetMd5Hash(request, PayGateKey));
 
             string requestString = _paymentService.ToUrlEncodedString(request);
@@ -184,7 +188,7 @@ namespace BeanBag.Controllers
         }
         public ViewResult Complete(int? id)
         {
-            string status = "Unknown";
+            string status;
             switch (id.ToString())
             {
                 case "-2":
