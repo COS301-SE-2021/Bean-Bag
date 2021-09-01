@@ -2,6 +2,7 @@
 using BeanBag.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -282,5 +283,17 @@ namespace BeanBag.Controllers
             _aIService.deleteIteration(iterationId);
             return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
         }
+
+        // This function returns all of the performance metrics for the AI Model version
+        public IActionResult ModelVersionPerformace(Guid projectId, Guid iterationId)
+        {
+            IterationPerformance modelPerformace = _aIService.getModelVersionPerformance(projectId, iterationId);
+            IList<TagPerformance> tagsPerformace = _aIService.getPerformancePerTags(projectId, iterationId);
+
+            string result = "";
+
+            return Ok(result);
+        }
+
     }
 }

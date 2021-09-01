@@ -1,4 +1,6 @@
 ﻿using BeanBag.Models;
+using BeanBag.Models.Helper_Models;
+using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -37,5 +39,8 @@ namespace BeanBag.Services
 
         public List<AIModelVersions> getAllAvailableIterationsOfModel(Guid projectId);
 
+        public IterationPerformance getModelVersionPerformance(Guid projectId, Guid iterationId);
+
+        public IList<TagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId);
     }
 }

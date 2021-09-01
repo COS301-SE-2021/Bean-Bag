@@ -1,5 +1,6 @@
 ﻿using BeanBag.Database;
 using BeanBag.Models;
+using BeanBag.Models.Helper_Models;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
@@ -395,6 +396,30 @@ namespace BeanBag.Services
         public List<AIModelVersions> getAllAvailableIterationsOfModel(Guid projectId)
         {
             return _db.AIModelIterations.Where(i => i.availableToUser.Equals(true) && i.projectId.Equals(projectId)).ToList();
+        }
+
+        // This method returns an AI Model iteration performace (accuracy, precision, recall, AP)
+        public IterationPerformance getModelVersionPerformance(Guid projectId, Guid iterationId)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project id is null");
+
+            if (iterationId == Guid.Empty)
+                throw new Exception("Iteration id is null");
+
+            return trainingClient.GetIterationPerformance(projectId, iterationId);
+        }
+
+        // This method returns an AI Model iteration image tag performace (accuracy, precision, recall, ap, imageCount)
+        public IList<TagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project id is null");
+
+            if (iterationId == Guid.Empty)
+                throw new Exception("Iteration id is null");
+
+            return trainingClient.GetIterationPerformance(projectId, iterationId).PerTagPerformance;
         }
     }
 }
