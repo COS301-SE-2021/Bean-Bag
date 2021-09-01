@@ -10,7 +10,7 @@ using BeanBag.Models;
 namespace BeanBag.Services
 {
     // This service class is used to handle any data that is related to the payment and transaction process.
-    // This service class main focus is to bridge the the payment controller to the DB and encryption hashing.
+    // This service class main focus is to bridge the the payment controller to payment service functions.
     public class PaymentService : IPaymentService
     {
          private readonly TransactionDbContext _transactionDb;
