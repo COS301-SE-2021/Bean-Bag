@@ -22,7 +22,7 @@ namespace BeanBag
 
         }
 
-        private IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -71,10 +71,10 @@ namespace BeanBag
             services.AddTransient<IDashboardAnalyticsService, DashboardAnalyticsService>();
             services.AddTransient<IBlobStorageService, BlobStorageService>();
 
+            services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<TenantService>();
             services.AddTransient<TenantBlobStorageService>();
             
-            services.AddTransient<IPaymentService, PaymentService>();
     
         }
 

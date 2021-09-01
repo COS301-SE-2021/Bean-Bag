@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -89,7 +88,7 @@ namespace BeanBag.Controllers
                 },  new Newtonsoft.Json.JsonSerializerSettings());
             }
 
-            bool isRecorded = _paymentService.AddTransaction(request, results["PAY_REQUEST_ID"]);
+        /*    bool isRecorded = _paymentService.AddTransaction(request, results["PAY_REQUEST_ID"]);
             if (isRecorded)
             {
                 return Json(new
@@ -98,7 +97,9 @@ namespace BeanBag.Controllers
                     message = "Request completed successfully",
                     results
                 },  new Newtonsoft.Json.JsonSerializerSettings());
-            }
+            }*/
+            
+            
             return Json(new
             {
                 success = false,
@@ -114,13 +115,13 @@ namespace BeanBag.Controllers
             string responseContent = Request.ToString();
             Dictionary<string, string> results = _paymentService.ToDictionary(responseContent);
 
-            Transaction transaction = _paymentService.GetTransaction(results["PAY_REQUEST_ID"]);
+           /* Transaction transaction = _paymentService.GetTransaction(results["PAY_REQUEST_ID"]);
 
             if (transaction == null)
             {
                 // Unable to reconcile transaction
                 return  RedirectToAction("Failed");
-            }
+            }*/
 
             // Reorder attributes for MD5 check
             Dictionary<string, string> validationSet = new Dictionary<string, string>
@@ -154,7 +155,7 @@ namespace BeanBag.Controllers
             }
             // Query paygate transaction details
             // And update user transaction on your database
-            await VerifyTransaction(responseContent, transaction.REFERENCE);
+          //  await VerifyTransaction(responseContent, transaction.REFERENCE);
             return RedirectToAction("Complete", new { id = results["TRANSACTION_STATUS"] });
         }
 
@@ -182,13 +183,13 @@ namespace BeanBag.Controllers
             Dictionary<string, string> results = _paymentService.ToDictionary(responseContent);
             if (!results.Keys.Contains("ERROR"))
             {
-                _paymentService.UpdateTransaction(results, results["PAY_REQUEST_ID"]);
+             //   _paymentService.UpdateTransaction(results, results["PAY_REQUEST_ID"]);
             }
 
         }
         public ViewResult Complete(int? id)
         {
-            string status;
+            string status = "Unknown";
             switch (id.ToString())
             {
                 case "-2":
