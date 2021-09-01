@@ -63,6 +63,12 @@ namespace BeanBag
             services.AddDbContext<TenantDbContext>(options => 
                 options.UseSqlServer(Configuration.GetValue<string>("Database:TenantConnection"))
             );
+            
+            // Connecting to Transaction DB
+            services.AddDbContext<TransactionDbContext>(options => 
+                //Database will have to change from default connection to transaction connection
+                options.UseSqlServer(Configuration.GetValue<string>("Database:DefaultConnection"))
+            );
 
             //Adding service classes to be used as a DI
             services.AddTransient<IInventoryService, InventoryService>();
@@ -74,8 +80,6 @@ namespace BeanBag
             services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<TenantService>();
             services.AddTransient<TenantBlobStorageService>();
-            
-    
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
