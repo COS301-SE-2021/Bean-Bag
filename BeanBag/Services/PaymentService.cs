@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -8,10 +9,10 @@ using BeanBag.Models;
 
 namespace BeanBag.Services
 {
-    public class PaymentService
+    public class PaymentService : IPaymentService
     {
       //  private readonly TenantDbContext context;
-         private TransactionDbContext _transactionDb;
+         private readonly TransactionDbContext _transactionDb;
 
          //Constructor sets database context
          public PaymentService( TransactionDbContext transactionDb)
@@ -60,26 +61,24 @@ namespace BeanBag.Services
 
         public string GetMd5Hash(Dictionary<string, string> data, string encryptionKey)
         {
-            using (MD5 md5Hash = MD5.Create())
+            using MD5 md5Hash = MD5.Create();
+            StringBuilder input = new StringBuilder();
+            foreach (string value in data.Values)
             {
-                StringBuilder input = new StringBuilder();
-                foreach (string value in data.Values)
-                {
-                    input.Append(value);
-                }
-
-                input.Append(encryptionKey);
-
-                byte[] hash = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input.ToString()));
-
-                StringBuilder sBuilder = new StringBuilder();
-
-                for (int i = 0; i < hash.Length; i++)
-                {
-                    sBuilder.Append(hash[i].ToString("x2"));
-                }
-                return sBuilder.ToString();
+                input.Append(value);
             }
+
+            input.Append(encryptionKey);
+
+            byte[] hash = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input.ToString()));
+
+            StringBuilder sBuilder = new StringBuilder();
+
+            foreach (var t in hash)
+            {
+                sBuilder.Append(t.ToString("x2"));
+            }
+            return sBuilder.ToString();
         }
 
         public bool VerifyMd5Hash(Dictionary<string, string> data, string encryptionKey, string hash)
@@ -114,7 +113,7 @@ namespace BeanBag.Services
         #region Transactions 
         public bool AddTransaction(Dictionary<string, string> request, string payRequestId)
         {
-          /*  try
+            try
             {
                 Transaction transaction = new Transaction()
                 {
@@ -124,7 +123,7 @@ namespace BeanBag.Services
                     AMOUNT = int.Parse(request["AMOUNT"]),
                     CUSTOMER_EMAIL_ADDRESS = request["EMAIL"]
                 };
-                _transactionDb.Transactions.Add(transaction);
+                _transactionDb.Transaction.Add(transaction);
                 _transactionDb.SaveChanges();
                 return true;
             } catch (Exception )
@@ -132,27 +131,21 @@ namespace BeanBag.Services
                 // log somewhere
                 // at least we tried
                 return false;
-            }*/
-          return false;
+            }
         }
         // get transaction using pay request Id
         public Transaction GetTransaction(string payRequestId)
         {
-           /* Transaction transaction = _transactionDb.Transactions.FirstOrDefault(p => p.PAY_REQUEST_ID == payRequestId);
-            if (transaction == null)
-            {
-                return new Transaction();
-            }
+            var transaction = _transactionDb.Transaction.FirstOrDefault(p => p.PAY_REQUEST_ID == payRequestId);
+            return transaction ?? new Transaction();
 
-            return transaction;*/
-           return null;
         }
 
-        public bool UpdateTransaction(Dictionary<string, string> request, string PayrequestId)
+        public bool UpdateTransaction(Dictionary<string, string> request, string payRequestId)
         {
-          /*  bool isUpdated = false;
+            bool isUpdated = false;
 
-            Transaction transaction = GetTransaction(PayrequestId);
+            Transaction transaction = GetTransaction(payRequestId);
             if (transaction == null)
                 return false;
 
@@ -162,12 +155,13 @@ namespace BeanBag.Services
             {
                 _transactionDb.SaveChanges();
                 isUpdated = true;
-            } catch (Exception )
-            {
-                
             }
-            return isUpdated;*/
-          return false;
+            catch (Exception)
+            {
+                // ignored
+            }
+
+            return isUpdated;
         }
 
         #endregion Transaction
