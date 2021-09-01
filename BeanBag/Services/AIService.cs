@@ -411,7 +411,7 @@ namespace BeanBag.Services
         }
 
         // This method returns an AI Model iteration image tag performace (accuracy, precision, recall, ap, imageCount)
-        public IList<TagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId)
+        public List<AIModelVersionTagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId, IterationPerformance iterationPerformance)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
@@ -419,7 +419,45 @@ namespace BeanBag.Services
             if (iterationId == Guid.Empty)
                 throw new Exception("Iteration id is null");
 
-            return trainingClient.GetIterationPerformance(projectId, iterationId).PerTagPerformance;
+            List<AIModelVersionTagPerformance> returnList = new List<AIModelVersionTagPerformance>();
+
+            foreach(var tag in iterationPerformance.PerTagPerformance)
+            {
+                AIModelVersionTagPerformance addToList = new AIModelVersionTagPerformance()
+                {
+                    tagId = tag.Id,
+                    precision = tag.Precision,
+                    recall = tag.Recall,
+                    averagePrecision = tag.AveragePrecision,
+                    tagName = tag.Name
+                };
+
+                returnList.Add(addToList);
+            }
+
+            
+            IList<Tag> imageTags = trainingClient.GetTags(projectId, iterationId);
+            foreach(var tag in imageTags)
+            {
+                for(int i = 0; i < returnList.Count; i++)
+                {
+                    for(int j = 0; j < imageTags.Count; j++)
+                    {
+                        if(returnList[i].tagId == imageTags[j].Id)
+                        {
+                            returnList[i].imageCount = imageTags[j].ImageCount;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return returnList;
+        }
+
+        public IList<Tag> getIterationTags(Guid projectId, Guid iterationId)
+        {
+            return trainingClient.GetTags(projectId, iterationId);
         }
     }
 }

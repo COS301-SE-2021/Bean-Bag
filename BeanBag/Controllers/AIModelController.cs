@@ -1,4 +1,5 @@
 ﻿using BeanBag.Models;
+using BeanBag.Models.Helper_Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -287,12 +288,20 @@ namespace BeanBag.Controllers
         // This function returns all of the performance metrics for the AI Model version
         public IActionResult ModelVersionPerformace(Guid projectId, Guid iterationId)
         {
+            string iterationMetrics = "";
+            string tagPerformance = "";
+
             IterationPerformance modelPerformace = _aIService.getModelVersionPerformance(projectId, iterationId);
-            IList<TagPerformance> tagsPerformace = _aIService.getPerformancePerTags(projectId, iterationId);
+            List<AIModelVersionTagPerformance> tagsPerformace = _aIService.getPerformancePerTags(projectId, iterationId, modelPerformace);
 
-            string result = "";
+            foreach(var tag in tagsPerformace)
+            {
+                tagPerformance += tag.tagName + '-' + tag.precision*100 + "%-" + tag.recall*100 + "%-" + tag.averagePrecision*100 + "%-" + tag.imageCount + "\n";
+            }
 
-            return Ok(result);
+            iterationMetrics = modelPerformace.Precision*100 + "%-" + modelPerformace.Recall*100 + "%-" + modelPerformace.AveragePrecision*100 + "%\n";
+
+            return Ok(iterationMetrics + "\n" + tagPerformance);
         }
 
     }
