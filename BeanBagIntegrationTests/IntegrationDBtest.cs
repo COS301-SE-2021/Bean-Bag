@@ -33,7 +33,7 @@ namespace BeanBagIntegrationTests
 
         }
 
-        //Integration test defined for getting user inventories and finding a specified inventory
+        //Integration test defined for getting user inventories and finding a specified inventory (positive testing)
         [Fact]
         public void Query_Inventory_From_SQL_Test()
         {
@@ -81,7 +81,7 @@ namespace BeanBagIntegrationTests
         
         
         
-        //Integration test defined to test the create inventory function in the inventory service
+        //Integration test defined to test the create inventory function in the inventory service (positive testing)
         [Fact]
         public void Create_Inventory_From_SQL()
         {
@@ -121,7 +121,7 @@ namespace BeanBagIntegrationTests
             Assert.NotNull(getInvs);
         }
         
-        //Integration test defined to test the edit inventory function of the inventory service
+        //Integration test defined to test the edit inventory function of the inventory service (positive testing)
         [Fact]
         public void Edit_Inventory_From_SQL()
         {
@@ -164,7 +164,7 @@ namespace BeanBagIntegrationTests
             Assert.True(isUpdated);
         }
         
-        //Integration test defined to test the delete inventory function in the inventory service class
+        //Integration test defined to test the delete inventory function in the inventory service class (positive testing)
         [Fact]
         public void Delete_Inventory_From_SQL()
         {
@@ -208,7 +208,7 @@ namespace BeanBagIntegrationTests
             Assert.Null(getInvs);
         }
         
-        //Integration test defined to test the edit item function in the item service
+        //Integration test defined to test the edit item function in the item service (positive testing)
         [Fact]
         public void Edit_Item()
         {
@@ -252,8 +252,8 @@ namespace BeanBagIntegrationTests
             query.DeleteItem(thenew.Id);
         }
         
-        //Integration test defined to test the delete item function in the item service
-        [Fact]
+        //Integration test defined to test the delete item function in the item service (positive testing)
+        [Fact] 
         public void Delete_Item()
         {
             //ARRANGE
@@ -305,7 +305,7 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
         }
         
-        //Integration test defined to test the inventory id of the passed in item
+        //Integration test defined to test the inventory id of the passed in item (positive testing)
         [Fact]
         public void Get_InvId_From_Item()
         {

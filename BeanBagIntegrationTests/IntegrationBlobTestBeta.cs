@@ -26,12 +26,14 @@ namespace BeanBagIntegrationTests
 
         public IntegrationBlobTestBeta()
         {
-            cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;" +
-                                                            "AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;" +
-                                                            "EndpointSuffix=core.windows.net");
+            cloudStorageAccount = CloudStorageAccount.Parse(
+                "DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;" +
+                "AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;" +
+                "EndpointSuffix=core.windows.net");
             cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
 
+        //Integration test defined to test the getting the uploading of an image (positive testing)
         [Fact]
         public async Task Upload_Item_Image_Valid()
         {
@@ -83,6 +85,7 @@ namespace BeanBagIntegrationTests
             Assert.NotNull(myUploadedFile);
         }
 
+        //Integration test defined to test the getting the uploading of test images (positive testing)
         [Fact]
         public async Task Upload_Test_Images_Valid()
         {

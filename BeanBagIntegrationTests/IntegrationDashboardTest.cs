@@ -31,7 +31,7 @@ namespace BeanBagIntegrationTests
 
         }
         
-        //Integration test defined to test the getting the recent items that have been added
+        //Integration test defined to test the getting the recent items that have been added (positive testing)
         [Fact]
         public void Get_Recent_Items_Valid()
         {
@@ -86,7 +86,7 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
         }
 
-        //Integration test defined to test the getting of total items in an invetory
+        //Integration test defined to test the getting of total items in an invetory (positive testing)
         [Fact]
         public void Get_Total_Items_Valid()
         {
@@ -140,7 +140,7 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
         }
         
-        //Integration test defined to test the getting of top items in an inventory
+        //Integration test defined to test the getting of top items in an inventory (positive testing)
         [Fact]
         public void Get_Top_Items_Valid()
         {
@@ -198,7 +198,7 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
         }
     
-        //Integration test defined to test the getting of available items
+        //Integration test defined to test the getting of available items (positive testing)
         [Fact]
         public void Get_Items_Available_Valid()
         {
@@ -260,7 +260,7 @@ namespace BeanBagIntegrationTests
             
         }
 
-        //Integration test defined to test the retrieval of items sold
+        //Integration test defined to test the retrieval of items sold (positive testing)
         [Fact]
         public void Get_Items_Sold_Valid()
         {
@@ -321,7 +321,7 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
         }
 
-        //Integration test defined to test the calculation of the revenue from sold items
+        //Integration test defined to test the calculation of the revenue from sold items (positive testing)
         [Fact]
         public void Get_Revenue_Valid()
         {
@@ -385,7 +385,7 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
         }
 
-        //Integration test defined to test the calculation of sales growth
+        //Integration test defined to test the calculation of sales growth (positive testing)
         [Fact]
         public void Get_Sales_Growth_Valid()
         {
@@ -445,7 +445,7 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
         }
         
-        //Integration test defined to test the item revenue calculation from the revenue
+        //Integration test defined to test the item revenue calculation from the revenue (positive testing)
         [Fact]
         public void Items_Revenue_Stat_Valid()
         {
@@ -499,7 +499,7 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
         }
 
-        //Integration test defined to test the item sold statistic calculations
+        //Integration test defined to test the item sold statistic calculations (positive testing)
         [Fact]
         public void Items_Sold_Stat_Valid()
         {
@@ -559,6 +559,7 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
         }
         
+        //Integration test defined to test the calculation of available item statistics (positive testing)
         [Fact]
         public void Item_Available_Stat_Valid()
         {
