@@ -269,6 +269,55 @@
 
 	</div>
 	
+	<!---Popup Form to create tenant-->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog" role="document">
+        
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"  id="exampleModalTitle">Create New Tenant</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+                
+				<form method="post" asp-action="CreateTenant" >
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="tenantName" class="col-form-label">Tenant name *</label>
+							<input type="text" id="tenantName" name="tenantName" class="form-control"/> <!--input box-->
+						</div>
+
+						<div class="form-group">
+							<label for="tenantAddress" class="col-form-label">Address *</label>
+							<input type="text" id="tenantAddress" name="tenantAddress" class="form-control"/> <!--input box-->
+						</div><br>
+						
+						<h6 class="modal-title" >Contact details</h6>
+
+						<div class="form-group">
+							<label for="tenantEmail" class="col-form-label">Email *</label>
+							<input type="text" id="tenantEmail" name="tenantEmail" class="form-control"/> <!--input box-->
+						</div>
+						
+						<div class="form-group">
+							<label for="tenantNumber" class="col-form-label">Telephone number *</label>
+							<input type="text" id="tenantNumber" name="tenantNumber" class="form-control"/> <!--input box-->
+						</div>
+						
+						<div asp-validation-summary="All" class="text-danger"></div>
+	                    
+					</div>
+					<div class="modal-footer ">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<input type="submit" class="btn colors create" value="Create"/> <!--create button-->
+				</div>
+				</form>
+                   
+			</div>
+		</div>
+	</div>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
