@@ -30,43 +30,64 @@
 <div class="dashboard-wrapper">
     <div class="container-fluid  dashboard-content">
         <hr>
+
+        <!-- Button to view tenant details -->
+        <div class="button1">
+            <a asp-controller="TenantSettings" asp-action="ViewDetails" class="btn btn-2 shadow-sm bg-body rounded" 
+               data-toggle="modal" data-target="#exampleModal">Tenant Details &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
+    			                                                                                                                                                 aria-hidden="true"></i></a> <!-- change button css---->
+    	</div>    
         
-                    <!--Table with bootstrap class .table and .table-condensed-->
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <br>
-                        <div class="card shadow  mb-4 bg-body rounded" >
-                            <h5 class="card-header">Tenant details
-                            </h5>
-                            
-                            <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
-                                <div>
-                                    @if (tenant != null)
-                                    {
-                                        <table class="table table-bordered table-striped">
-                                            <thead>
-                                            <th>Name</th>
-                                            <th>Address</th>
-                                            <th>Number</th>
-                                            <th>Email</th>
-                                            <th>Subscription</th>
-                                            </thead>
-                                            
-                                            <tbody>
-                                            <tr>
-                                                <td>@tenant.TenantName</td>
-                                                <td>@tenant.TenantAddress</td>
-                                                <td>@tenant.TenantNumber</td>
-                                                <td>@tenant.TenantEmail</td>
-                                                <td>@tenant.TenantSubscription</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    }
-                                </div>
-                            </div>
+        <!-- Popup Form to view tenant details -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog" role="document">
+        
+			<div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"  id="exampleModalTitle">Tenant Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                
+                <div class="modal-body">
+                    
+                    @if (tenant != null)
+                    {
+                        <div class="form-group">
+                            <label for="tenantName" class="col-form-label">Tenant name *</label>
+                            <input type="text" id="tenantName" name="tenantName" class="form-control" value="@tenant.TenantName"/> <!--input box--></div>
+
+                        <div class="form-group">
+                            <label for="tenantAddress" class="col-form-label">Address *</label>
+                            <input type="text" id="tenantAddress" name="tenantAddress" class="form-control" value="@tenant.TenantAddress"/> <!--input box-->
                         </div>
-                    </div>
-        
+                        <br>
+
+                        <h6 class="modal-title">Contact details</h6>
+
+                        <div class="form-group">
+                            <label for="tenantEmail" class="col-form-label">Email *</label>
+                            <input type="text" id="tenantEmail" name="tenantEmail" class="form-control" value="@tenant.TenantEmail"/> <!--input box--></div>
+
+                        <div class="form-group">
+                            <label for="tenantNumber" class="col-form-label">Telephone number *</label>
+                            <input type="text" id="tenantNumber" name="tenantNumber" class="form-control" value="@tenant.TenantNumber"/> <!--input box--></div>
+                    }
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                </div>
+					<div class="modal-footer ">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<input type="submit" class="btn btn-primary" value="Save"/> <!--create button-->
+					</div>
+			
+                   
+			</div>
+		</div>
+	</div>
         
         <div class="row">
             <br>

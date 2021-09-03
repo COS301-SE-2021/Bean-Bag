@@ -94,5 +94,20 @@ namespace BeanBag.Controllers
         }
         
         
+        public IActionResult ViewDetails()
+        {
+            if(User.Identity is {IsAuthenticated: true})
+            {
+
+                return LocalRedirect("/");
+                        
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
+        }
+        
+        
     }
 }
