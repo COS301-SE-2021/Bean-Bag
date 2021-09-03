@@ -101,7 +101,8 @@ namespace BeanBag.Controllers
                 
                 _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber); 
             }
-            return RedirectToAction("Index");
+
+            return SelectTenant(tenantName);
         }
 
         /* This function allows a user to select a tenant and generates
