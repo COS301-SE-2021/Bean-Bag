@@ -81,7 +81,7 @@
 
 
 <div class="pt-3">
-  <h2 class="text-center">Choose a Payment Plan </h2>
+  <h2 class="text-center">Choose a Subscription Plan </h2>
 </div>
 
 <br>
@@ -101,21 +101,21 @@
               <span class="h2">Free</span>
               <br><br>
             </div>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <p class="card-text text-center">This subscription plan is recommended for individuals and trial users.</p>
           </div>
-          <ul class="list-group list-group-flush">
+          <ul class="list-group list-group-flush justify-content-between">
             <li class="list-group-item">
-	            <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> Cras justo odio</li>
+	            <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> 1 admin , 5 users </li>
             <li class="list-group-item">
-	            <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/>Dapibus ac facilisis in</li>
+	            <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/>Train 1 AI model, 3 iterations per model</li>
               <li class="list-group-item">
-	              <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> Vestibulum at eros</li>
+	              <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> 5 Inventories, 15 items per inventory</li>
                 <li class="list-group-item">
-	                <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> Vestibulum at eros</li>
+	                <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> No extra features</li>
           </ul>
           <div class="card-body text-center ml-auto">
 	
-	          <a asp-controller="Tenant" asp-action="CreateTenant" class="btn btn-outline-light shadow-sm bg-body create rounded colors" data-toggle="modal" data-target="#exampleModal">Select</a> 
+	         <a class="btn btn-outline-light shadow-sm bg-body create rounded colors" data-toggle="modal" data-target="#exampleModal3">Select</a> 
 
 	          </div>
         </div>
@@ -267,10 +267,11 @@
 		
 		</div>
 
-	</div>
+	</div>	</div>
 	
+		
 	<!---Popup Form to create tenant-->
-	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle3" aria-hidden="true">
 		<div class="modal-dialog modal-dialog" role="document">
         
 			<div class="modal-content">
@@ -311,13 +312,13 @@
 					<div class="modal-footer ">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						<input type="submit" class="btn colors create" value="Create"/> <!--create button-->
-				</div>
+					</div>
 				</form>
                    
 			</div>
 		</div>
 	</div>
-
+	
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
@@ -402,5 +403,5 @@
         document.querySelector("#results2").appendChild(node);
     }
      
-</script></div>
+</script>
 
