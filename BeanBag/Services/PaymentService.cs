@@ -15,15 +15,15 @@ namespace BeanBag.Services
     {
          private readonly TransactionDbContext _transactionDb;
 
-         //Constructor sets database context
+         // Constructor sets database context
          public PaymentService(TransactionDbContext transactionDb)
          {
              _transactionDb = transactionDb;
          }
-
-        #region Utilities
+         
+         #region Utilities
         
-        // This function is used to Encode dictionary to Url string 
+        // This function is used to Encode dictionary to Url string
         public string ToUrlEncodedString(Dictionary<string, string> request)
         {
             StringBuilder builder = new StringBuilder();
@@ -56,7 +56,9 @@ namespace BeanBag.Services
             return result;
         }
         #endregion Utility
-
+        
+        // SEE SHA HASHING COULD BE MORE SECURE (Also 3D verification if there is time ) 
+        
         #region MD5 Hashing
         // Adapted from
         // https://msdn.microsoft.com/en-us/library/system.security.cryptography.md5(v=vs.110).aspx
@@ -111,10 +113,8 @@ namespace BeanBag.Services
             }
         }
 
-    
         #endregion MD5 Hash
 
-        
         #region Transactions 
         
         // This function adds a transaction to the transaction DB 
@@ -148,7 +148,7 @@ namespace BeanBag.Services
 
         }
 
-        //This function updates a transaction in the transaction DB 
+        // This function updates a transaction in the transaction DB.
         public bool UpdateTransaction(Dictionary<string, string> request, string payRequestId)
         {
             bool isUpdated = false;

@@ -31,21 +31,23 @@ namespace BeanBag.Controllers
                 {"REFERENCE", "test"},
                 {"AMOUNT", "5000"},
                 {"CURRENCY", "ZAR"},
-                {"RETURN_URL", "https://6cdc-102-250-1-245.ngrok.io"},
+                // Return url to original payment page 
+                {"RETURN_URL", "https://49c1-102-250-3-227.ngrok.io/Tenant/TenantPlans"},
                 {"TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
                 {"LOCALE", "en-za"},
                 {"COUNTRY", "ZAF"},
                 {"EMAIL", "chrafnadax@gmail.com"}
             };
 
-            //Get this from parameter get request
+       
+            // Get this from parameter get request.
             // string paymentAmount = (50 * 100).ToString("00"); // amount int cents e.i 50 rands is 5000 cents
 
             // Payment ref e.g ORDER NUMBER
             // South Africa
 
             // get authenticated user's email
-            // use a valid email, pay=gate will send a transaction confirmation to it
+            // use a valid email, pay-gate will send a transaction confirmation to it
 
             // put your own email address for the payment confirmation (dev only)
 
@@ -81,7 +83,7 @@ namespace BeanBag.Controllers
             }
 
             //NEED THE DB TO ENSURE THE TRANSACTION IS SAVED 
-          //  bool IsRecorded = _payment.AddTransaction(request, results["PAY_REQUEST_ID"]);
+            //  bool IsRecorded = _payment.AddTransaction(request, results["PAY_REQUEST_ID"]);
             if (true)
             {
                 return Json(new
@@ -90,11 +92,7 @@ namespace BeanBag.Controllers
                     message = "Request completed successfully",
                     results
                 });
-            } /*  return Json(new
-            {
-                success = false,
-                message = "Failed to record a transaction"
-            });*/
+            }
         }
 
         // This is your return url from Paygate

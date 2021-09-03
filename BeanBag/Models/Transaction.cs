@@ -15,7 +15,7 @@ namespace BeanBag.Models
         public string REFERENCE { get; set; }
         public string TRANSACTION_STATUS { get; set; }
         public string RESULT_DESC { get; set; }
-        public string CUSTOMER_EMAIL_ADDRESS { get; set; }
+        public string CUSTOMER_EMAIL_ADDRESS { get; set;}
         public Guid TENANT_ID { get; set; }
         public string SUBSCRIPTION { get; set; }
         
