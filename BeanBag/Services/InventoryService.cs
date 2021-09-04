@@ -89,7 +89,17 @@ namespace BeanBag.Services
                 throw new Exception("User is null");
             }
 
-            return user.role;
+            if (user.role.Equals("U"))
+            {
+                return "User";
+            }
+            
+            if (user.role.Equals("A"))
+            {
+                return "Admin";
+            }
+
+            return "";
         }
     }
 }
