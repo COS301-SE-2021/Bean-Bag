@@ -10,6 +10,7 @@
     background: linear-gradient(to right, #86fde8, #acb6e5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     padding: 10px;
     width: auto;
+    border-radius: 5px;
 
 }
 /* First border-left-width setting is a fallback */
