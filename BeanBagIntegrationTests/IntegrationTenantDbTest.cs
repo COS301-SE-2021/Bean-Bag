@@ -73,11 +73,11 @@ namespace BeanBagIntegrationTests
         public void Test_Get_Tenants_From_Database_Success_Tenants_Added()
         {
             //Arrange
-            var tenantId1 = Guid.NewGuid();
+            var tenantId1 = Guid.NewGuid().ToString();
             var tenantName1 = "Tenant-1";
             var tenant1 = new Tenant {TenantId = tenantId1, TenantName = tenantName1};
             
-            var tenantId2 = Guid.NewGuid();
+            var tenantId2 = Guid.NewGuid().ToString();
             var tenantName2 = "Tenant-2";
             var tenant2 = new Tenant {TenantId = tenantId2, TenantName = tenantName2};
 
@@ -167,7 +167,7 @@ namespace BeanBagIntegrationTests
         public void Test_Get_Tenant_Id_Failure_Tenant_Does_Not_Exist()
         {
             //Arrange
-            var id = Guid.NewGuid();
+            var id = Guid.NewGuid().ToString();
             var tenantName = "Tenant-name";
             
             var newTenant = new Tenant { TenantId = id, TenantName = tenantName };
@@ -190,7 +190,7 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             //Tenant
-            var id = Guid.NewGuid();
+            var id = Guid.NewGuid().ToString();
             var name = "Tenant-name";
             var newTenant = new Tenant { TenantId = id, TenantName = name };
             
@@ -249,7 +249,7 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             //Tenant
-            var id = Guid.NewGuid();
+            var id = Guid.NewGuid().ToString();
             var name = "Tenant-name";
             var newTenant = new Tenant { TenantId = id, TenantName = name };
             
@@ -276,7 +276,7 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             //Tenant
-            var id = Guid.NewGuid();
+            var id = Guid.NewGuid().ToString();
 
             //Act
             var query = new TenantService(_tenantDbContext);
@@ -300,7 +300,7 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             //Tenant
-            var id = Guid.NewGuid();
+            var id = Guid.NewGuid().ToString();
             var name = "Tenant-name";
             var newTenant = new Tenant { TenantId = id, TenantName = name };
             
@@ -368,7 +368,7 @@ namespace BeanBagIntegrationTests
         public void Test_Setting_Theme_Success_Theme_Updated()
         {
             //Arrange
-            var id = Guid.NewGuid();
+            var id = Guid.NewGuid().ToString();
             var newTenant = new Tenant { TenantId = id, TenantName = "Tenant-name" };
 
             var userId = Guid.NewGuid().ToString();
@@ -422,7 +422,7 @@ namespace BeanBagIntegrationTests
         public void Test_Setting_Theme_Success_Theme_Returned()
         {
             //Arrange
-            var id = Guid.NewGuid();
+            var id = Guid.NewGuid().ToString();
             var newTenant = new Tenant { TenantId = id, TenantName = "Tenant-name", TenantTheme = "Default"};
 
             var userId = Guid.NewGuid().ToString();
