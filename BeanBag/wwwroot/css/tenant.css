@@ -1,27 +1,18 @@
-﻿.card-custom {
-    overflow: hidden;
-    min-height: 450px;
-    box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+﻿
+.card-body {
+    padding: 0;
 }
 
-.card-custom-img {
-    height: 200px;
-    min-height: 200px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    border-color: inherit;
+.gradient
+{
     background: #acb6e5;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #86fde8, #acb6e5);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #86fde8, #acb6e5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    padding: 10px;
+    width: auto;
+    border-radius: 5px;
 
 }
-
-.card {
-    border:none;
-}
-
-
 /* First border-left-width setting is a fallback */
 .card-custom-img::after {
     position: absolute;
