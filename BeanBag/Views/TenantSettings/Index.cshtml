@@ -33,7 +33,7 @@
 
         <!-- Button to view tenant details -->
         <div class="button1">
-            <a asp-controller="TenantSettings" asp-action="ViewDetails" class="btn btn-2 shadow-sm bg-body rounded" 
+            <a asp-controller="TenantSettings" asp-action="EditDetails" class="btn btn-2 shadow-sm bg-body rounded" 
                data-toggle="modal" data-target="#exampleModal">Tenant Details &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus"
     			                                                                                                                                                 aria-hidden="true"></i></a> <!-- change button css---->
     	</div>    
@@ -50,17 +50,19 @@
                     </button>
                 </div>
                 
+                <form method="post" asp-action="EditDetails" >
                 
                 <div class="modal-body">
                     
                     @if (tenant != null)
                     {
+
                         <div class="form-group">
-                            <label for="tenantName" class="col-form-label">Tenant name *</label>
+                            <label for="tenantName" class="col-form-label">Tenant name</label>
                             <input type="text" id="tenantName" name="tenantName" class="form-control" value="@tenant.TenantName"/> <!--input box--></div>
 
                         <div class="form-group">
-                            <label for="tenantAddress" class="col-form-label">Address *</label>
+                            <label for="tenantAddress" class="col-form-label">Address</label>
                             <input type="text" id="tenantAddress" name="tenantAddress" class="form-control" value="@tenant.TenantAddress"/> <!--input box-->
                         </div>
                         <br>
@@ -68,11 +70,11 @@
                         <h6 class="modal-title">Contact details</h6>
 
                         <div class="form-group">
-                            <label for="tenantEmail" class="col-form-label">Email *</label>
+                            <label for="tenantEmail" class="col-form-label">Email</label>
                             <input type="text" id="tenantEmail" name="tenantEmail" class="form-control" value="@tenant.TenantEmail"/> <!--input box--></div>
 
                         <div class="form-group">
-                            <label for="tenantNumber" class="col-form-label">Telephone number *</label>
+                            <label for="tenantNumber" class="col-form-label">Telephone number</label>
                             <input type="text" id="tenantNumber" name="tenantNumber" class="form-control" value="@tenant.TenantNumber"/> <!--input box--></div>
                     }
 
@@ -83,7 +85,7 @@
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						<input type="submit" class="btn btn-primary" value="Save"/> <!--create button-->
 					</div>
-			
+			</form>
                    
 			</div>
 		</div>
