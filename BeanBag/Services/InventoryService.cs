@@ -80,7 +80,7 @@ namespace BeanBag.Services
         }
 
         // This method retrieves the user role from the database
-        public string GetUserRole(Guid id)
+        public string GetUserRole(string id)
         {
             var user = _db.UserRoles.Find(id);
 

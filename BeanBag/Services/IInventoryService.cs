@@ -12,7 +12,7 @@ namespace BeanBag.Services
         public bool EditInventory(string userId, Inventory inventory);
         public bool DeleteInventory(Guid id, string userId);
         public Inventory FindInventory(Guid id);
-        public string GetUserRole(Guid id);
+        public string GetUserRole(string id);
 
     }
 }
