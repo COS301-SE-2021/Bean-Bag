@@ -1,6 +1,8 @@
 ﻿@using BeanBag.Services
 @using Microsoft.Identity.Web
 
+@inject IInventoryService _inventoryService
+
 @inject TenantService _tenantService
 @{
     var tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
@@ -124,6 +126,8 @@
                                     <thead>
                                     <th>#</th>
                                     <th>User</th>
+                                    <th>Role</th>
+                                    <th>Actions</th>
                                     </thead>
 
                                     <tbody>
@@ -133,6 +137,8 @@
                                             <td>@i</td>
                                             @{ i++; }
                                             <td>@user.UserName</td>
+                                            <td>@_inventoryService.GetUserRole(user.UserObjectId)</td>
+                                            <td></td>
 
                                         </tr>
                                     }
