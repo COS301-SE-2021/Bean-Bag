@@ -156,11 +156,7 @@ namespace BeanBag.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // This function returns the subscription page 
-        public IActionResult TenantPlans()
-        {
-            return View();
-        }
+       
      
     }
 }

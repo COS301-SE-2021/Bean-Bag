@@ -32,7 +32,7 @@ namespace BeanBag.Controllers
                 {"AMOUNT", "5000"},
                 {"CURRENCY", "ZAR"},
                 // Return url to original payment page 
-                {"RETURN_URL", "https://49c1-102-250-3-227.ngrok.io/Tenant/TenantPlans"},
+                {"RETURN_URL", "https://49c1-102-250-3-227.ngrok.io/Payment/CompletePayment"},
                 {"TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
                 {"LOCALE", "en-za"},
                 {"COUNTRY", "ZAF"},
@@ -100,9 +100,9 @@ namespace BeanBag.Controllers
         [HttpPost]
         public async Task<ActionResult> CompletePayment()
         {
-            string responseContent = Request.RouteValues.ToString();
+            string responseContent = Request.Query.Concat(Request.Form).ToString();
             Dictionary<string, string> results = _payment.ToDictionary(responseContent);
-
+            
             Transaction transaction = _payment.GetTransaction(results["PAY_REQUEST_ID"]);
 
             if (transaction == null)
