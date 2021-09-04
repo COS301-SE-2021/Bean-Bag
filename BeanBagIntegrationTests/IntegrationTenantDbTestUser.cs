@@ -33,7 +33,7 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             //Tenant
-            var id = Guid.NewGuid().ToString();
+            var id = Guid.NewGuid();
             var name = "Tenant-name";
             var newTenant = new Tenant { TenantId = id, TenantName = name };
             
