@@ -296,6 +296,44 @@ namespace BeanBagUnitTests
             Assert.True(isEdited);
         }
         
+        //Unit testing for editing and inventory expecting failure (negative testing)
+        [Fact]
+        public void Editing_An_Inventory_invalid()
+        {
+            //ARRANGE
+            Guid theId1 = new("00000000-0000-0000-0000-000000000001");
+            Guid theId2 = new("00000000-0000-0000-0000-000000000002");
+
+            string u1 = "xxx";
+            string u2 = "yyy";
+
+            var mockIn = new Mock<IInventoryService>();
+
+            var data = new List<Inventory>
+            {
+                new Inventory { Id = theId1, name = "Mums 1", userId = u1 },
+                new Inventory { Id = theId2, name = "Mums 1.2", userId = u1 },
+            }.AsQueryable();
+
+            var mockSet = new Mock<DbSet<Inventory>>();
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+
+            //ACT
+            
+            var dbMock = new Mock<DBContext>();
+            dbMock.Setup(x => x.Set<Inventory>()).Returns(mockSet.Object);
+            var myser = new InventoryService(dbMock.Object);
+            
+            var isEdited = myser.EditInventory(u2, myser.FindInventory(theId2));
+
+            //ASSERT
+            Assert.False(isEdited);
+        }
+        
         
         [Fact]
         public void Find_An_Inventory_with_Id()
@@ -334,6 +372,46 @@ namespace BeanBagUnitTests
             Assert.Equal(theId2, foundInv.Id);
             Assert.NotNull(foundInv);
         }
+        
+        //Unit test for find inv with ID, expecting failure (negative testing)
+        [Fact]
+        public void Find_An_Inventory_with_Id_invalid()
+        {
+            //ARRANGE
+            Guid theId1 = new("00000000-0000-0000-0000-000000000001");
+            Guid theId2 = new("00000000-0000-0000-0000-000000000002");
+            Guid theId3 = new("00000000-0000-0000-0000-000000000003");
+
+            string u1 = "xxx";
+            string u2 = "yyy";
+
+            var mockIn = new Mock<IInventoryService>();
+
+            var data = new List<Inventory>
+            {
+                new Inventory { Id = theId1, name = "Mums 1", userId = u1 },
+                new Inventory { Id = theId2, name = "Mums 1.2", userId = u1 },
+            }.AsQueryable();
+
+            var mockSet = new Mock<DbSet<Inventory>>();
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Inventory>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+
+            //ACT
+            
+            var dbMock = new Mock<DBContext>();
+            dbMock.Setup(x => x.Set<Inventory>()).Returns(mockSet.Object);
+            var myser = new InventoryService(dbMock.Object);
+
+            var foundInv = myser.FindInventory(theId3);
+
+            //ASSERT
+            Assert.Null(foundInv);
+        }
+        
 
     }
 
