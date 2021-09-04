@@ -234,6 +234,23 @@ namespace BeanBag.Services
 
         }
 
+        public void EditTenantDetails(string tenantId, string tenantName, string address, string email, string number)
+        {
+            var tenant = _tenantDb.Tenant.Find(tenantId);
+
+            if (tenant == null)
+            {
+                throw new Exception("Tenant is null");
+            }
+
+            tenant.TenantName = tenantName;
+            tenant.TenantAddress = address;
+            tenant.TenantEmail = email;
+            tenant.TenantNumber = number;
+
+            _tenantDb.SaveChanges();
+        }
+
         /* Searches database for tenant by tenant id */
         public bool SearchTenant(string tenantId)
         {
