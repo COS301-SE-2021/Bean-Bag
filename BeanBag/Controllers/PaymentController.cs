@@ -13,6 +13,8 @@ namespace BeanBag.Controllers
     public class PaymentController : Controller
     {
           private readonly IPaymentService _payment;
+          
+          // the company will have their own details , this is or test purposes.
           readonly string PayGateID = "10011072130"; 
           readonly string _payGateKey = "secret";
 
@@ -20,23 +22,24 @@ namespace BeanBag.Controllers
         {
             _payment = payment;
         }
-
+        
         // This function is the get request for the payment gateway and will accept the payment amount
-        public async Task<IActionResult> GetRequest()
+        public async Task<IActionResult> GetRequest(string email, string amount)
         {
             HttpClient http = new HttpClient();
             Dictionary<string, string> request = new Dictionary<string, string>
             {
                 {"PAYGATE_ID", "10011072130"},
                 {"REFERENCE", "test"},
-                {"AMOUNT", "5000"},
+                {"AMOUNT", amount},
                 {"CURRENCY", "ZAR"},
-                // Return url to original payment page 
-                {"RETURN_URL", "https://49c1-102-250-3-227.ngrok.io/Payment/CompletePayment"},
+                // Return url to original payment page -- run in ngrok
+                // ngrok http https://localhost:44352 -host-header="localhost:44352"
+                {"RETURN_URL", "https://41b3-102-250-3-233.ngrok.io/Payment/CompletePayment"},
                 {"TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
                 {"LOCALE", "en-za"},
                 {"COUNTRY", "ZAF"},
-                {"EMAIL", "chrafnadax@gmail.com"}
+                {"EMAIL", email}
             };
 
        
@@ -100,9 +103,17 @@ namespace BeanBag.Controllers
         [HttpPost]
         public async Task<ActionResult> CompletePayment()
         {
-            string responseContent = Request.Query.Concat(Request.Form).ToString();
-            Dictionary<string, string> results = _payment.ToDictionary(responseContent);
-            
+            var responseContent = Request.Query.Concat(Request.Form);
+    
+            var s = responseContent;
+            string x = null;
+            foreach(var i in s)
+            {
+               Console.WriteLine(i.ToString());
+               x += i.ToString();
+            } 
+            Dictionary<string, string> results = _payment.ToDictionary(x);
+
             Transaction transaction = _payment.GetTransaction(results["PAY_REQUEST_ID"]);
 
             if (transaction == null)
@@ -126,15 +137,15 @@ namespace BeanBag.Controllers
                 return RedirectToAction("Failed");
             }
             
-            /* Payment Status 
+             /*   Payment Status 
              -2 = Unable to reconcile transaction
-              -1 = Checksum Error
+             -1 = Checksum Error
               0 = Pending
               1 = Approved
               2 = Declined
               3 = Cancelled
               4 = User Cancelled
-             */
+              */
             
             int paymentStatus = int.Parse(results["TRANSACTION_STATUS"]);
             if(paymentStatus == 1)
@@ -144,7 +155,7 @@ namespace BeanBag.Controllers
             }
             // Query paygate transaction details
             // And update user transaction on your database
-            await VerifyTransaction(responseContent, transaction.REFERENCE);
+            await VerifyTransaction(x, transaction.REFERENCE);
             return RedirectToAction("Complete", new { id = results["TRANSACTION_STATUS"] });
         }
 
@@ -174,7 +185,6 @@ namespace BeanBag.Controllers
             {
                 _payment.UpdateTransaction(results, results["PAY_REQUEST_ID"]);
             }
-
         }
 
         public ViewResult Complete(int? id)
