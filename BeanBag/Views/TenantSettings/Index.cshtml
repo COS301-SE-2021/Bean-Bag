@@ -166,12 +166,12 @@
                                                                 </button>
                                                             </div>
                                                                 
-                                                            <form method="post" asp-action="Delete">
+                                                            <form method="post" asp-action="DeleteUser" asp-controller="TenantSettings">
                                                                 
                                                                 <div class="modal-body">
                                                                             
                                                                     <div class="form-group">
-                                                                        <label for="userId" class="col-form-label">Are you sure you want to delete this user?<br>Name: @user.UserName</label>
+                                                                        <label for="userId" class="col-form-label">Are you sure you want to delete this user?</label>
                                                                         <input type="hidden" id="userId" name="userId" class="form-control" value="@user.UserObjectId"/></div>
 
                                                                     <div asp-validation-summary="All" class="text-danger"></div>
@@ -203,6 +203,23 @@
                         </div>
                     </div>
                 </div>
+                
+                            <!--Code to show current page and page number-->
+                <div>   
+                    @Html.PagedListPager(Model.PagedListTenantUsers, page => Url.Action("Index", new {page}), new PagedListRenderOptions
+                    {
+                        DisplayLinkToIndividualPages = true,
+                        DisplayPageCountAndCurrentLocation = false,
+                        MaximumPageNumbersToDisplay = 10,
+                        LiElementClasses = new[] {"page-item, bg-light"},
+                        PageClasses = new[] {"page-link",  "text-color",  "bg-light"},
+                    })
+                </div>
+                
+                 <!--Code to show current page and page number-->
+                <div>Showing @(Model.PagedListTenantUsers.PageCount < Model.PagedListTenantUsers.PageNumber ? 0 : Model.PagedListTenantUsers.PageNumber) 
+                    out of @Model.PagedListTenantUsers.PageCount entries </div>
+                
 
             </div>
         </div>
