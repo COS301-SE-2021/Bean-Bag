@@ -178,7 +178,7 @@ namespace BeanBag.Services
         }
         
         /* Creates a new tenant and adds tenant to the database */
-        public bool CreateNewTenant(string tenantName, string tenantAddress, string tenantEmail, string tenantNumber)
+        public bool CreateNewTenant(string tenantName, string tenantAddress, string tenantEmail, string tenantNumber, string tenantSubscription)
         {
             if (tenantName == null)
             {
@@ -200,6 +200,10 @@ namespace BeanBag.Services
                 throw new Exception("Tenant number is null");
             }
 
+            if (tenantSubscription == null)
+            {
+                throw new Exception("Tenant subscription is null");
+            }
             var duplicate = (from tenant
                     in _tenantDb.Tenant
                 where tenant.TenantName.Equals(tenantName)
@@ -218,12 +222,11 @@ namespace BeanBag.Services
 
             
             const string defaultTheme = "Default";
-            const string defaultSubscription = "Free";
             const string defaultLogo = "/images/beanbaglogo.png";
 
             //Create new tenant and add to db
             var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = defaultTheme, 
-                TenantEmail = tenantEmail, TenantAddress = tenantAddress, TenantNumber = tenantNumber, TenantSubscription = defaultSubscription,
+                TenantEmail = tenantEmail, TenantAddress = tenantAddress, TenantNumber = tenantNumber, TenantSubscription = tenantSubscription,
                 TenantLogo = defaultLogo
             };
 
