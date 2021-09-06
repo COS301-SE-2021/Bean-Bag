@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using BeanBag.Database;
+using BeanBag.Models;
 
 namespace BeanBag.Services
 {
@@ -11,12 +13,12 @@ namespace BeanBag.Services
     // This service class main focus is to bridge the the payment controller to payment service functions.
     public class PaymentService : IPaymentService
     {
-         private readonly TenantDbContext _transactionDb;
+         private readonly TenantDbContext _tenantDb;
 
          // Constructor sets database context
-         public PaymentService(TenantDbContext transactionDb)
+         public PaymentService(TenantDbContext tenantDb)
          {
-             _transactionDb = transactionDb;
+             _tenantDb = tenantDb;
          }
          
          #region Utilities
@@ -121,28 +123,34 @@ namespace BeanBag.Services
 
         #endregion MD5 Hash
 
-     //   #region Transactions 
-        
-        // This function adds a transaction to the transaction DB 
-      /*  public bool AddTransaction(Dictionary<string, string> request)
+        // This function adds a transaction to the database.
+        public bool AddTransaction(string reference, string payId, string tenantId, double amount)
         {
             try
             {
                 Transaction transaction = new Transaction()
                 {
-                    DATE = DateTime.Now,
-                    REFERENCE = request["REFERENCE"],
-                    AMOUNT = int.Parse(request["AMOUNT"]),
-                    CUSTOMER_EMAIL_ADDRESS = request["EMAIL"]
+                    StartDate = DateTime.Now.ToString(CultureInfo.InvariantCulture),
+                    EndDate = DateTime.Now.AddMonths(1).ToString(CultureInfo.InvariantCulture),
+                    //Error probably made here with the DB 
+                    Reference = Convert.ToInt32(reference.ToString()),
+                    Amount = amount.ToString(CultureInfo.InvariantCulture),
+                    TenantId = new Guid(tenantId),
+                    PaymentRequestId = payId,
                 };
-                _transactionDb.Transaction.Add(transaction);
-                _transactionDb.SaveChanges();
+                _tenantDb.Transaction.Add(transaction);
+                _tenantDb.SaveChanges();
                 return true;
-            } catch (Exception )
+            }
+            catch (Exception )
             {
                 return false;
             }
         }
+     //   #region Transactions 
+        
+        // This function adds a transaction to the transaction DB 
+      /* 
         // get transaction using pay request Id
         public Transaction GetTransaction(string payRequestId)
         {
