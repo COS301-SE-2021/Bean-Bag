@@ -11,6 +11,7 @@ namespace BeanBag.Services
         string GetMd5Hash(Dictionary<string, string> data, string encryptionKey);
         bool VerifyMd5Hash(Dictionary<string, string> data, string encryptionKey, string hash);
         //void UpdateTransactionStatus(Transaction transaction);
-      //  bool AddTransaction(Dictionary<string, string> transaction);
+        public bool AddTransaction(string reference, string payId, string tenantId, double amount);
+
     }
 }
