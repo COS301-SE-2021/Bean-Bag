@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web;
 
 namespace BeanBag.Controllers
 {
@@ -27,6 +28,9 @@ namespace BeanBag.Controllers
         // This function is the get request for the payment gateway and will accept the payment amount
         public async Task<IActionResult> GetRequest(string email, string amount)
         {
+            Console.WriteLine("Checking the user id getreq: " + User.GetObjectId());
+
+
             HttpClient http = new HttpClient();
             string reference = Guid.NewGuid().ToString();
             Dictionary<string, string> request = new Dictionary<string, string>
@@ -87,12 +91,13 @@ namespace BeanBag.Controllers
         [HttpPost]
         public ActionResult CompletePayment(string amount, string reference)
         {
+            Console.WriteLine("Checking the user id complete pay: " + User.GetObjectId());
+
+
             var responseContent = Request.Query.Concat(Request.Form);
             
             var results = responseContent.ToDictionary(x => x.Key, x => x.Value);
-            Console.WriteLine(results["PAY_REQUEST_ID"]);
-            Console.WriteLine(results["TRANSACTION_STATUS"]);
-
+    
             
             return RedirectToAction("Complete", new { id = results["TRANSACTION_STATUS"] , amount=amount, payReqId=results["PAY_REQUEST_ID"] , reference=reference});
         }
@@ -121,7 +126,9 @@ namespace BeanBag.Controllers
                     //_paymentService.AddTransaction(transaction);
 
                     //Determine the type of subscription
-                    
+                    Console.WriteLine("Checking the user id complete: " + User.GetObjectId());
+
+
                     if ( amount.Equals("50000"))
                     {
                         @ViewBag.Subscription = "Standard";
