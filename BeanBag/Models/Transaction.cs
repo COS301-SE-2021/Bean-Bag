@@ -7,17 +7,13 @@ namespace BeanBag.Models
     public class Transaction
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid TRANSACTION_ID { get; set; }
-        public DateTime? DATE { get; set; }
-        public string PAY_REQUEST_ID { get; set; }
-        public int AMOUNT { get; set; }
-        public string REFERENCE { get; set; }
-        public string TRANSACTION_STATUS { get; set; }
-        public string RESULT_DESC { get; set; }
-        public string CUSTOMER_EMAIL_ADDRESS { get; set;}
-        public Guid TENANT_ID { get; set; }
-        public string SUBSCRIPTION { get; set; }
+        public Guid TransactionId { get; set; }
+        public Guid TenantId { get; set; }
+        public string PaymentRequestId { get; set; }
+        public int Reference { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
+        public string Amount { get; set; }
         
     }
 }
