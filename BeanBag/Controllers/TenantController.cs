@@ -90,16 +90,18 @@ namespace BeanBag.Controllers
         
         // This function allows a user to create a new tenant.
         [HttpPost]
-        public IActionResult CreateTenant(string tenantName, string tenantAddress, string tenantEmail, string tenantNumber)
+        public IActionResult CreateTenant(string tenantName, string tenantAddress, string tenantEmail, string tenantNumber, string tenantSubscription)
         {
+            Console.WriteLine("Checking the user id create tenant: " + User.GetObjectId());
+
+
             if (tenantName == null)
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                
-                _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber); 
+                _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber,tenantSubscription); 
             }
 
             return SelectTenant(tenantName);
@@ -125,10 +127,11 @@ namespace BeanBag.Controllers
             {
                 userName = User.Identity.Name;
             }
+            Console.WriteLine("Checking the user id select tenant: " + User.GetObjectId());
 
             if (_tenantService.SearchUser(userId) == false)
             {
-                //User is new - add user to database
+                 //User is new - add user to database
                 //Verify tenant
                 if (_tenantService.SearchTenant(currentTenantId))
                 {
@@ -155,8 +158,5 @@ namespace BeanBag.Controllers
      
             return RedirectToAction("Index", "Home");
         }
-
-       
-     
     }
 }
