@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BeanBag.Models;
 using BeanBag.Services;
@@ -92,7 +93,8 @@ namespace BeanBag.Controllers
         
         // This function allows a user to create a new tenant.
         [HttpPost]
-        public IActionResult CreateTenant(string tenantName, string tenantAddress, string tenantEmail, string tenantNumber, string tenantSubscription)
+        public IActionResult CreateTenant(string tenantName, string tenantAddress,
+            string tenantEmail, string tenantNumber, string tenantSubscription, string reference, string payId)
         {
             Console.WriteLine("Checking the user id create tenant: " + User.GetObjectId());
 
@@ -105,14 +107,14 @@ namespace BeanBag.Controllers
             {
                 _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber,tenantSubscription); 
             }
-
-            return SelectTenant(tenantName);
+            
+            return SelectTenant(tenantName, reference,payId);
         }
 
         /* This function allows a user to select a tenant and generates
          a new user inventory for demonstration purposes*/
      
-        public IActionResult SelectTenant(string tenant)
+        public IActionResult SelectTenant(string tenant, string reference, string payId)
         {
             if (tenant == null)
             {
@@ -141,7 +143,22 @@ namespace BeanBag.Controllers
                     _tenantService.SignUserUp(userId, currentTenantId, userName);
                     
                     //confirm transaction
-                    //_paymentService.AddTransaction();
+                    if (_tenantService.GetCurrentTenant(userId).TenantSubscription != "Free")
+                    {
+                        double amount = 0;
+                        if (_tenantService.GetCurrentTenant(userId).TenantSubscription.Equals("Standard"))
+                        {
+                            amount = 500;
+                        }
+                        else
+                        {
+                            amount = 1000;
+                        }
+                        
+                        //amount // reference //payid 
+                        
+                        
+                    }
                 }
                 else
                 {
