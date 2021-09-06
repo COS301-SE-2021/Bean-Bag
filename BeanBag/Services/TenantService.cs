@@ -234,6 +234,23 @@ namespace BeanBag.Services
 
         }
 
+        public void EditTenantDetails(string tenantId, string tenantName, string address, string email, string number)
+        {
+            var tenant = _tenantDb.Tenant.Find(tenantId);
+
+            if (tenant == null)
+            {
+                throw new Exception("Tenant is null");
+            }
+
+            tenant.TenantName = tenantName;
+            tenant.TenantAddress = address;
+            tenant.TenantEmail = email;
+            tenant.TenantNumber = number;
+
+            _tenantDb.SaveChanges();
+        }
+
         /* Searches database for tenant by tenant id */
         public bool SearchTenant(string tenantId)
         {
@@ -291,6 +308,13 @@ namespace BeanBag.Services
             return tenant.TenantLogo;
         }
 
+        /* Generate a random GUID code for the tenant */
+        public string GenerateCode()
+        {
+            var code = Guid.NewGuid();
+
+            return code.ToString();
+        }
         
         //User functions
         /* Signs the user up and adds user to the user table in the database */
@@ -351,6 +375,34 @@ namespace BeanBag.Services
 
             return userList;
 
+        }
+
+        /* Delete user from the tenant database */
+        public bool DeleteUser(string userId)
+        {
+            if (userId == null)
+            {
+                throw new Exception("User id is null");
+            }
+
+            var user = _tenantDb.TenantUser.Find(userId);
+
+            if (user == null)
+            {
+                throw new Exception("User is null");
+            }
+
+            _tenantDb.TenantUser.Remove(user);
+            _tenantDb.SaveChanges();
+            
+            var check =  _tenantDb.TenantUser.Find(userId);
+
+            if (check == null)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

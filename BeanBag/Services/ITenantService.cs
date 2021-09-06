@@ -13,13 +13,16 @@ namespace BeanBag.Services
         public string GetTenantTheme(string userId);
         public bool SetTenantTheme(string userId, string theme);
         public bool CreateNewTenant(string tenantName, string address, string email, string number);
+        public void EditTenantDetails(string tenantId, string tenantName, string address, string email, string number);
         public bool SearchTenant(string tenantId);
         public IEnumerable<Tenant> GetTenantList();
         public void SetLogo(string userId, string logo);
         public string GetLogo(string userId);
+        public string GenerateCode();
         public bool SignUserUp(string userId, string tenantId, string userName);
         public bool SearchUser(string userId);
         public IEnumerable<TenantUser> GetUserList(string userId);
+        public bool DeleteUser(string userId);
 
     }
 }

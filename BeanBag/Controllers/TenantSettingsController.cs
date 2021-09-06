@@ -22,9 +22,10 @@ namespace BeanBag.Controllers
             _tenantService = tenantService;
         }
 
+        /* Provides a list of users under the currently signed in tenant */
         [AllowAnonymous]
         public IActionResult Index(string sortOrder, string currentFilter, string searchString,
-            int? page,DateTime from, DateTime to)
+            int? page)
         {
             if(User.Identity is {IsAuthenticated: true})
             {
@@ -86,6 +87,33 @@ namespace BeanBag.Controllers
             //Checking user role is in DB
             //CheckUserRole();
             return View(viewModel);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
+        }
+        
+        
+        /* Allows admin user to edit the tenant details through pop-up form. Changes get saved to database. */
+        [HttpPost]
+        public IActionResult EditDetails(string tenantName, string tenantAddress, string tenantEmail, string tenantNumber)
+        {
+            if(User.Identity is {IsAuthenticated: true})
+            {
+
+                var tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
+                
+                if(tenant!=null)
+                {
+                    _tenantService.EditTenantDetails(tenant.TenantId,tenantName,tenantAddress,tenantEmail,tenantNumber);
+                    return RedirectToAction("Index");
+                }
+                else 
+                {
+                    return BadRequest();
+                }  
+                        
             }
             else
             {
