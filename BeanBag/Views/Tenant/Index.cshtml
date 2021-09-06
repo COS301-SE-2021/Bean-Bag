@@ -183,9 +183,6 @@
     </div>    
   </div></div>
 
-<!--Payment testing stuff-->
-
-
 </body>
 </html>
 
@@ -368,7 +365,7 @@
         node.innerText = "Processing...";
         document.querySelector("#results").appendChild(node);
 
-        $.get(`/payment/getrequest`, {email : $('#email').val(), amount: "5000" })
+        $.get(`/payment/getrequest`, {email : $('#email').val(), amount: "50000" })
             .done(data => success(data))
             .fail(err => error(err));
       

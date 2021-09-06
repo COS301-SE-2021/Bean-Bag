@@ -1,62 +1,52 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeanBag.Controllers
 {
+    // This controller sends and receives data to the paygate api and calls functions in the payment service classes
     public class PaymentController : Controller
     {
-          private readonly IPaymentService _payment;
+        private readonly IPaymentService _paymentService;
           
-          // the company will have their own details , this is or test purposes.
-          readonly string PayGateID = "10011072130"; 
-          readonly string _payGateKey = "secret";
+        // the company will have their own details , this is or test purposes.
+        readonly string PayGateID = "10011072130"; 
+        readonly string _payGateKey = "secret";
 
         public PaymentController(IPaymentService payment)
         {
-            _payment = payment;
+            _paymentService = payment;
         }
         
         // This function is the get request for the payment gateway and will accept the payment amount
         public async Task<IActionResult> GetRequest(string email, string amount)
         {
             HttpClient http = new HttpClient();
+            string reference = Guid.NewGuid().ToString();
             Dictionary<string, string> request = new Dictionary<string, string>
             {
-                {"PAYGATE_ID", "10011072130"},
-                {"REFERENCE", "test"},
+                {"PAYGATE_ID", PayGateID},
+                {"REFERENCE", reference},
                 {"AMOUNT", amount},
                 {"CURRENCY", "ZAR"},
                 // Return url to original payment page -- run in ngrok
                 // ngrok http https://localhost:44352 -host-header="localhost:44352"
-                {"RETURN_URL", "https://41b3-102-250-3-233.ngrok.io/Payment/CompletePayment"},
+                {"RETURN_URL", "https://3aad-102-250-3-195.ngrok.io/Payment/CompletePayment?amount="+amount+"&reference="+reference},
                 {"TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
                 {"LOCALE", "en-za"},
                 {"COUNTRY", "ZAF"},
                 {"EMAIL", email}
             };
+            
+            request.Add("CHECKSUM", _paymentService.GetMd5Hash(request, _payGateKey));
 
-       
-            // Get this from parameter get request.
-            // string paymentAmount = (50 * 100).ToString("00"); // amount int cents e.i 50 rands is 5000 cents
-
-            // Payment ref e.g ORDER NUMBER
-            // South Africa
-
-            // get authenticated user's email
-            // use a valid email, pay-gate will send a transaction confirmation to it
-
-            // put your own email address for the payment confirmation (dev only)
-
-            request.Add("CHECKSUM", _payment.GetMd5Hash(request, _payGateKey));
-
-            string requestString = _payment.ToUrlEncodedString(request);
+            string requestString = _paymentService.ToUrlEncodedString(request);
             StringContent content = new StringContent(requestString, Encoding.UTF8, "application/x-www-form-urlencoded");
             HttpResponseMessage response = await http.PostAsync("https://secure.paygate.co.za/payweb3/initiate.trans", content);
 
@@ -65,7 +55,7 @@ namespace BeanBag.Controllers
 
             string responseContent = await response.Content.ReadAsStringAsync();
 
-            Dictionary<string, string> results = _payment.ToDictionary(responseContent);
+            Dictionary<string, string> results = _paymentService.ToDictionary(responseContent);
 
             if (results.Keys.Contains("ERROR"))
             {
@@ -76,7 +66,7 @@ namespace BeanBag.Controllers
                 });
             }
 
-            if (!_payment.VerifyMd5Hash(results, _payGateKey, results["CHECKSUM"]))
+            if (!_paymentService.VerifyMd5Hash(results, _payGateKey, results["CHECKSUM"]))
             {
                 return Json(new
                 {
@@ -85,109 +75,30 @@ namespace BeanBag.Controllers
                 });
             }
 
-            //NEED THE DB TO ENSURE THE TRANSACTION IS SAVED 
-            //  bool IsRecorded = _payment.AddTransaction(request, results["PAY_REQUEST_ID"]);
-            if (true)
-            {
-                return Json(new
+            return Json(new
                 {
                     success = true,
                     message = "Request completed successfully",
                     results
                 });
-            }
         }
 
-        // This is your return url from Paygate
-        // This will run when you complete payment
+        // This function is used to complete the payment and return to the website.
         [HttpPost]
-        public async Task<ActionResult> CompletePayment()
+        public ActionResult CompletePayment(string amount, string reference)
         {
             var responseContent = Request.Query.Concat(Request.Form);
-    
-            var s = responseContent;
-            string x = null;
-            foreach(var i in s)
-            {
-               Console.WriteLine(i.ToString());
-               x += i.ToString();
-            } 
-            Dictionary<string, string> results = _payment.ToDictionary(x);
-
-            Transaction transaction = _payment.GetTransaction(results["PAY_REQUEST_ID"]);
-
-            if (transaction == null)
-            {
-                // Unable to reconcile transaction
-                return RedirectToAction("Failed");
-            }
-
-            // Reorder attributes for MD5 check
-            Dictionary<string, string> validationSet = new Dictionary<string, string>
-            {
-                {"PAYGATE_ID", PayGateID},
-                {"PAY_REQUEST_ID", results["PAY_REQUEST_ID"]},
-                {"TRANSACTION_STATUS", results["TRANSACTION_STATUS"]},
-                {"REFERENCE", transaction.REFERENCE}
-            };
-
-            if (!_payment.VerifyMd5Hash(validationSet, _payGateKey, results["CHECKSUM"]))
-            {
-                // checksum error
-                return RedirectToAction("Failed");
-            }
             
-             /*   Payment Status 
-             -2 = Unable to reconcile transaction
-             -1 = Checksum Error
-              0 = Pending
-              1 = Approved
-              2 = Declined
-              3 = Cancelled
-              4 = User Cancelled
-              */
+            var results = responseContent.ToDictionary(x => x.Key, x => x.Value);
+            Console.WriteLine(results["PAY_REQUEST_ID"]);
+            Console.WriteLine(results["TRANSACTION_STATUS"]);
+
             
-            int paymentStatus = int.Parse(results["TRANSACTION_STATUS"]);
-            if(paymentStatus == 1)
-            {
-                // Yey, payment approved
-                // Do something useful
-            }
-            // Query paygate transaction details
-            // And update user transaction on your database
-            await VerifyTransaction(x, transaction.REFERENCE);
-            return RedirectToAction("Complete", new { id = results["TRANSACTION_STATUS"] });
+            return RedirectToAction("Complete", new { id = results["TRANSACTION_STATUS"] , amount=amount, payReqId=results["PAY_REQUEST_ID"] , reference=reference});
         }
 
-        private async Task VerifyTransaction(string responseContent, string reference)
-        {
-            HttpClient client = new HttpClient();
-            Dictionary<string, string> response = _payment.ToDictionary(responseContent);
-            Dictionary<string, string> request = new Dictionary<string, string>
-            {
-                {"PAYGATE_ID", PayGateID}, {"PAY_REQUEST_ID", response["PAY_REQUEST_ID"]}, {"REFERENCE", reference}
-            };
-
-            request.Add("CHECKSUM", _payment.GetMd5Hash(request, _payGateKey));
-
-            string requestString = _payment.ToUrlEncodedString(request);
-
-            StringContent content = new StringContent(requestString, Encoding.UTF8, "application/x-www-form-urlencoded");
-
-            // ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
-            HttpResponseMessage res = await client.PostAsync("https://secure.paygate.co.za/payweb3/query.trans", content);
-            res.EnsureSuccessStatusCode();
-
-            string responseContents= await res.Content.ReadAsStringAsync();
-
-            Dictionary<string, string> results = _payment.ToDictionary(responseContents);
-            if (!results.Keys.Contains("ERROR"))
-            {
-                _payment.UpdateTransaction(results, results["PAY_REQUEST_ID"]);
-            }
-        }
-
-        public ViewResult Complete(int? id)
+        //This function occurs after completing the payment, and presents a popup of the transaction status 
+        public IActionResult Complete(int? id, string amount, string payReqId , string reference)
         {
             string status;
             switch (id.ToString())
@@ -202,8 +113,25 @@ namespace BeanBag.Controllers
                     status = "Not Done";
                     break;
                 case "1":
+                    //Transaction Approved 
                     status = "Approved";
-                    break;
+
+                    //Add the transaction to the db 
+                    //Create tenant here ....
+                    //_paymentService.AddTransaction(transaction);
+
+                    //Determine the type of subscription
+                    
+                    if ( amount.Equals("50000"))
+                    {
+                        @ViewBag.Subscription = "Standard";
+                    }
+                    else
+                    {
+                        @ViewBag.Subscription = "Premium";
+                    }
+                    return View();
+                
                 case "2":
                     status = "Declined";
                     break;
@@ -219,14 +147,9 @@ namespace BeanBag.Controllers
             }
             TempData["Status"] = status;
 
-            return View();
+           return RedirectToAction("Index", "Tenant");
         }
-
-        public ActionResult Failed()
-        {
-            throw new NotImplementedException();
-        }
-    
+        
         public IActionResult Billing()
         {
             return View();

@@ -120,7 +120,11 @@ namespace BeanBag.Controllers
                 return LocalRedirect("/");
             }
         }
-        
-        
+
+
+        public IActionResult Delete()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

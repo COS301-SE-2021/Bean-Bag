@@ -64,6 +64,8 @@ namespace BeanBag.Services
 
             return result;
         }
+
+   
         #endregion Utility
         
         // SEE SHA HASHING COULD BE MORE SECURE (Also 3D verification if there is time ) 
@@ -118,6 +120,8 @@ namespace BeanBag.Services
             }
             else
             {
+                Console.WriteLine("Checking hashing.....");
+                Console.WriteLine(comparer.Compare(hashOfInput, hash));
                 return false;
             }
         }
@@ -127,14 +131,13 @@ namespace BeanBag.Services
         #region Transactions 
         
         // This function adds a transaction to the transaction DB 
-        public bool AddTransaction(Dictionary<string, string> request, string payRequestId)
+        public bool AddTransaction(Dictionary<string, string> request)
         {
             try
             {
                 Transaction transaction = new Transaction()
                 {
                     DATE = DateTime.Now,
-                    PAY_REQUEST_ID = payRequestId,
                     REFERENCE = request["REFERENCE"],
                     AMOUNT = int.Parse(request["AMOUNT"]),
                     CUSTOMER_EMAIL_ADDRESS = request["EMAIL"]
@@ -144,8 +147,6 @@ namespace BeanBag.Services
                 return true;
             } catch (Exception )
             {
-                // log somewhere
-                // at least we tried
                 return false;
             }
         }
