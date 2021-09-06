@@ -20,9 +20,9 @@ namespace BeanBag.Models
         public IPagedList<Item> PagedListItems{ get; set; }
         public IPagedList<AIModel> PagedListModels{ get; set; }
         public IPagedList<AIModelVersions> PagedListVersions{ get; set; }
-        
         public IPagedList<Tenant> PagedListTenants{ get; set; }
-        
         public IPagedList<TenantUser> PagedListTenantUsers { get; set; }
+        
+        public IPagedList<TenantUser> PagedListTenantTransactions { get; set; }
     }
 }
