@@ -89,8 +89,9 @@ namespace BeanBag.Controllers
 
         // This function is used to complete the payment and return to the website.
         [HttpPost]
-        public ActionResult CompletePayment(string amount, string reference)
+        public  ActionResult CompletePayment(string amount, string reference)
         {
+           // var subClaim = User.FindFirst(ClaimTypes.NameIdentifier);
             Console.WriteLine("Checking the user id complete pay: " + User.GetObjectId());
 
 
@@ -98,12 +99,12 @@ namespace BeanBag.Controllers
             
             var results = responseContent.ToDictionary(x => x.Key, x => x.Value);
     
-            
-            return RedirectToAction("Complete", new { id = results["TRANSACTION_STATUS"] , amount=amount, payReqId=results["PAY_REQUEST_ID"] , reference=reference});
+          //  await VerifyTransaction(responseContent, transaction.REFERENCE);
+            return  RedirectToAction("Complete", new { id = results["TRANSACTION_STATUS"] , amount=amount, payReqId=results["PAY_REQUEST_ID"] , reference=reference});
         }
 
         //This function occurs after completing the payment, and presents a popup of the transaction status 
-        public IActionResult Complete(int? id, string amount, string payReqId , string reference)
+        public ActionResult Complete(int? id, string amount, string payReqId , string reference)
         {
             string status;
             switch (id.ToString())

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using BeanBag.Database;
-using BeanBag.Models;
 
 namespace BeanBag.Services
 {
@@ -13,10 +11,10 @@ namespace BeanBag.Services
     // This service class main focus is to bridge the the payment controller to payment service functions.
     public class PaymentService : IPaymentService
     {
-         private readonly TransactionDbContext _transactionDb;
+         private readonly TenantDbContext _transactionDb;
 
          // Constructor sets database context
-         public PaymentService(TransactionDbContext transactionDb)
+         public PaymentService(TenantDbContext transactionDb)
          {
              _transactionDb = transactionDb;
          }
@@ -123,10 +121,10 @@ namespace BeanBag.Services
 
         #endregion MD5 Hash
 
-        #region Transactions 
+     //   #region Transactions 
         
         // This function adds a transaction to the transaction DB 
-        public bool AddTransaction(Dictionary<string, string> request)
+      /*  public bool AddTransaction(Dictionary<string, string> request)
         {
             try
             {
@@ -177,7 +175,7 @@ namespace BeanBag.Services
             return isUpdated;
         }
 
-        #endregion Transaction
+        #endregion Transaction*/
         
     }
 }

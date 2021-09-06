@@ -16,12 +16,14 @@ namespace BeanBag.Controllers
         // Global variables needed for calling the service classes.
         private readonly TenantService _tenantService;
         private readonly IInventoryService _inventory;
+        private readonly IPaymentService _paymentService;
 
         // Constructor.
-        public TenantController(TenantService tenantService, IInventoryService inventory)
+        public TenantController(TenantService tenantService, IInventoryService inventory, IPaymentService paymentService)
         {
             _tenantService = tenantService;
             _inventory = inventory;
+            _paymentService = paymentService;
         }
 
         /* This function adds a page parameter, a current sort order parameter, and a current filter
@@ -137,6 +139,9 @@ namespace BeanBag.Controllers
                 {
                     //Verified
                     _tenantService.SignUserUp(userId, currentTenantId, userName);
+                    
+                    //confirm transaction
+                    //_paymentService.AddTransaction();
                 }
                 else
                 {
