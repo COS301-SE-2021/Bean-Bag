@@ -1,5 +1,4 @@
-﻿@Model 
-@{
+﻿@{
    
     Layout = null;
 }
@@ -57,10 +56,10 @@
 	
 	<div class="collapse navbar-collapse"  id="collapsibleNavbar">
 		<div class="navbar-nav ml-auto  pt-1">
-				<li class="nav-item">		<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Tenant" asp-action="Index">
-                                        					Plans
-                                        				</a>
-            		</li>
+			<li class="nav-item">		<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Tenant" asp-action="Index">
+					Plans
+				</a>
+			</li>
 			<li class="nav-item">
 
 			
@@ -80,9 +79,18 @@
 		</div>
 		
 	</div>
-		<hr>
+	<hr>
 </nav>
 
+<div class="container h-75 d-flex justify-content-center">
+    <div class=" my-auto pt-xl-3 text-center">    
+	    <!--Successful Payment here-->
+        	<h1> Payment was completed successfully <img alt="" width="50" src="https://img.icons8.com/color/48/000000/checked--v4.gif"/></h1>
+        	<h4 class="pb-2"> Start creating a new tenant now</h4>
+        	<!-- Button trigger modal -->
+           <button class="btn btn-outline-light shadow-sm bg-body create rounded colors pt-2 "  data-toggle="modal" data-target="#exampleModal3"  id="btn-pay" >Create New Tenant</button>
+    </div>
+ </div>
 
 	<!---Popup Form to create tenant-->
 	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle3">
@@ -90,19 +98,31 @@
         
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title"  id="exampleModalTitle3">Create New Tenant  @ViewBag.Subscription</h5>
+					<h5 class="modal-title"  id="exampleModalTitle3">Create New Tenant </h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-                
 				<form method="post" asp-controller="Tenant" asp-action="CreateTenant" >
 					<div class="modal-body">
-						
+							<p class="text-muted pb-2"> @ViewBag.Subscription Account</p>
+                        			
 						<div class="form-group">
 							<label for="tenantName" class="col-form-label">Tenant name *</label>
 							<input type="text" id="tenantName" name="tenantName" class="form-control"/> <!--input box-->
 						</div>
+						
+						<!---Adds the tenant subscription over here--> 
+						@if (@ViewBag.Subscription == "Standard")
+						{
+							<input name="tenantSubscription" value="Standard" hidden />
+                       
+						}
+						else
+						{
+							<input name="tenantSubscription" value="Premium" hidden />
+						}
+						          
 
 						<div class="form-group">
 							<label for="tenantAddress" class="col-form-label">Address *</label>
@@ -121,6 +141,8 @@
 							<input type="text" id="tenantNumber" name="tenantNumber" class="form-control"/> <!--input box-->
 						</div>
 
+						<!---Add the subscription plans here-->
+						
 						<div asp-validation-summary="All" class="text-danger"></div>
 
 					</div>
@@ -136,4 +158,3 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-@ViewBag.Subscription
