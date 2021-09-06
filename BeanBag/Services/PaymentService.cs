@@ -46,19 +46,14 @@ namespace BeanBag.Services
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
 
-            //dev test 
-            Console.WriteLine("RESPONSE---"+response);
             
+             
             string[] valuePairs = response.Split('&');
-            //dev test 
-            Console.WriteLine("VALUE PAIRS---"+response);
+        
             foreach (string valuePair in valuePairs)
             {
                 string[] values = valuePair.Split('=');
-                
-                //dev test 
-                Console.WriteLine("VALUES----"+response);
-                
+
                 result.Add(values[0], HttpUtility.UrlDecode(values[1]));
             }
 
