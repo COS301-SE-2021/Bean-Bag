@@ -64,12 +64,7 @@ namespace BeanBag
                 options.UseSqlServer(Configuration.GetValue<string>("Database:TenantConnection"))
             );
             
-            // Connecting to Transaction DB
-            services.AddDbContext<TransactionDbContext>(options => 
-                //Database will have to change from default connection to transaction connection
-                options.UseSqlServer(Configuration.GetValue<string>("Database:DefaultConnection"))
-            );
-
+        
             //Adding service classes to be used as a DI
             services.AddTransient<IInventoryService, InventoryService>();
             services.AddTransient<IItemService, ItemService>();
