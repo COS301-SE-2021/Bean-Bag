@@ -22,6 +22,7 @@ namespace BeanBag.Services
         public bool SignUserUp(string userId, string tenantId, string userName);
         public bool SearchUser(string userId);
         public IEnumerable<TenantUser> GetUserList(string userId);
+        public bool DeleteUser(string userId);
 
     }
 }

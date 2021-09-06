@@ -376,5 +376,33 @@ namespace BeanBag.Services
             return userList;
 
         }
+
+        /* Delete user from the tenant database */
+        public bool DeleteUser(string userId)
+        {
+            if (userId == null)
+            {
+                throw new Exception("User id is null");
+            }
+
+            var user = _tenantDb.TenantUser.Find(userId);
+
+            if (user == null)
+            {
+                throw new Exception("User is null");
+            }
+
+            _tenantDb.TenantUser.Remove(user);
+            _tenantDb.SaveChanges();
+            
+            var check =  _tenantDb.TenantUser.Find(userId);
+
+            if (check == null)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
