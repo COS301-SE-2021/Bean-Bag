@@ -121,6 +121,23 @@ namespace BeanBag.Controllers
             }
         }
         
+        /* Allows admin user to delete a user from the database */
+        [HttpPost]
+        public IActionResult DeleteUser(string userId)
+        {
+            if (userId == null)
+            {
+                return BadRequest();
+            }
+
+            if (_tenantService.DeleteUser(userId))
+            {
+                return RedirectToAction("Index");
+            }
+            
+            return LocalRedirect("/");
+        }
+        
         
     }
 }
