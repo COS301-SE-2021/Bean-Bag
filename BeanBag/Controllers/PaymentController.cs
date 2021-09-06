@@ -11,7 +11,8 @@ using Microsoft.Identity.Web;
 
 namespace BeanBag.Controllers
 {
-    // This controller sends and receives data to the paygate api and calls functions in the payment service classes
+    // This controller sends and receives data to the paygate api and
+    // calls functions in the payment service classes
     public class PaymentController : Controller
     {
         private readonly IPaymentService _paymentService;
@@ -20,20 +21,21 @@ namespace BeanBag.Controllers
         readonly string PayGateID = "10011072130"; 
         readonly string _payGateKey = "secret";
 
+        // Constructor.
         public PaymentController(IPaymentService payment)
         {
             _paymentService = payment;
         }
         
-        // This function is the get request for the payment gateway and will accept the payment amount
+        // This function is the get request for the payment gateway and will accept the payment amount.
         public async Task<IActionResult> GetRequest(string email, string amount)
         {
-            Console.WriteLine("Checking the user id getreq: " + User.GetObjectId());
+            Console.WriteLine("Checking the user id getReq: " + User.GetObjectId());
 
 
             HttpClient http = new HttpClient();
             string reference = Guid.NewGuid().ToString();
-            Dictionary<string, string> request = new Dictionary<string, string>
+            Dictionary<string, string> request = new()
             {
                 {"PAYGATE_ID", PayGateID},
                 {"REFERENCE", reference},
@@ -41,7 +43,8 @@ namespace BeanBag.Controllers
                 {"CURRENCY", "ZAR"},
                 // Return url to original payment page -- run in ngrok
                 // ngrok http https://localhost:44352 -host-header="localhost:44352"
-                {"RETURN_URL", "https://b614-102-250-3-252.ngrok.io/Payment/CompletePayment?amount="+amount+"&reference="+reference},
+                {"RETURN_URL", "https://b614-102-250-3-252.ngrok.io/Payment/CompletePayment?amount=" +
+                               ""+amount+"&reference="+reference},
                 {"TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
                 {"LOCALE", "en-za"},
                 {"COUNTRY", "ZAF"},
@@ -51,8 +54,10 @@ namespace BeanBag.Controllers
             request.Add("CHECKSUM", _paymentService.GetMd5Hash(request, _payGateKey));
 
             string requestString = _paymentService.ToUrlEncodedString(request);
-            StringContent content = new StringContent(requestString, Encoding.UTF8, "application/x-www-form-urlencoded");
-            HttpResponseMessage response = await http.PostAsync("https://secure.paygate.co.za/payweb3/initiate.trans", content);
+            StringContent content = new StringContent(requestString,
+                Encoding.UTF8, "application/x-www-form-urlencoded");
+            HttpResponseMessage response
+                = await http.PostAsync("https://secure.paygate.co.za/payweb3/initiate.trans", content);
 
             // if the request did not succeed, this line will make the program crash
             response.EnsureSuccessStatusCode();
@@ -90,19 +95,21 @@ namespace BeanBag.Controllers
 
         // This function is used to complete the payment and return to the website.
         [HttpPost]
-        public ActionResult CompletePayment(string amount, string reference)
+        public ActionResult CompletePayment(string a, string r)
         {
             Console.WriteLine("Checking the user id complete pay: " + User.GetObjectId());
 
 
             var responseContent = Request.Query.Concat(Request.Form);
             
-            var results = responseContent.ToDictionary(x => x.Key, x => x.Value);
+            var results = responseContent.ToDictionary(x 
+                => x.Key, x => x.Value);
     
-            return  RedirectToAction("Complete", new { id = results["TRANSACTION_STATUS"] , amount=amount, payReqId=results["PAY_REQUEST_ID"] , reference=reference});
+            return  RedirectToAction("Complete", new { id = results["TRANSACTION_STATUS"] ,
+                amount=a, payReqId=results["PAY_REQUEST_ID"] , reference=r});
         }
 
-        //This function occurs after completing the payment, and presents a popup of the transaction status 
+        //This function occurs after completing the payment, and presents a popup of the transaction status.
         public ActionResult Complete(int? id, string amount, string payReqId , string reference)
         {
             string status;
@@ -118,25 +125,14 @@ namespace BeanBag.Controllers
                     status = "Not Done";
                     break;
                 case "1":
+                    @ViewBag.payReqId = payReqId;
+                    @ViewBag.reference = reference;
+                    
                     //Transaction Approved 
-                    status = "Approved";
-
-                    //Add the transaction to the db 
-                    //Create tenant here ....
-                    //_paymentService.AddTransaction(transaction);
-
-                    //Determine the type of subscription
                     Console.WriteLine("Checking the user id complete: " + User.GetObjectId());
-
-
-                    if ( amount.Equals("50000"))
-                    {
-                        @ViewBag.Subscription = "Standard";
-                    }
-                    else
-                    {
-                        @ViewBag.Subscription = "Premium";
-                    }
+                    
+                    //Determine the type of subscription
+                    @ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
                     return View();
                 
                 case "2":
@@ -157,6 +153,7 @@ namespace BeanBag.Controllers
            return RedirectToAction("Index", "Tenant");
         }
         
+        // This function returns the billing page where the tenant can view their transactions.
         public IActionResult Billing()
         {
             return View();

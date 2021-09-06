@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using BeanBag.Models;
 using BeanBag.Services;
@@ -135,7 +134,7 @@ namespace BeanBag.Controllers
 
             if (_tenantService.SearchUser(userId) == false)
             {
-                 //User is new - add user to database
+                //User is new - add user to database
                 //Verify tenant
                 if (_tenantService.SearchTenant(currentTenantId))
                 {
@@ -145,7 +144,7 @@ namespace BeanBag.Controllers
                     //confirm transaction
                     if (_tenantService.GetCurrentTenant(userId).TenantSubscription != "Free")
                     {
-                        double amount = 0;
+                        double amount;
                         if (_tenantService.GetCurrentTenant(userId).TenantSubscription.Equals("Standard"))
                         {
                             amount = 500;
@@ -155,9 +154,10 @@ namespace BeanBag.Controllers
                             amount = 1000;
                         }
                         
-                        //amount // reference //payid 
-                        
-                        
+                        //Add the transaction to the DB 
+                        _paymentService.AddTransaction(reference, payId, currentTenantId, amount);
+
+
                     }
                 }
                 else
