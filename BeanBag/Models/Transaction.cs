@@ -1,12 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BeanBag.Models
 {
     public class Transaction
     {
-        [Key]
+        [Key] 
         public Guid TransactionId { get; set; }
         public Guid TenantId { get; set; }
         public string PaymentRequestId { get; set; }
