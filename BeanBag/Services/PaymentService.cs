@@ -26,17 +26,29 @@ namespace BeanBag.Services
         // This function is used to Encode dictionary to Url string
         public string ToUrlEncodedString(Dictionary<string, string> request)
         {
-            StringBuilder builder = new StringBuilder();
-
-            foreach (string key in request.Keys)
+            if (request == null)
             {
-                builder.Append("&");
-                builder.Append(key);
-                builder.Append("=");
-                builder.Append(HttpUtility.UrlEncode(request[key]));
+                throw new Exception("Input string is null");
             }
+            string result = null;
+            try
+            {
+                StringBuilder builder = new StringBuilder();
+                foreach (string key in request.Keys)
+                {
+                    builder.Append("&");
+                    builder.Append(key);
+                    builder.Append("=");
+                    builder.Append(HttpUtility.UrlEncode(request[key]));
+                }
 
-            string result = builder.ToString().TrimStart('&');
+                 result = builder.ToString().TrimStart('&');
+               
+            }
+            catch (Exception e)
+            {
+                throw new Exception("String could not be encoded");
+            }
 
             return result;
         }
@@ -44,17 +56,25 @@ namespace BeanBag.Services
         // This function converts a query string to dictionary 
         public Dictionary<string, string> ToDictionary(string response)
         {
-            Dictionary<string, string> result = new Dictionary<string, string>();
-
-            
-             
-            string[] valuePairs = response.Split('&');
-        
-            foreach (string valuePair in valuePairs)
+            if (response == null)
             {
-                string[] values = valuePair.Split('=');
+                throw new Exception("Input string is null");
+            }
+            
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            try
+            {
+                string[] valuePairs = response.Split('&');
+                foreach (string valuePair in valuePairs)
+                {
+                    string[] values = valuePair.Split('=');
 
-                result.Add(values[0], HttpUtility.UrlDecode(values[1]));
+                    result.Add(values[0], HttpUtility.UrlDecode(values[1]));
+                }
+            }
+            catch(Exception e)
+            {
+                throw new Exception("String could not be converted to dictionary.");
             }
 
             return result;
@@ -72,29 +92,59 @@ namespace BeanBag.Services
         // This function computes a hashcode, this is for security purposes
         public string GetMd5Hash(Dictionary<string, string> data, string encryptionKey)
         {
-            using MD5 md5Hash = MD5.Create();
-            StringBuilder input = new StringBuilder();
-            foreach (string value in data.Values)
+            if (data == null)
             {
-                input.Append(value);
+                throw new Exception("Dictionary data is null");
+            }
+            else if (encryptionKey == null) 
+            {
+                throw new Exception("EncryptionKey is null.");
             }
 
-            input.Append(encryptionKey);
-
-            byte[] hash = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input.ToString()));
-
-            StringBuilder sBuilder = new StringBuilder();
-
-            foreach (var t in hash)
+            try
             {
-                sBuilder.Append(t.ToString("x2"));
+                using MD5 md5Hash = MD5.Create();
+                StringBuilder input = new StringBuilder();
+                foreach (string value in data.Values)
+                {
+                    input.Append(value);
+                }
+
+                input.Append(encryptionKey);
+
+                byte[] hash = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input.ToString()));
+
+                StringBuilder sBuilder = new StringBuilder();
+
+                foreach (var t in hash)
+                {
+                    sBuilder.Append(t.ToString("x2"));
+                }
+
+                return sBuilder.ToString();
             }
-            return sBuilder.ToString();
+            catch(Exception e)
+            {
+                throw new Exception("Could not get Md5 hash.");
+            }
         }
 
         // This function verifies that the encryption hashing took place 
         public bool VerifyMd5Hash(Dictionary<string, string> data, string encryptionKey, string hash)
         {
+            if (data == null)
+            {
+                throw new Exception("Dictionary data is null");
+            }
+            else if (encryptionKey == null) 
+            {
+                throw new Exception("EncryptionKey is null.");
+            }
+            else if (hash == null)
+            {
+                throw new Exception("Hash is null.");
+            }
+            
             Dictionary<string, string> hashDict = new Dictionary<string, string>();
 
             foreach (string key in data.Keys)
@@ -126,6 +176,22 @@ namespace BeanBag.Services
         // This function adds a transaction to the database.
         public bool AddTransaction(string reference, string payId, string tenantId, double amount)
         {
+            if (reference == null)
+            {
+                throw new Exception("Reference data is null");
+            }
+            else if (payId == null) 
+            {
+                throw new Exception("PayId is null.");
+            }
+            else if (tenantId == null)
+            {
+                throw new Exception("TenantId is null.");
+            }else if (amount == 0)
+            {
+                throw new Exception("Amount is null.");
+            }
+
             try
             {
                 Transaction transaction = new Transaction()
@@ -142,48 +208,18 @@ namespace BeanBag.Services
                 _tenantDb.SaveChanges();
                 return true;
             }
-            catch (Exception )
+            catch (Exception e)
             {
                 return false;
             }
         }
-     //   #region Transactions 
+
+        // This function gets the transactions for a specific user.
+        public IEnumerable<System.Transactions.Transaction> GetTransactions(string currentTenantId)
+        {
+            throw new NotImplementedException();
+        }
         
-        // This function adds a transaction to the transaction DB 
-      /* 
-        // get transaction using pay request Id
-        public Transaction GetTransaction(string payRequestId)
-        {
-            var transaction = _transactionDb.Transaction.FirstOrDefault(p => p.PAY_REQUEST_ID == payRequestId);
-            return transaction ?? new Transaction();
-
-        }
-
-        // This function updates a transaction in the transaction DB.
-        public bool UpdateTransaction(Dictionary<string, string> request, string payRequestId)
-        {
-            bool isUpdated = false;
-
-            Transaction transaction = GetTransaction(payRequestId);
-            if (transaction == null)
-                return false;
-
-            transaction.TRANSACTION_STATUS = request["TRANSACTION_STATUS"];
-            transaction.RESULT_DESC = request["RESULT_DESC"];
-            try
-            {
-                _transactionDb.SaveChanges();
-                isUpdated = true;
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-
-            return isUpdated;
-        }
-
-        #endregion Transaction*/
         
     }
 }
