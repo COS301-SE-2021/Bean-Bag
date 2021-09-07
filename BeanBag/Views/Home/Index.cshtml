@@ -243,7 +243,8 @@ else
    
       $(document).ready(function ()
       {
-            
+          if (@ViewBag.hasItems)
+           { 
             //------------- Ajax get items on change of the timespan ------------------//
              $("#TimeDropDown").change(function () {
                  
@@ -725,7 +726,9 @@ else
                                  }); 
                                  }
                            });  
-                        });                      
+                        }); 
+                                
+                                }
         })
                  
  
