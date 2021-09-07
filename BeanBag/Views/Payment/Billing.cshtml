@@ -22,7 +22,8 @@
     <div class="container-fluid  dashboard-content">
     <hr>
     
-    <div class="row">
+            <br>
+    <div class="row pb-1">
         <!-- metric -->
         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
             <div data-aos="flip-left"
@@ -31,7 +32,7 @@
                  data-aos-offset="0">
                 <div class="card shadow p-1 mb-3 bg-body rounded-lg">
                     <div class="card-body">
-                        <h5 class="text-muted ">Current Subscription</h5>
+                        <h5 class="text-muted ">Current Subscription <img src="https://img.icons8.com/ios/50/000000/membership-card.png" alt=""/></h5>
                         <div class="pt-1">
                             <ul class="list-unstyled spaced">
                                 <li><i class="ace-icon fa fa-caret-right blue"></i>Street, City
@@ -67,7 +68,7 @@
                  data-aos-offset="0">
                 <div class="card shadow p-1 mb-3 bg-body rounded-lg">
                     <div class="card-body">
-                        <h5 class="text-muted ">Tenant Details</h5>
+                        <h5 class="text-muted ">Tenant Details <img src="https://img.icons8.com/fluency-systems-regular/50/000000/user.png" alt=""/></h5>
                         <div class="pt-1">
                             <ul class="list-unstyled spaced">
                                 <li><i class="ace-icon fa fa-caret-right blue"></i>Street, City
@@ -103,7 +104,7 @@
         	         data-aos-offset="0">
         		    <div class="card shadow p-1 mb-3 bg-body rounded-lg">
         			    <div class="card-body">
-        				    <h5 class="text-muted ">Company Details </h5>
+        				    <h5 class="text-muted ">Company Details <img src="https://img.icons8.com/ios/50/000000/company.png" alt=""/></h5>
         				   <div class="pt-1">
                                <ul class="list-unstyled spaced">
                                    <li><i class="ace-icon fa fa-caret-right blue"></i>Street, City
@@ -135,42 +136,53 @@
        </div>
     
     
-   <hr>
-        <div class="row pt-2">
-            <!--Date sorts-->
-            @using (Html.BeginForm())
-            {
-                <div class="d-flex">
-                    <span class="d-inline-block ml-3 pt-2">
-                        <b>Find Transactions</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date &nbsp;</span>
-                    <span class=" d-inline-block">              
-                        @Html.TextBox("from", null, new {@class = "form-control ", type="date"})
-                    </span>
-                    <span class="d-inline-block pt-2">
-                        &nbsp; &nbsp; To Date &nbsp;</span>
-                    <span class=" d-inline-block">  
-                        @Html.TextBox("to", null, new {@class = "form-control ", type="date" })
-                    </span>
-                    @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
-                    <span class="d-inline-block pl-2">
-                        <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3"/>
-                    </span>
-                </div>
-            }
-            <!--Search-->
-            <div class="col-3 ml-auto ">
-                @using (Html.BeginForm())
-                {
-                    <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
-                        @Html.TextBox("SearchString", null, new {@class = "form-control  my-0 py-1 red-border", placeholder = "Search"})
-                        <div class="input-group-append">
-                            <button class="input-group-text " value="Search" type="submit" id="basic-text1">
-                                <i class="fas fa-search text-grey"
-                                   aria-hidden="true"></i></button>
-                        </div>
-                    </div>
-                }                                                                                                                                                                                                     
-            </div>
+    <hr>
+    <div class="row">
+             <b class="pl-3">Total Transactions &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span  > &nbsp; @ViewBag.totalTransactions</span>
+                        
+        <div class=" mr-3 ml-auto">
+            <a class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Update Subscription  &nbsp; &nbsp;  &nbsp; &nbsp; <i class="fa fa-caret-up" aria-hidden="true"></i></a>
+        </div>
+    </div>
+        <div class="row pt-3" >
+                     <!--Date Search-->
+                     @using (Html.BeginForm())
+                     {
+                         <div class="d-flex">
+                             <span class="d-inline-block ml-3 pt-2 ">
+                                 <b>Find Transactions</b> &nbsp; &nbsp;<i class="fas fa-angle-right"></i></span>
+                             <span class=" d-inline-block pl-2">     
+                                     <h5 class="pt-1">  <label class="badge " style="color: #323232 " >From Date</label></h5>
+                                 @Html.TextBox("from", null, new {@class = "form-control ", type="date"})
+                             </span>
+                             <span class=" d-inline-block pl-1">  
+                                    <h5 class="pt-1">  <label class="badge " style="color: #323232 " >To Date</label></h5>
+                                 @Html.TextBox("to", null, new {@class = "form-control ", type="date" })
+                             </span>
+                             @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
+                                                           
+                             <span class=" d-inline-block pl-1">
+                                         <h5 class="pt-1">  <label class="badge " style="color: #323232 " >&nbsp;</label></h5>
+                                                           
+                                 <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3"/>
+                             </span>
+                         </div>
+                     }
+                  
+                     <!--Search-->
+                     <div class="col-2 ml-auto pt-4">
+                         @using (Html.BeginForm())
+                         {
+                             <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                                 @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 red-border", placeholder = "Search"})
+                                 <div class="input-group-append">
+                                     <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
+                                         <i class="fas fa-search text-grey"
+                                            aria-hidden="true"></i></button>
+                                 </div>
+                             </div>
+                         }
+                     </div>
             
             <!--Table with bootstrap class .table and .table-condensed-->
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
