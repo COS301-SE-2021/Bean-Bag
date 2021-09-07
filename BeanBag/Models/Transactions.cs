@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BeanBag.Models
 {
-    public class Transaction
+    public class Transactions
     {
         [Key] 
         public Guid TransactionId { get; set; }

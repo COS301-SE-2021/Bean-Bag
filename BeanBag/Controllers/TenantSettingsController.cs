@@ -14,10 +14,10 @@ namespace BeanBag.Controllers
     {
         
         // Global variables needed for calling the service classes.
-        private readonly TenantService _tenantService;
+        private readonly ITenantService _tenantService;
 
         // Constructor.
-        public TenantSettingsController(TenantService tenantService)
+        public TenantSettingsController(ITenantService tenantService)
         {
             _tenantService = tenantService;
         }

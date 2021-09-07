@@ -5,7 +5,7 @@
 
 @inject IInventoryService _inventoryService
 
-@inject TenantService _tenantService
+@inject ITenantService _tenantService
 @{
     var tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
 }

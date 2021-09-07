@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -129,7 +128,7 @@ namespace BeanBag.Services
             }
         }
 
-        // This function verifies that the encryption hashing took place 
+        // This function verifies that the encryption hashing took place. 
         public bool VerifyMd5Hash(Dictionary<string, string> data, string encryptionKey, string hash)
         {
             if (data == null)
@@ -194,17 +193,16 @@ namespace BeanBag.Services
 
             try
             {
-                Transaction transaction = new Transaction()
+                Transactions transaction = new Transactions()
                 {
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddMonths(1),
-                    //Error probably made here with the DB 
                     Reference = reference,
                     Amount = amount,
                     TenantId = new Guid(tenantId),
                     PaymentRequestId =  new Guid(payId),
                 };
-                _tenantDb.Transaction.Add(transaction);
+                _tenantDb.Transactions.Add(transaction);
                 _tenantDb.SaveChanges();
                 return true;
             }
@@ -215,7 +213,7 @@ namespace BeanBag.Services
         }
         
         // This function gets the transactions for a specific user.
-        public IEnumerable<Transaction> GetTransactions(string currentTenantId)
+        public IEnumerable<Transactions> GetTransactions(string currentTenantId)
         {
             if (currentTenantId == null)
             {
@@ -224,12 +222,11 @@ namespace BeanBag.Services
 
             Guid id = new Guid(currentTenantId);
             var t = from transactions
-                    in _tenantDb.Transaction
+                    in _tenantDb.Transactions
                 where transactions.TenantId.Equals(id)
                 select transactions;
 
             var transactionList = t.ToList();
-
             return transactionList;
         }
     }

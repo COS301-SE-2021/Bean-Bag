@@ -10,6 +10,6 @@ namespace BeanBag.Database
         public DbSet<Tenant> Tenant { get; set; }
         public DbSet<TenantUser> TenantUser { get; set; }
 
-        public DbSet<Transaction> Transaction { get; set; }
+        public DbSet<Transactions> Transactions { get; set; }
     }
 }

@@ -168,7 +168,7 @@ namespace BeanBag.Controllers
              //the paging links in order to keep the sort order the same while paging
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            List<Transaction> modelList;
+            List<Transactions> modelList;
 
             //ViewBag.CurrentFilter, provides the view with the current filter string.
             //he search string is changed when a value is entered in the text box and the submit button is pressed. In that case, the searchString parameter is not null.
@@ -185,6 +185,8 @@ namespace BeanBag.Controllers
 
             
             var currentTenantId = _tenantService.GetCurrentTenant(User.GetObjectId()).TenantId;
+           
+            //transaction
             var model = from s in _paymentService.GetTransactions(currentTenantId)
                 select s;
                 //Search and match data, if search string is not null or empty
@@ -219,7 +221,7 @@ namespace BeanBag.Controllers
 
           
             Pagination viewModel = new Pagination();
-            IPagedList<Transaction> pagedList = modelList.ToPagedList(pageNumber, pageSize);
+            IPagedList<Transactions> pagedList = modelList.ToPagedList(pageNumber, pageSize);
             
            
             viewModel.PagedListTenantTransactions = pagedList;

@@ -14,7 +14,7 @@ namespace BeanBag.Models
         public Tenant Tenant { get; set; }
         
         public TenantUser TenantUser { get; set; }
-        public Transaction Transaction { get; set; }
+        public Transactions Transactions { get; set; }
         
         //Paged list of models
         public IPagedList<Inventory> PagedList{ get; set; }
@@ -24,6 +24,6 @@ namespace BeanBag.Models
         public IPagedList<Tenant> PagedListTenants{ get; set; }
         public IPagedList<TenantUser> PagedListTenantUsers { get; set; }
         
-        public IPagedList<Transaction> PagedListTenantTransactions { get; set; }
+        public IPagedList<Transactions> PagedListTenantTransactions { get; set; }
     }
 }

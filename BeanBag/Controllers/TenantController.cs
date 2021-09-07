@@ -61,6 +61,7 @@ namespace BeanBag.Controllers
 
             var model = from s in _tenantService.GetTenantList()
                 select s;
+            
                 //Search and match data, if search string is not null or empty
                 if (!String.IsNullOrEmpty(searchString))
                 {
@@ -112,7 +113,6 @@ namespace BeanBag.Controllers
 
         /* This function allows a user to select a tenant and generates
          a new user inventory for demonstration purposes*/
-     
         public IActionResult SelectTenant(string tenant, string reference, string payId)
         {
             if (tenant == null)
