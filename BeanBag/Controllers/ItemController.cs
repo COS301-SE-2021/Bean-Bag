@@ -65,11 +65,20 @@ namespace BeanBag.Controllers
         public async Task<IActionResult> UploadImage([FromForm(Name = "file")] IFormFile file, 
             [FromForm(Name = "predictionModel")] string predictionModelId)
         {
-            AIModelVersions iteration = _aIService.getIteration(Guid.Parse(predictionModelId));
             string imageUrl = await _blobStorageService.uploadItemImage(file);
-            ViewBag.listPredictions = _aIService.predict(iteration.projectId, iteration.iterationName, imageUrl);
 
+            // Checking to see if user has selected an AI model to use. Otherwise let them continue as is
+            if (predictionModelId == "Selection")
+            {
+                ViewBag.listPredictions = "";
+            }
+            else
+            {
+                AIModelVersions iteration = _aIService.getIteration(Guid.Parse(predictionModelId));
 
+                ViewBag.listPredictions = _aIService.predict(iteration.projectId, iteration.iterationName, imageUrl);
+            }
+            
             return LocalRedirect("/Item/Create?imageUrl="+ imageUrl);
         }
 
