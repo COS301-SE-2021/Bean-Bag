@@ -32,7 +32,7 @@ namespace BeanBag.Services
             }
             
             var result = from i in db.Items where i.inventoryId.Equals(idd) 
-                select new { i.name, i.type, i.imageURL, i.QRContents, i.price, i.entryDate , i.quantity};
+                select new { i.name, i.type, i.imageURL, i.QRCodeLink, i.price, i.entryDate , i.quantity};
             var res= result.OrderByDescending(d => d.entryDate);
             return res;
         }

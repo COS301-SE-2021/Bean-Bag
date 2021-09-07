@@ -7,15 +7,10 @@ namespace BeanBag.Models
     public class AIModel
     {
         [Key]
-        public Guid projectId { get; set; }
+        public Guid Id { get; set; }
 
-        public string projectName { get; set; }
+        public string name { get; set; }
 
-        //public string description { get; set; }
-
-        //public Guid tenantId { get; set; }
-
-        //[ForeignKey("tenantId")]
-        //public virtual Tenant tenant { get; set; }
+        public DateTime dateCreated { get; set; }
     }
 }

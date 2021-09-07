@@ -61,16 +61,16 @@ namespace BeanBag.Controllers
                 //Search and match data, if search string is not null or empty
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    model = model.Where(s => s.projectName.Contains(searchString));
+                    model = model.Where(s => s.name.Contains(searchString));
                 }
                 switch (sortOrder)
                 {
                     case "name_desc":
-                        modelList = model.OrderByDescending(s => s.projectName).ToList();
+                        modelList = model.OrderByDescending(s => s.name).ToList();
                         break;
                  
                     default:
-                        modelList = model.OrderBy(s => s.projectName).ToList();
+                        modelList = model.OrderBy(s => s.name).ToList();
                         break;
                 }
                 
@@ -141,16 +141,16 @@ namespace BeanBag.Controllers
                 //Search and match data, if search string is not null or empty
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    model = model.Where(s => s.iterationName.Contains(searchString));
+                    model = model.Where(s => s.Name.Contains(searchString));
                 }
                 switch (sortOrder)
                 {
                     case "name_desc":
-                        modelList = model.OrderByDescending(s => s.iterationName).ToList();
+                        modelList = model.OrderByDescending(s => s.Name).ToList();
                         break;
                  
                     default:
-                        modelList = model.OrderBy(s => s.iterationName).ToList();
+                        modelList = model.OrderBy(s => s.Name).ToList();
                         break;
                 }
 
@@ -188,7 +188,7 @@ namespace BeanBag.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateModel(Pagination mods)
         {
-            Guid id = await _aIService.createProject(mods.AIModel.projectName);
+            Guid id = await _aIService.createProject(mods.AIModel.name);
 
             return LocalRedirect("/AIModel/TestImages?projectId=" + id.ToString());
         }
@@ -199,9 +199,9 @@ namespace BeanBag.Controllers
             @ViewBag.ID = projectId;
         
             var mods = _aIService.getAllModels();
-            foreach (var t in mods.Where(t => t.projectId.Equals(projectId)))
+            foreach (var t in mods.Where(t => t.Id.Equals(projectId)))
             {
-                @ViewBag.Name = t.projectName ;
+                @ViewBag.Name = t.name ;
             }
             return View();
         }

@@ -28,7 +28,7 @@ namespace BeanBagUnitTests
             mockIn.Object.AddQRItem(testItem);
 
             //ASSERT
-            Assert.NotEqual("", testItem.QRContents);
+            Assert.NotEqual("", testItem.QRCodeLink);
 
         }
 
