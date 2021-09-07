@@ -8,11 +8,11 @@ namespace BeanBag.Models
         [Key] 
         public Guid TransactionId { get; set; }
         public Guid TenantId { get; set; }
-        public string PaymentRequestId { get; set; }
-        public int Reference { get; set; }
-        public string StartDate { get; set; }
-        public string EndDate { get; set; }
-        public string Amount { get; set; }
+        public Guid PaymentRequestId { get; set; }
+        public string Reference { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public float Amount { get; set; }
         
     }
 }

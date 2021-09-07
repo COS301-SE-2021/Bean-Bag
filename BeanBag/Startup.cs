@@ -1,4 +1,3 @@
-
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,7 +18,6 @@ namespace BeanBag
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
         }
 
         public IConfiguration Configuration { get; }
@@ -73,8 +71,8 @@ namespace BeanBag
             services.AddTransient<IBlobStorageService, BlobStorageService>();
 
             services.AddTransient<IPaymentService, PaymentService>();
-            services.AddTransient<TenantService>();
-            services.AddTransient<TenantBlobStorageService>();
+            services.AddTransient<ITenantService,TenantService>();
+            services.AddTransient<ITenantBlobStorageService, TenantBlobStorageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,8 +104,6 @@ namespace BeanBag
                     pattern: "{controller=LandingPage}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            
-            
         }
     }
 }

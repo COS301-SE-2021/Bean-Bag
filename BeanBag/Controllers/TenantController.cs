@@ -14,12 +14,12 @@ namespace BeanBag.Controllers
     public class TenantController : Controller
     {
         // Global variables needed for calling the service classes.
-        private readonly TenantService _tenantService;
+        private readonly ITenantService _tenantService;
         private readonly IInventoryService _inventory;
         private readonly IPaymentService _paymentService;
 
         // Constructor.
-        public TenantController(TenantService tenantService, IInventoryService inventory, IPaymentService paymentService)
+        public TenantController(ITenantService tenantService, IInventoryService inventory, IPaymentService paymentService)
         {
             _tenantService = tenantService;
             _inventory = inventory;
@@ -144,7 +144,7 @@ namespace BeanBag.Controllers
                     //confirm transaction
                     if (_tenantService.GetCurrentTenant(userId).TenantSubscription != "Free")
                     {
-                        double amount;
+                        float amount;
                         if (_tenantService.GetCurrentTenant(userId).TenantSubscription.Equals("Standard"))
                         {
                             amount = 500;

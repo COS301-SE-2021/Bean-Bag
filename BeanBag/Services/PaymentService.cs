@@ -174,7 +174,7 @@ namespace BeanBag.Services
         #endregion MD5 Hash
 
         // This function adds a transaction to the database.
-        public bool AddTransaction(string reference, string payId, string tenantId, double amount)
+        public bool AddTransaction(string reference, string payId, string tenantId, float amount)
         {
             if (reference == null)
             {
@@ -196,13 +196,13 @@ namespace BeanBag.Services
             {
                 Transaction transaction = new Transaction()
                 {
-                    StartDate = DateTime.Now.ToString(CultureInfo.InvariantCulture),
-                    EndDate = DateTime.Now.AddMonths(1).ToString(CultureInfo.InvariantCulture),
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddMonths(1),
                     //Error probably made here with the DB 
-                    Reference = Convert.ToInt32(reference),
-                    Amount = amount.ToString(CultureInfo.InvariantCulture),
+                    Reference = reference,
+                    Amount = amount,
                     TenantId = new Guid(tenantId),
-                    PaymentRequestId = payId,
+                    PaymentRequestId =  new Guid(payId),
                 };
                 _tenantDb.Transaction.Add(transaction);
                 _tenantDb.SaveChanges();

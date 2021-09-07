@@ -20,7 +20,7 @@ namespace BeanBag.Controllers
         private readonly IPaymentService _paymentService;
         private readonly ITenantService _tenantService;
           
-        // the company will have their own details , this is or test purposes.
+        // the company will have their own details , this is for test purposes.
         readonly string PayGateID = "10011072130"; 
         readonly string _payGateKey = "secret";
 
@@ -208,8 +208,7 @@ namespace BeanBag.Controllers
                 //Date sorting
                 if (sortOrder == "date")
                 {
-                    modelList =( inventories.Where(t => (Convert.ToDateTime(t.StartDate))> 
-                        from && (Convert.ToDateTime(t.StartDate)) < to)).ToList();
+                    modelList =( inventories.Where(t => t.StartDate > from && t.StartDate < to)).ToList();
                 }
                 
             //indicates the size of list
@@ -218,11 +217,11 @@ namespace BeanBag.Controllers
             int pageNumber = (page ?? 1);
             //return the Model data with paged
 
-            Transaction transaction = new Transaction();
+          
             Pagination viewModel = new Pagination();
             IPagedList<Transaction> pagedList = modelList.ToPagedList(pageNumber, pageSize);
             
-            viewModel.Transaction = transaction;
+           
             viewModel.PagedListTenantTransactions = pagedList;
             @ViewBag.totalInventories = _paymentService.GetTransactions(currentTenantId).Count();
             
