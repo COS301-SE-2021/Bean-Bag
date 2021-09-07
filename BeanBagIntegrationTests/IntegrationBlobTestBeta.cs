@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Moq;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Azure.Storage.Blobs;
+using BeanBag.Database;
 
 namespace BeanBagIntegrationTests
 {
@@ -23,12 +24,13 @@ namespace BeanBagIntegrationTests
         private readonly CloudStorageAccount cloudStorageAccount;
         private readonly CloudBlobClient cloudBlobClient;
         private CloudBlobContainer cloudBlobContainer;
+        
+        private readonly DBContext _db;
+
 
         public IntegrationBlobTestBeta()
         {
-            cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;" +
-                                                            "AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;" +
-                                                            "EndpointSuffix=core.windows.net");
+            cloudStorageAccount = CloudStorageAccount.Parse(config.GetValue<string>("AzureBlobStorage:ConnectionString");
             cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
 
@@ -67,7 +69,8 @@ namespace BeanBagIntegrationTests
             fileMock.Setup(_ => _.Length).Returns(ms.Length);
 
             var file = fileMock.Object;
-
+            
+            
             var myService = new BlobStorageService();
             
             cloudBlobContainer = cloudBlobClient.GetContainerReference("itemimages");
