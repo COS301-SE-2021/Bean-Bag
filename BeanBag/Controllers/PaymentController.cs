@@ -225,8 +225,8 @@ namespace BeanBag.Controllers
             
            
             viewModel.PagedListTenantTransactions = pagedList;
-            @ViewBag.totalInventories = _paymentService.GetTransactions(currentTenantId).Count();
-            
+            @ViewBag.totalTransactions = _paymentService.GetTransactions(currentTenantId).Count();
+           
             return View(viewModel);
             }
             else
