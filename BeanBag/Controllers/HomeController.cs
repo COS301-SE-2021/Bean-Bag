@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -27,9 +29,25 @@ namespace BeanBag.Controllers
         // This function returns the Index page for the dashboard, returns drop-down-lists for the page view.
         public IActionResult Index()
         {
-            //Inventory Drop-Down-List
             var inventories = _inventoryService.GetInventories(User.GetObjectId());
-            IEnumerable < SelectListItem > inventoryDropDown = inventories.Select(i => new SelectListItem
+            //Reno: Created new inventory for new user
+            if (inventories.Count == 0)
+            {
+                Inventory newInventory = new Inventory()
+                {
+                    name = "My First Inventory",
+                    description = "Give me a desscription",
+                    userId = User.GetObjectId().ToString(),
+                    createdDate = System.DateTime.Now,
+                    publicToTenant = false
+                };
+                _inventoryService.CreateInventory(newInventory);
+            }
+
+            //Thread.Sleep(1000);
+
+            //Inventory Drop-Down-List
+            IEnumerable< SelectListItem > inventoryDropDown = inventories.Select(i => new SelectListItem
                 {
                     Text = i.name,
                     Value = i.Id.ToString()
