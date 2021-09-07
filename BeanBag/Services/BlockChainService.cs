@@ -5,7 +5,7 @@ using BeanBag.Services;
 
 namespace BeanBag.Services
 {
-    public class BlockChainService : IBlockChainService
+    public class BlockChainService //: IBlockChainService
     {
         /*
         public void InitializeChain()
