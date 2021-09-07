@@ -41,5 +41,26 @@ namespace BeanBag.Models
             block.Hash = block.CalculateHash();  
             Chain.Add(block);  
         }  
+        //This function checks each block’s hash to see if the block is changed
+        //It also checks the previous block’s hash to see if the block is changed and recalculated
+        public bool IsValid()  
+        {  
+            for (int i = 1; i < Chain.Count; i++)  
+            {  
+                Block currentBlock = Chain[i];  
+                Block previousBlock = Chain[i - 1];  
+  
+                if (currentBlock.Hash != currentBlock.CalculateHash())  
+                {  
+                    return false;  
+                }  
+  
+                if (currentBlock.PreviousHash != previousBlock.Hash)  
+                {  
+                    return false;  
+                }  
+            }  
+            return true;  
+        } 
     }
 }
