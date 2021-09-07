@@ -211,12 +211,13 @@ namespace BeanBag.Services
 
             try
             {
-                var iteration = trainingClient.TrainProject(projectId, "Advanced");
+                //var iteration = trainingClient.TrainProject(projectId, "Advanced");
+                var iteration = trainingClient.TrainProject(projectId);
                 string projectName = trainingClient.GetProject(projectId).Name;
 
                 AIModelVersions newModelVersion = new AIModelVersions()
                 {
-                    iterationName = iteration.Name,
+                    iterationName = "Version " + iteration.Name.Substring(iteration.Name.Length-1),
                     availableToUser = false,
                     iterationId = iteration.Id,
                     status = iteration.Status.ToString(),
