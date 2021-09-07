@@ -62,8 +62,8 @@ namespace BeanBag.Services
             if (!imageURL.Contains("https://polarisblobstorage.blob.core.windows.net/itemimages/"))
                 throw new Exception("Image url comes from invalid source");
 
-            try 
-            {             
+            try
+            {
                 var result = predictionClient.ClassifyImageUrl(projectId, iterationName,
                 new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(imageURL));
 
@@ -79,13 +79,13 @@ namespace BeanBag.Services
                             percentage = prediction.Probability * 100
                         });
                     }
-                    
-                    
+
+
                 }
 
                 return listPred;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
@@ -113,11 +113,11 @@ namespace BeanBag.Services
 
                 return newModel.projectId;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method deletes a custom vision project from the DB and custom vision service
@@ -144,7 +144,7 @@ namespace BeanBag.Services
                 _db.SaveChanges();
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
@@ -179,25 +179,25 @@ namespace BeanBag.Services
             try
             {
                 List<Guid> imageTagsId = new List<Guid>();
-                foreach(var tag in tags)
+                foreach (var tag in tags)
                 {
                     imageTagsId.Add(trainingClient.CreateTag(projectId, tag).Id);
                 }
 
                 List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
 
-                foreach(var url in imageUrls)
+                foreach (var url in imageUrls)
                 {
                     images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
                 }
 
                 await trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method trains the model with the test images and creates a new iteration
@@ -226,11 +226,11 @@ namespace BeanBag.Services
                 _db.AIModelIterations.Add(newModelVersion);
                 _db.SaveChanges();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method deletes an iteration from the custom vision service as well as from the DB
@@ -246,7 +246,7 @@ namespace BeanBag.Services
 
             try
             {
-                if(iteration.availableToUser)
+                if (iteration.availableToUser)
                     trainingClient.UnpublishIteration(iteration.projectId, iterationId);
 
                 trainingClient.DeleteIteration(iteration.projectId, iterationId);
@@ -254,7 +254,7 @@ namespace BeanBag.Services
                 _db.AIModelIterations.Remove(iteration);
                 _db.SaveChanges();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
@@ -279,11 +279,11 @@ namespace BeanBag.Services
 
                 return (from i in _db.AIModelIterations where i.projectId.Equals(projectId) select i).ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method is used to update the project iterations status in the DB
@@ -308,25 +308,25 @@ namespace BeanBag.Services
             {
                 return (from i in _db.AIModelIterations where i.availableToUser.Equals(true) select i).ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method is used to retrieve all of the AI Model projects in the DB
         public List<AIModel> getAllModels()
         {
-            try 
+            try
             {
                 return _db.AIModels.ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method is used to retrieve a single iteration from the DB
@@ -334,16 +334,16 @@ namespace BeanBag.Services
         {
             if (iterationId == Guid.Empty)
                 throw new Exception("Iteration Id is null.");
-            
-            try 
+
+            try
             {
                 return _db.AIModelIterations.Find(iterationId);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method is used to publish an iteration thus making it available to the user 
@@ -364,11 +364,11 @@ namespace BeanBag.Services
                 _db.AIModelIterations.Update(iteration);
                 _db.SaveChanges();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method is used to unpublish an iteration thus making it unavailable to the user
@@ -385,8 +385,8 @@ namespace BeanBag.Services
 
                 _db.AIModelIterations.Find(iterationId).availableToUser = false;
                 _db.SaveChanges();
-            }          
-            catch(Exception e)
+            }
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
@@ -421,7 +421,7 @@ namespace BeanBag.Services
 
             List<AIModelVersionTagPerformance> returnList = new List<AIModelVersionTagPerformance>();
 
-            foreach(var tag in iterationPerformance.PerTagPerformance)
+            foreach (var tag in iterationPerformance.PerTagPerformance)
             {
                 AIModelVersionTagPerformance addToList = new AIModelVersionTagPerformance()
                 {
@@ -435,15 +435,15 @@ namespace BeanBag.Services
                 returnList.Add(addToList);
             }
 
-            
+
             IList<Tag> imageTags = trainingClient.GetTags(projectId, iterationId);
-            foreach(var tag in imageTags)
+            foreach (var tag in imageTags)
             {
-                for(int i = 0; i < returnList.Count; i++)
+                for (int i = 0; i < returnList.Count; i++)
                 {
-                    for(int j = 0; j < imageTags.Count; j++)
+                    for (int j = 0; j < imageTags.Count; j++)
                     {
-                        if(returnList[i].tagId == imageTags[j].Id)
+                        if (returnList[i].tagId == imageTags[j].Id)
                         {
                             returnList[i].imageCount = imageTags[j].ImageCount;
                             break;
@@ -458,6 +458,45 @@ namespace BeanBag.Services
         public IList<Tag> getIterationTags(Guid projectId, Guid iterationId)
         {
             return trainingClient.GetTags(projectId, iterationId);
+        }
+
+        public List<string> AIModelRecommendations(Guid projectId)
+        {
+            List<string> recommendations = new List<string>();
+
+            IList<Tag> tags = trainingClient.GetTags(projectId);
+
+            //Checking if their are more than one tag in a model
+            if(tags.Count == 0 || recommendations.Count == 1)
+            {
+                recommendations.Add(trainingClient.GetProject(projectId).Name + " needs to have more than one tag.");
+                return recommendations;
+            }
+
+            string minTag = tags[0].Name;
+            string maxTag = tags[0].Name;
+            int min = tags[0].ImageCount;
+            int max = tags[0].ImageCount;
+
+            foreach (var tag in tags)
+            {
+                //50 images at least for each tag made
+                if (tag.ImageCount < 50)
+                {
+                    recommendations.Add(tag.Name + " needs to have more than 50 images associated with it.");
+                }
+
+                if (tag.ImageCount > max)
+                    max = tag.ImageCount;
+                if (tag.ImageCount < min)
+                    min = tag.ImageCount;
+            }
+
+            //Ensuring balance data. That the max amount of images associated with a tag is not over double than the min amount of images associated with a tag
+            if ((max / min) > 2)
+                recommendations.Add(maxTag + " has more than double the amount of images than " + minTag + ". Add more images to " + minTag + " to make the model have more balanced data.");
+
+            return recommendations;
         }
     }
 }
