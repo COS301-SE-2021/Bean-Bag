@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -30,7 +31,7 @@ namespace BeanBag.Services
             {
                 throw new Exception("Input string is null");
             }
-            string result = null;
+            string result;
             try
             {
                 StringBuilder builder = new StringBuilder();
@@ -45,7 +46,7 @@ namespace BeanBag.Services
                  result = builder.ToString().TrimStart('&');
                
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("String could not be encoded");
             }
@@ -72,15 +73,14 @@ namespace BeanBag.Services
                     result.Add(values[0], HttpUtility.UrlDecode(values[1]));
                 }
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 throw new Exception("String could not be converted to dictionary.");
             }
 
             return result;
         }
-
-   
+        
         #endregion Utility
         
         // SEE SHA HASHING COULD BE MORE SECURE (Also 3D verification if there is time ) 
@@ -123,7 +123,7 @@ namespace BeanBag.Services
 
                 return sBuilder.ToString();
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 throw new Exception("Could not get Md5 hash.");
             }
@@ -199,7 +199,7 @@ namespace BeanBag.Services
                     StartDate = DateTime.Now.ToString(CultureInfo.InvariantCulture),
                     EndDate = DateTime.Now.AddMonths(1).ToString(CultureInfo.InvariantCulture),
                     //Error probably made here with the DB 
-                    Reference = Convert.ToInt32(reference.ToString()),
+                    Reference = Convert.ToInt32(reference),
                     Amount = amount.ToString(CultureInfo.InvariantCulture),
                     TenantId = new Guid(tenantId),
                     PaymentRequestId = payId,
@@ -208,18 +208,29 @@ namespace BeanBag.Services
                 _tenantDb.SaveChanges();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 return false;
             }
         }
-
+        
         // This function gets the transactions for a specific user.
-        public IEnumerable<System.Transactions.Transaction> GetTransactions(string currentTenantId)
+        public IEnumerable<Transaction> GetTransactions(string currentTenantId)
         {
-            throw new NotImplementedException();
+            if (currentTenantId == null)
+            {
+                throw new Exception("Tenant id is null");
+            }
+
+            Guid id = new Guid(currentTenantId);
+            var t = from transactions
+                    in _tenantDb.Transaction
+                where transactions.TenantId.Equals(id)
+                select transactions;
+
+            var transactionList = t.ToList();
+
+            return transactionList;
         }
-        
-        
     }
 }

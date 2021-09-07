@@ -3,6 +3,7 @@ using BeanBag.Models;
 
 namespace BeanBag.Database
 {
+    //This class is the tenant Db Context
     public class TenantDbContext : DbContext
     {
         public TenantDbContext(DbContextOptions<TenantDbContext> contextOptions) : base(contextOptions) {}
