@@ -1,9 +1,16 @@
-﻿
+﻿@model Pagination
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@{int i = 1;}
+
+@{
+    ViewBag.Title = "Inventory";
+}
 <link rel="stylesheet" href="~/css/billing.css" />
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
   
   
-  <div class="container bootdey">
+
 <div class="row">
 		<div class="col-sm-10 col-sm-offset-1">
 			<div class="widget-box">
@@ -174,13 +181,9 @@ Phone:
 						</div>
 
 						<div class="space-6"></div>
-						<div class="well">
-							Thank you for choosing Bean Bag Company products.
-                            We believe you will be satisfied by our services.
-						</div>
+						
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
