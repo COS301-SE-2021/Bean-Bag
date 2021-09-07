@@ -5,9 +5,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web;
+using X.PagedList;
 
 namespace BeanBag.Controllers
 {
@@ -16,15 +18,17 @@ namespace BeanBag.Controllers
     public class PaymentController : Controller
     {
         private readonly IPaymentService _paymentService;
+        private readonly ITenantService _tenantService;
           
         // the company will have their own details , this is or test purposes.
         readonly string PayGateID = "10011072130"; 
         readonly string _payGateKey = "secret";
 
         // Constructor.
-        public PaymentController(IPaymentService payment)
+        public PaymentController(IPaymentService payment, ITenantService tenant)
         {
             _paymentService = payment;
+            _tenantService = tenant;
         }
         
         // This function is the get request for the payment gateway and will accept the payment amount.
@@ -154,10 +158,82 @@ namespace BeanBag.Controllers
         }
         
         // This function returns the billing page where the tenant can view their transactions.
-        public IActionResult Billing()
+        public IActionResult Billing(string sortOrder, string currentFilter, string searchString,
+            int? page,DateTime from, DateTime to)
         {
-            return View();
+            if(User.Identity is {IsAuthenticated: true})
+            {
+                
+             //A ViewBag property provides the view with the current sort order, because this must be included in 
+             //the paging links in order to keep the sort order the same while paging
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            List<Transaction> modelList;
+
+            //ViewBag.CurrentFilter, provides the view with the current filter string.
+            //he search string is changed when a value is entered in the text box and the submit button is pressed. In that case, the searchString parameter is not null.
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            
+            var currentTenantId = _tenantService.GetCurrentTenant(User.GetObjectId()).TenantId;
+            var model = from s in _paymentService.GetTransactions(currentTenantId)
+                select s;
+                //Search and match data, if search string is not null or empty
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    model = model.Where(s => s.Reference.ToString().Contains(searchString));
+                }
+
+                var inventories = model.ToList();
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        modelList = inventories.OrderByDescending(s => s.StartDate).ToList();
+                        break;
+                 
+                    default:
+                        modelList = inventories.OrderBy(s => s.StartDate).ToList();
+                        break;
+                }
+
+                //Date sorting
+                if (sortOrder == "date")
+                {
+                    modelList =( inventories.Where(t => (Convert.ToDateTime(t.StartDate))> 
+                        from && (Convert.ToDateTime(t.StartDate)) < to)).ToList();
+                }
+                
+            //indicates the size of list
+            int pageSize = 5;
+            //set page to one is there is no value, ??  is called the null-coalescing operator.
+            int pageNumber = (page ?? 1);
+            //return the Model data with paged
+
+            Transaction transaction = new Transaction();
+            Pagination viewModel = new Pagination();
+            IPagedList<Transaction> pagedList = modelList.ToPagedList(pageNumber, pageSize);
+            
+            viewModel.Transaction = transaction;
+            viewModel.PagedListTenantTransactions = pagedList;
+            @ViewBag.totalInventories = _paymentService.GetTransactions(currentTenantId).Count();
+            
+            return View(viewModel);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
         }
+        
     }
     
 }

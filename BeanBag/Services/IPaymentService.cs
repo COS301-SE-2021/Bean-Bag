@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Transactions;
+using Transaction = BeanBag.Models.Transaction;
 
 namespace BeanBag.Services
 {
