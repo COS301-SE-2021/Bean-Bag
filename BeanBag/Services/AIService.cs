@@ -211,7 +211,7 @@ namespace BeanBag.Services
 
             try
             {
-                var iteration = trainingClient.TrainProject(projectId);
+                var iteration = trainingClient.TrainProject(projectId, "Advanced");
                 string projectName = trainingClient.GetProject(projectId).Name;
 
                 AIModelVersions newModelVersion = new AIModelVersions()
