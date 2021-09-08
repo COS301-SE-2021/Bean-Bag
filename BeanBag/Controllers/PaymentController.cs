@@ -231,6 +231,14 @@ namespace BeanBag.Controllers
             @ViewBag.tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
 
            //current subscription
+           if (@ViewBag.tenant.TenantSubscription == "Free")
+           {
+               @ViewBag.subscription = "Free";
+           }
+           else
+           {
+               @ViewBag.subscription = _paymentService.GetPaidSubscription(currentTenantId);
+           }
            
             return View(viewModel);
             }
