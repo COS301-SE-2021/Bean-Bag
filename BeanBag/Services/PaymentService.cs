@@ -229,5 +229,20 @@ namespace BeanBag.Services
             var transactionList = t.ToList();
             return transactionList;
         }
+
+        // This function gets the current subscription plan that the tenant is using.
+        public Transactions GetPaidSubscription(string tenantId)
+        {
+            Guid id = new Guid(tenantId);
+            var t = from transactions
+                    in _tenantDb.Transactions
+                where transactions.TenantId.Equals(id)
+                select transactions;
+
+        
+          var getfirst= t.OrderByDescending(x => x.StartDate)
+                .FirstOrDefault();
+          return getfirst;
+        }
     }
 }

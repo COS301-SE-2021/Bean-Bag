@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Transactions;
 using BeanBag.Models;
 
 namespace BeanBag.Services
@@ -12,5 +13,6 @@ namespace BeanBag.Services
         bool VerifyMd5Hash(Dictionary<string, string> data, string encryptionKey, string hash);
         public bool AddTransaction(string reference, string payId, string tenantId, float amount);
         IEnumerable<Transactions> GetTransactions(string currentTenantId);
+        public Transactions GetPaidSubscription(string tenantId);
     }
 }
