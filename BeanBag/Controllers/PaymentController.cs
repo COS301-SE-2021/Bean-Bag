@@ -47,8 +47,8 @@ namespace BeanBag.Controllers
                 {"CURRENCY", "ZAR"},
                 // Return url to original payment page -- run in ngrok
                 // ngrok http https://localhost:44352 -host-header="localhost:44352"
-                {"RETURN_URL", "https://b614-102-250-3-252.ngrok.io/Payment/CompletePayment?amount=" +
-                               ""+amount+"&reference="+reference},
+                {"RETURN_URL", "https://1484-102-250-3-150.ngrok.io/Payment/CompletePayment?amounts=" +
+                               ""+amount+"&references="+reference},
                 {"TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
                 {"LOCALE", "en-za"},
                 {"COUNTRY", "ZAF"},
@@ -99,7 +99,7 @@ namespace BeanBag.Controllers
 
         // This function is used to complete the payment and return to the website.
         [HttpPost]
-        public ActionResult CompletePayment(string a, string r)
+        public ActionResult CompletePayment(string amounts, string references)
         {
             Console.WriteLine("Checking the user id complete pay: " + User.GetObjectId());
 
@@ -110,7 +110,7 @@ namespace BeanBag.Controllers
                 => x.Key, x => x.Value);
     
             return  RedirectToAction("Complete", new { id = results["TRANSACTION_STATUS"] ,
-                amount=a, payReqId=results["PAY_REQUEST_ID"] , reference=r});
+                amount=amounts, payReqId=results["PAY_REQUEST_ID"] , reference=references});
         }
 
         //This function occurs after completing the payment, and presents a popup of the transaction status.

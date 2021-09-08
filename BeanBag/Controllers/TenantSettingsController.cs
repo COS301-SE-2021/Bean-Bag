@@ -85,8 +85,7 @@ namespace BeanBag.Controllers
 
             viewModel.TenantUser = tenantUser;
             viewModel.PagedListTenantUsers = pagedList;
-           // @ViewBag.totalInventories = _inventoryService.GetInventories(User.GetObjectId()).Count;
-            
+             @ViewBag.tenant =  _tenantService.GetCurrentTenant(User.GetObjectId());
             //Checking user role is in DB
             //CheckUserRole();
             return View(viewModel);
@@ -125,28 +124,24 @@ namespace BeanBag.Controllers
         }
         
         /* Allows admin user to delete a user from the database */
-        public IActionResult Delete(string userId)
+        public IActionResult Delete(string userObjectId)
         {
             if (User.Identity is {IsAuthenticated: true})
             {
 
-                if (userId == null)
+                if (userObjectId == null)
                 {
                     return BadRequest();
                 }
-
-                if (User.GetObjectId()!=null && User.GetObjectId().Equals(userId))
-                {
-                    return BadRequest();
-                }
-
-                var user = _tenantDbContext.TenantUser.Find(userId);
-
+                
+                var user = _tenantDbContext.TenantUser.Find(userObjectId);
                 return View(user);
             }
 
             return LocalRedirect("/");
         }
+        
+        
         
         /* Allows admin user to change the role of the user */
         public IActionResult Edit(string userId)
@@ -164,32 +159,14 @@ namespace BeanBag.Controllers
         }
         
         [HttpPost]
-        public IActionResult EditPost(string userId, UserRoles userRole)
+        public IActionResult DeletePost(string userObjectId)
         {
-            if (userRole == null)
+            if (userObjectId == null)
             {
                 return BadRequest();
             }
 
-            if (_tenantService.EditUserRole(userId,userRole.role))
-            {
-                return RedirectToAction("Index");
-            }
-
-            return RedirectToAction("Index");
-        }
-        
-        
-        
-        [HttpPost]
-        public IActionResult DeletePost(string userId)
-        {
-            if (userId == null)
-            {
-                return BadRequest();
-            }
-
-            if (_tenantService.DeleteUser(userId))
+            if (_tenantService.DeleteUser(userObjectId))
             {
                 return RedirectToAction("Index");
             }
@@ -197,6 +174,31 @@ namespace BeanBag.Controllers
             return LocalRedirect("/");
         }
         
-        
+        [HttpPost]
+        public IActionResult EditPost(string UserObjectId, string UserRole)
+        {
+            if (UserRole == null)
+            {
+                return BadRequest();
+            }
+
+            if (_tenantService.EditUserRole(UserObjectId,UserRole))
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult DeleteTenant()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult InviteNewUser()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
