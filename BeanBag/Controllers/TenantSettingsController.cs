@@ -15,16 +15,14 @@ namespace BeanBag.Controllers
     {
         
         // Global variables needed for calling the service classes.
-        private readonly TenantService _tenantService;
-        private readonly IInventoryService _inventoryService;
+        private readonly ITenantService _tenantService;
         private readonly TenantDbContext _tenantDbContext;
 
         // Constructor.
-        public TenantSettingsController(TenantService tenantService, IInventoryService inventoryService, TenantDbContext dbContext)
+        public TenantSettingsController(ITenantService tenantService, TenantDbContext tenantDbContext)
         {
             _tenantService = tenantService;
-            _inventoryService = inventoryService;
-            _tenantDbContext = dbContext;
+            _tenantDbContext = tenantDbContext;
         }
 
         /* Provides a list of users under the currently signed in tenant */
@@ -57,7 +55,6 @@ namespace BeanBag.Controllers
 
             var model = from s in _tenantService.GetUserList(User.GetObjectId())
                 select s;
-            
                 //Search and match data, if search string is not null or empty
                 if (!String.IsNullOrEmpty(searchString))
                 {
@@ -118,7 +115,8 @@ namespace BeanBag.Controllers
                 else 
                 {
                     return BadRequest();
-                }
+                }  
+                        
             }
             else
             {

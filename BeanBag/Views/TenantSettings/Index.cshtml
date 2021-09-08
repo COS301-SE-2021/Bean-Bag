@@ -5,7 +5,7 @@
 
 @inject IInventoryService _inventoryService
 
-@inject TenantService _tenantService
+@inject ITenantService _tenantService
 @{
     var tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
 }
@@ -35,7 +35,7 @@
 
         <!-- Button to view tenant details -->
         <div class="button1">
-            <a asp-controller="TenantSettings" asp-action="EditDetails" class="btn btn-2 shadow-sm bg-body rounded" 
+            <a asp-controller="TenantSettings" asp-action="EditDetails" class="btn btn-3 shadow-sm bg-body rounded" 
                data-toggle="modal" data-target="#exampleModal">Tenant Details &nbsp;  &nbsp;  &nbsp; </a>
     			                                                                                                                                            
         </div>    
@@ -85,7 +85,7 @@
                         </div>
                         <div class="modal-footer ">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary" value="Save"/> <!--create button-->
+                            <input type="submit" class="btn btn-3" value="Save"/> <!--create button-->
                         </div>
                     </form>
                    

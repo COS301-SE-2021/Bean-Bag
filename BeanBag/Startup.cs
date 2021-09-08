@@ -1,4 +1,3 @@
-
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,7 +18,6 @@ namespace BeanBag
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
         }
 
         public IConfiguration Configuration { get; }
@@ -64,12 +62,7 @@ namespace BeanBag
                 options.UseSqlServer(Configuration.GetValue<string>("Database:TenantConnection"))
             );
             
-            // Connecting to Transaction DB
-            services.AddDbContext<TransactionDbContext>(options => 
-                //Database will have to change from default connection to transaction connection
-                options.UseSqlServer(Configuration.GetValue<string>("Database:DefaultConnection"))
-            );
-
+        
             //Adding service classes to be used as a DI
             services.AddTransient<IInventoryService, InventoryService>();
             services.AddTransient<IItemService, ItemService>();
@@ -78,8 +71,8 @@ namespace BeanBag
             services.AddTransient<IBlobStorageService, BlobStorageService>();
 
             services.AddTransient<IPaymentService, PaymentService>();
-            services.AddTransient<TenantService>();
-            services.AddTransient<TenantBlobStorageService>();
+            services.AddTransient<ITenantService,TenantService>();
+            services.AddTransient<ITenantBlobStorageService, TenantBlobStorageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,8 +104,6 @@ namespace BeanBag
                     pattern: "{controller=LandingPage}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            
-            
         }
     }
 }

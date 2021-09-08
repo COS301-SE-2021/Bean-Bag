@@ -14,14 +14,16 @@ namespace BeanBag.Controllers
     public class TenantController : Controller
     {
         // Global variables needed for calling the service classes.
-        private readonly TenantService _tenantService;
+        private readonly ITenantService _tenantService;
         private readonly IInventoryService _inventory;
+        private readonly IPaymentService _paymentService;
 
         // Constructor.
-        public TenantController(TenantService tenantService, IInventoryService inventory)
+        public TenantController(ITenantService tenantService, IInventoryService inventory, IPaymentService paymentService)
         {
             _tenantService = tenantService;
             _inventory = inventory;
+            _paymentService = paymentService;
         }
 
         /* This function adds a page parameter, a current sort order parameter, and a current filter
@@ -59,6 +61,7 @@ namespace BeanBag.Controllers
 
             var model = from s in _tenantService.GetTenantList()
                 select s;
+            
                 //Search and match data, if search string is not null or empty
                 if (!String.IsNullOrEmpty(searchString))
                 {
@@ -90,25 +93,27 @@ namespace BeanBag.Controllers
         
         // This function allows a user to create a new tenant.
         [HttpPost]
-        public IActionResult CreateTenant(string tenantName, string tenantAddress, string tenantEmail, string tenantNumber)
+        public IActionResult CreateTenant(string tenantName, string tenantAddress,
+            string tenantEmail, string tenantNumber, string tenantSubscription, string reference, string payId)
         {
+            Console.WriteLine("Checking the user id create tenant: " + User.GetObjectId());
+
+
             if (tenantName == null)
             {
                 return RedirectToAction("Index");
             }
             else
             {
-                
-                _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber); 
+                _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber,tenantSubscription); 
             }
-
-            return SelectTenant(tenantName);
+            
+            return SelectTenant(tenantName, reference,payId);
         }
 
         /* This function allows a user to select a tenant and generates
          a new user inventory for demonstration purposes*/
-     
-        public IActionResult SelectTenant(string tenant)
+        public IActionResult SelectTenant(string tenant, string reference, string payId)
         {
             if (tenant == null)
             {
@@ -125,6 +130,7 @@ namespace BeanBag.Controllers
             {
                 userName = User.Identity.Name;
             }
+            Console.WriteLine("Checking the user id select tenant: " + User.GetObjectId());
 
             if (_tenantService.SearchUser(userId) == false)
             {
@@ -134,6 +140,25 @@ namespace BeanBag.Controllers
                 {
                     //Verified
                     _tenantService.SignUserUp(userId, currentTenantId, userName);
+                    
+                    //confirm transaction
+                    if (_tenantService.GetCurrentTenant(userId).TenantSubscription != "Free")
+                    {
+                        float amount;
+                        if (_tenantService.GetCurrentTenant(userId).TenantSubscription.Equals("Standard"))
+                        {
+                            amount = 500;
+                        }
+                        else
+                        {
+                            amount = 1000;
+                        }
+                        
+                        //Add the transaction to the DB 
+                        _paymentService.AddTransaction(reference, payId, currentTenantId, amount);
+
+
+                    }
                 }
                 else
                 {
@@ -155,8 +180,5 @@ namespace BeanBag.Controllers
      
             return RedirectToAction("Index", "Home");
         }
-
-       
-     
     }
 }

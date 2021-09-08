@@ -3,7 +3,7 @@
 @using BeanBag.Services
 @model IEnumerable<Item>
 @inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
-@inject TenantService _tenantService
+@inject ITenantService _tenantService
 @{
     var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
 }
@@ -243,7 +243,8 @@ else
    
       $(document).ready(function ()
       {
-            
+          if (@ViewBag.hasItems)
+           { 
             //------------- Ajax get items on change of the timespan ------------------//
              $("#TimeDropDown").change(function () {
                  
@@ -725,7 +726,9 @@ else
                                  }); 
                                  }
                            });  
-                        });                      
+                        }); 
+                                
+                                }
         })
                  
  
