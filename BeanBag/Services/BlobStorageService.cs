@@ -24,12 +24,13 @@ namespace BeanBag.Services
             //cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;EndpointSuffix=core.windows.net");
             _cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
-
+        
+        /*
         public BlobStorageService()
         {
             throw new System.NotImplementedException();
-        }
-
+        }*/
+        
 
         // This method is used to upload an item image into the blob storage
         public async Task<string> UploadItemImage(IFormFile file)
