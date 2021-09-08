@@ -332,7 +332,7 @@ namespace BeanBag.Services
             if (_tenantDb.Tenant.Find(tenantId) == null) return false;
 
             //Create new user
-            var newUser = new TenantUser {UserObjectId = userId, UserTenantId = tenantId, UserName = userName};
+            var newUser = new TenantUser {UserObjectId = userId, UserTenantId = tenantId, UserName = userName, UserRole = "U"};
             _tenantDb.Add(newUser);
             _tenantDb.SaveChanges();
 
@@ -402,6 +402,61 @@ namespace BeanBag.Services
                 return true;
             }
 
+            return false;
+        }
+        
+        // This method retrieves the user role from the database
+        public string GetUserRole(string id)
+        {
+            var user = _tenantDb.TenantUser.Find(id);
+
+            if (user == null)
+            {
+                throw new Exception("User is null");
+            }
+
+            if (user.UserRole.Equals("U"))
+            {
+                return "User";
+            }
+            
+            if (user.UserRole.Equals("A"))
+            {
+                return "Admin";
+            }
+
+            return "";
+        }
+        
+        // This method updated the role of the user
+        public bool EditUserRole(string userId, string role)
+        {
+            if (userId == null)
+            {
+                throw new Exception("User id is null");
+            }
+        
+            if (role == null)
+            {
+                throw new Exception("User role is null");
+            }
+
+            var user = _tenantDb.TenantUser.Find(userId);
+        
+            if (role.Equals("Admin"))
+            {
+                user.UserRole = "A";
+                _tenantDb.SaveChanges();
+                return true;
+            }
+                    
+            if (role.Equals("User"))
+            {
+                user.UserRole = "U";
+                _tenantDb.SaveChanges();
+                return true;
+            }
+        
             return false;
         }
     }
