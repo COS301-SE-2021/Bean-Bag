@@ -233,16 +233,29 @@ namespace BeanBag.Services
         // This function gets the current subscription plan that the tenant is using.
         public Transactions GetPaidSubscription(string tenantId)
         {
+            if (tenantId == null)
+            {
+                throw new Exception("TenantID is null");
+            }
             Guid id = new Guid(tenantId);
-            var t = from transactions
-                    in _tenantDb.Transactions
-                where transactions.TenantId.Equals(id)
-                select transactions;
 
-        
-          var getfirst= t.OrderByDescending(x => x.StartDate)
-                .FirstOrDefault();
-          return getfirst;
+            Transactions getfirst;
+            try
+            {
+                var t = from transactions
+                        in _tenantDb.Transactions
+                    where transactions.TenantId.Equals(id)
+                    select transactions;
+                
+                 getfirst = t.OrderByDescending(x => x.StartDate)
+                    .FirstOrDefault();
+            }
+            catch(Exception)
+            {
+                throw new Exception("An error occured when querying the transaction from the DB");
+            }
+
+            return getfirst;
         }
     }
 }
