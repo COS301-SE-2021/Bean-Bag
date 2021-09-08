@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BeanBag.Database;
 using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -15,11 +16,13 @@ namespace BeanBag.Controllers
         
         // Global variables needed for calling the service classes.
         private readonly ITenantService _tenantService;
+        private readonly TenantDbContext _tenantDbContext;
 
         // Constructor.
-        public TenantSettingsController(ITenantService tenantService)
+        public TenantSettingsController(ITenantService tenantService, TenantDbContext tenantDbContext)
         {
             _tenantService = tenantService;
+            _tenantDbContext = tenantDbContext;
         }
 
         /* Provides a list of users under the currently signed in tenant */
@@ -120,11 +123,80 @@ namespace BeanBag.Controllers
                 return LocalRedirect("/");
             }
         }
-
-
-        public IActionResult Delete()
+        
+        /* Allows admin user to delete a user from the database */
+        public IActionResult Delete(string userId)
         {
-            throw new NotImplementedException();
+            if (User.Identity is {IsAuthenticated: true})
+            {
+
+                if (userId == null)
+                {
+                    return BadRequest();
+                }
+
+                if (User.GetObjectId()!=null && User.GetObjectId().Equals(userId))
+                {
+                    return BadRequest();
+                }
+
+                var user = _tenantDbContext.TenantUser.Find(userId);
+
+                return View(user);
+            }
+
+            return LocalRedirect("/");
         }
+        
+        /* Allows admin user to change the role of the user */
+        public IActionResult Edit(string userId)
+        {
+            if (userId == null)
+            {
+                return BadRequest();
+            }
+            
+            var user = _tenantDbContext.TenantUser.Find(userId);
+            var role = _tenantService.GetUserRole(userId);
+                
+            return View(role,userId);
+                
+        }
+        
+        [HttpPost]
+        public IActionResult EditPost(string userId, UserRoles userRole)
+        {
+            if (userRole == null)
+            {
+                return BadRequest();
+            }
+
+            if (_tenantService.EditUserRole(userId,userRole.role))
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
+        
+        
+        
+        [HttpPost]
+        public IActionResult DeletePost(string userId)
+        {
+            if (userId == null)
+            {
+                return BadRequest();
+            }
+
+            if (_tenantService.DeleteUser(userId))
+            {
+                return RedirectToAction("Index");
+            }
+
+            return LocalRedirect("/");
+        }
+        
+        
     }
 }
