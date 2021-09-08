@@ -72,26 +72,23 @@
                     <div class="card-body">
                         <h5 class="text-muted ">Tenant Details <img src="https://img.icons8.com/fluency-systems-regular/50/000000/user.png" alt=""/></h5>
                         <div class="pt-1">
-                            <ul class="list-unstyled spaced">
-                                <li><i class="ace-icon fa fa-caret-right blue"></i>Street, City
-                                </li>
-                                <li>
-                                    <i class="ace-icon fa fa-caret-right blue"></i>Zip Code</li>
-                                <li>
-                                    <i class="ace-icon fa fa-caret-right blue"></i>State, Country
-                                </li>
-                                                                  
-                                <li>
-                                    <i class="ace-icon fa fa-caret-right blue"></i>
-                                    Phone:
-                                    <b class="red">111-111-111</b></li>
-                                <li class="divider"></li>
-                                                                  
-                                <li>
-                                    <i class="ace-icon fa fa-caret-right blue"></i>
-                                    Paymant Info
-                                </li>
-                            </ul>
+                              <ul class="list-unstyled spaced">
+                                  <li><i class="ace-icon fa fa-caret-right blue"></i>&nbsp;ID: @ViewBag.tenant.TenantId
+                                      </li>
+                                  <li><i class="ace-icon fa fa-caret-right blue"></i>&nbsp;Subscription Plan: @ViewBag.tenant.TenantSubscription</li>
+                                  <li>
+                                      <i class="ace-icon fa fa-caret-right blue"></i>&nbsp;@ViewBag.tenant.TenantAddress
+                                  </li>
+                                  <li>
+                                      <i class="ace-icon fa fa-caret-right blue"></i> Email:
+                                      <b class="red"> @ViewBag.tenant.TenantEmail</b></li>
+                                  <li class="divider"></li>
+                                                                                             
+                                  <li>
+                                      <i class="ace-icon fa fa-caret-right blue"></i>
+                                    Phone: <b> @ViewBag.tenant.TenantNumber</b>
+                                      </li>
+                                  </ul>
                         </div>
                     </div>
                 </div>

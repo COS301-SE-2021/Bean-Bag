@@ -228,11 +228,9 @@ namespace BeanBag.Controllers
             @ViewBag.totalTransactions = _paymentService.GetTransactions(currentTenantId).Count();
             
             // Get tenant details
-            @ViewBag.tenant = _paymentService.GetTransactions(currentTenantId).Count();
+            @ViewBag.tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
 
-            // Get company details
-            
-            //get current subscription
+           //current subscription
            
             return View(viewModel);
             }
