@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BeanBag.Database;
 using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -15,11 +16,15 @@ namespace BeanBag.Controllers
         
         // Global variables needed for calling the service classes.
         private readonly TenantService _tenantService;
+        private readonly IInventoryService _inventoryService;
+        private readonly TenantDbContext _tenantDbContext;
 
         // Constructor.
-        public TenantSettingsController(TenantService tenantService)
+        public TenantSettingsController(TenantService tenantService, IInventoryService inventoryService, TenantDbContext dbContext)
         {
             _tenantService = tenantService;
+            _inventoryService = inventoryService;
+            _tenantDbContext = dbContext;
         }
 
         /* Provides a list of users under the currently signed in tenant */
@@ -52,6 +57,7 @@ namespace BeanBag.Controllers
 
             var model = from s in _tenantService.GetUserList(User.GetObjectId())
                 select s;
+            
                 //Search and match data, if search string is not null or empty
                 if (!String.IsNullOrEmpty(searchString))
                 {
@@ -112,8 +118,7 @@ namespace BeanBag.Controllers
                 else 
                 {
                     return BadRequest();
-                }  
-                        
+                }
             }
             else
             {
@@ -122,8 +127,64 @@ namespace BeanBag.Controllers
         }
         
         /* Allows admin user to delete a user from the database */
+        public IActionResult Delete(string userId)
+        {
+            if (User.Identity is {IsAuthenticated: true})
+            {
+
+                if (userId == null)
+                {
+                    return BadRequest();
+                }
+
+                if (User.GetObjectId()!=null && User.GetObjectId().Equals(userId))
+                {
+                    return BadRequest();
+                }
+
+                var user = _tenantDbContext.TenantUser.Find(userId);
+
+                return View(user);
+            }
+
+            return LocalRedirect("/");
+        }
+        
+        /* Allows admin user to change the role of the user */
+        public IActionResult Edit(string userId)
+        {
+            if (userId == null)
+            {
+                return BadRequest();
+            }
+            
+            var user = _tenantDbContext.TenantUser.Find(userId);
+            var role = _tenantService.GetUserRole(userId);
+                
+            return View(role,userId);
+                
+        }
+        
         [HttpPost]
-        public IActionResult DeleteUser(string userId)
+        public IActionResult EditPost(string userId, UserRoles userRole)
+        {
+            if (userRole == null)
+            {
+                return BadRequest();
+            }
+
+            if (_tenantService.EditUserRole(userId,userRole.role))
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
+        
+        
+        
+        [HttpPost]
+        public IActionResult DeletePost(string userId)
         {
             if (userId == null)
             {
@@ -134,7 +195,7 @@ namespace BeanBag.Controllers
             {
                 return RedirectToAction("Index");
             }
-            
+
             return LocalRedirect("/");
         }
         

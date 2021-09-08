@@ -137,58 +137,20 @@
                                             <td>@i</td>
                                             @{ i++; }
                                             <td>@user.UserName</td>
-                                            <td>@_inventoryService.GetUserRole(user.UserObjectId)</td>
+                                            <td>@_tenantService.GetUserRole(user.UserObjectId)</td>
                                             <td>
                                                 
-                                                    
                                                 <!-- Edit user -->
-                                                <a 
-                                                    class="btn edit" data-toggle="modal" data-target="#exampleModalEdit">
-                                                    <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                        <i class="fas fa-edit"> </i>
-                                                    </button>
-                                                </a> 
-                                                    
+                                                <a href="@Url.Action("Edit", "TenantSettings", new {user.UserObjectId})"
+                                                   data-toggle="modal" data-target="#exampleModalEdit" data-id="@user.UserObjectId"
+                                                   class="btn edit"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" 
+                                                                               title="exampleModalTitleEdit"><i class="fas fa-edit"> </i></button></a>
+                                                
                                                 <!-- Delete user -->
-                                                <a class="btn delete" data-toggle="modal" data-target="#exampleModalDelete">
-                                                    <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button>
-                                                </a> 
-                                                
-                                                <!-- Popup Form to delete user -->
-                                                <div class="modal fade" id="exampleModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitleDelete" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog" role="document">
-                                                        
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title"  id="exampleModalTitleDelete">Delete user</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                                
-                                                            <form method="post" asp-action="DeleteUser" asp-controller="TenantSettings">
-                                                                
-                                                                <div class="modal-body">
-                                                                            
-                                                                    <div class="form-group">
-                                                                        <label for="userId" class="col-form-label">Are you sure you want to delete this user?</label>
-                                                                        <input type="hidden" id="userId" name="userId" class="form-control" value="@user.UserObjectId"/></div>
-
-                                                                    <div asp-validation-summary="All" class="text-danger"></div>
-                                                
-                                                                </div>
-                                                                <div class="modal-footer ">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <input type="submit" class="btn btn-primary" value="Delete"/> <!--create button-->
-                                                                </div>
-                                                            </form>
-                                                                   
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                    
-                                                    
-                                                                                              
+                                                <a href="@Url.Action("Delete", "TenantSettings", new {user.UserObjectId})"
+                                                   data-toggle="modal" data-target="#exampleModalDelete" data-id="@user.UserObjectId"
+                                                   class="btn edit"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" 
+                                                                            title="exampleModalTitleDelete"><i class="fas fa-trash"> </i></button></a>                       
                                                 
                                             </td>
 
@@ -231,7 +193,6 @@
 
 
 
-
 </section>
 
 <!--Scripts-->
@@ -244,3 +205,36 @@
 //Animations
 AOS.init();
 </script>
+
+<script>
+$('.edit').click(function (ev) {
+    ev.preventDefault(); 
+
+    let action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        let myModal = $("#exampleModalEdit");
+            myModal.find("form.data").html(data);
+        $('#exampleModalEdit').modal('show');
+    });
+});
+
+$('.delete').click(function (ev) {
+    ev.preventDefault(); 
+
+    let action = $(this).attr('href');
+
+    $.get(action, function (data) {
+        let myModal = $("#exampleModalDelete");
+            myModal.find("form.data").html(data);
+        $('#exampleModalDelete').modal('show');
+    });
+});
+</script>
+
+@section Scripts{
+    @{ //partial views
+                                     <partial name="_Edit" /> 
+                                     <partial name="_Delete" /> 
+    }
+}
