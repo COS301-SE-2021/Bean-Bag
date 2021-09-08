@@ -8,6 +8,8 @@ namespace BeanBag.Models
     {
         [Key]
         public Guid iterationId { get; set; }
+       
+        [StringLength(20, ErrorMessage = "Tenant name length can't be more than 20.")]
         public string iterationName { get; set; }
         public bool availableToUser { get; set; }
         public string status { get; set; }

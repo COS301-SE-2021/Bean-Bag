@@ -15,8 +15,11 @@ namespace BeanBag.Models
         // The name of the Inventory. Required to have a value
         [Required]
         [DisplayName("Inventory Name")]
+        [StringLength(100, ErrorMessage = "Inventory name length can't be more than 100.")]
         public string name { get; set; }
         public string userId { get; set; }
+        
+        [StringLength(250, ErrorMessage = "Description name length can't be more than 250.")]
         public string description { get; set; }
         public DateTime createdDate { get; set; }
     }

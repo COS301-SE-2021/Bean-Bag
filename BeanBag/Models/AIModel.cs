@@ -11,6 +11,7 @@ namespace BeanBag.Models
 
         [Required]
         [DisplayName("Model Name")]
+        [StringLength(100, ErrorMessage = "Model name length can't be more than 100.")]
         public string projectName { get; set; }
     }
 }
