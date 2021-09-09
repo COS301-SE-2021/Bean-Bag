@@ -16,20 +16,11 @@ namespace BeanBagIntegrationTests
     public class IntegrationDBtest 
     {
 
-        DBContext _context;
+        private readonly DBContext _db;
 
-        public IntegrationDBtest()
+        public IntegrationDBtest(DBContext db)
         {
-            var serviceProvider = new ServiceCollection()
-                .AddEntityFrameworkSqlServer()
-                .BuildServiceProvider();
-
-            var builder = new DbContextOptionsBuilder<DBContext>();
-
-            builder.UseSqlServer($"Server=tcp:polariscapestone.database.windows.net,1433;Initial Catalog=Bean-Bag-Platform-DB;Persist Security Info=False;User ID=polaris; Password=MNRSSp103;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")
-                    .UseInternalServiceProvider(serviceProvider);
-
-            _context = new DBContext(builder.Options);
+            _db = db;
 
         }
 
@@ -61,17 +52,17 @@ namespace BeanBagIntegrationTests
             var myDay = DateTime.MinValue;
             
             //ACT
-            _context.Inventories.Add(new Inventory { Id = theId2, name = "Leopard shorts", createdDate = myDay, userId = u2 });
-            _context.Inventories.Add(new Inventory { Id = theId3, name = "Zebra shirt",  createdDate = myDay, userId = u2 });
+            _db.Inventories.Add(new Inventory { Id = theId2, name = "Leopard shorts", createdDate = myDay, userId = u2 });
+            _db.Inventories.Add(new Inventory { Id = theId3, name = "Zebra shirt",  createdDate = myDay, userId = u2 });
            
-            _context.SaveChanges();
+            _db.SaveChanges();
 
-            InventoryService query = new InventoryService(_context);
+            InventoryService query = new InventoryService(_db);
             var getInvs = query.GetInventories(u2);
 
             //ASSERT
             Assert.Equal(2, getInvs.Count);
-            var toCheck = _context.Inventories.Find(theId2);
+            var toCheck = _db.Inventories.Find(theId2);
             
             
            Assert.Equal("Leopard shorts", toCheck.name);
@@ -109,7 +100,7 @@ namespace BeanBagIntegrationTests
             var myDay = DateTime.MinValue;
 
             //ACT
-            var query = new InventoryService(_context);
+            var query = new InventoryService(_db);
 
             var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
 
@@ -150,7 +141,7 @@ namespace BeanBagIntegrationTests
             
             //ACT
             
-            var query = new InventoryService(_context);
+            var query = new InventoryService(_db);
 
             var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
 
@@ -191,7 +182,7 @@ namespace BeanBagIntegrationTests
             
             DateTime myDay = DateTime.MinValue;
             
-            var query = new InventoryService(_context);
+            var query = new InventoryService(_db);
             
             var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
 
@@ -234,9 +225,9 @@ namespace BeanBagIntegrationTests
 
             var myDay = DateTime.MinValue;
 
-            var query = new ItemService(_context);
+            var query = new ItemService(_db);
 
-            var invSer = new InventoryService(_context);
+            var invSer = new InventoryService(_db);
             
             var myinv = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
             var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = theId2, soldDate = DateTime.Now, type = "Clothes"};
@@ -279,9 +270,9 @@ namespace BeanBagIntegrationTests
 
             var myDay = DateTime.MinValue;
             
-            var query = new ItemService(_context);
+            var query = new ItemService(_db);
 
-            var invSer = new InventoryService(_context);
+            var invSer = new InventoryService(_db);
             
             var myinv = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
             var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = theId2, soldDate = DateTime.Now, type = "Clothes"};
@@ -332,9 +323,9 @@ namespace BeanBagIntegrationTests
 
             var myDay = DateTime.MinValue;
             
-            var query = new ItemService(_context);
+            var query = new ItemService(_db);
 
-            var invSer = new InventoryService(_context);
+            var invSer = new InventoryService(_db);
             
             var myinv = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
             var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = theId2, soldDate = DateTime.Now, type = "Clothes"};
