@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.WindowsAzure.Storage;
 using Xunit;
 
 namespace BeanBagIntegrationTests
@@ -17,10 +19,24 @@ namespace BeanBagIntegrationTests
     {
 
         private readonly DBContext _db;
+        private readonly IConfiguration config;
 
-        public IntegrationDBtest(DBContext db)
+        public IntegrationDBtest()
         {
-            _db = db;
+            this.config = new ConfigurationBuilder().AddJsonFile("appsettings.local.json").Build();
+            
+            var serviceProvider = new ServiceCollection()
+                .AddEntityFrameworkSqlServer()
+                .BuildServiceProvider();
+
+            var builder = new DbContextOptionsBuilder<DBContext>();
+
+            var connString = config.GetValue<string>("Database:DefaultConnection");
+            
+            builder.UseSqlServer(connString).UseInternalServiceProvider(serviceProvider);
+
+            _db = new DBContext(builder.Options);
+
 
         }
 
