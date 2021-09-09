@@ -1,5 +1,4 @@
-﻿<!--Changed model type to that of pagedList-->
-@model Pagination
+﻿@model Pagination
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
 @{int i = 1;}
@@ -7,166 +6,151 @@
 @{
     ViewBag.Title = "AIModel";
 }
-
 <link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
+
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
     <section class="search-and-user">
-        
         <span class="col-md-2 text-secondary ">
              AI Models
         </span>
-
         <div class="admin-profile ">
             <span class="greeting  ">
                 Total Models &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalModels</span>
-
             </span>
         </div>
     </section>
     
      
-<div class="dashboard-wrapper">
-    <div class="container-fluid  dashboard-content">
-        <hr>
+    <div class="dashboard-wrapper">
+         <div class="container-fluid  dashboard-content">
+             <hr>
             
-        <div class="row">
+             <div class="row">
 
-            <div class=" mr-3 ml-auto">
-                <a asp-controller="AIModel" asp-action="CreateModel" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Model &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a>
-            </div>
-            </div>
-        <br>
-        <div class="row">
-                
-            <!--Date sorts-->
-                @using (Html.BeginForm())
-                               {
-                                   <div class="d-flex">
-                                   <span class="d-inline-block ml-3 pt-2">
-                                      <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date &nbsp;</span>
-                                   <span class=" d-inline-block">              
-                                   @Html.TextBox("from", null, new {@class = "form-control ", type="date"})
-                                </span>
-                                   <span class="d-inline-block pt-2">
-                                       &nbsp; &nbsp; To Date &nbsp;</span>
-                                   <span class=" d-inline-block">  
-                                   @Html.TextBox("to", null, new {@class = "form-control ", type="date" })
-                               </span>
-                                   @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
-                                   <span class="d-inline-block pl-2">
-                                       <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3"/>
-                                   </span>
-                                   </div>
-                               }
-           
-            <!--Search-->
-            <div class="col-3 ml-auto ">
-                @using (Html.BeginForm())
-                {
-                    <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
-                        @Html.TextBox("SearchString", null, new {@class = "form-control  my-0 py-1 red-border", placeholder = "Search"})
-                        <div class="input-group-append">
-                            <button class="input-group-text " value="Search" type="submit" id="basic-text1">
-                                <i class="fas fa-search text-grey"
-                                   aria-hidden="true"></i></button>
-                        </div>
-                    </div>
-                }                                                                                                                                                                                                     
-            </div>
-            
+                 <div class=" mr-3 ml-auto">
+                     <a asp-controller="AiModel" asp-action="CreateModel" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Model &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a> 
+                 </div>
+                 </div>
+             <br>
+             
+             <div class="row">
+                 
+                 <!--Date sorts-->
+                 @using (Html.BeginForm())
+                 {
+                     <div class="d-flex">
+                         <span class="d-inline-block ml-3 pt-2">
+                             <b>Find Entries</b> &nbsp;<i class="fas fa-angle-right"></i> &nbsp; From Date &nbsp;</span>
+                         <span class=" d-inline-block">
+                             @Html.TextBox("from", null, new {@class = "form-control ", type = "date"})
+                         </span>
+                         <span class="d-inline-block pt-2">
+                             &nbsp; &nbsp; To Date &nbsp;</span>
+                         <span class=" d-inline-block">
+                             @Html.TextBox("to", null, new {@class = "form-control ", type = "date"})
+                         </span>
+                         @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type = "text", hidden = true})
+                         <span class="d-inline-block pl-2">
+                             <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3"/>
+                         </span>
+                     </div>
+                 }
 
-            <!--Table with bootstrap class .table and .table-condensed-->
-                
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <br>
-                <div class="card shadow mb-4 bg-body rounded" >
-                    <h5 class="card-header">Model List
-                        
-                         
-                    </h5>
-                    <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
-                        <div>
-                            @if (Model.PagedListModels.Any())
-                            {
-                                <table class="table table-bordered table-striped">
-                                    <thead><tr>
-                                        <th>#</th>
-                                        <th>ID</th>
-                                        <th>@Html.ActionLink("Model Name ", "Index", new {sortOrder = ViewBag.NameSortParm})
-                                            <i class="fas fa-chevron-down text-grey"
-                                               aria-hidden="true"></i></th>
-                                            
-                                        <th>Date Created</th>
-                                        <th>Description</th>
-                                        <th class="text-center colspan-2">Actions</th>
-                                    </tr>
-                                    </thead><tbody>
-                                    @foreach (var models in Model.PagedListModels)
-                                    {
-                                        <tr>
-                                            <td >@i</td>
-                                            @{ i++; }
-                                            <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.projectId"><i class="fas fa-tag">  </i></button></td>
-                                                                                              
-                                            <td >@models.projectName</td>
-                                            <td >-</td>
-                                            <td >-</td>
-                                            <td >
-                                                <div class="w-100 btn-group" role="group">
-                                                    
-                                                     <a href="@Url.Action("EditModel", "AIModel", new {@models.projectId})"
-                                                        class="btn edit" data-toggle="modal" data-target="#exampleModal3" 
-                                                        data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
-                                                    
-                                             
-                                                    
-                                                    <a href="@Url.Action("DeleteModel", "AIModel", new {@models.projectId})"
-                                                       class="btn delete" data-toggle="modal"
-                                                       data-target="#exampleModal4" data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
-                                                   
-                                                    <a asp-controller="AIModel" asp-action="ModelVersions" asp-route-projectId="@models.projectId" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Versions"><i class="fas fa-eye"> </i></button></a>
-                                                    
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    }
-                                    </tbody>
-                                </table>
-                            }
-                            else
-                            {<p>No Models Found</p>}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      
-                
-        
-        <!--Code to show curent page and page number-->
+                 <!--Search-->
+                 <div class="col-3 ml-auto ">
+                     @using (Html.BeginForm())
+                     {
+                         <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                             @Html.TextBox("SearchString", null, new {@class = "form-control  my-0 py-1 red-border", placeholder = "Search"})
+                             <div class="input-group-append">
+                                 <button class="input-group-text " value="Search" type="submit" id="basic-text1"> <i class="fas fa-search text-grey" aria-hidden="true"></i></button>
+                             </div>
+                         </div>
+                     }
+                 </div>
+
+
+                 <!--Table with bootstrap class .table and .table-condensed-->
+                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                     <br>
+                     <div class="card shadow mb-4 bg-body rounded">
+                         <h5 class="card-header">Model List</h5>
+                         <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
+                             <div>
+                                 @if (Model.PagedListModels.Any())
+                                 {
+                                     <table class="table table-bordered table-striped">
+                                         <thead>
+                                         <tr>
+                                             <th>#</th>
+                                             <th>ID</th>
+                                             <th>@Html.ActionLink("Model Name ", "Index", new {sortOrder = ViewBag.NameSortParm}) <i class="fas fa-chevron-down text-grey" aria-hidden="true"></i></th>
+                                             <th>Date Created</th>
+                                             <th>Description</th>
+                                             <th class="text-center colspan-2">Actions</th>
+                                         </tr>
+                                         </thead>
+                                         <tbody>
+                                         @foreach (var models in Model.PagedListModels)
+                                         {
+                                             <tr>
+                                                 <td >@i</td>
+                                                 @{ i++; }
+                                                 <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.Id"><i class="fas fa-tag"> </i></button></td>
+                                                 <td >@models.name</td>
+                                                 <td >-</td>
+                                                 <td >-</td>
+                                                 <td >
+                                                     <div class="w-100 btn-group" role="group">
+                                                         <a href="@Url.Action("EditModel", "AiModel", new {@models.Id})"
+                                                            class="btn edit" data-toggle="modal" data-target="#exampleModal3"
+                                                            data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
+                                                         
+                                                         <a href="@Url.Action("DeleteModel", "AiModel", new {@models.Id})"
+                                                            class="btn delete" data-toggle="modal"
+                                                            data-target="#exampleModal4" data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
+
+                                                         <a asp-controller="AiModel" asp-action="ModelVersions" asp-route-projectId="@models.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Versions"><i class="fas fa-eye"> </i></button></a>
+                                                     </div>
+                                                 </td>
+                                             </tr>
+                                         }
+                                         </tbody>
+                                     </table>
+                                 }
+                                 else
+                                 {
+                                     <p>No Models Found</p>}
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <!--Code to show current page and page number-->
           
-        <div >    @Html.PagedListPager(Model.PagedListModels, page => Url.Action("Index", new {page}), new PagedListRenderOptions
-                  {
-                      DisplayLinkToIndividualPages = true,
-                      DisplayPageCountAndCurrentLocation = false,
-                      MaximumPageNumbersToDisplay = 10,
-                      LiElementClasses = new[] {"page-item, bg-light"},
-                      PageClasses = new[] {"page-link",  "text-color",  "bg-light"}, 
+             <div>    
+                 @Html.PagedListPager(Model.PagedListModels, page => Url.Action("Index", new {page}), new PagedListRenderOptions
+                 {
+                     DisplayLinkToIndividualPages = true,
+                     DisplayPageCountAndCurrentLocation = false,
+                     MaximumPageNumbersToDisplay = 10,
+                     LiElementClasses = new[] {"page-item, bg-light"},
+                     PageClasses = new[] {"page-link",  "text-color",  "bg-light"}, 
                    
                       
 
-                  })
-                
-        </div>
-        <!--Code to show current page and page number-->
-        <div >Showing @(Model.PagedListModels.PageCount < Model.PagedListModels.PageNumber ? 0 : Model.PagedListModels.PageNumber) out of @Model.PagedListModels.PageCount entries
-        </div>
+                 })
+             </div>
+             
+             <!--Code to show current page and page number-->
+             <div>
+                 Showing @(Model.PagedListModels.PageCount < Model.PagedListModels.PageNumber ? 0 : Model.PagedListModels.PageNumber) out of @Model.PagedListModels.PageCount entries
+             </div>
     </div>
 </div>
-     
-     
-<!---Popup Form to create model -->
+
+    <!---Popup Form to create model -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
         
@@ -181,10 +165,10 @@
             <form method="post" asp-action="CreateModel" >
                 <div class="modal-body">
                     <div class="form-group ">
-                        <input asp-for="AIModel.projectId" hidden />
+                        <input asp-for="AIModel.Id" hidden />
                                         
-                        <label asp-for="AIModel.projectName" class="col-form-label">Model Name * </label> <!--Inventory Name-->
-                        <input asp-for="AIModel.projectName" class="form-control"/> <!--input box-->
+                        <label asp-for="AIModel.name" class="col-form-label">Model Name * </label> <!--Inventory Name-->
+                        <input asp-for="AIModel.name" class="form-control"/> <!--input box-->
                         <label  class="col-form-label">Description *</label> <!-- Name-->
                         <input class="form-control"/> <!--input box   NB ADD BACKEND CODE FOR THIS -->
                     </div>
@@ -199,14 +183,16 @@
         </div>
     </div>
 </div>
-
 </section>
 
+
+<!--Scripts--> 
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
+
 //Animations
 AOS.init();
 </script>
@@ -214,11 +200,10 @@ AOS.init();
 <script type="text/javascript">
 //Popups 
 
-// --Edit 
+//Edit 
 $('.edit').click(function (ev) {
-    ev.preventDefault(); // this is required
+    ev.preventDefault(); 
 
-    // get target action
     let action = $(this).attr('href');
 
     $.get(action, function (data) {
@@ -228,12 +213,10 @@ $('.edit').click(function (ev) {
     });
 });
 
-
-//-- Delete 
+// Delete 
 $('.delete').click(function (ev) {
-    ev.preventDefault(); // this is required
+    ev.preventDefault(); 
 
-    // get target action
     let action = $(this).attr('href');
 
     $.get(action, function (data) {
@@ -243,11 +226,10 @@ $('.delete').click(function (ev) {
     });
 });
 
-// --Upload 
+// Upload 
 $('.uploading').click(function (ev) {
-    ev.preventDefault(); // this is required
+    ev.preventDefault(); 
 
-    // get target action
     let action = $(this).attr('href');
 
     $.get(action, function (data) {
@@ -257,8 +239,9 @@ $('.uploading').click(function (ev) {
     });
 });
 
-  //ID tooltip
-  $(function () {
+//ID tooltip
+$(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
+
 </script >

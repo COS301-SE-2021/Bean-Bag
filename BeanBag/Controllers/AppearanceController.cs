@@ -6,15 +6,19 @@ using Microsoft.Identity.Web;
 
 namespace BeanBag.Controllers
 {
+    /* This controller is used to send and retrieve data to the dashboard
+       view using the tenant service functions. */
     public class AppearanceController : Controller
     {
+        // Global variables needed for calling the service classes.
         private readonly TenantService _tenantService;
         private readonly TenantBlobStorageService _tenantBlobStorageService;
 
+        // Constructor.
         public AppearanceController(TenantService tenantService, TenantBlobStorageService tenantBlobStorageService)
         {
-            _tenantService = tenantService;
-            _tenantBlobStorageService = tenantBlobStorageService;
+            this._tenantService = tenantService;
+            this._tenantBlobStorageService = tenantBlobStorageService;
         }
 
         // This function sends a response to the Home Index page.
@@ -23,7 +27,7 @@ namespace BeanBag.Controllers
             return View();
         }
         
-        
+        // This function sets the tenant theme by calling the SetTenantTheme service function.
         [HttpPost]
         public IActionResult ChangeThemeColour()
         {
@@ -36,13 +40,11 @@ namespace BeanBag.Controllers
             return RedirectToAction("Index", "Appearance");
         }
         
-        
+        // This function allows a user to set the tenant logo by calling the SetLogo service function.
         [HttpPost]
-        // Allows user to upload tenant logo
         public async Task<IActionResult> UploadLogo([FromForm(Name = "file")] IFormFile file)
         {
             var image = await _tenantBlobStorageService.UploadLogoImage(file);
-
             _tenantService.SetLogo(User.GetObjectId(),image);
 
             return RedirectToAction("Index", "Appearance");

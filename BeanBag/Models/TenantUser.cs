@@ -6,7 +6,6 @@ namespace BeanBag.Models
     {
         [Key]
         public string UserObjectId { get; set; }
-        
         [Required]
         public string UserTenantId { get; set; }
     }

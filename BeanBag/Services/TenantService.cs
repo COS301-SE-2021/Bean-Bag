@@ -16,8 +16,7 @@ namespace BeanBag.Services
         {
             _tenantDb = context;
         }
-        
-        
+
         //Tenant functions
         //Get tenant id from user's object id
         public string GetUserTenantId(string userId)
@@ -141,13 +140,8 @@ namespace BeanBag.Services
             var theme = (from item
                     in _tenantDb.Tenant
                 where item.TenantId.Equals(userTenantId)
-                select item.TenantTheme).Single();
+                select item.TenantTheme).Single() ?? "Default";
 
-
-            if (theme == null)
-            {
-                theme = "Default";
-            }
 
             return theme;
 

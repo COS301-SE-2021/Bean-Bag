@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BeanBag.Models
 {
     public class AIModel
     {
         [Key]
-        public Guid projectId { get; set; }
+        public Guid Id { get; set; }
 
-        public string projectName { get; set; }
+        public string name { get; set; }
+
+        public DateTime dateCreated { get; set; }
     }
 }

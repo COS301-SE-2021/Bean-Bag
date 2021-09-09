@@ -1,54 +1,45 @@
 ﻿@model Item
 @using Microsoft.Extensions.Options
 @using Microsoft.Identity.Web
-@inject IOptions<MicrosoftIdentityOptions> azureAdb2COptions
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
 @{
     Layout = null;
 }
 
-                <div class="modal-body">
-                    <div class="form-group ">
-                        
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm pt-2">
-                                    <label>Select Prediction Model:</label>
-                                </div>
-                                <div class="col-sm">
-                                    <select name="predictionModel" asp-items="@ViewBag.iterationDropDown" class="form-control">
-                                        <option selected>Selection</option>
-                                    </select>
-                                </div>
-
-                            </div>
-                        </div>
-<hr>
-                        <!-- Upload image input-->
-                        <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                            <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0">
-                            <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
-                            <div class="input-group-append">
-                                <label for="upload" class="btn btn-light m-0 rounded-pill px-4 upload"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
-                            </div>
-                        </div>
-
-                        <!-- Uploaded image area-->
-                        <div class="image-area mt-4 align-content-center"><img id="imageResult" src="#" alt="" width="200" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-
-                    </div>
-                    <div asp-validation-summary="All" class="text-danger"></div>
+<!--Delete item popup-->
+<div class="modal-body">
+    <div class="form-group ">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm pt-2">
+                    <label>Select Prediction Model:</label>
                 </div>
-                    
-                <div class="modal-footer ">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-3" value="Submit"/> <!--create button-->
+                <div class="col-sm">
+                    <select name="predictionModel" asp-items="@ViewBag.iterationDropDown" class="form-control">
+                        <option selected>Selection</option>
+                    </select>
                 </div>
-
-<!--<footer id="sticky-footer"  class="footer-copyright "> -->
-<!--class="border-top footer text-muted"-->
-<!-- <div class="container">
-    &copy; 2021 - BeanBag by <a class="agile-link" href="https://www.agilebridge.co.za/">Agile Bridge </a>
-    <br>
-    <a class="landing-page-image" href="https://www.freepik.com/vectors/box">Box vector created by vectorjuice - www.freepik.com</a>
+            </div>
+        </div>
+        <hr>
+        
+        <!-- Upload image input-->
+        <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+            <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0">
+            <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
+            <div class="input-group-append">
+                <label for="upload" class="btn btn-light m-0 rounded-pill px-4 upload"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+            </div>
+        </div>
+        
+        <!-- Uploaded image area-->
+        <div class="image-area mt-4 align-content-center"><img id="imageResult" src="#" alt="" width="200" class="img-fluid rounded shadow-sm mx-auto d-block"></div> 
+    </div>
+    <div asp-validation-summary="All" class="text-danger"></div>
 </div>
-</footer> -->
+
+<div class="modal-footer ">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <input type="submit" class="btn btn-3" value="Submit"/> <!--create button-->
+    </div>
+

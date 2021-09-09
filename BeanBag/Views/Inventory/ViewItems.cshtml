@@ -8,62 +8,62 @@
     ViewBag.Title = "Items";
 }
 <link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
+
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
         
-<section class="ml-3">
-             <a asp-action="Index" asp-controller="Inventory" class="btn " ><i class="fas fa-chevron-left text-color"> </i></a>
-                  
+
+<!--header -->
+<section class="ml-2">
+    <a asp-action="Index" asp-controller="Inventory" class="btn " ><i class="fas fa-chevron-left text-color"> </i></a>
     <span class="  md-2 text-secondary ">
-         
         &nbsp; Inventory | Item List
     </span>
-            <span class="float-right mr-2">
-                Total Items &nbsp; <span class="   rounded-circle rounded p-3">@ViewBag.totalItems</span>
-                <div>
-                </div></span>
+   
 </section>
 
-    <div class="dashboard-wrapper">
+
+<!--Inner content -->
+<div class="dashboard-wrapper">
         <div class="container-fluid  dashboard-content">
             <hr>
             <br>
+            
+            <!--pdf-->
             <div class="row">
-           
+                    <b class="pl-3">Total Items &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalItems</span>
                 <div class=" mr-3 ml-auto">
-                    <button   onclick="printDiv('viewInventoryModal')" class="btn btn-3 shadow-sm bg-body rounded pdf" >Generate report &nbsp;  <i class="fas fa-file-pdf"></i></button>
-        
-                    </div>
+                    <button onclick="printDiv('viewInventoryModal')" class="btn btn-3 shadow-sm bg-body rounded pdf">Generate report &nbsp; <i class="fas fa-file-pdf"></i></button>
+                </div>
             </div>
-             <br>
-            <div class="row" id="pdfContainer">
-                
-    
-                <!--Search-->
-                    @using (Html.BeginForm())
-                    {
-                        <div class="d-flex">
+            
+            <div class="row pt-3" >
+                <!--Date Search-->
+                @using (Html.BeginForm())
+                {
+                    <div class="d-flex">
                         <span class="d-inline-block ml-3 pt-2">
-                           <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date &nbsp;</span>
+                            <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date &nbsp;</span>
                         <span class=" d-inline-block">              
-                        @Html.TextBox("from", null, new {@class = "form-control ", type="date"})
-                     </span>
+                            @Html.TextBox("from", null, new {@class = "form-control ", type="date"})
+                        </span>
                         <span class="d-inline-block pt-2">
                             &nbsp; &nbsp; To Date &nbsp;</span>
                         <span class=" d-inline-block">  
-                        @Html.TextBox("to", null, new {@class = "form-control ", type="date" })
-                    </span>
+                            @Html.TextBox("to", null, new {@class = "form-control ", type="date" })
+                        </span>
                         @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
                         <span class="d-inline-block pl-2">
                             <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3"/>
                         </span>
-                        </div>
-                    }
+                    </div>
+                }
              
+                <!--Search-->
                 <div class="col-3 ml-auto">
                     @using (Html.BeginForm())
                     {
                         <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
-                           @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 red-border", placeholder = "Search"})
+                            @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 red-border", placeholder = "Search"})
                             <div class="input-group-append">
                                 <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
                                     <i class="fas fa-search text-grey"
@@ -82,9 +82,8 @@
                             <div>
                                 @if (Model.PagedListItems.Any())
                                 {
-                                    <table class="table table-bordered table-striped">
+                                    <table class="table table-striped text-center">
                                         <thead >
-
                                         <tr>
                                             <th>#</th>
                                             <th>ID</th>
@@ -98,56 +97,66 @@
                                             <th>Quantity</th>
                                             <th>Status</th>
                                             <th> Date Sold</th>
-
-
                                             <th> Condition</th>
                                             <th> Colour</th>
-                                            <th class="text-center">Actions</th>
+                                            <th class="text-center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         </tr>
-
                                         </thead>
-
                                         <tbody>
+                                        
                                         @foreach (var items in Model.PagedListItems)
                                         {
-                                            <tr>
-                                                <td >@i</td>
+                                            <tr >
+                                                <td class="pt-4" >@i</td>
                                                 @{ i++; }
-                                                <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@items.Id"><i class="fas fa-tag"> </i></button></td>
+                                                <td ><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@items.Id">
+                                                   
+                                                    <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/></button></td>
                                                 <td><img src="@items.imageURL" class="rounded" width="60" alt="Item Image"></td>
-                                                <td>@items.name</td>
-                                                <td>@items.type</td>
-                                                <td>@items.entryDate</td>
-                                                <td>R @items.price</td>
-                                                <td>@items.quantity</td>
+                                                <td class="pt-4">@items.name</td>
+                                                <td class="pt-4">@items.type</td>
+                                                <td class="pt-4">@items.entryDate</td>
+                                                <td class="pt-4">R @items.price</td>
+                                                <td class="pt-4">@items.quantity</td>
                                                 @if (@items.isSold)
                                                 {
-                                                    <td>Sold</td>
-                                                    <td>@items.soldDate</td>
+                                                    <td class="pt-4">Sold <img alt="" width="15" src="https://img.icons8.com/emoji/48/000000/red-circle-emoji.png"/></td>
+                                                    <td class="pt-4">@items.soldDate</td>
                                                 }
                                                 else
                                                 {
-                                                    <td>In Stock </td>
-                                                    <td>N/A</td>
+                                                    <td class="pt-4">In Stock &nbsp; <img alt="" width="15" src="https://img.icons8.com/emoji/48/000000/green-circle-emoji.png"/> </td>
+                                                    <td class="pt-4">N/A</td>
                                                 }
-                                                <td>@items.condition </td>
-                                                <td><div class="text-center justify-content-center p-3" ><i class="fas fa-square" style="color: @items.colour"></i></div></td>
+                                                <td class="pt-4">@items.condition </td>
+                                                <td>
+                                                    <div class="text-center justify-content-center p-3"><i class="fas fa-square" style="color: @items.colour"></i></div></td>
                                                 <td >
-                                                    <div class="w-100 btn-group" role="group">
-                                                        <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
-                                                        <a href="@Url.Action("Delete", "Item", new {@items.Id})"
-                                                           class="btn delete" data-toggle="modal"
-                                                           data-target="#exampleModal4" data-id="@items.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
+                                                    <div class="btn-group dropleft">
+                                                        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                       <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" class="pt-3" data-toggle="tooltip" data-placement="top" title="Actions" width="20" alt=""/>
+                                                                                                        
+                                                        </button>
+                                                        <div class="dropdown-menu w-50">
+                                                              <h6 class="dropdown-header">Actions</h6>
+                                                            <a asp-controller="Item" asp-action="Edit" asp-route-Id="@items.Id" class="btn "><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
 
-                                                        <a href="@Url.Action("ViewQrCode", "Item", new {@items.Id})"
-                                                           data-toggle="modal" data-target="#viewQRModal" data-id="@items.Id"
-                                                           class="btn viewQR"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View QR Code"><i class="fas fa-qrcode"> </i></button></a>
+                                                            <a href="@Url.Action("Delete", "Item", new {@items.Id})"
+                                                               class="btn delete" data-toggle="modal"
+                                                               data-target="#exampleModal4" data-id="@items.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"> <i class="fas fa-trash"> </i></button></a>
+
+                                                            <a href="@Url.Action("ViewQrCode", "Item", new {@items.Id})"
+                                                               data-toggle="modal" data-target="#viewQRModal" data-id="@items.Id"
+                                                               class="btn viewQR "><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View QR Code"> <i class="fas fa-qrcode"> </i></button></a>
 
 
-                                                        <a href="@Url.Action("PrintQrCode", "Item", new {@items.Id})"
-                                                           data-toggle="modal" data-target="#printQRModal" data-id="@items.Id"
-                                                           class="btn printQR"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Print QR Code"><i class="fas fa-print"> </i></button></a>
+                                                            <a href="@Url.Action("PrintQrCode", "Item", new {@items.Id})"
+                                                               data-toggle="modal" data-target="#printQRModal" data-id="@items.Id"
+                                                               class="btn printQR"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Print QR Code"><i class="fas fa-print"> </i></button></a>
+
+                                                        </div>
                                                     </div>
+                                                    
                                                 </td>
                                             </tr>
                                         }
@@ -162,26 +171,24 @@
                     </div>
                 </div>
             </div>
-      
-                
-        
-            <!--Code to show curent page and page number-->
-          
-            <div >    @Html.PagedListPager(Model.PagedListItems, page => Url.Action("ViewItems",  new {@ViewBag.InventoryId, page}), new PagedListRenderOptions
-                      {
-                          DisplayLinkToIndividualPages = true,
-                          DisplayPageCountAndCurrentLocation = false,
-                          MaximumPageNumbersToDisplay = 10,
-                          LiElementClasses = new[] {"page-item, bg-light"},
-                          PageClasses = new[] {"page-link",  "text-color",  "bg-light"}, 
-
-
-                      })
-                
-            </div>
+            
             <!--Code to show current page and page number-->
-            <div >Showing @(Model.PagedListItems.PageCount < Model.PagedListItems.PageNumber ? 0 : Model.PagedListItems.PageNumber) out of @Model.PagedListItems.PageCount entries
+            <div>   
+                @Html.PagedListPager(Model.PagedListItems, page => Url.Action("ViewItems",  new {@ViewBag.InventoryId, page}), new PagedListRenderOptions
+                {
+                    DisplayLinkToIndividualPages = true,
+                    DisplayPageCountAndCurrentLocation = false,
+                    MaximumPageNumbersToDisplay = 10,
+                    LiElementClasses = new[] {"page-item, bg-light"},
+                    PageClasses = new[] {"page-link",  "text-color",  "bg-light"}, 
+
+
+                })
+                
             </div>
+            
+            <!--Code to show current page and page number-->
+            <div >Showing @(Model.PagedListItems.PageCount < Model.PagedListItems.PageNumber ? 0 : Model.PagedListItems.PageNumber) out of @Model.PagedListItems.PageCount entries</div>
         </div>
     </div>
     
@@ -204,15 +211,12 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
-         
         </div>
-
     </div>
     
-      <!---Popup Form to print QR modal -->
+<!---Popup Form to print QR modal -->
 <div class="modal fade" id="printQRModal" tabindex="-1" role="dialog" aria-labelledby="viewQRModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
-            
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"  id="printQRModalTitle">Print QR Code <i class="fas fa-print"> </i></h5>
@@ -221,7 +225,6 @@
                 </button>
             </div>
             <div class="modal-body printQR">
-                        
             </div>
             <div class="modal-footer ">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
@@ -230,18 +233,12 @@
     </div>
 </div>
 
-
-      <!---Popup Form to print QR modal -->
+<!--- generate pdf -->
 <div class="modal fade" id="viewInventoryModal" >
         <div class="modal-body invItems">
-                   <partial name="pdfReportPrint" />      
+                   <partial name="_Report" />      
             </div>
 </div>
-
-<div id="printableArea">
-  
-</div>
-
 
 </section>
 
@@ -252,23 +249,23 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
 
-  AOS.init();
+//Animations
+AOS.init();
   
-  //ID tooltip
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
+//ID tooltip
+$(function () {
+   $('[data-toggle="tooltip"]').tooltip()
+})
   
- //Delete
+//Delete
 $('.delete').click(function (ev) {
-    ev.preventDefault(); // this is required
-
-    // get target action
-    var action = $(this).attr('href');
+    ev.preventDefault(); 
+    
+    let action = $(this).attr('href');
 
     $.get(action, function (data) {
-        $mymodal = $("#exampleModal4");
-            $mymodal.find("form.data").html(data);
+        let myModal = $("#exampleModal4");
+            myModal.find("form.data").html(data);
         $('#exampleModal4').modal('show');
     });
 });
@@ -277,12 +274,11 @@ $('.delete').click(function (ev) {
 $('.viewQR').click(function (ev) {
     ev.preventDefault(); 
 
-    // get target action
-    var action = $(this).attr('href');
+    let action = $(this).attr('href');
 
     $.get(action, function (data) {
-        $mymodal = $("#viewQRModal");
-          $mymodal.find("div.QRImage").html('<img src='+data+' width="300" class="align-content-center">');
+        let myModal = $("#viewQRModal");
+          myModal.find("div.QRImage").html('<img src='+data+' width="300" class="align-content-center" alt="">');
         $('#viewQRModal').modal('show');
     });
 });
@@ -292,50 +288,48 @@ $('.printQR').click(function (ev) {
     ev.preventDefault(); // this is required
 
     // get target action
-    var action = $(this).attr('href');
+    let action = $(this).attr('href');
 
     $.get(action, function (data) {
-        $mymodal = $("#printQRModal");
+       let myModal = $("#printQRModal");
         if(data!=null){
-          $mymodal.find("div.printQR").html('<h6 class="text-muted"> QRCode has been saved to your C Drive for printing at :</h6>  '+ 
+          myModal.find("div.printQR").html('<h6 class="text-muted"> QRCode has been saved to your C Drive for printing at :</h6>  '+ 
           ' <br> C:/Users/Public/Pictures/'+ data + '.png');
 
         $('#printQRModal').modal('show');}
         else
          {   
-             $mymodal.find("div.printQR").html('QR Code cannot be printed');
+             myModal.find("div.printQR").html('QR Code cannot be printed');
          }
     });
 });
 
-
- //generate inventory items
+//generate inventory items
 $('.invItems').click(function (ev) {
     ev.preventDefault(); 
+    
+    let action = $(this).attr('href');
 
-    // get target action
-    var action = $(this).attr('href');
-
-    $.get(action, function (data) {
-        $mymodal = $("#viewInventoryModal");
-          $mymodal.find("div.invItems").html(' hh');
+    $.get(action, function () {
+         let myModal = $("#viewInventoryModal");
+          myModal.find("div.invItems").html(' hh');
         $('#viewInventoryModal').modal('show');
     });
 });
 
 //Generating the pdf 
-
 function printDiv(divName) {
-     var printContents = document.getElementById(divName).innerHTML;
-     var originalContents = document.body.innerHTML;
+     let printContents = document.getElementById(divName).innerHTML;
+     let originalContents = document.body.innerHTML;
      document.body.innerHTML = printContents;
      window.print();
      document.body.innerHTML = originalContents;
 }
-    
 </script>
+
 @section Scripts{
-    @{<partial name="_ValidationScriptsPartial"/> <partial name="_DeleteItem" /> 
+    @{ //partial views
+                                     <partial name="_ValidationScriptsPartial"/> <partial name="_DeleteItem" /> 
     }
 }
 

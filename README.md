@@ -8,9 +8,7 @@ Developed by Polaris for <a href="https://www.agilebridge.co.za/" >Agile Bridge<
 ![Uptime Robot status](https://img.shields.io/uptimerobot/status/m788271158-bb7bc699e2e1865de72a0c39?style=flat-round&)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/Bean-Bag?style=flat-round&)
 
-![example workflow](https://github.com/COS301-SE-2021/Bean-Bag/actions/workflows/dotnet.yml/badge.svg?style=flat-round&)
-[![Coverage Status](https://coveralls.io/repos/github/COS301-SE-2021/Bean-Bag/badge.svg?branch=master)](https://coveralls.io/github/COS301-SE-2021/Bean-Bag?branch=master)
-
+![Workflow](https://github.com/COS301-SE-2021/Bean-Bag/actions/workflows/cicd.yml/badge.svg?branch=master)
 ---
 
 ## <!--Can add more badges about builds and testing later: shields.io -->
@@ -58,7 +56,7 @@ Below is a short overview of the Polaris team developing the <b>Bean Bag </b> pr
 
 <br>
 
-> <img align="left" src="https://i.ibb.co/ZW0CRPb/circle-cropped-6.png" alt="drawing" width="90"/></img> <h3> ‎ ‎‎Nada Chraf</h3><p><code> ‎ Frontend and Backend Integration, Testing</p></code>
+> <img align="left" src="https://i.ibb.co/ZW0CRPb/circle-cropped-6.png" alt="drawing" width="90"/></img> <h3> ‎ ‎‎Nada Chraf</h3><p><code> ‎ Frontend and Backend Development </p></code>
  > [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-round&logo=github&logoColor=white)](https://github.com/nadachra) <t/>[![PersonalProfile](https://img.shields.io/badge/ProfilePage-4285F4?style=flat-round&logo&logoColor=white)](https://nada-chraf.firebaseapp.com/) <t/>[![LinkedIn](https://img.shields.io/badge/linked-in-369?style=flat-round&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nada-chraf-a1314a135/)
 >
 > - <i> 3rd year BsC Computer Science student</i>
@@ -112,8 +110,7 @@ The technologies used to build the <b>Bean Bag </b> system.
 <p> <img alt=".Net" src="https://img.shields.io/badge/ASP.NET Core-5.0-5C2D91?style=flat-round&logo=.net&logoColor=white"/> <img alt="C#" src="https://img.shields.io/badge/C%23-%23239120.svg?style=flat-round&logo=c-sharp&logoColor=white"/></p>
 <h4>Frontend - Web App</h4>
 <p><img alt="HTML5" src="https://img.shields.io/badge/HTML5-%23E34F26.svg?style=flat-round&logo=html5&logoColor=white"/> <img alt="CSS3" src="https://img.shields.io/badge/CSS3-%231572B6.svg?style=flat-round&logo=CSS3&logoColor=white"/> <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-%23323330.svg?style=flat-round=javascript&logoColor=%23F7DF1E"/> <img alt="Bootstrap" src="https://img.shields.io/badge/Bootstrap-%23563D7C.svg?style=flat-round&logo=bootstrap&logoColor=white"/></p>
-<h4>AI and Analytics</h4>
-<img alt="Python" src="https://img.shields.io/badge/Python-%2314354C.svg?style=flat-round=python&logoColor=white"/>
+
 <h4>Cloud Services & Deployment</h4>
 <img alt="Azure" src="https://img.shields.io/badge/Microsoft_Azure-0089D6?style=flat-round&logo=microsoft-azure&logoColor=white"/>
 
@@ -130,20 +127,23 @@ The Bean Bag project will make use of a mono-repo. All code and assets related t
     master ( build )
     − hotfix
       - develop ( build )
-            − backend−develop ( build )
-                  − module-develop ( build )
-                        − feature-module-feature_name
-            − frontend−develop ( build )
+            − develop-backend ( build )
+                  − develop-backend-module ( build )
+                        − feature-backend-module-feature_name
+            − develop-frontend ( build )
+                 − develop-module ( build )
+                       − feature-frontend-module-feature_name
 
 <h4 align="center"> Flow Management </h4>
 
 - <b>master</b> - this branch contains production code. All development code is merged into master in sometime
 - <b>hotfix</b> - this branch is necessary to act immediately upon an undesired status of master.
-- <b>develop </b>- this branch contains pre-production code.
-- <b>backend-develop</b> - this branch contains pre-production backend code.
-- <b>module-develop</b>- this branch contains the backend code for specific subsystems/modules in the system. When the features from the backend are complete, they are merged into module-develop.
-- <b>feature-module-feature_name</b> - this branch is used to develop new backend features for a specific module.
-- <b>frontend-develop</b> -this branch contains pre-production front-end code.
+- <b>develop</b>- this branch contains pre-production code.
+- <b>develop-backend</b> - this branch contains pre-production backend code.
+- <b>develop-module</b>- this branch contains the backend code for specific subsystems/modules in the system. When the features from the backend are complete, they are merged into module-develop.
+- <b>feature-backend-module-feature_name</b> - this branch is used to develop new backend features for a specific module.
+- <b>feature-frontend-module-feature_name</b> - this branch is used to develop new frontend features for a specific module.
+- <b>develop-frontend</b> -this branch contains pre-production front-end code.
 
 ---
 
@@ -176,12 +176,14 @@ Testing the <b>Bean Bag</b> system:
 <a name="D1"/><h2> 🔵 Documentation</h3></a>
 All neccessary documentation related to the <b> Bean Bag</b> project.
 
-- [Software Requirements Specification Document](https://drive.google.com/drive/u/1/folders/1aOf_vzdIkNxeur8eyyou5kn9FHSUVCod)
-- [Architectural Document](https://drive.google.com/file/d/1bOr6wew3k5TFKAb9n3qYyJCWyn7ECS1o/view?usp=sharing)
-- [Technical Installation Guide](https://www.overleaf.com/project/60bf6e62809345fbe421d6e2)
-- [Coding Standards](https://www.overleaf.com/read/rgzpwvjjdkwq)
-- [User Manual](https://www.overleaf.com/read/tmsbffjmsfgc)
-- [Testing Policy](https://www.overleaf.com/read/vyyyndhcvjbd)
+- [Demo 1 | Software Requirements Specification Document](https://drive.google.com/drive/u/1/folders/1aOf_vzdIkNxeur8eyyou5kn9FHSUVCod)
+- [Demo 2 | Architectural Document](https://drive.google.com/file/d/1bOr6wew3k5TFKAb9n3qYyJCWyn7ECS1o/view?usp=sharing) 
+- [Demo 2 | User Manual](https://www.overleaf.com/read/tmsbffjmsfgc)
+- [Demo 2 | Coding Standards](https://www.overleaf.com/read/rgzpwvjjdkwq)
+- [Demo 3 | SRS - Architectural Document](https://drive.google.com/drive/folders/1viOpgJCb1BMFE4uqWRd7mbRtuZ_QopCi?usp=sharing)
+- [Demo 3 | Technical Installation Guide](https://drive.google.com/drive/folders/1wIohf9eZYhcIg5I41J-6H5kgn2pTL3ek?usp=sharing)
+- [Demo 3 | Coding Standards](https://drive.google.com/drive/folders/1zbzHckzp8XXazPNUY-breSOGIq6FTJP_?usp=sharing)
+- [Demo 3 | User Manual](https://drive.google.com/drive/folders/1sKaVFBSJpcAiPRj4aYcBBeWGqiULrZZc?usp=sharing)
 
 ---
 
@@ -202,5 +204,5 @@ Video demonstrations about the progression of the Bean Bag project.
 
 - [Demo Video 1 - 📅 4 June 2021](https://drive.google.com/drive/u/1/folders/18UvquRIEvCKuZyfEESXBXh2mFWG5_VYl)
 - [Demo Video 2 - 📅 21 June 2021](https://drive.google.com/file/d/1-rO9bH5BukctFnMlDfORGhOYwjJ4PBqt/view?usp=sharing)
-- [Demo Video 3](https://drive.google.com/open?id=)
+- [Demo Video 3](https://drive.google.com/file/d/1fXkJ_2Vc2-jhoxGDvmL-n-uTO6VBS7DH/view?usp=sharing)
 - [Demo Video 4](https://drive.google.com/open?id=)
