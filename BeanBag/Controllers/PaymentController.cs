@@ -1,5 +1,4 @@
-﻿#nullable enable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -247,7 +246,12 @@ namespace BeanBag.Controllers
                 return LocalRedirect("/");
             }
         }
-        
+
+        // This function allows the tenant Admin to update the tenants subscription plan.
+        public IActionResult UpdateSubscription(string subscription, string tenantId)
+        {
+            throw new NotImplementedException();
+        }
     }
     
 }
