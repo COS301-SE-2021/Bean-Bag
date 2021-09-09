@@ -169,7 +169,7 @@
              <b class="pl-3">Total Transactions &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span  > &nbsp; @ViewBag.totalTransactions</span>
                         
         <div class=" mr-3 ml-auto pt-2">
-            <a class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Update Subscription  &nbsp; &nbsp; <img src="https://img.icons8.com/ios/25/000000/approve-and-update.png" alt=""/></a>
+            <button class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal3">Update Subscription  &nbsp; &nbsp; <img src="https://img.icons8.com/ios/25/000000/approve-and-update.png" alt=""/></button>
         </div>
     </div>
         <div class="row " >
@@ -284,6 +284,47 @@
     </div>
 </div>
 
+<!--Modal popup to update subscription-->
+	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle3">
+		<div class="modal-dialog modal-dialog" role="document">
+        
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"  id="exampleModalTitle3">Update Subscription Plan </h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="post" asp-controller="Payment" asp-action="UpdateSubscription"  >
+					<div class="modal-body">
+                        <p class="text-muted pb-2">Current Subscription Plan: @ViewBag.tenant.TenantSubscription</p>
+                        <hr>
+                        <p> Choose a new plan: </p>
+                        
+                             <div class="form-group ">
+                                 <label for="tenantId" class="col-form-label" hidden></label>
+                                 <input type="text" id="tenantId" name="tenantId" class="form-control" value="@ViewBag.tenant.TenantId" hidden/>
+
+                                 <label for="subscription">Free</label>
+                                 <input for="subscription" type="radio" name="subscription" value="Free"> &nbsp;
+
+                                 <label for="subscription">Standard</label>
+                                 <input for="subscription" type="radio" name="subscription" value="Standard"> &nbsp;&nbsp;&nbsp;
+
+                                 <label for="subscription">Premium</label>
+                                 <input for="subscription" type="radio" name="subscription" value="Premium"> &nbsp;&nbsp;&nbsp;
+                             </div>
+                                                                     
+                             <div asp-validation-summary="All" class="text-danger"></div>
+                    </div>
+					<div class="modal-footer ">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<input type="submit" class="btn btn-3 shadow-sm bg-body rounded" value="Select Plan"/> <!--create button-->
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
 </section>
 
