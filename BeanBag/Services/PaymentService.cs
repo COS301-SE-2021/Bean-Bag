@@ -257,5 +257,34 @@ namespace BeanBag.Services
 
             return getfirst;
         }
+        
+        // This function sets the updated subscription for the user
+        public void UpdateSubscription(string subscription, string tenantId)
+        {
+            if (subscription == null)
+            {
+                
+            }else if (tenantId == null)
+            {
+                
+            }
+            
+            //TODO
+            if (subscription == "Free")
+            {
+                
+            }else if (subscription == "Standard")
+            {
+                
+            }
+            else if (subscription == "Premium")
+            {
+                
+            }
+            else
+            {
+                throw new Exception("Incorrect subscription input.");
+            }
+        }
     }
 }
