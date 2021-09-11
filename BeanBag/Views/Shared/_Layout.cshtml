@@ -154,14 +154,17 @@
                 </a>
               </li>
               
-              <li>
-                <a asp-area="" asp-controller="TenantSettings" asp-action="Index">
-                  <svg>
-                    <use xlink:href="#options"></use>
-                  </svg>
-                  <span>Tenant Settings</span>
-                </a>
-              </li>
+              @if (_tenantService.GetUserRole(User.GetObjectId()).Equals("Admin"))
+              {
+                <li>
+                  <a asp-area="" asp-controller="TenantSettings" asp-action="Index">
+                    <svg>
+                      <use xlink:href="#options"></use>
+                    </svg>
+                    <span>Tenant Settings</span>
+                  </a>
+                </li>
+              }
               
               <li>
                  <a asp-area="" asp-controller="Payment" asp-action="Billing">
