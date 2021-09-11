@@ -319,6 +319,37 @@ namespace BeanBag.Services
             return code.ToString();
         }
         
+        /* Verify if user entered valid invite code */
+        public bool VerifyCode(string tenantId, string code)
+        {
+            if (tenantId == null)
+            {
+                throw new Exception("Tenant id is null.");
+            }
+
+            if (code == null)
+            {
+                throw new Exception("Entered code is null.");
+            }
+
+            var check = (from tenant
+                    in _tenantDb.Tenant
+                where tenant.TenantId.Equals(tenantId)
+                select tenant.InviteCode).Single();
+
+            if (check == null)
+            {
+                throw new Exception("Code is null");
+            }
+
+            if (check.Equals(code))
+            {
+                return true;
+            }
+
+            return false;
+        }
+        
         //User functions
         /* Signs the user up and adds user to the user table in the database */
         public bool SignUserUp(string userId, string tenantId, string userName)
@@ -498,5 +529,6 @@ namespace BeanBag.Services
             _tenantDb.SaveChanges();
 
         }
+        
     }
 }
