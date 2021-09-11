@@ -188,7 +188,7 @@ namespace BeanBag.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateModel(Pagination mods)
         {
-            Guid id = await _aIService.createProject(mods.AIModel.name);
+            Guid id = await _aIService.createProject(mods.AIModel.name, mods.AIModel.description);
 
             return LocalRedirect("/AIModel/TestImages?projectId=" + id.ToString());
         }
@@ -259,10 +259,27 @@ namespace BeanBag.Controllers
         }
 
         // This function allows the user to edit a model by calling the EditModel AI Model service.
-        public IActionResult EditModel(Guid projectId, string projectName, string description)
+        [HttpPost]
+        public IActionResult EditAIModelPost(Guid projectId, string projectName, string description)
         {
             _aIService.editProject(projectId, projectName, description);
             return LocalRedirect("/AIModel");
+        }
+
+        public IActionResult EditAIModel(Guid Id)
+        {
+            if(User.Identity is { IsAuthenticated: true})
+            {
+                var model = _aIService.getModel(Id);
+                if (model == null)
+                    return NotFound();
+
+                return View(model);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
         }
 
         // This function allows the user to delete a model by calling the DeleteModel AI Model service.
@@ -287,12 +304,6 @@ namespace BeanBag.Controllers
             {
                 return LocalRedirect("/");
             }
-        }
-
-        // This function allows the user to edit a model version by calling the EditVersion AI Model service.
-        public IActionResult EditVersion()
-        {
-            throw new NotImplementedException();
         }
         
         // This function allows the user to delete a model version by calling the DeleteVersion AI Model service.

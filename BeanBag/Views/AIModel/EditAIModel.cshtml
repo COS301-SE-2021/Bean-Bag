@@ -1,0 +1,27 @@
+﻿@model AIModel
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+@{
+    Layout = null;
+}
+
+
+<!--Edit inventory inner card popup -->
+<div class="modal-body">
+
+    <div class="form-group ">
+        <input asp-for="Id" name="projectId" hidden />
+
+        <label asp-for="name" class="col-form-label">AI Model Name *</label> <!--Inventory Name-->
+        <input asp-for="name" name="projectName" class="form-control" /> <!--input box-->
+        <label asp-for="description" class="col-form-label">Description *</label> <!--Description-->
+        <input asp-for="description" class="form-control" /> <!--input box-->
+    </div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+</div>
+
+<div class="modal-footer ">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <input type="submit" class="btn btn-3" value="Save Changes" /> <!--create button-->
+</div>

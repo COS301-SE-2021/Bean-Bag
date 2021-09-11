@@ -103,7 +103,7 @@
                                                  <td >-</td>
                                                  <td >
                                                      <div class="w-100 btn-group" role="group">
-                                                         <a href="@Url.Action("EditModel", "AiModel", new {@models.Id})"
+                                                         <a href="@Url.Action("EditAIModel", "AiModel", new {@models.Id})"
                                                             class="btn edit" data-toggle="modal" data-target="#exampleModal3"
                                                             data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
                                                          
@@ -166,11 +166,11 @@
                 <div class="modal-body">
                     <div class="form-group ">
                         <input asp-for="AIModel.Id" hidden />
-                                        
+
                         <label asp-for="AIModel.name" class="col-form-label">Model Name * </label> <!--Inventory Name-->
-                        <input asp-for="AIModel.name" class="form-control"/> <!--input box-->
-                        <label  class="col-form-label">Description *</label> <!-- Name-->
-                        <input class="form-control"/> <!--input box   NB ADD BACKEND CODE FOR THIS -->
+                        <input asp-for="AIModel.name" class="form-control" /> <!--input box-->
+                        <label class="col-form-label">Description *</label> <!-- Name-->
+                        <input asp-for="AIModel.description" class="form-control" /> <!--input box-->
                     </div>
                     <div asp-validation-summary="All" class="text-danger"></div>
                 </div>
@@ -249,6 +249,7 @@ $(function () {
     
 @{ 
     <partial name="_DeleteAIModel"/>
+    <partial name="_EditAIModel"/>
 }
 
 }

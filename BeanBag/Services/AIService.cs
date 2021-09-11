@@ -92,7 +92,7 @@ namespace BeanBag.Services
         }
 
         // This method is used to create a new project (model) in custom vision
-        public async Task<Guid> createProject(string projectName)
+        public async Task<Guid> createProject(string projectName, string description)
         {
             if (projectName.Equals("") || projectName.Equals(" "))
                 throw new Exception("Invalid project name");
@@ -104,7 +104,8 @@ namespace BeanBag.Services
                 AIModel newModel = new AIModel()
                 {
                     name = projectName,
-                    Id = newProject.Id
+                    Id = newProject.Id, 
+                    description = description
                 };
 
                 await _db.AIModels.AddAsync(newModel);
@@ -162,9 +163,11 @@ namespace BeanBag.Services
             var project = _db.AIModels.Find(projectId);
 
             project.name = projectName;
+            project.description = description;
             //project.description = description;
             _db.AIModels.Update(project);
-
+            
+            _db.SaveChanges();
         }
 
         // This method is used to upload a set of test images into the Azure blob storage and then into the custom vision project
