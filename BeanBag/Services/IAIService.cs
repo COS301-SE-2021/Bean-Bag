@@ -48,5 +48,8 @@ namespace BeanBag.Services
         public AIModel getModel(Guid projectId);
 
         public void EditIteration(Guid iterationId, string description);
+
+        public int? getImageCount(Guid projectId);
+
     }
 }

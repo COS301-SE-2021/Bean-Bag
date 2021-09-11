@@ -106,7 +106,8 @@ namespace BeanBag.Services
                     name = projectName,
                     Id = newProject.Id, 
                     description = description, 
-                    dateCreated = DateTime.Now
+                    dateCreated = DateTime.Now, 
+                    imageCount = 0
                 };
 
                 await _db.AIModels.AddAsync(newModel);
@@ -228,6 +229,13 @@ namespace BeanBag.Services
                     projectId = projectId, 
                     createdDate = DateTime.Now
                 };
+
+                var model = _db.AIModels.Find(projectId);
+                int? count = getImageCount(projectId);
+
+                model.imageCount = count;
+
+                _db.AIModels.Update(model);
 
                 _db.AIModelIterations.Add(newModelVersion);
                 _db.SaveChanges();
@@ -513,11 +521,30 @@ namespace BeanBag.Services
 
         public void EditIteration(Guid iterationId, string description)
         {
+            if (iterationId == Guid.Empty)
+                throw new Exception("Iteration id is null");
+
             var iteration = _db.AIModelIterations.Find(iterationId);
             iteration.description = description;
 
             _db.AIModelIterations.Update(iteration);
             _db.SaveChanges();
+        }
+
+        public int? getImageCount(Guid projectId)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project id is null");
+
+            if (trainingClient.GetProject(projectId) == null)
+                throw new Exception("Project does not exist with Id " + projectId.ToString());
+
+            int? count = trainingClient.GetImageCount(projectId);
+
+            if (count == null)
+                return 0;
+
+            return count;
         }
     }
 }

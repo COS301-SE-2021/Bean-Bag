@@ -175,6 +175,11 @@ namespace BeanBag.Controllers
             viewModel.PagedListVersions = pagedList;
             @ViewBag.totalModels = _aIService.getProjectIterations(projectId).Count;
             ViewBag.projectId = projectId;
+
+            if (_aIService.getModel(projectId).imageCount == _aIService.getImageCount(projectId))
+                ViewBag.canTrainNewVersion = false;
+            else
+                ViewBag.canTrainNewVersion = true;
         
             return View(viewModel);
             }
@@ -197,12 +202,15 @@ namespace BeanBag.Controllers
         public IActionResult TestImages(Guid projectId)
         {
             @ViewBag.ID = projectId;
-        
-            var mods = _aIService.getAllModels();
-            foreach (var t in mods.Where(t => t.Id.Equals(projectId)))
-            {
-                @ViewBag.Name = t.name ;
-            }
+
+            var model = _aIService.getModel(projectId);
+            ViewBag.Name = model.name;
+
+            if (model.imageCount == 0)
+                ViewBag.newProject = true;
+            else
+                ViewBag.newProject = false;
+
             return View();
         }
 
@@ -212,15 +220,19 @@ namespace BeanBag.Controllers
             [FromForm(Name ="projectId")] Guid projectId, [FromForm(Name ="tags")] string[] tags,
             [FromForm(Name = "LastTestImages")] string lastTestImages)
         {
-            //Checking if images are more than 5
-            if(files.Count < 5)
+            var model = _aIService.getModel(projectId);
+
+            if(model.imageCount == 0)
             {
-                //Change this error handling
-                return Ok("Image count less than 5");
+                if(files.Count < 5)
+                    return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
             }
-            
+
+            if(files.Count == 0)
+                return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
+
             //Checking if each tag is not empty or not an empty string
-            foreach(var tag in tags)
+            foreach (var tag in tags)
             {
                 if (tag.Equals("") || tag.Equals(" "))
                 {

@@ -32,7 +32,10 @@
             <div class="row">
 
                 <div class=" mr-3 ml-auto">
-                    <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                    @if (ViewBag.canTrainNewVersion == true)
+                    {
+                        <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                    }
                 </div>
             </div>
 
