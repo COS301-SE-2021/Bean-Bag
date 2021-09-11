@@ -202,10 +202,23 @@ namespace BeanBag.Controllers
             return RedirectToAction("Index");
         }
 
-
+        /* This function allows an admin to delete the tenant. Deleting a tenant deletes all the users of that
+         tenant as well. */
         public IActionResult DeleteTenant()
         {
-            throw new NotImplementedException();
+            //Get current tenant
+            var tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
+
+            if (tenant == null)
+            {
+                return BadRequest();
+            }
+            
+            //Delete the tenant 
+            _tenantService.DeleteTenant(User.GetObjectId());
+            
+            //Redirect back to landing page
+            return RedirectToPage("LandingPage");
         }
 
         /* This function allows an admin user to invite a new user to join the tenant.
