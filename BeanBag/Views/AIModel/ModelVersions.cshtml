@@ -10,182 +10,192 @@
 <link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
 
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
-    
+
     <section class="ml-3">
         <a asp-action="Index" asp-controller="AiModel" asp-route-inventoryId="@ViewBag.InventoryId" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
 
         <span class="  md-2 text-secondary ">
             &nbsp; Inventory | Item List
         </span>
-        
+
         <span class="float-right mr-2">
             Total Versions &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalModels</span>
         </span>
-        
-    </section> 
-    
+
+    </section>
+
     <div class="dashboard-wrapper">
-    <div class="container-fluid  dashboard-content">
-    
-        <hr>
-        
-        <div class="row">
-            
-            <div class=" mr-3 ml-auto">
-                <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
-            </div>
-        </div>
-        
-        <br>
-        
-        <div class="row">
-                
-            <!--Date sorts-->
-                @using (Html.BeginForm())
-                               {
-                                   <div class="d-flex">
-                                   <span class="d-inline-block ml-3 pt-2">
-                                      <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date &nbsp;</span>
-                                   <span class=" d-inline-block">              
-                                   @Html.TextBox("from", null, new {@class = "form-control ", type="date"})
-                                </span>
-                                   <span class="d-inline-block pt-2">
-                                       &nbsp; &nbsp; To Date &nbsp;</span>
-                                   <span class=" d-inline-block">  
-                                   @Html.TextBox("to", null, new {@class = "form-control ", type="date" })
-                               </span>
-                                   @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
-                                   <span class="d-inline-block pl-2">
-                                       <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3"/>
-                                   </span>
-                                   </div>
-                               }
-           
-            <!--Search-->
-            <div class="col-3 ml-auto ">
-                @using (Html.BeginForm())
-                {
-                    <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
-                        @Html.TextBox("SearchString", null, new {@class = "form-control  my-0 py-1 red-border", placeholder = "Search"})
-                        <div class="input-group-append">
-                            <button class="input-group-text " value="Search" type="submit" id="basic-text1">
-                                <i class="fas fa-search text-grey"
-                                   aria-hidden="true"></i></button>
-                        </div>
-                    </div>
-                }                                                                                                                                                                                                     
+        <div class="container-fluid  dashboard-content">
+
+            <hr>
+
+            <div class="row">
+
+                <div class=" mr-3 ml-auto">
+                    <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                </div>
             </div>
 
-            <!--Table with bootstrap class .table and .table-condensed-->
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <br>
-                <div class="card shadow  mb-4 bg-body rounded" >
-                    <h5 class="card-header">Model Versions List</h5>
-                    <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
-                        <div>
-                            @if (Model.PagedListVersions.Any())
-                            {
-                                <table class="table table-bordered table-striped">
-                                    <thead><tr>
-                                        <th>#</th>
-                                        <th>ID</th>
-                                        <th>@Html.ActionLink("Iteration Name ", "ModelVersions", new {sortOrder = ViewBag.NameSortParm, ViewBag.ProjectId})
-                                            <i class="fas fa-chevron-down text-grey"
-                                               aria-hidden="true"></i></th>
-                                            
-                                        <th>Date Created</th>
-                                        <th>Description</th>
-                                        <th>Available for item cataloging</th>
-                                        <th>Training Status</th>
-                                        <th class="text-center colspan-2">Actions</th>
-                                    </tr>
+            <br>
+
+            <div class="row">
+
+                <!--Date sorts-->
+                @using (Html.BeginForm())
+                {
+                    <div class="d-flex">
+                        <span class="d-inline-block ml-3 pt-2">
+                            <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date &nbsp;
+                        </span>
+                        <span class=" d-inline-block">
+                            @Html.TextBox("from", null, new { @class = "form-control ", type = "date" })
+                        </span>
+                        <span class="d-inline-block pt-2">
+                            &nbsp; &nbsp; To Date &nbsp;
+                        </span>
+                        <span class=" d-inline-block">
+                            @Html.TextBox("to", null, new { @class = "form-control ", type = "date" })
+                        </span>
+                        @Html.TextBox("sortOrder", "date", new { @class = "form-control col-md-2 ml-1", type = "text", hidden = true })
+                        <span class="d-inline-block pl-2">
+                            <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3" />
+                        </span>
+                    </div>
+                }
+
+                <!--Search-->
+                <div class="col-3 ml-auto ">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                            @Html.TextBox("SearchString", null, new { @class = "form-control  my-0 py-1 red-border", placeholder = "Search" })
+                            <div class="input-group-append">
+                                <button class="input-group-text " value="Search" type="submit" id="basic-text1">
+                                    <i class="fas fa-search text-grey"
+                                       aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!--Table with bootstrap class .table and .table-condensed-->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <br>
+                    <div class="card shadow  mb-4 bg-body rounded">
+                        <h5 class="card-header">Model Versions List</h5>
+                        <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
+                            <div>
+                                @if (Model.PagedListVersions.Any())
+                                {
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>ID</th>
+                                                <th>
+                                                    @Html.ActionLink("Iteration Name ", "ModelVersions", new { sortOrder = ViewBag.NameSortParm, ViewBag.ProjectId })
+                                                <i class="fas fa-chevron-down text-grey"
+                                                   aria-hidden="true"></i>
+                                            </th>
+
+                                            <th>Date Created</th>
+                                            <th>Description</th>
+                                            <th>Available for item cataloging</th>
+                                            <th>Training Status</th>
+                                            <th class="text-center colspan-2">Actions</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach (var models in Model.PagedListVersions)
-                                    {
-                                        <tr>
-                                            <td >@i</td>
-                                            @{ i++; }
-                                            <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.projectId"><i class="fas fa-tag">  </i></button></td>
-                                            <td >@models.Name</td>
-                                            <td >-</td>
-                                            <td >-</td>
-                                            <td > @if(@models.availableToUser)
-                                            
-                                                  {
-                                                      <span> Available  &nbsp; </span>  <i class="fa fa-check-circle text-success"></i>
-                                                  }
-                                                  else
-                                                  {
-                                                      <span> Unavailable  &nbsp; </span>  <i class="fas fa-times-circle text-danger"></i>
-                                                                                       
-                                                  }</td>
-                                            
-                                            <td > @if(@models.status.Equals("Completed"))
-                                                {
-                                                   <span> Completed  &nbsp; </span>  <i class="fas fa-check-circle text-success"></i>
-                                                }
-                                                else
-                                                {
-                                                   <span> Training  &nbsp; </span>  <i class="fa fa-spinner fa-pulse fa-fw text-info"></i>
-                                                }
-                                            </td>
-                                            <td >
-                                                <div class="w-100 btn-group" role="group">
-                                                    
-                                                     <a href="@Url.Action("EditVersion", "AiModel", new {@models.projectId})"
-                                                        class="btn edit" data-toggle="modal" data-target="#exampleModal3" 
-                                                        data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
-                                                    
-                                                    <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.projectId})"
-                                                       class="btn delete" data-toggle="modal"
-                                                       data-target="#exampleModal4" data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
-                                                    
-                                                     @if (models.status.Equals("Completed") && models.availableToUser == false)
-                                                     {
-                                                         <a asp-controller="AiModel"  class="btn "  asp-action="PublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Enable for item cataloging"> <i class="fa fa-toggle-off fa-lg pt-1" aria-hidden="true"></i></button></a>
-                                                                                    
-                                                     }else if(models.status.Equals("Completed") && models.availableToUser)
-                                                     {
-                                                         <a asp-controller="AiModel"  class="btn "  asp-action="UnpublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Disable for item cataloging"> <i class="fa fa-toggle-on fa-lg pt-1" aria-hidden="true"></i></button></a>
-                                                  }
-                                               </div>
-                                            </td>
-                                        </tr>
-                                    }
+                                        @foreach (var models in Model.PagedListVersions)
+                                        {
+                                            <tr>
+                                                <td>@i</td>
+                                                @{ i++; }
+                                                <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.projectId"><i class="fas fa-tag">  </i></button></td>
+                                                <td>@models.Name</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>
+                                                    @if (@models.availableToUser)
+
+                                                    {
+                                                        <span> Available  &nbsp; </span> <i class="fa fa-check-circle text-success"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span> Unavailable  &nbsp; </span> <i class="fas fa-times-circle text-danger"></i>
+
+                                                    }
+                                                </td>
+
+                                                <td>
+                                                    @if (@models.status.Equals("Completed"))
+                                                    {
+                                                        <span> Completed  &nbsp; </span> <i class="fas fa-check-circle text-success"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span> Training  &nbsp; </span> <i class="fa fa-spinner fa-pulse fa-fw text-info"></i>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    <div class="w-100 btn-group" role="group">
+
+                                                        <a href="@Url.Action("EditVersion", "AiModel", new {@models.projectId})"
+                                                           class="btn edit" data-toggle="modal" data-target="#exampleModal3"
+                                                           data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
+
+                                                        <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.Id})"
+                                                           class="btn delete" data-toggle="modal"
+                                                           data-target="#exampleModal4" data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
+
+                                                        @if (models.status.Equals("Completed") && models.availableToUser == false)
+                                                        {
+                                                            <a asp-controller="AiModel" class="btn " asp-action="PublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Enable for item cataloging"> <i class="fa fa-toggle-off fa-lg pt-1" aria-hidden="true"></i></button></a>
+
+                                                        }
+                                                        else if (models.status.Equals("Completed") && models.availableToUser)
+                                                        {
+                                                            <a asp-controller="AiModel" class="btn " asp-action="UnpublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Disable for item cataloging"> <i class="fa fa-toggle-on fa-lg pt-1" aria-hidden="true"></i></button></a>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             }
                             else
                             {<p>No Model Versions Found</p>}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!--Code to show current page and page number-->
-          
-        <div> 
-            @Html.PagedListPager(Model.PagedListVersions, page => Url.Action("ModelVersions", new {page}), new PagedListRenderOptions
-            {
-                DisplayLinkToIndividualPages = true,
-                DisplayPageCountAndCurrentLocation = false,
-                MaximumPageNumbersToDisplay = 10,
-                LiElementClasses = new[] {"page-item, bg-light"},
-                PageClasses = new[] {"page-link",  "text-color",  "bg-light"}, 
+
+            <!--Code to show current page and page number-->
+
+            <div>
+                @Html.PagedListPager(Model.PagedListVersions, page => Url.Action("ModelVersions", new { page }), new PagedListRenderOptions
+                {
+                    DisplayLinkToIndividualPages = true,
+                    DisplayPageCountAndCurrentLocation = false,
+                    MaximumPageNumbersToDisplay = 10,
+                    LiElementClasses = new[] { "page-item, bg-light" },
+                    PageClasses = new[] { "page-link", "text-color", "bg-light" },
 
 
-            })
+                })
+            </div>
+
+            <!--Code to show current page and page number-->
+            <div>
+                Showing @(Model.PagedListVersions.PageCount < Model.PagedListVersions.PageNumber ? 0 : Model.PagedListVersions.PageNumber) out of @Model.PagedListVersions.PageCount entries
+            </div>
+
         </div>
-        
-        <!--Code to show current page and page number-->
-        <div>
-            Showing @(Model.PagedListVersions.PageCount < Model.PagedListVersions.PageNumber ? 0 : Model.PagedListVersions.PageNumber) out of @Model.PagedListVersions.PageCount entries
-        </div>
-        
     </div>
-</div>
 </section>
 
 
@@ -196,56 +206,59 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
 
-//Animations
-AOS.init();
+    //Animations
+    AOS.init();
 </script>
 
 <script type="text/javascript">
-//Popups 
+    //Popups
 
-// Edit 
-$('.edit').click(function (ev) {
-    ev.preventDefault(); 
+    // Edit
+    $('.edit').click(function (ev) {
+        ev.preventDefault();
 
-    let action = $(this).attr('href');
+        let action = $(this).attr('href');
 
-    $.get(action, function (data) {
-        let myModal = $("#exampleModal3");
+        $.get(action, function (data) {
+            let myModal = $("#exampleModal3");
             myModal.find("form.data").html(data);
-        $('#exampleModal3').modal('show');
+            $('#exampleModal3').modal('show');
+        });
     });
-});
 
-// Delete 
-$('.delete').click(function (ev) {
-    ev.preventDefault(); 
+    // Delete
+    $('.delete').click(function (ev) {
+        ev.preventDefault();
 
-    let action = $(this).attr('href');
+        let action = $(this).attr('href');
 
-    $.get(action, function (data) {
-        let myModal = $("#exampleModal4");
+        $.get(action, function (data) {
+            let myModal = $("#exampleModal4");
             myModal.find("form.data").html(data);
-        $('#exampleModal4').modal('show');
+            $('#exampleModal4').modal('show');
+        });
     });
-});
 
-// Upload 
-$('.uploading').click(function (ev) {
-    ev.preventDefault(); 
-    
-    let action = $(this).attr('href');
+    // Upload
+    $('.uploading').click(function (ev) {
+        ev.preventDefault();
 
-    $.get(action, function (data) {
-        let myModal = $("#exampleModal2");
+        let action = $(this).attr('href');
+
+        $.get(action, function (data) {
+            let myModal = $("#exampleModal2");
             myModal.find("form.data").html(data);
-        $('#exampleModal2').modal('show');
+            $('#exampleModal2').modal('show');
+        });
     });
-});
 
-// ID tooltip
-$(function () {
-   $('[data-toggle="tooltip"]').tooltip()
-})
-</script >
+    // ID tooltip
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
 
 
+@{
+    <partial name="_DeleteVersion" />
+}

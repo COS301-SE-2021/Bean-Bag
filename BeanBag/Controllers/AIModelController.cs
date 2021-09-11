@@ -307,10 +307,27 @@ namespace BeanBag.Controllers
         }
         
         // This function allows the user to delete a model version by calling the DeleteVersion AI Model service.
-        public IActionResult DeleteVersion(Guid projectId, Guid iterationId)
+        [HttpPost]
+        public IActionResult DeleteVersionPost(Guid projectId, Guid iterationId)
         {
             _aIService.deleteIteration(iterationId);
             return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
+        }
+
+        public IActionResult DeleteVersion(Guid Id)
+        {
+            if(User.Identity is { IsAuthenticated: true})
+            {
+                var version = _aIService.getIteration(Id);
+                if (version == null)
+                    return NotFound();
+
+                return View(version);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
         }
 
         // This function returns all of the performance metrics for the AI Model version

@@ -16,5 +16,6 @@ namespace BeanBag.Models
         [ForeignKey("projectId")]
         public virtual AIModel AIModel { get; set; }
         public DateTime createdDate { get; set; } 
+        public string description { get; set; } 
     }
 }
