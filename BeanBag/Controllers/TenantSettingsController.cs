@@ -19,8 +19,8 @@ namespace BeanBag.Controllers
         // Global variables needed for calling the service classes.
         private readonly ITenantService _tenantService;
         private readonly TenantDbContext _tenantDbContext;
-        private readonly string _from = "";
-        private readonly string _pswd = "";
+        private readonly string _from = "beanbag.platform@gmail.com";
+        private readonly string _pswd = "gy6$Fb%#45BU";
 
         // Constructor.
         public TenantSettingsController(ITenantService tenantService, TenantDbContext tenantDbContext)
@@ -233,8 +233,15 @@ namespace BeanBag.Controllers
             
             //Get current tenant
             var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
+            
+            //Generate a code to send user
+            var code = _tenantService.GetTenantCode(_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId);
+            
+            
+            //Link
+            const string link = "https://localhost:44352/UserSignUp";
 
-            MimeMessage mimeMessage = new MimeMessage();
+            var mimeMessage = new MimeMessage();
             
             //add sender
             mimeMessage.From.Add(new MailboxAddress("Bean Bag", _from));
@@ -248,11 +255,12 @@ namespace BeanBag.Controllers
             //message
             mimeMessage.Body = new TextPart("plain")
             {
-                Text = @"You have been invited to join " + tenant + ". Invitation code to join:" +
-                       "Click on the link below to proceed to the sign up." 
-                       
+                Text = @"You have been invited to join " + tenant + ". Invitation code to join: "+ code +
+                       " Click on the link below to proceed to the sign up. " + link,
+
             };
             
+
             //create new SMTP client
             var client = new SmtpClient();
             

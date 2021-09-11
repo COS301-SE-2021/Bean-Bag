@@ -63,8 +63,10 @@
         	<h1>Bean Bag Platform<img alt="" width="50" src="https://img.icons8.com/color/48/000000/checked--v4.gif"/></h1>
         	<h4 class="pb-2"> Enter your invitation code to proceed</h4>
         	<!-- Button trigger modal -->
-           <button class="btn btn-outline-light shadow-sm bg-body create rounded colors pt-2 "  data-toggle="modal" data-target="#exampleModalCode"  id="btn-pay" >Enter Code</button>
-    </div>
+           <button class="btn btn-outline-light shadow-sm bg-body create rounded colors pt-2 "  data-toggle="modal" data-target="#exampleModalCode"  id="btn-enter" >Enter Code</button>
+	    <button class="btn btn-outline-light shadow-sm bg-body create rounded colors pt-2 " ><a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn"></a>Sign Up</button>
+    
+	    </div>
  </div>
 
 	<!---Popup Form to create tenant-->
@@ -83,8 +85,8 @@
 							<p class="text-muted pb-2"></p>
                         			
 						<div class="form-group">
-							<label for="invite" class="col-form-label">Code:</label>
-							<input type="text" id="invite" name="invite" class="form-control"/>
+							<label for="code" class="col-form-label">Code:</label>
+							<input type="text" id="code" name="code" class="form-control"/>
 						</div>
 						
 						
@@ -93,7 +95,7 @@
 					</div>
 					<div class="modal-footer ">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<input type="submit" class="btn colors create" value="Sign up"/> <!--create button-->
+						<input type="submit" class="btn colors create" value="Verify Code"/> <!--create button-->
 					</div>
 				</form>
 			</div>
