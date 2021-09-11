@@ -19,8 +19,8 @@ namespace BeanBag.Controllers
         // Global variables needed for calling the service classes.
         private readonly ITenantService _tenantService;
         private readonly TenantDbContext _tenantDbContext;
-        private readonly string _from = "beanbag.platform@gmail.com";
-        private readonly string _pswd = "gy6$Fb%#45BU";
+        private readonly string _from = "";
+        private readonly string _pswd = "";
 
         // Constructor.
         public TenantSettingsController(ITenantService tenantService, TenantDbContext tenantDbContext)
