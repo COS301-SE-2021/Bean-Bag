@@ -499,5 +499,11 @@ namespace BeanBag.Services
 
             return recommendations;
         }
+
+        public AIModel getModel(Guid projectId)
+        {
+            AIModel model = _db.AIModels.Find(projectId);
+            return model;
+        }
     }
 }

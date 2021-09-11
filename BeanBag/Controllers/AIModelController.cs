@@ -266,10 +266,27 @@ namespace BeanBag.Controllers
         }
 
         // This function allows the user to delete a model by calling the DeleteModel AI Model service.
-        public IActionResult DeleteModel(Guid projectId)
+        [HttpPost]
+        public IActionResult DeleteAIModelPost(Guid projectId)
         {
             _aIService.deleteProject(projectId);
             return LocalRedirect("/AIModel");
+        }
+
+        public IActionResult DeleteAIModel(Guid projectId)
+        {
+            if (User.Identity is { IsAuthenticated: true })
+            {
+                var model = _aIService.getModel(projectId);
+                if (model == null)
+                    return NotFound();
+
+                return View(model);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
         }
 
         // This function allows the user to edit a model version by calling the EditVersion AI Model service.

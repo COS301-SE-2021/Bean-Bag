@@ -44,5 +44,7 @@ namespace BeanBag.Services
         public List<AIModelVersionTagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId, IterationPerformance iterationPerformance);
 
         public IList<Tag> getIterationTags(Guid projectId, Guid iterationId);
+
+        public AIModel getModel(Guid projectId);
     }
 }

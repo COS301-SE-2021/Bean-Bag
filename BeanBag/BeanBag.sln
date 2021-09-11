@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeanBag", "BeanBag.csproj",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeanBagUnitTests", "..\BeanBagTestsX\BeanBagUnitTests.csproj", "{818E1348-88A1-408B-8586-2F99D029DCDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeanBagIntegrationTests", "..\BeanBagIntegrationTests\BeanBagIntegrationTests.csproj", "{09E4CF73-6277-455D-A7EE-41392F44CE11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeanBagIntegrationTests", "..\BeanBagIntegrationTests\BeanBagIntegrationTests.csproj", "{09E4CF73-6277-455D-A7EE-41392F44CE11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
