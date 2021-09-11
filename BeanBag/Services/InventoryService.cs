@@ -35,9 +35,9 @@ namespace BeanBag.Services
         }
 
         // This method is used to update an inventory information into the DB
-        public bool EditInventory(string UserId, Inventory inventory)
+        public bool EditInventory(string userId, Inventory inventory)
         {
-            if (inventory.userId == UserId)
+            if (inventory.userId == userId)
             {
                 _db.Inventories.Update(inventory);
                 _db.SaveChanges();
@@ -50,18 +50,18 @@ namespace BeanBag.Services
         }
 
         // This method is used to delete a specified inventory from the DB
-        public bool DeleteInventory(Guid Id, string UserId)
+        public bool DeleteInventory(Guid id, string userId)
         {
-            var inventory = _db.Inventories.Find(Id);
+            var inventory = _db.Inventories.Find(id);
 
             if (inventory == null)
                 return false;
 
-            if (inventory.userId != UserId)
+            if (inventory.userId != userId)
                 return false;
 
             //Delete items using item service
-            var items = from i in _db.Items where i.inventoryId.Equals(Id) select i;
+            var items = from i in _db.Items where i.inventoryId.Equals(id) select i;
             foreach(var i in items)
             {
                 _db.Items.Remove(i);

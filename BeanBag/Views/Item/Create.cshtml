@@ -100,10 +100,7 @@
                                         @* RENO: GRABBING THE PREDICTED TAGS FROM THE VIEWBAG IN THE PREDICT FUNCTION OF THE AI MODEL *@
                                     <div class="form-group row">
                                         <label asp-for="type"></label>
-                                        @foreach (var tag in ViewBag.listPredictions)
-                                        {
-                                            <input value="@tag.tagName + '-' + tag.percentage">
-                                        }
+                                        <input value="@ViewBag.listPredictions" type="text"></input>
                                     </div>
 
                                         <div class="form-group row">

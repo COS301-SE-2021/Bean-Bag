@@ -3,6 +3,7 @@ using BeanBag.Models;
 
 namespace BeanBag.Services
 {
+    // This class is an interface for the tenant service.
     public interface ITenantService
     {
         public string GetTenantName(string tenantId);

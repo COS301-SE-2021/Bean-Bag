@@ -23,12 +23,12 @@ namespace BeanBagIntegrationTests
         private readonly CloudStorageAccount cloudStorageAccount;
         private readonly CloudBlobClient cloudBlobClient;
         private CloudBlobContainer cloudBlobContainer;
+        private readonly IConfiguration config;
 
-        public IntegrationBlobTestBeta()
+        public IntegrationBlobTestBeta(IConfiguration config)
         {
-            cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;" +
-                                                            "AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;" +
-                                                            "EndpointSuffix=core.windows.net");
+            this.config = config;
+            cloudStorageAccount = CloudStorageAccount.Parse(config.GetValue<string>("AzureBlobStorage:ConnectionString"));
             cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
 
@@ -68,7 +68,7 @@ namespace BeanBagIntegrationTests
 
             var file = fileMock.Object;
 
-            var myService = new BlobStorageService();
+            var myService = new BlobStorageService(config);
             
             cloudBlobContainer = cloudBlobClient.GetContainerReference("itemimages");
             CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(file.FileName);
@@ -121,7 +121,7 @@ namespace BeanBagIntegrationTests
 
             var file = fileMock.Object;
 
-            var myService = new BlobStorageService();
+            var myService = new BlobStorageService(config);
             
             cloudBlobContainer = cloudBlobClient.GetContainerReference("itemimages");
             CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(file.FileName);

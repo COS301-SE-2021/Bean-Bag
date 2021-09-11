@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace BeanBag.Services
 {
+    // This class is an interface for the blob storage service.
     public interface IBlobStorageService
     {
         public Task<string> uploadItemImage(IFormFile file);

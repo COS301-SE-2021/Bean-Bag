@@ -107,7 +107,7 @@
                                             <td >@i</td>
                                             @{ i++; }
                                             <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.projectId"><i class="fas fa-tag">  </i></button></td>
-                                            <td >@models.iterationName</td>
+                                            <td >@models.Name</td>
                                             <td >-</td>
                                             <td >-</td>
                                             <td > @if(@models.availableToUser)
@@ -143,11 +143,11 @@
                                                     
                                                      @if (models.status.Equals("Completed") && models.availableToUser == false)
                                                      {
-                                                         <a asp-controller="AiModel"  class="btn "  asp-action="PublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.iterationId"><button data-toggle="tooltip" data-placement="top" class="btn " title="Enable for item cataloging"> <i class="fa fa-toggle-off fa-lg pt-1" aria-hidden="true"></i></button></a>
+                                                         <a asp-controller="AiModel"  class="btn "  asp-action="PublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Enable for item cataloging"> <i class="fa fa-toggle-off fa-lg pt-1" aria-hidden="true"></i></button></a>
                                                                                     
                                                      }else if(models.status.Equals("Completed") && models.availableToUser)
                                                      {
-                                                         <a asp-controller="AiModel"  class="btn "  asp-action="UnpublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.iterationId"><button data-toggle="tooltip" data-placement="top" class="btn " title="Disable for item cataloging"> <i class="fa fa-toggle-on fa-lg pt-1" aria-hidden="true"></i></button></a>
+                                                         <a asp-controller="AiModel"  class="btn "  asp-action="UnpublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Disable for item cataloging"> <i class="fa fa-toggle-on fa-lg pt-1" aria-hidden="true"></i></button></a>
                                                   }
                                                </div>
                                             </td>

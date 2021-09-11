@@ -42,16 +42,16 @@ namespace BeanBag.Controllers
 
             foreach (var m in aIModels)
             {
-                List<AIModelVersions> iterations = _aIService.getAllAvailableIterationsOfModel(m.projectId);
-                SelectListGroup tempGroup = new SelectListGroup() { Name = m.projectName };
+                List<AIModelVersions> iterations = _aIService.getAllAvailableIterationsOfModel(m.Id);
+                SelectListGroup tempGroup = new SelectListGroup() { Name = m.name };
 
                 foreach (var i in iterations)
                 {
                     iterationDropDown.Add(new SelectListItem
                     {
                         Group = tempGroup,
-                        Text = i.iterationName,
-                        Value = i.iterationId.ToString()
+                        Text = i.Name,
+                        Value = i.Id.ToString()
                     });
                 }
             }
@@ -65,11 +65,20 @@ namespace BeanBag.Controllers
         public async Task<IActionResult> UploadImage([FromForm(Name = "file")] IFormFile file, 
             [FromForm(Name = "predictionModel")] string predictionModelId)
         {
-            AIModelVersions iteration = _aIService.getIteration(Guid.Parse(predictionModelId));
             string imageUrl = await _blobStorageService.uploadItemImage(file);
-            ViewBag.listPredictions = _aIService.predict(iteration.projectId, iteration.iterationName, imageUrl);
 
+            // Checking to see if user has selected an AI model to use. Otherwise let them continue as is
+            if (predictionModelId == "Selection")
+            {
+                ViewBag.listPredictions = "";
+            }
+            else
+            {
+                AIModelVersions iteration = _aIService.getIteration(Guid.Parse(predictionModelId));
 
+                ViewBag.listPredictions = _aIService.predict(iteration.projectId, iteration.Name, imageUrl);
+            }
+            
             return LocalRedirect("/Item/Create?imageUrl="+ imageUrl);
         }
 
@@ -199,7 +208,7 @@ namespace BeanBag.Controllers
             {
                 var ms = new MemoryStream();
                 var qRCodeGenerator = new QRCodeGenerator();
-                var qRCodeData = qRCodeGenerator.CreateQrCode(item.QRContents, QRCodeGenerator.ECCLevel.Q);
+                var qRCodeData = qRCodeGenerator.CreateQrCode(item.QRCodeLink, QRCodeGenerator.ECCLevel.Q);
                 var qRCode = new QRCode(qRCodeData);
                 var bitmap = qRCode.GetGraphic(20);
                 bitmap.Save(ms, ImageFormat.Png);
@@ -224,7 +233,7 @@ namespace BeanBag.Controllers
             {
                 var ms = new MemoryStream();
                 var qRCodeGenerator = new QRCodeGenerator();
-                var qRCodeData = qRCodeGenerator.CreateQrCode(item.QRContents, QRCodeGenerator.ECCLevel.Q);
+                var qRCodeData = qRCodeGenerator.CreateQrCode(item.QRCodeLink, QRCodeGenerator.ECCLevel.Q);
                 var qRCode = new QRCode(qRCodeData);
                 var bitmap = qRCode.GetGraphic(20);
                 bitmap.Save(ms, ImageFormat.Png);

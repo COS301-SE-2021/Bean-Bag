@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BeanBag.Migrations
 {
-    public partial class DB_Tables_Beta_version : Migration
+    public partial class FinalMigrationBeta : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,12 +11,13 @@ namespace BeanBag.Migrations
                 name: "AIModels",
                 columns: table => new
                 {
-                    projectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    projectName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    dateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AIModels", x => x.projectId);
+                    table.PrimaryKey("PK_AIModels", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -27,7 +28,8 @@ namespace BeanBag.Migrations
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     userId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    createdDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    createdDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    publicToTenant = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,21 +52,21 @@ namespace BeanBag.Migrations
                 name: "AIModelIterations",
                 columns: table => new
                 {
-                    iterationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    iterationName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     availableToUser = table.Column<bool>(type: "bit", nullable: false),
                     status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     projectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    predictionUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    createdDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AIModelIterations", x => x.iterationId);
+                    table.PrimaryKey("PK_AIModelIterations", x => x.Id);
                     table.ForeignKey(
                         name: "FK_AIModelIterations_AIModels_projectId",
                         column: x => x.projectId,
                         principalTable: "AIModels",
-                        principalColumn: "projectId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -77,7 +79,7 @@ namespace BeanBag.Migrations
                     type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     inventoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     imageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    QRContents = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    QRCodeLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     entryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     price = table.Column<double>(type: "float", nullable: false),
                     quantity = table.Column<int>(type: "int", nullable: false),

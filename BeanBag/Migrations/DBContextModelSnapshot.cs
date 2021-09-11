@@ -21,32 +21,35 @@ namespace BeanBag.Migrations
 
             modelBuilder.Entity("BeanBag.Models.AIModel", b =>
                 {
-                    b.Property<Guid>("projectId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("projectName")
+                    b.Property<DateTime>("dateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("projectId");
+                    b.HasKey("Id");
 
                     b.ToTable("AIModels");
                 });
 
             modelBuilder.Entity("BeanBag.Models.AIModelVersions", b =>
                 {
-                    b.Property<Guid>("iterationId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("availableToUser")
                         .HasColumnType("bit");
 
-                    b.Property<string>("iterationName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("predictionUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("createdDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("projectId")
                         .HasColumnType("uniqueidentifier");
@@ -54,7 +57,7 @@ namespace BeanBag.Migrations
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("iterationId");
+                    b.HasKey("Id");
 
                     b.HasIndex("projectId");
 
@@ -77,6 +80,9 @@ namespace BeanBag.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("publicToTenant")
+                        .HasColumnType("bit");
+
                     b.Property<string>("userId")
                         .HasColumnType("nvarchar(max)");
 
@@ -91,7 +97,7 @@ namespace BeanBag.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("QRContents")
+                    b.Property<string>("QRCodeLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("colour")
