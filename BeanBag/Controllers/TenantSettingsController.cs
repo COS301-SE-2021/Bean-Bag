@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web;
 using X.PagedList;
+using MimeKit;
+using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace BeanBag.Controllers
 {
@@ -17,6 +19,8 @@ namespace BeanBag.Controllers
         // Global variables needed for calling the service classes.
         private readonly ITenantService _tenantService;
         private readonly TenantDbContext _tenantDbContext;
+        private readonly string _from = "";
+        private readonly string _pswd = "";
 
         // Constructor.
         public TenantSettingsController(ITenantService tenantService, TenantDbContext tenantDbContext)
@@ -196,9 +200,69 @@ namespace BeanBag.Controllers
             throw new NotImplementedException();
         }
 
-        public IActionResult InviteNewUser()
+        /* This function allows an admin user to invite a new user to join the tenant.
+         The user email will be entered - user receives a random code and link to complete sign up process. */
+        [HttpPost]
+        public IActionResult InviteNewUser(string userEmail)
         {
-            throw new NotImplementedException();
+            if (userEmail == null)
+            {
+                return BadRequest();
+            }
+            
+            //Get current tenant
+            var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
+
+            MimeMessage mimeMessage = new MimeMessage();
+            
+            //add sender
+            mimeMessage.From.Add(new MailboxAddress("Bean Bag", _from));
+
+            //add receiver
+            mimeMessage.To.Add(MailboxAddress.Parse(userEmail));
+            
+            //add message subject
+            mimeMessage.Subject = "Invitation";
+            
+            //message
+            mimeMessage.Body = new TextPart("plain")
+            {
+                Text = @"You have been invited to join " + tenant + ". Invitation code to join:" +
+                       "Click on the link below to proceed to the sign up." 
+                       
+            };
+            
+            //create new SMTP client
+            var client = new SmtpClient();
+            
+            try
+            {
+                //connect to gmail SMTP server (port: 465, ssl:true)
+                client.Connect("smtp.gmail.com", 465, true);
+
+                //authenticate
+                client.Authenticate(_from,_pswd );
+                
+                //send message
+                client.Send(mimeMessage);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw new Exception("email not sent");
+            }
+            finally
+            {
+                //disconnect from the smtp server
+                client.Disconnect(true);
+                
+                //dispose client object
+                client.Dispose();
+                
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
