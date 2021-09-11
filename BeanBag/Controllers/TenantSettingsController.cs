@@ -178,6 +178,7 @@ namespace BeanBag.Controllers
             return LocalRedirect("/");
         }
         
+        /* Post method to edit the user role. This method receives the user id and the updated role from Edit. */
         [HttpPost]
         public IActionResult EditPost(string UserObjectId, string UserRole)
         {
