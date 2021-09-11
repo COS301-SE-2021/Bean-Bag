@@ -27,14 +27,11 @@ namespace BeanBag.Controllers
             {
                 return BadRequest();
             }
-            
-            //Get tenant id
-            var tenantId = "";
-            
+
             //Verify the entered code
-            if (_tenantService.VerifyCode(tenantId,code))
+            if (_tenantService.VerifyCode(code))
             {
-                return RedirectToAction("SignIn", "Account");
+                return RedirectToAction("Index");
             }
 
             return RedirectToAction("Index");
