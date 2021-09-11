@@ -127,7 +127,7 @@ namespace BeanBag.Controllers
             }
         }
         
-        /* Allows admin user to delete a user from the database */
+        /* Delete Get method. Passes user to be deleted to the Post method. */
         public IActionResult Delete(string userObjectId)
         {
             if (User.Identity is {IsAuthenticated: true})
@@ -146,8 +146,7 @@ namespace BeanBag.Controllers
         }
         
         
-        
-        /* Allows admin user to change the role of the user */
+        /* Edit Get method. Passes user role and user id to Post method. */
         public IActionResult Edit(string userId)
         {
             if (userId == null)
@@ -162,6 +161,7 @@ namespace BeanBag.Controllers
                 
         }
         
+        /* Post method for deleting a user. Receives user object id and deletes user from database. */
         [HttpPost]
         public IActionResult DeletePost(string userObjectId)
         {
