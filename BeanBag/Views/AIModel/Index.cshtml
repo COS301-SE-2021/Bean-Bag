@@ -99,8 +99,8 @@
                                                  @{ i++; }
                                                  <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.Id"><i class="fas fa-tag"> </i></button></td>
                                                  <td >@models.name</td>
-                                                 <td >-</td>
-                                                 <td >-</td>
+                                                 <td >@models.dateCreated.ToShortDateString()</td>
+                                                 <td >@models.description</td>
                                                  <td >
                                                      <div class="w-100 btn-group" role="group">
                                                          <a href="@Url.Action("EditAIModel", "AiModel", new {@models.Id})"

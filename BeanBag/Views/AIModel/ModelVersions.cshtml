@@ -114,8 +114,8 @@
                                                     @{ i++; }
                                                     <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.projectId"><i class="fas fa-tag">  </i></button></td>
                                                     <td>@models.Name</td>
-                                                    <td>-</td>
-                                                    <td>-</td>
+                                                    <td>@models.createdDate.ToShortDateString()</td>
+                                                    <td>@models.description</td>
                                                     <td>
                                                         @if (@models.availableToUser)
 

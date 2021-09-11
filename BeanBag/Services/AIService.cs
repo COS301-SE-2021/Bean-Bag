@@ -105,7 +105,8 @@ namespace BeanBag.Services
                 {
                     name = projectName,
                     Id = newProject.Id, 
-                    description = description
+                    description = description, 
+                    dateCreated = DateTime.Now
                 };
 
                 await _db.AIModels.AddAsync(newModel);
@@ -224,7 +225,8 @@ namespace BeanBag.Services
                     availableToUser = false,
                     Id = iteration.Id,
                     status = iteration.Status.ToString(),
-                    projectId = projectId
+                    projectId = projectId, 
+                    createdDate = DateTime.Now
                 };
 
                 _db.AIModelIterations.Add(newModelVersion);
