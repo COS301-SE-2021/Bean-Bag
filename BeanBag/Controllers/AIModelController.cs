@@ -349,5 +349,27 @@ namespace BeanBag.Controllers
             return Ok(iterationMetrics + "\n" + tagPerformance);
         }
 
+        public IActionResult EditVersion(Guid Id)
+        {
+            if (User.Identity is { IsAuthenticated: true })
+            {
+                var version = _aIService.getIteration(Id);
+                if (version == null)
+                    return NotFound();
+
+                return View(version);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
+        }
+
+        public IActionResult EditVersionPost(Guid projectId, Guid Id, string description)
+        {
+            _aIService.EditIteration(Id, description);
+            return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
+        }
+
     }
 }

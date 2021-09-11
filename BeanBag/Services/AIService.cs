@@ -508,5 +508,14 @@ namespace BeanBag.Services
             AIModel model = _db.AIModels.Find(projectId);
             return model;
         }
+
+        public void EditIteration(Guid iterationId, string description)
+        {
+            var iteration = _db.AIModelIterations.Find(iterationId);
+            iteration.description = description;
+
+            _db.AIModelIterations.Update(iteration);
+            _db.SaveChanges();
+        }
     }
 }

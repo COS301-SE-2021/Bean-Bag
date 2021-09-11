@@ -46,5 +46,7 @@ namespace BeanBag.Services
         public IList<Tag> getIterationTags(Guid projectId, Guid iterationId);
 
         public AIModel getModel(Guid projectId);
+
+        public void EditIteration(Guid iterationId, string description);
     }
 }

@@ -95,79 +95,79 @@
                                                 <th>ID</th>
                                                 <th>
                                                     @Html.ActionLink("Iteration Name ", "ModelVersions", new { sortOrder = ViewBag.NameSortParm, ViewBag.ProjectId })
-                                                <i class="fas fa-chevron-down text-grey"
-                                                   aria-hidden="true"></i>
-                                            </th>
+                                                    <i class="fas fa-chevron-down text-grey"
+                                                       aria-hidden="true"></i>
+                                                </th>
 
-                                            <th>Date Created</th>
-                                            <th>Description</th>
-                                            <th>Available for item cataloging</th>
-                                            <th>Training Status</th>
-                                            <th class="text-center colspan-2">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var models in Model.PagedListVersions)
-                                        {
-                                            <tr>
-                                                <td>@i</td>
-                                                @{ i++; }
-                                                <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.projectId"><i class="fas fa-tag">  </i></button></td>
-                                                <td>@models.Name</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>
-                                                    @if (@models.availableToUser)
-
-                                                    {
-                                                        <span> Available  &nbsp; </span> <i class="fa fa-check-circle text-success"></i>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span> Unavailable  &nbsp; </span> <i class="fas fa-times-circle text-danger"></i>
-
-                                                    }
-                                                </td>
-
-                                                <td>
-                                                    @if (@models.status.Equals("Completed"))
-                                                    {
-                                                        <span> Completed  &nbsp; </span> <i class="fas fa-check-circle text-success"></i>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span> Training  &nbsp; </span> <i class="fa fa-spinner fa-pulse fa-fw text-info"></i>
-                                                    }
-                                                </td>
-                                                <td>
-                                                    <div class="w-100 btn-group" role="group">
-
-                                                        <a href="@Url.Action("EditVersion", "AiModel", new {@models.projectId})"
-                                                           class="btn edit" data-toggle="modal" data-target="#exampleModal3"
-                                                           data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
-
-                                                        <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.Id})"
-                                                           class="btn delete" data-toggle="modal"
-                                                           data-target="#exampleModal4" data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
-
-                                                        @if (models.status.Equals("Completed") && models.availableToUser == false)
-                                                        {
-                                                            <a asp-controller="AiModel" class="btn " asp-action="PublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Enable for item cataloging"> <i class="fa fa-toggle-off fa-lg pt-1" aria-hidden="true"></i></button></a>
-
-                                                        }
-                                                        else if (models.status.Equals("Completed") && models.availableToUser)
-                                                        {
-                                                            <a asp-controller="AiModel" class="btn " asp-action="UnpublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Disable for item cataloging"> <i class="fa fa-toggle-on fa-lg pt-1" aria-hidden="true"></i></button></a>
-                                                        }
-                                                    </div>
-                                                </td>
+                                                <th>Date Created</th>
+                                                <th>Description</th>
+                                                <th>Available for item cataloging</th>
+                                                <th>Training Status</th>
+                                                <th class="text-center colspan-2">Actions</th>
                                             </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            }
-                            else
-                            {<p>No Model Versions Found</p>}
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var models in Model.PagedListVersions)
+                                            {
+                                                <tr>
+                                                    <td>@i</td>
+                                                    @{ i++; }
+                                                    <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.projectId"><i class="fas fa-tag">  </i></button></td>
+                                                    <td>@models.Name</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>
+                                                        @if (@models.availableToUser)
+
+                                                        {
+                                                            <span> Available  &nbsp; </span> <i class="fa fa-check-circle text-success"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span> Unavailable  &nbsp; </span> <i class="fas fa-times-circle text-danger"></i>
+
+                                                        }
+                                                    </td>
+
+                                                    <td>
+                                                        @if (@models.status.Equals("Completed"))
+                                                        {
+                                                            <span> Completed  &nbsp; </span> <i class="fas fa-check-circle text-success"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span> Training  &nbsp; </span> <i class="fa fa-spinner fa-pulse fa-fw text-info"></i>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        <div class="w-100 btn-group" role="group">
+
+                                                            <a href="@Url.Action("EditVersion", "AiModel", new {@models.Id})"
+                                                               class="btn edit" data-toggle="modal" data-target="#exampleModal3"
+                                                               data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
+
+                                                            <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.Id})"
+                                                               class="btn delete" data-toggle="modal"
+                                                               data-target="#exampleModal4" data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
+
+                                                            @if (models.status.Equals("Completed") && models.availableToUser == false)
+                                                            {
+                                                                <a asp-controller="AiModel" class="btn " asp-action="PublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Enable for item cataloging"> <i class="fa fa-toggle-off fa-lg pt-1" aria-hidden="true"></i></button></a>
+
+                                                            }
+                                                            else if (models.status.Equals("Completed") && models.availableToUser)
+                                                            {
+                                                                <a asp-controller="AiModel" class="btn " asp-action="UnpublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Disable for item cataloging"> <i class="fa fa-toggle-on fa-lg pt-1" aria-hidden="true"></i></button></a>
+                                                            }
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                                else
+                                {<p>No Model Versions Found</p>}
                             </div>
                         </div>
                     </div>
@@ -261,4 +261,5 @@
 
 @{
     <partial name="_DeleteVersion" />
+    <partial name="_EditVersion" />
 }
