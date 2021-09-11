@@ -169,7 +169,14 @@ namespace BeanBag.Controllers
             {
                 return BadRequest();
             }
+            
+            //User cannot delete themselves
+            if (userObjectId.Equals(User.GetObjectId()))
+            {
+                return BadRequest();
+            }
 
+            //Delete the user from database
             if (_tenantService.DeleteUser(userObjectId))
             {
                 return RedirectToAction("Index");
