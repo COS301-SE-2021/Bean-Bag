@@ -14,6 +14,7 @@ namespace BeanBag.Services
         public bool SetTenantTheme(string userId, string theme);
         public bool CreateNewTenant(string tenantName, string address, string email, string number, string subscription);
         public void EditTenantDetails(string tenantId, string tenantName, string address, string email, string number);
+        public void DeleteTenant(string userId);
         public bool SearchTenant(string tenantId);
         public IEnumerable<Tenant> GetTenantList();
         public void SetLogo(string userId, string logo);

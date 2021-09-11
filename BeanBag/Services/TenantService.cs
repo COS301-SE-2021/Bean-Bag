@@ -462,5 +462,41 @@ namespace BeanBag.Services
         
             return false;
         }
+        
+        //This method delete the current tenant and all users
+        public void DeleteTenant(string userId)
+        {
+            var currentTenant = GetCurrentTenant(userId);
+            var tenantId = currentTenant.TenantId;
+
+            if (currentTenant == null)
+            {
+                throw new Exception("Tenant is null.");
+            }
+
+            //Delete all the users under the tenant
+            var deleted = from user
+                    in _tenantDb.TenantUser
+                where user.UserTenantId.Equals(tenantId)
+                select user;
+
+            foreach (var user in deleted)
+            {
+                _tenantDb.TenantUser.Remove(user);
+                _tenantDb.SaveChanges();
+            }
+            
+            //Delete tenant
+            var tenant = _tenantDb.Tenant.Find(tenantId);
+
+            if (tenant == null)
+            {
+                throw new Exception("Tenant is null.");
+            }
+
+            _tenantDb.Tenant.Remove(tenant);
+            _tenantDb.SaveChanges();
+
+        }
     }
 }
