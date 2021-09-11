@@ -4,14 +4,16 @@ using BeanBag.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BeanBag.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20210911102321_AIModel_Description")]
+    partial class AIModel_Description
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace BeanBag.Migrations
 
                     b.Property<string>("description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("imageCount")
-                        .HasColumnType("int");
 
                     b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
@@ -56,9 +55,6 @@ namespace BeanBag.Migrations
 
                     b.Property<DateTime>("createdDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("projectId")
                         .HasColumnType("uniqueidentifier");

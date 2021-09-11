@@ -3,7 +3,7 @@
 @using BeanBag.Services
 @model IEnumerable<Item>
 @inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
-@inject ITenantService _tenantService
+@inject TenantService _tenantService
 @{
     var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
 }
@@ -41,9 +41,8 @@
 
 <!--If Inventory has items to display-->
 @if(ViewBag.hasItems==true){
-    
 <!--Date picker -->
-    <div class="row">
+    <div class="row" >
         <span class="col-md-2">
             <div>
                 <h5>  <label class="badge " style="color: #323232 " >View By</label></h5>
@@ -236,505 +235,488 @@ else
 </section>
 
 
-@section Scripts {
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript">
-   
-      $(document).ready(function ()
-      {
-          if (@ViewBag.hasItems)
-           { 
-            //------------- Ajax get items on change of the timespan ------------------//
-             $("#TimeDropDown").change(function () {
-                 
-                  let selected=  $("#InventoryDropDown Option:Selected");
-                              $('#inventory').text( selected.text());  
-                               
-                               let selectedTime=$("#TimeDropDown Option:Selected");
-                               $('#time').text( selected.text());  
-                                                         
-                          //Items available
-                           $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                               $('#itemsAvailable').text(data);       
-                           })       
-                           
-                              //Items sold
-                                     $.getJSON('/Home/ItemsSold/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                                         $('#itemsSold').text(data);     
-                                       });
-                                     
-                                       //Items revenue
-                                      $.getJSON('/Home/Revenue/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
-                                           $('#revenue').text("R" + data);       
-                                       });
-                                               
-                                       //Items Growth
-                                       $.getJSON('/Home/SalesGrowth/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
-                                            $('#growth').text(data +"%");       
-                                        }); 
-                                       
-                         
-                          //Percentage growth stats
-                          
-                          //Added stat
-                           $.getJSON('/Home/AvailableStat/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                                let val;
-                                if (data>=0)
-                                {
-                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
-                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
-                                }
-                                else
-                                {
-                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
-                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
-                                 }
-                              
-                               $('#addedStat').html(val);       
-                            })  
-                 
-                           //Sold stat
-                            $.getJSON('/Home/SoldStat/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                                    let val;
-                                             if (data>=0)
-                                             {
-                                                 val =  '<div class="metric-label d-inline-block float-right text-success">'+
-                                                        '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
-                                             }
-                                             else
-                                             {
-                                                 val = '<div class="metric-label d-inline-block float-right text-danger">'+
-                                                      '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
-                                              }                                                
-                                  $('#soldStat').html(val);       
-                               });
-                           
-                            //Revenue stat
-                              $.getJSON('/Home/RevenueStat/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
-                                let val;
-                                if (data>=0)
-                                {
-                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
-                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
-                                }
-                                else
-                                {
-                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
-                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
-                                 }                     $('#revStat').html(val);       
-                                }); 
-                              
-                              
-                             });
-                      
-         //--------------- Ajax function to get dashboard on dropdown (Recent Items) --------------//
-         $("#InventoryDropDown").change(function () {
-            
-             let selected=  $("#InventoryDropDown Option:Selected");
-             $('#inventory').text( selected.text());  
-             
-                     
-                               let selectedTime=$("#TimeDropDown Option:Selected");
-                               $('#time').text( selected.text());  
-                                                           
-                          //Items available
-                           $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                               $('#itemsAvailable').text(data);       
-                           })       
-                           
-                              //Items sold
-                                     $.getJSON('/Home/ItemsSold/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                                            $('#itemsSold').text(data);       
-                                       });
-                                     
-                                       //Items revenue
-                                      $.getJSON('/Home/Revenue/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
-                                           $('#revenue').text("R" + data);       
-                                       });
-                                               
-                                       //Items Growth
-                                       $.getJSON('/Home/SalesGrowth/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
-                                            $('#growth').text(data +"%");       
-                                        }); 
-           
-                          //Percentage growth stats
-                          
-                          //Added stat
-                           $.getJSON('/Home/AvailableStat/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                                let val;
-                                if (data>=0)
-                                {
-                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
-                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
-                                }
-                                else
-                                {
-                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
-                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
-                                 }
-                              
-                               $('#addedStat').html(val);       
-                            })  
-                 
-                           //Sold stat
-                            $.getJSON('/Home/SoldStat/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                                    let val;
-                                             if (data>=0)
-                                             {
-                                                 val =  '<div class="metric-label d-inline-block float-right text-success">'+
-                                                        '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
-                                             }
-                                             else
-                                             {
-                                                 val = '<div class="metric-label d-inline-block float-right text-danger">'+
-                                                      '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
-                                              }                                                
-                                  $('#soldStat').html(val);       
-                               });
-                           
-                            //Revenue stat
-                              $.getJSON('/Home/RevenueStat/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
-                                let val;
-                                if (data>=0)
-                                {
-                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
-                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
-                                }
-                                else
-                                {
-                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
-                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
-                                 }                     $('#revStat').html(val);       
-                                });                                       
-                                              
-             //RecentItems
-           $.getJSON('/Home/GetItems/' + selected.val(), function (data) { 
-                     let items = '';  
-                     $.each(data, function (i, item) {
-                         if (i<4){
-                        let x=i+1;
-                         items += '<tr>'+
-'                                      '+
-'                                <td>'+x+'</td>'+
-'                                <td>'+
-'                                    <div class="m-r-10"><img src="'+item.imageURL+'" alt="user" class="rounded" width="80"></div>'+
-'                                </td>'+
-'                                <td>'+selected.text()+'</td>'+
-'                                <td>'+item.name+'</td>'+
-'                                <td>'+item.type+'</td>'+
-'                                <td>'+item.quantity +'</td>'+
-'                                <td>'+"R"+ item.price+'</td>'+
-''+
-'                                <td>'+item.entryDate+'</td>'+
-'                            </tr>';
-	
-                         }
-                     });     
-                     $('#recentItems').html(items);  
-                 });
-           
-           //Chart card
-            let inventory=selected.val();
-                                          let totalItems=0;
-                                          let items='';
-                                          let otherTotal = 0;  
-                                          let other=0;
-                                          let item1='';
-                                          let item2='';
-                                          let item3='';
-                                          let quantity1=0, quantity2=0, quantity3=0;
-                                          let boxColor='';
-                                          
-                                       //Top 3 Items 
-                                       $.getJSON('/Home/TopItems/' +  inventory + "/?nocache="+Math.random(), function (data) { 
-                                            
-                                           $.each(data, function (i, item) { //make if statement for colors
-                                               
-                                           if (i===0)
-                                           {
-                                               item1=item.type;
-                                               quantity1= item.qsum;
-                                               boxColor= "#9065e5";
-                                           }else if (i===1 )
-                                           {
-                                               item2=item.type;
-                                               quantity2= item.qsum;
-                                               boxColor= "#e54594";
-                                           }else {
-                                                item3=item.type;
-                                                quantity3= item.qsum;
-                                                boxColor= "#25d5f2";
-                                           }
-                                                       
-                                               
-                                               items += '<p>'+
-                                            '                            <span class="fa-xs mr-1 legend-title"'+
-                                             ' style="color:'+ boxColor +'" >'+
-                                             '<i class="fa fa-fw fa-square-full"></i></span><span class="legend-text">'+item.type+'</span>'+
-                                            '                            <span class="float-right">'+item.qsum+'</span>'+
-                                            '                        </p>';
-                                              otherTotal+=item.qsum; 
-                                              totalItems=item.total;
-                                            });
-                                           //Other
-                                           other=totalItems-otherTotal;
-                                            
-                                           if (other!==0){
-                                             items += '<p>'+
-                                                            '                            <span class="fa-xs mr-1 legend-title" style="color:#e5b045"><i class="fa fa-fw fa-square-full"></i></span><span class="legend-text"> Other </span>'+
-                                                            '                            <span class="float-right">'+other+'</span>'+
-                                                            '                        </p>';}
-                                           $("#topItems").html(items);  
-                                    //Total Items                    
-                                  $.getJSON('/Home/TotalItems/' +  inventory  + "/?nocache="+Math.random(), function (data) {                  
-                                                        $("#totalItems").text(data);
-                                                        totalItems=data;
-                                                                                
-                                  //Chart
-                                  if (totalItems!==0){
-                                   let ctx = document.getElementById("total-sale").getContext('2d');
-                                        new Chart(ctx, {
-                                            type: 'doughnut',
-                                    
-                                            data: {
-                                                labels: [item1, item2, item3, "Other"],
-                                                datasets: [{
-                                                    backgroundColor: [
-                                                        "#9065e5",
-                                                        "#e54594",
-                                                        "#45c5b0",
-                                                        "#e5b045"
-                                                    ],
-                                                    data: [quantity1, quantity2, quantity3, other]
-                                                }]
-                                                
-                                            },
-                                            options: {
-                                                 tooltips: {enabled: false},
-                                                    hover: {mode: null},
-                                                    showTooltips: false,
-                                                    events: [],
-                                                legend: {
-                                                    display: false
-                                    
-                                                }
-                                               
-                                            }
-                                    
-                                        }); 
+    
+
+       @if(ViewBag.hasItems==true){
+        
+           <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+           <script type="text/javascript">
+            $(document).ready(function () {
+                //------------- Ajax get items on change of the timespan ------------------//
+                $("#TimeDropDown").change(function () {
+
+                    let selected = $("#InventoryDropDown Option:Selected");
+                    $('#inventory').text(selected.text());
+
+                    let selectedTime = $("#TimeDropDown Option:Selected");
+                    $('#time').text(selected.text());
+
+                    //Items available
+                    $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        $('#itemsAvailable').text(data);
+                    })
+
+                    //Items sold
+                    $.getJSON('/Home/ItemsSold/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        $('#itemsSold').text(data);
+                    });
+
+                    //Items revenue
+                    $.getJSON('/Home/Revenue/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        $('#revenue').text("R" + data);
+                    });
+
+                    //Items Growth
+                    $.getJSON('/Home/SalesGrowth/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        $('#growth').text(data + "%");
+                    });
+
+
+                    //Percentage growth stats
+
+                    //Added stat
+                    $.getJSON('/Home/AvailableStat/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        let val;
+                        if (data >= 0) {
+                            val = '<div class="metric-label d-inline-block float-right text-success">' +
+                                '<i class="fa fa-fw fa-caret-up"></i><span>' + data + '%</span></div>';
+                        }
+                        else {
+                            val = '<div class="metric-label d-inline-block float-right text-danger">' +
+                                '<i class="fa fa-fw fa-caret-down"></i><span>' + data + '%</span></div>';
+                        }
+
+                        $('#addedStat').html(val);
+                    })
+
+                    //Sold stat
+                    $.getJSON('/Home/SoldStat/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        let val;
+                        if (data >= 0) {
+                            val = '<div class="metric-label d-inline-block float-right text-success">' +
+                                '<i class="fa fa-fw fa-caret-up"></i><span>' + data + '%</span></div>';
+                        }
+                        else {
+                            val = '<div class="metric-label d-inline-block float-right text-danger">' +
+                                '<i class="fa fa-fw fa-caret-down"></i><span>' + data + '%</span></div>';
+                        }
+                        $('#soldStat').html(val);
+                    });
+
+                    //Revenue stat
+                    $.getJSON('/Home/RevenueStat/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        let val;
+                        if (data >= 0) {
+                            val = '<div class="metric-label d-inline-block float-right text-success">' +
+                                '<i class="fa fa-fw fa-caret-up"></i><span>' + data + '%</span></div>';
+                        }
+                        else {
+                            val = '<div class="metric-label d-inline-block float-right text-danger">' +
+                                '<i class="fa fa-fw fa-caret-down"></i><span>' + data + '%</span></div>';
+                        } $('#revStat').html(val);
+                    });
+
+
+                });
+
+                //--------------- Ajax function to get dashboard on dropdown (Recent Items) --------------//
+                $("#InventoryDropDown").change(function () {
+
+                    let selected = $("#InventoryDropDown Option:Selected");
+                    $('#inventory').text(selected.text());
+
+
+                    let selectedTime = $("#TimeDropDown Option:Selected");
+                    $('#time').text(selected.text());
+
+                    //Items available
+                    $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        $('#itemsAvailable').text(data);
+                    })
+
+                    //Items sold
+                    $.getJSON('/Home/ItemsSold/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        $('#itemsSold').text(data);
+                    });
+
+                    //Items revenue
+                    $.getJSON('/Home/Revenue/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        $('#revenue').text("R" + data);
+                    });
+
+                    //Items Growth
+                    $.getJSON('/Home/SalesGrowth/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        $('#growth').text(data + "%");
+                    });
+
+                    //Percentage growth stats
+
+                    //Added stat
+                    $.getJSON('/Home/AvailableStat/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        let val;
+                        if (data >= 0) {
+                            val = '<div class="metric-label d-inline-block float-right text-success">' +
+                                '<i class="fa fa-fw fa-caret-up"></i><span>' + data + '%</span></div>';
+                        }
+                        else {
+                            val = '<div class="metric-label d-inline-block float-right text-danger">' +
+                                '<i class="fa fa-fw fa-caret-down"></i><span>' + data + '%</span></div>';
+                        }
+
+                        $('#addedStat').html(val);
+                    })
+
+                    //Sold stat
+                    $.getJSON('/Home/SoldStat/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        let val;
+                        if (data >= 0) {
+                            val = '<div class="metric-label d-inline-block float-right text-success">' +
+                                '<i class="fa fa-fw fa-caret-up"></i><span>' + data + '%</span></div>';
+                        }
+                        else {
+                            val = '<div class="metric-label d-inline-block float-right text-danger">' +
+                                '<i class="fa fa-fw fa-caret-down"></i><span>' + data + '%</span></div>';
+                        }
+                        $('#soldStat').html(val);
+                    });
+
+                    //Revenue stat
+                    $.getJSON('/Home/RevenueStat/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                        let val;
+                        if (data >= 0) {
+                            val = '<div class="metric-label d-inline-block float-right text-success">' +
+                                '<i class="fa fa-fw fa-caret-up"></i><span>' + data + '%</span></div>';
+                        }
+                        else {
+                            val = '<div class="metric-label d-inline-block float-right text-danger">' +
+                                '<i class="fa fa-fw fa-caret-down"></i><span>' + data + '%</span></div>';
+                        } $('#revStat').html(val);
+                    });
+
+                    //RecentItems
+                    $.getJSON('/Home/GetItems/' + selected.val(), function (data) {
+                        let items = '';
+                        $.each(data, function (i, item) {
+                            if (i < 4) {
+                                let x = i + 1;
+                                items += '<tr>' +
+                                    '                                      ' +
+                                    '                                <td>' + x + '</td>' +
+                                    '                                <td>' +
+                                    '                                    <div class="m-r-10"><img src="' + item.imageURL + '" alt="user" class="rounded" width="80"></div>' +
+                                    '                                </td>' +
+                                    '                                <td>' + selected.text() + '</td>' +
+                                    '                                <td>' + item.name + '</td>' +
+                                    '                                <td>' + item.type + '</td>' +
+                                    '                                <td>' + item.quantity + '</td>' +
+                                    '                                <td>' + "R" + item.price + '</td>' +
+                                    '' +
+                                    '                                <td>' + item.entryDate + '</td>' +
+                                    '                            </tr>';
+
+                            }
+                        });
+                        $('#recentItems').html(items);
+                    });
+
+                    //Chart card
+                    let inventory = selected.val();
+                    let totalItems = 0;
+                    let items = '';
+                    let otherTotal = 0;
+                    let other = 0;
+                    let item1 = '';
+                    let item2 = '';
+                    let item3 = '';
+                    let quantity1 = 0, quantity2 = 0, quantity3 = 0;
+                    let boxColor = '';
+
+                    //Top 3 Items 
+                    $.getJSON('/Home/TopItems/' + inventory + "/?nocache=" + Math.random(), function (data) {
+
+                        $.each(data, function (i, item) { //make if statement for colors
+
+                            if (i === 0) {
+                                item1 = item.type;
+                                quantity1 = item.qsum;
+                                boxColor = "#9065e5";
+                            } else if (i === 1) {
+                                item2 = item.type;
+                                quantity2 = item.qsum;
+                                boxColor = "#e54594";
+                            } else {
+                                item3 = item.type;
+                                quantity3 = item.qsum;
+                                boxColor = "#25d5f2";
+                            }
+
+
+                            items += '<p>' +
+                                '                            <span class="fa-xs mr-1 legend-title"' +
+                                ' style="color:' + boxColor + '" >' +
+                                '<i class="fa fa-fw fa-square-full"></i></span><span class="legend-text">' + item.type + '</span>' +
+                                '                            <span class="float-right">' + item.qsum + '</span>' +
+                                '                        </p>';
+                            otherTotal += item.qsum;
+                            totalItems = item.total;
+                        });
+                        //Other
+                        other = totalItems - otherTotal;
+
+                        if (other !== 0) {
+                            items += '<p>' +
+                                '                            <span class="fa-xs mr-1 legend-title" style="color:#e5b045"><i class="fa fa-fw fa-square-full"></i></span><span class="legend-text"> Other </span>' +
+                                '                            <span class="float-right">' + other + '</span>' +
+                                '                        </p>';
+                        }
+                        $("#topItems").html(items);
+                        //Total Items                    
+                        $.getJSON('/Home/TotalItems/' + inventory + "/?nocache=" + Math.random(), function (data) {
+                            $("#totalItems").text(data);
+                            totalItems = data;
+
+                            //Chart
+                            if (totalItems !== 0) {
+                                let ctx = document.getElementById("total-sale").getContext('2d');
+                                new Chart(ctx, {
+                                    type: 'doughnut',
+
+                                    data: {
+                                        labels: [item1, item2, item3, "Other"],
+                                        datasets: [{
+                                            backgroundColor: [
+                                                "#9065e5",
+                                                "#e54594",
+                                                "#45c5b0",
+                                                "#e5b045"
+                                            ],
+                                            data: [quantity1, quantity2, quantity3, other]
+                                        }]
+
+                                    },
+                                    options: {
+                                        tooltips: { enabled: false },
+                                        hover: { mode: null },
+                                        showTooltips: false,
+                                        events: [],
+                                        legend: {
+                                            display: false
+
+
                                         }
-                                  });  
-                               });  
-             })  
-             
-         
-             
-          //------ Ajax function to get dashboard on load ---------------//
-                      
-          
-              let  selected=$("#InventoryDropDown Option:Selected");
-              $('#inventory').text( selected.text());  
-              
-              let selectedTime=$("#TimeDropDown Option:Selected");
-               $('#time').text( selected.text());  
 
-          //Checking if user has an inventory, if not then create 'My First Inventory'    
-          
-                                                         
-                          //Items available
-                           $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                               $('#itemsAvailable').text(data);       
-                           })       
-                           
-                              //Items sold
-                                     $.getJSON('/Home/ItemsSold/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                                            $('#itemsSold').text(data);       
-                                       });
-                                     
-                                       //Items revenue
-                                      $.getJSON('/Home/Revenue/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
-                                           $('#revenue').text("R" + data);       
-                                       });
-                                               
-                                       //Items Growth
-                                       $.getJSON('/Home/SalesGrowth/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
-                                            $('#growth').text(data +"%");       
-                                        });                 
-            
-                          //Percentage growth stats
-                          
-                          //Added stat
-                           $.getJSON('/Home/AvailableStat/', { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                                let val;
-                                if (data>=0)
-                                {
-                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
-                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
-                                }
-                                else
-                                {
-                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
-                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
-                                 }
-                              
-                               $('#addedStat').html(val);       
-                            })  
-                 
-                           //Sold stat
-                            $.getJSON('/Home/SoldStat/' , { id: selected.val(), time: selectedTime.val() }, function (data) { 
-                                    let val;
-                                             if (data>=0)
-                                             {
-                                                 val =  '<div class="metric-label d-inline-block float-right text-success">'+
-                                                        '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
-                                             }
-                                             else
-                                             {
-                                                 val = '<div class="metric-label d-inline-block float-right text-danger">'+
-                                                      '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
-                                              }                                                
-                                  $('#soldStat').html(val);       
-                               });
-                           
-                            //Revenue stat
-                              $.getJSON('/Home/RevenueStat/' ,{ id: selected.val(), time: selectedTime.val() },  function (data) { 
-                                let val;
-                                if (data>=0)
-                                {
-                                    val =  '<div class="metric-label d-inline-block float-right text-success">'+
-                                           '<i class="fa fa-fw fa-caret-up"></i><span>'+data+'%</span></div>';
-                                }
-                                else
-                                {
-                                    val = '<div class="metric-label d-inline-block float-right text-danger">'+
-                                         '<i class="fa fa-fw fa-caret-down"></i><span>'+data+'%</span></div>';
-                                 }                     $('#revStat').html(val);       
-                                });                  
-           //Recent items                
-           $.getJSON('/Home/GetItems/' + selected.val()  , function (data) { 
-                     let items = '';  
-                     $.each(data, function (i, item) {
-                         if (i<4){
-                        let x=i+1;
-                         items += '<tr>'+
-'                                      '+
-'                                <td>'+x+'</td>'+
-'                                <td>'+
-'                                    <div class="m-r-10"><img src="'+item.imageURL+'" alt="user" class="rounded" width="80"></div>'+
-'                                </td>'+
-'                                <td>'+selected.text()+'</td>'+
-'                                <td>'+item.name+'</td>'+
-'                                <td>'+item.type+'</td>'+
-'                                <td>'+item.quantity +'</td>'+
-'                                <td>'+"R" +item.price+'</td>'+
-''+
-'                                <td>'+item.entryDate+'</td>'+
-'                            </tr>';
-	
-                         }
-                     });     
-                     $('#recentItems').html(items);  
-                 });  
-                let inventory=selected.val();
-                                   let totalItems=0;
-                                   let items='';
-                                   let otherTotal = 0;  
-                                   let other=0;
-                                   let item1='';
-                                   let item2='';
-                                   let item3='';
-                                   let quantity1=0, quantity2=0, quantity3=0;
-                                   let boxColor='';
-                                   
-                                //Top 3 Items 
-                                $.getJSON('/Home/TopItems/' +  inventory + "/?nocache="+Math.random(), function (data) { 
-                                     
-                                    $.each(data, function (i, item) { //make if statement for colors
-                                        
-                                    if (i===0)
-                                    {
-                                        item1=item.type;
-                                        quantity1= item.qsum;
-                                        boxColor= "#9065e5";
-                                    }else if (i===1 )
-                                    {
-                                        item2=item.type;
-                                        quantity2= item.qsum;
-                                        boxColor= "#e54594";
-                                    }else {
-                                         item3=item.type;
-                                         quantity3= item.qsum;
-                                         boxColor= "#45c5b0";
                                     }
-                                                
-                                        
-                                        items += '<p>'+
-                                     '                            <span class="fa-xs mr-1 legend-title"'+
-                                      ' style="color:'+ boxColor +'" >'+
-                                      '<i class="fa fa-fw fa-square-full"></i></span><span class="legend-text">'+item.type+'</span>'+
-                                     '                            <span class="float-right">'+item.qsum+'</span>'+
-                                     '                        </p>';
-                                       otherTotal+=item.qsum; 
-                                       totalItems=item.total;
-                                     });
-                                    //Other
-                                    other=totalItems-otherTotal;
-                                     
-                                    if (other!==0){
-                                      items += '<p>'+
-                                                     '                            <span class="fa-xs mr-1 legend-title" style="color:#e5b045"><i class="fa fa-fw fa-square-full"></i></span><span class="legend-text"> Other </span>'+
-                                                     '                            <span class="float-right">'+other+'</span>'+
-                                                     '                        </p>';}
-                                    $("#topItems").html(items);  
-                             //Total Items                    
-                           $.getJSON('/Home/TotalItems/' +  inventory  + "/?nocache="+Math.random(), function (data) {                  
-                                                 $("#totalItems").text(data);
-                                                 totalItems=data;
-                                                                         
-                           //Chart
-                           if (totalItems!==0){
+
+                                });
+                            }
+                        });
+                    });
+                })
+
+
+
+                //------ Ajax function to get dashboard on load ---------------//
+
+
+                let selected = $("#InventoryDropDown Option:Selected");
+                $('#inventory').text(selected.text());
+
+                let selectedTime = $("#TimeDropDown Option:Selected");
+                $('#time').text(selected.text());
+
+                //Checking if user has an inventory, if not then create 'My First Inventory'    
+
+
+                //Items available
+                $.getJSON('/Home/ItemsAvailable/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                    $('#itemsAvailable').text(data);
+                })
+
+                //Items sold
+                $.getJSON('/Home/ItemsSold/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                    $('#itemsSold').text(data);
+                });
+
+                //Items revenue
+                $.getJSON('/Home/Revenue/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                    $('#revenue').text("R" + data);
+                });
+
+                //Items Growth
+                $.getJSON('/Home/SalesGrowth/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                    $('#growth').text(data + "%");
+                });
+
+                //Percentage growth stats
+
+                //Added stat
+                $.getJSON('/Home/AvailableStat/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                    let val;
+                    if (data >= 0) {
+                        val = '<div class="metric-label d-inline-block float-right text-success">' +
+                            '<i class="fa fa-fw fa-caret-up"></i><span>' + data + '%</span></div>';
+                    }
+                    else {
+                        val = '<div class="metric-label d-inline-block float-right text-danger">' +
+                            '<i class="fa fa-fw fa-caret-down"></i><span>' + data + '%</span></div>';
+                    }
+
+                    $('#addedStat').html(val);
+                })
+
+                //Sold stat
+                $.getJSON('/Home/SoldStat/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                    let val;
+                    if (data >= 0) {
+                        val = '<div class="metric-label d-inline-block float-right text-success">' +
+                            '<i class="fa fa-fw fa-caret-up"></i><span>' + data + '%</span></div>';
+                    }
+                    else {
+                        val = '<div class="metric-label d-inline-block float-right text-danger">' +
+                            '<i class="fa fa-fw fa-caret-down"></i><span>' + data + '%</span></div>';
+                    }
+                    $('#soldStat').html(val);
+                });
+
+                //Revenue stat
+                $.getJSON('/Home/RevenueStat/', { id: selected.val(), time: selectedTime.val() }, function (data) {
+                    let val;
+                    if (data >= 0) {
+                        val = '<div class="metric-label d-inline-block float-right text-success">' +
+                            '<i class="fa fa-fw fa-caret-up"></i><span>' + data + '%</span></div>';
+                    }
+                    else {
+                        val = '<div class="metric-label d-inline-block float-right text-danger">' +
+                            '<i class="fa fa-fw fa-caret-down"></i><span>' + data + '%</span></div>';
+                    } $('#revStat').html(val);
+                });
+                //Recent items                
+                $.getJSON('/Home/GetItems/' + selected.val(), function (data) {
+                    let items = '';
+                    $.each(data, function (i, item) {
+                        if (i < 4) {
+                            let x = i + 1;
+                            items += '<tr>' +
+                                '                                      ' +
+                                '                                <td>' + x + '</td>' +
+                                '                                <td>' +
+                                '                                    <div class="m-r-10"><img src="' + item.imageURL + '" alt="user" class="rounded" width="80"></div>' +
+                                '                                </td>' +
+                                '                                <td>' + selected.text() + '</td>' +
+                                '                                <td>' + item.name + '</td>' +
+                                '                                <td>' + item.type + '</td>' +
+                                '                                <td>' + item.quantity + '</td>' +
+                                '                                <td>' + "R" + item.price + '</td>' +
+                                '' +
+                                '                                <td>' + item.entryDate + '</td>' +
+                                '                            </tr>';
+
+                        }
+                    });
+                    $('#recentItems').html(items);
+                });
+                let inventory = selected.val();
+                let totalItems = 0;
+                let items = '';
+                let otherTotal = 0;
+                let other = 0;
+                let item1 = '';
+                let item2 = '';
+                let item3 = '';
+                let quantity1 = 0, quantity2 = 0, quantity3 = 0;
+                let boxColor = '';
+
+                //Top 3 Items 
+                $.getJSON('/Home/TopItems/' + inventory + "/?nocache=" + Math.random(), function (data) {
+
+                    $.each(data, function (i, item) { //make if statement for colors
+
+                        if (i === 0) {
+                            item1 = item.type;
+                            quantity1 = item.qsum;
+                            boxColor = "#9065e5";
+                        } else if (i === 1) {
+                            item2 = item.type;
+                            quantity2 = item.qsum;
+                            boxColor = "#e54594";
+                        } else {
+                            item3 = item.type;
+                            quantity3 = item.qsum;
+                            boxColor = "#45c5b0";
+                        }
+
+
+                        items += '<p>' +
+                            '                            <span class="fa-xs mr-1 legend-title"' +
+                            ' style="color:' + boxColor + '" >' +
+                            '<i class="fa fa-fw fa-square-full"></i></span><span class="legend-text">' + item.type + '</span>' +
+                            '                            <span class="float-right">' + item.qsum + '</span>' +
+                            '                        </p>';
+                        otherTotal += item.qsum;
+                        totalItems = item.total;
+                    });
+                    //Other
+                    other = totalItems - otherTotal;
+
+                    if (other !== 0) {
+                        items += '<p>' +
+                            '                            <span class="fa-xs mr-1 legend-title" style="color:#e5b045"><i class="fa fa-fw fa-square-full"></i></span><span class="legend-text"> Other </span>' +
+                            '                            <span class="float-right">' + other + '</span>' +
+                            '                        </p>';
+                    }
+                    $("#topItems").html(items);
+                    //Total Items                    
+                    $.getJSON('/Home/TotalItems/' + inventory + "/?nocache=" + Math.random(), function (data) {
+                        $("#totalItems").text(data);
+                        totalItems = data;
+
+                        //Chart
+                        if (totalItems !== 0) {
                             let ctx = document.getElementById("total-sale").getContext('2d');
-                                 new Chart(ctx, {
-                                     type: 'doughnut',
-                             
-                                     data: {
-                                         labels: [item1, item2, item3, "Other"],
-                                         datasets: [{
-                                             backgroundColor: [
-                                                 "#9065e5",
-                                                 "#e54594",
-                                                 "#45c5b0",
-                                                 "#e5b045"
-                                             ],
-                                             data: [quantity1, quantity2, quantity3, other]
-                                         }]
-                                         
-                                     },
-                                     options: {
-                                          tooltips: {enabled: false},
-                                             hover: {mode: null},
-                                             showTooltips: false,
-                                             events: [],
-                                         legend: {
-                                             display: false
-                             
-                                         }
-                                        
-                                     }
-                             
-                                 }); 
-                                 }
-                           });  
-                        }); 
-                                
+                            new Chart(ctx, {
+                                type: 'doughnut',
+
+                                data: {
+                                    labels: [item1, item2, item3, "Other"],
+                                    datasets: [{
+                                        backgroundColor: [
+                                            "#9065e5",
+                                            "#e54594",
+                                            "#45c5b0",
+                                            "#e5b045"
+                                        ],
+                                        data: [quantity1, quantity2, quantity3, other]
+                                    }]
+
+                                },
+                                options: {
+                                    tooltips: { enabled: false },
+                                    hover: { mode: null },
+                                    showTooltips: false,
+                                    events: [],
+                                    legend: {
+                                        display: false
+
+
+                                    }
+
                                 }
-        })
+
+                            });
+                        }
+                    });
+                });
+
+            })
+                  </script> 
+        }
+        
                  
  
        
-    </script>
-}   
+ 
+
 
 <!-- Scripts -->
 

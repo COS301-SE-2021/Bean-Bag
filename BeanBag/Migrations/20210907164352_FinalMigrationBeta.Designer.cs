@@ -4,14 +4,16 @@ using BeanBag.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BeanBag.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20210907164352_FinalMigrationBeta")]
+    partial class FinalMigrationBeta
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,12 +29,6 @@ namespace BeanBag.Migrations
 
                     b.Property<DateTime>("dateCreated")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("imageCount")
-                        .HasColumnType("int");
 
                     b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
@@ -57,9 +53,6 @@ namespace BeanBag.Migrations
                     b.Property<DateTime>("createdDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("projectId")
                         .HasColumnType("uniqueidentifier");
 
@@ -83,13 +76,11 @@ namespace BeanBag.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("description")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("publicToTenant")
                         .HasColumnType("bit");
@@ -160,8 +151,7 @@ namespace BeanBag.Migrations
 
                     b.Property<string>("role")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("userId");
 

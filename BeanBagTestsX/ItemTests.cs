@@ -28,7 +28,7 @@ namespace BeanBagUnitTests
             mockIn.Object.AddQrItem(testItem);
 
             //ASSERT
-            Assert.NotEqual("", testItem.QRContents);
+            Assert.NotEqual("", testItem.QRCodeLink);
 
         }
 
@@ -60,23 +60,19 @@ namespace BeanBagUnitTests
             
 
             //ACT
+            
+            var dbMock = new Mock<DBContext>();
+            dbMock.Setup(x => x.Set<Item>()).Returns(mockSet.Object);
+            var myser = new ItemService(dbMock.Object);
+            
+            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = invId, soldDate = DateTime.Now, type = "Clothes"};
 
-            var myser = new Mock<IItemService>();
-            myser.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
-            
-            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = invId};
-            
-            myser.Setup(x => x.CreateItem(thenew));
-            myser.Object.CreateItem(thenew);
-            
-            myser.Setup(x => x.FindItem(thenew.Id)).Returns(thenew);
+            myser.CreateItem(thenew);
 
-            var foundCreated = myser.Object.FindItem(thenew.Id);
-            
             //ASSERT
             
-            //Assert.True(isDeleted);
-            Assert.NotNull(foundCreated);
+            Assert.Equal(itemId, thenew.Id);
+            
 
         }
 
@@ -87,13 +83,14 @@ namespace BeanBagUnitTests
             //ARRANGE
 
             Guid invId = new("10000000-0000-0000-0000-000000000001");
-            Guid itemId = new("00000000-0000-0000-0000-000000000001");
+            Guid itemId = new("10000000-0000-0000-0000-000000000002");
+            Guid itemId2 = new("10000000-0000-0000-0000-000000000003");
 
             var myInv = new Inventory {Id = invId, name = "testInv", userId = "123"};
                 
             var data = new List<Item>
             {
-                new Item {Id = itemId, name = "sock", inventoryId = invId}
+
             }.AsQueryable();
             
             var mockSet = new Mock<DbSet<Item>>();
@@ -103,26 +100,29 @@ namespace BeanBagUnitTests
             mockSet.As<IQueryable<Item>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var mockIn = new Mock<IItemService>();
-
+            var testItem = new Item();
+            testItem.inventoryId = invId;
+            
 
             //ACT
+            
+            var dbMock = new Mock<DBContext>();
+            dbMock.Setup(x => x.Set<Item>()).Returns(mockSet.Object);
+            var myser = new ItemService(dbMock.Object);
+            
+            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = invId, soldDate = DateTime.Now, type = "Clothes"};
+            var thenew2 = new Item { Id = itemId2, name = "Grey sandals", inventoryId  = invId, soldDate = DateTime.Now, type = "Clothes"};
 
-            var myser = new Mock<IItemService>();
-            myser.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
-            
-            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = invId};
-            myser.Object.CreateItem(thenew);
-            
-            myser.Setup(x => x.DeleteItem(thenew.Id));
+            myser.CreateItem(thenew);
+            myser.CreateItem(thenew2);
 
-            //var isDeleted = myser.Object.DeleteItem(thenew.Id);
-            
-            var confirmGone = myser.Object.FindItem(thenew.Id);
+            var isDel = myser.DeleteItem(itemId);
+            var itemCount = myser.GetItems(invId);
+            var counts = itemCount.Count;
             
             //ASSERT
             
-            //Assert.True(isDeleted);
-            Assert.Null(confirmGone);
+            Assert.Equal(itemId, thenew.Id);
 
         }
 
@@ -133,13 +133,14 @@ namespace BeanBagUnitTests
             //ARRANGE
 
             Guid invId = new("10000000-0000-0000-0000-000000000001");
-            Guid itemId = new("00000000-0000-0000-0000-000000000001");
+            Guid itemId = new("10000000-0000-0000-0000-000000000002");
+            Guid itemId2 = new("10000000-0000-0000-0000-000000000003");
 
             var myInv = new Inventory {Id = invId, name = "testInv", userId = "123"};
                 
             var data = new List<Item>
             {
-                new Item {Id = itemId, name = "sock", inventoryId = invId, isSold = false}
+
             }.AsQueryable();
             
             var mockSet = new Mock<DbSet<Item>>();
@@ -148,23 +149,28 @@ namespace BeanBagUnitTests
             mockSet.As<IQueryable<Item>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Item>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            //var mockIn = new Mock<IItemService>();
-
+            var mockIn = new Mock<IItemService>();
+            var testItem = new Item();
+            testItem.inventoryId = invId;
+            
 
             //ACT
-
-            var myser = new Mock<IItemService>();
-            myser.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
             
-            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = invId};
-            myser.Object.CreateItem(thenew);
+            var dbMock = new Mock<DBContext>();
+            dbMock.Setup(x => x.Set<Item>()).Returns(mockSet.Object);
+            var myser = new ItemService(dbMock.Object);
+            
+            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = invId, soldDate = DateTime.Now, type = "Clothes"};
+            var thenew2 = new Item { Id = itemId2, name = "Grey sandals", inventoryId  = invId, soldDate = DateTime.Now, type = "Clothes"};
 
-            myser.Setup(x => x.EditItem(thenew));
+            myser.CreateItem(thenew);
+            myser.CreateItem(thenew2);
 
-            myser.Object.EditItem(thenew);
+            myser.EditItem(myser.FindItem(itemId));
 
             //ASSERT
-            Assert.Equal(DateTime.MinValue, thenew.soldDate);
+            
+            Assert.Equal(DateTime.MinValue, myser.FindItem(itemId).soldDate);
 
         }
 
@@ -175,13 +181,14 @@ namespace BeanBagUnitTests
             //ARRANGE
 
             Guid invId = new("10000000-0000-0000-0000-000000000001");
-            Guid itemId = new("00000000-0000-0000-0000-000000000001");
+            Guid itemId = new("10000000-0000-0000-0000-000000000002");
+            Guid itemId2 = new("10000000-0000-0000-0000-000000000003");
 
             var myInv = new Inventory {Id = invId, name = "testInv", userId = "123"};
                 
             var data = new List<Item>
             {
-               
+
             }.AsQueryable();
             
             var mockSet = new Mock<DbSet<Item>>();
@@ -190,20 +197,29 @@ namespace BeanBagUnitTests
             mockSet.As<IQueryable<Item>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Item>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            //ACT
-            var myser = new Mock<IItemService>();
-            myser.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
+            var mockIn = new Mock<IItemService>();
+            var testItem = new Item();
+            testItem.inventoryId = invId;
             
-            var thenew = new Item { Id = itemId, name = "Pants", inventoryId = invId};
-            myser.Object.CreateItem(thenew);
 
-            myser.Setup(x => x.FindItem(thenew.Id));
+            //ACT
+            
+            var dbMock = new Mock<DBContext>();
+            dbMock.Setup(x => x.Set<Item>()).Returns(mockSet.Object);
+            var myser = new ItemService(dbMock.Object);
+            
+            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = invId, soldDate = DateTime.Now, type = "Clothes"};
+            var thenew2 = new Item { Id = itemId2, name = "Grey sandals", inventoryId  = invId, soldDate = DateTime.Now, type = "Clothes"};
 
-            var isFound = myser.Object.FindItem(thenew.Id);
+            myser.CreateItem(thenew);
+            myser.CreateItem(thenew2);
+
+            var isFound = myser.FindItem(itemId);
 
             //ASSERT
-            Assert.Null(isFound);
-
+            
+            Assert.Equal(itemId, isFound.Id);
+            
         }
 
         //Unit test defined to retrieve a list of items from a database, all in the same inventory
@@ -213,13 +229,14 @@ namespace BeanBagUnitTests
             //ARRANGE
 
             Guid invId = new("10000000-0000-0000-0000-000000000001");
-            Guid itemId = new("00000000-0000-0000-0000-000000000001");
+            Guid itemId = new("10000000-0000-0000-0000-000000000002");
+            Guid itemId2 = new("10000000-0000-0000-0000-000000000003");
 
             var myInv = new Inventory {Id = invId, name = "testInv", userId = "123"};
                 
             var data = new List<Item>
             {
-                new Item {Id = itemId, name = "sock", inventoryId = invId}
+
             }.AsQueryable();
             
             var mockSet = new Mock<DbSet<Item>>();
@@ -229,15 +246,28 @@ namespace BeanBagUnitTests
             mockSet.As<IQueryable<Item>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var mockIn = new Mock<IItemService>();
-
+            var testItem = new Item();
+            testItem.inventoryId = invId;
+            
 
             //ACT
-            mockIn.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
+            
+            var dbMock = new Mock<DBContext>();
+            dbMock.Setup(x => x.Set<Item>()).Returns(mockSet.Object);
+            var myser = new ItemService(dbMock.Object);
+            
+            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = invId, soldDate = DateTime.Now, type = "Clothes"};
+            var thenew2 = new Item { Id = itemId2, name = "Grey sandals", inventoryId  = invId, soldDate = DateTime.Now, type = "Clothes"};
 
-            var myItems = mockIn.Object.GetItems(invId);
+            myser.CreateItem(thenew);
+            myser.CreateItem(thenew2);
+
+            var myItems = myser.GetItems(invId);
+            var icount = myItems.Count;
             
             //ASSERT
-            Assert.IsType<List<Item>>(myItems);
+            
+            Assert.Equal(2, icount);
         }
 
         //Unit test defined to get the inventory ID from the item passed in
@@ -247,13 +277,14 @@ namespace BeanBagUnitTests
             //ARRANGE
 
             Guid invId = new("10000000-0000-0000-0000-000000000001");
-            Guid itemId = new("00000000-0000-0000-0000-000000000001");
+            Guid itemId = new("10000000-0000-0000-0000-000000000002");
+            Guid itemId2 = new("10000000-0000-0000-0000-000000000003");
 
             var myInv = new Inventory {Id = invId, name = "testInv", userId = "123"};
                 
             var data = new List<Item>
             {
-                new Item {Id = itemId, name = "sock", inventoryId = invId}
+
             }.AsQueryable();
             
             var mockSet = new Mock<DbSet<Item>>();
@@ -263,15 +294,27 @@ namespace BeanBagUnitTests
             mockSet.As<IQueryable<Item>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var mockIn = new Mock<IItemService>();
-
+            var testItem = new Item();
+            testItem.inventoryId = invId;
+            
 
             //ACT
-            mockIn.Setup(x => x.GetItems(invId)).Returns(mockSet.Object.ToList());
-
-            var myId = mockIn.Object.GetInventoryIdFromItem(itemId);    
             
+            var dbMock = new Mock<DBContext>();
+            dbMock.Setup(x => x.Set<Item>()).Returns(mockSet.Object);
+            var myser = new ItemService(dbMock.Object);
+            
+            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = invId, soldDate = DateTime.Now, type = "Clothes"};
+            var thenew2 = new Item { Id = itemId2, name = "Grey sandals", inventoryId  = invId, soldDate = DateTime.Now, type = "Clothes"};
+
+            myser.CreateItem(thenew);
+            myser.CreateItem(thenew2);
+
+            var invIdFound = myser.GetInventoryIdFromItem(itemId);
+
             //ASSERT
-            Assert.IsType<Guid>(myId);
+            
+            Assert.Equal(invId, invIdFound);
 
         }
 

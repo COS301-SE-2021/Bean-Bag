@@ -13,7 +13,7 @@ namespace BeanBag.Models
         [Required]
         [DisplayName("Name")]
         public string name { get; set; }
-        [Required]
+      
         [DisplayName("Type")]
         public string type { get; set; }
         [Required]
@@ -22,7 +22,7 @@ namespace BeanBag.Models
         [ForeignKey("inventoryId")]
         public virtual Inventory Inventory { get; set; }
         public string imageURL { get; set; }
-        public string QRContents { get; set; }
+        public string QRCodeLink { get; set; }
         public DateTime entryDate { get; set; }
         [Required]
         [DisplayName("Price")]

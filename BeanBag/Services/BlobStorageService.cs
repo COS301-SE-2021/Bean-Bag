@@ -12,30 +12,24 @@ namespace BeanBag.Services
     public class BlobStorageService : IBlobStorageService
     {
         // Variables 
-        private readonly CloudBlobClient _cloudBlobClient;
-        private CloudBlobContainer _cloudBlobContainer;
-        //private readonly IConfiguration _config;
+        private readonly CloudStorageAccount cloudStorageAccount;
+        private readonly CloudBlobClient cloudBlobClient;
+        private CloudBlobContainer cloudBlobContainer;
 
         // Constructor
         public BlobStorageService(IConfiguration config)
         {
-            var cloudStorageAccount = CloudStorageAccount.Parse(config.GetValue<string>("AzureBlobStorage:ConnectionString"));
+            cloudStorageAccount = CloudStorageAccount.Parse(config.GetValue<string>("AzureBlobStorage:ConnectionString"));
 
-            //cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;EndpointSuffix=core.windows.net");
-            _cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+            cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
-
-        public BlobStorageService()
-        {
-            throw new System.NotImplementedException();
-        }
-
+         
 
         // This method is used to upload an item image into the blob storage
-        public async Task<string> UploadItemImage(IFormFile file)
+        public async Task<string> uploadItemImage(IFormFile file)
         {
-            _cloudBlobContainer = _cloudBlobClient.GetContainerReference("itemimages");
-            CloudBlockBlob cloudBlockBlob = _cloudBlobContainer.GetBlockBlobReference(file.FileName);
+            cloudBlobContainer = cloudBlobClient.GetContainerReference("itemimages");
+            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(file.FileName);
             cloudBlockBlob.Properties.ContentType = file.ContentType;
 
             // Copying the file into a memory stream and then uploaded into the azure blob container
@@ -43,38 +37,39 @@ namespace BeanBag.Services
             await file.CopyToAsync(ms);
             await cloudBlockBlob.UploadFromByteArrayAsync(ms.ToArray(), 0, (int)ms.Length);
 
-            return cloudBlockBlob.Uri.AbsoluteUri;
+            return cloudBlockBlob.Uri.AbsoluteUri.ToString();
         }
 
         // This method is used to upload a set of test images used to train an AI model 
-        public async Task<List<string>> UploadTestImages(IFormFileCollection testImages, string projectId)
+        public async Task<List<string>> uploadTestImages(IFormFileCollection testImages, string projectId)
         {
             List<string> testImagesUrls = new List<string>();
+            CloudBlockBlob cloudBlockBlob;
+            
 
-
-            _cloudBlobContainer = _cloudBlobClient.GetContainerReference("modeltestimages");
+            cloudBlobContainer = cloudBlobClient.GetContainerReference("modeltestimages");
 
             foreach(var image in testImages)
             {
-                var cloudBlockBlob = _cloudBlobContainer.GetBlockBlobReference(projectId + "/" + image.FileName);
+                cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(projectId + "/" + image.FileName);
                 cloudBlockBlob.Properties.ContentType = image.ContentType;
                 var ms = new MemoryStream();
                 await image.CopyToAsync(ms);
                 await cloudBlockBlob.UploadFromByteArrayAsync(ms.ToArray(), 0, (int)ms.Length);
 
-                testImagesUrls.Add(cloudBlockBlob.Uri.AbsoluteUri);
+                testImagesUrls.Add(cloudBlockBlob.Uri.AbsoluteUri.ToString());
             }
 
             return testImagesUrls;
             
         }
 
-        // This method is used to delete a folder of test images used to train an AI model
-        public async void DeleteTestImageFolder(string projectId)
+        // This method ius used to delete a folder of test images used to train an AI model
+        public async void deleteTestImageFolder(string projectId)
         {
-            _cloudBlobContainer = _cloudBlobClient.GetContainerReference("modeltestimages");
+            cloudBlobContainer = cloudBlobClient.GetContainerReference("modeltestimages");
             
-            await _cloudBlobContainer.GetBlockBlobReference(projectId).DeleteIfExistsAsync();
+            await cloudBlobContainer.GetBlockBlobReference(projectId).DeleteIfExistsAsync();
         }
     }
 }
