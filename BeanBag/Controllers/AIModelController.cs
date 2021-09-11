@@ -205,6 +205,7 @@ namespace BeanBag.Controllers
 
             var model = _aIService.getModel(projectId);
             ViewBag.Name = model.name;
+            ViewBag.Description = model.description;
 
             if (model.imageCount == 0)
                 ViewBag.newProject = true;
@@ -222,13 +223,14 @@ namespace BeanBag.Controllers
         {
             var model = _aIService.getModel(projectId);
 
-            if(model.imageCount == 0)
-            {
-                if(files.Count < 5)
-                    return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
-            }
+            if(files.Count < 5)
+                return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
 
-            if(files.Count == 0)
+            if(files.Count > 50)
+                return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
+
+
+            if (files.Count == 0)
                 return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
 
             //Checking if each tag is not empty or not an empty string

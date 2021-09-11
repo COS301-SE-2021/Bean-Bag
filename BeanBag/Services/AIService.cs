@@ -181,22 +181,24 @@ namespace BeanBag.Services
             if (trainingClient.GetProject(projectId) == null)
                 throw new Exception("Custom vision project does not exist with project id " + projectId.ToString());
 
+            List<Guid> imageTagsId = new List<Guid>();
+            foreach (var tag in tags)
+            {
+                imageTagsId.Add(trainingClient.CreateTag(projectId, tag).Id);
+            }
+
+            List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
+
+            foreach (var url in imageUrls)
+            {
+                images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
+            }
+
+            await trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
+
             try
             {
-                List<Guid> imageTagsId = new List<Guid>();
-                foreach (var tag in tags)
-                {
-                    imageTagsId.Add(trainingClient.CreateTag(projectId, tag).Id);
-                }
-
-                List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
-
-                foreach (var url in imageUrls)
-                {
-                    images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
-                }
-
-                await trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
+                
             }
             catch (Exception e)
             {
