@@ -103,15 +103,15 @@ namespace BeanBag.Services
 
                 AIModel newModel = new AIModel()
                 {
-                    projectName = projectName,
-                    projectId = newProject.Id
+                    name = projectName,
+                    Id = newProject.Id
                 };
 
                 await _db.AIModels.AddAsync(newModel);
 
                 _db.SaveChanges();
 
-                return newModel.projectId;
+                return newModel.Id;
             }
             catch (Exception e)
             {
@@ -161,7 +161,7 @@ namespace BeanBag.Services
 
             var project = _db.AIModels.Find(projectId);
 
-            project.projectName = projectName;
+            project.name = projectName;
             //project.description = description;
             _db.AIModels.Update(project);
 
@@ -217,9 +217,9 @@ namespace BeanBag.Services
 
                 AIModelVersions newModelVersion = new AIModelVersions()
                 {
-                    iterationName = "Version " + iteration.Name.Substring(iteration.Name.Length-1),
+                    Name = "Version " + iteration.Name.Substring(iteration.Name.Length-1),
                     availableToUser = false,
-                    iterationId = iteration.Id,
+                    Id = iteration.Id,
                     status = iteration.Status.ToString(),
                     projectId = projectId
                 };
