@@ -153,6 +153,8 @@
                     </div>
                 }
             </div>
+            
+            <!-- User table -->
 
             <!--Table with bootstrap class .table and .table-condensed-->
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -181,7 +183,7 @@
                                         <tr>
                                             <td class="pt-3">@i</td>
                                             @{ i++; }
-                                            <td class="pt-3">@user.UserTenantId</td>
+                                            <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@user.UserObjectId"><i class="fas fa-tag">  </i></button></td>
                                             <td class="pt-3">@user.UserName</td>
                                             @if (@user.UserRole == "U")
                                             {
