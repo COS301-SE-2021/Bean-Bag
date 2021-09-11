@@ -224,10 +224,12 @@ namespace BeanBag.Services
             const string defaultTheme = "Default";
             const string defaultLogo = "/images/beanbaglogo.png";
 
+            var code = GenerateCode();
+
             //Create new tenant and add to db
             var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = defaultTheme, 
                 TenantEmail = tenantEmail, TenantAddress = tenantAddress, TenantNumber = tenantNumber, TenantSubscription = tenantSubscription,
-                TenantLogo = defaultLogo
+                TenantLogo = defaultLogo, InviteCode = code
             };
 
             _tenantDb.Tenant.Add(newTenant);
@@ -314,19 +316,38 @@ namespace BeanBag.Services
         /* Generate a random GUID code for the tenant */
         public string GenerateCode()
         {
-            var code = Guid.NewGuid();
+            var code = Guid.NewGuid().ToString();
 
-            return code.ToString();
+            return code;
         }
-        
-        /* Verify if user entered valid invite code */
-        public bool VerifyCode(string tenantId, string code)
+
+        public string GetTenantCode(string tenantId)
         {
             if (tenantId == null)
             {
                 throw new Exception("Tenant id is null.");
             }
 
+            var tenant = _tenantDb.Tenant.Find(tenantId);
+
+            if (tenant == null)
+            {
+                throw new Exception("Tenant is null.");
+            }
+
+            var code = tenant.InviteCode;
+
+            if (code == null)
+            {
+                throw new Exception("Code is null.");
+            }
+
+            return code;
+        }
+        
+        /* Verify if user entered valid invite code */
+        public bool VerifyCode(string code)
+        {
             if (code == null)
             {
                 throw new Exception("Entered code is null.");
@@ -334,7 +355,7 @@ namespace BeanBag.Services
 
             var check = (from tenant
                     in _tenantDb.Tenant
-                where tenant.TenantId.Equals(tenantId)
+                where tenant.InviteCode.Equals(code)
                 select tenant.InviteCode).Single();
 
             if (check == null)
