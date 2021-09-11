@@ -146,9 +146,13 @@
                                                                class="btn edit" data-toggle="modal" data-target="#exampleModal3"
                                                                data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
 
-                                                            <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.Id})"
-                                                               class="btn delete" data-toggle="modal"
-                                                               data-target="#exampleModal4" data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
+                                                            @if(!models.status.Equals("Training"))
+                                                            {
+                                                                <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.Id})"
+                                                                   class="btn delete" data-toggle="modal"
+                                                                   data-target="#exampleModal4" data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
+                                                            }
+                                                            
 
                                                             @if (models.status.Equals("Completed") && models.availableToUser == false)
                                                             {
