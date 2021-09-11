@@ -53,7 +53,7 @@ namespace BeanBag.Services
                 throw new Exception("No Custom Vision project exists with Guid " + projectId.ToString());
 
             if (iterationName.Equals("") || iterationName.Equals(" "))
-                throw new Exception("Invalid itertaion name");
+                throw new Exception("Invalid iteration name");
 
             if (imageURL.Equals("") || imageURL.Equals(" "))
                 throw new Exception("Invalid image url");

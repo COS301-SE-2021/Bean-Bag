@@ -2,7 +2,7 @@
 @using Microsoft.Extensions.Options
 @using Microsoft.Identity.Web
 @inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
-
+@{int i = 0;}
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
     <section class="ml-3">
@@ -76,10 +76,10 @@
                                             <input asp-for="quantity" class="form-control"/>
                                         </div>
 
-                                        <div class="form-group row">
-                                            <label asp-for="colour">Colour</label> &nbsp; &nbsp;<br>
-                                            <input asp-for="colour" type="color" size="100px" name="color">
-                                        </div>
+                                      <div class="form-group row">
+                                          <label asp-for="colour">Colour</label> &nbsp; &nbsp;<br>
+                                          <input asp-for="colour" type="color"  size="100px" name="colour">
+                                          </div>
 
                                         <div class="form-group row">
                                             <label asp-for="inventoryId" value="Inventory"></label>
@@ -97,16 +97,55 @@
                                             </select>
                                         </div>
 
-                                        @* RENO: GRABBING THE PREDICTED TAGS FROM THE VIEWBAG IN THE PREDICT FUNCTION OF THE AI MODEL *@
-                                    <div class="form-group row">
-                                        <label asp-for="type"></label>
-                                        <input value="@ViewBag.listPredictions" type="text"></input>
-                                    </div>
-
+                                        <label asp-for="inventoryId" value="Inventory"></label>
+                                        @* RENO: GRABBING THE PREDICTED TAGS FROM THE VIEW-BAG IN THE PREDICT FUNCTION OF THE AI MODEL *@
                                         <div class="form-group row">
+                                            <!--Add your own tags -->
+                                              <table class="table table-bordered table-hover pr-5" id="tab_logic">
+                                                  <thead>
+                                                  <tr>
+                                                      <th >#</th>
+                                                      <th >Tag Name</th>
+                                                      <th > Prediction % </th>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                     
+                                                        @foreach (var x in  @ViewBag.listPredictions)
+                                                        {
+                                                            <tr id="@i">
+                                                                <td>@i</td>
+                                                                <td>
+                                                                    <input type="text" name='tags' placeholder='Name' value="@x.tagName" class="form-control"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" name='tags' placeholder='Name' value="@x.percentage" class="form-control"/>
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                            i++;
+                                                        }
 
-                                            <input type="submit" class="btn btn-3" value="Create"/>
-                                          
+
+                                                  <tr id="@i"></tr>
+                                                  <tr id="address1"></tr>
+                                                  </tbody>
+                                              </table>
+                                                <a id="add_row" class="btn btn-3  text-light">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a> &nbsp;  &nbsp; 
+                                              <a id='delete_row' class="btn btn-3 text-light">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
+                                              
+                                              <div class="pl-4 form-check-inline form-group row ">
+                                                  <label class="form-check-label">Done &nbsp;</label>
+                                                  <input class="form-check-input" name="LastTestImages" type="checkbox">
+                                                  </div>
+                                                                                      
+                                            </div>
+                                     
+                                        
+                                      
+                                        
+                                        <div class="form-group row ">
+                                            <input type="submit" class="btn btn-3 float-right ml-auto" value="Create"/>
                                         </div>
                                     </form>
 
@@ -132,3 +171,27 @@
 <script>
   AOS.init();
 </script>
+
+@* This script functions is used to add dynamic text boxes to allow the user to enter as many tags as
+ they desire with the uploaded test images *@
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+       $(document).ready(function(){  
+        let i=@i;
+       $("#add_row").click(function(){
+        $('#'+i).html("<td>"+ (i+1) +"</td><td><input name='tags' type='text' placeholder='Name' class='form-control input-md'  /> " 
+         );
+      
+        $('#tab_logic').append('<tr id="'+(i+1)+'"></tr>');
+        i++; 
+       });
+       $("#delete_row").click(function(){
+      	 if(i>1){
+  		 $("#"+(i-1)).html('');
+  		 i--;
+  		 }
+  	 });
+  });   
+</script>
+
+
