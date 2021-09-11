@@ -103,11 +103,11 @@
                                                  <td >@models.description</td>
                                                  <td >
                                                      <div class="w-100 btn-group" role="group">
-                                                         <a href="@Url.Action("EditAIModel", "AiModel", new {@models.Id})"
+                                                         <a href="@Url.Action("EditAiModel", "AiModel", new {@models.Id})"
                                                             class="btn edit" data-toggle="modal" data-target="#exampleModal3"
                                                             data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
                                                          
-                                                         <a href="@Url.Action("DeleteAIModel", "AIModel", new {projectId = @models.Id})"
+                                                         <a href="@Url.Action("DeleteAiModel", "AIModel", new {projectId = @models.Id})"
                                                             class="btn delete" data-toggle="modal"
                                                             data-target="#exampleModal4" data-id="@models.Id"><button class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
 
@@ -165,12 +165,12 @@
             <form method="post" asp-action="CreateModel" >
                 <div class="modal-body">
                     <div class="form-group ">
-                        <input asp-for="AIModel.Id" hidden />
+                        <input asp-for="AiModel.Id" hidden />
 
-                        <label asp-for="AIModel.name" class="col-form-label">Model Name * </label> <!--Inventory Name-->
-                        <input asp-for="AIModel.name" class="form-control" /> <!--input box-->
+                        <label asp-for="AiModel.name" class="col-form-label">Model Name * </label> <!--Inventory Name-->
+                        <input asp-for="AiModel.name" class="form-control" /> <!--input box-->
                         <label class="col-form-label">Description *</label> <!-- Name-->
-                        <input asp-for="AIModel.description" class="form-control" /> <!--input box-->
+                        <input asp-for="AiModel.description" class="form-control" /> <!--input box-->
                     </div>
                     <div asp-validation-summary="All" class="text-danger"></div>
                 </div>

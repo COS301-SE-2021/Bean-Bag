@@ -66,7 +66,6 @@ namespace BeanBag.Controllers
             [FromForm(Name = "predictionModel")] string predictionModelId)
         {
             string imageUrl = await _blobStorageService.uploadItemImage(file);
-            AIModelVersions iteration=null;
 
             // Checking to see if user has selected an AI model to use. Otherwise let them continue as is
             if (predictionModelId == "Selection")
@@ -75,7 +74,7 @@ namespace BeanBag.Controllers
                 return LocalRedirect("/Item/Create?imageUrl=" + imageUrl );
             }
             
-            iteration = _aIService.getIteration(Guid.Parse(predictionModelId)); 
+            var iteration = _aIService.getIteration(Guid.Parse(predictionModelId)); 
             
             var iterName = iteration.Name.Replace("Version", "Iteration");
             
