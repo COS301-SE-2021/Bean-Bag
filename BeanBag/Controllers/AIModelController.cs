@@ -175,6 +175,11 @@ namespace BeanBag.Controllers
             viewModel.PagedListVersions = pagedList;
             @ViewBag.totalModels = _aIService.getProjectIterations(projectId).Count;
             ViewBag.projectId = projectId;
+
+            if (_aIService.getModel(projectId).imageCount == _aIService.getImageCount(projectId))
+                ViewBag.canTrainNewVersion = false;
+            else
+                ViewBag.canTrainNewVersion = true;
         
             return View(viewModel);
             }
@@ -188,7 +193,7 @@ namespace BeanBag.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateModel(Pagination mods)
         {
-            Guid id = await _aIService.createProject(mods.AIModel.name);
+            Guid id = await _aIService.createProject(mods.AIModel.name, mods.AIModel.description);
 
             return LocalRedirect("/AIModel/TestImages?projectId=" + id.ToString());
         }
@@ -197,12 +202,16 @@ namespace BeanBag.Controllers
         public IActionResult TestImages(Guid projectId)
         {
             @ViewBag.ID = projectId;
-        
-            var mods = _aIService.getAllModels();
-            foreach (var t in mods.Where(t => t.Id.Equals(projectId)))
-            {
-                @ViewBag.Name = t.name ;
-            }
+
+            var model = _aIService.getModel(projectId);
+            ViewBag.Name = model.name;
+            ViewBag.Description = model.description;
+
+            if (model.imageCount == 0)
+                ViewBag.newProject = true;
+            else
+                ViewBag.newProject = false;
+
             return View();
         }
 
@@ -212,15 +221,20 @@ namespace BeanBag.Controllers
             [FromForm(Name ="projectId")] Guid projectId, [FromForm(Name ="tags")] string[] tags,
             [FromForm(Name = "LastTestImages")] string lastTestImages)
         {
-            //Checking if images are more than 5
+            var model = _aIService.getModel(projectId);
+
             if(files.Count < 5)
-            {
-                //Change this error handling
-                return Ok("Image count less than 5");
-            }
-            
+                return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
+
+            if(files.Count > 50)
+                return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
+
+
+            if (files.Count == 0)
+                return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
+
             //Checking if each tag is not empty or not an empty string
-            foreach(var tag in tags)
+            foreach (var tag in tags)
             {
                 if (tag.Equals("") || tag.Equals(" "))
                 {
@@ -259,30 +273,75 @@ namespace BeanBag.Controllers
         }
 
         // This function allows the user to edit a model by calling the EditModel AI Model service.
-        public IActionResult EditModel(Guid projectId, string projectName, string description)
+        [HttpPost]
+        public IActionResult EditAIModelPost(Guid projectId, string projectName, string description)
         {
             _aIService.editProject(projectId, projectName, description);
             return LocalRedirect("/AIModel");
         }
 
+        public IActionResult EditAIModel(Guid Id)
+        {
+            if(User.Identity is { IsAuthenticated: true})
+            {
+                var model = _aIService.getModel(Id);
+                if (model == null)
+                    return NotFound();
+
+                return View(model);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
+        }
+
         // This function allows the user to delete a model by calling the DeleteModel AI Model service.
-        public IActionResult DeleteModel(Guid projectId)
+        [HttpPost]
+        public IActionResult DeleteAIModelPost(Guid projectId)
         {
             _aIService.deleteProject(projectId);
             return LocalRedirect("/AIModel");
         }
 
-        // This function allows the user to edit a model version by calling the EditVersion AI Model service.
-        public IActionResult EditVersion()
+        public IActionResult DeleteAIModel(Guid projectId)
         {
-            throw new NotImplementedException();
+            if (User.Identity is { IsAuthenticated: true })
+            {
+                var model = _aIService.getModel(projectId);
+                if (model == null)
+                    return NotFound();
+
+                return View(model);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
         }
         
         // This function allows the user to delete a model version by calling the DeleteVersion AI Model service.
-        public IActionResult DeleteVersion(Guid projectId, Guid iterationId)
+        [HttpPost]
+        public IActionResult DeleteVersionPost(Guid projectId, Guid iterationId)
         {
             _aIService.deleteIteration(iterationId);
             return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
+        }
+
+        public IActionResult DeleteVersion(Guid Id)
+        {
+            if(User.Identity is { IsAuthenticated: true})
+            {
+                var version = _aIService.getIteration(Id);
+                if (version == null)
+                    return NotFound();
+
+                return View(version);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
         }
 
         // This function returns all of the performance metrics for the AI Model version
@@ -302,6 +361,28 @@ namespace BeanBag.Controllers
             iterationMetrics = modelPerformace.Precision*100 + "%-" + modelPerformace.Recall*100 + "%-" + modelPerformace.AveragePrecision*100 + "%\n";
 
             return Ok(iterationMetrics + "\n" + tagPerformance);
+        }
+
+        public IActionResult EditVersion(Guid Id)
+        {
+            if (User.Identity is { IsAuthenticated: true })
+            {
+                var version = _aIService.getIteration(Id);
+                if (version == null)
+                    return NotFound();
+
+                return View(version);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
+        }
+
+        public IActionResult EditVersionPost(Guid projectId, Guid Id, string description)
+        {
+            _aIService.EditIteration(Id, description);
+            return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
         }
 
     }

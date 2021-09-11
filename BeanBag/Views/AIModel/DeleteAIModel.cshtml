@@ -1,0 +1,25 @@
+﻿@model AIModel
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+@{
+    Layout = null;
+}
+
+<div class="modal-body">
+    <div class="form-group">
+        <h6 class="text-muted">Are you sure you want to delete this AI Model ?</h6>
+        <hr>
+        <div class="stats mt-2">
+            <div class="d-flex justify-content-around-between p-price"><span>ID</span><span>@Model.Id</span></div>
+            <div class="d-flex justify-content-around-between p-price"><span>Name</span><span>@Model.name</span></div>
+            <div class="d-flex justify-content-around-between p-price"><span>Date created</span><span>@Model.dateCreated</span></div>
+        </div>
+        <input asp-for="Id" hidden name="projectId"/>
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+    <input type="submit" class="btn btn-3" value="Delete" />
+</div>

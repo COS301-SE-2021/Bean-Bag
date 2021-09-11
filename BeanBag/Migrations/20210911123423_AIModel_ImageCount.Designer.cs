@@ -4,14 +4,16 @@ using BeanBag.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BeanBag.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20210911123423_AIModel_ImageCount")]
+    partial class AIModel_ImageCount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,7 @@ namespace BeanBag.Migrations
                     b.Property<string>("description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("imageCount")
+                    b.Property<int>("imageCount")
                         .HasColumnType("int");
 
                     b.Property<string>("name")

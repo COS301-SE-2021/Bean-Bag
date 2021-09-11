@@ -12,5 +12,9 @@ namespace BeanBag.Models
         public string name { get; set; }
 
         public DateTime dateCreated { get; set; }
+
+        public string description { get; set; }
+
+        public int? imageCount { get; set; }
     }
 }
