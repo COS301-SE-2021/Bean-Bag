@@ -14,5 +14,7 @@ namespace BeanBag.Models
         public string TenantTheme { get; set; }
         public string TenantLogo { get; set; }
         public string TenantSubscription { get; set; }
+        
+        public string InviteCode { get; set; }
     }
 }
