@@ -423,28 +423,33 @@ namespace BeanBag.Services
             if (iterationId == Guid.Empty)
                 throw new Exception("Iteration id is null");
 
-            return trainingClient.GetIterationPerformance(projectId, iterationId);
+            IterationPerformance returnThis = trainingClient.GetIterationPerformance(projectId, iterationId);
+
+            return returnThis;
         }
 
         // This method returns an AI Model iteration image tag performace (accuracy, precision, recall, ap, imageCount)
-        public List<AIModelVersionTagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId, IterationPerformance iterationPerformance)
+        public List<AIModelVersionTagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId)
         {
+
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
 
             if (iterationId == Guid.Empty)
                 throw new Exception("Iteration id is null");
 
+            IterationPerformance performance = getModelVersionPerformance(projectId, iterationId);
+
             List<AIModelVersionTagPerformance> returnList = new List<AIModelVersionTagPerformance>();
 
-            foreach (var tag in iterationPerformance.PerTagPerformance)
+            foreach (var tag in performance.PerTagPerformance)
             {
                 AIModelVersionTagPerformance addToList = new AIModelVersionTagPerformance()
                 {
                     tagId = tag.Id,
-                    precision = tag.Precision,
-                    recall = tag.Recall,
-                    averagePrecision = tag.AveragePrecision,
+                    precision = Math.Round(tag.Precision, 1)*100,
+                    recall = Math.Round(tag.Recall, 1) * 100,
+                    averagePrecision = Math.Round(tag.AveragePrecision.Value, 1) * 100,
                     tagName = tag.Name
                 };
 

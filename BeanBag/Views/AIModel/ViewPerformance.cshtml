@@ -1,0 +1,43 @@
+﻿@model List<BeanBag.Models.Helper_Models.AIModelVersionTagPerformance>
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+@{
+    Layout = null;
+}
+
+<div class="modal-body">
+    <div class="form-group">
+        <h6 class="text-muted">View AI Model Version Performance Metrics</h6>
+        <hr>
+        <div class="stats mt-2">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Tag</th>
+                        <th scope="col">Precision</th>
+                        <th scope="col">Recall</th>
+                        <th scope="col">A.P.</th>
+                        <th scope="col">Image Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var t in Model)
+                    {
+                    <tr>
+                        <th scope="row">@t.tagName</th>
+                        <th scope="row">@t.precision%</th>
+                        <th scope="row">@t.recall%</th>
+                        <th scope="row">@t.averagePrecision%</th>
+                        <th scope="row">@t.imageCount</th>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+</div>

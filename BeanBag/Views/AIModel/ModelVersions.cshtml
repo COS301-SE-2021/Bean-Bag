@@ -152,6 +152,13 @@
 
                                                             @if (!models.status.Equals("Training"))
                                                             {
+                                                                <a href="@Url.Action("ViewPerformance", "AiModel", new {@models.Id})"
+                                                                class="btn viewperformance" data-toggle="modal" data-target="#exampleModal4"
+                                                                data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Performance Metrics"><i class="fas fa-search"> </i></button></a>
+
+                                                                @*<a asp-controller="AiModel" class="btn" asp-action="ViewPerformance" asp-route-Id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Performance Metrics"><i class="fas fa-search"> </i></button></a>*@
+
+
                                                                 <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.Id})"
                                                                    class="btn delete" data-toggle="modal"
                                                                    data-target="#exampleModal4" data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
@@ -298,6 +305,18 @@
         });
     });
 
+    $('.viewperformance').click(function (ev) {
+        ev.preventDefault();
+
+        let action = $(this).attr('href');
+
+        $.get(action, function (data) {
+            let myModal = $("#exampleModal4");
+            myModal.find("form.data").html(data);
+            $('#exampleModal4').modal('show');
+        });
+    });
+
     // ID tooltip
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
@@ -308,4 +327,5 @@
 @{
     <partial name="_DeleteVersion" />
     <partial name="_EditVersion" />
+    <partial name="_ViewPerformance" />
 }

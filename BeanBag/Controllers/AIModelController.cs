@@ -358,7 +358,7 @@ namespace BeanBag.Controllers
             string tagPerformance = "";
 
             IterationPerformance modelPerformace = _aIService.getModelVersionPerformance(projectId, iterationId);
-            List<AIModelVersionTagPerformance> tagsPerformace = _aIService.getPerformancePerTags(projectId, iterationId, modelPerformace);
+            List<AIModelVersionTagPerformance> tagsPerformace = _aIService.getPerformancePerTags(projectId, iterationId);
 
             foreach(var tag in tagsPerformace)
             {
@@ -390,6 +390,27 @@ namespace BeanBag.Controllers
         {
             _aIService.EditIteration(Id, description);
             return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
+        }
+
+        
+        public IActionResult ViewPerformance(Guid Id)
+        {
+            if(User.Identity is { IsAuthenticated: true})
+            {
+                var iteration = _aIService.getIteration(Id);
+                Guid projectId = iteration.projectId;
+
+                List<AIModelVersionTagPerformance> tags =  _aIService.getPerformancePerTags(projectId, iteration.Id);
+
+                ViewBag.iterationId = Id;
+                ViewBag.projectId = projectId;
+
+                return View(tags);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
         }
 
     }
