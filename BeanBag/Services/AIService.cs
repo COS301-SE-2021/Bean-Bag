@@ -447,9 +447,9 @@ namespace BeanBag.Services
                 AIModelVersionTagPerformance addToList = new AIModelVersionTagPerformance()
                 {
                     tagId = tag.Id,
-                    precision = Math.Round(tag.Precision, 1)*100,
-                    recall = Math.Round(tag.Recall, 1) * 100,
-                    averagePrecision = Math.Round(tag.AveragePrecision.Value, 1) * 100,
+                    precision = Math.Round(tag.Precision, 2)*100.00,
+                    recall = Math.Round(tag.Recall, 2)*100.00,
+                    averagePrecision = Math.Round(tag.AveragePrecision.Value, 1) * 100.00,
                     tagName = tag.Name
                 };
 
