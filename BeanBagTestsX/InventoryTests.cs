@@ -94,9 +94,10 @@ namespace BeanBagUnitTests
             Assert.NotEqual(3 , tinvs.Count);
 
         }
+
+
+        private readonly DbContextOptions<DBContext> _options;
         
-
-
         //Unit test for creating an inventory, a valid new inventory (positive testing)
         [Fact]
         public void Creating_An_Inventory()

@@ -68,8 +68,8 @@ namespace BeanBagIntegrationTests
             var myDay = DateTime.MinValue;
             
             //ACT
-            _db.Inventories.Add(new Inventory { Id = theId2, name = "Leopard shorts", createdDate = myDay, userId = u2 });
-            _db.Inventories.Add(new Inventory { Id = theId3, name = "Zebra shirt",  createdDate = myDay, userId = u2 });
+            _db.Inventories.Add(new Inventory { Id = theId2, name = "Leopard shorts", createdDate = myDay, userId = u2 , publicToTenant = false});
+            _db.Inventories.Add(new Inventory { Id = theId3, name = "Zebra shirt",  createdDate = myDay, userId = u2, publicToTenant = false });
            
             _db.SaveChanges();
 
@@ -118,7 +118,7 @@ namespace BeanBagIntegrationTests
             //ACT
             var query = new InventoryService(_db);
 
-            var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
+            var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 , publicToTenant = false};
 
             query.CreateInventory(thenew);
             
@@ -159,7 +159,7 @@ namespace BeanBagIntegrationTests
             
             var query = new InventoryService(_db);
 
-            var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
+            var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 , publicToTenant = false};
 
             query.CreateInventory(thenew);
 
@@ -200,7 +200,7 @@ namespace BeanBagIntegrationTests
             
             var query = new InventoryService(_db);
             
-            var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
+            var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2, publicToTenant = false };
 
             //ACT 
             
