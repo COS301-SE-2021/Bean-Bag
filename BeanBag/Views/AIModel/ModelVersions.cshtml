@@ -37,6 +37,8 @@
                     {
                         <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
                     }
+                    <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TestImages" class="btn btn-3 shadow-sm bg-body rounded">Upload images to model &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+
                 </div>
             </div>
 
@@ -155,9 +157,6 @@
                                                                 <a href="@Url.Action("ViewPerformance", "AiModel", new {@models.Id})"
                                                                 class="btn viewperformance" data-toggle="modal" data-target="#exampleModal4"
                                                                 data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Performance Metrics"><i class="fas fa-search"> </i></button></a>
-
-                                                                @*<a asp-controller="AiModel" class="btn" asp-action="ViewPerformance" asp-route-Id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Performance Metrics"><i class="fas fa-search"> </i></button></a>*@
-
 
                                                                 <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.Id})"
                                                                    class="btn delete" data-toggle="modal"

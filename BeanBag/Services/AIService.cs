@@ -508,9 +508,17 @@ namespace BeanBag.Services
                 }
 
                 if (tag.ImageCount > max)
+                {
                     max = tag.ImageCount;
+                    maxTag = tag.Name;
+                }
+                    
                 if (tag.ImageCount < min)
+                {
                     min = tag.ImageCount;
+                    minTag = tag.Name;
+                }
+                    
             }
 
             //Ensuring balance data. That the max amount of images associated with a tag is not over double than the min amount of images associated with a tag

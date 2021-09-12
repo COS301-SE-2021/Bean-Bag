@@ -108,8 +108,9 @@
                         &nbsp;
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <input type="submit" class="btn btn-3" value="Upload"/> <!--create button-->
+
+                        <a asp-controller="AiModel" asp-route-projectId="@ViewBag.ID" asp-action="ModelVersions" class="btn btn-3">Cancel</a>
+                        <input type="submit" class="btn btn-3" value="Upload" /> <!--create button-->
                     </div>
                 </form>
             </div>
