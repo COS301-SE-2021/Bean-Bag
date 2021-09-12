@@ -4,6 +4,7 @@
 @using Microsoft.Identity.Web
 @inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
 
+@{int i = 0;}
 <!--Edit item-->
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
@@ -71,16 +72,46 @@
                                                     <label asp-for="name"></label>
                                                     <input asp-for="name" class="form-control"/>
                                                 </div>
-
+                                                
+                                                @* RENO: GRABBING THE PREDICTED TAGS FROM THE VIEW-BAG IN THE PREDICT FUNCTION OF THE AI MODEL *@
                                                 <div class="form-group row">
+                                                 
                                                     <label asp-for="type"></label>
-                                                    <input asp-for="type" class="form-control"/>
-                                                </div>
+                                                    
+                                                    <!--Add your own tags -->
+                                                    <table class="table table-bordered table-hover pr-5" id="tab_logic">
+                                                        <thead>
+                                                        <tr>
+                                                            <th >#</th>
+                                                            <th >Tag Name</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        
+                                                        @foreach (var x in ViewBag.types)
+                                                        {
+                                                            <tr id="@i">
+                                                                <td>@i</td>
+                                                                <td>
+                                                                    <input type="text" name='tags' placeholder='Name' value="@x" class="form-control"/>
+                                                                </td>
+                                                            </tr>
+                                                            i++;
+                                                        }
 
-                                                <div class="form-group row">
-                                                    <label asp-for="price"></label>
-                                                    <input asp-for="price" class="form-control"/>
-                                                </div>
+
+                                                        <tr id="@i"></tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <a id="add_row" class="btn btn-3  text-light">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a> &nbsp;  &nbsp; 
+                                                    <a id='delete_row' class="btn btn-3 text-light">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
+                                                                                              
+                                                    <div class="pl-4 form-check-inline form-group row ">
+                                                        <label class="form-check-label">Done &nbsp;</label>
+                                                        <input class="form-check-input" name="LastTestImages" type="checkbox">
+                                                    </div>
+                                                                                                                                      
+                                                    </div>
 
                                                 <div class="form-group row">
                                                     <label asp-for="quantity"></label>
@@ -103,16 +134,19 @@
                                                     <input asp-for="soldDate" class="form-control" type="date"/>
                                                     
                                                 </div>
+                                                   <div class="form-group row">
+                                                                                                    <label asp-for="price"></label>
+                                                                                                    <input asp-for="price" class="form-control"/>
+                                                                                                </div>
                                                 <div class="form-group row">
                                                     <label asp-for="inventoryId" value="Inventory"></label>
                                                     <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
                                                         <option selected>Select Inventory</option>
                                                     </select>
                                                 </div>
-                                                <!--need to do backend code-->
                                                 <div class="form-group row">
                                                     <label asp-for="colour">Colour</label> &nbsp; &nbsp;<br>
-                                                    <input asp-for="colour" type="color" size="100px" name="colour">
+                                                    <input asp-for="colour" type="color"  size="100px" name="colour">
                                                 </div>
 
                                                 <div class="form-group row">
@@ -157,4 +191,26 @@
 </script>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+@* This script functions is used to add dynamic text boxes to allow the user to enter as many tags as
+ they desire with the uploaded test images *@
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+       $(document).ready(function(){  
+        let i=@i;
+       $("#add_row").click(function(){
+        $('#'+i).html("<td>"+ (i+1) +"</td><td><input name='tags' type='text' placeholder='Name' class='form-control input-md'  /> " 
+         );
+        
+        $('#tab_logic').append('<tr id="'+(i+1)+'"></tr>');
+        i++; 
+       });
+       $("#delete_row").click(function(){
+      	 if(i>1){
+  		 $("#"+(i-1)).html('');
+  		 i--;
+  		 }
+  	 });
+  });   
+</script>
+
 

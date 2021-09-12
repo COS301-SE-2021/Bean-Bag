@@ -13,7 +13,7 @@ namespace BeanBag.Models
         [Required]
         [DisplayName("Name")]
         public string name { get; set; }
-        [Required]
+      
         [DisplayName("Type")]
         public string type { get; set; }
         [Required]
