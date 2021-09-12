@@ -51,5 +51,9 @@ namespace BeanBag.Services
 
         public int? getImageCount(Guid projectId);
 
+        public List<string> AIModelRecommendations(Guid projectId);
+
+        public IList<Tag> getModelTags(Guid projectId);
+
     }
 }

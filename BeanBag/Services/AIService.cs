@@ -548,5 +548,13 @@ namespace BeanBag.Services
 
             return count;
         }
+
+        public IList<Tag> getModelTags(Guid projectId)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project Id is null.");
+
+            return trainingClient.GetTags(projectId);
+        }
     }
 }

@@ -180,7 +180,14 @@ namespace BeanBag.Controllers
                 ViewBag.canTrainNewVersion = false;
             else
                 ViewBag.canTrainNewVersion = true;
-        
+
+            ViewBag.recommendations = _aIService.AIModelRecommendations(projectId); ;
+            ViewBag.modelTags = _aIService.getModelTags(projectId);
+
+            //IList<Tag> tags = _aIService.getModelTags(projectId);
+            //foreach(var t in tags)
+            //    t.ima
+
             return View(viewModel);
             }
             else

@@ -29,6 +29,7 @@
 
             <hr>
 
+
             <div class="row">
 
                 <div class=" mr-3 ml-auto">
@@ -149,13 +150,13 @@
                                                                class="btn edit" data-toggle="modal" data-target="#exampleModal3"
                                                                data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
 
-                                                            @if(!models.status.Equals("Training"))
+                                                            @if (!models.status.Equals("Training"))
                                                             {
                                                                 <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.Id})"
                                                                    class="btn delete" data-toggle="modal"
                                                                    data-target="#exampleModal4" data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
                                                             }
-                                                            
+
 
                                                             @if (models.status.Equals("Completed") && models.availableToUser == false)
                                                             {
@@ -195,14 +196,52 @@
 
                 })
             </div>
-
             <!--Code to show current page and page number-->
             <div>
                 Showing @(Model.PagedListVersions.PageCount < Model.PagedListVersions.PageNumber ? 0 : Model.PagedListVersions.PageNumber) out of @Model.PagedListVersions.PageCount entries
             </div>
+            <br />
+            @* Section to show the tags associated with the model *@
+
+            <div class="row">
+                <b>Model Tags</b>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tag</th>
+                            <th scope="col">Image Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var tag in ViewBag.modelTags)
+                        {
+                            <tr>
+                                <th scope="row">@tag.Name</th>
+                                <td>@tag.ImageCount</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <br />
+            @* Section for AI model recommendations *@
+            <div class="row">
+                <b>Recommendations</b>
+                <div class=" mr-3 ml-auto">
+                    @foreach (string r in ViewBag.recommendations)
+                    {
+                        @r
+                        <br />
+                    }
+
+                </div>
+            </div>
+
+
 
         </div>
-    </div>
+        </div>
 </section>
 
 
