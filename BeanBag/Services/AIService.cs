@@ -1,5 +1,6 @@
 ﻿using BeanBag.Database;
 using BeanBag.Models;
+using BeanBag.Models.Helper_Models;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
@@ -12,22 +13,22 @@ using System.Threading.Tasks;
 namespace BeanBag.Services
 {
     // The AI service class is used by the AIModel controller to create and train AI models as well as publish iterations of the model
-    public class AiService : IAiService
+    public class AIService : IAIService
     {
         // Variables
-        private readonly CustomVisionTrainingClient _trainingClient;
-        private readonly CustomVisionPredictionClient _predictionClient;
+        private CustomVisionTrainingClient trainingClient;
+        private CustomVisionPredictionClient predictionClient;
         private readonly DBContext _db;
         private readonly IBlobStorageService _blob;
-        private readonly string _resourceId;
+        private string resourceId;
 
         //Constructor
-        public AiService(DBContext db, IBlobStorageService blob, IConfiguration config)
+        public AIService(DBContext db, IBlobStorageService blob, IConfiguration config)
         {
             string key = config.GetValue<string>("CustomVision:Key");
-            _resourceId = config.GetValue<string>("CustomVision:ResourceId");
+            resourceId = config.GetValue<string>("CustomVision:ResourceId");
 
-            _trainingClient = new CustomVisionTrainingClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.ApiKeyServiceClientCredentials(key))
+            trainingClient = new CustomVisionTrainingClient(new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.ApiKeyServiceClientCredentials(key))
             {
                 Endpoint = config.GetValue<string>("CustomVision:Endpoint")
             };
@@ -35,7 +36,7 @@ namespace BeanBag.Services
             _db = db;
             _blob = blob;
 
-            _predictionClient = new CustomVisionPredictionClient
+            predictionClient = new CustomVisionPredictionClient
                 (new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.ApiKeyServiceClientCredentials(key))
             {
                 Endpoint = config.GetValue<string>("CustomVision:Endpoint")
@@ -43,81 +44,87 @@ namespace BeanBag.Services
         }
 
         // This method is used to return the tags (item type) from a specified model for an item image 
-        public string Predict(Guid projectId, string iterationName, string imageUrl)
+        public List<AIPrediction> predict(Guid projectId, string iterationName, string imageURL)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project Id is null");
 
-            if (_trainingClient.GetProject(projectId) == null)
+            if (trainingClient.GetProject(projectId) == null)
                 throw new Exception("No Custom Vision project exists with Guid " + projectId.ToString());
 
             if (iterationName.Equals("") || iterationName.Equals(" "))
                 throw new Exception("Invalid iteration name");
 
-            if (imageUrl.Equals("") || imageUrl.Equals(" "))
+            if (imageURL.Equals("") || imageURL.Equals(" "))
                 throw new Exception("Invalid image url");
 
             //This is used to check that the image url comes from a valid source that being the polaris blob storage
-            if (!imageUrl.Contains("https://polarisblobstorage.blob.core.windows.net/itemimages/"))
+            if (!imageURL.Contains("https://polarisblobstorage.blob.core.windows.net/itemimages/"))
                 throw new Exception("Image url comes from invalid source");
 
-            try 
-            {             
-                var result = _predictionClient.ClassifyImageUrl(projectId, iterationName,
-                new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(imageUrl));
+            try
+            {
+                var result = predictionClient.ClassifyImageUrl(projectId, iterationName,
+                new Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl(imageURL));
 
-                string itemType = "";
+                List<AIPrediction> listPred = new List<AIPrediction>();
 
                 foreach (var prediction in result.Predictions)
                 {
-                    // The probability needs to be above 90% to be deemed accurate by the model
-                    //if (prediction.Probability > 0.9)
-                    itemType += prediction.TagName + ",";
+                    if (prediction.Probability > 0.75)
+                    {
+                        listPred.Add(new AIPrediction
+                        {
+                            tagName = prediction.TagName,
+                            percentage = prediction.Probability * 100
+                        });
+                    }
+
 
                 }
 
-                if (itemType.Length > 0)
-                    itemType = itemType.Remove(itemType.Length - 1, 1);
-
-                return itemType;
+                return listPred;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
         }
 
         // This method is used to create a new project (model) in custom vision
-        public async Task<Guid> CreateProject(string projectName)
+        public async Task<Guid> createProject(string projectName, string description)
         {
             if (projectName.Equals("") || projectName.Equals(" "))
                 throw new Exception("Invalid project name");
 
             try
             {
-                Project newProject = await _trainingClient.CreateProjectAsync(projectName);
+                Project newProject = await trainingClient.CreateProjectAsync(projectName);
 
                 AIModel newModel = new AIModel()
                 {
-                    projectName = projectName,
-                    projectId = newProject.Id
+                    name = projectName,
+                    Id = newProject.Id, 
+                    description = description, 
+                    dateCreated = DateTime.Now, 
+                    imageCount = 0
                 };
 
                 await _db.AIModels.AddAsync(newModel);
 
-                await _db.SaveChangesAsync();
+                _db.SaveChanges();
 
-                return newModel.projectId;
+                return newModel.Id;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method deletes a custom vision project from the DB and custom vision service
-        public void DeleteProject(Guid projectId)
+        public void deleteProject(Guid projectId)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
@@ -125,14 +132,14 @@ namespace BeanBag.Services
             try
             {
                 // 1) removing test images from blob storage
-                _blob.DeleteTestImageFolder(projectId.ToString());
+                _blob.deleteTestImageFolder(projectId.ToString());
 
                 // 2) Deleting from Custom Vision and iterations
-                var iterations = _trainingClient.GetIterations(projectId);
+                var iterations = trainingClient.GetIterations(projectId);
                 foreach (var i in iterations)
-                    DeleteIteration(i.Id);
+                    deleteIteration(i.Id);
 
-                _trainingClient.DeleteProject(projectId);
+                trainingClient.DeleteProject(projectId);
 
                 // 3) Deleting from DB
                 AIModel model = _db.AIModels.Find(projectId);
@@ -140,80 +147,110 @@ namespace BeanBag.Services
                 _db.SaveChanges();
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
+        }
+
+        // This method edits the name of the custom vision project as well as the description of the model. Reflects in the DB
+        public void editProject(Guid projectId, string projectName, string description)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project id is null");
+
+            //Changing the name in custom vision
+            trainingClient.GetProject(projectId).Name = projectName;
+
+            var project = _db.AIModels.Find(projectId);
+
+            project.name = projectName;
+            project.description = description;
+            //project.description = description;
+            _db.AIModels.Update(project);
+            
+            _db.SaveChanges();
         }
 
         // This method is used to upload a set of test images into the Azure blob storage and then into the custom vision project
-        public async void UploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
+        public async void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
 
-            if (await _trainingClient.GetProjectAsync(projectId) == null)
+            if (trainingClient.GetProject(projectId) == null)
                 throw new Exception("Custom vision project does not exist with project id " + projectId.ToString());
+
+            List<Guid> imageTagsId = new List<Guid>();
+            foreach (var tag in tags)
+            {
+                imageTagsId.Add(trainingClient.CreateTag(projectId, tag).Id);
+            }
+
+            List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
+
+            foreach (var url in imageUrls)
+            {
+                images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
+            }
+
+            await trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
 
             try
             {
-                List<Guid> imageTagsId = new List<Guid>();
-                foreach(var tag in tags)
-                {
-                    imageTagsId.Add((await _trainingClient.CreateTagAsync(projectId, tag)).Id);
-                }
-
-                List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
-
-                foreach(var url in imageUrls)
-                {
-                    images.Add(new ImageUrlCreateEntry(url, imageTagsId));
-                }
-
-                await _trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
+                
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method trains the model with the test images and creates a new iteration
-        public void TrainModel(Guid projectId)
+        public void trainModel(Guid projectId)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
 
-            if (_trainingClient.GetProject(projectId) == null)
+            if (trainingClient.GetProject(projectId) == null)
                 throw new Exception("Custom Vision project does not exist with projectId " + projectId.ToString());
 
             try
             {
-                var iteration = _trainingClient.TrainProject(projectId);
-                // string projectName = _trainingClient.GetProject(projectId).Name;
+                //var iteration = trainingClient.TrainProject(projectId, "Advanced");
+                var iteration = trainingClient.TrainProject(projectId);
+                string projectName = trainingClient.GetProject(projectId).Name;
 
                 AIModelVersions newModelVersion = new AIModelVersions()
                 {
-                    iterationName = iteration.Name,
+                    Name = "Version " + iteration.Name.Substring(iteration.Name.Length-1),
                     availableToUser = false,
-                    iterationId = iteration.Id,
-                    status = iteration.Status,
-                    projectId = projectId
+                    Id = iteration.Id,
+                    status = iteration.Status.ToString(),
+                    projectId = projectId, 
+                    createdDate = DateTime.Now
                 };
+
+                var model = _db.AIModels.Find(projectId);
+                int? count = getImageCount(projectId);
+
+                model.imageCount = count;
+
+                _db.AIModels.Update(model);
 
                 _db.AIModelIterations.Add(newModelVersion);
                 _db.SaveChanges();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method deletes an iteration from the custom vision service as well as from the DB
-        public void DeleteIteration(Guid iterationId)
+        public void deleteIteration(Guid iterationId)
         {
             if (iterationId == Guid.Empty)
                 throw new Exception("Iteration id is null");
@@ -225,48 +262,48 @@ namespace BeanBag.Services
 
             try
             {
-                if(iteration.availableToUser)
-                    _trainingClient.UnpublishIteration(iteration.projectId, iterationId);
+                if (iteration.availableToUser)
+                    trainingClient.UnpublishIteration(iteration.projectId, iterationId);
 
-                _trainingClient.DeleteIteration(iteration.projectId, iterationId);
+                trainingClient.DeleteIteration(iteration.projectId, iterationId);
 
                 _db.AIModelIterations.Remove(iteration);
                 _db.SaveChanges();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
         }
 
         // This method returns all of the iterations related to a custom vision project
-        public List<AIModelVersions> GetProjectIterations(Guid projectId)
+        public List<AIModelVersions> getProjectIterations(Guid projectId)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
-            if (_trainingClient.GetProject(projectId) == null)
+            if (trainingClient.GetProject(projectId) == null)
                 throw new Exception("Custom Vision project does not exist with project id " + projectId.ToString());
 
             try
             {
-                var iterations = _trainingClient.GetIterations(projectId);
+                var iterations = trainingClient.GetIterations(projectId);
 
                 if (iterations.Count == 0)
                     return new List<AIModelVersions>();
 
-                UpdateProjectIterationsStatus(iterations.ToList());
+                updateProjectIterationsStatus(iterations.ToList());
 
                 return (from i in _db.AIModelIterations where i.projectId.Equals(projectId) select i).ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method is used to update the project iterations status in the DB
-        private void UpdateProjectIterationsStatus(List<Iteration> iterations)
+        public void updateProjectIterationsStatus(List<Iteration> iterations)
         {
             if (iterations.Count == 0)
                 throw new Exception("List of iterations is empty");
@@ -281,52 +318,52 @@ namespace BeanBag.Services
         }
 
         // This method is used to retrieve all available to user iterations from the DB
-        public List<AIModelVersions> GetAllAvailableIterations()
+        public List<AIModelVersions> getAllAvailableIterations()
         {
             try
             {
                 return (from i in _db.AIModelIterations where i.availableToUser.Equals(true) select i).ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method is used to retrieve all of the AI Model projects in the DB
-        public List<AIModel> GetAllModels()
+        public List<AIModel> getAllModels()
         {
-            try 
+            try
             {
                 return _db.AIModels.ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method is used to retrieve a single iteration from the DB
-        public AIModelVersions GetIteration(Guid iterationId)
+        public AIModelVersions getIteration(Guid iterationId)
         {
             if (iterationId == Guid.Empty)
                 throw new Exception("Iteration Id is null.");
-            
-            try 
+
+            try
             {
                 return _db.AIModelIterations.Find(iterationId);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method is used to publish an iteration thus making it available to the user 
-        public void PublishIteration(Guid projectId, Guid iterationId)
+        public void publishIteration(Guid projectId, Guid iterationId)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
@@ -335,23 +372,23 @@ namespace BeanBag.Services
 
             try
             {
-                string iterationName = _trainingClient.GetIteration(projectId, iterationId).Name;
-                _trainingClient.PublishIteration(projectId, iterationId, iterationName, _resourceId);
+                string iterationName = trainingClient.GetIteration(projectId, iterationId).Name;
+                trainingClient.PublishIteration(projectId, iterationId, iterationName, resourceId);
 
                 var iteration = _db.AIModelIterations.Find(iterationId);
                 iteration.availableToUser = true;
                 _db.AIModelIterations.Update(iteration);
                 _db.SaveChanges();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
-            
+
         }
 
         // This method is used to unpublish an iteration thus making it unavailable to the user
-        public void UnpublishIteration(Guid projectId, Guid iterationId)
+        public void unpublishIteration(Guid projectId, Guid iterationId)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
@@ -360,21 +397,177 @@ namespace BeanBag.Services
 
             try
             {
-                _trainingClient.UnpublishIteration(projectId, iterationId);
+                trainingClient.UnpublishIteration(projectId, iterationId);
 
                 _db.AIModelIterations.Find(iterationId).availableToUser = false;
                 _db.SaveChanges();
-            }          
-            catch(Exception e)
+            }
+            catch (Exception e)
             {
                 throw new Exception(e.ToString());
             }
         }
 
         // This method returns all iterations available to the user that belongs to a model
-        public List<AIModelVersions> GetAllAvailableIterationsOfModel(Guid projectId)
+        public List<AIModelVersions> getAllAvailableIterationsOfModel(Guid projectId)
         {
             return _db.AIModelIterations.Where(i => i.availableToUser.Equals(true) && i.projectId.Equals(projectId)).ToList();
+        }
+
+        // This method returns an AI Model iteration performace (accuracy, precision, recall, AP)
+        public IterationPerformance getModelVersionPerformance(Guid projectId, Guid iterationId)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project id is null");
+
+            if (iterationId == Guid.Empty)
+                throw new Exception("Iteration id is null");
+
+            IterationPerformance returnThis = trainingClient.GetIterationPerformance(projectId, iterationId);
+
+            return returnThis;
+        }
+
+        // This method returns an AI Model iteration image tag performace (accuracy, precision, recall, ap, imageCount)
+        public List<AIModelVersionTagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId)
+        {
+
+            if (projectId == Guid.Empty)
+                throw new Exception("Project id is null");
+
+            if (iterationId == Guid.Empty)
+                throw new Exception("Iteration id is null");
+
+            IterationPerformance performance = getModelVersionPerformance(projectId, iterationId);
+
+            List<AIModelVersionTagPerformance> returnList = new List<AIModelVersionTagPerformance>();
+
+            foreach (var tag in performance.PerTagPerformance)
+            {
+                AIModelVersionTagPerformance addToList = new AIModelVersionTagPerformance()
+                {
+                    tagId = tag.Id,
+                    precision = Math.Round(tag.Precision, 2)*100.00,
+                    recall = Math.Round(tag.Recall, 2)*100.00,
+                    averagePrecision = Math.Round(tag.AveragePrecision.Value, 1) * 100.00,
+                    tagName = tag.Name
+                };
+
+                returnList.Add(addToList);
+            }
+
+
+            IList<Tag> imageTags = trainingClient.GetTags(projectId, iterationId);
+            foreach (var tag in imageTags)
+            {
+                for (int i = 0; i < returnList.Count; i++)
+                {
+                    for (int j = 0; j < imageTags.Count; j++)
+                    {
+                        if (returnList[i].tagId == imageTags[j].Id)
+                        {
+                            returnList[i].imageCount = imageTags[j].ImageCount;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return returnList;
+        }
+
+        public IList<Tag> getIterationTags(Guid projectId, Guid iterationId)
+        {
+            return trainingClient.GetTags(projectId, iterationId);
+        }
+
+        public List<string> AIModelRecommendations(Guid projectId)
+        {
+            List<string> recommendations = new List<string>();
+
+            IList<Tag> tags = trainingClient.GetTags(projectId);
+
+            //Checking if their are more than one tag in a model
+            if(tags.Count == 0 || recommendations.Count == 1)
+            {
+                recommendations.Add(trainingClient.GetProject(projectId).Name + " needs to have more than one tag.");
+                return recommendations;
+            }
+
+            string minTag = tags[0].Name;
+            string maxTag = tags[0].Name;
+            int min = tags[0].ImageCount;
+            int max = tags[0].ImageCount;
+
+            foreach (var tag in tags)
+            {
+                //50 images at least for each tag made
+                if (tag.ImageCount < 50)
+                {
+                    recommendations.Add(tag.Name + " needs to have more than 50 images associated with it.");
+                }
+
+                if (tag.ImageCount > max)
+                {
+                    max = tag.ImageCount;
+                    maxTag = tag.Name;
+                }
+                    
+                if (tag.ImageCount < min)
+                {
+                    min = tag.ImageCount;
+                    minTag = tag.Name;
+                }
+                    
+            }
+
+            //Ensuring balance data. That the max amount of images associated with a tag is not over double than the min amount of images associated with a tag
+            if ((max / min) > 2)
+                recommendations.Add(maxTag + " has more than double the amount of images than " + minTag + ". Add more images to " + minTag + " to make the model have more balanced data.");
+
+            return recommendations;
+        }
+
+        public AIModel getModel(Guid projectId)
+        {
+            AIModel model = _db.AIModels.Find(projectId);
+            return model;
+        }
+
+        public void EditIteration(Guid iterationId, string description)
+        {
+            if (iterationId == Guid.Empty)
+                throw new Exception("Iteration id is null");
+
+            var iteration = _db.AIModelIterations.Find(iterationId);
+            iteration.description = description;
+
+            _db.AIModelIterations.Update(iteration);
+            _db.SaveChanges();
+        }
+
+        public int? getImageCount(Guid projectId)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project id is null");
+
+            if (trainingClient.GetProject(projectId) == null)
+                throw new Exception("Project does not exist with Id " + projectId.ToString());
+
+            int? count = trainingClient.GetImageCount(projectId);
+
+            if (count == null)
+                return 0;
+
+            return count;
+        }
+
+        public IList<Tag> getModelTags(Guid projectId)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project Id is null.");
+
+            return trainingClient.GetTags(projectId);
         }
     }
 }

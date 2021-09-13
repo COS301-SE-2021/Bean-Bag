@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
@@ -10,9 +11,9 @@ namespace BeanBag.Services
     {
         private readonly CloudBlobContainer _tenantCloudBlobContainer;
 
-        public TenantBlobStorageService()
+        public TenantBlobStorageService(IConfiguration config)
         {
-            var cloudStorageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=polarisblobstorage;AccountKey=y3AJRr3uWZOtpxx3YxZ7MFIQY7oy6nQsYaEl6jFshREuPND4H6hkhOh9ElAh2bF4oSdmLdxOd3fr+ueLbiDdWw==;EndpointSuffix=core.windows.net");
+            var cloudStorageAccount = CloudStorageAccount.Parse(config.GetValue<string>("AzureBlobStorage:ConnectionString"));
             var cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
             _tenantCloudBlobContainer = cloudBlobClient.GetContainerReference("tenant-logos");
         }

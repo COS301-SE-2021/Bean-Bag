@@ -7,16 +7,15 @@ namespace BeanBag.Models
     public class AIModelVersions
     {
         [Key]
-        public Guid iterationId { get; set; }
-       
-        [StringLength(20, ErrorMessage = "Tenant name length can't be more than 20.")]
-        public string iterationName { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
         public bool availableToUser { get; set; }
         public string status { get; set; }
         [Required]
         public Guid projectId { get; set; }
         [ForeignKey("projectId")]
         public virtual AIModel AIModel { get; set; }
-        public string predictionUrl { get; set; }
+        public DateTime createdDate { get; set; } 
+        public string description { get; set; } 
     }
 }

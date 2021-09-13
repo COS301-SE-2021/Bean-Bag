@@ -11,11 +11,11 @@ namespace BeanBag.Controllers
     public class AppearanceController : Controller
     {
         // Global variables needed for calling the service classes.
-        private readonly TenantService _tenantService;
-        private readonly TenantBlobStorageService _tenantBlobStorageService;
+        private readonly ITenantService _tenantService;
+        private readonly ITenantBlobStorageService _tenantBlobStorageService;
 
         // Constructor.
-        public AppearanceController(TenantService tenantService, TenantBlobStorageService tenantBlobStorageService)
+        public AppearanceController(ITenantService tenantService, ITenantBlobStorageService tenantBlobStorageService)
         {
             this._tenantService = tenantService;
             this._tenantBlobStorageService = tenantBlobStorageService;

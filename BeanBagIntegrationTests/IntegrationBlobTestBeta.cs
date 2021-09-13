@@ -21,19 +21,17 @@ namespace BeanBagIntegrationTests
     public class IntegrationBlobTestBeta 
     {
         private readonly CloudStorageAccount cloudStorageAccount;
-        private readonly CloudBlobClient _cloudBlobClient;
+        private readonly CloudBlobClient cloudBlobClient;
         private CloudBlobContainer cloudBlobContainer;
         private readonly IConfiguration config;
 
-        public IntegrationBlobTestBeta()
+        public IntegrationBlobTestBeta(IConfiguration config)
         {
-            this.config = new ConfigurationBuilder().AddJsonFile("appsettings.local.json").Build();
+            this.config = config;
             cloudStorageAccount = CloudStorageAccount.Parse(config.GetValue<string>("AzureBlobStorage:ConnectionString"));
-            _cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+            cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
-        
 
-        //Integration test defined to test the getting the uploading of an image (positive testing)
         [Fact]
         public async Task Upload_Item_Image_Valid()
         {
@@ -72,20 +70,19 @@ namespace BeanBagIntegrationTests
 
             var myService = new BlobStorageService(config);
             
-            cloudBlobContainer = _cloudBlobClient.GetContainerReference("itemimages");
+            cloudBlobContainer = cloudBlobClient.GetContainerReference("itemimages");
             CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(file.FileName);
             cloudBlockBlob.Properties.ContentType = file.ContentType;
 
             //ACT
 
-            await myService.UploadItemImage(file);
+            await myService.uploadItemImage(file);
             var myUploadedFile = cloudBlobContainer.GetBlockBlobReference(file.FileName);
 
             //ASSERT
             Assert.NotNull(myUploadedFile);
         }
 
-        //Integration test defined to test the getting the uploading of test images (positive testing)
         [Fact]
         public async Task Upload_Test_Images_Valid()
         {
@@ -126,13 +123,13 @@ namespace BeanBagIntegrationTests
 
             var myService = new BlobStorageService(config);
             
-            cloudBlobContainer = _cloudBlobClient.GetContainerReference("itemimages");
+            cloudBlobContainer = cloudBlobClient.GetContainerReference("itemimages");
             CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(file.FileName);
             cloudBlockBlob.Properties.ContentType = file.ContentType;
 
             //ACT
 
-            await myService.UploadItemImage(file);
+            await myService.uploadItemImage(file);
             var myUploadedFile = cloudBlobContainer.GetBlockBlobReference(file.FileName);
 
             //ASSERT

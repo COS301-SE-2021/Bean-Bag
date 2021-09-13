@@ -22,7 +22,7 @@ namespace BeanBag.Models
         [StringLength(250, ErrorMessage = "Description name length can't be more than 250.")]
         public string description { get; set; }
         public DateTime createdDate { get; set; }
-        
+
         public bool publicToTenant { get; set; }
     }
     

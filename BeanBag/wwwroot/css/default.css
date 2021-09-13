@@ -45,10 +45,10 @@ body {
 
 /*Buttons*/
 .btn-1 {
-    background-color: #0275d8; /* btn-primary colour*/
+    background-color: #86fde8; /* btn-primary colour*/
     padding: 12px 30px;
     border: none;
-    color: white !important;
+    color: black !important;
     font-size: 16px;
     text-transform: capitalize;
     /*    transition: all 05s ease;*/
@@ -60,20 +60,23 @@ body {
     /*  box-shadow: var(--shadow-black-100);*/
 }
 .btn-1:hover{
-    color: white !important;
+    color: black; !important;
 
 }
 .btn-3{
-    background-color: #0275d8;
-    color:white;
+    background: #acb6e5;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #86fde8, #acb6e5);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #86fde8, #acb6e5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+    color: black;
 }
 .btn-3:visited{
-    background-color: #0275d8 !important;
-    color:white !important;  
+    background-color: #86fde8 !important;
+    color:black !important;  
 }
 .btn-3:hover{
-    color:white !important;
-    background-color: #0262b5!important; /* use an intense hue of the colour*/
+    color: black; !important;
+    background-color: #86fde8 !important; /* use an intense hue of the colour*/
 }
 
 .btn:visited{
@@ -476,7 +479,7 @@ a[href^="https"] {
 .page-header .admin-menu button:hover,
 .page-header .admin-menu button:focus {
     background: var(--page-header-bgColor-hover);
-    color: #00b9eb;/*add this to theme css files*/
+    color: #86fde8;/*add this to theme css files*/
 
 }
 
@@ -484,7 +487,7 @@ a[href^="https"] {
 .page-header .admin-menu a:focus svg,
 .page-header .admin-menu button:hover svg,
 .page-header .admin-menu button:focus svg {
-    fill: #00b9eb; /*add this to theme css files*/
+    fill: #86fde8; /*add this to theme css files*/
 }
 
 /* SWITCH STYLES
@@ -496,5 +499,5 @@ a[href^="https"] {
 }
 .text-color
 {
-    color: #0754f1;
+    color: #7e92de;
 }

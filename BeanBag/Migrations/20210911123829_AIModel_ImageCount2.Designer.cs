@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeanBag.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20210816170432_DB_Tables_Beta_version")]
-    partial class DB_Tables_Beta_version
+    [Migration("20210911123829_AIModel_ImageCount2")]
+    partial class AIModel_ImageCount2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,31 +23,43 @@ namespace BeanBag.Migrations
 
             modelBuilder.Entity("BeanBag.Models.AIModel", b =>
                 {
-                    b.Property<Guid>("projectId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("projectName")
+                    b.Property<DateTime>("dateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("projectId");
+                    b.Property<int?>("imageCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("AIModels");
                 });
 
             modelBuilder.Entity("BeanBag.Models.AIModelVersions", b =>
                 {
-                    b.Property<Guid>("iterationId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("availableToUser")
                         .HasColumnType("bit");
 
-                    b.Property<string>("iterationName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("createdDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("predictionUrl")
+                    b.Property<string>("description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("projectId")
@@ -56,7 +68,7 @@ namespace BeanBag.Migrations
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("iterationId");
+                    b.HasKey("Id");
 
                     b.HasIndex("projectId");
 
@@ -73,11 +85,16 @@ namespace BeanBag.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("publicToTenant")
+                        .HasColumnType("bit");
 
                     b.Property<string>("userId")
                         .HasColumnType("nvarchar(max)");
@@ -93,7 +110,7 @@ namespace BeanBag.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("QRContents")
+                    b.Property<string>("QRCodeLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("colour")
@@ -145,7 +162,8 @@ namespace BeanBag.Migrations
 
                     b.Property<string>("role")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("userId");
 
