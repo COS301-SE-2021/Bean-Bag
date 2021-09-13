@@ -184,9 +184,24 @@ namespace BeanBag.Services
                 throw new Exception("Custom vision project does not exist with project id " + projectId.ToString());
 
             List<Guid> imageTagsId = new List<Guid>();
+            IList<Tag> modelTags = getModelTags(projectId);
+
             foreach (var tag in tags)
             {
-                imageTagsId.Add(trainingClient.CreateTag(projectId, tag).Id);
+                bool found = false;
+
+                foreach (var modelTag in modelTags)
+                {
+                    if(tag.ToLower().Equals(modelTag.Name.ToLower()))
+                    {
+                        found = true;
+                        imageTagsId.Add(modelTag.Id);
+                        break;
+                    }     
+                }
+
+                if (!found)
+                    imageTagsId.Add(trainingClient.CreateTag(projectId, tag).Id);
             }
 
             int size = imageUrls.Count;
