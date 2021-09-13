@@ -9,6 +9,7 @@ namespace BeanBag.Models
         [Key]
         public Guid Id { get; set; }
 
+        [StringLength(100, ErrorMessage = "AI Model name length can't be more than 100.")]
         public string name { get; set; }
 
         public DateTime dateCreated { get; set; }
