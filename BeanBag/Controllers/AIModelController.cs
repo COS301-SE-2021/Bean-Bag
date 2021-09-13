@@ -92,7 +92,7 @@ namespace BeanBag.Controllers
             Pagination viewModel = new Pagination();
             IPagedList<AIModel> pagedList = modelList.ToPagedList(pageNumber, pageSize);
             
-            viewModel.AiModel = mod;
+            viewModel.AIModel = mod;
             viewModel.PagedListModels = pagedList;
             @ViewBag.totalModels = _aIService.getAllModels().Count;
             
@@ -167,17 +167,27 @@ namespace BeanBag.Controllers
             int pageNumber = (page ?? 1);
             
             //Setting models to be returned to the view
-          //  AIModelVersions mod = new AIModelVersions();
+            AIModelVersions mod = new AIModelVersions();
             Pagination viewModel = new Pagination();
             IPagedList<AIModelVersions> pagedList = modelList.ToPagedList(pageNumber, pageSize);
             
-            //viewModel.AiModel = mod;
+            viewModel.AIModelVersions = mod;
             viewModel.PagedListVersions = pagedList;
             @ViewBag.totalModels = _aIService.getProjectIterations(projectId).Count;
             ViewBag.projectId = projectId;
 
-            ViewBag.canTrainNewVersion = _aIService.getModel(projectId).imageCount != _aIService.getImageCount(projectId);
-        
+            if (_aIService.getModel(projectId).imageCount == _aIService.getImageCount(projectId))
+                ViewBag.canTrainNewVersion = false;
+            else
+                ViewBag.canTrainNewVersion = true;
+
+            ViewBag.recommendations = _aIService.AIModelRecommendations(projectId); ;
+            ViewBag.modelTags = _aIService.getModelTags(projectId);
+
+            //IList<Tag> tags = _aIService.getModelTags(projectId);
+            //foreach(var t in tags)
+            //    t.ima
+
             return View(viewModel);
             }
             else
@@ -190,7 +200,7 @@ namespace BeanBag.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateModel(Pagination mods)
         {
-            Guid id = await _aIService.createProject(mods.AiModel.name, mods.AiModel.description);
+            Guid id = await _aIService.createProject(mods.AIModel.name, mods.AIModel.description);
 
             return LocalRedirect("/AIModel/TestImages?projectId=" + id.ToString());
         }
@@ -204,7 +214,10 @@ namespace BeanBag.Controllers
             ViewBag.Name = model.name;
             ViewBag.Description = model.description;
 
-            ViewBag.newProject = model.imageCount == 0;
+            if (model.imageCount == 0)
+                ViewBag.newProject = true;
+            else
+                ViewBag.newProject = false;
 
             return View();
         }
@@ -215,7 +228,7 @@ namespace BeanBag.Controllers
             [FromForm(Name ="projectId")] Guid projectId, [FromForm(Name ="tags")] string[] tags,
             [FromForm(Name = "LastTestImages")] string lastTestImages)
         {
-        //    var model = _aIService.getModel(projectId);
+            var model = _aIService.getModel(projectId);
 
             if(files.Count < 5)
                 return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
@@ -268,17 +281,17 @@ namespace BeanBag.Controllers
 
         // This function allows the user to edit a model by calling the EditModel AI Model service.
         [HttpPost]
-        public IActionResult EditAiModelPost(Guid projectId, string projectName, string description)
+        public IActionResult EditAIModelPost(Guid projectId, string projectName, string description)
         {
             _aIService.editProject(projectId, projectName, description);
             return LocalRedirect("/AIModel");
         }
 
-        public IActionResult EditAiModel(Guid id)
+        public IActionResult EditAIModel(Guid Id)
         {
             if(User.Identity is { IsAuthenticated: true})
             {
-                var model = _aIService.getModel(id);
+                var model = _aIService.getModel(Id);
                 if (model == null)
                     return NotFound();
 
@@ -292,13 +305,13 @@ namespace BeanBag.Controllers
 
         // This function allows the user to delete a model by calling the DeleteModel AI Model service.
         [HttpPost]
-        public IActionResult DeleteAiModelPost(Guid projectId)
+        public IActionResult DeleteAIModelPost(Guid projectId)
         {
             _aIService.deleteProject(projectId);
             return LocalRedirect("/AIModel");
         }
 
-        public IActionResult DeleteAiModel(Guid projectId)
+        public IActionResult DeleteAIModel(Guid projectId)
         {
             if (User.Identity is { IsAuthenticated: true })
             {
@@ -322,11 +335,11 @@ namespace BeanBag.Controllers
             return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
         }
 
-        public IActionResult DeleteVersion(Guid id)
+        public IActionResult DeleteVersion(Guid Id)
         {
             if(User.Identity is { IsAuthenticated: true})
             {
-                var version = _aIService.getIteration(id);
+                var version = _aIService.getIteration(Id);
                 if (version == null)
                     return NotFound();
 
@@ -339,28 +352,29 @@ namespace BeanBag.Controllers
         }
 
         // This function returns all of the performance metrics for the AI Model version
-        public IActionResult ModelVersionPerformance(Guid projectId, Guid iterationId)
+        public IActionResult ModelVersionPerformace(Guid projectId, Guid iterationId)
         {
+            string iterationMetrics = "";
             string tagPerformance = "";
 
-            IterationPerformance modelPerformance = _aIService.getModelVersionPerformance(projectId, iterationId);
-            List<AIModelVersionTagPerformance> tagsPerformance = _aIService.getPerformancePerTags(projectId, iterationId, modelPerformance);
+            IterationPerformance modelPerformace = _aIService.getModelVersionPerformance(projectId, iterationId);
+            List<AIModelVersionTagPerformance> tagsPerformace = _aIService.getPerformancePerTags(projectId, iterationId);
 
-            foreach(var tag in tagsPerformance)
+            foreach(var tag in tagsPerformace)
             {
                 tagPerformance += tag.tagName + '-' + tag.precision*100 + "%-" + tag.recall*100 + "%-" + tag.averagePrecision*100 + "%-" + tag.imageCount + "\n";
             }
 
-            var iterationMetrics = modelPerformance.Precision*100 + "%-" + modelPerformance.Recall*100 + "%-" + modelPerformance.AveragePrecision*100 + "%\n";
+            iterationMetrics = modelPerformace.Precision*100 + "%-" + modelPerformace.Recall*100 + "%-" + modelPerformace.AveragePrecision*100 + "%\n";
 
             return Ok(iterationMetrics + "\n" + tagPerformance);
         }
 
-        public IActionResult EditVersion(Guid id)
+        public IActionResult EditVersion(Guid Id)
         {
             if (User.Identity is { IsAuthenticated: true })
             {
-                var version = _aIService.getIteration(id);
+                var version = _aIService.getIteration(Id);
                 if (version == null)
                     return NotFound();
 
@@ -372,10 +386,31 @@ namespace BeanBag.Controllers
             }
         }
 
-        public IActionResult EditVersionPost(Guid projectId, Guid id, string description)
+        public IActionResult EditVersionPost(Guid projectId, Guid Id, string description)
         {
-            _aIService.EditIteration(id, description);
+            _aIService.EditIteration(Id, description);
             return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
+        }
+
+        
+        public IActionResult ViewPerformance(Guid Id)
+        {
+            if(User.Identity is { IsAuthenticated: true})
+            {
+                var iteration = _aIService.getIteration(Id);
+                Guid projectId = iteration.projectId;
+
+                List<AIModelVersionTagPerformance> tags =  _aIService.getPerformancePerTags(projectId, iteration.Id);
+
+                ViewBag.iterationId = Id;
+                ViewBag.projectId = projectId;
+
+                return View(tags);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
         }
 
     }

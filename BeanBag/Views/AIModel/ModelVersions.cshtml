@@ -29,6 +29,7 @@
 
             <hr>
 
+
             <div class="row">
 
                 <div class=" mr-3 ml-auto">
@@ -36,6 +37,8 @@
                     {
                         <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
                     }
+                    <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TestImages" class="btn btn-3 shadow-sm bg-body rounded">Upload images to model &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+
                 </div>
             </div>
 
@@ -149,13 +152,17 @@
                                                                class="btn edit" data-toggle="modal" data-target="#exampleModal3"
                                                                data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
 
-                                                            @if(!models.status.Equals("Training"))
+                                                            @if (!models.status.Equals("Training"))
                                                             {
+                                                                <a href="@Url.Action("ViewPerformance", "AiModel", new {@models.Id})"
+                                                                class="btn viewperformance" data-toggle="modal" data-target="#exampleModal4"
+                                                                data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Performance Metrics"><i class="fas fa-search"> </i></button></a>
+
                                                                 <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.Id})"
                                                                    class="btn delete" data-toggle="modal"
                                                                    data-target="#exampleModal4" data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
                                                             }
-                                                            
+
 
                                                             @if (models.status.Equals("Completed") && models.availableToUser == false)
                                                             {
@@ -195,14 +202,52 @@
 
                 })
             </div>
-
             <!--Code to show current page and page number-->
             <div>
                 Showing @(Model.PagedListVersions.PageCount < Model.PagedListVersions.PageNumber ? 0 : Model.PagedListVersions.PageNumber) out of @Model.PagedListVersions.PageCount entries
             </div>
+            <br />
+            @* Section to show the tags associated with the model *@
+
+            <div class="row">
+                <b>Model Tags</b>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tag</th>
+                            <th scope="col">Image Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var tag in ViewBag.modelTags)
+                        {
+                            <tr>
+                                <th scope="row">@tag.Name</th>
+                                <td>@tag.ImageCount</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <br />
+            @* Section for AI model recommendations *@
+            <div class="row">
+                <b>Recommendations</b>
+                <div class=" mr-3 ml-auto">
+                    @foreach (string r in ViewBag.recommendations)
+                    {
+                        @r
+                        <br />
+                    }
+
+                </div>
+            </div>
+
+
 
         </div>
-    </div>
+        </div>
 </section>
 
 
@@ -259,6 +304,18 @@
         });
     });
 
+    $('.viewperformance').click(function (ev) {
+        ev.preventDefault();
+
+        let action = $(this).attr('href');
+
+        $.get(action, function (data) {
+            let myModal = $("#exampleModal4");
+            myModal.find("form.data").html(data);
+            $('#exampleModal4').modal('show');
+        });
+    });
+
     // ID tooltip
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
@@ -269,4 +326,5 @@
 @{
     <partial name="_DeleteVersion" />
     <partial name="_EditVersion" />
+    <partial name="_ViewPerformance" />
 }

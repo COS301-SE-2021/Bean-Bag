@@ -423,28 +423,33 @@ namespace BeanBag.Services
             if (iterationId == Guid.Empty)
                 throw new Exception("Iteration id is null");
 
-            return trainingClient.GetIterationPerformance(projectId, iterationId);
+            IterationPerformance returnThis = trainingClient.GetIterationPerformance(projectId, iterationId);
+
+            return returnThis;
         }
 
         // This method returns an AI Model iteration image tag performace (accuracy, precision, recall, ap, imageCount)
-        public List<AIModelVersionTagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId, IterationPerformance iterationPerformance)
+        public List<AIModelVersionTagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId)
         {
+
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
 
             if (iterationId == Guid.Empty)
                 throw new Exception("Iteration id is null");
 
+            IterationPerformance performance = getModelVersionPerformance(projectId, iterationId);
+
             List<AIModelVersionTagPerformance> returnList = new List<AIModelVersionTagPerformance>();
 
-            foreach (var tag in iterationPerformance.PerTagPerformance)
+            foreach (var tag in performance.PerTagPerformance)
             {
                 AIModelVersionTagPerformance addToList = new AIModelVersionTagPerformance()
                 {
                     tagId = tag.Id,
-                    precision = tag.Precision,
-                    recall = tag.Recall,
-                    averagePrecision = tag.AveragePrecision,
+                    precision = Math.Round(tag.Precision, 2)*100.00,
+                    recall = Math.Round(tag.Recall, 2)*100.00,
+                    averagePrecision = Math.Round(tag.AveragePrecision.Value, 1) * 100.00,
                     tagName = tag.Name
                 };
 
@@ -503,9 +508,17 @@ namespace BeanBag.Services
                 }
 
                 if (tag.ImageCount > max)
+                {
                     max = tag.ImageCount;
+                    maxTag = tag.Name;
+                }
+                    
                 if (tag.ImageCount < min)
+                {
                     min = tag.ImageCount;
+                    minTag = tag.Name;
+                }
+                    
             }
 
             //Ensuring balance data. That the max amount of images associated with a tag is not over double than the min amount of images associated with a tag
@@ -547,6 +560,14 @@ namespace BeanBag.Services
                 return 0;
 
             return count;
+        }
+
+        public IList<Tag> getModelTags(Guid projectId)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project Id is null.");
+
+            return trainingClient.GetTags(projectId);
         }
     }
 }

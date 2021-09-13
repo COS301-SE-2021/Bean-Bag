@@ -41,7 +41,7 @@ namespace BeanBag.Services
 
         public IterationPerformance getModelVersionPerformance(Guid projectId, Guid iterationId);
 
-        public List<AIModelVersionTagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId, IterationPerformance iterationPerformance);
+        public List<AIModelVersionTagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId);
 
         public IList<Tag> getIterationTags(Guid projectId, Guid iterationId);
 
@@ -50,6 +50,10 @@ namespace BeanBag.Services
         public void EditIteration(Guid iterationId, string description);
 
         public int? getImageCount(Guid projectId);
+
+        public List<string> AIModelRecommendations(Guid projectId);
+
+        public IList<Tag> getModelTags(Guid projectId);
 
     }
 }
