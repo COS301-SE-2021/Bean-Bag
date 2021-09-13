@@ -18,6 +18,7 @@ namespace BeanBag.Services
         }
 
         //Tenant functions
+        //Get tenant id from user's object id
         public string GetUserTenantId(string userId)
         {
             if (userId == null)
@@ -45,6 +46,7 @@ namespace BeanBag.Services
             return tenantId;
         }
         
+        //Get the tenant name in database from the tenant id
         public string GetTenantName(string userTenantId)
         {
             if (userTenantId == null)
@@ -72,6 +74,7 @@ namespace BeanBag.Services
             return tenantName;
         }
         
+        //Get tenant id from the database using tenant name
         public string GetTenantId(string tenantName)
         {
             if (tenantName == null)
@@ -87,6 +90,7 @@ namespace BeanBag.Services
             return tenantId;
         }
         
+        //Set the theme of the signed in tenant 
         public bool SetTenantTheme(string userId, string theme)
         {
             if (userId == null)
@@ -111,6 +115,7 @@ namespace BeanBag.Services
 
         }
         
+        //Get the theme of the tenant to load on sign in
         public string GetTenantTheme(string userId)
         {
             // return default when user is not signed in - Layout
