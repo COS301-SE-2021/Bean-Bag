@@ -92,7 +92,7 @@ namespace BeanBag.Controllers
             Pagination viewModel = new Pagination();
             IPagedList<AIModel> pagedList = modelList.ToPagedList(pageNumber, pageSize);
             
-            viewModel.AIModel = mod;
+            viewModel.AiModel = mod;
             viewModel.PagedListModels = pagedList;
             @ViewBag.totalModels = _aIService.getAllModels().Count;
             
@@ -171,7 +171,7 @@ namespace BeanBag.Controllers
             Pagination viewModel = new Pagination();
             IPagedList<AIModelVersions> pagedList = modelList.ToPagedList(pageNumber, pageSize);
             
-            viewModel.AIModelVersions = mod;
+          
             viewModel.PagedListVersions = pagedList;
             @ViewBag.totalModels = _aIService.getProjectIterations(projectId).Count;
             ViewBag.projectId = projectId;
@@ -200,7 +200,7 @@ namespace BeanBag.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateModel(Pagination mods)
         {
-            Guid id = await _aIService.createProject(mods.AIModel.name, mods.AIModel.description);
+            Guid id = await _aIService.createProject(mods.AiModel.name, mods.AiModel.description);
 
             return LocalRedirect("/AIModel/TestImages?projectId=" + id.ToString());
         }
