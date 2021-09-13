@@ -1,6 +1,7 @@
 ﻿using BeanBag.Database;
 using BeanBag.Models;
 using BeanBag.Models.Helper_Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
@@ -173,6 +174,7 @@ namespace BeanBag.Services
         }
 
         // This method is used to upload a set of test images into the Azure blob storage and then into the custom vision project
+        
         public async void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
         {
             if (projectId == Guid.Empty)
@@ -187,14 +189,28 @@ namespace BeanBag.Services
                 imageTagsId.Add(trainingClient.CreateTag(projectId, tag).Id);
             }
 
-            List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
+            int size = imageUrls.Count;
+
+            while(size > 50)
+            {
+                List<string> tempUrl = imageUrls.GetRange(0, 50);
+                imageUrls.RemoveRange(0, 50);
+
+                List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
+
+                foreach (var url in tempUrl)
+                    images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
+                
+                await trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
+                size =- 50;
+            }
 
             foreach (var url in imageUrls)
             {
+                List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
                 images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
+                await trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
             }
-
-            await trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
 
             try
             {

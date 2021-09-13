@@ -233,8 +233,8 @@ namespace BeanBag.Controllers
             if(files.Count < 5)
                 return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
 
-            if(files.Count > 50)
-                return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
+            //if(files.Count > 50)
+            //    return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
 
 
             if (files.Count == 0)
