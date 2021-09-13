@@ -169,7 +169,7 @@
             					</div>
             					<div class="modal-footer ">
             						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            						<input type="submit" class="btn colors create" value="Invite"/> <!--create button-->
+            						<input type="submit" class="btn btn-3 " value="Invite"/> <!--create button-->
             					</div>
             				</form>
                                
@@ -223,10 +223,15 @@
                                             @{ i++; }
                                             <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@user.UserObjectId"><i class="fas fa-tag">  </i></button></td>
                                             <td class="pt-3">@user.UserName</td>
-                                        
+                                            @if (@user.UserRole == "User")
+                                            {
                                                 <td class="pt-3">@user.UserRole</td>
-                                        
+                                            }
+                                            else
+                                            {
                                                 <td class="pt-3">Admin</td>
+                                            }
+                                          
                                             <td>
                                                 <form method="post" asp-controller="TenantSettings" asp-action="EditPost" class="data">
                                                       <div class="form-group ">
