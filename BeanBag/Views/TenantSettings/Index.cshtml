@@ -223,15 +223,10 @@
                                             @{ i++; }
                                             <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@user.UserObjectId"><i class="fas fa-tag">  </i></button></td>
                                             <td class="pt-3">@user.UserName</td>
-                                            @if (@user.UserRole == "U")
-                                            {
-                                                <td class="pt-3">User</td>
-                                            }
-                                            else
-                                            {
+                                        
+                                                <td class="pt-3">@user.UserRole</td>
+                                        
                                                 <td class="pt-3">Admin</td>
-                                            }
-                                          
                                             <td>
                                                 <form method="post" asp-controller="TenantSettings" asp-action="EditPost" class="data">
                                                       <div class="form-group ">

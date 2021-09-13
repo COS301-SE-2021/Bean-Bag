@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +16,15 @@ namespace BeanBag.Controllers
         private readonly IInventoryService _inventoryService;
         private readonly IDashboardAnalyticsService _dashboardAnalyticsService;
         private readonly IItemService _itemService;
+        private readonly ITenantService _tenantService;
 
         // Constructor.
-        public HomeController(IInventoryService inv, IDashboardAnalyticsService dash, IItemService itm)
+        public HomeController(IInventoryService inv, IDashboardAnalyticsService dash, IItemService itm ,ITenantService ten)
         { 
             _inventoryService = inv;
             _dashboardAnalyticsService = dash;
             _itemService = itm;
+            _tenantService = ten;
         }
 
         // This function returns the Index page for the dashboard, returns drop-down-lists for the page view.
@@ -36,8 +37,8 @@ namespace BeanBag.Controllers
                 Inventory newInventory = new Inventory()
                 {
                     name = "My First Inventory",
-                    description = "Give me a desscription",
-                    userId = User.GetObjectId().ToString(),
+                    description = "Give me a description",
+                    userId = User.GetObjectId(),
                     createdDate = System.DateTime.Now,
                     publicToTenant = false
                 };
@@ -87,6 +88,9 @@ namespace BeanBag.Controllers
                     return View();
                 }
             }
+            var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
+
+             ViewBag.TenantName = tenant;
 
             return View();
         }

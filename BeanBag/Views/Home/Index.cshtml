@@ -3,10 +3,6 @@
 @using BeanBag.Services
 @model IEnumerable<Item>
 @inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
-@inject TenantService _tenantService
-@{
-    var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
-}
 
 <!--Dashboard-->
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
@@ -14,7 +10,7 @@
 <!--Header-->
 <section class="search-and-user ">
     <span class="md-2 text-secondary pl-3">
-        Dashboard | @tenant
+        Dashboard | @ViewBag.TenantName
     </span>
     <div class="admin-profile pr-3">
         @{
