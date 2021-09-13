@@ -93,8 +93,8 @@
                                         </table>
                                     </div>
                                 </div>
-                                <a id="add_row" class="btn btn-3 pull-left text-light">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
-                                <a id='delete_row' class="pull-right btn btn-3 text-light">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
+                                <a id="add_row" class="btn btn-3 pull-left ">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                <a id='delete_row' class="pull-right btn btn-3 ">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
                                 <div class=" pl-4 form-check-inline form-group row ">
                                     <label class="form-check-label">Done &nbsp;</label>
                                     <input class="form-check-input" name="LastTestImages" type="checkbox">
@@ -109,7 +109,7 @@
                     </div>
                     <div class="modal-footer">
 
-                        <a asp-controller="AiModel" asp-route-projectId="@ViewBag.ID" asp-action="ModelVersions" class="btn btn-3">Cancel</a>
+                        <a asp-controller="AiModel" asp-route-projectId="@ViewBag.ID" asp-action="ModelVersions" class="btn btn-secondary">Cancel</a>
                         <input type="submit" class="btn btn-3" value="Upload" /> <!--create button-->
                     </div>
                 </form>
