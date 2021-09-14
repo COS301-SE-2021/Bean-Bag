@@ -98,7 +98,6 @@
                                         </div>
 
                                         <label asp-for="inventoryId" value="Inventory"></label>
-                                        @* RENO: GRABBING THE PREDICTED TAGS FROM THE VIEW-BAG IN THE PREDICT FUNCTION OF THE AI MODEL *@
                                         <div class="form-group row">
                                             <!--Add your own tags -->
                                               <table class="table table-bordered table-hover pr-5" id="tab_logic">
@@ -111,7 +110,7 @@
                                                   </thead>
                                                   <tbody>
                                                      
-                                                        @foreach (var x in  @ViewBag.listPredictions)
+                                                        @foreach (var x in ViewBag.listPredictions)
                                                         {
                                                             <tr id="@i">
                                                                 <td>@i</td>
@@ -119,7 +118,7 @@
                                                                     <input type="text" name='tags' placeholder='Name' value="@x.tagName" class="form-control"/>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name='tags' placeholder='Name' value="@x.percentage" class="form-control"/>
+                                                                    <input type="text" placeholder='Name' value="@x.percentage" class="form-control" disabled="true"/>
                                                                 </td>
                                                             </tr>
                                                             
@@ -132,13 +131,7 @@
                                                   </tbody>
                                               </table>
                                                 <a id="add_row" class="btn btn-3  text-light">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a> &nbsp;  &nbsp; 
-                                              <a id='delete_row' class="btn btn-3 text-light">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
-                                              
-                                              <div class="pl-4 form-check-inline form-group row ">
-                                                  <label class="form-check-label">Done &nbsp;</label>
-                                                  <input class="form-check-input" name="LastTestImages" type="checkbox">
-                                                  </div>
-                                                                                      
+                                              <a id='delete_row' class="btn btn-3 text-light">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>                                  
                                             </div>
                                      
                                         

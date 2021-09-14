@@ -77,11 +77,9 @@ namespace BeanBag.Services
                         listPred.Add(new AIPrediction
                         {
                             tagName = prediction.TagName,
-                            percentage = prediction.Probability * 100
+                            percentage = Math.Round(prediction.Probability * 100, 2)
                         });
                     }
-
-
                 }
 
                 return listPred;
