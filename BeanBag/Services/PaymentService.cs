@@ -261,11 +261,7 @@ namespace BeanBag.Services
         // This function is used to delete a transaction
         public bool DeleteTransaction(Guid id)
         {
-            if (id == null)
-            {
-                throw new Exception("Transaction ID is null");
-            }
-
+            
             var transaction = _tenantDb.Transactions.Find(id);
             if (transaction == null)
             {
