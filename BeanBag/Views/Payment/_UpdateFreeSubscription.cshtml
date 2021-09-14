@@ -1,9 +1,41 @@
-﻿@{
+﻿@using BeanBag.Services
+@using Microsoft.Identity.Web
+@{
    
     Layout = null;
 }
+@inject ITenantService _tenantService
 
-	<link rel="stylesheet" href="~/css/tenant.css" />
+@{
+  //Get the value of the website theme colour here
+  var color = _tenantService.GetTenantTheme(User.GetObjectId());
+  var logo = _tenantService.GetLogo(User.GetObjectId());
+} 
+    @if(color == "KellySheen")
+    {
+      <link rel="stylesheet" href="~/css/kellyGreen.css" />
+    }else if(color == "FieryRose")
+    {
+      <link rel="stylesheet" href="~/css/fieryRose.css" />
+    }else if(color == "CornflowerBlue")
+    {
+      <link rel="stylesheet" href="~/css/cornflowerBlue.css" />
+    } 
+    else if (color == "PurpleMountainMajesty")
+    {
+      <link rel="stylesheet" href="~/css/purpleMountainMajesty.css" />
+    }
+    else if(color=="OutrageousOrange"){
+      <link rel="stylesheet" href="~/css/outrageousOrange.css" />
+    }
+    else if(color=="Default")
+    {
+      <link rel="stylesheet" href="~/css/default.css" />
+    }
+    else
+    {
+      <link rel="stylesheet" href="~/css/default.css" />
+    }
 	<!---Popup Form to payment free -->
 	<div class="modal fade" id="exampleModal" data-toggle="modal" data-target="#exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog" role="document">
