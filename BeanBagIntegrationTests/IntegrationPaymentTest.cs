@@ -78,6 +78,173 @@ namespace BeanBagIntegrationTests
             Assert.True(addedTransact);
         }
         
+
+        
+        [Fact]
+        public void Add_Transaction_Test_Reference_Null()
+        {
+            //ARRANGE
+            var chars = "0123456789";
+            var stringChars = new char[5];
+            var random = new Random();
+
+            for (var i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            var myGuidEnd = finalString;
+
+            var u2 = finalString.Substring(0, 4);
+            
+            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+            
+            Guid theIdPay = new("00000000-0000-0000-0000-0160000" + myGuidEnd);
+            
+            string tReference = null;
+            string tPayId = theIdPay.ToString();
+            string tTenantId = theId2.ToString();
+            float tAmount = 12.50f;
+
+
+
+            //ACT
+            var mySer = new PaymentService(_Tdb);
+            void Act() => mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
+            //var tr = mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Reference data is null", exception.Message);
+            //Assert.False(tr);
+            
+        }
+        
+        [Fact]
+        public void Add_Transaction_Test_PayId_Null()
+        {
+            //ARRANGE
+            var chars = "0123456789";
+            var stringChars = new char[5];
+            var random = new Random();
+
+            for (var i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            var myGuidEnd = finalString;
+
+            var u2 = finalString.Substring(0, 4);
+            
+            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+            
+            Guid theIdPay = new("00000000-0000-0000-0000-0160000" + myGuidEnd);
+            
+            string tReference = "testtransaction";
+            string tPayId = null;
+            string tTenantId = theId2.ToString();
+            float tAmount = 12.50f;
+
+
+
+            //ACT
+            var mySer = new PaymentService(_Tdb);
+            void Act() => mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
+            
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("PayId is null.", exception.Message);
+            
+        }
+        
+        [Fact]
+        public void Add_Transaction_Test_TenantId_Null()
+        {
+            //ARRANGE
+            var chars = "0123456789";
+            var stringChars = new char[5];
+            var random = new Random();
+
+            for (var i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            var myGuidEnd = finalString;
+
+            var u2 = finalString.Substring(0, 4);
+            
+            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+            
+            Guid theIdPay = new("00000000-0000-0000-0000-0160000" + myGuidEnd);
+            
+            string tReference = "testtransaction";
+            string tPayId = theIdPay.ToString();
+            string tTenantId = null;
+            float tAmount = 12.50f;
+
+
+
+            //ACT
+            var mySer = new PaymentService(_Tdb);
+            void Act() => mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
+            
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("TenantId is null.", exception.Message);
+            
+        }
+        
+        [Fact]
+        public void Add_Transaction_Test_Amount_Null()
+        {
+            //ARRANGE
+            var chars = "0123456789";
+            var stringChars = new char[5];
+            var random = new Random();
+
+            for (var i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            var myGuidEnd = finalString;
+
+            var u2 = finalString.Substring(0, 4);
+            
+            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+            
+            Guid theIdPay = new("00000000-0000-0000-0000-0160000" + myGuidEnd);
+            
+            string tReference = "testtransaction";
+            string tPayId = theIdPay.ToString();
+            string tTenantId = theId2.ToString();
+            float tAmount = 0;
+
+
+
+            //ACT
+            var mySer = new PaymentService(_Tdb);
+            void Act() => mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
+            
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Amount is null.", exception.Message);
+            
+        }
+        
         /*Dictionary<string, string> ToDictionary(string response);
         string GetMd5Hash(Dictionary<string, string> data, string encryptionKey);
         bool VerifyMd5Hash(Dictionary<string, string> data, string encryptionKey, string hash);
