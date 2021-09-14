@@ -273,15 +273,13 @@ namespace BeanBag.Services
                 return false;
             }
             
-            try
-            {
-                _tenantDb.Transactions.Remove(transaction);
-                _tenantDb.SaveChanges();
-            }
-            catch
-            {
-                throw new Exception("The transaction could not be deleted.");
-            }
+            
+            _tenantDb.Transactions.Remove(transaction);
+            _tenantDb.SaveChanges();
+        
+        
+            
+            
             return true;
 
         }
