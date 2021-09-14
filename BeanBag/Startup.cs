@@ -73,6 +73,12 @@ namespace BeanBag
             services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<ITenantService,TenantService>();
             services.AddTransient<ITenantBlobStorageService, TenantBlobStorageService>();
+
+            //Adding an upload limit of 100 mb (mainly for uploading a lot of test images)
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.MaxRequestBodySize = int.MaxValue;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
