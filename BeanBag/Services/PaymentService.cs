@@ -258,6 +258,33 @@ namespace BeanBag.Services
             return getfirst;
         }
         
+        // This function is used to delete a transaction
+        public bool DeleteTransaction(Guid id)
+        {
+            if (id == null)
+            {
+                throw new Exception("Transaction ID is null");
+            }
+
+            var transaction = _tenantDb.Transactions.Find(id);
+            if (transaction == null)
+            {
+                return false;
+            }
+            
+            try
+            {
+                _tenantDb.Transactions.Remove(transaction);
+                _tenantDb.SaveChanges();
+            }
+            catch
+            {
+                throw new Exception("The transaction could not be deleted.");
+            }
+            return true;
+
+        }
+
         // This function sets the updated subscription for the user
         public void UpdateSubscription(string subscription, string tenantId)
         {
