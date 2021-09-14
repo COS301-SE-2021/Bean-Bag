@@ -28,6 +28,12 @@ namespace BeanBag.Migrations
                     b.Property<DateTime>("dateCreated")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("imageCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
@@ -50,6 +56,9 @@ namespace BeanBag.Migrations
 
                     b.Property<DateTime>("createdDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("projectId")
                         .HasColumnType("uniqueidentifier");
@@ -74,11 +83,13 @@ namespace BeanBag.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("publicToTenant")
                         .HasColumnType("bit");
@@ -149,7 +160,8 @@ namespace BeanBag.Migrations
 
                     b.Property<string>("role")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("userId");
 

@@ -67,25 +67,27 @@ namespace BeanBag.Controllers
         {
             string imageUrl = await _blobStorageService.uploadItemImage(file);
 
-            // Checking to see if user has selected an AI model to use. Otherwise let them continue as is
-            if (predictionModelId == "Selection")
+            // Checking to see if user has selected an AI model to use. Otherwise let them continue as iss
+            if (predictionModelId == "None")
             {
                 ViewBag.listPredictions = "";
-            }
-            else
-            {
-                AIModelVersions iteration = _aIService.getIteration(Guid.Parse(predictionModelId));
-
-                ViewBag.listPredictions = _aIService.predict(iteration.projectId, iteration.Name, imageUrl);
+                return LocalRedirect("/Item/Create?imageUrl=" + imageUrl + "&iterationName=null");
             }
             
-            return LocalRedirect("/Item/Create?imageUrl="+ imageUrl);
+            var iteration = _aIService.getIteration(Guid.Parse(predictionModelId)); 
+            
+            var iterName = iteration.Name.Replace("Version", "Iteration");
+            
+            ViewBag.listPredictions = _aIService.predict(iteration.projectId, iterName, imageUrl);
+            
+            return LocalRedirect("/Item/Create?imageUrl=" + imageUrl + "&projectId=" +
+                                 iteration.projectId + "&iterationName=" + iterName);
         }
 
         /* This function is the GET method for creating an item and returns Create View.
            The create page needs to accept an imageURL and item type
            This method is only called once the image of the item is uploaded */
-        public IActionResult Create(string imageUrl)
+        public IActionResult Create(string imageUrl, string projectId, string iterationName)
         {
             // This creates a list of the different inventories available to put the item into
 
@@ -103,15 +105,41 @@ namespace BeanBag.Controllers
 
             ViewBag.InventoryDropDown = inventoryDropDown;
             ViewBag.imageUrl = imageUrl;
-
+            if(iterationName != "null")
+            {
+                Guid id = new Guid(projectId);
+                ViewBag.listPredictions = _aIService.predict(id, iterationName, imageUrl);
+                ViewBag.usePrediction = true;
+            }
+            else 
+            {
+                ViewBag.usePrediction = false;
+            }
             return View();
         }
 
         // This function is the POST method for create.
         // Takes in form from Create view to add a new item to the DB.
         [HttpPost]
-        public IActionResult Create(Item newItem)
+        public IActionResult Create(Item newItem,[FromForm(Name ="tags")] string[] tags )
         {
+            string type = "";
+            //Updates the item type to be a string of tags 
+   
+            for (int i = 0; i < tags.Length; i++) {
+
+                if (i == tags.Length - 1 || tags[i]== "" || tags[i] == " ") {
+                    type += tags[i];
+                }
+                else
+                {
+                    type += tags[i] + ",";
+                }
+            }
+
+            newItem.type = type;
+            
+         
             if(ModelState.IsValid)
             {
                 _itemService.CreateItem(newItem);
@@ -150,13 +178,32 @@ namespace BeanBag.Controllers
             ViewBag.InventoryId = item.inventoryId;
             ViewBag.imageUrl = item.imageURL;
 
+            //comma separate type
+            var items = item.type;
+            string[] list = items.Split(",");
+            ViewBag.types = list;
+
             return View(item);
         }
 
         // This function is the POST method for Edit Item.
        [HttpPost]
-        public IActionResult Edit(Item item)
+        public IActionResult Edit(Item item,[FromForm(Name ="tags")] string[] tags)
         {
+            string type = "";
+            //Updates the item type to be a string of tags 
+   
+            for (int i = 0; i < tags.Length; i++) {
+
+                if (i == tags.Length - 1 || tags[i]== "" || tags[i] == " ") {
+                    type += tags[i];
+                }
+                else
+                {
+                    type += tags[i] + ",";
+                }
+            }
+            item.type = type;
             // Makes sure that 
             if(ModelState.IsValid)
             {

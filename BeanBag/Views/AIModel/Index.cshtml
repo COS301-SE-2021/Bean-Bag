@@ -29,7 +29,10 @@
              <div class="row">
 
                  <div class=" mr-3 ml-auto">
-                     <a asp-controller="AiModel" asp-action="CreateModel" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Model &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a> 
+                     @if (ViewBag.createNewModels == true)
+                     {
+                         <a asp-controller="AiModel" asp-action="CreateModel" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Model &nbsp;   <i class="fa fa-plus" aria-hidden="true"></i></a>
+                     }
                  </div>
                  </div>
              <br>
@@ -97,21 +100,22 @@
                                              <tr>
                                                  <td >@i</td>
                                                  @{ i++; }
-                                                 <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.Id"><i class="fas fa-tag"> </i></button></td>
-                                                 <td >@models.name</td>
-                                                 <td >-</td>
-                                                 <td >-</td>
+                                             <td ><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.Id">
+                                                                                                
+                                                                                                 <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/></button></td>    <td >@models.name</td>
+                                                 <td >@models.dateCreated.ToShortDateString()</td>
+                                                 <td >@models.description</td>
                                                  <td >
                                                      <div class="w-100 btn-group" role="group">
-                                                         <a href="@Url.Action("EditModel", "AiModel", new {@models.Id})"
+                                                         <a href="@Url.Action("EditAiModel", "AiModel", new {@models.Id})"
                                                             class="btn edit" data-toggle="modal" data-target="#exampleModal3"
                                                             data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
                                                          
-                                                         <a href="@Url.Action("DeleteModel", "AiModel", new {@models.Id})"
+                                                         <a href="@Url.Action("DeleteAiModel", "AIModel", new {projectId = @models.Id})"
                                                             class="btn delete" data-toggle="modal"
-                                                            data-target="#exampleModal4" data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
+                                                            data-target="#exampleModal4" data-id="@models.Id"><button class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
 
-                                                         <a asp-controller="AiModel" asp-action="ModelVersions" asp-route-projectId="@models.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Versions"><i class="fas fa-eye"> </i></button></a>
+                                                         <a asp-controller="AiModel" asp-action="ModelVersions" asp-route-projectId="@models.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View"><i class="fas fa-eye"> </i></button></a>
                                                      </div>
                                                  </td>
                                              </tr>
@@ -165,12 +169,12 @@
             <form method="post" asp-action="CreateModel" >
                 <div class="modal-body">
                     <div class="form-group ">
-                        <input asp-for="AIModel.Id" hidden />
-                                        
-                        <label asp-for="AIModel.name" class="col-form-label">Model Name * </label> <!--Inventory Name-->
-                        <input asp-for="AIModel.name" class="form-control"/> <!--input box-->
-                        <label  class="col-form-label">Description *</label> <!-- Name-->
-                        <input class="form-control"/> <!--input box   NB ADD BACKEND CODE FOR THIS -->
+                        <input asp-for="AiModel.Id" hidden />
+
+                        <label asp-for="AiModel.name" class="col-form-label">Model Name * </label> <!--Inventory Name-->
+                        <input asp-for="AiModel.name" class="form-control" /> <!--input box-->
+                        <label class="col-form-label">Description *</label> <!-- Name-->
+                        <input asp-for="AiModel.description" class="form-control" /> <!--input box-->
                     </div>
                     <div asp-validation-summary="All" class="text-danger"></div>
                 </div>
@@ -245,3 +249,11 @@ $(function () {
 })
 
 </script >
+@section Scripts{ 
+    
+@{ 
+    <partial name="_DeleteAIModel"/>
+    <partial name="_EditAIModel"/>
+}
+
+}

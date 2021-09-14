@@ -3,10 +3,6 @@
 @using BeanBag.Services
 @model IEnumerable<Item>
 @inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
-@inject TenantService _tenantService
-@{
-    var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
-}
 
 <!--Dashboard-->
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
@@ -14,7 +10,7 @@
 <!--Header-->
 <section class="search-and-user ">
     <span class="md-2 text-secondary pl-3">
-        Dashboard | @tenant
+        Dashboard | @ViewBag.TenantName
     </span>
     <div class="admin-profile pr-3">
         @{
@@ -41,9 +37,8 @@
 
 <!--If Inventory has items to display-->
 @if(ViewBag.hasItems==true){
-    
 <!--Date picker -->
-    <div class="row">
+    <div class="row" >
         <span class="col-md-2">
             <div>
                 <h5>  <label class="badge " style="color: #323232 " >View By</label></h5>
@@ -236,13 +231,13 @@ else
 </section>
 
 
-@section Scripts {
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript">
+    
 
-        if(ViewBag.hasItems)
-        {
+       @if(ViewBag.hasItems==true){
+        
+           <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+           <script type="text/javascript">
             $(document).ready(function () {
                 //------------- Ajax get items on change of the timespan ------------------//
                 $("#TimeDropDown").change(function () {
@@ -710,13 +705,14 @@ else
                 });
 
             })
+                  </script> 
         }
         
                  
  
        
-    </script>
-}   
+ 
+
 
 <!-- Scripts -->
 

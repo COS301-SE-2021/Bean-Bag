@@ -1,0 +1,159 @@
+﻿
+.card-body {
+    padding: 0;
+}
+
+.gradient
+{
+    background: #acb6e5;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #86fde8, #acb6e5);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #86fde8, #acb6e5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    padding: 10px;
+    width: auto;
+    border-radius: 5px;
+
+}
+/* First border-left-width setting is a fallback */
+.card-custom-img::after {
+    position: absolute;
+    content: '';
+    top: 161px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-top-width: 40px;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 545px;
+    border-left-width: calc(575px - 5vw);
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: inherit;
+}
+
+.card-custom-avatar img {
+    border-radius: 5%;
+    box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+    position: absolute;
+    top: 100px;
+    left: 1.25rem;
+    width: 160px;
+    height: 80px;
+}
+
+/*  Navbar  */
+.navbar {
+    background-color: transparent;
+    padding: 10px 0 10px 13px;
+    margin-top: 10px;
+    color: black;
+}
+
+.navbar > .container {
+    padding: 0 45px;
+}
+
+.navbar .navbar-brand {
+    font-size: 30px;
+    color: black;
+    text-transform: capitalize;
+    margin-left: 40px;
+    font-weight: 600;
+}
+
+.navbar .nav-item {
+    margin-right: 40px;
+    color: black;
+}
+
+.navbar .nav-item .nav-link {
+    color: #100f0f;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 5px 0;
+    position: relative;
+    text-decoration: none;
+}
+
+.navbar .nav-item .nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    background-color: #ffffff;
+    transition: all 0.5s ease;
+    transform: scale(0);
+    color:black ;
+    font-family: 'Poppins', sans-serif;
+
+    text-decoration: none;
+}
+
+.navbar .nav-item .nav-link.active::before,
+.navbar .nav-item .nav-link:hover::before {
+    transform: scale(1);
+    text-decoration: none;
+    color: black;
+}
+.navbar-toggler{
+    padding: .25rem .75rem;
+    font-size:1.25rem;
+    line-height:1;
+    background-color: transparent;
+    border-radius: .25rem;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+.card {
+    border:none;
+}
+
+.card::after {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.card:hover {
+
+
+    transform: scale(1.02, 1.02);
+    -webkit-transform: scale(1.02, 1.02);
+    backface-visibility: hidden;
+    will-change: transform;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.75) !important;
+}
+
+.card:hover::after {
+    opacity: 1;
+}
+
+.card:hover .btn-outline-light{
+
+    background: #86fde8;  /* fallback for old browsers */
+   color: black;
+}
+
+.colors
+{
+    background: #acb6e5;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #86fde8, #acb6e5);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #86fde8, #acb6e5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: black;
+}
+
+.create:hover{
+    background: #86fde8;  /* fallback for old browsers */
+    color: black;
+    
+}

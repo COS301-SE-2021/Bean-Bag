@@ -1,0 +1,336 @@
+﻿@model Pagination
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@{int i = 1;}
+
+@{
+	ViewBag.Title = "Billing";
+}
+
+
+<section class="page-content" xmlns="http://www.w3.org/1999/html">
+    
+    <section class="search-and-user">
+        <span class="col-md-2 text-secondary ">
+             Billing 
+        </span>
+    </section>
+    
+    
+<!--Wrapper-->
+<div class="dashboard-wrapper">
+    <div class="container-fluid  dashboard-content">
+    <hr>
+    
+            <br>
+    <div class="row pb-1">
+        <!-- metric -->
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div data-aos="flip-left"
+                 data-aos-easing="ease-in-back"
+                 data-aos-delay="200"
+                 data-aos-offset="0">
+                <div class="card shadow p-1 mb-3 bg-body rounded-lg">
+                    <div class="card-body">
+                        <h5 class="text-muted ">Current Subscription <img src="https://img.icons8.com/ios/55/000000/membership-card.png" alt=""/></h5>
+                        <div class="pt-1">
+                            <ul class="list-unstyled spaced">
+                                   @if (@ViewBag.subscription == "Free")
+                                   {
+                                       <li>
+                                           <i class="ace-icon fa fa-caret-right blue"></i> Plan: Free | Active &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/>
+                                       </li>
+                                       <li>
+                                           <i class="ace-icon fa fa-caret-right blue"></i> Start Date : -
+                                       </li>
+                                       <li>
+                                           <i class="ace-icon fa fa-caret-right blue"></i> Expiration Date: -
+                                       </li>
+                                       <li>
+                                           <i class="ace-icon fa fa-caret-right blue"></i> Reference: -
+                                       </li>
+                                       <li>
+                                           <i class="ace-icon fa fa-caret-right blue"></i> Cost: R0.00
+                                       </li>
+                                       <li class="divider"></li>
+                                   }
+                                   else
+                                   {
+                                       <li>
+                                           <i class="ace-icon fa fa-caret-right blue"></i> Plan: @ViewBag.subscription | 
+                                           
+                                           @if (@ViewBag.subscription.EndDate >= DateTime.Now)
+                                           {
+                                           <p>    Expired &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> </p>
+                                           }
+                                           else
+                                           {
+                                               <p>    Active &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> </p>
+                                           }
+                                         
+                                       </li>
+                                       <li>
+                                           <i class="ace-icon fa fa-caret-right blue"></i> Start Date :  @ViewBag.StartDate
+                                       </li>
+                                       <li>
+                                           <i class="ace-icon fa fa-caret-right blue"></i> Expiration Date: @ViewBag.EndDare
+                                       </li>
+                                       <li>
+                                           <i class="ace-icon fa fa-caret-right blue"></i> Reference: @ViewBag.Reference
+                                       </li>
+                                       <li>
+                                           <i class="ace-icon fa fa-caret-right blue"></i> Cost: R @ViewBag.Amount
+                                       </li>
+                                       <li class="divider"></li>
+                                   }
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+                <!-- metric -->
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div data-aos="flip-left"
+                 data-aos-easing="ease-in-back"
+                 data-aos-delay="400"
+                 data-aos-offset="0">
+                <div class="card shadow p-1 mb-3 bg-body rounded-lg">
+                    <div class="card-body">
+                        <h5 class="text-muted ">Tenant Details <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/50/000000/external-user-interface-kiranshastry-lineal-kiranshastry-1.png"/></h5>
+                        <div class="pt-1">
+                              <ul class="list-unstyled spaced">
+                                  <li><i class="ace-icon fa fa-caret-right blue"></i>&nbsp;ID: @ViewBag.tenant.TenantId
+                                      </li>
+                                  <li><i class="ace-icon fa fa-caret-right blue"></i>&nbsp;Subscription Plan: @ViewBag.tenant.TenantSubscription</li>
+                                  <li>
+                                      <i class="ace-icon fa fa-caret-right blue"></i>&nbsp;@ViewBag.tenant.TenantAddress
+                                  </li>
+                                  <li>
+                                      <i class="ace-icon fa fa-caret-right blue"></i> Email:
+                                      <b class="red"> @ViewBag.tenant.TenantEmail</b></li>
+                                  <li class="divider"></li>
+                                                                                             
+                                  <li>
+                                      <i class="ace-icon fa fa-caret-right blue"></i>
+                                    Phone: <b> @ViewBag.tenant.TenantNumber</b>
+                                      </li>
+                                  </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+                <!-- metric -->
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+        	    <div data-aos="flip-left"
+        	         data-aos-easing="ease-in-back"
+        	         data-aos-delay="600"
+        	         data-aos-offset="0">
+        		    <div class="card shadow p-1 mb-3 bg-body rounded-lg">
+        			    <div class="card-body">
+        				    <h5 class="text-muted ">Company Details <img src="https://img.icons8.com/ios/50/000000/company.png" alt=""/></h5>
+        				   <div class="pt-1">
+                               <ul class="list-unstyled spaced">
+                                   <li><i class="ace-icon fa fa-caret-right blue"></i>&nbsp;26 Pinaster Ave
+                                       </li>
+                                   <li>
+                                       <i class="ace-icon fa fa-caret-right blue"></i>&nbsp;1st Floor, Die Klubhuis</li>
+                                   <li>
+                                       <i class="ace-icon fa fa-caret-right blue"></i>&nbsp;Hazelwood, Pretoria
+                                       </li>
+                                                                  
+                                   <li>
+                                       <i class="ace-icon fa fa-caret-right blue"></i>
+                                        Email:
+                                       <b class="red">info@agilebridge.co.za</b></li>
+                                   <li class="divider"></li>
+                                                                  
+                                   <li>
+                                       <i class="ace-icon fa fa-caret-right blue"></i>
+                                       Website :<b> www.agilebridge.co.za</b>
+                                       </li>
+                                   </ul>
+                               </div>
+        			    </div>
+        		    </div>
+        	    </div>
+            
+            </div>
+    
+       </div>
+    
+    
+    <hr>
+    <div class="row">
+             <b class="pl-3">Total Transactions &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span  > &nbsp; @ViewBag.totalTransactions</span>
+                        
+        <div class=" mr-3 ml-auto pt-2">
+            <button class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal3">Update Subscription  &nbsp; &nbsp; <img src="https://img.icons8.com/ios/25/000000/approve-and-update.png" alt=""/></button>
+        </div>
+    </div>
+        <div class="row " >
+                     <!--Date Search-->
+                     @using (Html.BeginForm())
+                     {
+                         <div class="d-flex">
+                             <span class="d-inline-block ml-3 pt-2 ">
+                                 <b>Find Transactions</b> &nbsp; &nbsp;<i class="fas fa-angle-right"></i></span>
+                             <span class=" d-inline-block pl-2">     
+                                     <h5 class="pt-1">  <label class="badge " style="color: #323232 " >From Date</label></h5>
+                                 @Html.TextBox("from", null, new {@class = "form-control ", type="date"})
+                             </span>
+                             <span class=" d-inline-block pl-1">  
+                                    <h5 class="pt-1">  <label class="badge " style="color: #323232 " >To Date</label></h5>
+                                 @Html.TextBox("to", null, new {@class = "form-control ", type="date" })
+                             </span>
+                             @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
+                                                           
+                             <span class=" d-inline-block pl-1">
+                                         <h5 class="pt-1">  <label class="badge " style="color: #323232 " >&nbsp;</label></h5>
+                                                           
+                                 <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3"/>
+                             </span>
+                         </div>
+                     }
+                  
+                     <!--Search-->
+                     <div class="col-2 ml-auto pt-5">
+                         @using (Html.BeginForm())
+                         {
+                             <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                                 @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 red-border", placeholder = "Search"})
+                                 <div class="input-group-append">
+                                     <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
+                                         <i class="fas fa-search text-grey"
+                                            aria-hidden="true"></i></button>
+                                 </div>
+                             </div>
+                         }
+                     </div>
+            
+            <!--Table with bootstrap class .table and .table-condensed-->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <br>
+                <div class="card shadow  mb-4 bg-body rounded" >
+                    <h5 class="card-header"> Billing History 
+                    </h5>
+                    
+                    <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
+                        <div>
+                            @if (Model.PagedListTenantTransactions.Any())
+                            {
+                                <table class="table table-bordered table-striped">
+                                    <thead ><tr>
+                                        <th>#</th>
+	                                    <th>ID</th>
+	                                    <th>Reference</th>
+	                                    <th>Transaction Date</th>
+	                                    <th>Expiration Date</th>
+	                                    <th>Amount</th>
+	                                    <th>Subscription Plan</th>   
+                                    </tr>
+                                    </thead><tbody>
+                                    @foreach (var t in Model.PagedListTenantTransactions)
+                                    {
+                                        <tr>
+                                            <td >@i</td>
+                                            @{ i++; }
+                                            <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@t.TransactionId"><i class="fas fa-tag">  </i></button></td>
+                                            <td >@t.Reference</td>
+                                            <td >@t.StartDate</td>
+                                            <td >@t.EndDate</td>
+                                            <td >@t.Amount</td>
+                                            @if ((@t.Amount-500)==0)
+                                            {
+	                                            <td>Standard</td>
+                                            }
+                                            else
+                                            {
+	                                            <td>Premium</td>
+                                            }
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {<p>No Billing History</p>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--Code to show current page and page number-->
+        <div>   
+            @Html.PagedListPager(Model.PagedListTenantTransactions, page => Url.Action("Billing", new {page}), new PagedListRenderOptions
+            {
+                DisplayLinkToIndividualPages = true,
+                DisplayPageCountAndCurrentLocation = false,
+                MaximumPageNumbersToDisplay = 10,
+                LiElementClasses = new[] {"page-item, bg-light"},
+                PageClasses = new[] {"page-link",  "text-color",  "bg-light"}, 
+
+
+            })
+        </div>
+        
+        <!--Code to show current page and page number-->
+        <div >Showing @(Model.PagedListTenantTransactions.PageCount < Model.PagedListTenantTransactions.PageNumber ? 0 : Model.PagedListTenantTransactions.PageNumber) out of @Model.PagedListTenantTransactions.PageCount pages </div>
+    </div>
+</div>
+
+<!--Modal popup to update subscription-->
+	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle3">
+		<div class="modal-dialog modal-dialog" role="document">
+        
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"  id="exampleModalTitle3">Update Subscription Plan </h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="post" asp-controller="Payment" asp-action="UpdateSubscription"  >
+					<div class="modal-body">
+                        <p class="text-muted pb-2">Current Subscription Plan: @ViewBag.tenant.TenantSubscription</p>
+                        <hr>
+                        <p> Choose a new plan: </p>
+                        
+                             <div class="form-group ">
+                                 <label for="tenantId" class="col-form-label" hidden></label>
+                                 <input type="text" id="tenantId" name="tenantId" class="form-control" value="@ViewBag.tenant.TenantId" hidden/>
+
+                                 <label for="subscription">Free</label>
+                                 <input for="subscription" type="radio" name="subscription" value="Free"> &nbsp;
+
+                                 <label for="subscription">Standard</label>
+                                 <input for="subscription" type="radio" name="subscription" value="Standard"> &nbsp;&nbsp;&nbsp;
+
+                                 <label for="subscription">Premium</label>
+                                 <input for="subscription" type="radio" name="subscription" value="Premium"> &nbsp;&nbsp;&nbsp;
+                             </div>
+                                                                     
+                             <div asp-validation-summary="All" class="text-danger"></div>
+                    </div>
+					<div class="modal-footer ">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<input type="submit" class="btn btn-3 shadow-sm bg-body rounded" value="Update Plan"/> <!--create button-->
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</section>
+
+<!--Animation-->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>

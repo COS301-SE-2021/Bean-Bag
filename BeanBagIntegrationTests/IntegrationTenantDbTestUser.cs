@@ -96,7 +96,7 @@ namespace BeanBagIntegrationTests
         
         //User sign up
         //POSITIVE TEST
-        [Fact]
+    /*    [Fact]
         public void Test_User_Sign_Up_Success_User_Added()
         {
             //Arrange
@@ -134,9 +134,9 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.Tenant.Remove(tenant);
             _tenantDbContext.SaveChanges();
         }
-        
+        */
         //NEGATIVE TEST
-        [Fact]
+ /*       [Fact]
         public void Test_User_Sign_Up_Fail_User_Not_Added_Already_Exists()
         {
             //Arrange
@@ -227,6 +227,6 @@ namespace BeanBagIntegrationTests
             Assert.Equal("User or tenant id is null", exceptionTenant.Message);
             Assert.Equal("User or tenant id is null", exceptionUser.Message);
 
-        }
+        }*/
     }
 }

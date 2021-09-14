@@ -8,5 +8,9 @@ namespace BeanBag.Models
         public string UserObjectId { get; set; }
         [Required]
         public string UserTenantId { get; set; }
+        
+        public string UserName { get; set; }
+        
+        public string UserRole { get; set; }
     }
 }

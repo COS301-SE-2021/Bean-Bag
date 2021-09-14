@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.9.0" />
     <PackageReference Include="Font.Awesome" Version="5.15.3" />
+    <PackageReference Include="MailKit" Version="2.15.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.0" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction" Version="2.0.0" />
     <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training" Version="2.0.0" />

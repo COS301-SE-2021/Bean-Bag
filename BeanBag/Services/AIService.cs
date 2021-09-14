@@ -1,6 +1,7 @@
 ﻿using BeanBag.Database;
 using BeanBag.Models;
 using BeanBag.Models.Helper_Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
@@ -53,7 +54,7 @@ namespace BeanBag.Services
                 throw new Exception("No Custom Vision project exists with Guid " + projectId.ToString());
 
             if (iterationName.Equals("") || iterationName.Equals(" "))
-                throw new Exception("Invalid itertaion name");
+                throw new Exception("Invalid iteration name");
 
             if (imageURL.Equals("") || imageURL.Equals(" "))
                 throw new Exception("Invalid image url");
@@ -76,11 +77,9 @@ namespace BeanBag.Services
                         listPred.Add(new AIPrediction
                         {
                             tagName = prediction.TagName,
-                            percentage = prediction.Probability * 100
+                            percentage = Math.Round(prediction.Probability * 100, 2)
                         });
                     }
-
-
                 }
 
                 return listPred;
@@ -92,7 +91,7 @@ namespace BeanBag.Services
         }
 
         // This method is used to create a new project (model) in custom vision
-        public async Task<Guid> createProject(string projectName)
+        public async Task<Guid> createProject(string projectName, string description)
         {
             if (projectName.Equals("") || projectName.Equals(" "))
                 throw new Exception("Invalid project name");
@@ -104,7 +103,10 @@ namespace BeanBag.Services
                 AIModel newModel = new AIModel()
                 {
                     name = projectName,
-                    Id = newProject.Id
+                    Id = newProject.Id, 
+                    description = description, 
+                    dateCreated = DateTime.Now, 
+                    imageCount = 0
                 };
 
                 await _db.AIModels.AddAsync(newModel);
@@ -162,36 +164,68 @@ namespace BeanBag.Services
             var project = _db.AIModels.Find(projectId);
 
             project.name = projectName;
+            project.description = description;
             //project.description = description;
             _db.AIModels.Update(project);
-
+            
+            _db.SaveChanges();
         }
 
         // This method is used to upload a set of test images into the Azure blob storage and then into the custom vision project
-        public async void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
+            
+        public void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
         {
-            if (projectId == Guid.Empty)
-                throw new Exception("Project id is null");
-
-            if (trainingClient.GetProject(projectId) == null)
-                throw new Exception("Custom vision project does not exist with project id " + projectId.ToString());
-
             try
             {
+                if (projectId == Guid.Empty)
+                    throw new Exception("Project id is null");
+
+                if (trainingClient.GetProject(projectId) == null)
+                    throw new Exception("Custom vision project does not exist with project id " + projectId.ToString());
+
                 List<Guid> imageTagsId = new List<Guid>();
+                IList<Tag> modelTags = getModelTags(projectId);
+
                 foreach (var tag in tags)
                 {
-                    imageTagsId.Add(trainingClient.CreateTag(projectId, tag).Id);
+                    bool found = false;
+
+                    foreach (var modelTag in modelTags)
+                    {
+                        if (tag.ToLower().Equals(modelTag.Name.ToLower()))
+                        {
+                            found = true;
+                            imageTagsId.Add(modelTag.Id);
+                            break;
+                        }
+                    }
+
+                    if (!found)
+                        imageTagsId.Add(trainingClient.CreateTag(projectId, tag).Id);
                 }
 
-                List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
+                int size = imageUrls.Count;
+
+                while (size > 50)
+                {
+                    List<string> tempUrl = imageUrls.GetRange(0, 50);
+                    imageUrls.RemoveRange(0, 50);
+
+                    List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
+
+                    foreach (var url in tempUrl)
+                        images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
+
+                    trainingClient.CreateImagesFromUrls(projectId, new ImageUrlCreateBatch(images));
+                    size = size - 50;
+                }
 
                 foreach (var url in imageUrls)
                 {
+                    List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
                     images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
+                    trainingClient.CreateImagesFromUrls(projectId, new ImageUrlCreateBatch(images));
                 }
-
-                await trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
             }
             catch (Exception e)
             {
@@ -211,17 +245,21 @@ namespace BeanBag.Services
 
             try
             {
+                //var iteration = trainingClient.TrainProject(projectId, "Advanced");
                 var iteration = trainingClient.TrainProject(projectId);
                 string projectName = trainingClient.GetProject(projectId).Name;
 
                 AIModelVersions newModelVersion = new AIModelVersions()
                 {
-                    Name = iteration.Name,
+                    Name = "Version " + iteration.Name.Substring(iteration.Name.Length-1),
                     availableToUser = false,
                     Id = iteration.Id,
                     status = iteration.Status.ToString(),
-                    projectId = projectId
+                    projectId = projectId, 
+                    createdDate = DateTime.Now
                 };
+
+                updateImageCount(projectId);
 
                 _db.AIModelIterations.Add(newModelVersion);
                 _db.SaveChanges();
@@ -407,28 +445,33 @@ namespace BeanBag.Services
             if (iterationId == Guid.Empty)
                 throw new Exception("Iteration id is null");
 
-            return trainingClient.GetIterationPerformance(projectId, iterationId);
+            IterationPerformance returnThis = trainingClient.GetIterationPerformance(projectId, iterationId);
+
+            return returnThis;
         }
 
         // This method returns an AI Model iteration image tag performace (accuracy, precision, recall, ap, imageCount)
-        public List<AIModelVersionTagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId, IterationPerformance iterationPerformance)
+        public List<AIModelVersionTagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId)
         {
+
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
 
             if (iterationId == Guid.Empty)
                 throw new Exception("Iteration id is null");
 
+            IterationPerformance performance = getModelVersionPerformance(projectId, iterationId);
+
             List<AIModelVersionTagPerformance> returnList = new List<AIModelVersionTagPerformance>();
 
-            foreach (var tag in iterationPerformance.PerTagPerformance)
+            foreach (var tag in performance.PerTagPerformance)
             {
                 AIModelVersionTagPerformance addToList = new AIModelVersionTagPerformance()
                 {
                     tagId = tag.Id,
-                    precision = tag.Precision,
-                    recall = tag.Recall,
-                    averagePrecision = tag.AveragePrecision,
+                    precision = Math.Round(tag.Precision, 2)*100.00,
+                    recall = Math.Round(tag.Recall, 2)*100.00,
+                    averagePrecision = Math.Round(tag.AveragePrecision.Value, 1) * 100.00,
                     tagName = tag.Name
                 };
 
@@ -467,9 +510,9 @@ namespace BeanBag.Services
             IList<Tag> tags = trainingClient.GetTags(projectId);
 
             //Checking if their are more than one tag in a model
-            if(tags.Count == 0 || recommendations.Count == 1)
+            if(tags.Count == 0 || tags.Count == 1)
             {
-                recommendations.Add(trainingClient.GetProject(projectId).Name + " needs to have more than one tag.");
+                recommendations.Add("The " + trainingClient.GetProject(projectId).Name + " model needs to have more than 2 tags.");
                 return recommendations;
             }
 
@@ -487,16 +530,152 @@ namespace BeanBag.Services
                 }
 
                 if (tag.ImageCount > max)
+                {
                     max = tag.ImageCount;
+                    maxTag = tag.Name;
+                }
+                    
                 if (tag.ImageCount < min)
+                {
                     min = tag.ImageCount;
+                    minTag = tag.Name;
+                }
+                    
             }
 
             //Ensuring balance data. That the max amount of images associated with a tag is not over double than the min amount of images associated with a tag
-            if ((max / min) > 2)
-                recommendations.Add(maxTag + " has more than double the amount of images than " + minTag + ". Add more images to " + minTag + " to make the model have more balanced data.");
-
+            if(min != 0)
+            {
+                if ((max / min) > 2)
+                    recommendations.Add(maxTag + " has more than double the amount of images than " + minTag + ". Add more images to " + minTag + " to make the model have more balanced data.");
+            }
+            else 
+            {
+                    recommendations.Add(minTag + " needs to have images associated with it in order to be used.");
+            }
             return recommendations;
+        }
+
+        public AIModel getModel(Guid projectId)
+        {
+            AIModel model = _db.AIModels.Find(projectId);
+            return model;
+        }
+
+        public void EditIteration(Guid iterationId, string description)
+        {
+            if (iterationId == Guid.Empty)
+                throw new Exception("Iteration id is null");
+
+            var iteration = _db.AIModelIterations.Find(iterationId);
+            iteration.description = description;
+
+            _db.AIModelIterations.Update(iteration);
+            _db.SaveChanges();
+        }
+
+        public int? getImageCount(Guid projectId)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project id is null");
+
+            if (trainingClient.GetProject(projectId) == null)
+                throw new Exception("Project does not exist with Id " + projectId.ToString());
+
+            int? count = trainingClient.GetImageCount(projectId);
+
+            if (count == null)
+                return 0;
+
+            return count;
+        }
+
+        public IList<Tag> getModelTags(Guid projectId)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project Id is null.");
+
+            return trainingClient.GetTags(projectId);
+        }
+
+        public void deleteModelTag(Guid tagId, Guid projectId, int imageCount)
+        {
+            if (tagId == Guid.Empty)
+                throw new Exception("Tag Id is null.");
+            if (projectId == Guid.Empty)
+                throw new Exception("Project Id is null.");
+
+            IList<Guid> imageIds = new List<Guid>();
+            
+
+            IList<Guid> tagList = new List<Guid>();
+            tagList.Add(tagId);
+
+            IList<Image> tagImages = new List<Image>();
+
+            //Take: 256
+            if (imageCount > 200)
+            {
+                int size = imageCount;
+
+                while (size > 200)
+                {
+                    imageIds = new List<Guid>();
+                    tagImages = trainingClient.GetTaggedImages(projectId, null, tagList, null, 200);
+                    foreach (var i in tagImages)
+                    {
+                        imageIds.Add(i.Id);
+                    }
+                    trainingClient.DeleteImages(projectId, imageIds);
+                    size = size - 200;
+
+                    if(size < 0)
+                    {
+                        imageIds = new List<Guid>();
+                        tagImages = trainingClient.GetTaggedImages(projectId, null, tagList);
+                        foreach (var i in tagImages)
+                        {
+                            imageIds.Add(i.Id);
+                        }
+                        trainingClient.DeleteImages(projectId, imageIds);
+                    }
+                    else if(size <= 200)
+                    {
+                        imageIds = new List<Guid>();
+                        tagImages = trainingClient.GetTaggedImages(projectId, null, tagList, null, size);
+                        foreach (var i in tagImages)
+                        {
+                            imageIds.Add(i.Id);
+                        }
+                        trainingClient.DeleteImages(projectId, imageIds);
+                    }
+                }
+            }
+            else 
+            {
+                imageIds = new List<Guid>();
+                tagImages = trainingClient.GetTaggedImages(projectId, null, tagList, null, imageCount);
+                foreach (var i in tagImages)
+                {
+                    imageIds.Add(i.Id);
+                }
+                trainingClient.DeleteImages(projectId, imageIds);
+            }
+
+            trainingClient.DeleteTag(projectId, tagId);
+            updateImageCount(projectId);
+        }
+
+        public void updateImageCount(Guid projectId)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project id is null");
+
+            var model = getModel(projectId);
+            model.imageCount = getImageCount(projectId);
+
+            _db.AIModels.Update(model);
+            _db.SaveChanges();
         }
     }
 }

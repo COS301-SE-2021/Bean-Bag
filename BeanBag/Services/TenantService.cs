@@ -6,6 +6,9 @@ using BeanBag.Models;
 
 namespace BeanBag.Services
 {
+    /* This service implements all the Tenant interface functions and provides interaction
+     with the Tenant database */
+    
     public class TenantService : ITenantService
     {
         private readonly TenantDbContext _tenantDb;
@@ -18,7 +21,6 @@ namespace BeanBag.Services
         }
 
         //Tenant functions
-        //Get tenant id from user's object id
         public string GetUserTenantId(string userId)
         {
             if (userId == null)
@@ -46,7 +48,8 @@ namespace BeanBag.Services
             return tenantId;
         }
         
-        //Get the tenant name in database from the tenant id
+        /*Retrieves the name of the tenant from the database - based on the
+         id of the tenant*/
         public string GetTenantName(string userTenantId)
         {
             if (userTenantId == null)
@@ -74,7 +77,7 @@ namespace BeanBag.Services
             return tenantName;
         }
         
-        //Get tenant id from the database using tenant name
+        /* Retrieves the name of the tenant from the database - based on the tenant name */
         public string GetTenantId(string tenantName)
         {
             if (tenantName == null)
@@ -90,7 +93,22 @@ namespace BeanBag.Services
             return tenantId;
         }
         
-        //Set the theme of the signed in tenant 
+        /* Retrieve the current tenant from the user id */
+        public Tenant GetCurrentTenant(string userId)
+        {
+            if (userId == null)
+            {
+                throw new Exception("User id is null");
+            }
+
+            var tenantId = GetUserTenantId(userId);
+
+            var tenant = _tenantDb.Tenant.Find(tenantId);
+
+            return tenant;
+        }
+        
+        /* Sets the theme of the tenant */
         public bool SetTenantTheme(string userId, string theme)
         {
             if (userId == null)
@@ -115,7 +133,7 @@ namespace BeanBag.Services
 
         }
         
-        //Get the theme of the tenant to load on sign in
+        /* Retrieves the theme of the tenant to load */
         public string GetTenantTheme(string userId)
         {
             // return default when user is not signed in - Layout
@@ -147,6 +165,7 @@ namespace BeanBag.Services
 
         }
 
+        /* Retrieves a list of all existing tenants in the database */
         public IEnumerable<Tenant> GetTenantList()
         {
             var tenants = from tenant
@@ -158,13 +177,33 @@ namespace BeanBag.Services
             return list;
         }
         
-        public bool CreateNewTenant(string tenantName)
+        /* Creates a new tenant and adds tenant to the database */
+        public bool CreateNewTenant(string tenantName, string tenantAddress, string tenantEmail, string tenantNumber, string tenantSubscription)
         {
             if (tenantName == null)
             {
                 throw new Exception("Tenant name is null");
             }
 
+            if (tenantEmail == null)
+            {
+                throw new Exception("Tenant email is null");
+            }
+
+            if (tenantAddress == null)
+            {
+                throw new Exception("Tenant address is null");
+            }
+
+            if (tenantNumber == null)
+            {
+                throw new Exception("Tenant number is null");
+            }
+
+            if (tenantSubscription == null)
+            {
+                throw new Exception("Tenant subscription is null");
+            }
             var duplicate = (from tenant
                     in _tenantDb.Tenant
                 where tenant.TenantName.Equals(tenantName)
@@ -182,10 +221,16 @@ namespace BeanBag.Services
             if (_tenantDb.Tenant.Find(_newTenantId) != null) return false;
 
             
-            var defaultTheme = "Default";
+            const string defaultTheme = "Default";
+            const string defaultLogo = "/images/beanbaglogo.png";
 
-                //Create new tenant and add to db
-            var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = defaultTheme};
+            var code = GenerateCode();
+
+            //Create new tenant and add to db
+            var newTenant = new Tenant {TenantId = _newTenantId, TenantName = tenantName, TenantTheme = defaultTheme, 
+                TenantEmail = tenantEmail, TenantAddress = tenantAddress, TenantNumber = tenantNumber, TenantSubscription = tenantSubscription,
+                TenantLogo = defaultLogo, InviteCode = code
+            };
 
             _tenantDb.Tenant.Add(newTenant);
             _tenantDb.SaveChanges();
@@ -194,6 +239,24 @@ namespace BeanBag.Services
 
         }
 
+        public void EditTenantDetails(string tenantId, string tenantName, string address, string email, string number)
+        {
+            var tenant = _tenantDb.Tenant.Find(tenantId);
+
+            if (tenant == null)
+            {
+                throw new Exception("Tenant is null");
+            }
+
+            tenant.TenantName = tenantName;
+            tenant.TenantAddress = address;
+            tenant.TenantEmail = email;
+            tenant.TenantNumber = number;
+
+            _tenantDb.SaveChanges();
+        }
+
+        /* Searches database for tenant by tenant id */
         public bool SearchTenant(string tenantId)
         {
             if (tenantId == null)
@@ -204,6 +267,7 @@ namespace BeanBag.Services
             return _tenantDb.Tenant.Find(tenantId) != null;
         }
 
+        /* Sets the logo for the tenant */
         public void SetLogo(string userId, string logo)
         {
             if (userId == null)
@@ -225,6 +289,7 @@ namespace BeanBag.Services
             
         }
 
+        /* Retrieves the tenant logo */
         public string GetLogo(string userId)
         {
             if (userId == null)
@@ -248,9 +313,67 @@ namespace BeanBag.Services
             return tenant.TenantLogo;
         }
 
+        /* Generate a random GUID code for the tenant */
+        public string GenerateCode()
+        {
+            var code = Guid.NewGuid().ToString();
+
+            return code;
+        }
+
+        public string GetTenantCode(string tenantId)
+        {
+            if (tenantId == null)
+            {
+                throw new Exception("Tenant id is null.");
+            }
+
+            var tenant = _tenantDb.Tenant.Find(tenantId);
+
+            if (tenant == null)
+            {
+                throw new Exception("Tenant is null.");
+            }
+
+            var code = tenant.InviteCode;
+
+            if (code == null)
+            {
+                throw new Exception("Code is null.");
+            }
+
+            return code;
+        }
+        
+        /* Verify if user entered valid invite code */
+        public bool VerifyCode(string code)
+        {
+            if (code == null)
+            {
+                throw new Exception("Entered code is null.");
+            }
+
+            var check = (from tenant
+                    in _tenantDb.Tenant
+                where tenant.InviteCode.Equals(code)
+                select tenant.InviteCode).Single();
+
+            if (check == null)
+            {
+                throw new Exception("Code is null");
+            }
+
+            if (check.Equals(code))
+            {
+                return true;
+            }
+
+            return false;
+        }
         
         //User functions
-        public bool SignUserUp(string userId, string tenantId)
+        /* Signs the user up and adds user to the user table in the database */
+        public bool SignUserUp(string userId, string tenantId, string userName)
         {
             if (userId == null || tenantId == null)
             {
@@ -262,9 +385,9 @@ namespace BeanBag.Services
             
             //Specified tenant does not exist
             if (_tenantDb.Tenant.Find(tenantId) == null) return false;
-            
+
             //Create new user
-            var newUser = new TenantUser {UserObjectId = userId, UserTenantId = tenantId};
+            var newUser = new TenantUser {UserObjectId = userId, UserTenantId = tenantId, UserName = userName, UserRole = "U"};
             _tenantDb.Add(newUser);
             _tenantDb.SaveChanges();
 
@@ -272,6 +395,7 @@ namespace BeanBag.Services
 
         }
 
+        /* Searches for user in the database by user id */
         public bool SearchUser(string userId)
         {
             if (userId == null)
@@ -281,5 +405,151 @@ namespace BeanBag.Services
 
             return _tenantDb.TenantUser.Find(userId) != null;
         }
+        
+        /* Returns a list of the users belonging to a specific tenant */
+        public IEnumerable<TenantUser> GetUserList(string userId)
+        {
+            if (userId == null)
+            {
+                throw new Exception("User id is null");
+            }
+
+            var tenantId = GetUserTenantId(userId);
+
+            if (tenantId == null)
+            {
+                throw new Exception("Tenant id is null");
+            }
+
+            var users = from user
+                    in _tenantDb.TenantUser
+                where user.UserTenantId.Equals(tenantId)
+                select user;
+
+            var userList = users.ToList();
+
+            return userList;
+
+        }
+
+        /* Delete user from the tenant database */
+        public bool DeleteUser(string userId)
+        {
+            if (userId == null)
+            {
+                throw new Exception("User id is null");
+            }
+
+            var user = _tenantDb.TenantUser.Find(userId);
+
+            if (user == null)
+            {
+                throw new Exception("User is null");
+            }
+
+            _tenantDb.TenantUser.Remove(user);
+            _tenantDb.SaveChanges();
+            
+            var check =  _tenantDb.TenantUser.Find(userId);
+
+            if (check == null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        
+        // This method retrieves the user role from the database
+        public string GetUserRole(string id)
+        {
+            var user = _tenantDb.TenantUser.Find(id);
+
+            if (user == null)
+            {
+                throw new Exception("User is null");
+            }
+
+            if (user.UserRole.Equals("U"))
+            {
+                return "User";
+            }
+            
+            if (user.UserRole.Equals("A"))
+            {
+                return "Admin";
+            }
+
+            return "";
+        }
+        
+        // This method updated the role of the user
+        public bool EditUserRole(string userId, string role)
+        {
+            if (userId == null)
+            {
+                throw new Exception("User id is null");
+            }
+        
+            if (role == null)
+            {
+                throw new Exception("User role is null");
+            }
+
+            var user = _tenantDb.TenantUser.Find(userId);
+        
+            if (role.Equals("Admin"))
+            {
+                user.UserRole = "A";
+                _tenantDb.SaveChanges();
+                return true;
+            }
+                    
+            if (role.Equals("User"))
+            {
+                user.UserRole = "U";
+                _tenantDb.SaveChanges();
+                return true;
+            }
+        
+            return false;
+        }
+        
+        //This method delete the current tenant and all users
+        public void DeleteTenant(string userId)
+        {
+            var currentTenant = GetCurrentTenant(userId);
+            var tenantId = currentTenant.TenantId;
+
+            if (currentTenant == null)
+            {
+                throw new Exception("Tenant is null.");
+            }
+
+            //Delete all the users under the tenant
+            var deleted = from user
+                    in _tenantDb.TenantUser
+                where user.UserTenantId.Equals(tenantId)
+                select user;
+
+            foreach (var user in deleted)
+            {
+                _tenantDb.TenantUser.Remove(user);
+                _tenantDb.SaveChanges();
+            }
+            
+            //Delete tenant
+            var tenant = _tenantDb.Tenant.Find(tenantId);
+
+            if (tenant == null)
+            {
+                throw new Exception("Tenant is null.");
+            }
+
+            _tenantDb.Tenant.Remove(tenant);
+            _tenantDb.SaveChanges();
+
+        }
+        
     }
 }

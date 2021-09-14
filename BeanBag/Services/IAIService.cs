@@ -11,7 +11,7 @@ namespace BeanBag.Services
     {
         public List<AIPrediction> predict(Guid projectId, string iterationName, string imageURL);
 
-        public Task<Guid> createProject(string projectName);
+        public Task<Guid> createProject(string projectName, string description);
 
         public void deleteProject(Guid projectId);
 
@@ -41,8 +41,23 @@ namespace BeanBag.Services
 
         public IterationPerformance getModelVersionPerformance(Guid projectId, Guid iterationId);
 
-        public List<AIModelVersionTagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId, IterationPerformance iterationPerformance);
+        public List<AIModelVersionTagPerformance> getPerformancePerTags(Guid projectId, Guid iterationId);
 
         public IList<Tag> getIterationTags(Guid projectId, Guid iterationId);
+
+        public AIModel getModel(Guid projectId);
+
+        public void EditIteration(Guid iterationId, string description);
+
+        public int? getImageCount(Guid projectId);
+
+        public List<string> AIModelRecommendations(Guid projectId);
+
+        public IList<Tag> getModelTags(Guid projectId);
+
+        public void deleteModelTag(Guid tagId, Guid projectId, int imageCount);
+
+        public void updateImageCount(Guid projectId);
+
     }
 }

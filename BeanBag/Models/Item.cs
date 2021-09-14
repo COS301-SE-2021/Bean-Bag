@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BeanBag.Models
 {
-    // This class is responsible for handling the items data for the application
+    // This class is responsible for handling the items data for the application.
     public class Item
     {
         [Key]
@@ -13,7 +13,7 @@ namespace BeanBag.Models
         [Required]
         [DisplayName("Name")]
         public string name { get; set; }
-        [Required]
+      
         [DisplayName("Type")]
         public string type { get; set; }
         [Required]
