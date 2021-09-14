@@ -231,13 +231,10 @@ namespace BeanBagIntegrationTests
             string tPayId = theIdPay.ToString();
             string tTenantId = theId2.ToString();
             float tAmount = 0;
-
-
-
+            
             //ACT
             var mySer = new PaymentService(_Tdb);
             void Act() => mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
-            
 
             //ASSERT
             var exception = Assert.Throws<Exception>(Act);
@@ -269,7 +266,7 @@ namespace BeanBagIntegrationTests
 
             Guid theIdPay = new("00000000-0000-0000-0000-0160000" + myGuidEnd);
 
-            string tReference = "testtransaction";
+            string tReference = "testtransactionwNada";
             string tPayId = theIdPay.ToString();
             string tTenantId = theId2.ToString();
             float tAmount = 12.50f;
@@ -278,13 +275,14 @@ namespace BeanBagIntegrationTests
 
             //ACT
             var mySer = new PaymentService(_Tdb);
-            //var isCheck = mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
+            var isCheck = mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
             var myTrns = mySer.GetTransactions(currentTenantIdTest);
             var icount = myTrns.Count();
-            
+            var myl = myTrns.ToList();
 
             //ASSERT
             Assert.Equal(1, icount);
+            mySer.DeleteTransaction(myl[0].TransactionId);
         }
         
         /*Dictionary<string, string> ToDictionary(string response);
