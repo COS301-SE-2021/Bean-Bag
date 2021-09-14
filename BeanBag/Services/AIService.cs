@@ -175,7 +175,7 @@ namespace BeanBag.Services
 
         // This method is used to upload a set of test images into the Azure blob storage and then into the custom vision project
         
-        public async void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
+        public void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
         {
             if (projectId == Guid.Empty)
                 throw new Exception("Project id is null");
@@ -216,15 +216,15 @@ namespace BeanBag.Services
                 foreach (var url in tempUrl)
                     images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
                 
-                await trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
-                size =- 50;
+                trainingClient.CreateImagesFromUrls(projectId, new ImageUrlCreateBatch(images));
+                size = size - 50;
             }
 
             foreach (var url in imageUrls)
             {
                 List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
                 images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
-                await trainingClient.CreateImagesFromUrlsAsync(projectId, new ImageUrlCreateBatch(images));
+                trainingClient.CreateImagesFromUrls(projectId, new ImageUrlCreateBatch(images));
             }
 
             try
@@ -519,9 +519,9 @@ namespace BeanBag.Services
             IList<Tag> tags = trainingClient.GetTags(projectId);
 
             //Checking if their are more than one tag in a model
-            if(tags.Count == 0 || recommendations.Count == 1)
+            if(tags.Count == 0 || tags.Count == 1)
             {
-                recommendations.Add(trainingClient.GetProject(projectId).Name + " needs to have more than one tag.");
+                recommendations.Add("The " + trainingClient.GetProject(projectId).Name + " model needs to have more than 2 tags.");
                 return recommendations;
             }
 
@@ -553,9 +553,15 @@ namespace BeanBag.Services
             }
 
             //Ensuring balance data. That the max amount of images associated with a tag is not over double than the min amount of images associated with a tag
-            if ((max / min) > 2)
-                recommendations.Add(maxTag + " has more than double the amount of images than " + minTag + ". Add more images to " + minTag + " to make the model have more balanced data.");
-
+            if(min != 0)
+            {
+                if ((max / min) > 2)
+                    recommendations.Add(maxTag + " has more than double the amount of images than " + minTag + ". Add more images to " + minTag + " to make the model have more balanced data.");
+            }
+            else 
+            {
+                    recommendations.Add(minTag + " needs to have images associated with it in order to be used.");
+            }
             return recommendations;
         }
 
@@ -599,6 +605,86 @@ namespace BeanBag.Services
                 throw new Exception("Project Id is null.");
 
             return trainingClient.GetTags(projectId);
+        }
+
+        public void deleteModelTag(Guid tagId, Guid projectId, int imageCount)
+        {
+            if (tagId == Guid.Empty)
+                throw new Exception("Tag Id is null.");
+            if (projectId == Guid.Empty)
+                throw new Exception("Project Id is null.");
+
+            IList<Guid> imageIds = new List<Guid>();
+            
+
+            IList<Guid> tagList = new List<Guid>();
+            tagList.Add(tagId);
+
+            IList<Image> tagImages = new List<Image>();
+
+            //Take: 256
+            if (imageCount > 200)
+            {
+                int size = imageCount;
+
+                while (size > 200)
+                {
+                    imageIds = new List<Guid>();
+                    tagImages = trainingClient.GetTaggedImages(projectId, null, tagList, null, 200);
+                    foreach (var i in tagImages)
+                    {
+                        imageIds.Add(i.Id);
+                    }
+                    trainingClient.DeleteImages(projectId, imageIds);
+                    size = size - 200;
+
+                    if(size < 0)
+                    {
+                        imageIds = new List<Guid>();
+                        tagImages = trainingClient.GetTaggedImages(projectId, null, tagList);
+                        foreach (var i in tagImages)
+                        {
+                            imageIds.Add(i.Id);
+                        }
+                        trainingClient.DeleteImages(projectId, imageIds);
+                    }
+                    else if(size <= 200)
+                    {
+                        imageIds = new List<Guid>();
+                        tagImages = trainingClient.GetTaggedImages(projectId, null, tagList, null, size);
+                        foreach (var i in tagImages)
+                        {
+                            imageIds.Add(i.Id);
+                        }
+                        trainingClient.DeleteImages(projectId, imageIds);
+                    }
+                }
+            }
+            else 
+            {
+                imageIds = new List<Guid>();
+                tagImages = trainingClient.GetTaggedImages(projectId, null, tagList, null, imageCount);
+                foreach (var i in tagImages)
+                {
+                    imageIds.Add(i.Id);
+                }
+                trainingClient.DeleteImages(projectId, imageIds);
+            }
+
+            trainingClient.DeleteTag(projectId, tagId);
+            updateImageCount(projectId);
+        }
+
+        public void updateImageCount(Guid projectId)
+        {
+            if (projectId == Guid.Empty)
+                throw new Exception("Project id is null");
+
+            var model = getModel(projectId);
+            model.imageCount = trainingClient.GetImageCount(projectId);
+
+            _db.AIModels.Update(model);
+            _db.SaveChanges();
         }
     }
 }

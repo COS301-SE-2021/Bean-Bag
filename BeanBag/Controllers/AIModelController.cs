@@ -413,5 +413,56 @@ namespace BeanBag.Controllers
             }
         }
 
+        /*
+        [HttpGet]
+        public IActionResult DeleteTag(Guid tagId, Guid projectId, int imageCount, string tagName)
+        {
+            if (User.Identity is { IsAuthenticated: true })
+            {
+                var tag = new ModelTag()
+                {
+                    name = tagName,
+                    Id = tagId,
+                    projectId = projectId,
+                    imageCount = imageCount
+                };
+
+                return View(tag);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
+        }
+        */
+        [HttpGet]
+        public IActionResult DeleteTag(Guid Id, Guid projectId, int imageCount, string Name)
+        {
+            if (User.Identity is { IsAuthenticated: true })
+            {
+                var tag = new ModelTag()
+                {
+                    Id = Id, 
+                    name = Name, 
+                    imageCount = imageCount, 
+                    projectId = projectId
+                };
+
+                return View(tag);
+            }
+            else
+            {
+                return LocalRedirect("/");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult DeleteTag(Guid Id, Guid projectId, int imageCount)
+        {
+            _aIService.deleteModelTag(Id, projectId, imageCount);
+
+            return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
+        }
+
     }
 }
