@@ -263,12 +263,7 @@ namespace BeanBag.Services
                     createdDate = DateTime.Now
                 };
 
-                var model = _db.AIModels.Find(projectId);
-                int? count = getImageCount(projectId);
-
-                model.imageCount = count;
-
-                _db.AIModels.Update(model);
+                updateImageCount(projectId);
 
                 _db.AIModelIterations.Add(newModelVersion);
                 _db.SaveChanges();
@@ -681,7 +676,7 @@ namespace BeanBag.Services
                 throw new Exception("Project id is null");
 
             var model = getModel(projectId);
-            model.imageCount = trainingClient.GetImageCount(projectId);
+            model.imageCount = getImageCount(projectId);
 
             _db.AIModels.Update(model);
             _db.SaveChanges();

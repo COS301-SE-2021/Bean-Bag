@@ -57,5 +57,7 @@ namespace BeanBag.Services
 
         public void deleteModelTag(Guid tagId, Guid projectId, int imageCount);
 
+        public void updateImageCount(Guid projectId);
+
     }
 }
