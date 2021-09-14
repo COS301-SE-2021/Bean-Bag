@@ -213,12 +213,13 @@ namespace BeanBag.Controllers
                 //foreach(var t in tags)
                 //    t.ima
 
-                // Checking to see if user can create more Model versions as well if model is able to train a new version
+
+                int? imageCount = _aIService.getImageCount(projectId);
                 ViewBag.modelTraining = false;
                 Tenant tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
-
                 List<AIModelVersions> versions = _aIService.getProjectIterations(projectId);
 
+                // If their are any iterations in training then the admin cannot train a new model version
                 foreach(var v in versions)
                 {
                     if(v.status == "Training")
@@ -228,11 +229,20 @@ namespace BeanBag.Controllers
                     }
                 }
 
+                //Custom vision has a cap of 20 iterations per model
+                if(versions.Count >= 20)
+                {
+                    ViewBag.modelTraining = true;
+                    return View(viewModel);
+                }
+
+
+                // Check tenant subscriptio to cap the amount of iterations allowed to be created
                 if (tenant.TenantSubscription == "Free")
                 {
                     if (versions.Count < 3)
                     {
-                        if (_aIService.getModel(projectId).imageCount == _aIService.getImageCount(projectId))
+                        if (_aIService.getModel(projectId).imageCount == imageCount)
                             ViewBag.canTrainNewVersion = false;
                         else
                             ViewBag.canTrainNewVersion = true;
@@ -244,7 +254,7 @@ namespace BeanBag.Controllers
                 {
                     if (versions.Count < 10)
                     {
-                        if (_aIService.getModel(projectId).imageCount == _aIService.getImageCount(projectId))
+                        if (_aIService.getModel(projectId).imageCount == imageCount)
                             ViewBag.canTrainNewVersion = false;
                         else
                             ViewBag.canTrainNewVersion = true;
@@ -254,7 +264,7 @@ namespace BeanBag.Controllers
                 }
                 else if (tenant.TenantSubscription == "Premium")
                 {
-                    if (_aIService.getModel(projectId).imageCount == _aIService.getImageCount(projectId))
+                    if (_aIService.getModel(projectId).imageCount == imageCount)
                         ViewBag.canTrainNewVersion = false;
                     else
                         ViewBag.canTrainNewVersion = true;
@@ -324,6 +334,20 @@ namespace BeanBag.Controllers
                     //ViewBag.complainImages = "Tag text field cannot be empty";
                     return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
                 }
+            }
+
+            // Custom Vision cannot have more than 100 000 images.
+            if(_aIService.getImageCount(projectId) + files.Count >= 100000)
+            {
+                //ViewBag.complainImages = "An AI model cannot have more than 100 000 images.";
+                return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
+            }
+
+            //Custom vision cannot have more than 500 tags
+            if(_aIService.getModelTags(projectId).Count + tags.Length >= 500)
+            {
+                //ViewBag.complainImages = "An AI model cannot have more than 500 tags";
+                return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
             }
             
             List<string> imageUrls = await _blobService.uploadTestImages(files, projectId.ToString());

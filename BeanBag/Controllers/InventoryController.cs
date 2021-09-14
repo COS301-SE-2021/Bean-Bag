@@ -17,13 +17,15 @@ namespace BeanBag.Controllers
            Allows us to save, update and delete records */
         private readonly DBContext _db;
         private readonly IInventoryService _inventoryService;
+        private readonly ITenantService _tenantService;
 
         // Constructor.
-        public InventoryController(DBContext db, IInventoryService inv)
+        public InventoryController(DBContext db, IInventoryService inv, ITenantService tenantService)
         {
             // Inits the db context allowing us to use CRUD operations on the inventory table
             _db = db;
             _inventoryService = inv;
+            _tenantService = tenantService;
         }
 
         public void CheckUserRole()
@@ -150,71 +152,78 @@ namespace BeanBag.Controllers
             if(User.Identity is {IsAuthenticated: true})
             {
                 
-             //A ViewBag property provides the view with the current sort order, because this must be included in 
-             //  the paging links in order to keep the sort order the same while paging
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            List<Item> modelList;
+                 //A ViewBag property provides the view with the current sort order, because this must be included in 
+                 //  the paging links in order to keep the sort order the same while paging
+                ViewBag.CurrentSort = sortOrder;
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                List<Item> modelList;
 
-            //ViewBag.CurrentFilter, provides the view with the current filter string.
-            //he search string is changed when a value is entered in the text box and the submit button is pressed. In that case, the searchString parameter is not null.
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewBag.CurrentFilter = searchString;
-
-
-            var model =  from i in _db.Items where i.inventoryId.Equals(inventoryId) select i;
-                //Search and match data, if search string is not null or empty
-                if (!String.IsNullOrEmpty(searchString))
+                //ViewBag.CurrentFilter, provides the view with the current filter string.
+                //he search string is changed when a value is entered in the text box and the submit button is pressed. In that case, the searchString parameter is not null.
+                if (searchString != null)
                 {
-                    model = model.Where(s => s.name.Contains(searchString));
+                    page = 1;
                 }
-                switch (sortOrder)
+                else
                 {
-                    case "name_desc":
-                        modelList = model.OrderByDescending(s => s.name).ToList();
-                        break; 
+                    searchString = currentFilter;
+                }
+
+                ViewBag.CurrentFilter = searchString;
+
+
+                var model =  from i in _db.Items where i.inventoryId.Equals(inventoryId) select i;
+                    //Search and match data, if search string is not null or empty
+                    if (!String.IsNullOrEmpty(searchString))
+                    {
+                        model = model.Where(s => s.name.Contains(searchString));
+                    }
+                    switch (sortOrder)
+                    {
+                        case "name_desc":
+                            modelList = model.OrderByDescending(s => s.name).ToList();
+                            break; 
                         
                  
-                    default:
-                        modelList = model.OrderBy(s => s.name).ToList();
-                        break;
-                }
+                        default:
+                            modelList = model.OrderBy(s => s.name).ToList();
+                            break;
+                    }
 
-                //Date sorting
-                if (sortOrder == "date")
-                {
-                    modelList =( model.Where(t => t.entryDate > from && t.entryDate < to)).ToList();
+                    //Date sorting
+                    if (sortOrder == "date")
+                    {
+                        modelList =( model.Where(t => t.entryDate > from && t.entryDate < to)).ToList();
 
-                }
+                    }
            
-            //indicates the size of list
-            int pageSize = 5;
+                //indicates the size of list
+                int pageSize = 5;
             
-            //set page to one is there is no value, ??  is called the null-coalescing operator.
-            int pageNumber = (page ?? 1);
+                //set page to one is there is no value, ??  is called the null-coalescing operator.
+                int pageNumber = (page ?? 1);
             
-            Item items = new Item();
-            Pagination viewModel = new Pagination();
-            IPagedList<Item> pagedList = modelList.ToPagedList(pageNumber, pageSize);
+                Item items = new Item();
+                Pagination viewModel = new Pagination();
+                IPagedList<Item> pagedList = modelList.ToPagedList(pageNumber, pageSize);
             
-            viewModel.Item = items;
-            ViewBag.InventoryName = _inventoryService.FindInventory(inventoryId).name;
-            ViewBag.InventoryId= inventoryId;
-            viewModel.PagedListItems = pagedList;
-            @ViewBag.totalItems = pagedList.Count;
+                viewModel.Item = items;
+                ViewBag.InventoryName = _inventoryService.FindInventory(inventoryId).name;
+                ViewBag.InventoryId= inventoryId;
+                viewModel.PagedListItems = pagedList;
+                @ViewBag.totalItems = pagedList.Count;
 
-            //Checking user role is in DB
-            CheckUserRole();
+                //Checking user role is in DB
+                CheckUserRole();
 
-            return View(viewModel);
+                //Checking to see if the tenant is allowed to generate reports
+                Tenant tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
+                if (tenant.TenantSubscription == "Premium")
+                    ViewBag.canGenerateReport = true;
+                else
+                    ViewBag.canGenerateReport = false;
+
+                return View(viewModel);
             }
             else
             {

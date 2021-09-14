@@ -67,11 +67,11 @@ namespace BeanBag.Controllers
         {
             string imageUrl = await _blobStorageService.uploadItemImage(file);
 
-            // Checking to see if user has selected an AI model to use. Otherwise let them continue as is
-            if (predictionModelId == "Selection")
+            // Checking to see if user has selected an AI model to use. Otherwise let them continue as iss
+            if (predictionModelId == "None")
             {
                 ViewBag.listPredictions = "";
-                return LocalRedirect("/Item/Create?imageUrl=" + imageUrl );
+                return LocalRedirect("/Item/Create?imageUrl=" + imageUrl + "&iterationName=null");
             }
             
             var iteration = _aIService.getIteration(Guid.Parse(predictionModelId)); 
@@ -105,10 +105,16 @@ namespace BeanBag.Controllers
 
             ViewBag.InventoryDropDown = inventoryDropDown;
             ViewBag.imageUrl = imageUrl;
-            Guid id = new Guid(projectId);
-            @ViewBag.listPredictions = _aIService.predict(id , iterationName, imageUrl); 
-
-
+            if(iterationName != "null")
+            {
+                Guid id = new Guid(projectId);
+                ViewBag.listPredictions = _aIService.predict(id, iterationName, imageUrl);
+                ViewBag.usePrediction = true;
+            }
+            else 
+            {
+                ViewBag.usePrediction = false;
+            }
             return View();
         }
 

@@ -102,32 +102,40 @@
                                             <!--Add your own tags -->
                                               <table class="table table-bordered table-hover pr-5" id="tab_logic">
                                                   <thead>
-                                                  <tr>
-                                                      <th >#</th>
-                                                      <th >Tag Name</th>
-                                                      <th > Prediction % </th>
-                                                  </tr>
+                                                      <tr>
+                                                          <th>#</th>
+                                                          <th>Tag Name</th>
+                                                          @if (ViewBag.usePrediction == true)
+                                                          {
+                                                              <th> Prediction % </th>
+                                                          }
+                                                      </tr>
                                                   </thead>
                                                   <tbody>
-                                                     
-                                                        @foreach (var x in ViewBag.listPredictions)
-                                                        {
-                                                            <tr id="@i">
-                                                                <td>@i</td>
-                                                                <td>
-                                                                    <input type="text" name='tags' placeholder='Name' value="@x.tagName" class="form-control"/>
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" placeholder='Name' value="@x.percentage" class="form-control" disabled="true"/>
-                                                                </td>
-                                                            </tr>
-                                                            
-                                                            i++;
-                                                        }
-
-
-                                                  <tr id="@i"></tr>
-                                                  <tr id="address1"></tr>
+                                                      <tr id="@i">
+                                                          <td>@i</td>
+                                                          @if (ViewBag.usePrediction == true)
+                                                          {
+                                                              @foreach (var x in ViewBag.listPredictions)
+                                                              {
+                                                                  <td>
+                                                                      <input type="text" name='tags' placeholder='Name' value="@x.tagName" class="form-control" />
+                                                                  </td>
+                                                                  <td>
+                                                                      <input type="text" placeholder='Name' value="@x.percentage" class="form-control" disabled="true" />
+                                                                  </td>
+                                                                  i++;
+                                                              }
+                                                          }
+                                                          else
+                                                          {
+                                                              <td>
+                                                                  <input type="text" name='tags' placeholder='Name' class="form-control" />
+                                                              </td>
+                                                          }
+                                                      </tr>
+                                                      <tr id="@i"></tr>
+                                                      <tr id="address1"></tr>
                                                   </tbody>
                                               </table>
                                                 <a id="add_row" class="btn btn-3  text-light">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a> &nbsp;  &nbsp; 
