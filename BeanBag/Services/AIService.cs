@@ -174,62 +174,60 @@ namespace BeanBag.Services
         }
 
         // This method is used to upload a set of test images into the Azure blob storage and then into the custom vision project
-        
+            
         public void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
         {
-            if (projectId == Guid.Empty)
-                throw new Exception("Project id is null");
-
-            if (trainingClient.GetProject(projectId) == null)
-                throw new Exception("Custom vision project does not exist with project id " + projectId.ToString());
-
-            List<Guid> imageTagsId = new List<Guid>();
-            IList<Tag> modelTags = getModelTags(projectId);
-
-            foreach (var tag in tags)
-            {
-                bool found = false;
-
-                foreach (var modelTag in modelTags)
-                {
-                    if(tag.ToLower().Equals(modelTag.Name.ToLower()))
-                    {
-                        found = true;
-                        imageTagsId.Add(modelTag.Id);
-                        break;
-                    }     
-                }
-
-                if (!found)
-                    imageTagsId.Add(trainingClient.CreateTag(projectId, tag).Id);
-            }
-
-            int size = imageUrls.Count;
-
-            while(size > 50)
-            {
-                List<string> tempUrl = imageUrls.GetRange(0, 50);
-                imageUrls.RemoveRange(0, 50);
-
-                List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
-
-                foreach (var url in tempUrl)
-                    images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
-                
-                trainingClient.CreateImagesFromUrls(projectId, new ImageUrlCreateBatch(images));
-                size = size - 50;
-            }
-
-            foreach (var url in imageUrls)
-            {
-                List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
-                images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
-                trainingClient.CreateImagesFromUrls(projectId, new ImageUrlCreateBatch(images));
-            }
-
             try
             {
-                
+                if (projectId == Guid.Empty)
+                    throw new Exception("Project id is null");
+
+                if (trainingClient.GetProject(projectId) == null)
+                    throw new Exception("Custom vision project does not exist with project id " + projectId.ToString());
+
+                List<Guid> imageTagsId = new List<Guid>();
+                IList<Tag> modelTags = getModelTags(projectId);
+
+                foreach (var tag in tags)
+                {
+                    bool found = false;
+
+                    foreach (var modelTag in modelTags)
+                    {
+                        if (tag.ToLower().Equals(modelTag.Name.ToLower()))
+                        {
+                            found = true;
+                            imageTagsId.Add(modelTag.Id);
+                            break;
+                        }
+                    }
+
+                    if (!found)
+                        imageTagsId.Add(trainingClient.CreateTag(projectId, tag).Id);
+                }
+
+                int size = imageUrls.Count;
+
+                while (size > 50)
+                {
+                    List<string> tempUrl = imageUrls.GetRange(0, 50);
+                    imageUrls.RemoveRange(0, 50);
+
+                    List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
+
+                    foreach (var url in tempUrl)
+                        images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
+
+                    trainingClient.CreateImagesFromUrls(projectId, new ImageUrlCreateBatch(images));
+                    size = size - 50;
+                }
+
+                foreach (var url in imageUrls)
+                {
+                    List<ImageUrlCreateEntry> images = new List<ImageUrlCreateEntry>();
+                    images.Add(new ImageUrlCreateEntry(url, imageTagsId, null));
+                    trainingClient.CreateImagesFromUrls(projectId, new ImageUrlCreateBatch(images));
+                }
             }
             catch (Exception e)
             {
