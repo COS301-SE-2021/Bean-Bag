@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Transactions;
 using BeanBag.Models;
 
@@ -15,5 +16,6 @@ namespace BeanBag.Services
         IEnumerable<Transactions> GetTransactions(string currentTenantId);
         public Transactions GetPaidSubscription(string tenantId);
         public void UpdateSubscription(string subscription, string tenantId);
+        public bool DeleteTransaction(Guid id);
     }
 }
