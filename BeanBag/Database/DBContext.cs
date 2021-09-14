@@ -13,6 +13,11 @@ namespace BeanBag.Database
 
         }
 
+        /*public DBContext()
+        {
+            
+        }*/
+
         // This is the set of inventories found in the inventory table of the DB
         public DbSet<Inventory> Inventories { get; set; }
         public DbSet<Item> Items { get; set; }
