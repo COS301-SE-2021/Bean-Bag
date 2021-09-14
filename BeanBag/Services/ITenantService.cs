@@ -29,5 +29,6 @@ namespace BeanBag.Services
         public bool EditUserRole(string userId, string role);
         public string GetUserRole(string id);
 
+        void UpdateSubscription(string subscription, string tenantId);
     }
 }
