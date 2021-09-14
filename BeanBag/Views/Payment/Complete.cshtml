@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@{
    
     Layout = null;
 }
@@ -79,10 +80,21 @@
     <div class=" my-auto pt-xl-3 text-center">    
 	    <!--Successful Payment here-->
         	<h1> Payment was completed successfully <img alt="" width="50" src="https://img.icons8.com/color/48/000000/checked--v4.gif"/></h1>
-        	<h4 class="pb-2"> Start creating a new tenant now</h4>
-        	<!-- Button trigger modal -->
-           <button class="btn btn-outline-light shadow-sm bg-body create rounded colors pt-2 "  data-toggle="modal" data-target="#exampleModal3"  id="btn-pay" >Create New Tenant</button>
-    </div>
+	    
+	    		@if (@ViewBag.UpdatedSubscription==false)
+			    {
+				    <h4 class="pb-2"> Start creating a new tenant now</h4>
+				    <!-- Button trigger modal -->
+				    <button class="btn btn-outline-light shadow-sm bg-body create rounded colors pt-2 "  data-toggle="modal" data-target="#exampleModal3"  id="btn-pay" >Create New Tenant</button>
+			    }else 
+			    {
+				    <h4 class="pb-2">Your subscription plan has been updated to @ViewBag.Subscription . <br> You may now return to your account.</h4>
+				    <!-- Button trigger modal -->
+				   <a asp-action="Index" asp-controller="Home" class="btn btn-3 ">Return to Account</a>
+ 
+			    }
+	    
+	    </div>
  </div>
 
 	<!---Popup Form to create tenant-->
