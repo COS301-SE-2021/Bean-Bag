@@ -10,6 +10,7 @@ using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using BeanBag.Database;
 using BeanBag.Services;
+using AspNetCore.Unobtrusive.Ajax;
 
 namespace BeanBag
 {
@@ -73,6 +74,7 @@ namespace BeanBag
             services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<ITenantService,TenantService>();
             services.AddTransient<ITenantBlobStorageService, TenantBlobStorageService>();
+            services.AddUnobtrusiveAjax(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,6 +93,8 @@ namespace BeanBag
             } 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            //It is required for serving 'jquery-unobtrusive-ajax.min.js' embedded script file.
+            app.UseUnobtrusiveAjax();
 
             app.UseRouting();
 
