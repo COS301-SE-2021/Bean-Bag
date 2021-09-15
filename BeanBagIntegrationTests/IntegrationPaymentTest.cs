@@ -710,9 +710,10 @@ namespace BeanBagIntegrationTests
             Assert.True(addedTransact);
             var isDel = mySer.DeleteTransaction(myl[0].TransactionId);
         }
-        
+
+
         [Fact]
-        public void Update_Tenant_null()
+        public void Update_tenant_null()
         {
             //ARRANGE
             var chars = "0123456789";
@@ -758,6 +759,7 @@ namespace BeanBagIntegrationTests
             Assert.True(addedTransact);
             var isDel = mySer.DeleteTransaction(myl[0].TransactionId);
         }
+        
         
         
         /*
