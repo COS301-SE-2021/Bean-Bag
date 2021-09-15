@@ -291,10 +291,10 @@ namespace BeanBag.Services
         {
             if (subscription == null)
             {
-                
+                throw new Exception("Subscription is null");
             }else if (tenantId == null)
             {
-                
+                throw new Exception("Tenant id is null");
             }
             
             //TODO

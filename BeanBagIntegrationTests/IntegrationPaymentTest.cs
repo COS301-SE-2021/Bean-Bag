@@ -663,6 +663,102 @@ namespace BeanBagIntegrationTests
             var isDel = mySer.DeleteTransaction(myl[0].TransactionId);
         }
         
+        [Fact]
+        public void Update_Subscription_null_Sub()
+        {
+            //ARRANGE
+            var chars = "0123456789";
+            var stringChars = new char[5];
+            var random = new Random();
+
+            for (var i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            var myGuidEnd = finalString;
+
+            var u2 = finalString.Substring(0, 4);
+            
+            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+            
+            Guid theIdPay = new("00000000-0000-0000-0000-0160000" + myGuidEnd);
+            
+            string tReference = "testtransaction";
+            string tPayId = theIdPay.ToString();
+            string tTenantId = theId2.ToString();
+            float tAmount = 12.50f;
+
+
+
+            //ACT
+            var mySer = new PaymentService(_Tdb);
+            var addedTransact = mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
+            var myTrns = mySer.GetTransactions(tTenantId);
+            
+            void Act() => mySer.UpdateSubscription(null, tTenantId);
+            
+            var icount = myTrns.Count();
+            var myl = myTrns.ToList();
+            
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Subscription is null", exception.Message);
+            Assert.True(addedTransact);
+            var isDel = mySer.DeleteTransaction(myl[0].TransactionId);
+        }
+        
+        [Fact]
+        public void Update_Tenant_null()
+        {
+            //ARRANGE
+            var chars = "0123456789";
+            var stringChars = new char[5];
+            var random = new Random();
+
+            for (var i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            var myGuidEnd = finalString;
+
+            var u2 = finalString.Substring(0, 4);
+            
+            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+            
+            Guid theIdPay = new("00000000-0000-0000-0000-0160000" + myGuidEnd);
+            
+            string tReference = "testtransaction";
+            string tPayId = theIdPay.ToString();
+            string tTenantId = theId2.ToString();
+            float tAmount = 12.50f;
+
+
+
+            //ACT
+            var mySer = new PaymentService(_Tdb);
+            var addedTransact = mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
+            var myTrns = mySer.GetTransactions(tTenantId);
+            
+            void Act() => mySer.UpdateSubscription("Free", null);
+            
+            var icount = myTrns.Count();
+            var myl = myTrns.ToList();
+            
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Tenant id is null", exception.Message);
+            Assert.True(addedTransact);
+            var isDel = mySer.DeleteTransaction(myl[0].TransactionId);
+        }
+        
         
         /*Dictionary<string, string> ToDictionary(string response);
         string GetMd5Hash(Dictionary<string, string> data, string encryptionKey);
