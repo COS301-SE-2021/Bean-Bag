@@ -23,12 +23,16 @@ namespace BeanBagIntegrationTests
         private readonly CloudStorageAccount cloudStorageAccount;
         private readonly CloudBlobClient cloudBlobClient;
         private CloudBlobContainer cloudBlobContainer;
+        //private readonly IConfiguration _config;
         private readonly IConfiguration config;
+
 
         public IntegrationBlobTestBeta(IConfiguration config)
         {
-            this.config = config;
+            this.config = new ConfigurationBuilder().AddJsonFile("appsettings.local.json").Build();
+            
             cloudStorageAccount = CloudStorageAccount.Parse(config.GetValue<string>("AzureBlobStorage:ConnectionString"));
+
             cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
 

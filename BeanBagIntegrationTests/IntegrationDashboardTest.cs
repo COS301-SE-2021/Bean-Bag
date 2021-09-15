@@ -4,6 +4,7 @@ using BeanBag.Database;
 using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -29,7 +30,7 @@ namespace BeanBagIntegrationTests
             
             builder.UseSqlServer(connString).UseInternalServiceProvider(serviceProvider);
 
-            _db = new DBContext(builder.Options);
+            _context = new DBContext(builder.Options);
 
         }
         
