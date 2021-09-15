@@ -4,6 +4,7 @@ using BeanBag.Database;
 using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -13,19 +14,21 @@ namespace BeanBagIntegrationTests
     {
         
         private readonly DBContext _context;
-
+        private readonly IConfiguration config;
+        
         public IntegrationDashboardTest()
         {
+            this.config = new ConfigurationBuilder().AddJsonFile("appsettings.local.json").Build();
+            
             var serviceProvider = new ServiceCollection()
                 .AddEntityFrameworkSqlServer()
                 .BuildServiceProvider();
 
             var builder = new DbContextOptionsBuilder<DBContext>();
 
-            builder.UseSqlServer($"Server=tcp:polariscapestone.database.windows.net,1433;Initial Catalog=Bean-Bag-Platform-DB;" +
-                                 $"Persist Security Info=False;User ID=polaris; Password=MNRSSp103;MultipleActiveResultSets=False;Encrypt=True;" +
-                                 $"TrustServerCertificate=False;Connection Timeout=30;")
-                .UseInternalServiceProvider(serviceProvider);
+            var connString = config.GetValue<string>("Database:DefaultConnection");
+            
+            builder.UseSqlServer(connString).UseInternalServiceProvider(serviceProvider);
 
             _context = new DBContext(builder.Options);
 
