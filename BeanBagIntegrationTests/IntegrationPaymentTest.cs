@@ -498,7 +498,7 @@ namespace BeanBagIntegrationTests
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
             
-            Guid theIdPay = new("00000000-0000-0000-0000-0160000" + myGuidEnd);
+            Guid theIdPay = new("00100000-0000-0000-0000-0160000" + myGuidEnd);
             
             string tReference = "testtransaction";
             string tPayId = theIdPay.ToString();
