@@ -310,17 +310,17 @@ namespace BeanBag.Controllers
             [FromForm(Name ="projectId")] Guid projectId, [FromForm(Name ="tags")] string[] tags,
             [FromForm(Name = "LastTestImages")] string lastTestImages)
         {
-            Console.WriteLine(files.Count);
+            
            ViewBag.complainImages = "";
             var model = _aIService.getModel(projectId);
 
-            if(Request.Form.Files.Count < 5)
+            if(files.Count < 5)
             {
                 //ModelState.AddModelError("", "Need to upload more than 5 images");
                 ViewBag.complainImages = "Need to upload more than 5 images";
                 return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
             }
-            else if(Request.Form.Files.Count > 1000)
+            else if(files.Count > 1000)
             {
                 //ViewBag.complainImages = "Cannot upload more than 1000 images at a time";
                 return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
@@ -337,7 +337,7 @@ namespace BeanBag.Controllers
             }
 
             // Custom Vision cannot have more than 100 000 images.
-            if(_aIService.getImageCount(projectId) + Request.Form.Files.Count >= 100000)
+            if(_aIService.getImageCount(projectId) + files.Count >= 100000)
             {
                 //ViewBag.complainImages = "An AI model cannot have more than 100 000 images.";
                 return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
