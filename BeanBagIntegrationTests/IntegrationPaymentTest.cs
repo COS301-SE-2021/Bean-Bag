@@ -760,12 +760,11 @@ namespace BeanBagIntegrationTests
         }
         
         
-        /*Dictionary<string, string> ToDictionary(string response);
+        /*
+        Dictionary<string, string> ToDictionary(string response);
         string GetMd5Hash(Dictionary<string, string> data, string encryptionKey);
         bool VerifyMd5Hash(Dictionary<string, string> data, string encryptionKey, string hash);
         
-        public void UpdateSubscription(string subscription, string tenantId);
-        
-            */
+        */
     }
 }
