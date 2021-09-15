@@ -191,29 +191,23 @@ namespace BeanBag.Services
                 throw new Exception("Amount is null.");
             }
 
+           
+            Transactions transaction = new Transactions()
+            {
+                
+                //TransactionId = new("00000000-0000-0000-0000-00000000124"),
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(1),
+                Reference = reference,
+                Amount = amount,
+                TenantId = tenantId,
+                PaymentRequestId =  payId,
+            };
+            _tenantDb.Transactions.Add(transaction);
+            _tenantDb.SaveChanges();
+            return true;
             
             
-            try
-            {
-                Transactions transaction = new Transactions()
-                {
-                    
-                    TransactionId = new("00000000-0000-0000-0000-00000000124"),
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddMonths(1),
-                    Reference = reference,
-                    Amount = amount,
-                    TenantId = tenantId,
-                    PaymentRequestId =  payId,
-                };
-                _tenantDb.Transactions.Add(transaction);
-                _tenantDb.SaveChanges();
-                return true;
-            }
-            catch (Exception )
-            {
-                return false;
-            }
         }
         
         // This function gets the transactions for a specific user.
@@ -231,7 +225,7 @@ namespace BeanBag.Services
                 select transactions;
 
             var transactionList = t.ToList();
-            var emma = "";
+            
             return transactionList;
         }
 
@@ -249,7 +243,7 @@ namespace BeanBag.Services
             {
                 var t = from transactions
                         in _tenantDb.Transactions
-                    where transactions.TenantId.Equals(id)
+                    where transactions.TenantId.Equals(tenantId)
                     select transactions;
                 
                  getfirst = t.OrderByDescending(x => x.StartDate)
