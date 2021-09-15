@@ -470,7 +470,7 @@ namespace BeanBagIntegrationTests
             var myTrns = mySer.GetTransactions(tTenantId);
             var icount = myTrns.Count();
             var myl = myTrns.ToList();
-            var isDel = mySer.DeleteTransaction(theId2);
+            var isDel = mySer.DeleteTransaction(theId2.ToString());
             
             //ASSERT
             Assert.False(isDel);
@@ -760,12 +760,11 @@ namespace BeanBagIntegrationTests
         }
         
         
-        /*Dictionary<string, string> ToDictionary(string response);
+        /*
+        Dictionary<string, string> ToDictionary(string response);
         string GetMd5Hash(Dictionary<string, string> data, string encryptionKey);
         bool VerifyMd5Hash(Dictionary<string, string> data, string encryptionKey, string hash);
         
-        public void UpdateSubscription(string subscription, string tenantId);
-        
-            */
+        */
     }
 }
