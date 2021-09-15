@@ -4,7 +4,6 @@ using BeanBag.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
-using Microsoft.Identity.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +19,12 @@ namespace BeanBag.Controllers
         // Global variables needed for calling the service classes.
         private readonly IAIService _aIService;
         private readonly IBlobStorageService _blobService;
-        private readonly ITenantService _tenantService;
     
         // Constructor.
-        public AiModelController(IAIService aIService, IBlobStorageService blobService, ITenantService tenantService)
+        public AiModelController(IAIService aIService, IBlobStorageService blobService)
         {
             _aIService = aIService;
             _blobService = blobService;
-            _tenantService = tenantService;
         }
 
         /* This function adds a page parameter, a current sort order parameter, and a current filter
@@ -38,28 +35,28 @@ namespace BeanBag.Controllers
             if(User.Identity is {IsAuthenticated: true})
             {
                 
-                 //A ViewBag property provides the view with the current sort order, because this must be included in 
-                 //  the paging links in order to keep the sort order the same while paging
-                ViewBag.CurrentSort = sortOrder;
-                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-                List<AIModel> modelList;
+             //A ViewBag property provides the view with the current sort order, because this must be included in 
+             //  the paging links in order to keep the sort order the same while paging
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            List<AIModel> modelList;
 
-                //ViewBag.CurrentFilter, provides the view with the current filter string.
-                //the search string is changed when a value is entered in the text box and the submit
-                //button is pressed. In that case, the searchString parameter is not null.
-                if (searchString != null)
-                {
-                    page = 1;
-                }
-                else
-                {
-                    searchString = currentFilter;
-                }
+            //ViewBag.CurrentFilter, provides the view with the current filter string.
+            //the search string is changed when a value is entered in the text box and the submit
+            //button is pressed. In that case, the searchString parameter is not null.
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
-                ViewBag.CurrentFilter = searchString;
+            ViewBag.CurrentFilter = searchString;
 
 
-                var model = from s in _aIService.getAllModels() select s;
+            var model = from s in _aIService.getAllModels() select s;
             
                 //Search and match data, if search string is not null or empty
                 if (!String.IsNullOrEmpty(searchString))
@@ -84,50 +81,23 @@ namespace BeanBag.Controllers
 
                 }*/
                 
-                //indicates the size of list
-                int pageSize = 5;
+            //indicates the size of list
+            int pageSize = 5;
             
-                //set page to one is there is no value, ??  is called the null-coalescing operator.
-                int pageNumber = (page ?? 1);
+            //set page to one is there is no value, ??  is called the null-coalescing operator.
+            int pageNumber = (page ?? 1);
             
-                //Initialise data and models to be returned to the view.
-                AIModel mod = new AIModel();
-                Pagination viewModel = new Pagination();
-                IPagedList<AIModel> pagedList = modelList.ToPagedList(pageNumber, pageSize);
+            //Initialise data and models to be returned to the view.
+            AIModel mod = new AIModel();
+            Pagination viewModel = new Pagination();
+            IPagedList<AIModel> pagedList = modelList.ToPagedList(pageNumber, pageSize);
             
-                viewModel.AiModel = mod;
-                viewModel.PagedListModels = pagedList;
-                @ViewBag.totalModels = _aIService.getAllModels().Count;
+            viewModel.AiModel = mod;
+            viewModel.PagedListModels = pagedList;
+            @ViewBag.totalModels = _aIService.getAllModels().Count;
+            
 
-                //Checking to see if the tenant is allowed to create more AI Models
-                Tenant tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
-
-                List<AIModel> models = _aIService.getAllModels();
-
-                if(tenant.TenantSubscription == "Free")
-                {
-                    if (models.Count == 0)
-                        ViewBag.createNewModels = true;
-                    else
-                        ViewBag.createNewModels = false;
-                }
-                else if(tenant.TenantSubscription == "Standard")
-                {
-                    if (models.Count < 3)
-                        ViewBag.createNewModels = true;
-                    else
-                        ViewBag.createNewModels = false;
-                }
-                else if(tenant.TenantSubscription == "Premium")
-                {
-                    if (models.Count < 20)
-                        ViewBag.createNewModels = true;
-                    else
-                        ViewBag.createNewModels = false;
-                }
-
-
-                return View(viewModel);
+            return View(viewModel);
             }
             else
             {
@@ -143,134 +113,82 @@ namespace BeanBag.Controllers
             if(User.Identity is {IsAuthenticated: true})
             {
                 
-                 //A ViewBag property provides the view with the current sort order, because this must be included in 
-                 //  the paging links in order to keep the sort order the same while paging
-                ViewBag.CurrentSort = sortOrder;
-                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-                List<AIModelVersions> modelList;
+             //A ViewBag property provides the view with the current sort order, because this must be included in 
+             //  the paging links in order to keep the sort order the same while paging
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            List<AIModelVersions> modelList;
 
             
          
-                //ViewBag.CurrentFilter, provides the view with the current filter string.
-                //the search string is changed when a value is entered in the text box and the submit button is
-                //pressed. In that case, the searchString parameter is not null.
-                if (searchString != null)
-                {
-                    page = 1;
-                }
-                else
-                {
-                    searchString = currentFilter;
-                }
+            //ViewBag.CurrentFilter, provides the view with the current filter string.
+            //the search string is changed when a value is entered in the text box and the submit button is
+            //pressed. In that case, the searchString parameter is not null.
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
-                ViewBag.CurrentFilter = searchString;
+            ViewBag.CurrentFilter = searchString;
 
-                var model = from s in _aIService.getProjectIterations(projectId) 
-                    select s;
+            var model = from s in _aIService.getProjectIterations(projectId) 
+                select s;
             
-                    //Search and match data, if search string is not null or empty
-                    if (!String.IsNullOrEmpty(searchString))
-                    {
-                        model = model.Where(s => s.Name.Contains(searchString));
-                    }
-                    switch (sortOrder)
-                    {
-                        case "name_desc":
-                            modelList = model.OrderByDescending(s => s.Name).ToList();
-                            break;
+                //Search and match data, if search string is not null or empty
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    model = model.Where(s => s.Name.Contains(searchString));
+                }
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        modelList = model.OrderByDescending(s => s.Name).ToList();
+                        break;
                  
-                        default:
-                            modelList = model.OrderBy(s => s.Name).ToList();
-                            break;
-                    }
+                    default:
+                        modelList = model.OrderBy(s => s.Name).ToList();
+                        break;
+                }
 
-                    //TO DO: Date sorting --- need to add date created to DB 
-                    /*     if (sortOrder == "date")
-                    {
-                        modelList =( model.Where(t => t.createdDate > from && t.createdDate < to)).ToList();
-                    }*/
+                //TO DO: Date sorting --- need to add date created to DB 
+                /*     if (sortOrder == "date")
+                {
+                    modelList =( model.Where(t => t.createdDate > from && t.createdDate < to)).ToList();
+                }*/
                 
-                //indicates the size of list
-                int pageSize = 5;
+            //indicates the size of list
+            int pageSize = 5;
             
-                //set page to one is there is no value, ??  is called the null-coalescing operator.
-                int pageNumber = (page ?? 1);
+            //set page to one is there is no value, ??  is called the null-coalescing operator.
+            int pageNumber = (page ?? 1);
             
-                //Setting models to be returned to the view
-                AIModelVersions mod = new AIModelVersions();
-                Pagination viewModel = new Pagination();
-                IPagedList<AIModelVersions> pagedList = modelList.ToPagedList(pageNumber, pageSize);
+            //Setting models to be returned to the view
+            AIModelVersions mod = new AIModelVersions();
+            Pagination viewModel = new Pagination();
+            IPagedList<AIModelVersions> pagedList = modelList.ToPagedList(pageNumber, pageSize);
             
           
-                viewModel.PagedListVersions = pagedList;
-                @ViewBag.totalModels = _aIService.getProjectIterations(projectId).Count;
-                ViewBag.projectId = projectId;
+            viewModel.PagedListVersions = pagedList;
+            @ViewBag.totalModels = _aIService.getProjectIterations(projectId).Count;
+            ViewBag.projectId = projectId;
 
-                ViewBag.recommendations = _aIService.AIModelRecommendations(projectId); ;
-                ViewBag.modelTags = _aIService.getModelTags(projectId);
+            if (_aIService.getModel(projectId).imageCount == _aIService.getImageCount(projectId))
+                ViewBag.canTrainNewVersion = false;
+            else
+                ViewBag.canTrainNewVersion = true;
 
-                //IList<Tag> tags = _aIService.getModelTags(projectId);
-                //foreach(var t in tags)
-                //    t.ima
+            ViewBag.recommendations = _aIService.AIModelRecommendations(projectId); ;
+            ViewBag.modelTags = _aIService.getModelTags(projectId);
 
+            //IList<Tag> tags = _aIService.getModelTags(projectId);
+            //foreach(var t in tags)
+            //    t.ima
 
-                int? imageCount = _aIService.getImageCount(projectId);
-                ViewBag.modelTraining = false;
-                Tenant tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
-                List<AIModelVersions> versions = _aIService.getProjectIterations(projectId);
-
-                // If their are any iterations in training then the admin cannot train a new model version
-                foreach(var v in versions)
-                {
-                    if(v.status == "Training")
-                    {
-                        ViewBag.modelTraining = true;
-                        return View(viewModel);
-                    }
-                }
-
-                //Custom vision has a cap of 20 iterations per model
-                if(versions.Count >= 20)
-                {
-                    ViewBag.modelTraining = true;
-                    return View(viewModel);
-                }
-
-
-                // Check tenant subscriptio to cap the amount of iterations allowed to be created
-                if (tenant.TenantSubscription == "Free")
-                {
-                    if (versions.Count < 3)
-                    {
-                        if (_aIService.getModel(projectId).imageCount == imageCount)
-                            ViewBag.canTrainNewVersion = false;
-                        else
-                            ViewBag.canTrainNewVersion = true;
-                    }
-                    else
-                        ViewBag.createNewModels = false;
-                }
-                else if (tenant.TenantSubscription == "Standard")
-                {
-                    if (versions.Count < 10)
-                    {
-                        if (_aIService.getModel(projectId).imageCount == imageCount)
-                            ViewBag.canTrainNewVersion = false;
-                        else
-                            ViewBag.canTrainNewVersion = true;
-                    }
-                    else
-                        ViewBag.createNewModels = false;
-                }
-                else if (tenant.TenantSubscription == "Premium")
-                {
-                    if (_aIService.getModel(projectId).imageCount == imageCount)
-                        ViewBag.canTrainNewVersion = false;
-                    else
-                        ViewBag.canTrainNewVersion = true;
-                }
-
-                return View(viewModel);
+            return View(viewModel);
             }
             else
             {
@@ -310,44 +228,25 @@ namespace BeanBag.Controllers
             [FromForm(Name ="projectId")] Guid projectId, [FromForm(Name ="tags")] string[] tags,
             [FromForm(Name = "LastTestImages")] string lastTestImages)
         {
-            Console.WriteLine(files.Count);
-           ViewBag.complainImages = "";
             var model = _aIService.getModel(projectId);
 
-            if(Request.Form.Files.Count < 5)
-            {
-                //ModelState.AddModelError("", "Need to upload more than 5 images");
-                ViewBag.complainImages = "Need to upload more than 5 images";
+            if(files.Count < 5)
                 return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
-            }
-            else if(Request.Form.Files.Count > 1000)
-            {
-                //ViewBag.complainImages = "Cannot upload more than 1000 images at a time";
+
+            if(files.Count > 50)
                 return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
-            }
-                
+
+
+            if (files.Count == 0)
+                return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
+
             //Checking if each tag is not empty or not an empty string
             foreach (var tag in tags)
             {
                 if (tag.Equals("") || tag.Equals(" "))
                 {
-                    //ViewBag.complainImages = "Tag text field cannot be empty";
-                    return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
+                    return Ok("Tag entry invalid");
                 }
-            }
-
-            // Custom Vision cannot have more than 100 000 images.
-            if(_aIService.getImageCount(projectId) + Request.Form.Files.Count >= 100000)
-            {
-                //ViewBag.complainImages = "An AI model cannot have more than 100 000 images.";
-                return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
-            }
-
-            //Custom vision cannot have more than 500 tags
-            if(_aIService.getModelTags(projectId).Count + tags.Length >= 500)
-            {
-                //ViewBag.complainImages = "An AI model cannot have more than 500 tags";
-                return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
             }
             
             List<string> imageUrls = await _blobService.uploadTestImages(files, projectId.ToString());
@@ -512,35 +411,6 @@ namespace BeanBag.Controllers
             {
                 return LocalRedirect("/");
             }
-        }
-
-        [HttpGet]
-        public IActionResult DeleteTag(Guid Id, Guid projectId, int imageCount, string Name)
-        {
-            if (User.Identity is { IsAuthenticated: true })
-            {
-                var tag = new ModelTag()
-                {
-                    Id = Id, 
-                    name = Name, 
-                    imageCount = imageCount, 
-                    projectId = projectId
-                };
-
-                return View(tag);
-            }
-            else
-            {
-                return LocalRedirect("/");
-            }
-        }
-
-        [HttpPost]
-        public IActionResult DeleteTag(Guid Id, Guid projectId, int imageCount)
-        {
-            _aIService.deleteModelTag(Id, projectId, imageCount);
-
-            return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
         }
 
     }

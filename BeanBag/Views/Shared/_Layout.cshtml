@@ -46,10 +46,6 @@
     <link rel="stylesheet" href="~/css/dashboard.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <!-- Filepond stylesheet -->
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css" rel="stylesheet" />
-    <link href="https://unpkg.com/filepond/dist/filepond.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/filepond-plugin-file-poster/dist/filepond-plugin-file-poster.css" rel="stylesheet">    
 </head>
 <body>
 
@@ -219,31 +215,6 @@
 @RenderBody()
 
 <!--scripts-->
-<!-- Filepond scripts -->
-<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
-<script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
-<script>
-    FilePond.registerPlugin(
-    // encodes the file as base64 data
-    FilePondPluginFileEncode,
-    // validates the size of the file
-    FilePondPluginFileValidateSize,
-    // corrects mobile image orientation
-    FilePondPluginImageExifOrientation,
-    // previews dropped images
-    FilePondPluginImagePreview
-    );
-    // Select the file input and use create() to turn it into a pond
-    /*FilePond.create( document.querySelector('.filepond'));*/
-</script>
-<script>
-// Select the file input and use create() to turn it into a pond
-const inputElement = document.querySelector('input[type="file"]');
-const pond = FilePond.create( inputElement );
-</script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
