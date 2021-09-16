@@ -1,1 +1,11 @@
-﻿
+﻿<!--Empty state partial view where theres no items in your inventory-->
+<div class="container h-100 d-flex justify-content-center pt-xl-5">
+    <div class=" my-auto pt-xl-5 text-center">
+   
+        <img src="images/empty.png" class="text-secondary pt-xl-5 mt-5" alt="" width="200">
+        <h3 class="pt-4"> Your Subscription Plan has expired</h3>
+        <h5 class="text-secondary p-2">Update  your subscription plan <br> to continue cateloging items</h5>
+        
+        <a asp-action="Billing" asp-controller="Payment" class="btn btn-3 ">Upgrade Subscription </a>
+    </div>
+</div>
