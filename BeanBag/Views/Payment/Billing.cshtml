@@ -54,7 +54,7 @@
                                        </li>
                                        <li class="divider"></li>
                                    }
-                                   else
+                                   else if(@ViewBag.subscription == "Premium" || @ViewBag.subscription == "Standard")
                                    {
                                        <li>
                                            <i class="ace-icon fa fa-caret-right blue"></i> Plan: @ViewBag.subscription | 
@@ -104,7 +104,7 @@
                               <ul class="list-unstyled spaced">
                                   <li><i class="ace-icon fa fa-caret-right blue"></i>&nbsp;ID: @ViewBag.tenant.TenantId
                                       </li>
-                                  <li><i class="ace-icon fa fa-caret-right blue"></i>&nbsp;Subscription Plan: @ViewBag.tenant.TenantSubscription</li>
+                                  <li><i class="ace-icon fa fa-caret-right blue"></i>&nbsp;Subscription Plan: @ViewBag.subscription</li>
                                   <li>
                                       <i class="ace-icon fa fa-caret-right blue"></i>&nbsp;@ViewBag.tenant.TenantAddress
                                   </li>

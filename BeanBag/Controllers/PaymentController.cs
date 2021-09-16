@@ -253,7 +253,7 @@ namespace BeanBag.Controllers
             //Free - Automatic update
             if (subscription == "Free")
             {
-                _paymentService.UpdateSubscription(subscription,tenantId); 
+                _tenantService.UpdateSubscription(subscription,tenantId); 
                 return PartialView("_UpdateFreeSubscription");
             }
             else if(subscription == "Standard")

@@ -231,7 +231,6 @@ namespace BeanBag.Services
                 select transactions;
 
             var transactionList = t.ToList();
-            var emma = "";
             return transactionList;
         }
 
@@ -242,14 +241,13 @@ namespace BeanBag.Services
             {
                 throw new Exception("TenantID is null");
             }
-            Guid id = new Guid(tenantId);
 
             Transactions getfirst;
             try
             {
                 var t = from transactions
                         in _tenantDb.Transactions
-                    where transactions.TenantId.Equals(id)
+                    where transactions.TenantId.Equals(tenantId)
                     select transactions;
                 
                  getfirst = t.OrderByDescending(x => x.StartDate)
