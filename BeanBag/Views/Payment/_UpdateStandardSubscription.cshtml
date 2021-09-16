@@ -1,0 +1,143 @@
+﻿@using BeanBag.Services
+@using Microsoft.Identity.Web
+@{
+   
+    Layout = null;
+}
+
+
+@inject ITenantService _tenantService
+
+@{
+  //Get the value of the website theme colour here
+  var color = _tenantService.GetTenantTheme(User.GetObjectId());
+  var logo = _tenantService.GetLogo(User.GetObjectId());
+} 
+    @if(color == "KellySheen")
+    {
+      <link rel="stylesheet" href="~/css/kellyGreen.css" />
+    }else if(color == "FieryRose")
+    {
+      <link rel="stylesheet" href="~/css/fieryRose.css" />
+    }else if(color == "CornflowerBlue")
+    {
+      <link rel="stylesheet" href="~/css/cornflowerBlue.css" />
+    } 
+    else if (color == "PurpleMountainMajesty")
+    {
+      <link rel="stylesheet" href="~/css/purpleMountainMajesty.css" />
+    }
+    else if(color=="OutrageousOrange"){
+      <link rel="stylesheet" href="~/css/outrageousOrange.css" />
+    }
+    else if(color=="Default")
+    {
+      <link rel="stylesheet" href="~/css/default.css" />
+    }
+    else
+    {
+      <link rel="stylesheet" href="~/css/default.css" />
+    }
+	<!---Popup Form to payment standard -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog" role="document">
+
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalTitle">Payment</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="p-3">
+					<div >
+						<h6 class="pb-4 ">Standard Plan</h6>
+
+
+					</div> <!-- End -->
+
+					<!-- Paypal info -->
+					<div class="tab-pane  pt-1">
+						<!--Pay-fast checkout-->
+
+
+						<div >
+							<form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
+								<!--Email nb-->
+
+								<div class="form-group">
+									<p class="text-muted"> Please enter your email. This is required for payment confirmation purposes. </p>
+
+									<label class="col-form-label">Email *</label>
+									<input type="text" id="email" name="EMAIL" class="form-control"/> <!--input box-->
+								</div>
+								<div hidden>
+									<input id="PAY_REQUEST_ID" name="PAY_REQUEST_ID" type="hidden"/>
+									<input id="CHECKSUM" name="CHECKSUM" type="hidden"/>
+									<input id="REDIRECT" type="submit"/></div>
+								<div asp-validation-summary="All" class="text-danger"></div>
+
+							</form>
+						</div>
+						<button class="btn btn-outline-light shadow-sm bg-body create rounded colors pb-2" id="btn-pay">Proceed to payment</button>
+
+						<ul class="text-info pt-1 " id="results"></ul>
+
+
+					</div> <!-- End -->
+					<DIV class="pt-1">
+
+						<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
+					</DIV>
+					<img width="150" class="pb-2" src="~/images/payfastlogo.png" alt=""/>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+
+//For standard payment - Get Request
+    $('#btn-pay').on('click', function () {
+        let node = document.createElement("li");
+        node.innerText = "Processing...";
+        document.querySelector("#results").appendChild(node);
+
+        $.get(`/payment/getrequest`, {email : $('#email').val(), amount: "50000" })
+            .done(data => success(data))
+            .fail(err => error(err));
+      
+    });
+    
+    function success(data) {
+        let requestNode = document.createElement("li");
+        requestNode.innerText = "Request retrieved";
+        document.querySelector("#results").appendChild(requestNode);
+
+        requestNode.innerText = data.message;
+        if (data.success) {
+            $("#PAY_REQUEST_ID").val(data.results.PAY_REQUEST_ID);
+            $("#CHECKSUM").val(data.results.CHECKSUM);
+
+            let redirectNode = document.createElement("li");
+            redirectNode.innerText = "Redirecting...";
+            document.querySelector("#results").appendChild(redirectNode);
+
+            document.querySelector("#REDIRECT").click();
+        }
+    }
+
+    function error(data) {
+        console.log("Error");
+        let node = document.createElement("li");
+        node.innerText = data;
+        document.querySelector("#results").appendChild(node);
+    }
+   
+</script>
+

@@ -136,11 +136,6 @@ namespace BeanBag.Controllers
                     
                     //Determine the type of subscription
                     @ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
-                    @ViewBag.UpdatedSubscription = false; 
-                    if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
-                    {
-                        @ViewBag.UpdatedSubscription = true;
-                    }
                     return View();
                 
                 case "2":
@@ -260,19 +255,19 @@ namespace BeanBag.Controllers
         {  //Free - Automatic update
             if (subscription == "Free")
             {
-                _tenantService.UpdateSubscription(subscription, tenantId);
+                _paymentService.UpdateSubscription(subscription, tenantId);
                 return View("_UpdateFreeSubscription");
             }
             else if(subscription == "Standard")
             {
                 Console.WriteLine(subscription);
-                return View("_UpdateStandardSubscripition");
+                return View("_UpdateStandardSubscription");
             }
             else if (subscription == "Premium")
             {
                 //Premium
                 Console.WriteLine(subscription);
-                return View("_UpdatePremiumSubscripition");
+                return View("_UpdatePremiumSubscription");
             }
 
             return (ViewResult) Billing("","","",1,DateTime.Now, DateTime.Now, "");
