@@ -89,6 +89,36 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
         }
 
+        [Fact]
+        public void Get_recent_items_id_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = null;
+            
+            //ACT
+            void Act() => mySer.GetRecentItems(myid);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory ID is null.", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_recent_items_invalid_id()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetRecentItems(myid);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+        }
+
         //Integration test defined to test the getting of total items in an invetory (positive testing)
         [Fact]
         public void Get_Total_Items_Valid()
@@ -141,6 +171,36 @@ namespace BeanBagIntegrationTests
             itemSer.DeleteItem(itemId1);
             itemSer.DeleteItem(itemId2);
             invSer.DeleteInventory(theId2, u2);
+        }
+        
+        [Fact]
+        public void Get_total_items_id_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = null;
+            
+            //ACT
+            void Act() => mySer.GetTotalItems(myid);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory ID is null.", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_total_items_invalid_id()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetTotalItems(myid);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
         }
         
         //Integration test defined to test the getting of top items in an inventory (positive testing)
@@ -200,6 +260,8 @@ namespace BeanBagIntegrationTests
             itemSer.DeleteItem(itemId2);
             invSer.DeleteInventory(theId2, u2);
         }
+        
+        
     
         //Integration test defined to test the getting of available items (positive testing)
         [Fact]
