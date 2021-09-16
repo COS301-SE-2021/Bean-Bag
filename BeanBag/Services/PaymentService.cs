@@ -191,16 +191,20 @@ namespace BeanBag.Services
                 throw new Exception("Amount is null.");
             }
 
+            
+            
             try
             {
                 Transactions transaction = new Transactions()
                 {
+                    
+                    TransactionId = new("00000000-0000-0000-0000-00000000124"),
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddMonths(1),
                     Reference = reference,
                     Amount = amount,
-                    TenantId = new Guid(tenantId),
-                    PaymentRequestId =  new Guid(payId),
+                    TenantId = tenantId,
+                    PaymentRequestId =  payId,
                 };
                 _tenantDb.Transactions.Add(transaction);
                 _tenantDb.SaveChanges();
@@ -213,20 +217,21 @@ namespace BeanBag.Services
         }
         
         // This function gets the transactions for a specific user.
-        public IEnumerable<Transactions> GetTransactions(string currentTenantId)
+        public List<Transactions> GetTransactions(string currentTenantId)
         {
             if (currentTenantId == null)
             {
                 throw new Exception("Tenant id is null");
             }
 
-            Guid id = new Guid(currentTenantId);
+            //string id = currentTenantId;
             var t = from transactions
                     in _tenantDb.Transactions
-                where transactions.TenantId.Equals(id)
+                where transactions.TenantId.Equals(currentTenantId)
                 select transactions;
 
             var transactionList = t.ToList();
+            var emma = "";
             return transactionList;
         }
 
@@ -259,7 +264,7 @@ namespace BeanBag.Services
         }
         
         // This function is used to delete a transaction
-        public bool DeleteTransaction(Guid id)
+        public bool DeleteTransaction(string id)
         {
             
             var transaction = _tenantDb.Transactions.Find(id);
@@ -268,19 +273,44 @@ namespace BeanBag.Services
                 return false;
             }
             
-            try
-            {
-                _tenantDb.Transactions.Remove(transaction);
-                _tenantDb.SaveChanges();
-            }
-            catch
-            {
-                throw new Exception("The transaction could not be deleted.");
-            }
+            
+            _tenantDb.Transactions.Remove(transaction);
+            _tenantDb.SaveChanges();
+        
+        
+            
+            
             return true;
 
         }
 
-      
+        // This function sets the updated subscription for the user
+        public void UpdateSubscription(string subscription, string tenantId)
+        {
+            if (subscription == null)
+            {
+                
+            }else if (tenantId == null)
+            {
+                
+            }
+            
+            //TODO
+            if (subscription == "Free")
+            {
+                
+            }else if (subscription == "Standard")
+            {
+                
+            }
+            else if (subscription == "Premium")
+            {
+                
+            }
+            else
+            {
+                throw new Exception("Incorrect subscription input.");
+            }
+        }
     }
 }

@@ -15,7 +15,7 @@
         <a asp-action="Index" asp-controller="AiModel" asp-route-inventoryId="@ViewBag.InventoryId" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
 
         <span class="  md-2 text-secondary ">
-            &nbsp; Inventory | Item List
+            &nbsp; AI Models
         </span>
 
         <span class="float-right mr-2">
@@ -33,12 +33,14 @@
             <div class="row">
 
                 <div class=" mr-3 ml-auto">
-                    @if (ViewBag.canTrainNewVersion == true)
+                    @if (ViewBag.modelTraining == false)
                     {
-                        <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                        <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TestImages" class="btn btn-3 shadow-sm bg-body rounded">Upload images to model &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                        @if (ViewBag.canTrainNewVersion == true)
+                        {
+                            <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                        }
                     }
-                    <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TestImages" class="btn btn-3 shadow-sm bg-body rounded">Upload images to model &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
-
                 </div>
             </div>
 
@@ -211,6 +213,7 @@
             @* Section to show the tags associated with the model *@
 
             <div class="row">
+                @*Note: After uploading images to the model, the image count will take a few minutes to update especially if a large bulk of photos have been uploaded at once.*@
                 <b>Model Tags</b>
                 <table class="table">
                     <thead>
@@ -225,6 +228,18 @@
                             <tr>
                                 <th scope="row">@tag.Name</th>
                                 <td>@tag.ImageCount</td>
+                                <td>@tag.Id</td>
+                                <td>
+                                    @*<a asp-controller="AiModel" class="btn " asp-action="DeleteTag" asp-route-projectId="@ViewBag.projectId" asp-route-tagId="@tag.Id" asp-route-imageCount="@tag.ImageCount" as-route-tagName="@tag.Name">
+        <button data-toggle="tooltip" data-placement="top" class="btn " title="Delete Tag"> <i class="fas fa-trash"></i></button></a>*@
+
+                                    @*Guid tagId, Guid projectId, int imageCount, string tagName*@
+
+                                    <a href="@Url.Action("DeleteTag", "AiModel", new { tag.Id, ViewBag.projectId, tag.ImageCount, tag.Name })"
+                                       class="btn delete" data-toggle="modal" data-target="#exampleModal4"
+                                       @*data-tagId="@tag.Id" data-projectId="@ViewBag.projectId" data-imageCount="@tag.ImageCount" data-tagName="@tag.Name"*@>
+                                    <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete tag"><i class="fas fa-trash"> </i></button></a>
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -317,6 +332,18 @@
         });
     });
 
+    $('.deletetag').click(function (ev) {
+        ev.preventDefault();
+
+        let action = $(this).attr('href');
+
+        $.get(action, function (data) {
+            let myModal = $("#exampleModal4");
+            myModal.find("form.data").html(data);
+            $('#exampleModal4').modal('show');
+        });
+    });
+
     // ID tooltip
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
@@ -328,4 +355,5 @@
     <partial name="_DeleteVersion" />
     <partial name="_EditVersion" />
     <partial name="_ViewPerformance" />
+    <partial name="_DeleteTag"/>
 }

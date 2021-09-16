@@ -21,6 +21,7 @@ namespace BeanBag.Services
         public string GetLogo(string userId);
         public string GenerateCode();
         public string GetTenantCode(string tenantId);
+        public Tenant GetInvitationTenant(string code);
         public bool VerifyCode(string code);
         public bool SignUserUp(string userId, string tenantId, string userName);
         public bool SearchUser(string userId);
@@ -28,7 +29,6 @@ namespace BeanBag.Services
         public bool DeleteUser(string userId);
         public bool EditUserRole(string userId, string role);
         public string GetUserRole(string id);
-
         void UpdateSubscription(string subscription, string tenantId);
     }
 }

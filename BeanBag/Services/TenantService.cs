@@ -356,19 +356,41 @@ namespace BeanBag.Services
             var check = (from tenant
                     in _tenantDb.Tenant
                 where tenant.InviteCode.Equals(code)
-                select tenant.InviteCode).Single();
+                select tenant).FirstOrDefault();
 
             if (check == null)
             {
-                throw new Exception("Code is null");
+                return false;
             }
 
-            if (check.Equals(code))
+            if (check.InviteCode.Equals(code))
             {
                 return true;
             }
 
             return false;
+        }
+        
+        /* Returns the tenant the invite belongs to */
+        public Tenant GetInvitationTenant(string code)
+        {
+            if (code == null)
+            {
+                throw new Exception("Code is null");
+            }
+
+            var tenant = (from t
+                    in _tenantDb.Tenant
+                where t.InviteCode.Equals(code)
+                select t).Single();
+
+            if (tenant == null)
+            {
+                throw new Exception("Tenant is null");
+            }
+
+            return tenant;
+
         }
         
         //User functions
@@ -483,6 +505,7 @@ namespace BeanBag.Services
             return "";
         }
 
+    
 
         // This method updated the role of the user
         public bool EditUserRole(string userId, string role)
@@ -551,7 +574,6 @@ namespace BeanBag.Services
             _tenantDb.SaveChanges();
 
         }
-        
         // This method updates the subscription plan of the tenant
         // This function sets the updated subscription for the user
         // This is only for a free tenant subscription update not paid

@@ -136,11 +136,6 @@ namespace BeanBag.Controllers
                     
                     //Determine the type of subscription
                     @ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
-                    @ViewBag.UpdatedSubscription = false; 
-                    if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
-                    {
-                        @ViewBag.UpdatedSubscription = true;
-                    }
                     return View();
                 
                 case "2":
@@ -163,7 +158,7 @@ namespace BeanBag.Controllers
         
         // This function returns the billing page where the tenant can view their transactions.
         public IActionResult Billing(string sortOrder, string currentFilter, string searchString,
-            int? page,DateTime from, DateTime to, string subscription)
+            int? page,DateTime from, DateTime to)
         {
             if(User.Identity is {IsAuthenticated: true})
             {
@@ -234,8 +229,6 @@ namespace BeanBag.Controllers
             // Get tenant details
             @ViewBag.tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
 
-            //Update subscription
-            @ViewBag.Sub = "P";
            //current subscription
            if (@ViewBag.tenant.TenantSubscription == "Free")
            {
@@ -255,30 +248,25 @@ namespace BeanBag.Controllers
         }
 
         // This function allows the tenant Admin to update the tenants subscription plan.
-
-        public ViewResult UpdateSubscription(string subscription, string tenantId)
-        {  //Free - Automatic update
+        public IActionResult UpdateSubscription(string subscription, string tenantId)
+        {
+            //Free - Automatic update
             if (subscription == "Free")
             {
-                _tenantService.UpdateSubscription(subscription, tenantId);
-                return View("_UpdateFreeSubscription");
+                _paymentService.UpdateSubscription(subscription,tenantId); 
+                return PartialView("_UpdateFreeSubscription");
             }
             else if(subscription == "Standard")
             {
-                Console.WriteLine(subscription);
-                return View("_UpdateStandardSubscription");
+                //Paid - Redirect show payment popup
+                return PartialView("_UpdateStandardSubscripition");
             }
-            else if (subscription == "Premium")
+            else
             {
                 //Premium
-                Console.WriteLine(subscription);
-                return View("_UpdatePremiumSubscription");
+                return PartialView("_UpdatePremiumSubscripition");
             }
-
-            return (ViewResult) Billing("","","",1,DateTime.Now, DateTime.Now, "");
         }
-
-
     }
     
 }

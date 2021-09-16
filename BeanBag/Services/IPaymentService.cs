@@ -13,8 +13,9 @@ namespace BeanBag.Services
         string GetMd5Hash(Dictionary<string, string> data, string encryptionKey);
         bool VerifyMd5Hash(Dictionary<string, string> data, string encryptionKey, string hash);
         public bool AddTransaction(string reference, string payId, string tenantId, float amount);
-        IEnumerable<Transactions> GetTransactions(string currentTenantId);
+        List<Transactions> GetTransactions(string currentTenantId);
         public Transactions GetPaidSubscription(string tenantId);
-        public bool DeleteTransaction(Guid id);
+        public void UpdateSubscription(string subscription, string tenantId);
+        public bool DeleteTransaction(string id);
     }
 }

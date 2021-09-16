@@ -29,7 +29,10 @@
              <div class="row">
 
                  <div class=" mr-3 ml-auto">
-                     <a asp-controller="AiModel" asp-action="CreateModel" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Model &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a> 
+                     @if (ViewBag.createNewModels == true)
+                     {
+                         <a asp-controller="AiModel" asp-action="CreateModel" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Model &nbsp;   <i class="fa fa-plus" aria-hidden="true"></i></a>
+                     }
                  </div>
                  </div>
              <br>

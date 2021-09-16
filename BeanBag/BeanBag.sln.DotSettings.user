@@ -2,15 +2,23 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=09E4CF73_002D6277_002D455D_002DA7EE_002D41392F44CE11_002Ff_003AIntegrationDashboardTest_002Ecs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=PrivateInstanceFields/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="_" Suffix="" Style="aaBb" /&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\munas\AppData\Local\JetBrains\Rider2021.1\resharper-host\temp\Rider\vAny\CoverageData\_BeanBag.1345567196\Snapshot\snapshot.utdcvr</s:String>
-	
-	
-	
-	
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=03a62ec2_002D3cbe_002D467d_002D9672_002D512a72d22ff7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IntegrationTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Solution /&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=47903442_002D6cd1_002D493a_002D94de_002Dcc83f0e194e1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IntegrationDashboardTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::09E4CF73-6277-455D-A7EE-41392F44CE11::net5.0::BeanBagIntegrationTests.IntegrationDashboardTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7a91989f_002Ddf30_002D402e_002Dbf2a_002D495473ef9db2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Solution /&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=94ac5db2_002Dfbc0_002D4455_002Da1af_002D6a9ce73acacc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="IntegrationDashboardTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::09E4CF73-6277-455D-A7EE-41392F44CE11::net5.0::BeanBagIntegrationTests.IntegrationDashboardTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::09E4CF73-6277-455D-A7EE-41392F44CE11::net5.0::BeanBagIntegrationTests.IntegrationTenantDbTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::09E4CF73-6277-455D-A7EE-41392F44CE11::net5.0::BeanBagIntegrationTests.IntegrationTenantDbTestUser&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	
+	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Unpublish/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

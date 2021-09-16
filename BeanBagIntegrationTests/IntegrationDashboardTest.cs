@@ -4,6 +4,7 @@ using BeanBag.Database;
 using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -13,19 +14,21 @@ namespace BeanBagIntegrationTests
     {
         
         private readonly DBContext _context;
-
+        private readonly IConfiguration config;
+        
         public IntegrationDashboardTest()
         {
+            this.config = new ConfigurationBuilder().AddJsonFile("appsettings.local.json").Build();
+            
             var serviceProvider = new ServiceCollection()
                 .AddEntityFrameworkSqlServer()
                 .BuildServiceProvider();
 
             var builder = new DbContextOptionsBuilder<DBContext>();
 
-            builder.UseSqlServer($"Server=tcp:polariscapestone.database.windows.net,1433;Initial Catalog=Bean-Bag-Platform-DB;" +
-                                 $"Persist Security Info=False;User ID=polaris; Password=MNRSSp103;MultipleActiveResultSets=False;Encrypt=True;" +
-                                 $"TrustServerCertificate=False;Connection Timeout=30;")
-                .UseInternalServiceProvider(serviceProvider);
+            var connString = config.GetValue<string>("Database:DefaultConnection");
+            
+            builder.UseSqlServer(connString).UseInternalServiceProvider(serviceProvider);
 
             _context = new DBContext(builder.Options);
 
@@ -86,6 +89,36 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
         }
 
+        [Fact]
+        public void Get_recent_items_id_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = null;
+            
+            //ACT
+            void Act() => mySer.GetRecentItems(myid);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory ID is null.", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_recent_items_invalid_id()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetRecentItems(myid);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+        }
+
         //Integration test defined to test the getting of total items in an invetory (positive testing)
         [Fact]
         public void Get_Total_Items_Valid()
@@ -138,6 +171,36 @@ namespace BeanBagIntegrationTests
             itemSer.DeleteItem(itemId1);
             itemSer.DeleteItem(itemId2);
             invSer.DeleteInventory(theId2, u2);
+        }
+        
+        [Fact]
+        public void Get_total_items_id_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = null;
+            
+            //ACT
+            void Act() => mySer.GetTotalItems(myid);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory ID is null.", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_total_items_invalid_id()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetTotalItems(myid);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
         }
         
         //Integration test defined to test the getting of top items in an inventory (positive testing)
@@ -197,6 +260,37 @@ namespace BeanBagIntegrationTests
             itemSer.DeleteItem(itemId2);
             invSer.DeleteInventory(theId2, u2);
         }
+        
+        [Fact]
+        public void Get_top_items_id_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = null;
+            
+            //ACT
+            void Act() => mySer.GetTopItems(myid);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory ID is null.", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_top_items_invalid_id()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetTopItems(myid);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+        }
+        
     
         //Integration test defined to test the getting of available items (positive testing)
         [Fact]
@@ -259,6 +353,52 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
             
         }
+        
+        [Fact]
+        public void Get_items_available_id_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = null;
+            
+            //ACT
+            void Act() => mySer.GetItemsAvailable(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory ID is null.", exception.Message);
+        }
+        
+        
+        [Fact]
+        public void Get_items_available_time_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetItemsAvailable(myid, null);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Time period is null", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_items_available_invalid_id()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetItemsAvailable(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+        }
 
         //Integration test defined to test the retrieval of items sold (positive testing)
         [Fact]
@@ -319,6 +459,67 @@ namespace BeanBagIntegrationTests
             itemSer.DeleteItem(itemId1);
             itemSer.DeleteItem(itemId2);
             invSer.DeleteInventory(theId2, u2);
+        }
+        
+        [Fact]
+        public void Get_items_sold_id_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = null;
+            
+            //ACT
+            void Act() => mySer.GetItemsSold(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory ID is null.", exception.Message);
+        }
+        
+        
+        [Fact]
+        public void Get_items_sold_time_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetItemsSold(myid, null);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Time period is null", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_items_sold_invalid_id()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetItemsSold(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_items_sold_invalid_time()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            
+            //ACT
+            void Act() => mySer.GetItemsSold(myid, "Z");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Invalid timespan given as input, expecting Y, M, W or D", exception.Message);
         }
 
         //Integration test defined to test the calculation of the revenue from sold items (positive testing)
@@ -384,6 +585,67 @@ namespace BeanBagIntegrationTests
             itemSer.DeleteItem(itemId2);
             invSer.DeleteInventory(theId2, u2);
         }
+        
+        [Fact]
+        public void Get_revenue_id_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = null;
+            
+            //ACT
+            void Act() => mySer.GetRevenue(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory ID is null.", exception.Message);
+        }
+        
+        
+        [Fact]
+        public void Get_revenue_time_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetRevenue(myid, null);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Time period is null", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_revenue_invalid_id()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetRevenue(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_revenue_invalid_time()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            
+            //ACT
+            void Act() => mySer.GetRevenue(myid, "Z");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Invalid timespan given as input, expecting Y, M, W or D", exception.Message);
+        }
 
         //Integration test defined to test the calculation of sales growth (positive testing)
         [Fact]
@@ -445,6 +707,69 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
         }
         
+        [Fact]
+        public void Get_sales_growth_id_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = null;
+            
+            //ACT
+            void Act() => mySer.GetSalesGrowth(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory ID is null.", exception.Message);
+        }
+        
+        
+        [Fact]
+        public void Get_sales_growth_time_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetSalesGrowth(myid, null);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Time period is null", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_sales_growth_invalid_id()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetSalesGrowth(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_sales_growth_invalid_time()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            
+            //ACT
+            void Act() => mySer.GetSalesGrowth(myid, "Z");
+            
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Invalid timespan given as input, expecting Y, M, W or D", exception.Message);
+        }
+        
+        
         //Integration test defined to test the item revenue calculation from the revenue (positive testing)
         [Fact]
         public void Items_Revenue_Stat_Valid()
@@ -498,6 +823,68 @@ namespace BeanBagIntegrationTests
             itemSer.DeleteItem(itemId2);
             invSer.DeleteInventory(theId2, u2);
         }
+        
+        [Fact]
+        public void Get_item_revenue_stat_id_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = null;
+            
+            //ACT
+            void Act() => mySer.ItemsRevenueStat(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory ID is null.", exception.Message);
+        }
+        
+        
+        [Fact]
+        public void Get_item_revenue_time_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.ItemsRevenueStat(myid, null);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Time period is null", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_item_revenue_invalid_id()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.ItemsRevenueStat(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_item_revenue_invalid_time()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            
+            //ACT
+            void Act() => mySer.ItemsRevenueStat(myid, "Z");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Invalid timespan given as input, expecting Y, M, W or D", exception.Message);
+        }
+        
 
         //Integration test defined to test the item sold statistic calculations (positive testing)
         [Fact]
@@ -559,6 +946,67 @@ namespace BeanBagIntegrationTests
             invSer.DeleteInventory(theId2, u2);
         }
         
+                [Fact]
+        public void Get_item_sold_stat_id_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = null;
+            
+            //ACT
+            void Act() => mySer.GetItemsSold(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory ID is null.", exception.Message);
+        }
+        
+        
+        [Fact]
+        public void Get_item_sold_time_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetItemsSold(myid, null);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Time period is null", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_item_sold_invalid_id()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.GetItemsSold(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_item_sold_invalid_time()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            
+            //ACT
+            void Act() => mySer.GetItemsSold(myid, "Z");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Invalid timespan given as input, expecting Y, M, W or D", exception.Message);
+        }
+        
         //Integration test defined to test the calculation of available item statistics (positive testing)
         [Fact]
         public void Item_Available_Stat_Valid()
@@ -616,6 +1064,129 @@ namespace BeanBagIntegrationTests
             itemSer.DeleteItem(itemId1);
             itemSer.DeleteItem(itemId2);
             invSer.DeleteInventory(theId2, u2);
+        }
+        
+        [Fact]
+        public void Get_item_available_stat_id_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = null;
+            
+            //ACT
+            void Act() => mySer.ItemAvailableStat(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory ID is null.", exception.Message);
+        }
+        
+        
+        [Fact]
+        public void Get_item_available_time_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.ItemAvailableStat(myid, null);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Time period is null", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_item_available_invalid_id()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.ItemAvailableStat(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_item_available_invalid_time()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            
+            //ACT
+            void Act() => mySer.ItemAvailableStat(myid, "Z");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Invalid timespan given as input, expecting Y, M, W or D", exception.Message);
+        }
+        
+        
+        [Fact]
+        public void Get_item_sold2_stat_id_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = null;
+            
+            //ACT
+            void Act() => mySer.ItemsSoldStat(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory ID is null.", exception.Message);
+        }
+        
+        
+        [Fact]
+        public void Get_item_sold2_time_null()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.ItemsSoldStat(myid, null);
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Time period is null", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_item_sold2_invalid_id()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "10000000-0000-0000-0000-000000000009";
+            
+            //ACT
+            void Act() => mySer.ItemsSoldStat(myid, "D");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_item_sold2_invalid_time()
+        {
+            //ARRANGE
+            var mySer = new DashboardAnalyticsService(_context);
+            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            
+            //ACT
+            void Act() => mySer.ItemsSoldStat(myid, "Z");
+            
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Invalid timespan given as input, expecting Y, M, W or D", exception.Message);
         }
 
     }
