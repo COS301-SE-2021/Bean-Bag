@@ -14,6 +14,9 @@
     &lt;TestId&gt;xUnit::09E4CF73-6277-455D-A7EE-41392F44CE11::net5.0::BeanBagIntegrationTests.IntegrationTenantDbTestUser&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c239d0e0_002D5421_002D4012_002D919f_002D09f6c3ccad72/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;BeanBagIntegrationTests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\munas\RiderProjects\Bean-Bag\BeanBagIntegrationTests" Presentation="&amp;lt;BeanBagIntegrationTests&amp;gt;" /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	
 	
 	

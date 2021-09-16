@@ -761,6 +761,72 @@ namespace BeanBagIntegrationTests
         }
         
         
+        //HASHING ALGORITHM TESTS
+
+        [Fact]
+        public void To_Url_Encoded_string_valid()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            var ires = mySer.ToUrlEncodedString(_request);
+
+            //ASSERT
+            Assert.Equal("",ires);
+        }
+        
+        [Fact]
+        public void To_Url_Encoded_string_null_input()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            _request = null;
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.ToUrlEncodedString(_request);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Input string is null", exception.Message);
+            
+        }
+        
+        [Fact]
+        public void To_Dictionary_valid()
+        {
+            //ARRANGE
+            string _request = "https://example.com/path/to/page?name=ferret&color=purple";
+            
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            var ires = mySer.ToDictionary(_request);
+
+            //ASSERT
+            Assert.IsType<Dictionary<string, string>>(ires);
+            
+        }
+        
+        [Fact]
+        public void To_Dictionary_input_null()
+        {
+            //ARRANGE
+            string _request = null;
+            
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.ToDictionary(_request);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Input string is null", exception.Message);
+            
+        }
+        
         
         /*
         Dictionary<string, string> ToDictionary(string response);

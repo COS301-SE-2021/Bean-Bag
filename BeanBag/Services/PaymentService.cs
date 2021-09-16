@@ -31,25 +31,18 @@ namespace BeanBag.Services
                 throw new Exception("Input string is null");
             }
             string result;
-            try
+            
+            StringBuilder builder = new StringBuilder();
+            foreach (string key in request.Keys)
             {
-                StringBuilder builder = new StringBuilder();
-                foreach (string key in request.Keys)
-                {
-                    builder.Append("&");
-                    builder.Append(key);
-                    builder.Append("=");
-                    builder.Append(HttpUtility.UrlEncode(request[key]));
-                }
-
-                 result = builder.ToString().TrimStart('&');
-               
-            }
-            catch (Exception)
-            {
-                throw new Exception("String could not be encoded");
+                builder.Append("&");
+                builder.Append(key);
+                builder.Append("=");
+                builder.Append(HttpUtility.UrlEncode(request[key]));
             }
 
+             result = builder.ToString().TrimStart('&');
+                 
             return result;
         }
 
@@ -62,21 +55,15 @@ namespace BeanBag.Services
             }
             
             Dictionary<string, string> result = new Dictionary<string, string>();
-            try
+            
+            string[] valuePairs = response.Split('&');
+            foreach (string valuePair in valuePairs)
             {
-                string[] valuePairs = response.Split('&');
-                foreach (string valuePair in valuePairs)
-                {
-                    string[] values = valuePair.Split('=');
+                string[] values = valuePair.Split('=');
 
-                    result.Add(values[0], HttpUtility.UrlDecode(values[1]));
-                }
+                result.Add(values[0], HttpUtility.UrlDecode(values[1]));
             }
-            catch(Exception)
-            {
-                throw new Exception("String could not be converted to dictionary.");
-            }
-
+            
             return result;
         }
         
@@ -99,33 +86,28 @@ namespace BeanBag.Services
             {
                 throw new Exception("EncryptionKey is null.");
             }
-
-            try
+            
+            using MD5 md5Hash = MD5.Create();
+            StringBuilder input = new StringBuilder();
+            foreach (string value in data.Values)
             {
-                using MD5 md5Hash = MD5.Create();
-                StringBuilder input = new StringBuilder();
-                foreach (string value in data.Values)
-                {
-                    input.Append(value);
-                }
-
-                input.Append(encryptionKey);
-
-                byte[] hash = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input.ToString()));
-
-                StringBuilder sBuilder = new StringBuilder();
-
-                foreach (var t in hash)
-                {
-                    sBuilder.Append(t.ToString("x2"));
-                }
-
-                return sBuilder.ToString();
+                input.Append(value);
             }
-            catch(Exception)
+
+            input.Append(encryptionKey);
+
+            byte[] hash = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input.ToString()));
+
+            StringBuilder sBuilder = new StringBuilder();
+
+            foreach (var t in hash)
             {
-                throw new Exception("Could not get Md5 hash.");
+                sBuilder.Append(t.ToString("x2"));
             }
+
+            return sBuilder.ToString();
+            
+            
         }
 
         // This function verifies that the encryption hashing took place. 
