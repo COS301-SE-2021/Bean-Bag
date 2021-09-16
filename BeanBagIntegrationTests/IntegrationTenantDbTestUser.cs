@@ -21,13 +21,6 @@ namespace BeanBagIntegrationTests
         private const string Email = "tenant@test.com";
         private const string Number = "0123456789";
         private const string Subscription = "Free";
-        private const string Theme = "Default";
-        
-        private const string Name2 = "Tenant-name-2";
-        private const string Address2 = "test-address-2";
-        private const string Email2 = "tenant2@test.com";
-        private const string Number2 = "0123456789";
-        private const string Subscription2 = "Free";
 
         // User testing data
         private const string Username = "test-user";

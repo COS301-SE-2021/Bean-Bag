@@ -11,6 +11,7 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::09E4CF73-6277-455D-A7EE-41392F44CE11::net5.0::BeanBagIntegrationTests.IntegrationDashboardTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::09E4CF73-6277-455D-A7EE-41392F44CE11::net5.0::BeanBagIntegrationTests.IntegrationTenantDbTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::09E4CF73-6277-455D-A7EE-41392F44CE11::net5.0::BeanBagIntegrationTests.IntegrationTenantDbTestUser&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
