@@ -504,7 +504,9 @@ namespace BeanBag.Services
 
             return "";
         }
-        
+
+    
+
         // This method updated the role of the user
         public bool EditUserRole(string userId, string role)
         {
@@ -572,6 +574,34 @@ namespace BeanBag.Services
             _tenantDb.SaveChanges();
 
         }
-        
+        // This method updates the subscription plan of the tenant
+        // This function sets the updated subscription for the user
+        // This is only for a free tenant subscription update not paid
+        public void UpdateSubscription(string subscription, string tenantId)
+        {
+            if (subscription == null)
+            {
+                throw new Exception("Subscription is null");
+            }else if (tenantId == null)
+            {
+                throw new Exception("TenantID is null");
+            }
+            
+            if (subscription == "Free")
+            {
+                var tenant = _tenantDb.Tenant.Find(tenantId);
+
+                if (tenant == null)
+                {
+                    throw new Exception("Tenant id not found");
+                }
+                tenant.TenantSubscription = "Free";
+                _tenantDb.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Incorrect subscription input.");
+            }
+        }
     }
 }
