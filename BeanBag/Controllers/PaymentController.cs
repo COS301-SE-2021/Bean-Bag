@@ -18,7 +18,7 @@ namespace BeanBag.Controllers
     {
         private readonly IPaymentService _paymentService;
         private readonly ITenantService _tenantService;
-        
+          
         // the company will have their own details , this is for test purposes.
         readonly string PayGateID = "10011072130"; 
         readonly string _payGateKey = "secret";
@@ -46,7 +46,7 @@ namespace BeanBag.Controllers
                 {"CURRENCY", "ZAR"},
                 // Return url to original payment page -- run in ngrok
                 // ngrok http https://localhost:44352 -host-header="localhost:44352"
-                {"RETURN_URL", "https://c562-102-250-5-82.ngrok.io/Payment/CompletePayment?amounts=" +
+                {"RETURN_URL", "https://1484-102-250-3-150.ngrok.io/Payment/CompletePayment?amounts=" +
                                ""+amount+"&references="+reference},
                 {"TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
                 {"LOCALE", "en-za"},
@@ -136,11 +136,6 @@ namespace BeanBag.Controllers
                     
                     //Determine the type of subscription
                     @ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
-                    @ViewBag.UpdatedSubscription = false; 
-                    if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
-                    {
-                        @ViewBag.UpdatedSubscription = true;
-                    }
                     return View();
                 
                 case "2":
@@ -158,19 +153,12 @@ namespace BeanBag.Controllers
             }
             TempData["Status"] = status;
 
-            if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
-            {
-                //Error popup
-                return RedirectToAction("Index", "Home");
-            }
-            
-            //error popup
-            return RedirectToAction("Index", "Tenant");
+           return RedirectToAction("Index", "Tenant");
         }
         
         // This function returns the billing page where the tenant can view their transactions.
         public IActionResult Billing(string sortOrder, string currentFilter, string searchString,
-            int? page,DateTime from, DateTime to, string subscription)
+            int? page,DateTime from, DateTime to)
         {
             if(User.Identity is {IsAuthenticated: true})
             {
@@ -241,8 +229,6 @@ namespace BeanBag.Controllers
             // Get tenant details
             @ViewBag.tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
 
-            //Update subscription
-            @ViewBag.Sub = "P";
            //current subscription
            if (@ViewBag.tenant.TenantSubscription == "Free")
            {
@@ -262,30 +248,25 @@ namespace BeanBag.Controllers
         }
 
         // This function allows the tenant Admin to update the tenants subscription plan.
-
-        public ViewResult UpdateSubscription(string subscription, string tenantId)
-        {  //Free - Automatic update
+        public IActionResult UpdateSubscription(string subscription, string tenantId)
+        {
+            //Free - Automatic update
             if (subscription == "Free")
             {
-                _tenantService.UpdateSubscription(subscription, tenantId);
-                return View("_UpdateFreeSubscription");
+                _paymentService.UpdateSubscription(subscription,tenantId); 
+                return PartialView("_UpdateFreeSubscription");
             }
             else if(subscription == "Standard")
             {
-                Console.WriteLine(subscription);
-                return View("_UpdateStandardSubscription");
+                //Paid - Redirect show payment popup
+                return PartialView("_UpdateStandardSubscripition");
             }
-            else if (subscription == "Premium")
+            else
             {
                 //Premium
-                Console.WriteLine(subscription);
-                return View("_UpdatePremiumSubscription");
+                return PartialView("_UpdatePremiumSubscripition");
             }
-
-            return (ViewResult) Billing("","","",1,DateTime.Now, DateTime.Now, "");
         }
-
-
     }
     
 }

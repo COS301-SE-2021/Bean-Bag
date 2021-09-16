@@ -1,63 +1,29 @@
-﻿@using BeanBag.Services
-@using Microsoft.Identity.Web
-@{
+﻿@{
    
     Layout = null;
 }
-@inject ITenantService _tenantService
-
-@{
-  //Get the value of the website theme colour here
-  var color = _tenantService.GetTenantTheme(User.GetObjectId());
-  var logo = _tenantService.GetLogo(User.GetObjectId());
-} 
-    @if(color == "KellySheen")
-    {
-      <link rel="stylesheet" href="~/css/kellyGreen.css" />
-    }else if(color == "FieryRose")
-    {
-      <link rel="stylesheet" href="~/css/fieryRose.css" />
-    }else if(color == "CornflowerBlue")
-    {
-      <link rel="stylesheet" href="~/css/cornflowerBlue.css" />
-    } 
-    else if (color == "PurpleMountainMajesty")
-    {
-      <link rel="stylesheet" href="~/css/purpleMountainMajesty.css" />
-    }
-    else if(color=="OutrageousOrange"){
-      <link rel="stylesheet" href="~/css/outrageousOrange.css" />
-    }
-    else if(color=="Default")
-    {
-      <link rel="stylesheet" href="~/css/default.css" />
-    }
-    else
-    {
-      <link rel="stylesheet" href="~/css/default.css" />
-    }
-	<!---Popup Form to payment free -->
-	<div class="modal fade" id="exampleModal" data-toggle="modal" data-target="#exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog" role="document">
-
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalTitle2">Updated to Free Plan</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="p-3">
-					<div >
-						<h6 class="pb-4 ">Free Plan</h6>
-						Your subscription plan has been successfully updated to a free plan.
-					</div> <!-- End -->
-
-					<a class="btn btn-3 shadow-sm bg-body rounded float-right" asp-area="MicrosoftIdentity" asp-controller="Payment" asp-action="Billing">
-						OK
-					</a>
-				</div>
-
+<!---Popup Form to payment free -->
+<div class="modal fade" id="exampleModal2" data-toggle="modal" data-target="#exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog" role="document">
+        
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"  id="exampleModalTitle2">Updated to Free Plan</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="p-3">
+				<div >
+					<h6 class="pb-4 ">Free Plan</h6>
+					Your subscription plan has been successfully updated to a free plan.
+				</div> <!-- End -->
+                    
+				<a class="btn btn-3 shadow-sm bg-body rounded float-right" asp-area="MicrosoftIdentity" asp-controller="Payment" asp-action="Billing">
+					OK 
+				</a>
+			</div>
+		
 			</div>
 		</div>
-	</div>
+</div>

@@ -1,51 +1,14 @@
-﻿@using BeanBag.Services
-@using Microsoft.Identity.Web
-@{
+﻿@{
    
     Layout = null;
 }
-
-
-
-@inject ITenantService _tenantService
-
-@{
-  //Get the value of the website theme colour here
-  var color = _tenantService.GetTenantTheme(User.GetObjectId());
-  var logo = _tenantService.GetLogo(User.GetObjectId());
-} 
-    @if(color == "KellySheen")
-    {
-      <link rel="stylesheet" href="~/css/kellyGreen.css" />
-    }else if(color == "FieryRose")
-    {
-      <link rel="stylesheet" href="~/css/fieryRose.css" />
-    }else if(color == "CornflowerBlue")
-    {
-      <link rel="stylesheet" href="~/css/cornflowerBlue.css" />
-    } 
-    else if (color == "PurpleMountainMajesty")
-    {
-      <link rel="stylesheet" href="~/css/purpleMountainMajesty.css" />
-    }
-    else if(color=="OutrageousOrange"){
-      <link rel="stylesheet" href="~/css/outrageousOrange.css" />
-    }
-    else if(color=="Default")
-    {
-      <link rel="stylesheet" href="~/css/default.css" />
-    }
-    else
-    {
-      <link rel="stylesheet" href="~/css/default.css" />
-    }
-	<!---Popup Form to payment premium -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+<!---Popup Form to payment premium -->
+	<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog" role="document">
-
+        
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalTitle2">Payment</h5>
+					<h5 class="modal-title"  id="exampleModalTitle2">Payment</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -53,51 +16,51 @@
 				<div class="p-3">
 					<div >
 						<h6 class="pb-4 ">Premium Plan</h6>
-
-
+              
+					
 					</div> <!-- End -->
-
+                    
 					<!-- Paypal info -->
-					<div class="tab-pane  pt-1">
+					<div  class="tab-pane  pt-1">
 						<!--Pay-fast checkout-->
-
-
+				
+				                      
 						<div >
 							<form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
 								<!--Email nb-->
-
+							
 								<div class="form-group">
 									<p class="text-muted"> Please enter your email. This is required for payment confirmation purposes. </p>
-
+                                                            				
 									<label class="col-form-label">Email *</label>
 									<input type="text" id="email2" name="EMAIL" class="form-control"/> <!--input box-->
 								</div>
 								<div hidden>
 									<input id="PAY_REQUEST_ID2" name="PAY_REQUEST_ID" type="hidden"/>
 									<input id="CHECKSUM2" name="CHECKSUM" type="hidden"/>
-									<input id="REDIRECT2" type="submit"/></div>
+									<input id="REDIRECT2" type="submit" /></div>
 								<div asp-validation-summary="All" class="text-danger"></div>
-
+							
 							</form>
 						</div>
-						<button class="btn btn-outline-light shadow-sm bg-body create rounded btn-3 pb-2" id="btn-pay2">Proceed to payment</button>
-
+						<button class="btn btn-outline-light shadow-sm bg-body create rounded colors pb-2"  id="btn-pay2" >Proceed to payment</button> 
+                    				
 						<ul class="text-info pt-1 " id="results2"></ul>
-
+                                  
 
 					</div> <!-- End -->
 					<DIV class="pt-1">
-
+				
 						<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
-					</DIV>
+					</DIV>   	
 					<img width="150" class="pb-2" src="~/images/payfastlogo.png" alt=""/>
 				</div>
-
-
+			
+	
 			</div>
 		</div>
 	</div>
-
+	
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">

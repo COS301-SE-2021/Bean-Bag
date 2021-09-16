@@ -10,7 +10,6 @@ using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using BeanBag.Database;
 using BeanBag.Services;
-using AspNetCore.Unobtrusive.Ajax;
 
 namespace BeanBag
 {
@@ -74,7 +73,7 @@ namespace BeanBag
             services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<ITenantService,TenantService>();
             services.AddTransient<ITenantBlobStorageService, TenantBlobStorageService>();
-            services.AddUnobtrusiveAjax(); 
+
             //Adding an upload limit of 100 mb (mainly for uploading a lot of test images)
             services.Configure<IISServerOptions>(options =>
             {
@@ -98,8 +97,6 @@ namespace BeanBag
             } 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            //It is required for serving 'jquery-unobtrusive-ajax.min.js' embedded script file.
-            app.UseUnobtrusiveAjax();
 
             app.UseRouting();
 
