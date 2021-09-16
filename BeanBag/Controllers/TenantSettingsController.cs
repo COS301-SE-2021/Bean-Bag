@@ -6,6 +6,7 @@ using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Web;
 using X.PagedList;
 using MimeKit;
@@ -19,14 +20,20 @@ namespace BeanBag.Controllers
         // Global variables needed for calling the service classes.
         private readonly ITenantService _tenantService;
         private readonly TenantDbContext _tenantDbContext;
-        private readonly string _from = "";
-        private readonly string _pswd = "";
+        private readonly IConfiguration _configuration;
+
+        private readonly string _from;
+        private readonly string _pswd;
 
         // Constructor.
-        public TenantSettingsController(ITenantService tenantService, TenantDbContext tenantDbContext)
+        public TenantSettingsController(ITenantService tenantService, TenantDbContext tenantDbContext, IConfiguration configuration)
         {
             _tenantService = tenantService;
             _tenantDbContext = tenantDbContext;
+            _configuration = configuration;
+
+            _from = configuration.GetValue<String>("EmailDetails:Username");
+            _pswd = configuration.GetValue<String>("EmailDetails:Password");
         }
 
         /* Provides a list of users under the currently signed in tenant */
@@ -239,7 +246,7 @@ namespace BeanBag.Controllers
             
             
             //Link
-            const string link = "https://localhost:44352/UserSignUp";
+            const string link = "https://localhost:44352/LandingPage";
 
             var mimeMessage = new MimeMessage();
             
@@ -250,16 +257,30 @@ namespace BeanBag.Controllers
             mimeMessage.To.Add(MailboxAddress.Parse(userEmail));
             
             //add message subject
-            mimeMessage.Subject = "Invitation";
+            mimeMessage.Subject = tenant + " Invitation";
             
             //message
             mimeMessage.Body = new TextPart("plain")
             {
-                Text = @"You have been invited to join " + tenant + ". Invitation code to join: "+ code +
-                       " Click on the link below to proceed to the sign up. " + link,
+                Text = @"You have been invited to join " + tenant + ". " +
+                       "" +
+                       "Invitation code to join: "+ code +
+                       "" +
+                       "Click on the link below to proceed to the sign up. " + link,
 
             };
-            
+
+            //html body
+            var builder = new BodyBuilder
+            {
+                HtmlBody = string.Format(@"You have been invited to join " + tenant + ".<br>Invitation code to join: " +
+                                         code +
+                                         "<br>Click on the link below to proceed to the sign up. " + link)
+            };
+
+
+            mimeMessage.Body = builder.ToMessageBody();
+
 
             //create new SMTP client
             var client = new SmtpClient();
