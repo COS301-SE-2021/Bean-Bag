@@ -186,12 +186,6 @@ namespace BeanBagIntegrationTests
             
             //User
             var userId = Guid.NewGuid().ToString();
-            var newUser = new TenantUser
-            {
-                UserTenantId = id, UserObjectId = userId,
-                UserName = Username, UserRole = Role
-                
-            };
             
             //Act
             var query = new TenantService(_tenantDbContext);
