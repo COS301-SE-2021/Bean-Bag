@@ -112,10 +112,14 @@ namespace BeanBag.Controllers
             
             //Subscription Expired 
             @ViewBag.SubscriptionExpired = false;
-            var transaction = _paymentService.GetPaidSubscription(_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId);
-            if (transaction.EndDate >= DateTime.Now)
+            if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantSubscription != "Free")
             {
-                @ViewBag.SubscriptionExpired = true;
+                var transaction =
+                    _paymentService.GetPaidSubscription(_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId);
+                if (transaction.EndDate >= DateTime.Now)
+                {
+                    @ViewBag.SubscriptionExpired = true;
+                }
             }
 
             //Checking user role is in DB

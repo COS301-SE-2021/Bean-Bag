@@ -31,6 +31,8 @@ namespace BeanBag.Controllers
         public IActionResult Index()
         {
             var inventories = _inventoryService.GetInventories(User.GetObjectId());
+            ViewBag.name = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
+
             //Reno: Created new inventory for new user
             if (inventories.Count == 0)
             {
@@ -43,9 +45,9 @@ namespace BeanBag.Controllers
                     publicToTenant = false
                 };
                 _inventoryService.CreateInventory(newInventory);
+                ViewBag.hasItems = false;
+                return View();
             }
-
-            //Thread.Sleep(1000);
 
             //Inventory Drop-Down-List
             IEnumerable< SelectListItem > inventoryDropDown = inventories.Select(i => new SelectListItem
@@ -54,10 +56,12 @@ namespace BeanBag.Controllers
                     Value = i.Id.ToString()
                 }
             );
+            
             if(inventories.Count!=0)
             {
                 inventoryDropDown.First().Selected = true;
             }
+            
             ViewBag.InventoryDropDown = inventoryDropDown;
             
             //TimeFrame Drop-Down-list
@@ -72,7 +76,7 @@ namespace BeanBag.Controllers
             times.First().Selected = true;
             ViewBag.TimeDropDown = times;
             ViewBag.hasItems = false;
-
+            
             if (inventories.Count==0)
             {
                 ViewBag.hasItems = false;
@@ -88,11 +92,7 @@ namespace BeanBag.Controllers
                     return View();
                 }
             }
-            
-            var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
-
-             ViewBag.TenantName = tenant;
-
+      
             return View();
         }
         

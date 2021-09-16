@@ -1,6 +1,5 @@
 ﻿@using Microsoft.Extensions.Options
 @using Microsoft.Identity.Web
-@using BeanBag.Services
 @model IEnumerable<Item>
 @inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
 
@@ -10,7 +9,7 @@
 <!--Header-->
 <section class="search-and-user ">
     <span class="md-2 text-secondary pl-3">
-        Dashboard | @ViewBag.TenantName
+        Dashboard | @ViewBag.name
     </span>
     <div class="admin-profile pr-3">
         @{
@@ -230,11 +229,7 @@ else
 </div>
 </section>
 
-
-
-    
-
-       @if(ViewBag.hasItems==true){
+@if(ViewBag.hasItems==true){
         
            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
            <script type="text/javascript">
