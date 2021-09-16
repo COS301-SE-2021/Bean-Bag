@@ -17,7 +17,7 @@ namespace BeanBag.Services
 
         public void editProject(Guid projectId, string projectName, string description);
 
-        public void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId);
+        public void uploadImages(List<string> imageUrls, string[] tags, Guid projectId);
 
         public void trainModel(Guid projectId);
 

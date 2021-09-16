@@ -284,13 +284,15 @@ namespace BeanBag.Controllers
         {
             Guid id = await _aIService.createProject(mods.AiModel.name, mods.AiModel.description);
 
-            return LocalRedirect("/AIModel/TestImages?projectId=" + id.ToString());
+            return LocalRedirect("/AIModel/Images?projectId=" + id.ToString());
         }
 
         // This function returns the view along with the name of the model to the test image AI model page.
-        public IActionResult TestImages(Guid projectId)
+        public IActionResult Images(Guid projectId)
         {
-            @ViewBag.ID = projectId;
+            _blobService.deleteModelImageTempFolder(User.GetObjectId());
+
+            ViewBag.ID = projectId;
 
             var model = _aIService.getModel(projectId);
             ViewBag.Name = model.name;
@@ -306,57 +308,46 @@ namespace BeanBag.Controllers
 
         // This function allows the user to upload images to train a new AI Model.
         [HttpPost]
-        public async Task<IActionResult> UploadTestImages([FromForm(Name = "files")] IFormFileCollection files,
-            [FromForm(Name ="projectId")] Guid projectId, [FromForm(Name ="tags")] string[] tags,
-            [FromForm(Name = "LastTestImages")] string lastTestImages)
+        public async Task<JsonResult> UploadImages([FromForm(Name = "files")] IFormFileCollection files,
+            [FromForm(Name ="projectId")] Guid projectId, [FromForm(Name ="tags")] string[] tags)
         {
-            
-           ViewBag.complainImages = "";
             var model = _aIService.getModel(projectId);
 
+            //Backend check for file count and empty tags
             if(files.Count < 5)
             {
-                //ModelState.AddModelError("", "Need to upload more than 5 images");
-                ViewBag.complainImages = "Need to upload more than 5 images";
-                return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
+                throw new Exception("Cannot upload less than 5 images to the AI Model"); 
             }
-            else if(files.Count > 1000)
+
+            if (files.Count > 1000)
             {
-                //ViewBag.complainImages = "Cannot upload more than 1000 images at a time";
-                return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
+                throw new Exception("Cannot upload more than 1000 images to the AI Model");
             }
-                
-            //Checking if each tag is not empty or not an empty string
-            foreach (var tag in tags)
+
+            foreach(var tag in tags)
             {
-                if (tag.Equals("") || tag.Equals(" "))
+                if(tag.Equals("") || tag.Equals(" "))
                 {
-                    //ViewBag.complainImages = "Tag text field cannot be empty";
-                    return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
+                    throw new Exception("Cannot leave tag empty");
                 }
             }
 
             // Custom Vision cannot have more than 100 000 images.
-            if(_aIService.getImageCount(projectId) + files.Count >= 100000)
+            if (_aIService.getImageCount(projectId) + files.Count >= 100000)
             {
-                //ViewBag.complainImages = "An AI model cannot have more than 100 000 images.";
-                return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
+                return Json(new { Status = "failure", message = "imageCount" });
             }
 
             //Custom vision cannot have more than 500 tags
             if(_aIService.getModelTags(projectId).Count + tags.Length >= 500)
             {
-                //ViewBag.complainImages = "An AI model cannot have more than 500 tags";
-                return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
+                return Json(new { Status = "failure", message = "tags" });
             }
             
-            List<string> imageUrls = await _blobService.uploadTestImages(files, projectId.ToString());
-            _aIService.uploadTestImages(imageUrls, tags, projectId);
+            List<string> imageUrls = await _blobService.uploadModelImages(files, projectId.ToString());
+            _aIService.uploadImages(imageUrls, tags, projectId);
 
-            if (lastTestImages != null)
-                return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
-            else
-                return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
+            return Json(new { Status = "success" });
         }
 
         // This function allows the user to train the AI model they had created by calling TrainModel AI Model service.
