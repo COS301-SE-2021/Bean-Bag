@@ -175,6 +175,52 @@ namespace BeanBagIntegrationTests
             query.DeleteInventory(thenew.Id, u2);
         }
         
+        
+        [Fact]
+        public void Edit_Inventory_From_SQL_return_false()
+        {
+            //ARRANGE
+            var chars = "0123456789";
+            var stringChars = new char[5];
+            var random = new Random();
+
+            for (var i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            var myGuidEnd = finalString;
+
+            var u2 = finalString.Substring(0, 4);
+
+            var myerror = u2 + "0";
+            
+            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+
+            var theId3 = new Guid();
+            var theId4 = new Guid();
+
+            var myDay = DateTime.MinValue;
+            
+            //ACT
+            
+            var query = new InventoryService(_db);
+
+            var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 , publicToTenant = false};
+
+            query.CreateInventory(thenew);
+
+            var isUpdated = query.EditInventory(myerror, thenew);
+            
+            var getInvs = query.FindInventory(theId2);
+
+            //ASSERT
+            Assert.False(isUpdated);
+            query.DeleteInventory(thenew.Id, u2);
+        }
+        
         //Integration test defined to test the delete inventory function in the inventory service class (positive testing)
         [Fact]
         public void Delete_Inventory_From_SQL()
