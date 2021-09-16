@@ -18,10 +18,22 @@ namespace BeanBag.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            if (User.GetObjectId() == null)
+            {
+                throw new Exception("User ID is null");
+            }
+            else if (_tenantService.SearchUser(User.GetObjectId()))
+            {
+                //Redirect user to dashboard if they are already signed up
+                return RedirectToAction("Index", "Home");
+            }
+            
             return View();
         }
 
         
+        /* Receives invitation code and verifies if the code is correct.
+         If correct the user is signed up and gets redirected to the dashboard */
         [HttpPost]
         public IActionResult VerifyCode(string code)
         {
@@ -41,6 +53,7 @@ namespace BeanBag.Controllers
                     return BadRequest();
                 }
 
+                //Add user to the database
                 if (_tenantService.SignUserUp(User.GetObjectId(), tenant.TenantId, User.GetDisplayName()))
                 {
                     return RedirectToAction("Index", "Home");
