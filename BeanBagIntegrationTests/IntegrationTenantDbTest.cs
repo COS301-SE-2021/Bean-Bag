@@ -15,6 +15,26 @@ namespace BeanBagIntegrationTests
         private readonly TenantDbContext _tenantDbContext;
         
         private readonly IConfiguration _configuration;
+
+        // Tenant testing data
+        private const string Name = "Tenant-name";
+        private const string Address = "test-address";
+        private const string Email = "tenant@test.com";
+        private const string Number = "0123456789";
+        private const string Subscription = "Free";
+        private const string Theme = "Default";
+        
+        private const string Name2 = "Tenant-name-2";
+        private const string Address2 = "test-address-2";
+        private const string Email2 = "tenant2@test.com";
+        private const string Number2 = "0123456789";
+        private const string Subscription2 = "Free";
+
+        // User testing data
+        private const string Username = "test-user";
+        private const string Role = "U";
+
+        
         
         public IntegrationTenantDbTest()
         {
@@ -35,21 +55,15 @@ namespace BeanBagIntegrationTests
         
         //Test tenant creation
         //POSITIVE TEST
-        [Fact]
+    /*    [Fact]
         public void Test_Tenant_Creation_Success_Tenant_Added()
         {
             //Arrange
-            const string name = "Tenant-name";
-            const string address = "test-address";
-            const string email = "tenant@test.com";
-            const string number = "0123456789";
-            const string subscription = "Free";
-
             var query = new TenantService(_tenantDbContext);
             
             //Act
-            var created = query.CreateNewTenant(name,address,email,number,subscription);
-            var tenantId = query.GetTenantId(name);
+            var created = query.CreateNewTenant(Name,Address,Email,Number,Subscription);
+            var tenantId = query.GetTenantId(Name);
             
             var tenant = _tenantDbContext.Tenant.Find(tenantId);
 
@@ -57,32 +71,27 @@ namespace BeanBagIntegrationTests
             Assert.True(created);
             Assert.NotNull(tenantId);
             Assert.NotNull(tenant);
-            Assert.Equal(name,tenant.TenantName);
-            Assert.Equal(address,tenant.TenantAddress);
-            Assert.Equal(email,tenant.TenantEmail);
-            Assert.Equal(number,tenant.TenantNumber);
-            Assert.Equal(subscription,tenant.TenantSubscription);
+            Assert.Equal(Name,tenant.TenantName);
+            Assert.Equal(Address,tenant.TenantAddress);
+            Assert.Equal(Email,tenant.TenantEmail);
+            Assert.Equal(Number,tenant.TenantNumber);
+            Assert.Equal(Subscription,tenant.TenantSubscription);
             
             //Delete from the database
             _tenantDbContext.Tenant.Remove(tenant);
             _tenantDbContext.SaveChanges();
 
-        }
+        }*/
         
         //NEGATIVE TEST
         [Fact]
         public void Test_Tenant_Creation_Fail_Tenant_Name_Is_Null()
         {
             //Arrange
-            const string address = "test-address";
-            const string email = "tenant@test.com";
-            const string number = "0123456789";
-            const string subscription = "Free";
-            
             var query = new TenantService(_tenantDbContext);
 
             //Act
-            var exception = Assert.Throws<Exception>(() => query.CreateNewTenant(null,address,email,number,subscription));
+            var exception = Assert.Throws<Exception>(() => query.CreateNewTenant(null,Address,Email,Number,Subscription));
 
             //Assert
             Assert.Equal("Tenant name is null", exception.Message);
@@ -96,12 +105,18 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             var tenantId1 = Guid.NewGuid().ToString();
-            var tenantName1 = "Tenant-1";
-            var tenant1 = new Tenant {TenantId = tenantId1, TenantName = tenantName1};
+            var tenant1 = new Tenant
+            {
+                TenantId = tenantId1, TenantName = Name, TenantAddress = Address, 
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
+            };
             
             var tenantId2 = Guid.NewGuid().ToString();
-            var tenantName2 = "Tenant-2";
-            var tenant2 = new Tenant {TenantId = tenantId2, TenantName = tenantName2};
+            var tenant2 = new Tenant
+            {
+                TenantId = tenantId2, TenantName = Name2, TenantAddress = Address2, 
+                TenantEmail = Email2, TenantNumber = Number2, TenantSubscription = Subscription2
+            };
 
             //Act
             var queryExisting = new TenantService(_tenantDbContext);
@@ -115,18 +130,18 @@ namespace BeanBagIntegrationTests
             var query = new TenantService(_tenantDbContext);
             var tenantList = query.GetTenantList();
             
-            var tenant = _tenantDbContext.Tenant.Find(tenantId1.ToString());
+            var tenant = _tenantDbContext.Tenant.Find(tenantId1);
             
             //Assert
             Assert.NotNull(tenantList);
             Assert.Equal(2+existing,tenantList.Count());
             Assert.Equal(tenantId1,tenant.TenantId);
-            Assert.Equal("Tenant-1", tenant.TenantName);
+            Assert.Equal(Name, tenant.TenantName);
 
             //Delete tenants from database
-            _tenantDbContext.Tenant.Remove(_tenantDbContext.Tenant.Find(tenantId1.ToString()));
+            _tenantDbContext.Tenant.Remove(_tenantDbContext.Tenant.Find(tenantId1));
             _tenantDbContext.SaveChanges();
-            _tenantDbContext.Tenant.Remove(_tenantDbContext.Tenant.Find(tenantId2.ToString()));
+            _tenantDbContext.Tenant.Remove(_tenantDbContext.Tenant.Find(tenantId2));
             _tenantDbContext.SaveChanges();
         }
         
@@ -155,21 +170,15 @@ namespace BeanBagIntegrationTests
         
         //Get tenant id from current user
         //POSITIVE TEST
-        [Fact]
+      /*  [Fact]
         public void Test_Get_Tenant_Id_Success_Tenant_Exists()
         {
             //Arrange
-            var id = Guid.NewGuid();
-            const string name = "Tenant-name";
-            const string address = "test-address";
-            const string email = "tenant@test.com";
-            const string number = "0123456789";
-            const string subscription = "Free";
-            
+            var id = Guid.NewGuid().ToString();
             var newTenant = new Tenant
             {
-                TenantId = id.ToString(), TenantName = name, TenantAddress = address, 
-                TenantEmail = email, TenantNumber = number, TenantSubscription = subscription
+                TenantId = id, TenantName = Name, TenantAddress = Address, 
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
             };
 
             //Act
@@ -177,20 +186,20 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.Tenant.Add(newTenant);
             _tenantDbContext.SaveChanges();
 
-            var tenantId = query.GetTenantId(name);
+            var tenantId = query.GetTenantId(Name);
 
             var tenant = _tenantDbContext.Tenant.Find(newTenant.TenantId);
 
             //Assert
             Assert.NotNull(tenant);
             Assert.NotNull(tenantId);
-            Assert.Equal(id.ToString(), tenantId);
-            Assert.Equal(name, tenant.TenantName);
+            Assert.Equal(id, tenantId);
+            Assert.Equal(Name, tenant.TenantName);
 
             //Delete from database
             _tenantDbContext.Remove(tenant);
             _tenantDbContext.SaveChanges();
-        }
+        }*/
         
         //NEGATIVE TEST
         [Fact]
@@ -198,16 +207,10 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             var id = Guid.NewGuid().ToString();
-            const string name = "Tenant-name";
-            const string address = "test-address";
-            const string email = "tenant@test.com";
-            const string number = "0123456789";
-            const string subscription = "Free";
-            
             var newTenant = new Tenant
             {
-                TenantId = id, TenantName = name, TenantAddress = address, 
-                TenantEmail = email, TenantNumber = number, TenantSubscription = subscription
+                TenantId = id, TenantName = Name, TenantAddress = Address, 
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
             };
 
             //Act
@@ -229,26 +232,18 @@ namespace BeanBagIntegrationTests
             //Arrange
             //Tenant
             var id = Guid.NewGuid().ToString();
-            const string name = "Tenant-name";
-            const string address = "test-address";
-            const string email = "tenant@test.com";
-            const string number = "0123456789";
-            const string subscription = "Free";
-            
             var newTenant = new Tenant
             {
-                TenantId = id, TenantName = name, TenantAddress = address, 
-                TenantEmail = email, TenantNumber = number, TenantSubscription = subscription
+                TenantId = id, TenantName = Name, TenantAddress = Address, 
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
             };
             
             //User
             var userId = Guid.NewGuid().ToString();
-            var username = "test-user";
-            var role = "U";
             var newUser = new TenantUser
             {
                 UserTenantId = id, UserObjectId = userId,
-                UserName = username, UserRole = role
+                UserName = Username, UserRole = Role
                 
             };
 
@@ -266,7 +261,7 @@ namespace BeanBagIntegrationTests
             //Assert
             Assert.NotNull(tenant);
             Assert.NotNull(tenantName);
-            Assert.Equal(name, tenantName);
+            Assert.Equal(Name, tenantName);
 
             //Delete from database
             _tenantDbContext.Remove(user);
@@ -304,16 +299,10 @@ namespace BeanBagIntegrationTests
             //Arrange
             //Tenant
             var id = Guid.NewGuid().ToString();
-            const string name = "Tenant-name";
-            const string address = "test-address";
-            const string email = "tenant@test.com";
-            const string number = "0123456789";
-            const string subscription = "Free";
-            
             var newTenant = new Tenant
             {
-                TenantId = id, TenantName = name, TenantAddress = address, 
-                TenantEmail = email, TenantNumber = number, TenantSubscription = subscription
+                TenantId = id, TenantName = Name, TenantAddress = Address, 
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
             };
             
             //Act
@@ -364,26 +353,18 @@ namespace BeanBagIntegrationTests
             //Arrange
             //Tenant
             var id = Guid.NewGuid().ToString();
-            const string name = "Tenant-name";
-            const string address = "test-address";
-            const string email = "tenant@test.com";
-            const string number = "0123456789";
-            const string subscription = "Free";
-            
             var newTenant = new Tenant
             {
-                TenantId = id, TenantName = name, TenantAddress = address, 
-                TenantEmail = email, TenantNumber = number, TenantSubscription = subscription
+                TenantId = id, TenantName = Name, TenantAddress = Address, 
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
             };
             
             //User
             var userId = Guid.NewGuid().ToString();
-            var username = "test-user";
-            var role = "U";
             var newUser = new TenantUser
             {
                 UserTenantId = id, UserObjectId = userId,
-                UserName = username, UserRole = role
+                UserName = Username, UserRole = Role
                 
             };
 
@@ -448,25 +429,17 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             var id = Guid.NewGuid().ToString();
-            const string name = "Tenant-name";
-            const string address = "test-address";
-            const string email = "tenant@test.com";
-            const string number = "0123456789";
-            const string subscription = "Free";
-            
             var newTenant = new Tenant
             {
-                TenantId = id, TenantName = name, TenantAddress = address, 
-                TenantEmail = email, TenantNumber = number, TenantSubscription = subscription
+                TenantId = id, TenantName = Name, TenantAddress = Address, 
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
             };
 
             var userId = Guid.NewGuid().ToString();
-            var username = "test-user";
-            var role = "U";
             var newUser = new TenantUser
             {
                 UserTenantId = id, UserObjectId = userId,
-                UserName = username, UserRole = role
+                UserName = Username, UserRole = Role
                 
             };
             
@@ -519,10 +492,19 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             var id = Guid.NewGuid().ToString();
-            var newTenant = new Tenant { TenantId = id, TenantName = "Tenant-name", TenantTheme = "Default"};
+            var newTenant = new Tenant
+            {
+                TenantId = id, TenantName = Name, TenantAddress = Address, 
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, TenantTheme = Theme
+            };
 
             var userId = Guid.NewGuid().ToString();
-            var newUser = new TenantUser {UserObjectId = userId, UserTenantId = id};
+            var newUser = new TenantUser
+            {
+                UserTenantId = id, UserObjectId = userId,
+                UserName = Username, UserRole = Role
+                
+            };
             
             var query = new TenantService(_tenantDbContext);
             
