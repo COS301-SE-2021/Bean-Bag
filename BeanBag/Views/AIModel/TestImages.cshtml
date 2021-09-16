@@ -35,27 +35,10 @@
                                     <span class="required"></span>
                                 </label>
 
-                                <!-- <div class="p-3 pr-3" id="dropzone">
-                                    <div class="input-group mb-3 px-1 py-1 rounded-pill bg-white shadow-sm">
-                                        <input hidden value="@Context.Request.Query["projectId"]" name="projectId"/>
-                                        <input id="fileupload" multiple="multiple" type="file" name="files" class="form-control border-0" hidden>
                                 
-                                        <label id="upload-label" for="fileupload" class="font-weight-light text-muted " value="Upload Image">Upload Image</label>
-                                        <div class="input-group-append ml-auto">
-                                            <label for="fileupload" class="btn btn-light m-0 rounded-pill px-4 upload "> <small class="text-uppercase font-weight-bold text-muted ml-auto pt-3">Choose file</small></label>
-                                        </div>
-                                    </div>
-
-                                    <p class="font-italic text-secondary text-center"></p>
-
-                                    <div class="image-area mt-4 dropzone" id="uploader">
-                                        <div id="dvPreview">
-                                        </div>
-                                    </div>
-                                </div>-->
                                 <div class="p-3 pr-3">
                                     <input hidden value="@Context.Request.Query["projectId"]" name="projectId"/> 
-                                    <input type="file" class="filepond" name="files" multiple="multiple" data-max-file-size="50MB" data-max-files="50">
+                                    <input type="file" id="fileupload" class="filepond" name="files" multiple="multiple" data-max-files="1000">
                                 </div>
                                 
                             </div>
@@ -146,35 +129,33 @@
   });   
 </script>
 
-@* This script function is to preview the multiple images before uploading *@
-<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript">
-$(function () {
-    $("#fileupload").change(function () {
-        if (typeof (FileReader) != "undefined") {
-            let dvPreview = $("#dvPreview");
-            dvPreview.html("");
-            let regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
-            $($(this)[0].files).each(function () {
-                let file = $(this);
-                if (regex.test(file[0].name.toLowerCase())) {
-                    let reader = new FileReader();
-                    reader.onload = function (e) {
-                        let img = $('<img  alt=/"" />');
-                        img.attr("style", "width: 150px");
-                        img.attr("src", e.target.result);
-                        dvPreview.append(img);
-                    }
-                    reader.readAsDataURL(file[0]);
-                } else {
-                    alert(file[0].name + " is not a valid image file.");
-                    dvPreview.html("");
-                    return false;
-                }
-            });
-        } else {
-            alert("This browser does not support HTML5 FileReader.");
-        }
-    });
+<!-- Filepond scripts -->
+<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.min.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.min.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.min.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
+<script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+<script>
+    FilePond.registerPlugin(
+    // encodes the file as base64 data
+    FilePondPluginFileEncode,
+    // validates the size of the file
+    FilePondPluginFileValidateSize,
+    // corrects mobile image orientation
+    FilePondPluginImageExifOrientation,
+    // previews dropped images
+    FilePondPluginImagePreview
+    );
+    // Select the file input and use create() to turn it into a pond
+    /*FilePond.create( document.querySelector('.filepond'));*/
+</script>
+<script>
+// Select the file input and use create() to turn it into a pond
+const inputElement = document.querySelector('input[type="file"]');
+const pond = FilePond.create( inputElement );
+</script>
+<script>
+FilePond.setOptions({
+server: '@Url.Action("SaveFile", "AiModel")'
 });
-</script>-->
+</script>
