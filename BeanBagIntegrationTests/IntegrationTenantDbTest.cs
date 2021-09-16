@@ -14,11 +14,11 @@ namespace BeanBagIntegrationTests
     {
         private readonly TenantDbContext _tenantDbContext;
         
-        private readonly IConfiguration config;
+        private readonly IConfiguration _configuration;
         
         public IntegrationTenantDbTest()
         {
-            this.config = new ConfigurationBuilder().AddJsonFile("appsettings.local.json").Build();
+            this._configuration = new ConfigurationBuilder().AddJsonFile("appsettings.local.json").Build();
             
             var serviceProvider = new ServiceCollection()
                 .AddEntityFrameworkSqlServer()
@@ -26,13 +26,13 @@ namespace BeanBagIntegrationTests
 
             var builder = new DbContextOptionsBuilder<TenantDbContext>();
 
-            var connString = config.GetValue<string>("Database:DefaultConnection");
+            var connString = _configuration.GetValue<string>("Database:TenantConnection");
             
             builder.UseSqlServer(connString).UseInternalServiceProvider(serviceProvider);
 
             _tenantDbContext = new TenantDbContext(builder.Options);
         }
-        /*
+        
         //Test tenant creation
         //POSITIVE TEST
         [Fact]
@@ -40,10 +40,15 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             const string name = "Tenant-name";
+            const string address = "test-address";
+            const string email = "tenant@test.com";
+            const string number = "0123456789";
+            const string subscription = "Free";
+
             var query = new TenantService(_tenantDbContext);
             
             //Act
-            var created = query.CreateNewTenant(name);
+            var created = query.CreateNewTenant(name,address,email,number,subscription);
             var tenantId = query.GetTenantId(name);
             
             var tenant = _tenantDbContext.Tenant.Find(tenantId);
@@ -52,27 +57,37 @@ namespace BeanBagIntegrationTests
             Assert.True(created);
             Assert.NotNull(tenantId);
             Assert.NotNull(tenant);
+            Assert.Equal(name,tenant.TenantName);
+            Assert.Equal(address,tenant.TenantAddress);
+            Assert.Equal(email,tenant.TenantEmail);
+            Assert.Equal(number,tenant.TenantNumber);
+            Assert.Equal(subscription,tenant.TenantSubscription);
             
             //Delete from the database
             _tenantDbContext.Tenant.Remove(tenant);
             _tenantDbContext.SaveChanges();
 
         }
-        */
+        
         //NEGATIVE TEST
-   /*     [Fact]
+        [Fact]
         public void Test_Tenant_Creation_Fail_Tenant_Name_Is_Null()
         {
             //Arrange
-            var query = new TenantService(_tenantDbContext);
+            const string address = "test-address";
+            const string email = "tenant@test.com";
+            const string number = "0123456789";
+            const string subscription = "Free";
             
+            var query = new TenantService(_tenantDbContext);
+
             //Act
-            var exception = Assert.Throws<Exception>(() => query.CreateNewTenant(null));
+            var exception = Assert.Throws<Exception>(() => query.CreateNewTenant(null,address,email,number,subscription));
 
             //Assert
             Assert.Equal("Tenant name is null", exception.Message);
         }
-       */ 
+        
         
         //Test to get a list of tenants from the database
         //POSITIVE TEST
@@ -137,7 +152,7 @@ namespace BeanBagIntegrationTests
             
         }
         
-        /*
+        
         //Get tenant id from current user
         //POSITIVE TEST
         [Fact]
@@ -145,16 +160,24 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             var id = Guid.NewGuid();
-            var tenantName = "Tenant-name";
+            const string name = "Tenant-name";
+            const string address = "test-address";
+            const string email = "tenant@test.com";
+            const string number = "0123456789";
+            const string subscription = "Free";
             
-            var newTenant = new Tenant { TenantId = id.ToString(), TenantName = tenantName };
+            var newTenant = new Tenant
+            {
+                TenantId = id.ToString(), TenantName = name, TenantAddress = address, 
+                TenantEmail = email, TenantNumber = number, TenantSubscription = subscription
+            };
 
             //Act
             var query = new TenantService(_tenantDbContext);
             _tenantDbContext.Tenant.Add(newTenant);
             _tenantDbContext.SaveChanges();
 
-            var tenantId = query.GetTenantId(tenantName);
+            var tenantId = query.GetTenantId(name);
 
             var tenant = _tenantDbContext.Tenant.Find(newTenant.TenantId);
 
@@ -162,13 +185,13 @@ namespace BeanBagIntegrationTests
             Assert.NotNull(tenant);
             Assert.NotNull(tenantId);
             Assert.Equal(id.ToString(), tenantId);
-            Assert.Equal("Tenant-name", tenant.TenantName);
+            Assert.Equal(name, tenant.TenantName);
 
             //Delete from database
             _tenantDbContext.Remove(tenant);
             _tenantDbContext.SaveChanges();
         }
-        */
+        
         //NEGATIVE TEST
         [Fact]
         public void Test_Get_Tenant_Id_Failure_Tenant_Does_Not_Exist()

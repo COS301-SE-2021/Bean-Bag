@@ -10,6 +10,7 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=94ac5db2_002Dfbc0_002D4455_002Da1af_002D6a9ce73acacc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="IntegrationDashboardTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::09E4CF73-6277-455D-A7EE-41392F44CE11::net5.0::BeanBagIntegrationTests.IntegrationDashboardTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::09E4CF73-6277-455D-A7EE-41392F44CE11::net5.0::BeanBagIntegrationTests.IntegrationTenantDbTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
