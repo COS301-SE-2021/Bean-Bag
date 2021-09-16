@@ -231,7 +231,6 @@ namespace BeanBag.Services
                 select transactions;
 
             var transactionList = t.ToList();
-            var emma = "";
             return transactionList;
         }
 
