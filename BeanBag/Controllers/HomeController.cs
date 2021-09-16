@@ -84,7 +84,7 @@ namespace BeanBag.Controllers
             {
                 if (  _itemService.GetItems(t.Id).Count ==0)
                 {
-                    ViewBag.hasItems = false;
+                    ViewBag.hasItems = true;
                     return View();
                 }
             }
