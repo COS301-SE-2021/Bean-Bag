@@ -324,17 +324,17 @@ namespace BeanBag.Controllers
             var file = contents;
             var objFiles = Directory.GetFiles(path);
             
+            
+            //Nada: NEED TO DELETE THE TEMP UPLOAD DIRECTORY BUT PROCESSES ARE OVERLAPPING 
+         //   Directory.Delete(path,true);
+            
             // Nada: Delete temporary Directory with Images here
-            Directory.Delete(path);
+         
             ViewBag.complainImages = "";
             var model = _aIService.getModel(projectId);
             
             //Nada: Object file used instead of IFormFileCollection
             var filesCount = objFiles.Count();
-            Console.WriteLine("Count:" + filesCount);
-            Console.WriteLine("Path:" + path);
-            Console.WriteLine("provider:" + provider);
-            Console.WriteLine("contents:" + contents);
             
             if(filesCount < 5)
             {
@@ -375,6 +375,7 @@ namespace BeanBag.Controllers
             List<string> imageUrls = await _blobService.uploadTestImages(file, projectId.ToString());
             _aIService.uploadTestImages(imageUrls, tags, projectId);
 
+         //   Directory.Delete(path,true);
             if (lastTestImages != null)
                 return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
             else
