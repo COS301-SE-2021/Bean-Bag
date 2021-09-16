@@ -18,7 +18,7 @@ namespace BeanBag.Controllers
     {
         private readonly IPaymentService _paymentService;
         private readonly ITenantService _tenantService;
-          
+        
         // the company will have their own details , this is for test purposes.
         readonly string PayGateID = "10011072130"; 
         readonly string _payGateKey = "secret";
@@ -46,7 +46,7 @@ namespace BeanBag.Controllers
                 {"CURRENCY", "ZAR"},
                 // Return url to original payment page -- run in ngrok
                 // ngrok http https://localhost:44352 -host-header="localhost:44352"
-                {"RETURN_URL", "https://1484-102-250-3-150.ngrok.io/Payment/CompletePayment?amounts=" +
+                {"RETURN_URL", "https://c562-102-250-5-82.ngrok.io/Payment/CompletePayment?amounts=" +
                                ""+amount+"&references="+reference},
                 {"TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
                 {"LOCALE", "en-za"},
@@ -136,6 +136,11 @@ namespace BeanBag.Controllers
                     
                     //Determine the type of subscription
                     @ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
+                    @ViewBag.UpdatedSubscription = false; 
+                    if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
+                    {
+                        @ViewBag.UpdatedSubscription = true;
+                    }
                     return View();
                 
                 case "2":
@@ -153,7 +158,14 @@ namespace BeanBag.Controllers
             }
             TempData["Status"] = status;
 
-           return RedirectToAction("Index", "Tenant");
+            if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
+            {
+                //Error popup
+                return RedirectToAction("Index", "Home");
+            }
+            
+            //error popup
+            return RedirectToAction("Index", "Tenant");
         }
         
         // This function returns the billing page where the tenant can view their transactions.
@@ -255,7 +267,7 @@ namespace BeanBag.Controllers
         {  //Free - Automatic update
             if (subscription == "Free")
             {
-                _paymentService.UpdateSubscription(subscription, tenantId);
+                _tenantService.UpdateSubscription(subscription, tenantId);
                 return View("_UpdateFreeSubscription");
             }
             else if(subscription == "Standard")
