@@ -304,8 +304,17 @@ namespace BeanBagIntegrationTests
             //Arrange
             //Tenant
             var id = Guid.NewGuid().ToString();
-            var name = "Tenant-name";
-            var newTenant = new Tenant { TenantId = id, TenantName = name };
+            const string name = "Tenant-name";
+            const string address = "test-address";
+            const string email = "tenant@test.com";
+            const string number = "0123456789";
+            const string subscription = "Free";
+            
+            var newTenant = new Tenant
+            {
+                TenantId = id, TenantName = name, TenantAddress = address, 
+                TenantEmail = email, TenantNumber = number, TenantSubscription = subscription
+            };
             
             //Act
             var query = new TenantService(_tenantDbContext);
@@ -338,12 +347,12 @@ namespace BeanBagIntegrationTests
             var tenant = _tenantDbContext.Tenant.Find(id);
             var searchTenant = query.SearchTenant(id);
             
-           // var exception = Assert.Throws<Exception>(() => query.SearchTenant(null));
+            var exception = Assert.Throws<Exception>(() => query.SearchTenant(null));
             
             //Assert
             Assert.Null(tenant);
             Assert.False(searchTenant);
-         //   Assert.Equal("Tenant is null", exception.Message);
+            Assert.Equal("Tenant is null", exception.Message);
         }
         
         
