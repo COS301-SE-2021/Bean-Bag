@@ -18,15 +18,18 @@ namespace BeanBag.Controllers
         
         // Global variables needed for calling the service classes.
         private readonly ITenantService _tenantService;
+        private readonly IPaymentService _paymentService;
         private readonly TenantDbContext _tenantDbContext;
         private readonly string _from = "";
         private readonly string _pswd = "";
 
         // Constructor.
-        public TenantSettingsController(ITenantService tenantService, TenantDbContext tenantDbContext)
+        public TenantSettingsController(ITenantService tenantService,
+            TenantDbContext tenantDbContext,IPaymentService paymentService)
         {
             _tenantService = tenantService;
             _tenantDbContext = tenantDbContext;
+            _paymentService = paymentService;
         }
 
         /* Provides a list of users under the currently signed in tenant */
@@ -90,6 +93,20 @@ namespace BeanBag.Controllers
             viewModel.TenantUser = tenantUser;
             viewModel.PagedListTenantUsers = pagedList;
              @ViewBag.tenant =  _tenantService.GetCurrentTenant(User.GetObjectId());
+             
+               
+             //Subscription Expired 
+             @ViewBag.SubscriptionExpired = false;
+             if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantSubscription != "Free")
+             {
+                 var transaction =
+                     _paymentService.GetPaidSubscription(_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId);
+                 if (transaction.EndDate >= DateTime.Now)
+                 {
+                     @ViewBag.SubscriptionExpired = true;
+                 }
+             }
+             
             //Checking user role is in DB
             //CheckUserRole();
             return View(viewModel);
