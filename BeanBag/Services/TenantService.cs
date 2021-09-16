@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using BeanBag.Database;
 using BeanBag.Models;
 
@@ -602,6 +603,22 @@ namespace BeanBag.Services
             {
                 throw new Exception("Incorrect subscription input.");
             }
+            
+        }
+
+        public string CreateDbName(string userId)
+        {
+            var tenant = GetCurrentTenant(userId);
+
+            var tenantName = tenant.TenantName;
+            
+            var prefix = "Bean-Bag-";
+            var dbName = Regex.Replace(tenantName, @"\s+", "");
+            var suffix = "-DB";
+
+            var newName = prefix + dbName + suffix;
+
+            return newName;
         }
     }
 }
