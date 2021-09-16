@@ -71,7 +71,7 @@ namespace BeanBag.Controllers
 
             times.First().Selected = true;
             ViewBag.TimeDropDown = times;
-            ViewBag.hasItems = true;
+            ViewBag.hasItems = false;
 
             if (inventories.Count==0)
             {
@@ -82,12 +82,13 @@ namespace BeanBag.Controllers
             // Checking inventories for an empty state 
             foreach (var t in inventories)
             {
-                if (  _itemService.GetItems(t.Id).Count ==0)
+                if ( _itemService.GetItems(t.Id).Count> 0)
                 {
-                    ViewBag.hasItems = false;
+                    ViewBag.hasItems = true;
                     return View();
                 }
             }
+            
             var tenant = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
 
              ViewBag.TenantName = tenant;

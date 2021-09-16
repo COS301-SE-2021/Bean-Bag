@@ -18,14 +18,17 @@ namespace BeanBag.Controllers
         private readonly DBContext _db;
         private readonly IInventoryService _inventoryService;
         private readonly ITenantService _tenantService;
+        private readonly IPaymentService _paymentService;
 
         // Constructor.
-        public InventoryController(DBContext db, IInventoryService inv, ITenantService tenantService)
+        public InventoryController(DBContext db, IInventoryService inv,
+            ITenantService tenantService, IPaymentService paymentService)
         {
             // Inits the db context allowing us to use CRUD operations on the inventory table
             _db = db;
             _inventoryService = inv;
             _tenantService = tenantService;
+            _paymentService = paymentService;
         }
 
         public void CheckUserRole()
@@ -107,6 +110,14 @@ namespace BeanBag.Controllers
             viewModel.PagedList = pagedList;
             @ViewBag.totalInventories = _inventoryService.GetInventories(User.GetObjectId()).Count;
             
+            //Subscription Expired 
+            @ViewBag.SubscriptionExpired = false;
+            var transaction = _paymentService.GetPaidSubscription(_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId);
+            if (transaction.EndDate >= DateTime.Now)
+            {
+                @ViewBag.SubscriptionExpired = true;
+            }
+
             //Checking user role is in DB
             CheckUserRole();
             return View(viewModel);
