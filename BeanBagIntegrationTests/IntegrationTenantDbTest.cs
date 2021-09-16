@@ -364,12 +364,28 @@ namespace BeanBagIntegrationTests
             //Arrange
             //Tenant
             var id = Guid.NewGuid().ToString();
-            var name = "Tenant-name";
-            var newTenant = new Tenant { TenantId = id, TenantName = name };
+            const string name = "Tenant-name";
+            const string address = "test-address";
+            const string email = "tenant@test.com";
+            const string number = "0123456789";
+            const string subscription = "Free";
+            
+            var newTenant = new Tenant
+            {
+                TenantId = id, TenantName = name, TenantAddress = address, 
+                TenantEmail = email, TenantNumber = number, TenantSubscription = subscription
+            };
             
             //User
             var userId = Guid.NewGuid().ToString();
-            var newUser = new TenantUser { UserTenantId = id, UserObjectId = userId };
+            var username = "test-user";
+            var role = "U";
+            var newUser = new TenantUser
+            {
+                UserTenantId = id, UserObjectId = userId,
+                UserName = username, UserRole = role
+                
+            };
 
             //Act
             var query = new TenantService(_tenantDbContext);
