@@ -7,8 +7,11 @@ using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
 using Microsoft.Identity.Web;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.FileProviders;
 using X.PagedList;
 
 namespace BeanBag.Controllers
@@ -21,13 +24,15 @@ namespace BeanBag.Controllers
         private readonly IAIService _aIService;
         private readonly IBlobStorageService _blobService;
         private readonly ITenantService _tenantService;
+        private IWebHostEnvironment _environment;
     
         // Constructor.
-        public AiModelController(IAIService aIService, IBlobStorageService blobService, ITenantService tenantService)
+        public AiModelController(IAIService aIService, IBlobStorageService blobService, ITenantService tenantService, IWebHostEnvironment environment)
         {
             _aIService = aIService;
             _blobService = blobService;
             _tenantService = tenantService;
+            _environment = environment;
         }
 
         /* This function adds a page parameter, a current sort order parameter, and a current filter
@@ -310,17 +315,34 @@ namespace BeanBag.Controllers
             [FromForm(Name ="projectId")] Guid projectId, [FromForm(Name ="tags")] string[] tags,
             [FromForm(Name = "LastTestImages")] string lastTestImages)
         {
-            Console.WriteLine(files.Count);
-           ViewBag.complainImages = "";
-            var model = _aIService.getModel(projectId);
+            // Nada: Need to get files from folder 
+            var provider = new PhysicalFileProvider(_environment.WebRootPath);
+            string path = Path.Combine(_environment.WebRootPath, "Uploads");
+            var contents = provider.GetDirectoryContents( "Uploads");
 
-            if(Request.Form.Files.Count < 5)
+            // Directory Contents
+            var file = contents;
+            var objFiles = Directory.GetFiles(path);
+            
+            // Nada: Delete temporary Directory with Images here
+            Directory.Delete(path);
+            ViewBag.complainImages = "";
+            var model = _aIService.getModel(projectId);
+            
+            //Nada: Object file used instead of IFormFileCollection
+            var filesCount = objFiles.Count();
+            Console.WriteLine("Count:" + filesCount);
+            Console.WriteLine("Path:" + path);
+            Console.WriteLine("provider:" + provider);
+            Console.WriteLine("contents:" + contents);
+            
+            if(filesCount < 5)
             {
                 //ModelState.AddModelError("", "Need to upload more than 5 images");
                 ViewBag.complainImages = "Need to upload more than 5 images";
                 return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
             }
-            else if(Request.Form.Files.Count > 1000)
+            else if(filesCount > 1000)
             {
                 //ViewBag.complainImages = "Cannot upload more than 1000 images at a time";
                 return LocalRedirect("/AIModel/TestImages?projectId=" + projectId.ToString());
@@ -337,7 +359,7 @@ namespace BeanBag.Controllers
             }
 
             // Custom Vision cannot have more than 100 000 images.
-            if(_aIService.getImageCount(projectId) + Request.Form.Files.Count >= 100000)
+            if(_aIService.getImageCount(projectId) + filesCount >= 100000)
             {
                 //ViewBag.complainImages = "An AI model cannot have more than 100 000 images.";
                 return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
@@ -350,7 +372,7 @@ namespace BeanBag.Controllers
                 return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
             }
             
-            List<string> imageUrls = await _blobService.uploadTestImages(files, projectId.ToString());
+            List<string> imageUrls = await _blobService.uploadTestImages(file, projectId.ToString());
             _aIService.uploadTestImages(imageUrls, tags, projectId);
 
             if (lastTestImages != null)
@@ -541,6 +563,36 @@ namespace BeanBag.Controllers
             _aIService.deleteModelTag(Id, projectId, imageCount);
 
             return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
+        }
+        
+        // This function is used to save files to the upload directory 
+        [HttpPost]
+        public ActionResult SaveFile()
+        {
+            if (Request.Form.Files.Count > 0)
+            {
+                var file = Request.Form.Files[0];
+                if (file.Length > 0)
+                {
+                    string wwwPath = _environment.WebRootPath;
+                    string contentPath = _environment.ContentRootPath;
+ 
+                    string path = Path.Combine(_environment.WebRootPath, "Uploads");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    
+                    foreach (IFormFile postedFile in Request.Form.Files)
+                    {
+                        string fileName = Path.GetFileName(postedFile.FileName);
+                        using FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create);
+                        postedFile.CopyTo(stream);
+                        //ViewBag.Message += string.Format("<b>{0}</b> uploaded.<br />", fileName);
+                    }
+                }
+            }
+            return Json(true);
         }
 
     }
