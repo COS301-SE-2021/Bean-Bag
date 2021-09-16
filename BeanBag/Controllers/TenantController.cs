@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using BeanBag.AzureSqlDatabase;
 using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -93,7 +96,7 @@ namespace BeanBag.Controllers
         
         // This function allows a user to create a new tenant.
         [HttpPost]
-        public IActionResult CreateTenant(string tenantName, string tenantAddress,
+        public async Task<IActionResult> CreateTenant(string tenantName, string tenantAddress,
             string tenantEmail, string tenantNumber, string tenantSubscription, string reference, string payId)
         {
             Console.WriteLine("Checking the user id create tenant: " + User.GetObjectId());
@@ -105,7 +108,12 @@ namespace BeanBag.Controllers
             }
             else
             {
-                _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber,tenantSubscription); 
+                _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber,tenantSubscription);
+
+                var newName = _tenantService.CreateDbName(User.GetObjectId());
+
+                //var dbCreator = new AzureDatabaseCreation(newName);
+                //await dbCreator.Create();
             }
             
             return SelectTenant(tenantName, reference,payId);
