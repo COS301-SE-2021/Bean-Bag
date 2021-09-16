@@ -9,7 +9,6 @@
 @{
   //Get the value of the website theme colour here
   var color = _tenantService.GetTenantTheme(User.GetObjectId());
-  var logo = _tenantService.GetLogo(User.GetObjectId());
 } 
     @if(color == "KellySheen")
     {
@@ -39,7 +38,7 @@
       <link rel="stylesheet" href="~/css/default.css" />
     }
 	<!---Popup Form to payment free -->
-	<div class="modal fade" id="exampleModal" data-toggle="modal" data-target="#exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+	<div class="modal fade" id="exampleModal" data-toggle="modal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog" role="document">
 
 			<div class="modal-content">

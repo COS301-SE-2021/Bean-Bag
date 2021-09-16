@@ -321,8 +321,7 @@
                           <label >Free</label>
                           <input for="subscription" type="radio" class="dummy" name="subscription" value="Free"> &nbsp;
                           <label >Standard</label>
-                          <input for="subscription" type="radio" class="dummy" name="subscription" value="Standard">  &nbsp;&nbsp;&nbsp; 
-
+                          <input for="subscription" type="radio" class="dummy" name="subscription" value="Standard">  &nbsp;&nbsp;&nbsp;
                           <label >Premium</label>
                           <input for="subscription" type="radio" class="dummy" name="subscription" value="Premium">  &nbsp;&nbsp;&nbsp;
                       </div>
@@ -331,7 +330,7 @@
                   </div>
 			      <div class="modal-footer ">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <input type="submit" class="btn btn-3 shadow-sm bg-body rounded update"  value="Update Plan"/> <!--create button-->
+                      <input type="submit"  class="btn btn-3 shadow-sm bg-body rounded update"  value="Update Plan"/> <!--create button-->
                   </div>
 
 			  }            
@@ -354,9 +353,9 @@
 <script type="text/javascript">
 
           function OnSuccess(response) {
+               alert(response);
               $('#exampleModal3').modal('hide');
               
-             $("#pop").html(response);
               $('#exampleModal').modal('show');           
                      // alert(response);
           }
