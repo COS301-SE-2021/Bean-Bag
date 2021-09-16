@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.Extensions.FileProviders;
 
 namespace BeanBag.Services
 {
@@ -41,7 +43,7 @@ namespace BeanBag.Services
         }
 
         // This method is used to upload a set of test images used to train an AI model 
-        public async Task<List<string>> uploadTestImages(IFormFileCollection testImages, string projectId)
+        public async Task<List<string>> uploadTestImages(IDirectoryContents testImages, string projectId)
         {
             List<string> testImagesUrls = new List<string>();
             CloudBlockBlob cloudBlockBlob;
@@ -49,12 +51,13 @@ namespace BeanBag.Services
 
             cloudBlobContainer = cloudBlobClient.GetContainerReference("modeltestimages");
 
-            foreach(var image in testImages)
+             foreach(var image in testImages)
             {
-                cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(projectId + "/" + image.FileName);
-                cloudBlockBlob.Properties.ContentType = image.ContentType;
+                cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(projectId + "/" + image.Name);
+                Console.WriteLine(image.Name);
+                cloudBlockBlob.Properties.ContentType = "image/jpg"; //Nada : get from file extension maybe 
                 var ms = new MemoryStream();
-                await image.CopyToAsync(ms);
+                await image.CreateReadStream().CopyToAsync(ms);
                 await cloudBlockBlob.UploadFromByteArrayAsync(ms.ToArray(), 0, (int)ms.Length);
 
                 testImagesUrls.Add(cloudBlockBlob.Uri.AbsoluteUri.ToString());
