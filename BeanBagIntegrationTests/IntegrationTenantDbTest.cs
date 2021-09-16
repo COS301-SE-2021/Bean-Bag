@@ -198,9 +198,17 @@ namespace BeanBagIntegrationTests
         {
             //Arrange
             var id = Guid.NewGuid().ToString();
-            var tenantName = "Tenant-name";
+            const string name = "Tenant-name";
+            const string address = "test-address";
+            const string email = "tenant@test.com";
+            const string number = "0123456789";
+            const string subscription = "Free";
             
-            var newTenant = new Tenant { TenantId = id, TenantName = tenantName };
+            var newTenant = new Tenant
+            {
+                TenantId = id, TenantName = name, TenantAddress = address, 
+                TenantEmail = email, TenantNumber = number, TenantSubscription = subscription
+            };
 
             //Act
             var query = new TenantService(_tenantDbContext);
