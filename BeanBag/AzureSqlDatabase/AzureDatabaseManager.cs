@@ -28,10 +28,10 @@ namespace BeanBag.AzureSqlDatabase
                 .AddJsonFile("appsettings.local.json").Build();
 
             //Azure credentials
-            var applicationId = _configuration.GetValue<String>("AzureAdB2C:ClientId");
-            var tenantId = _configuration.GetValue<String>("AzureAdB2C:TenantId");
-            var subscriptionId = _configuration.GetValue<String>("AzureAdB2C:SubscriptionId");
-            var secret = _configuration.GetValue<String>("AzureAdB2C:Secret");
+            var applicationId = _configuration.GetValue<String>("AzureAd:ClientId");
+            var tenantId = _configuration.GetValue<String>("AzureAd:TenantId");
+            var subscriptionId = _configuration.GetValue<String>("AzureAd:SubscriptionId");
+            var secret = _configuration.GetValue<String>("AzureAd:Secret");
 
             //Credential access
             var azureCredentials = new AzureCredentialsFactory()
@@ -69,12 +69,7 @@ namespace BeanBag.AzureSqlDatabase
             
 
             //Test if database was created
-            if (creation.Name == null)
-            {
-                return false;
-            }
-
-            return true;
+            return !string.IsNullOrEmpty(creation.Name);
         }
     }
 }
