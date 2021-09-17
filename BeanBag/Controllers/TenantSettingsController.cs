@@ -93,7 +93,8 @@ namespace BeanBag.Controllers
             viewModel.TenantUser = tenantUser;
             viewModel.PagedListTenantUsers = pagedList;
              @ViewBag.tenant =  _tenantService.GetCurrentTenant(User.GetObjectId());
-             
+             @ViewBag.totalUsers = pagedList.Count;
+             @ViewBag.subscription = _tenantService.GetCurrentTenant(User.GetObjectId()).TenantSubscription;
                
              //Subscription Expired 
              @ViewBag.SubscriptionExpired = false;
@@ -107,8 +108,8 @@ namespace BeanBag.Controllers
                  }
              }
              
-            //Checking user role is in DB
-            //CheckUserRole();
+             //Checking user role is in DB
+             //CheckUserRole();
             return View(viewModel);
             }
             else

@@ -157,23 +157,64 @@
                             </button>
                         </div>
 
-                        <form method="post" asp-action="InviteNewUser">
+                        @if (@ViewBag.totalUsers>=6 && @ViewBag.subscription =="Free")
+                        {
                             <div class="modal-body">
-
-                                <div class="form-group">
-                                    <label for="userEmail" class="col-form-label">User email *</label>
-                                    <input type="text" id="userEmail" name="userEmail" class="form-control"/> <!--input box-->
-                                </div>
-
-                                <div asp-validation-summary="All" class="text-danger"></div>
-
+             
+                                <div >
+                                    <h6 class="pb-4 ">@ViewBag.subscription Plan</h6>
+                                    You cannot add more users to this tenant as you have reached the maximum capacity of users in this tenant for your
+                                    @ViewBag.subscription Subscription. To add more users to your tenant, please update your subscription plan.
+                                </div> <!-- End -->
+                     
+                
                             </div>
                             <div class="modal-footer ">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <input type="submit" class="btn btn-3 " value="Invite"/> <!--create button-->
+                                <a class="btn btn-3 shadow-sm bg-body rounded float-right" asp-area="MicrosoftIdentity" asp-controller="Payment" asp-action="Billing">
+                                    Update Subscription
+                                </a>
                             </div>
-                        </form>
 
+                        }
+                        else if (@ViewBag.totalUsers>=17 && @ViewBag.subscription =="Standard")
+                        {
+                            <div class="modal-body">
+             
+                                <div >
+                                    <h6 class="pb-4 ">@ViewBag.subscription Plan</h6>
+                                    You cannot add more users to this tenant as you have reached the maximum capacity of users in this tenant for your
+                                    @ViewBag.subscription Subscription. To add more users to your tenant, please update your subscription plan.
+                                </div> <!-- End -->
+                     
+                
+                            </div>
+                            <div class="modal-footer ">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a class="btn btn-3 shadow-sm bg-body rounded float-right" asp-area="MicrosoftIdentity" asp-controller="Payment" asp-action="Billing">
+                                    Update Subscription
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <form method="post" asp-action="InviteNewUser">
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label for="userEmail" class="col-form-label">User email *</label>
+                                        <input type="text" id="userEmail" name="userEmail" class="form-control"/> <!--input box-->
+                                    </div>
+
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                                </div>
+                                <div class="modal-footer ">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-3 " value="Invite"/> <!--create button-->
+                                </div>
+                            </form>
+                        }
                     </div>
                 </div>
             </div>
