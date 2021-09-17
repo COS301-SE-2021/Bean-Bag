@@ -364,6 +364,7 @@ namespace BeanBagIntegrationTests
         
         
         /* Get user role test */
+        //Positive test
         [Fact]
         public void Test_Get_User_Role_Success_Retrieved()
         {
@@ -405,6 +406,20 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.SaveChanges();
             _tenantDbContext.Tenant.Remove(newTenant);
             _tenantDbContext.SaveChanges();
+        }
+        
+        //Negative test
+        [Fact]
+        public void Test_Get_User_Role_Fail_User_Id_Null()
+        {
+            //Arrange
+            var query = new TenantService(_tenantDbContext);
+            
+            //Act
+            var exceptionUser = Assert.Throws<Exception>(() => query.GetUserRole(null));
+            
+            //Assert
+            Assert.Equal("User is null",exceptionUser.Message);
         }
     }
 }
