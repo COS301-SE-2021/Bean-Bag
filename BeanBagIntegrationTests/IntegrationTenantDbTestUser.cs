@@ -314,5 +314,20 @@ namespace BeanBagIntegrationTests
             _tenantDbContext.SaveChanges();
 
         }
+        
+        //Negative test
+        [Fact]
+        public void Test_User_Role_Edit_Fail_User_Id_Null()
+        {
+            //Arrange
+            var query = new TenantService(_tenantDbContext);
+            
+            //Act
+            var exceptionUser = Assert.Throws<Exception>(() => query.EditUserRole(null,"Admin"));
+            
+            //Assert
+            Assert.Equal("User id is null",exceptionUser.Message);
+        }
+
     }
 }
