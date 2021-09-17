@@ -23,15 +23,16 @@ namespace BeanBag.Controllers
         private readonly IInventoryService _inventoryService;
         private readonly IAIService _aIService;
         private readonly IBlobStorageService _blobStorageService;
-
+        private readonly ITenantService _tenantService;
         // Constructor. 
-        public ItemController(IItemService iss, IInventoryService inv, IAIService aI, IBlobStorageService blob)
+        public ItemController(IItemService iss, IInventoryService inv, IAIService aI, IBlobStorageService blob, ITenantService ten)
         {
       
             _itemService = iss;
             _inventoryService = inv;
             _aIService = aI;
             _blobStorageService = blob;
+            _tenantService = ten;
         }
         
         // This function returns the upload-image view for an item given a unique inventory ID.
@@ -123,6 +124,30 @@ namespace BeanBag.Controllers
         [HttpPost]
         public IActionResult Create(Item newItem,[FromForm(Name ="tags")] string[] tags )
         {
+            
+            //Check subscription plan before creating an item
+            var totalItems = _itemService.GetItems(newItem.inventoryId).Count;
+            var subscription = _tenantService.GetCurrentTenant(User.GetObjectId()).TenantSubscription;
+      
+            if (subscription == "Free")
+            {
+                if (totalItems >= 15)
+                {
+                    return View("_ItemCapReached");
+                }
+
+            }else if (subscription == "Standard")
+            {
+                if (totalItems >= 75)
+                {
+                    return View("_ItemCapReached");
+                }
+            }
+            else if(string.IsNullOrEmpty(subscription))
+            {
+                return LocalRedirect("/");
+            }
+
             string type = "";
             //Updates the item type to be a string of tags 
    

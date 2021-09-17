@@ -13,7 +13,8 @@
     </section>
 
     <div class="dashboard-wrapper">
-        <div class="container-fluid  dashboard-content">
+        <div class="container-fluid  dashboard-content"> 
+        <div id="pop"></div>
             <hr>
             <br>
 
@@ -53,102 +54,108 @@
 
                                 <!--Create item form-->
                                 <div class="col-sm pl-5 pr-5 pt-3">
-                                    <form method="post" asp-action="Create" asp-controller="Item">
-                                        <div class="form-group row">
-                                            <h5 class="text-muted">Item Details</h5> <hr></div>
+                                         @using (Html.AjaxBeginForm("Create", "Item", new AjaxOptions
+                                         {
+                                             HttpMethod = "post",
+                                             OnSuccess = "OnSuccess",
+                                             OnFailure = "OnFailure",
+                                         }))
+                                         {
+                                             <div class="form-group row">
+                                                 <h5 class="text-muted">Item Details</h5> <hr></div>
 
-                                        <div asp-validation-summary="All" class="text-danger"></div>
-                                        <input asp-for="imageURL" class="form-control" value="@ViewBag.imageUrl" hidden/>
-                                        <input asp-for="type" class="form-control" value="@ViewBag.itemType" hidden/>
+                                             <div asp-validation-summary="All" class="text-danger"></div>
+                                             <input asp-for="imageURL" class="form-control" value="@ViewBag.imageUrl" hidden/>
+                                             <input asp-for="type" class="form-control" value="@ViewBag.itemType" hidden/>
 
-                                        <div class="form-group row">
-                                            <label asp-for="name"></label>
-                                            <input asp-for="name" class="form-control"/>
-                                        </div>
+                                             <div class="form-group row">
+                                                 <label asp-for="name"></label>
+                                                 <input asp-for="name" class="form-control"/>
+                                             </div>
 
-                                        <div class="form-group row">
-                                            <label asp-for="price"></label>
-                                            <input asp-for="price" class="form-control"/>
-                                        </div>
+                                             <div class="form-group row">
+                                                 <label asp-for="price"></label>
+                                                 <input asp-for="price" class="form-control"/>
+                                             </div>
 
-                                        <div class="form-group row">
-                                            <label asp-for="quantity"></label>
-                                            <input asp-for="quantity" class="form-control"/>
-                                        </div>
+                                             <div class="form-group row">
+                                                 <label asp-for="quantity"></label>
+                                                 <input asp-for="quantity" class="form-control"/>
+                                             </div>
 
-                                      <div class="form-group row">
-                                          <label asp-for="colour">Colour</label> &nbsp; &nbsp;<br>
-                                          <input asp-for="colour" type="color"  size="100px" name="colour">
-                                          </div>
+                                             <div class="form-group row">
+                                                 <label asp-for="colour">Colour</label> &nbsp; &nbsp;<br>
+                                                 <input asp-for="colour" type="color" size="100px" name="colour">
+                                             </div>
 
-                                        <div class="form-group row">
-                                            <label asp-for="inventoryId" value="Inventory"></label>
-                                            <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
-                                                <option selected>Select Inventory</option>
-                                            </select>
-                                        </div>
+                                             <div class="form-group row">
+                                                 <label asp-for="inventoryId" value="Inventory"></label>
+                                                 <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
+                                                     <option selected>Select Inventory</option>
+                                                 </select>
+                                             </div>
 
-                                        <div class="form-group row">
-                                            <label asp-for="condition" value="Condition">Condition</label> &nbsp; &nbsp;<br>
-                                            <select asp-for="condition" name="condition" class="form-control">
-                                                <option value="New">New</option>
-                                                <option value="Pre-Owned">Pre-Owned</option>
-                                                <option value="Damaged">Damaged</option>
-                                            </select>
-                                        </div>
+                                             <div class="form-group row">
+                                                 <label asp-for="condition" value="Condition">Condition</label> &nbsp; &nbsp;<br>
+                                                 <select asp-for="condition" name="condition" class="form-control">
+                                                     <option value="New">New</option>
+                                                     <option value="Pre-Owned">Pre-Owned</option>
+                                                     <option value="Damaged">Damaged</option>
+                                                 </select>
+                                             </div>
 
-                                        <label asp-for="inventoryId" value="Inventory"></label>
-                                        <div class="form-group row">
-                                            <!--Add your own tags -->
-                                              <table class="table table-bordered table-hover pr-5" id="tab_logic">
-                                                  <thead>
-                                                      <tr>
-                                                          <th>#</th>
-                                                          <th>Tag Name</th>
-                                                          @if (ViewBag.usePrediction == true)
-                                                          {
-                                                              <th> Prediction % </th>
-                                                          }
-                                                      </tr>
-                                                  </thead>
-                                                  <tbody>
-                                                      <tr id="@i">
-                                                          <td>@i</td>
-                                                          @if (ViewBag.usePrediction == true)
-                                                          {
-                                                              @foreach (var x in ViewBag.listPredictions)
-                                                              {
-                                                                  <td>
-                                                                      <input type="text" name='tags' placeholder='Name' value="@x.tagName" class="form-control" />
-                                                                  </td>
-                                                                  <td>
-                                                                      <input type="text" placeholder='Name' value="@x.percentage" class="form-control" disabled="true" />
-                                                                  </td>
-                                                                  i++;
-                                                              }
-                                                          }
-                                                          else
-                                                          {
-                                                              <td>
-                                                                  <input type="text" name='tags' placeholder='Name' class="form-control" />
-                                                              </td>
-                                                          }
-                                                      </tr>
-                                                      <tr id="@i"></tr>
-                                                      <tr id="address1"></tr>
-                                                  </tbody>
-                                              </table>
-                                                <a id="add_row" class="btn btn-3  text-light">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a> &nbsp;  &nbsp; 
-                                              <a id='delete_row' class="btn btn-3 text-light">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>                                  
-                                            </div>
-                                     
-                                        
-                                      
-                                        
-                                        <div class="form-group row ">
-                                            <input type="submit" class="btn btn-3 float-right ml-auto" value="Create"/>
-                                        </div>
-                                    </form>
+                                             <label asp-for="inventoryId" value="Inventory"></label>
+                                             <div class="form-group row">
+                                                 <!--Add your own tags -->
+                                                 <table class="table table-bordered table-hover pr-5" id="tab_logic">
+                                                     <thead>
+                                                     <tr>
+                                                         <th>#</th>
+                                                         <th>Tag Name</th>
+                                                         @if (ViewBag.usePrediction == true)
+                                                         {
+                                                             <th> Prediction % </th>
+                                                         }
+                                                     </tr>
+                                                     </thead>
+                                                     <tbody>
+                                                     <tr id="@i">
+                                                         <td>@i</td>
+                                                         @if (ViewBag.usePrediction == true)
+                                                         {
+                                                             @foreach (var x in ViewBag.listPredictions)
+                                                             {
+                                                                 <td>
+                                                                     <input type="text" name='tags' placeholder='Name' value="@x.tagName" class="form-control"/>
+                                                                 </td>
+                                                                 <td>
+                                                                     <input type="text" placeholder='Name' value="@x.percentage" class="form-control" disabled="true"/>
+                                                                 </td>
+                                                                 i++;
+                                                             }
+                                                         }
+                                                         else
+                                                         {
+                                                             <td>
+                                                                 <input type="text" name='tags' placeholder='Name' class="form-control"/>
+                                                             </td>
+                                                         }
+                                                     </tr>
+                                                     <tr id="@i"></tr>
+                                                     <tr id="address1"></tr>
+                                                     </tbody>
+                                                 </table>
+                                                 <a id="add_row" class="btn btn-3  text-light">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a> &nbsp; &nbsp;
+                                                 <a id='delete_row' class="btn btn-3 text-light">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
+                                             </div>
+
+
+
+
+                                             <div class="form-group row ">
+                                                 <input type="submit" class="btn btn-3 float-right ml-auto" value="Create"/>
+                                             </div>
+                                         }
 
                                 </div>
                             </div>
@@ -193,6 +200,18 @@
   		 }
   	 });
   });   
+       
+            function OnSuccess(response) {
+                     $('#exampleModal').modal('hide');
+                     
+                    $("#pop").html(response);
+                     $('#exampleModalError').modal('show');       
+                 }
+                 function OnFailure(response) {
+                     alert("Error occured.");
+                 }
+       
+     
 </script>
 
 
