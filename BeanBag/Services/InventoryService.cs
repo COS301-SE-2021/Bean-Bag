@@ -83,7 +83,8 @@ namespace BeanBag.Services
         public string GetUserRole(string id)
         {
             var user = _db.UserRoles.Find(id);
-
+            string result = "";
+            
             if (user == null)
             {
                 throw new Exception("User is null");
@@ -91,15 +92,15 @@ namespace BeanBag.Services
 
             if (user.role.Equals("U"))
             {
-                return "User";
+                result = "User";
             }
             
             if (user.role.Equals("A"))
             {
-                return "Admin";
+                result = "Admin";
             }
 
-            return "";
+            return result;
         }
     }
 }
