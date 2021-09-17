@@ -37,8 +37,8 @@ namespace BeanBagUnitTests
                 string u1 = "xxx";
                 string u2 = "yyy";
                 
-                var one = new Inventory{Id = theId1, name = "Mums 1", userId = u1};
-                var two = new Inventory{Id = theId2, name = "Mums 2nd", userId = u1};
+                var one = new Inventory{Id = theId1, name = "Mum's 1st", userId = u1};
+                var two = new Inventory{Id = theId2, name = "Mum's 2nd", userId = u1};
 
                 context.AddRange(one, two);
 

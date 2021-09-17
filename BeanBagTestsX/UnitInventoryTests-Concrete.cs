@@ -240,52 +240,7 @@ namespace BeanBagUnitTests
                 mySer.DeleteInventory(theId3, u2);
             }
         }
-        
-        
-        // Unit test defined for the delete inventories (negative testing)
-        [Fact]
-        public void Get_user_role()
-        {
-            //ARRANGE
-            using (var context = new DBContext(ContextOptions))
-            {
-                var mySer = new InventoryService(context);
 
-                var chars = "0123456789";
-                var stringChars = new char[5];
-                var random = new Random();
-
-                for (var i = 0; i < stringChars.Length; i++)
-                {
-                    stringChars[i] = chars[random.Next(chars.Length)];
-                }
-
-                var finalString = new String(stringChars);
-
-                var myGuidEnd = finalString;
-
-                var u2 = finalString.Substring(0, 4);
-                var u3 = "0000";
-
-                Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
-                Guid theId3 = new("00000000-0000-0000-0000-0010000" + myGuidEnd);
-                Guid theId4 = new("00000000-0000-0000-0000-0011000" + myGuidEnd);
-
-                var myTest = new Inventory{Id = theId2, name = "Unit test inventory", userId = u2, publicToTenant = false};
-                var myTest2 = new Inventory{Id = theId3, name = "Unit test inventory 2", userId = u2, publicToTenant = false};
-
-                //ACT
-                mySer.CreateInventory(myTest);
-                mySer.CreateInventory(myTest2);
-
-                var myCheck = mySer.EditInventory(u3, myTest);
-
-                //ASSERT
-                Assert.False(myCheck);
-                mySer.DeleteInventory(theId3, u2);
-            }
-        }
-        
 
     }
 
