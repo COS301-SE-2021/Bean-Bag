@@ -12,6 +12,7 @@
 @{
   //Get the value of the website theme colour here
   var color = _tenantService.GetTenantTheme(User.GetObjectId());
+  var logo = _tenantService.GetLogo(User.GetObjectId());
 } 
     @if(color == "KellySheen")
     {
@@ -79,7 +80,7 @@
 
 							</form>
 						</div>
-						<button class="btn btn-outline-light shadow-sm bg-body create rounded colors pb-2" id="btn-pay2">Proceed to payment</button>
+						<button class="btn btn-outline-light shadow-sm bg-body create rounded btn-3 pb-2" id="btn-pay2">Proceed to payment</button>
 
 						<ul class="text-info pt-1 " id="results2"></ul>
 
