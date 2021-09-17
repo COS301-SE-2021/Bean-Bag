@@ -21,16 +21,17 @@ namespace BeanBag.Controllers
         private readonly ITenantService _tenantService;
         private readonly TenantDbContext _tenantDbContext;
         private readonly IConfiguration _configuration;
-
+        private readonly IPaymentService _paymentService;
         private readonly string _from;
         private readonly string _pswd;
 
         // Constructor.
-        public TenantSettingsController(ITenantService tenantService, TenantDbContext tenantDbContext, IConfiguration configuration)
+        public TenantSettingsController(ITenantService tenantService, TenantDbContext tenantDbContext, IConfiguration configuration, IPaymentService pay)
         {
             _tenantService = tenantService;
             _tenantDbContext = tenantDbContext;
             _configuration = configuration;
+            _paymentService = pay;
 
             _from = configuration.GetValue<String>("EmailDetails:Username");
             _pswd = configuration.GetValue<String>("EmailDetails:Password");
@@ -99,6 +100,20 @@ namespace BeanBag.Controllers
              @ViewBag.tenant =  _tenantService.GetCurrentTenant(User.GetObjectId());
             //Checking user role is in DB
             //CheckUserRole();
+            @ViewBag.totalUsers = pagedList.Count;
+            @ViewBag.subscription = _tenantService.GetCurrentTenant(User.GetObjectId()).TenantSubscription;
+               
+            //Subscription Expired 
+            @ViewBag.SubscriptionExpired = false;
+            if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantSubscription != "Free")
+            {
+                var transaction =
+                    _paymentService.GetPaidSubscription(_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId);
+                if (transaction.EndDate >= DateTime.Now)
+                {
+                    @ViewBag.SubscriptionExpired = true;
+                }
+            }
             return View(viewModel);
             }
             else
