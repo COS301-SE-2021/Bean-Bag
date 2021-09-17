@@ -1,6 +1,8 @@
 ﻿@model Pagination
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
+@using AjaxOptions = Microsoft.AspNetCore.Mvc.Rendering.AjaxOptions
+@using Microsoft.AspNetCore.Mvc.Rendering
 @{int i = 1;}
 
 @{
@@ -9,6 +11,10 @@
 <link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
+<!-- Or you can reference your local script file -->
+<link rel="script" href="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" />
+<link rel="script" href="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" />
+  
     
 <!--header-->
     <section class="search-and-user">
@@ -26,7 +32,7 @@
                     <b class="pl-3">Total Inventories &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalInventories</span>
                                   
                   <div class=" mr-3 ml-auto">
-                      <a asp-controller="Inventory" asp-action="Create" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Inventory &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                      <button class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Inventory &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></button>
                   </div>
               </div>
         <br>
@@ -158,6 +164,7 @@
           }
         </div>
 </div>
+<div id="pop"></div>
 
 </section>
 
@@ -175,38 +182,46 @@
 
 
 
-<!---Popup Form to create inventory -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog" role="document">
-        
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"  id="exampleModalTitle">Create New Inventory <i class="fas fa-plus"> </i></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-                
-            <form method="post" asp-action="Create" >
-                <div class="modal-body">
-                    <div class="form-group ">
-                        <input asp-for="Inventory.Id" hidden />
-                        <input asp-for="Inventory.userId" hidden />
-                        <label asp-for="Inventory.name" class="col-form-label">Inventory Name * </label> <!--Inventory Name-->
-                        <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
-                        <label asp-for="Inventory.description" class="col-form-label">Description *</label> <!--Inventory Name-->
-                        <input asp-for="Inventory.description" class="form-control" /> <!--input box-->
-                    </div>
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                </div>
-                <div class="modal-footer ">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-3" value="Create"/> <!--create button-->
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+      <!---Popup Form to create inventory -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog" role="document">
+
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalTitle">Create New Inventory <i class="fas fa-plus"> </i></h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  @using (Html.AjaxBeginForm("Create", "Inventory", new AjaxOptions
+                  {
+                      HttpMethod = "post",
+                      OnSuccess = "OnSuccess",
+                      OnFailure = "OnFailure",
+                  }))
+                  {
+                      <div class="modal-body">
+                          <div class="form-group ">
+                              <input asp-for="Inventory.Id" hidden/>
+                              <input asp-for="Inventory.userId" hidden/>
+                              <label asp-for="Inventory.name" class="col-form-label">Inventory Name * </label> <!--Inventory Name-->
+                              <input asp-for="Inventory.name" class="form-control"/> <!--input box-->
+                              <label asp-for="Inventory.description" class="col-form-label">Description *</label> <!--Inventory Name-->
+                              <input asp-for="Inventory.description" class="form-control"/> <!--input box-->
+                          </div>
+                          <div asp-validation-summary="All" class="text-danger"></div>
+                      </div>
+                      <div class="modal-footer ">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <input type="submit" class="btn btn-3" value="Create"/> <!--create button-->
+                      </div>
+                  }
+              </div>
+          </div>
+          
+
+      </div>
+  
 <!--Scripts-->
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -265,7 +280,20 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
 
+     function OnSuccess(response) {
+              $('#exampleModal').modal('hide');
+              
+             $("#pop").html(response);
+              $('#exampleModalError').modal('show');           
+                     // alert(response);
+          }
+          function OnFailure(response) {
+              alert("Error occured.");
+          }
+
 </script>
+    
+
 
 <!--popup partial views-->
 @section Scripts{

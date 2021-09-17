@@ -122,6 +122,7 @@ namespace BeanBag.Controllers
                 }
             }
 
+        
             //Checking user role is in DB
             CheckUserRole();
             return View(viewModel);
@@ -137,6 +138,30 @@ namespace BeanBag.Controllers
         [HttpPost]
         public IActionResult Create(Pagination inventories)
         {
+            //Check subscription plan before creating an inventory
+            var totalInventories = _inventoryService.GetInventories(User.GetObjectId()).Count;
+            var subscription = _tenantService.GetCurrentTenant(User.GetObjectId()).TenantSubscription;
+      
+            if (subscription == "Free")
+            {
+                if (totalInventories >= 3)
+                {
+                    return View("_InventoryCapReached");
+                }
+
+            }else if (subscription == "Standard")
+            {
+                if (totalInventories >= 10)
+                {
+                    return View("_InventoryCapReached");
+                }
+            }
+            else if(string.IsNullOrEmpty(subscription))
+            {
+                return LocalRedirect("/");
+            }
+            
+            
             if(User.Identity is {IsAuthenticated: true})
             {
                 inventories.Inventory.userId = User.GetObjectId();
@@ -162,13 +187,14 @@ namespace BeanBag.Controllers
         }
 
         // This function allows the user to view all of the items within a specified inventory.
-        public IActionResult ViewItems(Guid inventoryId, string sortOrder, string currentFilter, string searchString, int? page , DateTime from, DateTime to)
+        public IActionResult ViewItems(Guid inventoryId, string sortOrder, string currentFilter, 
+            string searchString, int? page , DateTime from, DateTime to)
         {
             if(User.Identity is {IsAuthenticated: true})
             {
                 
-                 //A ViewBag property provides the view with the current sort order, because this must be included in 
-                 //  the paging links in order to keep the sort order the same while paging
+                //A ViewBag property provides the view with the current sort order, because this must be included in 
+                // the paging links in order to keep the sort order the same while paging.
                 ViewBag.CurrentSort = sortOrder;
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 List<Item> modelList;
