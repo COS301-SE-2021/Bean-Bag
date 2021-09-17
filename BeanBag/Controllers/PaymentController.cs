@@ -285,7 +285,6 @@ namespace BeanBag.Controllers
             return (ViewResult) Billing("","","",1,DateTime.Now, DateTime.Now, "");
         }
 
-
     }
     
 }

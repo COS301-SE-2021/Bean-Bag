@@ -1,0 +1,70 @@
+﻿@using BeanBag.Services
+@using Microsoft.Identity.Web
+@{
+   
+    Layout = null;
+}
+@inject ITenantService _tenantService
+
+@{
+    //Get the value of the website theme colour here
+    var color = _tenantService.GetTenantTheme(User.GetObjectId());
+    var tenantSubscription = _tenantService.GetCurrentTenant(User.GetObjectId()).TenantSubscription;
+} 
+@if(color == "KellySheen")
+{
+    <link rel="stylesheet" href="~/css/kellyGreen.css" />
+}else if(color == "FieryRose")
+{
+    <link rel="stylesheet" href="~/css/fieryRose.css" />
+}else if(color == "CornflowerBlue")
+{
+    <link rel="stylesheet" href="~/css/cornflowerBlue.css" />
+} 
+else if (color == "PurpleMountainMajesty")
+{
+    <link rel="stylesheet" href="~/css/purpleMountainMajesty.css" />
+}
+else if(color=="OutrageousOrange"){
+    <link rel="stylesheet" href="~/css/outrageousOrange.css" />
+}
+else if(color=="Default")
+{
+    <link rel="stylesheet" href="~/css/default.css" />
+}
+else
+{
+    <link rel="stylesheet" href="~/css/default.css" />
+}
+<!---Popup Form to payment free -->
+<div class="modal fade" id="exampleModalError" data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalTitle2">Item Cap Reached</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+             <div class="modal-body">
+             
+                     <div >
+                         <h6 class="pb-4 ">@tenantSubscription Plan</h6>
+                         You cannot add more items to this inventory as you have reached the maximum capacity of items in this inventory for your
+                         @tenantSubscription Subscription. To add more items to your inventory update your subscription plan.
+                     </div> <!-- End -->
+                     
+                
+                        </div>
+              <div class="modal-footer ">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a class="btn btn-3 shadow-sm bg-body rounded float-right" asp-area="MicrosoftIdentity" asp-controller="Payment" asp-action="Billing">
+                                                            Update Subscription
+                                                        </a>
+                                  </div>
+
+        </div>
+    </div>
+</div>
+

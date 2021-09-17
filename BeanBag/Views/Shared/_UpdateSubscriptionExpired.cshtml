@@ -1,0 +1,20 @@
+﻿@using BeanBag.Services
+@using Microsoft.Identity.Web
+
+@inject ITenantService _tenantService
+@{
+  //Get the value of the website theme colour here
+  var subscriptionPlan = _tenantService.GetCurrentTenant(User.GetObjectId());
+} 
+<!--Empty state partial view where theres no items in your inventory-->
+<div class="container h-100 d-flex justify-content-center pt-xl-5">
+    <div class=" my-auto pt-xl-5 text-center">
+   
+        <img src="images/empty.png" class="text-secondary pt-xl-5 mt-5" alt="" width="200">
+        <h3 class="pt-4"> Your @subscriptionPlan Subscription Plan has Expired </h3>
+        <h5 class="text-secondary p-2">Please update your subscription plan</h5>
+        
+          <a asp-action="Billing" asp-controller="Payment" class="btn btn-3 ">Update Subscription </a>
+    </div>
+ </div>
+

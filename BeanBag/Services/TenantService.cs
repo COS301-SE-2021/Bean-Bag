@@ -505,6 +505,7 @@ namespace BeanBag.Services
             return "";
         }
 
+    
 
         // This method updated the role of the user
         public bool EditUserRole(string userId, string role)
@@ -573,7 +574,6 @@ namespace BeanBag.Services
             _tenantDb.SaveChanges();
 
         }
-        
         // This method updates the subscription plan of the tenant
         // This function sets the updated subscription for the user
         // This is only for a free tenant subscription update not paid

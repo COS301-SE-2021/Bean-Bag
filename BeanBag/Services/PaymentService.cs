@@ -173,37 +173,29 @@ namespace BeanBag.Services
                 throw new Exception("Amount is null.");
             }
 
-            var chars = "0123456789";
-            var stringChars = new char[5];
-            var random = new Random();
-
-            for (var i = 0; i < stringChars.Length; i++)
+            
+            
+            try
             {
-                stringChars[i] = chars[random.Next(chars.Length)];
+                Transactions transaction = new Transactions()
+                {
+                    
+                    TransactionId = new("00000000-0000-0000-0000-00000000124"),
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddMonths(1),
+                    Reference = reference,
+                    Amount = amount,
+                    TenantId = tenantId,
+                    PaymentRequestId =  payId,
+                };
+                _tenantDb.Transactions.Add(transaction);
+                _tenantDb.SaveChanges();
+                return true;
             }
-
-            var finalString = new String(stringChars);
-
-            var myGuidEnd = finalString;
-
-            var u2 = finalString.Substring(0, 4);
-            
-            Transactions transaction = new Transactions()
+            catch (Exception )
             {
-
-                TransactionId = new("00000000-0000-0000-0000-0000000" + u2),
-                StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddMonths(1),
-                Reference = reference,
-                Amount = amount,
-                TenantId = tenantId,
-                PaymentRequestId =  payId,
-            };
-            _tenantDb.Transactions.Add(transaction);
-            _tenantDb.SaveChanges();
-            return true;
-            
-            
+                return false;
+            }
         }
         
         // This function gets the transactions for a specific user.
@@ -221,7 +213,6 @@ namespace BeanBag.Services
                 select transactions;
 
             var transactionList = t.ToList();
-            
             return transactionList;
         }
 
@@ -232,17 +223,22 @@ namespace BeanBag.Services
             {
                 throw new Exception("TenantID is null");
             }
-            Guid id = new Guid(tenantId);
 
             Transactions getfirst;
-            
-            var t = from transactions
-                    in _tenantDb.Transactions
-                where transactions.TenantId.Equals(tenantId)
-                select transactions;
-            
-             getfirst = t.OrderByDescending(x => x.StartDate)
-                .FirstOrDefault();
+            try
+            {
+                var t = from transactions
+                        in _tenantDb.Transactions
+                    where transactions.TenantId.Equals(tenantId)
+                    select transactions;
+                
+                 getfirst = t.OrderByDescending(x => x.StartDate)
+                    .FirstOrDefault();
+            }
+            catch(Exception)
+            {
+                throw new Exception("An error occured when querying the transaction from the DB");
+            }
 
             return getfirst;
         }
@@ -273,10 +269,10 @@ namespace BeanBag.Services
         {
             if (subscription == null)
             {
-                throw new Exception("Subscription is null");
+                
             }else if (tenantId == null)
             {
-                throw new Exception("Tenant id is null");
+                
             }
             
             //TODO
