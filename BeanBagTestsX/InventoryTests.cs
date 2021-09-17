@@ -126,7 +126,7 @@ namespace BeanBagUnitTests
 
             //ACT
             
-            var dbMock = new Mock<DBContext>();
+            var dbMock = new Mock<DBContext>(_options);
             dbMock.Setup(x => x.Set<Inventory>()).Returns(mockSet.Object);
             var myser = new InventoryService(dbMock.Object);
             
