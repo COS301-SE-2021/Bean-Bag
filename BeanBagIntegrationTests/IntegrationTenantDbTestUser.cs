@@ -344,5 +344,22 @@ namespace BeanBagIntegrationTests
             //Assert
             Assert.Equal("User role is null",exceptionUser.Message);
         }
+        
+                
+        //Negative test
+        [Fact]
+        public void Test_User_Role_Edit_Fail_User_Role_Invalid()
+        {
+            //Arrange
+            //User
+            var userId = Guid.NewGuid().ToString();
+            var query = new TenantService(_tenantDbContext);
+            
+            //Act
+            var edited = query.EditUserRole(userId,"Invalid");
+            
+            //Assert
+            Assert.False(edited);
+        }
     }
 }
