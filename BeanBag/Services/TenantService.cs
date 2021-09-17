@@ -179,7 +179,7 @@ namespace BeanBag.Services
         }
         
         /* Creates a new tenant and adds tenant to the database */
-        public bool CreateNewTenant(string tenantName, string tenantAddress, string tenantEmail, string tenantNumber, string tenantSubscription)
+        public string CreateNewTenant(string tenantName, string tenantAddress, string tenantEmail, string tenantNumber, string tenantSubscription)
         {
             if (tenantName == null)
             {
@@ -209,17 +209,13 @@ namespace BeanBag.Services
                     in _tenantDb.Tenant
                 where tenant.TenantName.Equals(tenantName)
                 select tenant.TenantName).FirstOrDefault();
-
-            if (duplicate != null)
-            {
-                return false;
-            }
+            
 
             var id = Guid.NewGuid();
             
             _newTenantId = id.ToString();
 
-            if (_tenantDb.Tenant.Find(_newTenantId) != null) return false;
+            if (_tenantDb.Tenant.Find(_newTenantId) != null) return "";
 
             
             const string defaultTheme = "Default";
@@ -236,7 +232,7 @@ namespace BeanBag.Services
             _tenantDb.Tenant.Add(newTenant);
             _tenantDb.SaveChanges();
             
-            return true;
+            return newTenant.TenantId;
 
         }
 
@@ -606,14 +602,11 @@ namespace BeanBag.Services
             
         }
 
-        public string CreateDbName(string userId)
+        public string CreateDbName(string userId, string name)
         {
-            var tenant = GetCurrentTenant(userId);
 
-            var tenantName = tenant.TenantName;
-            
             var prefix = "Bean-Bag-";
-            var dbName = Regex.Replace(tenantName, @"\s+", "");
+            var dbName = Regex.Replace(name, @"\s+", "");
             var suffix = "-DB";
 
             var newName = prefix + dbName + suffix;

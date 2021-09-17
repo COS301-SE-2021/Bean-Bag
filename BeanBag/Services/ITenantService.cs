@@ -12,7 +12,7 @@ namespace BeanBag.Services
         public Tenant GetCurrentTenant(string userId);
         public string GetTenantTheme(string userId);
         public bool SetTenantTheme(string userId, string theme);
-        public bool CreateNewTenant(string tenantName, string address, string email, string number, string subscription);
+        public string CreateNewTenant(string tenantName, string address, string email, string number, string subscription);
         public void EditTenantDetails(string tenantId, string tenantName, string address, string email, string number);
         public void DeleteTenant(string userId);
         public bool SearchTenant(string tenantId);
@@ -31,6 +31,6 @@ namespace BeanBag.Services
         public string GetUserRole(string id);
         void UpdateSubscription(string subscription, string tenantId);
 
-        public string CreateDbName(string userId);
+        public string CreateDbName(string userId, string name);
     }
 }
