@@ -1,7 +1,7 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=09E4CF73_002D6277_002D455D_002DA7EE_002D41392F44CE11_002Ff_003AIntegrationDashboardTest_002Ecs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=PrivateInstanceFields/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="_" Suffix="" Style="aaBb" /&gt;</s:String>
-	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\munas\AppData\Local\JetBrains\Rider2021.1\resharper-host\temp\Rider\vAny\CoverageData\_BeanBag.1345567196\Snapshot\snapshot.utdcvr</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=47903442_002D6cd1_002D493a_002D94de_002Dcc83f0e194e1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IntegrationDashboardTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::09E4CF73-6277-455D-A7EE-41392F44CE11::net5.0::BeanBagIntegrationTests.IntegrationDashboardTest&lt;/TestId&gt;&#xD;
@@ -13,6 +13,9 @@
     &lt;TestId&gt;xUnit::09E4CF73-6277-455D-A7EE-41392F44CE11::net5.0::BeanBagIntegrationTests.IntegrationTenantDbTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::09E4CF73-6277-455D-A7EE-41392F44CE11::net5.0::BeanBagIntegrationTests.IntegrationTenantDbTestUser&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c239d0e0_002D5421_002D4012_002D919f_002D09f6c3ccad72/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;BeanBagIntegrationTests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\munas\RiderProjects\Bean-Bag\BeanBagIntegrationTests" Presentation="&amp;lt;BeanBagIntegrationTests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
 	
