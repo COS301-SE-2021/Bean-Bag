@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,17 +14,32 @@ namespace BeanBag.Controllers
         // Global variables needed for calling the service classes.
         private readonly ITenantService _tenantService;
         private readonly ITenantBlobStorageService _tenantBlobStorageService;
+        private readonly IPaymentService _paymentService;
 
         // Constructor.
-        public AppearanceController(ITenantService tenantService, ITenantBlobStorageService tenantBlobStorageService)
+        public AppearanceController(ITenantService tenantService,IPaymentService paymentService,
+            ITenantBlobStorageService tenantBlobStorageService)
         {
-            this._tenantService = tenantService;
-            this._tenantBlobStorageService = tenantBlobStorageService;
+            _tenantService = tenantService;
+            _tenantBlobStorageService = tenantBlobStorageService;
+            _paymentService = paymentService;
         }
 
         // This function sends a response to the Home Index page.
         public IActionResult Index()
         {
+            
+            //Subscription Expired 
+            @ViewBag.SubscriptionExpired = false;
+            if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantSubscription != "Free")
+            {
+                var transaction =
+                    _paymentService.GetPaidSubscription(_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId);
+                if (transaction.EndDate >= DateTime.Now)
+                {
+                    @ViewBag.SubscriptionExpired = true;
+                }
+            }
             return View();
         }
         
