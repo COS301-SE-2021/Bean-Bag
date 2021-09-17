@@ -21,13 +21,17 @@ namespace BeanBag.Controllers
         private readonly IAIService _aIService;
         private readonly IBlobStorageService _blobService;
         private readonly ITenantService _tenantService;
-    
-        // Constructor.
-        public AiModelController(IAIService aIService, IBlobStorageService blobService, ITenantService tenantService)
+        private readonly IPaymentService _paymentService;
+        
+        // Constructor
+        public AiModelController(IAIService aIService, IBlobStorageService blobService,
+            IPaymentService paymentService, ITenantService tenantService)
         {
             _aIService = aIService;
             _blobService = blobService;
             _tenantService = tenantService;
+            _paymentService = paymentService;
+
         }
 
         /* This function adds a page parameter, a current sort order parameter, and a current filter
@@ -124,6 +128,18 @@ namespace BeanBag.Controllers
                         ViewBag.createNewModels = true;
                     else
                         ViewBag.createNewModels = false;
+                }
+                
+                //Subscription Expired 
+                @ViewBag.SubscriptionExpired = false;
+                if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantSubscription != "Free")
+                {
+                    var transaction =
+                        _paymentService.GetPaidSubscription(_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId);
+                    if (transaction.EndDate >= DateTime.Now)
+                    {
+                        @ViewBag.SubscriptionExpired = true;
+                    }
                 }
 
 

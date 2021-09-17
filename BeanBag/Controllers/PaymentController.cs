@@ -263,23 +263,23 @@ namespace BeanBag.Controllers
 
         // This function allows the tenant Admin to update the tenants subscription plan.
 
-        public IActionResult UpdateSubscription(string subscription, string tenantId)
+        public ViewResult UpdateSubscription(string subscription, string tenantId)
         {  //Free - Automatic update
             if (subscription == "Free")
             {
                 _tenantService.UpdateSubscription(subscription, tenantId);
-                return PartialView("_UpdateFreeSubscription");
+                return View("_UpdateFreeSubscription");
             }
             else if(subscription == "Standard")
             {
                 Console.WriteLine(subscription);
-                return PartialView("_UpdateStandardSubscription");
+                return View("_UpdateStandardSubscription");
             }
             else if (subscription == "Premium")
             {
                 //Premium
                 Console.WriteLine(subscription);
-                return PartialView("_UpdatePremiumSubscription");
+                return View("_UpdatePremiumSubscription");
             }
 
             return (ViewResult) Billing("","","",1,DateTime.Now, DateTime.Now, "");
