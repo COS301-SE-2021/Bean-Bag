@@ -361,5 +361,50 @@ namespace BeanBagIntegrationTests
             //Assert
             Assert.False(edited);
         }
+        
+        
+        /* Get user role test */
+        [Fact]
+        public void Test_Get_User_Role_Success_Retrieved()
+        {
+            //Arrange
+            //Tenant
+            var id = Guid.NewGuid().ToString();
+            var newTenant = new Tenant
+            {
+                TenantId = id, TenantName = Name, TenantAddress = Address, 
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
+            };
+            
+            //User
+            var userId = Guid.NewGuid().ToString();
+            var newUser = new TenantUser
+            {
+                UserTenantId = id, UserObjectId = userId,
+                UserName = Username, UserRole = Role
+                
+            };
+            
+            //Act
+            var query = new TenantService(_tenantDbContext);
+            _tenantDbContext.Tenant.Add(newTenant);
+            _tenantDbContext.SaveChanges();
+
+            _tenantDbContext.TenantUser.Add(newUser);
+            _tenantDbContext.SaveChanges();
+
+            var role = query.GetUserRole(userId);
+            
+
+            //Assert
+            Assert.NotNull(role);
+            Assert.NotEmpty(role);
+            
+            //Delete from database
+            _tenantDbContext.TenantUser.Remove(newUser);
+            _tenantDbContext.SaveChanges();
+            _tenantDbContext.Tenant.Remove(newTenant);
+            _tenantDbContext.SaveChanges();
+        }
     }
 }
