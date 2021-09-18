@@ -761,12 +761,187 @@ namespace BeanBagIntegrationTests
         }
         
         
+        //HASHING ALGORITHM TESTS
+
+        [Fact]
+        public void To_Url_Encoded_string_valid()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            var ires = mySer.ToUrlEncodedString(_request);
+
+            //ASSERT
+            Assert.Equal("",ires);
+        }
         
-        /*
-        Dictionary<string, string> ToDictionary(string response);
-        string GetMd5Hash(Dictionary<string, string> data, string encryptionKey);
-        bool VerifyMd5Hash(Dictionary<string, string> data, string encryptionKey, string hash);
+        [Fact]
+        public void To_Url_Encoded_string_null_input()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            _request = null;
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.ToUrlEncodedString(_request);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Input string is null", exception.Message);
+            
+        }
         
-        */
+        [Fact]
+        public void To_Dictionary_valid()
+        {
+            //ARRANGE
+            string _request = "https://example.com/path/to/page?name=ferret&color=purple";
+            
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            var ires = mySer.ToDictionary(_request);
+
+            //ASSERT
+            Assert.IsType<Dictionary<string, string>>(ires);
+            
+        }
+        
+        [Fact]
+        public void To_Dictionary_input_null()
+        {
+            //ARRANGE
+            string _request = null;
+            
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.ToDictionary(_request);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Input string is null", exception.Message);
+            
+        }
+        
+        [Fact]
+        public void Get_Md5_hash_valid()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            string _enryptionKey = "10101";
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            var ires = mySer.GetMd5Hash(_request, _enryptionKey);
+
+            //ASSERT
+            Assert.Equal("6dfc35c47756e962ef055d1049f1f8ec",ires);
+        }
+        
+        [Fact]
+        public void Get_Md5_hash_dictionary_null()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            _request = null;
+            string _enryptionKey = "10101";
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.GetMd5Hash(_request, _enryptionKey);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Dictionary data is null", exception.Message);
+        }
+        
+        [Fact]
+        public void Get_Md5_hash_key_null()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            string _enryptionKey = null;
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.GetMd5Hash(_request, _enryptionKey);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("EncryptionKey is null.", exception.Message);
+        }
+        
+        [Fact]
+        public void Verify_Md5_hash_data_null()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            _request = null;
+            string _enryptionKey = "10101";
+            string _hash = "6dfc35c47756e962ef055d1049f1f8ec";
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.VerifyMd5Hash(_request, _enryptionKey, _hash);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Dictionary data is null", exception.Message);
+        }
+        
+        [Fact]
+        public void Verify_Md5_hash_key_null()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            string _enryptionKey = null;
+            string _hash = "6dfc35c47756e962ef055d1049f1f8ec";
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.VerifyMd5Hash(_request, _enryptionKey, _hash);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("EncryptionKey is null.", exception.Message);
+        }
+        
+        [Fact]
+        public void Verify_Md5_hash_hash_null()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            string _enryptionKey = "10101";
+            string _hash = null;
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.VerifyMd5Hash(_request, _enryptionKey, _hash);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Hash is null.", exception.Message);
+        }
+        
+        [Fact]
+        public void Verify_Md5_hash_valid()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            string _enryptionKey = "10101";
+            string _hash = "6dfc35c47756e962ef055d1049f1f8ec";
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            var isDone = mySer.VerifyMd5Hash(_request, _enryptionKey, _hash);
+
+            //ASSERT
+            Assert.True(isDone);
+        }
+        
     }
 }
