@@ -45,7 +45,7 @@ namespace BeanBag.Controllers
                 {"AMOUNT", amount},
                 {"CURRENCY", "ZAR"},
                 // Return url to original payment page -- run in ngrok
-                // ngrok http https://localhost:44352 -host-header="localhost:44352"
+                // ngrok http -host-header="localhost:44352"
                 {"RETURN_URL",
                     "https://beanbagpolaris.azurewebsites.net/Payment/CompletePayment?amounts=" +
                                ""+amount+"&references="+reference},

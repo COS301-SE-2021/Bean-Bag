@@ -55,6 +55,9 @@
     <Folder Include="Migrations\" />
     <Folder Include="wwwroot\Uploads" />
   </ItemGroup>
-
+	
+<PropertyGroup>
+	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+</PropertyGroup>
   
 </Project>
