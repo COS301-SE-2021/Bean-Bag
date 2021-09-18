@@ -65,7 +65,7 @@
 
                                     <div class="form-group">
                                         <label for="tenantNumber" class="col-form-label">Telephone number</label>
-                                        <input type="text" id="tenantNumber" name="tenantNumber" class="form-control" value="@ViewBag.tenant.TenantNumber" required/> <!--input box--></div>
+                                        <input type="text" id="tenantNumber" name="tenantNumber" class="form-control" value="@ViewBag.tenant.TenantNumber" pattern="^\d{10}$" required/> <!--input box--></div>
                                 }
 
                                 <div asp-validation-summary="All" class="text-danger"></div>
