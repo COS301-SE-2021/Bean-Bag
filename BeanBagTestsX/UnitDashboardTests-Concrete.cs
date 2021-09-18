@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using BeanBag.Database;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -65,7 +66,9 @@ namespace BeanBagUnitTests
                 itemSer.CreateItem(item1);
                 itemSer.CreateItem(item2);
 
-                var m = dashService.GetRecentItems(theId2.ToString());
+                IOrderedQueryable m = null;
+                
+                m = dashService.GetRecentItems(theId2.ToString());
 
                 //ASSERT
                 Assert.NotNull(m);
@@ -76,59 +79,484 @@ namespace BeanBagUnitTests
             }
         }
 
+        
+        
+        [Fact]
+        public void Get_recent_items_id_null()
+        {
+            using (var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var mySer = new DashboardAnalyticsService(context);
+                string myid = null;
+
+                //ACT
+                void Act() => mySer.GetRecentItems(myid);
+
+                //ASSERT
+                var exception = Assert.Throws<Exception>(Act);
+                Assert.Equal("Inventory ID is null.", exception.Message);
+            }
+        }
+        
+        [Fact]
+        public void Get_recent_items_invalid_id()
+        {
+            using (var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var mySer = new DashboardAnalyticsService(context);
+                string myid = "10000000-0000-0000-0000-000000000009";
+
+                //ACT
+                void Act() => mySer.GetRecentItems(myid);
+
+                //ASSERT
+                var exception = Assert.Throws<Exception>(Act);
+                Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+            }
+        }
+        
         //Unit test defined for getting the total amount of items across all of a person's inventories
         [Fact]
         public void Get_Total_Items()
         {
-            //ARRANGE
-            
-            
-            //ACT
-            
-            
-            //ASSERT
-            
+            using (var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var dashService = new DashboardAnalyticsService(context);
+
+                var chars = "0123456789";
+                var stringChars = new char[5];
+                var random = new Random();
+
+                for (var i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                var finalString = new String(stringChars);
+
+                var myGuidEnd = finalString;
+
+                var u2 = finalString.Substring(0, 4);
+                var u3 = finalString.Substring(1, 4);
+
+                Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+
+                Guid itemId1 = new("10000000-0000-0000-0000-00000000" + u2);
+                Guid itemId2 = new("10000000-0000-0000-0000-00000000" + u3);
+
+                var myDay = DateTime.MinValue;
+
+                var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+
+                var item1 = new Item
+                    {Id = itemId1, name = "Leopard stripe shirt", inventoryId = theId2, type = "Clothes", quantity = 3};
+
+                var item2 = new Item
+                    {Id = itemId2, name = "Brown Sandals", inventoryId = theId2, type = "Clothes", quantity = 3};
+
+                var invSer = new InventoryService(context);
+                var itemSer = new ItemService(context);
+
+                //ACT
+
+                invSer.CreateInventory(thenew);
+                itemSer.CreateItem(item1);
+                itemSer.CreateItem(item2);
+
+                var m = dashService.GetTotalItems(theId2.ToString());
+
+                //ASSERT
+                Assert.Equal(6, m);
+                itemSer.DeleteItem(itemId1);
+                itemSer.DeleteItem(itemId2);
+                invSer.DeleteInventory(theId2, u2);
+            }
+        }
+        
+        [Fact]
+        public void Get_total_items_id_null()
+        {
+            using (var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var mySer = new DashboardAnalyticsService(context);
+                string myid = null;
+
+                //ACT
+                void Act() => mySer.GetTotalItems(myid);
+
+                //ASSERT
+                var exception = Assert.Throws<Exception>(Act);
+                Assert.Equal("Inventory ID is null.", exception.Message);
+            }
+        }
+        
+        [Fact]
+        public void Get_total_items_invalid_id()
+        {
+            using (var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var mySer = new DashboardAnalyticsService(context);
+                string myid = "10000000-0000-0000-0000-000000000009";
+
+                //ACT
+                void Act() => mySer.GetTotalItems(myid);
+
+                //ASSERT
+                var exception = Assert.Throws<Exception>(Act);
+                Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+            }
         }
         
         //Unit test defined to get the top items from a person's inventories based off a quantifier (i.e. price)
         [Fact]
         public void Get_Top_Items()
         {
-            //ARRANGE
-            
-            
-            //ACT
-            
-            
-            //ASSERT
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var dashService = new DashboardAnalyticsService(context);
+
+                var chars = "0123456789";
+                var stringChars = new char[5];
+                var random = new Random();
+
+                for (var i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                var finalString = new String(stringChars);
+
+                var myGuidEnd = finalString;
+
+                var u2 = finalString.Substring(0, 4);
+                var u3 = finalString.Substring(1, 4);
+                
+                Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+
+                Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
+                Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
+                
+                Inventory thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+                
+                var item1 = new Item { Id = itemId1, name = "White and gold shirt", inventoryId  = theId2, type = "Clothes", quantity = 5};
+
+                var item2 = new Item { Id = itemId2, name = "Blue beach jeans", inventoryId  = theId2, type = "Clothes", quantity = 3};
+
+                var invSer = new InventoryService(context);
+                var itemSer = new ItemService(context);
+                
+                //ACT
+                
+                invSer.CreateInventory(thenew);
+                itemSer.CreateItem(item1);
+                itemSer.CreateItem(item2);
+                
+                var m = dashService.GetTopItems(theId2.ToString());
+                
+                //ASSERT
+                Assert.NotNull(m);
+                itemSer.DeleteItem(itemId1);
+                itemSer.DeleteItem(itemId2);
+                invSer.DeleteInventory(theId2, u2);
+            }
+        }
+        
+        [Fact]
+        public void Get_top_items_id_null()
+        {
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var mySer = new DashboardAnalyticsService(context);
+                string myid = null;
+                
+                //ACT
+                void Act() => mySer.GetTopItems(myid);
+                
+                //ASSERT
+                var exception = Assert.Throws<Exception>(Act);
+                Assert.Equal("Inventory ID is null.", exception.Message);
+            }
+        }
+        
+        [Fact]
+        public void Get_top_items_invalid_id()
+        {
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var mySer = new DashboardAnalyticsService(context);
+                string myid = "10000000-0000-0000-0000-000000000009";
+                
+                //ACT
+                void Act() => mySer.GetTopItems(myid);
+                
+                //ASSERT
+                var exception = Assert.Throws<Exception>(Act);
+                Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+            }
         }
     
         //Unit test defined to get the items available, currently, in a user's database
         [Fact]
         public void Get_Items_Available()
         {
-            //ARRANGE
-            
-            
-            //ACT
-            
-            
-            //ASSERT
-            
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var dashService = new DashboardAnalyticsService(context);
+
+                var chars = "0123456789";
+                var stringChars = new char[5];
+                var random = new Random();
+
+                for (var i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                var finalString = new String(stringChars);
+
+                var myGuidEnd = finalString;
+
+                var u2 = finalString.Substring(0, 4);
+                var u3 = finalString.Substring(1, 4);
+                
+                Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+
+                Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
+                Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
+
+                var myDay = DateTime.Now;
+
+                var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+                
+                var item1 = new Item { Id = itemId1, name = "Khaki shorts", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now, quantity = 5};
+
+                var item2 = new Item { Id = itemId2, name = "Ray bans", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now, quantity = 2};
+
+                var invSer = new InventoryService(context);
+                var itemSer = new ItemService(context);
+                
+                //ACT
+                
+                invSer.CreateInventory(thenew);
+                itemSer.CreateItem(item1);
+                itemSer.CreateItem(item2);
+                
+                var m = dashService.GetItemsAvailable(theId2.ToString(), "D");
+                var n = dashService.GetItemsAvailable(theId2.ToString(), "W");
+                var o = dashService.GetItemsAvailable(theId2.ToString(), "M");
+                var p = dashService.GetItemsAvailable(theId2.ToString(), "Y");
+                
+                //ASSERT
+                Assert.InRange(m, 0, Int32.MaxValue);
+                Assert.Equal(7, m);
+                Assert.Equal(7, n);
+                Assert.Equal(7, o);
+                Assert.Equal(7, p);
+                itemSer.DeleteItem(itemId1);
+                itemSer.DeleteItem(itemId2);
+                invSer.DeleteInventory(theId2, u2);
+            }
         }
 
+        [Fact]
+        public void Get_items_available_id_null()
+        {
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var mySer = new DashboardAnalyticsService(context);
+                string myid = null;
+                
+                //ACT
+                void Act() => mySer.GetItemsAvailable(myid, "D");
+                
+                //ASSERT
+                var exception = Assert.Throws<Exception>(Act);
+                Assert.Equal("Inventory ID is null.", exception.Message);
+            }
+        }
+        
+        
+        [Fact]
+        public void Get_items_available_time_null()
+        {
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var mySer = new DashboardAnalyticsService(context);
+                string myid = "10000000-0000-0000-0000-000000000009";
+                
+                //ACT
+                void Act() => mySer.GetItemsAvailable(myid, null);
+                
+                //ASSERT
+                var exception = Assert.Throws<Exception>(Act);
+                Assert.Equal("Time period is null", exception.Message);
+            }
+        }
+        
+        [Fact]
+        public void Get_items_available_invalid_id()
+        {
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var mySer = new DashboardAnalyticsService(context);
+                string myid = "10000000-0000-0000-0000-000000000009";
+                
+                //ACT
+                void Act() => mySer.GetItemsAvailable(myid, "D");
+                
+                //ASSERT
+                var exception = Assert.Throws<Exception>(Act);
+                Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+            }
+        }
+        
         //Unit test defined to retrieve the items that are marked as sold
         [Fact]
         public void Get_Items_Sold()
         {
-            //ARRANGE
-            
-            
-            //ACT
-            
-            
-            //ASSERT
-            
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var dashService = new DashboardAnalyticsService(context);
+
+                var chars = "0123456789";
+                var stringChars = new char[5];
+                var random = new Random();
+
+                for (var i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                var finalString = new String(stringChars);
+
+                var myGuidEnd = finalString;
+
+                var u2 = finalString.Substring(0, 4);
+                var u3 = finalString.Substring(1, 4);
+                
+                Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+
+                Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
+                Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
+                
+                var myDay = DateTime.Now;
+
+                var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+                
+                var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now, quantity = 1, isSold = true};
+
+                var item2 = new Item { Id = itemId2, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now, quantity = 2, isSold = true};
+
+                var invSer = new InventoryService(context);
+                var itemSer = new ItemService(context);
+                
+                //ACT
+                
+                invSer.CreateInventory(thenew);
+                itemSer.CreateItem(item1);
+                itemSer.CreateItem(item2);
+                
+                var m = dashService.GetItemsSold(theId2.ToString(), "D");
+                var n = dashService.GetItemsSold(theId2.ToString(), "W");
+                var o = dashService.GetItemsSold(theId2.ToString(), "M");
+                var p = dashService.GetItemsSold(theId2.ToString(), "Y");
+                
+                //ASSERT
+                Assert.InRange(m, 0, Int32.MaxValue);
+                Assert.Equal(3, m);
+                Assert.Equal(3, n);
+                Assert.Equal(3, o);
+                Assert.Equal(3, p);
+                itemSer.DeleteItem(itemId1);
+                itemSer.DeleteItem(itemId2);
+                invSer.DeleteInventory(theId2, u2);
+            }
+        }
+        
+        [Fact]
+        public void Get_items_sold_id_null()
+        {
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var mySer = new DashboardAnalyticsService(context);
+                string myid = null;
+                
+                //ACT
+                void Act() => mySer.GetItemsSold(myid, "D");
+                
+                //ASSERT
+                var exception = Assert.Throws<Exception>(Act);
+                Assert.Equal("Inventory ID is null.", exception.Message);
+            }
+        }
+        
+        
+        [Fact]
+        public void Get_items_sold_time_null()
+        {
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var mySer = new DashboardAnalyticsService(context);
+                string myid = "10000000-0000-0000-0000-000000000009";
+                
+                //ACT
+                void Act() => mySer.GetItemsSold(myid, null);
+                
+                //ASSERT
+                var exception = Assert.Throws<Exception>(Act);
+                Assert.Equal("Time period is null", exception.Message);
+            }
+        }
+        
+        [Fact]
+        public void Get_items_sold_invalid_id()
+        {
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var mySer = new DashboardAnalyticsService(context);
+                string myid = "10000000-0000-0000-0000-000000000009";
+                
+                //ACT
+                void Act() => mySer.GetItemsSold(myid, "D");
+                
+                //ASSERT
+                var exception = Assert.Throws<Exception>(Act);
+                Assert.Equal("Inventory with the given Inventory ID does not exist.", exception.Message);
+            }
+        }
+        
+        [Fact]
+        public void Get_items_sold_invalid_time()
+        {
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var mySer = new DashboardAnalyticsService(context);
+                string myid = "C939E6D7-BB01-4937-45A9-08D97AA41850";
+                
+                //ACT
+                void Act() => mySer.GetItemsSold(myid, "Z");
+                
+                //ASSERT
+                var exception = Assert.Throws<Exception>(Act);
+                Assert.Equal("Invalid timespan given as input, expecting Y, M, W or D", exception.Message);
+            }
         }
 
         //Unit test defined to calculate the revenue generated from sold items
