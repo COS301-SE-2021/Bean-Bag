@@ -9,12 +9,12 @@
 <!--Delete inventory inner card popup -->
 <div class="modal-body ">
     <div class="form-group">
-        <h6 class="text-muted"> Are you sure that you want to delete this user? </h6>
-        <hr>
-        <div class="stats mt-2">
+        <div class="text-muted"> Are you sure that you want to delete this user? </div>
+      
+        <div class="stats mt-2 pt-4">
             <div class="d-flex justify-content-between p-price"><span>ID</span><span>@Model.UserTenantId</span></div>
             <div class="d-flex justify-content-between p-price"><span>Username</span><span>@Model.UserName</span></div>
-            <div class="d-flex justify-content-between p-price"><span>UserRole</span><span>@Model.UserRole</span></div>
+            <div class="d-flex justify-content-between p-price"><span>UserRole</span><span>@if(@Model.UserRole=="A"){<p>Admin</p>}else{<p>User</p>}</span></div>
         </div>
         <input asp-for="UserObjectId" hidden/>
 
