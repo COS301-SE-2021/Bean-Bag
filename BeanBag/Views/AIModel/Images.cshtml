@@ -1,0 +1,381 @@
+﻿@model AIModel
+<section class="page-content">
+
+    <section class="ml-3">
+        <a asp-action="ModelVersions" asp-controller="AiModel" asp-route-projectId="@Context.Request.Query["projectId"]" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
+
+        <span class="  md-2 text-secondary ">
+            &nbsp; Model Versions
+        </span>
+        <hr>
+
+    </section>
+
+    <div class="dashboard-wrapper">
+        <div class="container-fluid  dashboard-content">
+
+            <hr>
+
+            <div class="card shadow mb-3 bg-body rounded">
+                <h5 class="card-header">Create Model </h5>
+                <form method="post" id="form2" class="form-horizontal form-label-left" enctype="multipart/form-data" data-parsley-validate>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="card-body p-0 row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <input hidden value="@Context.Request.Query["projectId"]" name="projectId" />
+
+                                <div>
+                                    <br>
+                                    <!--Upload Section-->
+                                    <h5 class="text-muted pl-4">Upload</h5>
+                                    <div class="text-secondary pl-4 pt-3"> <i class="fas fa-exclamation-circle"></i> &nbsp;Allowed file extensions:<b> .jpg, .jpeg, .png. </b></div>
+                                    <div class="text-secondary pl-4 pt-1"> <i class="fas fa-exclamation-circle"></i> &nbsp;Upload more than 5 images</div>
+                                    <div class="text-secondary pl-4 pt-1"> <i class="fas fa-exclamation-circle"></i> &nbsp;Upload up to 1000 images </div>
+
+                                </div>
+
+                                <label class="control-label col-md-2">
+                                    <span class="required"></span>
+                                </label>
+
+                                <div class="p-3 pr-3" id="dropzone">
+                                    <div class="input-group mb-3 px-1 py-1 rounded-pill bg-white shadow-sm">
+                                        <input hidden value="@Context.Request.Query["projectId"]" name="projectId" />
+                                        <input id="fileupload" multiple="multiple" type="file" name="files" class="form-control border-0" hidden>
+                                        <label id="upload-label" for="fileupload" class="font-weight-light text-muted " value="Upload Image">Upload Image</label>
+                                        <div class="input-group-append ml-auto">
+                                            <label for="fileupload" class="btn btn-light m-0 rounded-pill px-4 upload "> <small class="text-uppercase font-weight-bold text-muted ml-auto pt-3">Choose file</small></label>
+                                        </div>
+                                    </div>
+
+                                    <p class="font-italic text-secondary text-center"></p>
+
+                                    <div class="image-area mt-4 dropzone" id="uploader">
+                                        <div id="dvPreview">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--Model details and tag section-->
+                        <div class="col-sm-4 ">
+                            <div class="pt-4">
+                                <!--Model details-->
+                                <h5 class="text-muted pl-3">Model Details</h5>
+                                <div class="pl-3 pt-2">
+                                    <div> Model ID: &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;@ViewBag.ID </div>
+                                    <div> Model Name: &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; @ViewBag.Name</div>
+                                    <div> Model Description: &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; @ViewBag.Description </div>
+                                </div>
+                                <hr>
+                            </div>
+                            <!--Tags-->
+                            <h5 class="text-muted pt-4 pl-3">Add tags</h5>
+                            <div class="text-secondary pt-3 pb-3 pl-3"> <i class="fas fa-exclamation-circle"></i> Add tags to the images of the model </div>
+
+                            <div class="container pt-3">
+                                <div class="row clearfix">
+                                    <div class="col-md-12 column">
+                                        <table class="table table-bordered table-hover pr-5" id="tab_logic">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Tag Name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr id="address0">
+                                                    <td>1</td>
+                                                    <td><input type="text" id="tags" name='tags' placeholder='Name' class="form-control" /></td>
+                                                </tr>
+
+                                                <tr id="address1"></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <a id="add_row" class="btn btn-3 pull-left ">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                <a id='delete_row' class="pull-right btn btn-3 ">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
+                                <div class=" pl-4 form-check-inline form-group row ">
+                                    @*<label class="form-check-label">Done &nbsp;</label>
+                                        <input class="form-check-input" id="imagesDone" type="checkbox" />*@
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="pt-4">
+                        &nbsp;
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-3" value="Upload" id="uploadImages">Upload</button> <!--create button-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @* Uploading pop up *@
+    <div class="modal fade" id="uploadingModelImages" tabindex="-1" role="dialog" aria-labelledby="uploadingModelImages" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadingModelImages">Uploading images. Please wait, this may take a while <i class="fas fa-rocket"> </i></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* Pop up for user not uploading fewer than 5 images *@
+    <div class="modal fade" id="modelImagesLess" tabindex="-1" role="dialog" aria-labelledby="modelImagesLess" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modelImagesLess">Must upload more than 5 images<i class="far fa-times-circle"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @* Pop up for user not uploading for more than 1000 images *@
+    <div class="modal fade" id="modelImagesMore" tabindex="-1" role="dialog" aria-labelledby="modelImagesMore" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modelImagesMore">Cannot upload more than 1000 images<i class="far fa-times-circle"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @* Pop up for user not uploading for empty tags *@
+    <div class="modal fade" id="modelTagError" tabindex="-1" role="dialog" aria-labelledby="modelTagError" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modelTagError">Cannot leave any tag field empty<i class="far fa-times-circle"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @* Pop up when images have been uploaded *@
+    <div class="modal fade" id="successUploading" tabindex="-1" role="dialog" aria-labelledby="successUploading" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successUploading">Done!<i class="far fa-check-circle"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* Pop up when more than 500 tags are made *@
+    <div class="modal fade" id="tagError" tabindex="-1" role="dialog" aria-labelledby="tagError" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tagError">We are sorry, we can't allow you to create more than 500 tags :( <i class="far fa-times-circle"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* Pop up when a model has more than 100 000 images *@
+    <div class="modal fade" id="imageCountError" tabindex="-1" role="dialog" aria-labelledby="imageCountError" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageCountError">We are sorry, we can't allow you to upload more than 100 000 images in total to a model :( <i class="far fa-times-circle"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@* This script functions is used to add dynamic text boxes to allow the user to enter as many tags as
+    they desire with the uploaded test images *@
+
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        let i = 1;
+        $("#add_row").click(function () {
+            $('#address' + i).html("<td>" + (i + 1) + "</td><td><input id='tags' name='tags' type='text' placeholder='Name' class='form-control input-md'  /> "
+            );
+
+            $('#tab_logic').append('<tr id="address' + (i + 1) + '"></tr>');
+            i++;
+        });
+        $("#delete_row").click(function () {
+            if (i > 1) {
+                $("#address" + (i - 1)).html('');
+                i--;
+            }
+        });
+    });
+</script>
+
+@* This script function is to preview the multiple images before uploading *@
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#fileupload").change(function () {
+            if (typeof (FileReader) != "undefined") {
+                let dvPreview = $("#dvPreview");
+                dvPreview.html("");
+                let regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                $($(this)[0].files).each(function () {
+                    let file = $(this);
+                    if (regex.test(file[0].name.toLowerCase())) {
+                        let reader = new FileReader();
+                        reader.onload = function (e) {
+                            let img = $('<img  alt=/"" />');
+                            img.attr("style", "width: 150px");
+                            img.attr("src", e.target.result);
+                            dvPreview.append(img);
+                        }
+                        reader.readAsDataURL(file[0]);
+                    } else {
+                        alert(file[0].name + " is not a valid image file.");
+                        dvPreview.html("");
+                        return false;
+                    }
+                });
+            } else {
+                alert("This browser does not support HTML5 FileReader.");
+            }
+        });
+    });
+</script>
+
+@if (Context.Request.Query["success"].Count == 1)
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#successUploading').modal('show');
+        });
+    </script>
+}
+else if (Context.Request.Query["tagError"].Count == 1)
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#tagError").modal('show');
+        });
+    </script>
+}
+else if (Context.Request.Query["imageCountError"].Count == 1)
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#imageCountError").modal('show');
+
+            
+        });
+    </script>
+}
+
+<script type="text/javascript">
+
+    $("#uploadImages").click(function (ev) {
+        ev.preventDefault();
+
+        var numFiles = $("#fileupload")[0].files.length;
+
+        if (numFiles < 5) {
+            $('#modelImagesLess').modal('show');
+            return;
+        }
+        else if (numFiles > 1024) {
+            $('#modelImagesMore').modal('show');
+            return;
+        }
+
+        var formData = new FormData();
+
+        var images = $("#fileupload")[0].files;
+
+        for (var i = 0; i < numFiles; i++) {
+            formData.append("files", images[i]);
+        }
+
+        var tags = $("[name=tags]");
+        for (var i = 0; i < tags.length; i++) {
+            if (/^\s*$/.test(tags[i].value)) {
+                $('#modelTagError').modal('show');
+                return;
+            }
+            else {
+                formData.append("tags", tags[i].value);
+            }
+        }
+
+        $('#uploadingModelImages').modal('show');
+
+        var projectId = "@Context.Request.Query["projectId"]";
+        formData.append("projectId", projectId);
+
+        var url = "@Url.Action("UploadImages")";
+
+        $('#uploadingModelImages').modal('show');
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: formData,
+            contentType: false,
+            processData: false
+        }).done(function (response) {
+
+            if (response.status === 'success') {
+                $('#uploadingModelImages').modal('hide');
+                $('#successUploading').modal('show');
+                
+            }
+            else if (response.status === 'failure') {
+                if (response.message === 'tags') {
+                    $('#uploadingModelImages').modal('hide');
+                    $('#tagError').modal('show');
+                }
+                else if (response.message == 'imageCount') {
+                    $('#uploadingModelImages').modal('hide');
+                    $('#imageCountError').modal('show');
+                }
+            }
+            document.body.addEventListener('click', function () {
+                location.reload();
+            }, true);
+
+        });
+    });
+
+
+</script>
+

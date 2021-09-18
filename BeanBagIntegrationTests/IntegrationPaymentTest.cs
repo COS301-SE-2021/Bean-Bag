@@ -476,297 +476,188 @@ namespace BeanBagIntegrationTests
             Assert.False(isDel);
             
         }
-        
+
+        //HASHING ALGORITHM TESTS
+
         [Fact]
-        public void Update_Subscription_Valid_Free()
+        public void To_Url_Encoded_string_valid()
         {
             //ARRANGE
-            var chars = "0123456789";
-            var stringChars = new char[5];
-            var random = new Random();
-
-            for (var i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[random.Next(chars.Length)];
-            }
-
-            var finalString = new String(stringChars);
-
-            var myGuidEnd = finalString;
-
-            var u2 = finalString.Substring(0, 4);
-            
-            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
-            
-            Guid theIdPay = new("00100000-0000-0000-0000-0160000" + myGuidEnd);
-            
-            string tReference = "testtransaction";
-            string tPayId = theIdPay.ToString();
-            string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
-
-
+            var _request = new Dictionary<string, string>();
+            var mySer = new PaymentService(_Tdb);
 
             //ACT
-            var mySer = new PaymentService(_Tdb);
-            var addedTransact = mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
-            var myTrns = mySer.GetTransactions(tTenantId);
-            
-            mySer.UpdateSubscription("Free", tTenantId);
-            
-            var icount = myTrns.Count();
-            var myl = myTrns.ToList();
-            
-            
+            var ires = mySer.ToUrlEncodedString(_request);
+
             //ASSERT
-            Assert.True(addedTransact);
-            var isDel = mySer.DeleteTransaction(myl[0].TransactionId);
+            Assert.Equal("",ires);
         }
         
         [Fact]
-        public void Update_Subscription_Valid_Standard()
+        public void To_Url_Encoded_string_null_input()
         {
             //ARRANGE
-            var chars = "0123456789";
-            var stringChars = new char[5];
-            var random = new Random();
-
-            for (var i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[random.Next(chars.Length)];
-            }
-
-            var finalString = new String(stringChars);
-
-            var myGuidEnd = finalString;
-
-            var u2 = finalString.Substring(0, 4);
-            
-            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
-            
-            Guid theIdPay = new("00000000-0000-0000-0000-0160000" + myGuidEnd);
-            
-            string tReference = "testtransaction";
-            string tPayId = theIdPay.ToString();
-            string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
-
-
+            var _request = new Dictionary<string, string>();
+            _request = null;
+            var mySer = new PaymentService(_Tdb);
 
             //ACT
-            var mySer = new PaymentService(_Tdb);
-            var addedTransact = mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
-            var myTrns = mySer.GetTransactions(tTenantId);
-            
-            mySer.UpdateSubscription("Standard", tTenantId);
-            
-            var icount = myTrns.Count();
-            var myl = myTrns.ToList();
-            
-            
-            //ASSERT
-            Assert.True(addedTransact);
-            var isDel = mySer.DeleteTransaction(myl[0].TransactionId);
-        }
-        
-        [Fact]
-        public void Update_Subscription_Valid_Premium()
-        {
-            //ARRANGE
-            var chars = "0123456789";
-            var stringChars = new char[5];
-            var random = new Random();
+            void Act() => mySer.ToUrlEncodedString(_request);
 
-            for (var i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[random.Next(chars.Length)];
-            }
-
-            var finalString = new String(stringChars);
-
-            var myGuidEnd = finalString;
-
-            var u2 = finalString.Substring(0, 4);
-            
-            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
-            
-            Guid theIdPay = new("00000000-0000-0000-0000-0160000" + myGuidEnd);
-            
-            string tReference = "testtransaction";
-            string tPayId = theIdPay.ToString();
-            string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
-
-
-
-            //ACT
-            var mySer = new PaymentService(_Tdb);
-            var addedTransact = mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
-            var myTrns = mySer.GetTransactions(tTenantId);
-            
-            mySer.UpdateSubscription("Premium", tTenantId);
-            
-            var icount = myTrns.Count();
-            var myl = myTrns.ToList();
-            
-            
-            //ASSERT
-            Assert.True(addedTransact);
-            var isDel = mySer.DeleteTransaction(myl[0].TransactionId);
-        }
-        
-        [Fact]
-        public void Update_Subscription_Invalid_Sub()
-        {
-            //ARRANGE
-            var chars = "0123456789";
-            var stringChars = new char[5];
-            var random = new Random();
-
-            for (var i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[random.Next(chars.Length)];
-            }
-
-            var finalString = new String(stringChars);
-
-            var myGuidEnd = finalString;
-
-            var u2 = finalString.Substring(0, 4);
-            
-            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
-            
-            Guid theIdPay = new("00000000-0000-0000-0000-0160000" + myGuidEnd);
-            
-            string tReference = "testtransaction";
-            string tPayId = theIdPay.ToString();
-            string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
-
-
-
-            //ACT
-            var mySer = new PaymentService(_Tdb);
-            var addedTransact = mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
-            var myTrns = mySer.GetTransactions(tTenantId);
-            
-            void Act() => mySer.UpdateSubscription("NotAChoice", tTenantId);
-            
-            var icount = myTrns.Count();
-            var myl = myTrns.ToList();
-            
-            
             //ASSERT
             var exception = Assert.Throws<Exception>(Act);
-            Assert.Equal("Incorrect subscription input.", exception.Message);
-            Assert.True(addedTransact);
-            var isDel = mySer.DeleteTransaction(myl[0].TransactionId);
+            Assert.Equal("Input string is null", exception.Message);
+            
         }
         
         [Fact]
-        public void Update_Subscription_null_Sub()
+        public void To_Dictionary_valid()
         {
             //ARRANGE
-            var chars = "0123456789";
-            var stringChars = new char[5];
-            var random = new Random();
-
-            for (var i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[random.Next(chars.Length)];
-            }
-
-            var finalString = new String(stringChars);
-
-            var myGuidEnd = finalString;
-
-            var u2 = finalString.Substring(0, 4);
+            string _request = "https://example.com/path/to/page?name=ferret&color=purple";
             
-            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
-            
-            Guid theIdPay = new("00000000-0000-0000-0000-0160000" + myGuidEnd);
-            
-            string tReference = "testtransaction";
-            string tPayId = theIdPay.ToString();
-            string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
-
-
+            var mySer = new PaymentService(_Tdb);
 
             //ACT
-            var mySer = new PaymentService(_Tdb);
-            var addedTransact = mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
-            var myTrns = mySer.GetTransactions(tTenantId);
-            
-            void Act() => mySer.UpdateSubscription(null, tTenantId);
-            
-            var icount = myTrns.Count();
-            var myl = myTrns.ToList();
-            
-            
+            var ires = mySer.ToDictionary(_request);
+
             //ASSERT
-            var exception = Assert.Throws<Exception>(Act);
-            Assert.Equal("Subscription is null", exception.Message);
-            Assert.True(addedTransact);
-            var isDel = mySer.DeleteTransaction(myl[0].TransactionId);
+            Assert.IsType<Dictionary<string, string>>(ires);
+            
         }
-
-
+        
         [Fact]
-        public void Update_tenant_null()
+        public void To_Dictionary_input_null()
         {
             //ARRANGE
-            var chars = "0123456789";
-            var stringChars = new char[5];
-            var random = new Random();
-
-            for (var i = 0; i < stringChars.Length; i++)
-            {
-                stringChars[i] = chars[random.Next(chars.Length)];
-            }
-
-            var finalString = new String(stringChars);
-
-            var myGuidEnd = finalString;
-
-            var u2 = finalString.Substring(0, 4);
+            string _request = null;
             
-            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
-            
-            Guid theIdPay = new("00000000-0000-0000-0000-0160000" + myGuidEnd);
-            
-            string tReference = "testtransaction";
-            string tPayId = theIdPay.ToString();
-            string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
-
-
+            var mySer = new PaymentService(_Tdb);
 
             //ACT
-            var mySer = new PaymentService(_Tdb);
-            var addedTransact = mySer.AddTransaction(tReference, tPayId, tTenantId, tAmount);
-            var myTrns = mySer.GetTransactions(tTenantId);
-            
-            void Act() => mySer.UpdateSubscription("Free", null);
-            
-            var icount = myTrns.Count();
-            var myl = myTrns.ToList();
-            
-            
+            void Act() => mySer.ToDictionary(_request);
+
             //ASSERT
             var exception = Assert.Throws<Exception>(Act);
-            Assert.Equal("Tenant id is null", exception.Message);
-            Assert.True(addedTransact);
-            var isDel = mySer.DeleteTransaction(myl[0].TransactionId);
+            Assert.Equal("Input string is null", exception.Message);
+            
         }
         
+        [Fact]
+        public void Get_Md5_hash_valid()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            string _enryptionKey = "10101";
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            var ires = mySer.GetMd5Hash(_request, _enryptionKey);
+
+            //ASSERT
+            Assert.Equal("6dfc35c47756e962ef055d1049f1f8ec",ires);
+        }
         
+        [Fact]
+        public void Get_Md5_hash_dictionary_null()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            _request = null;
+            string _enryptionKey = "10101";
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.GetMd5Hash(_request, _enryptionKey);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Dictionary data is null", exception.Message);
+        }
         
-        /*
-        Dictionary<string, string> ToDictionary(string response);
-        string GetMd5Hash(Dictionary<string, string> data, string encryptionKey);
-        bool VerifyMd5Hash(Dictionary<string, string> data, string encryptionKey, string hash);
+        [Fact]
+        public void Get_Md5_hash_key_null()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            string _enryptionKey = null;
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.GetMd5Hash(_request, _enryptionKey);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("EncryptionKey is null.", exception.Message);
+        }
         
-        */
+        [Fact]
+        public void Verify_Md5_hash_data_null()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            _request = null;
+            string _enryptionKey = "10101";
+            string _hash = "6dfc35c47756e962ef055d1049f1f8ec";
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.VerifyMd5Hash(_request, _enryptionKey, _hash);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Dictionary data is null", exception.Message);
+        }
+        
+        [Fact]
+        public void Verify_Md5_hash_key_null()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            string _enryptionKey = null;
+            string _hash = "6dfc35c47756e962ef055d1049f1f8ec";
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.VerifyMd5Hash(_request, _enryptionKey, _hash);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("EncryptionKey is null.", exception.Message);
+        }
+        
+        [Fact]
+        public void Verify_Md5_hash_hash_null()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            string _enryptionKey = "10101";
+            string _hash = null;
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            void Act() => mySer.VerifyMd5Hash(_request, _enryptionKey, _hash);
+
+            //ASSERT
+            var exception = Assert.Throws<Exception>(Act);
+            Assert.Equal("Hash is null.", exception.Message);
+        }
+        
+        [Fact]
+        public void Verify_Md5_hash_valid()
+        {
+            //ARRANGE
+            var _request = new Dictionary<string, string>();
+            string _enryptionKey = "10101";
+            string _hash = "6dfc35c47756e962ef055d1049f1f8ec";
+            var mySer = new PaymentService(_Tdb);
+
+            //ACT
+            var isDone = mySer.VerifyMd5Hash(_request, _enryptionKey, _hash);
+
+            //ASSERT
+            Assert.True(isDone);
+        }
+        
     }
 }

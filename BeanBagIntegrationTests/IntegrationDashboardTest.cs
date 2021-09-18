@@ -512,7 +512,7 @@ namespace BeanBagIntegrationTests
         {
             //ARRANGE
             var mySer = new DashboardAnalyticsService(_context);
-            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            string myid = "C939E6D7-BB01-4937-45A9-08D97AA41850";
             
             //ACT
             void Act() => mySer.GetItemsSold(myid, "Z");
@@ -637,7 +637,7 @@ namespace BeanBagIntegrationTests
         {
             //ARRANGE
             var mySer = new DashboardAnalyticsService(_context);
-            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            string myid = "C939E6D7-BB01-4937-45A9-08D97AA41850";
             
             //ACT
             void Act() => mySer.GetRevenue(myid, "Z");
@@ -758,7 +758,7 @@ namespace BeanBagIntegrationTests
         {
             //ARRANGE
             var mySer = new DashboardAnalyticsService(_context);
-            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            string myid = "C939E6D7-BB01-4937-45A9-08D97AA41850";
             
             //ACT
             void Act() => mySer.GetSalesGrowth(myid, "Z");
@@ -875,7 +875,7 @@ namespace BeanBagIntegrationTests
         {
             //ARRANGE
             var mySer = new DashboardAnalyticsService(_context);
-            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            string myid = "C939E6D7-BB01-4937-45A9-08D97AA41850";
             
             //ACT
             void Act() => mySer.ItemsRevenueStat(myid, "Z");
@@ -997,7 +997,7 @@ namespace BeanBagIntegrationTests
         {
             //ARRANGE
             var mySer = new DashboardAnalyticsService(_context);
-            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            string myid = "C939E6D7-BB01-4937-45A9-08D97AA41850";
             
             //ACT
             void Act() => mySer.GetItemsSold(myid, "Z");
@@ -1117,7 +1117,7 @@ namespace BeanBagIntegrationTests
         {
             //ARRANGE
             var mySer = new DashboardAnalyticsService(_context);
-            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            string myid = "C939E6D7-BB01-4937-45A9-08D97AA41850";
             
             //ACT
             void Act() => mySer.ItemAvailableStat(myid, "Z");
@@ -1179,7 +1179,7 @@ namespace BeanBagIntegrationTests
         {
             //ARRANGE
             var mySer = new DashboardAnalyticsService(_context);
-            string myid = "7A8A7DE5-A390-48BF-5BB0-08D976E02C23";
+            string myid = "C939E6D7-BB01-4937-45A9-08D97AA41850";
             
             //ACT
             void Act() => mySer.ItemsSoldStat(myid, "Z");

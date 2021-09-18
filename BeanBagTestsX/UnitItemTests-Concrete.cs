@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using BeanBag.Database;
 using BeanBag.Models;
 using BeanBag.Services;
@@ -10,21 +8,19 @@ using Xunit;
 
 namespace BeanBagUnitTests
 {
-    
 
-
-    public class UnitItemTestsConcrete : UnitInventoryTests
+    public class UnitItemTestsConcrete : UnitItemTests
     {
         
         public UnitItemTestsConcrete() : base(new DbContextOptionsBuilder<DBContext>()
-            .UseSqlite("Filename=Test.db").Options)
+            .UseSqlite("Filename=Test2.db").Options)
         {
             
         }
         
         // Unit test defined for adding a QR code to an item using the azure function
         [Fact]
-        public void Add_QRitem_with_valid_item()
+        public void Add_QR_item_with_valid_item()
         {
             //ARRANGE
             var testItem = new Item();

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,8 +10,12 @@ namespace BeanBag.Services
     {
         public Task<string> uploadItemImage(IFormFile file);
 
-        public Task<List<string>> uploadTestImages(IFormFileCollection testImages, string projectId);
+        public Task<List<string>> uploadModelImages(IFormFileCollection testImages, string projectId);
 
         public void deleteTestImageFolder(string projectId);
+
+        public void uploadModelImageToTempFolder(IFormFile file, string userId);
+
+        public void deleteModelImageTempFolder(string userId);
     }
 }
