@@ -281,15 +281,16 @@ $(function () {
 })
 
      function OnSuccess(response) {
-              $('#exampleModal').modal('hide');
-              
-             $("#pop").html(response);
-              $('#exampleModalError').modal('show');           
-                     // alert(response);
-          }
-          function OnFailure(response) {
-              alert("Error occured.");
-          }
+    if (response.success){
+                       window.location.href = response.message;}
+    else
+        { alert(response.message)
+            }
+                    }
+                    
+                    function OnFailure(response) {
+                        alert(response);
+                   }
 
 </script>
     
