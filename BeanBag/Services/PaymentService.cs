@@ -31,25 +31,18 @@ namespace BeanBag.Services
                 throw new Exception("Input string is null");
             }
             string result;
-            try
+            
+            StringBuilder builder = new StringBuilder();
+            foreach (string key in request.Keys)
             {
-                StringBuilder builder = new StringBuilder();
-                foreach (string key in request.Keys)
-                {
-                    builder.Append("&");
-                    builder.Append(key);
-                    builder.Append("=");
-                    builder.Append(HttpUtility.UrlEncode(request[key]));
-                }
-
-                 result = builder.ToString().TrimStart('&');
-               
-            }
-            catch (Exception)
-            {
-                throw new Exception("String could not be encoded");
+                builder.Append("&");
+                builder.Append(key);
+                builder.Append("=");
+                builder.Append(HttpUtility.UrlEncode(request[key]));
             }
 
+             result = builder.ToString().TrimStart('&');
+             
             return result;
         }
 
