@@ -129,18 +129,18 @@ namespace BeanBag.Controllers
                     status = "Not Done";
                     break;
                 case "1":
-                    @ViewBag.payReqId = payReqId;
-                    @ViewBag.reference = reference;
+                    ViewBag.payReqId = payReqId;
+                    ViewBag.reference = reference;
                     
                     //Transaction Approved 
                     //Console.WriteLine("Checking the user id complete: " + User.GetObjectId());
                     
                     //Determine the type of subscription
-                    @ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
-                    @ViewBag.UpdatedSubscription = false; 
+                    ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
+                    ViewBag.UpdatedSubscription = false; 
                     if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
                     {
-                        @ViewBag.UpdatedSubscription = true;
+                        ViewBag.UpdatedSubscription = true;
                     }
                     return View();
                 
