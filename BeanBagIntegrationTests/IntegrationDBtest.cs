@@ -111,14 +111,10 @@ namespace BeanBagIntegrationTests
             var u2 = finalString.Substring(0, 4);
             
             Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
-
-            var theId3 = new Guid();
-            var theId4 = new Guid();
             
-            var myDay = DateTime.MinValue;
-
-            //ACT
             var query = new InventoryService(_db);
+            
+            //ACT
 
             var thenew = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 , publicToTenant = false};
 
@@ -127,7 +123,7 @@ namespace BeanBagIntegrationTests
             var getInvs = query.FindInventory(theId2);
 
             //ASSERT
-            Assert.NotNull(getInvs);
+            Assert.Equal(theId2, getInvs.Id);
             query.DeleteInventory(theId2, u2);
         }
         
@@ -295,8 +291,8 @@ namespace BeanBagIntegrationTests
 
             var invSer = new InventoryService(_db);
             
-            var myinv = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
-            var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = theId2, soldDate = DateTime.Now, type = "Clothes"};
+            var myinv = new Inventory { Id = theId2, name = "Khaki shirt", userId = u2 };
+            var thenew = new Item { Id = itemId, name = "Khaki shorts", inventoryId  = theId2, soldDate = DateTime.Now, type = "Clothes"};
 
             //ACT 
             invSer.CreateInventory(myinv);
@@ -342,7 +338,7 @@ namespace BeanBagIntegrationTests
             
             var myinv = new Inventory { Id = theId2, name = "Integration test inventory", userId = u2 };
             var thenew = new Item { Id = itemId, name = "Leopard stripe shirt", inventoryId  = theId2, soldDate = DateTime.Now, type = "Clothes"};
-            var thenew2 = new Item { Id = itemId2, name = "Leopard stripe shirt", inventoryId  = theId2, soldDate = DateTime.Now, type = "Clothes"};
+            var thenew2 = new Item { Id = itemId2, name = "Polo turtleneck", inventoryId  = theId2, soldDate = DateTime.Now, type = "Clothes"};
 
             //ACT 
             invSer.CreateInventory(myinv);
