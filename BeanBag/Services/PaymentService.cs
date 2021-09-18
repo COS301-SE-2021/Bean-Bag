@@ -190,30 +190,22 @@ namespace BeanBag.Services
             {
                 throw new Exception("Amount is null.");
             }
-
             
-            
-            try
+            Transactions transaction = new Transactions()
             {
-                Transactions transaction = new Transactions()
-                {
-                    
-                    TransactionId = new("00000000-0000-0000-0000-00000000124"),
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddMonths(1),
-                    Reference = reference,
-                    Amount = amount,
-                    TenantId = tenantId,
-                    PaymentRequestId =  payId,
-                };
-                _tenantDb.Transactions.Add(transaction);
-                _tenantDb.SaveChanges();
-                return true;
-            }
-            catch (Exception )
-            {
-                return false;
-            }
+                
+                TransactionId = new("00000000-0000-0000-0000-00000000124"),
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(1),
+                Reference = reference,
+                Amount = amount,
+                TenantId = tenantId,
+                PaymentRequestId =  payId,
+            };
+            _tenantDb.Transactions.Add(transaction);
+            _tenantDb.SaveChanges();
+            return true;
+           
         }
         
         // This function gets the transactions for a specific user.
@@ -243,22 +235,16 @@ namespace BeanBag.Services
             }
 
             Transactions getfirst;
-            try
-            {
-                var t = from transactions
-                        in _tenantDb.Transactions
-                    where transactions.TenantId.Equals(tenantId)
-                    select transactions;
-                
-                 getfirst = t.OrderByDescending(x => x.StartDate)
-                    .FirstOrDefault();
-            }
-            catch(Exception)
-            {
-                throw new Exception("An error occured when querying the transaction from the DB");
-            }
+       
+            var t = from transactions
+                    in _tenantDb.Transactions
+                where transactions.TenantId.Equals(tenantId)
+                select transactions;
+            
+             getfirst = t.OrderByDescending(x => x.StartDate)
+                .FirstOrDefault();
 
-            return getfirst;
+                 return getfirst;
         }
         
         // This function is used to delete a transaction
@@ -281,34 +267,6 @@ namespace BeanBag.Services
             return true;
 
         }
-
-        // This function sets the updated subscription for the user
-        public void UpdateSubscription(string subscription, string tenantId)
-        {
-            if (subscription == null)
-            {
-                
-            }else if (tenantId == null)
-            {
-                
-            }
-            
-            //TODO
-            if (subscription == "Free")
-            {
-                
-            }else if (subscription == "Standard")
-            {
-                
-            }
-            else if (subscription == "Premium")
-            {
-                
-            }
-            else
-            {
-                throw new Exception("Incorrect subscription input.");
-            }
-        }
+        
     }
 }

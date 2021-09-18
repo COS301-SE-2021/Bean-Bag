@@ -21,17 +21,19 @@ namespace BeanBagIntegrationTests
     public class IntegrationBlobTestBeta 
     {
         private readonly CloudStorageAccount cloudStorageAccount;
-        private readonly CloudBlobClient cloudBlobClient;
+        private readonly CloudBlobClient _cloudBlobClient;
         private CloudBlobContainer cloudBlobContainer;
         private readonly IConfiguration config;
 
-        public IntegrationBlobTestBeta(IConfiguration config)
+        public IntegrationBlobTestBeta()
         {
-            this.config = config;
+            this.config = new ConfigurationBuilder().AddJsonFile("appsettings.local.json").Build();
             cloudStorageAccount = CloudStorageAccount.Parse(config.GetValue<string>("AzureBlobStorage:ConnectionString"));
-            cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+            _cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
+        
 
+        //Integration test defined to test the getting the uploading of an image (positive testing)
         [Fact]
         public async Task Upload_Item_Image_Valid()
         {
@@ -70,7 +72,7 @@ namespace BeanBagIntegrationTests
 
             var myService = new BlobStorageService(config);
             
-            cloudBlobContainer = cloudBlobClient.GetContainerReference("itemimages");
+            cloudBlobContainer = _cloudBlobClient.GetContainerReference("itemimages");
             CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(file.FileName);
             cloudBlockBlob.Properties.ContentType = file.ContentType;
 
@@ -83,6 +85,7 @@ namespace BeanBagIntegrationTests
             Assert.NotNull(myUploadedFile);
         }
 
+        //Integration test defined to test the getting the uploading of test images (positive testing)
         [Fact]
         public async Task Upload_Test_Images_Valid()
         {
@@ -123,7 +126,7 @@ namespace BeanBagIntegrationTests
 
             var myService = new BlobStorageService(config);
             
-            cloudBlobContainer = cloudBlobClient.GetContainerReference("itemimages");
+            cloudBlobContainer = _cloudBlobClient.GetContainerReference("itemimages");
             CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(file.FileName);
             cloudBlockBlob.Properties.ContentType = file.ContentType;
 

@@ -15,7 +15,6 @@ namespace BeanBag.Services
         public bool AddTransaction(string reference, string payId, string tenantId, float amount);
         List<Transactions> GetTransactions(string currentTenantId);
         public Transactions GetPaidSubscription(string tenantId);
-        public void UpdateSubscription(string subscription, string tenantId);
         public bool DeleteTransaction(string id);
     }
 }
