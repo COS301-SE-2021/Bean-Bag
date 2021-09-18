@@ -116,63 +116,71 @@ namespace BeanBag.Controllers
         //This function occurs after completing the payment, and presents a popup of the transaction status.
         public ActionResult Complete(int? id, string amount, string payReqId , string reference)
         {
-            string status;
-            switch (id.ToString())
+            try
             {
-                case "-2":
-                    status = "Unable to reconcile transaction";
-                    break;
-                case "-1":
-                    status = "Checksum Error. The values have been altered";
-                    break;
-                case "0":
-                    status = "Not Done";
-                    break;
-                case "1":
-                    ViewBag.payReqId = payReqId;
-                    ViewBag.reference = reference;
-                    
-                    //Transaction Approved 
-                    //Console.WriteLine("Checking the user id complete: " + User.GetObjectId());
-                    
-                    //Determine the type of subscription
-                    ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
-                    ViewBag.UpdatedSubscription = false;
+                string status;
+                switch (id.ToString())
+                {
+                    case "-2":
+                        status = "Unable to reconcile transaction";
+                        break;
+                    case "-1":
+                        status = "Checksum Error. The values have been altered";
+                        break;
+                    case "0":
+                        status = "Not Done";
+                        break;
+                    case "1":
+                        ViewBag.payReqId = payReqId;
+                        ViewBag.reference = reference;
 
-                    if (User.GetObjectId() == null)
-                    {
+                        //Transaction Approved 
+                        //Console.WriteLine("Checking the user id complete: " + User.GetObjectId());
+
+                        //Determine the type of subscription
+                        ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
+                        ViewBag.UpdatedSubscription = false;
+
+                        if (User.GetObjectId() == null)
+                        {
+                            return View();
+                        }
+                        else if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId == null)
+                        {
+                            @ViewBag.UpdatedSubscription = true;
+                        }
+
                         return View();
-                    }
-                    else if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId == null)
-                    {
-                        @ViewBag.UpdatedSubscription = true;
-                    }
 
-                    return View();
-                
-                case "2":
-                    status = "Declined";
-                    break;
-                case "3":
-                    status = "Cancelled";
-                    break;
-                case "4":
-                    status = "User Cancelled";
-                    break;
-                default:
-                    status = $"Unknown Status({ id })";
-                    break;
+                    case "2":
+                        status = "Declined";
+                        break;
+                    case "3":
+                        status = "Cancelled";
+                        break;
+                    case "4":
+                        status = "User Cancelled";
+                        break;
+                    default:
+                        status = $"Unknown Status({ id })";
+                        break;
+                }
+                TempData["Status"] = status;
+
+                if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
+                {
+                    //Error popup
+                    return RedirectToAction("Index", "Home");
+                }
+
+                //error popup
+                return RedirectToAction("Index", "Tenant");
             }
-            TempData["Status"] = status;
-
-            if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
+            catch(Exception e)
             {
-                //Error popup
-                return RedirectToAction("Index", "Home");
+               return Content(e.ToString() + "\nUserID:" + User.GetObjectId());
             }
             
-            //error popup
-            return RedirectToAction("Index", "Tenant");
         }
         
         // This function returns the billing page where the tenant can view their transactions.
