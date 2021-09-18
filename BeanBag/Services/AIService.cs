@@ -60,7 +60,7 @@ namespace BeanBag.Services
                 throw new Exception("Invalid image url");
 
             //This is used to check that the image url comes from a valid source that being the polaris blob storage
-            if (!imageURL.Contains("https://polarisblobstorage.blob.core.windows.net/itemimages/"))
+            if (!imageURL.Contains("https://beanbagstorage.blob.core.windows.net/itemimages/"))
                 throw new Exception("Image url comes from invalid source");
 
             try
@@ -173,7 +173,7 @@ namespace BeanBag.Services
 
         // This method is used to upload a set of test images into the Azure blob storage and then into the custom vision project
             
-        public void uploadTestImages(List<string> imageUrls, string[] tags, Guid projectId)
+        public void uploadImages(List<string> imageUrls, string[] tags, Guid projectId)
         {
             try
             {

@@ -25,7 +25,6 @@ namespace BeanBag
                         reloadOnChange: true
                         );
                 }
-                )
-            ;
+                );
     }
 }
