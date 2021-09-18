@@ -32,7 +32,7 @@
                     <b class="pl-3">Total Inventories &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalInventories</span>
                                   
                   <div class=" mr-3 ml-auto">
-                      <button class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Inventory &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></button>
+                      <button class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">  &nbsp;&nbsp; Create New Inventory &nbsp;&nbsp; &nbsp; &nbsp;  &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></button>
                   </div>
               </div>
         <br>
@@ -59,7 +59,7 @@
                 </div>
             }
             <!--Search-->
-            <div class="col-3 ml-auto ">
+            <div class="ml-auto mr-3">
                 @using (Html.BeginForm())
                 {
                     <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
@@ -81,10 +81,10 @@
                     </h5>
                     
                     <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
-                        <div>
+                        <div class="table-responsive">
                             @if (Model.PagedList.Any())
                             {
-                                <table class="table table-bordered table-striped">
+                                <table class="table text-center table-striped">
                                     <thead ><tr>
                                         <th>#</th>
                                         <th>ID</th>
@@ -99,16 +99,17 @@
                                     @foreach (var inventory in Model.PagedList)
                                     {
                                         <tr>
-                                            <td >@i</td>
+                                            <td class="pt-4">@i</td>
                                             @{ i++; }
                                           <td ><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@inventory.Id">
                                                                                              
-                                                                                              <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/></button></td>  <td >@inventory.name</td>
-                                            <td >@inventory.createdDate</td>
-                                            <td >@inventory.description</td>
+                                                <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/></button></td> 
+                                            <td class="pt-4" >@inventory.name</td>
+                                            <td class="pt-4">@inventory.createdDate</td>
+                                            <td class="pt-4" >@inventory.description</td>
                                             <td >
-                                                <div class="w-100 btn-group" role="group">
-                                                    
+                                                <div class="w-100 btn-group " role="group">
+                                                   
                                                     <a href="@Url.Action("Edit", "Inventory", new {@inventory.Id})"
                                                        class="btn edit" data-toggle="modal" data-target="#exampleModal3" 
                                                        data-id="@inventory.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
@@ -188,7 +189,7 @@
 
               <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalTitle">Create New Inventory <i class="fas fa-plus"> </i></h5>
+                      <h5 class="modal-title" id="exampleModalTitle">Create New Inventory </h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -281,15 +282,16 @@ $(function () {
 })
 
      function OnSuccess(response) {
-              $('#exampleModal').modal('hide');
-              
-             $("#pop").html(response);
-              $('#exampleModalError').modal('show');           
-                     // alert(response);
-          }
-          function OnFailure(response) {
-              alert("Error occured.");
-          }
+    if (response.success){
+                       window.location.href = response.message;}
+    else
+        { alert(response.message)
+            }
+                    }
+                    
+                    function OnFailure(response) {
+                        alert(response);
+                   }
 
 </script>
     

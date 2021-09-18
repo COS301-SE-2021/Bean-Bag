@@ -46,7 +46,7 @@ namespace BeanBag.Controllers
                 {"CURRENCY", "ZAR"},
                 // Return url to original payment page -- run in ngrok
                 // ngrok http https://localhost:44352 -host-header="localhost:44352"
-                {"RETURN_URL", "https://c562-102-250-5-82.ngrok.io/Payment/CompletePayment?amounts=" +
+                {"RETURN_URL", "https://beanbagpolaris.azurewebsites.net/Payment/CompletePayment?amounts=" +
                                ""+amount+"&references="+reference},
                 {"TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
                 {"LOCALE", "en-za"},
@@ -136,11 +136,17 @@ namespace BeanBag.Controllers
                     
                     //Determine the type of subscription
                     @ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
-                    @ViewBag.UpdatedSubscription = false; 
-                    if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
+                    @ViewBag.UpdatedSubscription = false;
+                    
+                    if (User.GetObjectId() == null)
+                    {
+                        return View();
+                    }
+                    else if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId == null)
                     {
                         @ViewBag.UpdatedSubscription = true;
                     }
+                  
                     return View();
                 
                 case "2":

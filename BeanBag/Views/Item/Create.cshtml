@@ -4,6 +4,7 @@
 @inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
 @{int i = 0;}
 
+
 <div id="pop">
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
@@ -204,11 +205,7 @@
        
         function OnSuccess(response) {
          
-                   // $('#exampleModal').modal('hide');
-                 
-                //    $("#pop").html(response);
-                   //  $('#exampleModalError').modal('show');
-                   window.location.href = response.message;
+             window.location.href = response.message;
                  }
                  
                  function OnFailure(response) {
