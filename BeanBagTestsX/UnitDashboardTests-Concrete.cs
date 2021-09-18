@@ -146,9 +146,7 @@ namespace BeanBagUnitTests
 
                 Guid itemId1 = new("10000000-0000-0000-0000-00000000" + u2);
                 Guid itemId2 = new("10000000-0000-0000-0000-00000000" + u3);
-
-                var myDay = DateTime.MinValue;
-
+                
                 var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
 
                 var item1 = new Item
@@ -332,9 +330,7 @@ namespace BeanBagUnitTests
 
                 Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
                 Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
-
-                var myDay = DateTime.Now;
-
+                
                 var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
                 
                 var item1 = new Item { Id = itemId1, name = "Khaki shorts", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now, quantity = 5};
@@ -452,13 +448,11 @@ namespace BeanBagUnitTests
                 Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
                 Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
                 
-                var myDay = DateTime.Now;
-
                 var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
                 
-                var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now, quantity = 1, isSold = true};
+                var item1 = new Item { Id = itemId1, name = "Leather jacket", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now, quantity = 1, isSold = true};
 
-                var item2 = new Item { Id = itemId2, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now, quantity = 2, isSold = true};
+                var item2 = new Item { Id = itemId2, name = "All star hoody", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now, quantity = 2, isSold = true};
 
                 var invSer = new InventoryService(context);
                 var itemSer = new ItemService(context);
@@ -541,49 +535,131 @@ namespace BeanBagUnitTests
             }
         }
         
-        [Fact]
-        public void Get_items_sold_invalid_time()
-        {
-            using(var context = new DBContext(ContextOptions))
-            {
-                //ARRANGE
-                var mySer = new DashboardAnalyticsService(context);
-                string myid = "C939E6D7-BB01-4937-45A9-08D97AA41850";
-                
-                //ACT
-                void Act() => mySer.GetItemsSold(myid, "Z");
-                
-                //ASSERT
-                var exception = Assert.Throws<Exception>(Act);
-                Assert.Equal("Invalid timespan given as input, expecting Y, M, W or D", exception.Message);
-            }
-        }
 
         //Unit test defined to calculate the revenue generated from sold items
         [Fact]
         public void Get_Revenue()
         {
-            //ARRANGE
-            
-            
-            //ACT
-            
-            
-            //ASSERT
-            
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var dashService = new DashboardAnalyticsService(context);
+
+                var chars = "0123456789";
+                var stringChars = new char[5];
+                var random = new Random();
+
+                for (var i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                var finalString = new String(stringChars);
+
+                var myGuidEnd = finalString;
+
+                var u2 = finalString.Substring(0, 4);
+                var u3 = finalString.Substring(1, 4);
+                
+                Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+                Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
+                Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
+                
+                //-----------------------------------------
+
+                var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+                
+                var item1 = new Item { Id = itemId1, name = "Cardigan", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now
+                    , quantity = 1, isSold = true, price = 100};
+
+                var item2 = new Item { Id = itemId2, name = "Polo vest", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now
+                    , quantity = 2, isSold = true, price = 200};
+
+                var invSer = new InventoryService(context);
+                var itemSer = new ItemService(context);
+                
+                //ACT
+                
+                invSer.CreateInventory(thenew);
+                itemSer.CreateItem(item1);
+                itemSer.CreateItem(item2);
+       
+                var m = dashService.GetRevenue(theId2.ToString(), "D");
+                var n = dashService.GetRevenue(theId2.ToString(), "M");
+                var o = dashService.GetRevenue(theId2.ToString(), "W");
+                var p = dashService.GetRevenue(theId2.ToString(), "Y");
+                
+                //ASSERT
+                Assert.InRange(m, 0.00, Double.MaxValue);
+                Assert.Equal(300, m);
+                Assert.Equal(300, n);
+                Assert.Equal(300, o);
+                Assert.Equal(300, p);
+                itemSer.DeleteItem(itemId1);
+                itemSer.DeleteItem(itemId2);
+                invSer.DeleteInventory(theId2, u2);
+            }
         }
 
         //Unit test defined to calculate the growth of sales for a user and their inventories and items 
         [Fact]
         public void Get_Sales_Growth()
         {
-            //ARRANGE
-            
-            
-            //ACT
-            
-            
-            //ASSERT
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var dashService = new DashboardAnalyticsService(context);
+                
+                var chars = "0123456789";
+                var stringChars = new char[5];
+                var random = new Random();
+
+                for (var i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                var finalString = new String(stringChars);
+
+                var myGuidEnd = finalString;
+
+                var u2 = finalString.Substring(0, 4);
+                var u3 = finalString.Substring(1, 4);
+                
+                Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+
+                Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
+                Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
+                
+                var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+                
+                var item1 = new Item { Id = itemId1, name = "Bootleg jeans", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
+
+                var item2 = new Item { Id = itemId2, name = "Turtle neck", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
+
+                var invSer = new InventoryService(context);
+                var itemSer = new ItemService(context);
+                
+                //ACT
+                
+                invSer.CreateInventory(thenew);
+                itemSer.CreateItem(item1);
+                itemSer.CreateItem(item2);
+                
+                var m = dashService.GetSalesGrowth(theId2.ToString(), "D");
+                var n = dashService.GetSalesGrowth(theId2.ToString(), "W");
+                var o = dashService.GetSalesGrowth(theId2.ToString(), "M");
+                var p = dashService.GetSalesGrowth(theId2.ToString(), "Y");
+                
+                //ASSERT
+                Assert.InRange(m, 0, Double.MaxValue);
+                Assert.InRange(n, 0, Double.MaxValue);
+                Assert.InRange(o, 0, Double.MaxValue);
+                Assert.InRange(p, 0, Double.MaxValue);
+                itemSer.DeleteItem(itemId1);
+                itemSer.DeleteItem(itemId2);
+                invSer.DeleteInventory(theId2, u2);
+            }
             
         }
         
@@ -591,42 +667,174 @@ namespace BeanBagUnitTests
         [Fact]
         public void Items_Revenue_Stat()
         {
-            //ARRANGE
-            
-            
-            //ACT
-            
-            
-            //ASSERT
-            
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var dashService = new DashboardAnalyticsService(context);
+     
+                var chars = "0123456789";
+                var stringChars = new char[5];
+                var random = new Random();
+
+                for (var i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                var finalString = new String(stringChars);
+
+                var myGuidEnd = finalString;
+
+                var u2 = finalString.Substring(0, 4);
+                var u3 = finalString.Substring(1, 4);
+                
+                Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+                Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
+                Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
+                
+                var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+                
+                var item1 = new Item { Id = itemId1, name = "Plain t-shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
+
+                var item2 = new Item { Id = itemId2, name = "Sweatpants", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
+
+                var invSer = new InventoryService(context);
+                var itemSer = new ItemService(context);
+                
+                //ACT
+                
+                invSer.CreateInventory(thenew);
+                itemSer.CreateItem(item1);
+                itemSer.CreateItem(item2);
+                
+                var m = dashService.ItemsRevenueStat(theId2.ToString(), "W");
+                
+                //ASSERT
+                Assert.InRange(m, 0, Double.MaxValue);
+                itemSer.DeleteItem(itemId1);
+                itemSer.DeleteItem(itemId2);
+                invSer.DeleteInventory(theId2, u2);
+            }
         }
 
         //Unit test defined to calculate the statistics of sold items 
         [Fact]
         public void Items_Sold_Stat()
         {
-            //ARRANGE
-            
-            
-            //ACT
-            
-            
-            //ASSERT
-            
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var dashService = new DashboardAnalyticsService(context);
+                
+                var chars = "0123456789";
+                var stringChars = new char[5];
+                var random = new Random();
+
+                for (var i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                var finalString = new String(stringChars);
+
+                var myGuidEnd = finalString;
+
+                var u2 = finalString.Substring(0, 4);
+                var u3 = finalString.Substring(1, 4);
+                
+                Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+                Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
+                Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
+                
+                var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+                
+                var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
+
+                var item2 = new Item { Id = itemId2, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
+
+                var invSer = new InventoryService(context);
+                var itemSer = new ItemService(context);
+                
+                //ACT
+                
+                invSer.CreateInventory(thenew);
+                itemSer.CreateItem(item1);
+                itemSer.CreateItem(item2);
+                
+                var m = dashService.ItemsSoldStat(theId2.ToString(), "D");
+                var n = dashService.ItemsSoldStat(theId2.ToString(), "W");
+                var o = dashService.ItemsSoldStat(theId2.ToString(), "M");
+                var p = dashService.ItemsSoldStat(theId2.ToString(), "Y");
+                
+                //ASSERT
+                Assert.InRange(m, 0, Double.MaxValue);
+                Assert.InRange(n, 0, Double.MaxValue);
+                Assert.InRange(o, 0, Double.MaxValue);
+                Assert.InRange(p, 0, Double.MaxValue);
+                itemSer.DeleteItem(itemId1);
+                itemSer.DeleteItem(itemId2);
+                invSer.DeleteInventory(theId2, u2);
+            }
         }
         
         //Unit test defined to retrieve the statistics of items that are available 
         [Fact]
         public void Item_Available_Stat()
         {
-            //ARRANGE
-            
-            
-            //ACT
-            
-            
-            //ASSERT
-            
+            using(var context = new DBContext(ContextOptions))
+            {
+                //ARRANGE
+                var dashService = new DashboardAnalyticsService(context);
+                
+                var chars = "0123456789";
+                var stringChars = new char[5];
+                var random = new Random();
+
+                for (var i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                var finalString = new String(stringChars);
+
+                var myGuidEnd = finalString;
+
+                var u2 = finalString.Substring(0, 4);
+                var u3 = finalString.Substring(1, 4);
+                
+                Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+                Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
+                Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
+                
+                var thenew = new Inventory {Id = theId2, name = "Integration test inventory", userId = u2};
+                
+                var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
+
+                var item2 = new Item { Id = itemId2, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
+
+                var invSer = new InventoryService(context);
+                var itemSer = new ItemService(context);
+                
+                //ACT
+                
+                invSer.CreateInventory(thenew);
+                itemSer.CreateItem(item1);
+                itemSer.CreateItem(item2);
+                
+                var m = dashService.ItemAvailableStat(theId2.ToString(), "D");
+                var n = dashService.ItemAvailableStat(theId2.ToString(), "W");
+                var o = dashService.ItemAvailableStat(theId2.ToString(), "M");
+                var p = dashService.ItemAvailableStat(theId2.ToString(), "Y");
+                
+                //ASSERT
+                Assert.InRange(m, 0, Double.MaxValue);
+                Assert.InRange(n, 0, Double.MaxValue);
+                Assert.InRange(o, 0, Double.MaxValue);
+                Assert.InRange(p, 0, Double.MaxValue);
+                itemSer.DeleteItem(itemId1);
+                itemSer.DeleteItem(itemId2);
+                invSer.DeleteInventory(theId2, u2);
+            }
         }
     }
 }
