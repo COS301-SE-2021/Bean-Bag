@@ -3,6 +3,8 @@
 @using Microsoft.Identity.Web
 @inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
 @{int i = 0;}
+
+<div id="pop">
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
     <section class="ml-3">
@@ -14,7 +16,7 @@
 
     <div class="dashboard-wrapper">
         <div class="container-fluid  dashboard-content"> 
-        <div id="pop"></div>
+      
             <hr>
             <br>
 
@@ -27,10 +29,11 @@
                         <h5 class="card-header">Add Item <i class="fas fa-plus-folder"> </i> </h5>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-sm p-3">
-                                    <div >
+                                <div class="col-sm pl-3 pr-3 pt-3">
+                                    <div >   <h5 class="text-muted pb-2">Item Image</h5>
                                         <div >
-                                            <div class="card shadow  mb-3 bg-body rounded">
+                                                                               
+                                            <div class="card shadow  mb-3 bg-body rounded pt-2">
                                                 <div class="card-body ">
                                                     <div id="mdb-lightbox-ui"></div>
                                                     <div class="mdb-lightbox">
@@ -50,6 +53,51 @@
                                             </div>
                                         </div>
                                     </div>
+                                     <div class="form-group row p-3">
+                                                                                     
+                                                                                  <h5 class="text-muted  pb-2">Item Tags</h5> <hr>
+       <!--Add your own tags -->
+                                                                                     <table class="table table-bordered table-hover pr-5" id="tab_logic">
+                                                                                         <thead>
+                                                                                         <tr>
+                                                                                             <th>#</th>
+                                                                                             <th>Tag Name</th>
+                                                                                             @if (ViewBag.usePrediction == true)
+                                                                                             {
+                                                                                                 <th> Prediction % </th>
+                                                                                             }
+                                                                                         </tr>
+                                                                                         </thead>
+                                                                                         <tbody>
+                                                                                         <tr id="@i">
+                                                                                             <td>@i</td>
+                                                                                             @if (ViewBag.usePrediction == true)
+                                                                                             {
+                                                                                                 @foreach (var x in ViewBag.listPredictions)
+                                                                                                 {
+                                                                                                     <td>
+                                                                                                         <input type="text" name='tags' placeholder='Name' value="@x.tagName" class="form-control"/>
+                                                                                                     </td>
+                                                                                                     <td>
+                                                                                                         <input type="text" placeholder='Name' value="@x.percentage" class="form-control" disabled="true"/>
+                                                                                                     </td>
+                                                                                                     i++;
+                                                                                                 }
+                                                                                             }
+                                                                                             else
+                                                                                             {
+                                                                                                 <td>
+                                                                                                     <input type="text" name='tags' placeholder='Name' class="form-control"/>
+                                                                                                 </td>
+                                                                                             }
+                                                                                         </tr>
+                                                                                         <tr id="@i"></tr>
+                                                                                         <tr id="address1"></tr>
+                                                                                         </tbody>
+                                                                                     </table>
+                                                                                     <a id="add_row" class="btn btn-3  ">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a> &nbsp; &nbsp;
+                                                                                     <a id='delete_row' class="btn btn-3">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
+                                                                                 </div>
                                 </div>
 
                                 <!--Create item form-->
@@ -62,7 +110,7 @@
                                          }))
                                          {
                                              <div class="form-group row">
-                                                 <h5 class="text-muted">Item Details</h5> <hr></div>
+                                                 <h5 class="text-muted pt-1">Item Details</h5> <hr></div>
 
                                              <div asp-validation-summary="All" class="text-danger"></div>
                                              <input asp-for="imageURL" class="form-control" value="@ViewBag.imageUrl" hidden/>
@@ -88,12 +136,8 @@
                                                  <input asp-for="colour" type="color" size="100px" name="colour">
                                              </div>
 
-                                             <div class="form-group row">
-                                                 <label asp-for="inventoryId" value="Inventory"></label>
-                                                 <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
-                                                     <option selected>Select Inventory</option>
-                                                 </select>
-                                             </div>
+                                             <input asp-for="inventoryId" value="@ViewBag.inventoryId" hidden/>
+                                           
 
                                              <div class="form-group row">
                                                  <label asp-for="condition" value="Condition">Condition</label> &nbsp; &nbsp;<br>
@@ -104,50 +148,7 @@
                                                  </select>
                                              </div>
 
-                                             <label asp-for="inventoryId" value="Inventory"></label>
-                                             <div class="form-group row">
-                                                 <!--Add your own tags -->
-                                                 <table class="table table-bordered table-hover pr-5" id="tab_logic">
-                                                     <thead>
-                                                     <tr>
-                                                         <th>#</th>
-                                                         <th>Tag Name</th>
-                                                         @if (ViewBag.usePrediction == true)
-                                                         {
-                                                             <th> Prediction % </th>
-                                                         }
-                                                     </tr>
-                                                     </thead>
-                                                     <tbody>
-                                                     <tr id="@i">
-                                                         <td>@i</td>
-                                                         @if (ViewBag.usePrediction == true)
-                                                         {
-                                                             @foreach (var x in ViewBag.listPredictions)
-                                                             {
-                                                                 <td>
-                                                                     <input type="text" name='tags' placeholder='Name' value="@x.tagName" class="form-control"/>
-                                                                 </td>
-                                                                 <td>
-                                                                     <input type="text" placeholder='Name' value="@x.percentage" class="form-control" disabled="true"/>
-                                                                 </td>
-                                                                 i++;
-                                                             }
-                                                         }
-                                                         else
-                                                         {
-                                                             <td>
-                                                                 <input type="text" name='tags' placeholder='Name' class="form-control"/>
-                                                             </td>
-                                                         }
-                                                     </tr>
-                                                     <tr id="@i"></tr>
-                                                     <tr id="address1"></tr>
-                                                     </tbody>
-                                                 </table>
-                                                 <a id="add_row" class="btn btn-3  text-light">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a> &nbsp; &nbsp;
-                                                 <a id='delete_row' class="btn btn-3 text-light">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
-                                             </div>
+                                            
 
 
 
@@ -169,7 +170,7 @@
         <!-- ============================================================== -->
     </div>
 </section>
-
+ </div>
 <!--Scripts-->
 @section Scripts{
     @{
@@ -201,15 +202,18 @@
   	 });
   });   
        
-            function OnSuccess(response) {
-                     $('#exampleModal').modal('hide');
-                     
-                    $("#pop").html(response);
-                     $('#exampleModalError').modal('show');       
+        function OnSuccess(response) {
+         
+                   // $('#exampleModal').modal('hide');
+                 
+                //    $("#pop").html(response);
+                   //  $('#exampleModalError').modal('show');
+                   window.location.href = response.message;
                  }
+                 
                  function OnFailure(response) {
-                     alert("Error occured.");
-                 }
+                     alert(response);
+                }
        
      
 </script>
