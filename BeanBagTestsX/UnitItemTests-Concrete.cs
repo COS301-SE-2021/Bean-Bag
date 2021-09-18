@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using BeanBag.Database;
 using BeanBag.Models;
 using BeanBag.Services;
@@ -10,8 +8,6 @@ using Xunit;
 
 namespace BeanBagUnitTests
 {
-    
-
 
     public class UnitItemTestsConcrete : UnitInventoryTests
     {
@@ -24,7 +20,7 @@ namespace BeanBagUnitTests
         
         // Unit test defined for adding a QR code to an item using the azure function
         [Fact]
-        public void Add_QRitem_with_valid_item()
+        public void Add_QR_item_with_valid_item()
         {
             //ARRANGE
             var testItem = new Item();
