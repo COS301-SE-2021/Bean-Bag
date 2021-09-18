@@ -35,56 +35,46 @@
                  data-aos-offset="0">
                 <div class="card shadow p-1 mb-3 bg-body rounded-lg">
                     <div class="card-body">
-                        <h5 class="text-muted ">Current Subscription <img src="https://img.icons8.com/ios/55/000000/membership-card.png" alt=""/></h5>
-                        <div class="pt-1">
+                      <div class="d-flex justify-content-between p-price"><span>  <h5 class="text-muted pt-2">Current Subscription </h5></span><span> <img src="https://img.icons8.com/ios/55/000000/membership-card.png" alt=""/></span></div>
+                                       <hr>          
+                        <div class="pt-2">
                             <ul class="list-unstyled spaced">
                             
                                 @if ( @ViewBag.subscription =="Free")
                                    {
-                                       <li>
-                                           <i class="ace-icon fa fa-caret-right blue"></i> Plan: Free | Active &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/>
-                                       </li>
-                                       <li>
-                                           <i class="ace-icon fa fa-caret-right blue"></i> Start Date : -
-                                       </li>
-                                       <li>
-                                           <i class="ace-icon fa fa-caret-right blue"></i> Expiration Date: -
-                                       </li>
-                                       <li>
-                                           <i class="ace-icon fa fa-caret-right blue"></i> Reference: -
-                                       </li>
-                                       <li>
-                                           <i class="ace-icon fa fa-caret-right blue"></i> Cost: R0.00
-                                       </li>
+                                       
+                                                                                                      
+                                  
+                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Plan</span><span> Active &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/></span></div>
+                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Start Date</span><span> -</span></div>
+                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Expiration Date</span><span>  -</span></div>
+                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Reference</span><span> -</span></div>
+                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Cost</span><span>  R0.00</span></div>
+                                
+
+                                 
                                        <li class="divider"></li>
                                    }
                                    else
                                    {
-                                       <li>
-                                           <i class="ace-icon fa fa-caret-right blue"></i> Plan: @ViewBag.subscription | 
-                                           
+                                      
                                            @if (@ViewBag.subscription.EndDate >= DateTime.Now)
                                            {
-                                           <p>    Expired &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> </p>
-                                           }
+                                               <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp; Plan</span><span> @ViewBag.subscription | Expired &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/></span></div>
+                                     
+                                         }
                                            else
                                            {
+                                               <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp; Plan</span><span> @ViewBag.subscription | Active &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/></span></div>
+                                     
                                                <p>    Active &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> </p>
                                            }
-                                         
-                                       </li>
-                                       <li>
-                                           <i class="ace-icon fa fa-caret-right blue"></i> Start Date :  @ViewBag.StartDate
-                                       </li>
-                                       <li>
-                                           <i class="ace-icon fa fa-caret-right blue"></i> Expiration Date: @ViewBag.EndDare
-                                       </li>
-                                       <li>
-                                           <i class="ace-icon fa fa-caret-right blue"></i> Reference: @ViewBag.Reference
-                                       </li>
-                                       <li>
-                                           <i class="ace-icon fa fa-caret-right blue"></i> Cost: R @ViewBag.Amount
-                                       </li>
+                                       
+                                <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Start Date</span><span>@ViewBag.StartDate</span></div>
+                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Expiration Date</span><span>  Expiration Date: @ViewBag.EndDate</span></div>
+                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Reference</span><span>  @ViewBag.Reference</span></div>
+                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Cost</span><span> R @ViewBag.Amount</span></div>
+                                
                                        <li class="divider"></li>
                                    }
 
@@ -103,25 +93,21 @@
                  data-aos-offset="0">
                 <div class="card shadow p-1 mb-3 bg-body rounded-lg">
                     <div class="card-body">
-                        <h5 class="text-muted ">Tenant Details <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/50/000000/external-user-interface-kiranshastry-lineal-kiranshastry-1.png" alt=""/></h5>
-                        <div class="pt-1">
-                              <ul class="list-unstyled spaced">
-                                  <li><i class="ace-icon fa fa-caret-right blue"></i>&nbsp;ID: @ViewBag.tenant.TenantId
-                                      </li>
-                                  <li><i class="ace-icon fa fa-caret-right blue"></i>&nbsp;Subscription Plan: @ViewBag.tenant.TenantSubscription</li>
-                                  <li>
-                                      <i class="ace-icon fa fa-caret-right blue"></i>&nbsp;@ViewBag.tenant.TenantAddress
-                                  </li>
-                                  <li>
-                                      <i class="ace-icon fa fa-caret-right blue"></i> Email:
-                                      <b class="red"> @ViewBag.tenant.TenantEmail</b></li>
-                                  <li class="divider"></li>
-                                                                                             
-                                  <li>
-                                      <i class="ace-icon fa fa-caret-right blue"></i>
-                                    Phone: <b> @ViewBag.tenant.TenantNumber</b>
-                                      </li>
-                                  </ul>
+                        <div class="d-flex justify-content-between p-price"><span>  <h5 class="text-muted pt-2">Tenant Details</h5></span><span> <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/48/000000/external-user-interface-kiranshastry-lineal-kiranshastry-1.png" alt=""/></span></div>
+                                      <hr>                               
+                        <div class="pt-2">
+                            <ul class="list-unstyled spaced">
+
+                                <div class="stats mt-2">
+                                    <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Name</span><span> @ViewBag.tenant.TenantName</span></div>
+                                    <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Subscription Plan</span><span> @ViewBag.tenant.TenantSubscription</span></div>
+                                    <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Address</span><span>&nbsp;@ViewBag.tenant.TenantAddress</span></div>
+                                    <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Email</span><span> @ViewBag.tenant.TenantEmail</span></div>
+                                    <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Phone</span><span> @ViewBag.tenant.TenantNumber</span></div>
+
+                                </div>
+
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -136,28 +122,25 @@
         	         data-aos-offset="0">
         		    <div class="card shadow p-1 mb-3 bg-body rounded-lg">
         			    <div class="card-body">
-        				    <h5 class="text-muted ">Company Details <img src="https://img.icons8.com/ios/50/000000/company.png" alt=""/></h5>
-        				   <div class="pt-1">
+        			    <div class="d-flex justify-content-between p-price"><span>  <h5 class="text-muted pt-2">Company Details </h5></span><span> <img src="https://img.icons8.com/ios/54/000000/company.png" alt=""/></span></div>
+                                        <hr>       
+                            <div class="pt-2">
                                <ul class="list-unstyled spaced">
-                                   <li><i class="ace-icon fa fa-caret-right blue"></i>&nbsp;26 Pinaster Ave
-                                       </li>
-                                   <li>
-                                       <i class="ace-icon fa fa-caret-right blue"></i>&nbsp;1st Floor, Die Klubhuis</li>
-                                   <li>
-                                       <i class="ace-icon fa fa-caret-right blue"></i>&nbsp;Hazelwood, Pretoria
-                                       </li>
-                                                                  
-                                   <li>
-                                       <i class="ace-icon fa fa-caret-right blue"></i>
-                                        Email:
-                                       <b class="red">info@agilebridge.co.za</b></li>
-                                   <li class="divider"></li>
-                                                                  
-                                   <li>
-                                       <i class="ace-icon fa fa-caret-right blue"></i>
-                                       Website :<b> www.agilebridge.co.za</b>
-                                       </li>
-                                   </ul>
+                                   
+                                  
+                  
+                                         <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Email</span><span> <b class="red">info@agilebridge.co.za</b></span></div>
+                                                                             <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Website</span><span><b> www.agilebridge.co.za</b></span></div>
+                                                                         
+                                   
+                                                                                                
+                                  
+                                   <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Address</span><span>  26 Pinaster Ave</span></div>
+                                                                                           <div class="d-flex justify-content-between p-price"><span>&nbsp;&nbsp;</span><span>  1st Floor, Die Klubhuis</span></div>               <div class="d-flex justify-content-between p-price"><span>&nbsp;</span><span>  Hazelwood, Pretoria</span></div>
+                                   
+  
+                                   
+                               </ul>
                                </div>
         			    </div>
         		    </div>
@@ -172,37 +155,35 @@
     <div class="row">
              <b class="pl-3">Total Transactions &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span  > &nbsp; @ViewBag.totalTransactions</span>
                         
-        <div class=" mr-3 ml-auto pt-2">
-            <button class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal3">Update Subscription  &nbsp; &nbsp; <img src="https://img.icons8.com/ios/25/000000/approve-and-update.png" alt=""/></button>
+        <div class=" mr-3 ml-auto pt-2 pb-2 ">
+            <button class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal3">&nbsp; Update Subscription &nbsp;  &nbsp; <img src="https://img.icons8.com/ios/20/000000/approve-and-update.png" alt=""/></button>
         </div>
     </div>
         <div class="row " >
                      <!--Date Search-->
+                     <!--Date sorts-->
                      @using (Html.BeginForm())
                      {
                          <div class="d-flex">
-                             <span class="d-inline-block ml-3 pt-2 ">
-                                 <b>Find Transactions</b> &nbsp; &nbsp;<i class="fas fa-angle-right"></i></span>
-                             <span class=" d-inline-block pl-2">     
-                                     <h5 class="pt-1">  <label class="badge " style="color: #323232 " >From Date</label></h5>
+                             <span class="d-inline-block ml-3 pt-2">
+                                 <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date &nbsp;</span>
+                             <span class=" d-inline-block">              
                                  @Html.TextBox("from", null, new {@class = "form-control ", type="date"})
                              </span>
-                             <span class=" d-inline-block pl-1">  
-                                    <h5 class="pt-1">  <label class="badge " style="color: #323232 " >To Date</label></h5>
+                             <span class="d-inline-block pt-2">
+                                 &nbsp; &nbsp; To Date &nbsp;</span>
+                             <span class=" d-inline-block">  
                                  @Html.TextBox("to", null, new {@class = "form-control ", type="date" })
                              </span>
                              @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
-                                                           
-                             <span class=" d-inline-block pl-1">
-                                         <h5 class="pt-1">  <label class="badge " style="color: #323232 " >&nbsp;</label></h5>
-                                                           
+                             <span class="d-inline-block pl-2">
                                  <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3"/>
                              </span>
                          </div>
                      }
                   
                      <!--Search-->
-                     <div class="col-2 ml-auto pt-5">
+                     <div class="col-2 ml-auto pt-1">
                          @using (Html.BeginForm())
                          {
                              <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
