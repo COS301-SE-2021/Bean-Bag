@@ -228,16 +228,9 @@
                             <tr>
                                 <th scope="row">@tag.Name</th>
                                 <td>@tag.ImageCount</td>
-                                <td>@tag.Id</td>
                                 <td>
-                                    @*<a asp-controller="AiModel" class="btn " asp-action="DeleteTag" asp-route-projectId="@ViewBag.projectId" asp-route-tagId="@tag.Id" asp-route-imageCount="@tag.ImageCount" as-route-tagName="@tag.Name">
-        <button data-toggle="tooltip" data-placement="top" class="btn " title="Delete Tag"> <i class="fas fa-trash"></i></button></a>*@
-
-                                    @*Guid tagId, Guid projectId, int imageCount, string tagName*@
-
                                     <a href="@Url.Action("DeleteTag", "AiModel", new { tag.Id, ViewBag.projectId, tag.ImageCount, tag.Name })"
-                                       class="btn delete" data-toggle="modal" data-target="#exampleModal4"
-                                       @*data-tagId="@tag.Id" data-projectId="@ViewBag.projectId" data-imageCount="@tag.ImageCount" data-tagName="@tag.Name"*@>
+                                       class="btn delete" data-toggle="modal" data-target="#exampleModal4">
                                     <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete tag"><i class="fas fa-trash"> </i></button></a>
                                 </td>
                             </tr>
