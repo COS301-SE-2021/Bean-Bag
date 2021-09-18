@@ -116,71 +116,81 @@ namespace BeanBag.Controllers
         //This function occurs after completing the payment, and presents a popup of the transaction status.
         public ActionResult Complete(int? id, string amount, string payReqId , string reference)
         {
-            try
+            string status;
+            switch (id.ToString())
             {
-                string status;
-                switch (id.ToString())
-                {
-                    case "-2":
-                        status = "Unable to reconcile transaction";
-                        break;
-                    case "-1":
-                        status = "Checksum Error. The values have been altered";
-                        break;
-                    case "0":
-                        status = "Not Done";
-                        break;
-                    case "1":
-                        ViewBag.payReqId = payReqId;
-                        ViewBag.reference = reference;
+                case "-2":
+                    status = "Unable to reconcile transaction";
+                    break;
+                case "-1":
+                    status = "Checksum Error. The values have been altered";
+                    break;
+                case "0":
+                    status = "Not Done";
+                    break;
+                case "1":
+                    ViewBag.payReqId = payReqId;
+                    ViewBag.reference = reference;
 
-                        //Transaction Approved 
-                        //Console.WriteLine("Checking the user id complete: " + User.GetObjectId());
+                    //Transaction Approved 
+                    //Console.WriteLine("Checking the user id complete: " + User.GetObjectId());
 
-                        //Determine the type of subscription
-                        ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
-                        ViewBag.UpdatedSubscription = false;
+                    //Determine the type of subscription
+                    ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
+                    ViewBag.UpdatedSubscription = false;
 
-                        if (User.GetObjectId() == null)
-                        {
-                            return View();
-                        }
-                        else if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId == null)
+                    try
+                    {
+                        if(_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
                         {
                             @ViewBag.UpdatedSubscription = true;
                         }
+                    }
+                    catch(Exception e)
+                    {
+                        if (e.ToString().Equals("User does not exist in the database.")) 
+                        {
+                            return View();
+                        }
+                    }
 
-                        return View();
+                    return View();
 
-                    case "2":
-                        status = "Declined";
-                        break;
-                    case "3":
-                        status = "Cancelled";
-                        break;
-                    case "4":
-                        status = "User Cancelled";
-                        break;
-                    default:
-                        status = $"Unknown Status({ id })";
-                        break;
-                }
-                TempData["Status"] = status;
+                case "2":
+                    status = "Declined";
+                    break;
+                case "3":
+                    status = "Cancelled";
+                    break;
+                case "4":
+                    status = "User Cancelled";
+                    break;
+                default:
+                    status = $"Unknown Status({ id })";
+                    break;
+            }
 
+            TempData["Status"] = status;
+
+            try 
+            {
                 if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
                 {
                     //Error popup
                     return RedirectToAction("Index", "Home");
                 }
-
-                //error popup
-                return RedirectToAction("Index", "Tenant");
             }
             catch(Exception e)
             {
-               return Content(e.ToString() + "\nUserID:" + User.GetObjectId());
+                if (e.ToString().Equals("User does not exist in the database."))
+                {
+                    //error popup
+                    return RedirectToAction("Index", "Tenant");
+                }
             }
-            
+
+            //error popup
+            return RedirectToAction("Index", "Tenant");  
         }
         
         // This function returns the billing page where the tenant can view their transactions.
