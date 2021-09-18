@@ -137,11 +137,17 @@ namespace BeanBag.Controllers
                     
                     //Determine the type of subscription
                     ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
-                    ViewBag.UpdatedSubscription = false; 
-                    if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
+                    ViewBag.UpdatedSubscription = false;
+
+                    if (User.GetObjectId() == null)
                     {
-                        ViewBag.UpdatedSubscription = true;
+                        return View();
                     }
+                    else if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId == null)
+                    {
+                        @ViewBag.UpdatedSubscription = true;
+                    }
+
                     return View();
                 
                 case "2":
