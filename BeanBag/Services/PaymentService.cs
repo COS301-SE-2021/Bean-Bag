@@ -191,10 +191,25 @@ namespace BeanBag.Services
                 throw new Exception("Amount is null.");
             }
             
+            var chars = "0123456789";
+            var stringChars = new char[5];
+            var random = new Random();
+
+            for (var i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+
+            var myGuidEnd = finalString;
+
+            var u2 = finalString.Substring(0, 4);
+            
             Transactions transaction = new Transactions()
             {
                 
-                TransactionId = new("00000000-0000-0000-0000-00000000124"),
+                TransactionId = new("00000000-0000-0000-0000-0000000" + u2),
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddMonths(1),
                 Reference = reference,
