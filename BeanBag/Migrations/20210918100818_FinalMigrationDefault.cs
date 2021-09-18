@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BeanBag.Migrations
 {
-    public partial class FinalMigrationBeta : Migration
+    public partial class FinalMigrationDefault : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,8 +12,10 @@ namespace BeanBag.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    dateCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    dateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    imageCount = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -25,9 +27,9 @@ namespace BeanBag.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     userId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     createdDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     publicToTenant = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -41,7 +43,7 @@ namespace BeanBag.Migrations
                 columns: table => new
                 {
                     userId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    role = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    role = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,7 +59,8 @@ namespace BeanBag.Migrations
                     availableToUser = table.Column<bool>(type: "bit", nullable: false),
                     status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     projectId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    createdDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    createdDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,7 +79,7 @@ namespace BeanBag.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     inventoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     imageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     QRCodeLink = table.Column<string>(type: "nvarchar(max)", nullable: true),

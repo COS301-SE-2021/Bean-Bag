@@ -48,9 +48,5 @@
     <_ContentIncludedByDefault Remove="Views\Profile\UserProfile.cshtml" />
      </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
   
 </Project>
