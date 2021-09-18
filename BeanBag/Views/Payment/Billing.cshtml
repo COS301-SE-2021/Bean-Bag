@@ -307,8 +307,8 @@
 			  }))
 			  {
 			      <div class="modal-body">
-                      <p class="text-muted pb-2">Current Subscription Plan: @ViewBag.tenant.TenantSubscription</p>
-                      <hr>
+                      <p class="text-muted pb-3">Current Subscription Plan: @ViewBag.tenant.TenantSubscription</p>
+                    
                       <p> Choose a new plan: </p>
 
                      
@@ -322,7 +322,7 @@
                           <input for="subscription" type="radio" class="dummy" name="subscription" value="Standard">  &nbsp;&nbsp;&nbsp; 
 
                           <label >Enterprise</label>
-                          <input for="subscription" type="radio" class="dummy" name="subscription" value="Enterprise">  &nbsp;&nbsp;&nbsp;
+                          <input for="subscription" type="radio" class="dummy" name="subscription" value="Premium">  &nbsp;&nbsp;&nbsp;
                       </div>
 
                       <div asp-validation-summary="All" class="text-danger"></div>
