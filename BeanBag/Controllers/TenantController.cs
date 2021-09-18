@@ -98,17 +98,13 @@ namespace BeanBag.Controllers
         {
             Console.WriteLine("Checking the user id create tenant: " + User.GetObjectId());
 
-
             if (tenantName == null)
             {
                 return RedirectToAction("Index");
             }
-            else
-            {
-                _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber,tenantSubscription); 
-            }
-            
-            return SelectTenant(tenantName, reference,payId);
+            var currentTenantId = _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber,tenantSubscription);
+
+            return SelectTenant(currentTenantId,reference,payId);
         }
 
         /* This function allows a user to select a tenant and generates
@@ -122,8 +118,7 @@ namespace BeanBag.Controllers
 
             //Check if user is new
             var userId = User.GetObjectId();
-            var currentTenantName = tenant;
-            var currentTenantId = _tenantService.GetTenantId(currentTenantName);
+            var currentTenantId = tenant;
             var userName = "";
             
             if (User.Identity != null)
@@ -131,7 +126,7 @@ namespace BeanBag.Controllers
                 userName = User.Identity.Name;
             }
             Console.WriteLine("Checking the user id select tenant: " + User.GetObjectId());
-
+            Console.WriteLine("Checking user name " + User.GetNameIdentifierId());
             if (_tenantService.SearchUser(userId) == false)
             {
                 //User is new - add user to database
@@ -139,8 +134,16 @@ namespace BeanBag.Controllers
                 if (_tenantService.SearchTenant(currentTenantId))
                 {
                     //Verified
-                    _tenantService.SignUserUp(userId, currentTenantId, userName);
-                    
+                    if (userName != null)
+                    {
+                        _tenantService.SignUserUp(User.GetObjectId(), currentTenantId, userName);
+                    }
+                    else
+                    {
+
+                        _tenantService.SignUserUp(User.GetObjectId(), currentTenantId, "User");
+                    }
+
                     //confirm transaction
                     if (_tenantService.GetCurrentTenant(userId).TenantSubscription != "Free")
                     {
