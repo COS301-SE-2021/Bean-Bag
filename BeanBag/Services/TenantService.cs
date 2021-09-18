@@ -226,8 +226,8 @@ namespace BeanBag.Services
 
             _tenantDb.Tenant.Add(newTenant);
             _tenantDb.SaveChanges();
-            
-            return true;
+
+            return newTenant.TenantId;
 
         }
 
