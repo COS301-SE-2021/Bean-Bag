@@ -9,10 +9,10 @@ using BeanBag.Services;
 
 namespace BeanBagUnitTests
 {
-    public class UnitDashboardTestsConcrete : UnitInventoryTests
+    public class UnitDashboardTestsConcrete : UnitDashboardTests
     {
         public UnitDashboardTestsConcrete() : base(new DbContextOptionsBuilder<DBContext>()
-            .UseSqlite("Filename=Test.db").Options)
+            .UseSqlite("Filename=Test3.db").Options)
         {
             
         }
