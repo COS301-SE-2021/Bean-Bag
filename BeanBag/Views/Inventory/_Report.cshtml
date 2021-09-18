@@ -1,5 +1,6 @@
 ﻿@using BeanBag.Services
 @using Microsoft.Identity.Web
+
 @{
     ViewData["Title"] = "GeneratePdf";
 }
@@ -11,6 +12,7 @@
 @{
   
   var logo = _tenantService.GetLogo(User.GetObjectId());
+    var tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
  
 }
 <link rel="stylesheet" href="~/css/PdfReport.css" />
@@ -46,7 +48,7 @@
                         <div class="col-sm-6">
                             <div>
                                 <span class="text-sm text-grey-m2 align-middle">Tenant Name</span>
-                                <span class="text-600 text-110 text-color align-middle">Genesis</span>
+                                <span class="text-600 text-110 text-color align-middle">@tenant.TenantName</span>
                             </div>
                             <div class="text-grey-m2">
                                 <div class="my-1">
