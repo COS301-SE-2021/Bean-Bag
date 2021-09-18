@@ -200,7 +200,7 @@
         
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"  id="viewQRModalTitle">Item QR Code <i class="fas fa-qrcode"> </i></h5>
+                    <h5 class="modal-title"  id="viewQRModalTitle">Item QR Code </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -238,7 +238,7 @@
 <!--- generate pdf -->
 <div class="modal fade" id="viewInventoryModal" >
         <div class="modal-body invItems">
-            @Html.Partial("_Report", new ViewDataDictionary(ViewData) { { "InventoryIdNew", @ViewBag.InventoryId },{ "InventoryItems", Model.PagedListItems } })     
+            @Html.PartialAsync("_Report", new ViewDataDictionary(ViewData) { { "InventoryIdNew", @ViewBag.InventoryId },{ "InventoryItems", Model.PagedListItems } })     
             </div>
 </div>
 
