@@ -13,7 +13,8 @@
   
   var logo = _tenantService.GetLogo(User.GetObjectId());
     var tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
- 
+    var userDetails = _tenantService.GetUserTenantId(User.GetObjectId());
+    var userRole = _tenantService.GetUserRole(User.GetObjectId());
 }
 <link rel="stylesheet" href="~/css/PdfReport.css" />
 
@@ -25,7 +26,7 @@
             Inventory Report
             <small class="page-info">
                 <div><i class="fa fa-angle-double-right text-80"></i>
-                    Inventory ID: #111-222 <br> </div> 
+                    Inventory ID: #111-222 <br> </div> <!--Replace!!!-->
               
             </small>
         </h1>
@@ -52,11 +53,11 @@
                             </div>
                             <div class="text-grey-m2">
                                 <div class="my-1">
-                                    User Id -dydgyd
+                                    User Id - @userDetails
                                 </div>
                                 <div class="my-1">User Role
                                 </div>
-                                <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">111-111-111</b></div>
+                                <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">@userRole</b></div>
                             </div>
                         </div>
                         <!-- /.col -->
