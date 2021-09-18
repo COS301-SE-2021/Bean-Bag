@@ -239,8 +239,8 @@
 <!--- generate pdf -->
 <div class="modal fade" id="viewInventoryModal" >
         <div class="modal-body invItems">
-                   @Html.Partial("_Report", new ViewDataDictionary(ViewData) { { "InventoryIdNew", @ViewBag.InventoryId} , { "InventoryItems", @Model.PagedListItems} } ) 
-            </div>
+            @await Html.PartialAsync("_Report", new ViewDataDictionary(ViewData) { { "InventoryIdNew", @ViewBag.InventoryId} , { "InventoryItems", @Model.PagedListItems} } )
+        </div>
 </div>
 
 </section>
