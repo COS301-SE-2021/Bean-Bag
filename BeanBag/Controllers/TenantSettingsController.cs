@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Web;
 using X.PagedList;
 using MimeKit;
+using MimeKit.Utils;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace BeanBag.Controllers
@@ -19,6 +20,7 @@ namespace BeanBag.Controllers
         
         // Global variables needed for calling the service classes.
         private readonly ITenantService _tenantService;
+        private readonly IPaymentService _paymentService;
         private readonly TenantDbContext _tenantDbContext;
         private readonly IConfiguration _configuration;
 
@@ -26,10 +28,11 @@ namespace BeanBag.Controllers
         private readonly string _pswd;
 
         // Constructor.
-        public TenantSettingsController(ITenantService tenantService, TenantDbContext tenantDbContext, IConfiguration configuration)
+        public TenantSettingsController(ITenantService tenantService, TenantDbContext tenantDbContext, IConfiguration configuration, IPaymentService paymentService )
         {
             _tenantService = tenantService;
             _tenantDbContext = tenantDbContext;
+            _paymentService = paymentService;
             _configuration = configuration;
 
             _from = configuration.GetValue<String>("EmailDetails:Username");
@@ -97,6 +100,20 @@ namespace BeanBag.Controllers
             viewModel.TenantUser = tenantUser;
             viewModel.PagedListTenantUsers = pagedList;
              @ViewBag.tenant =  _tenantService.GetCurrentTenant(User.GetObjectId());
+             
+               
+             //Subscription Expired 
+             @ViewBag.SubscriptionExpired = false;
+             if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantSubscription != "Free")
+             {
+                 var transaction =
+                     _paymentService.GetPaidSubscription(_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId);
+                 if (transaction.EndDate >= DateTime.Now)
+                 {
+                     @ViewBag.SubscriptionExpired = true;
+                 }
+             }
+             
             //Checking user role is in DB
             //CheckUserRole();
             return View(viewModel);
@@ -271,14 +288,16 @@ namespace BeanBag.Controllers
             };
 
             //html body
-            var builder = new BodyBuilder
-            {
-                HtmlBody = string.Format(@"You have been invited to join " + tenant + ".<br>Invitation code to join: " +
-                                         code +
-                                         "<br>Click on the link below to proceed to the sign up. " + link)
-            };
 
+            var builder = new BodyBuilder();
 
+            builder.HtmlBody = string.Format(@"You have been invited to join <strong>" + tenant + "</strong>." +
+                                             "<br><br>" +
+                                             "Invitation code to join: " + code +
+                                             "<br><br><br>" +
+                                             "Click on the link below to proceed to the sign up. " + link);
+            
+            
             mimeMessage.Body = builder.ToMessageBody();
 
 

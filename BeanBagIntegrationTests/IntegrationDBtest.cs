@@ -83,8 +83,6 @@ namespace BeanBagIntegrationTests
             
            Assert.Equal("Leopard shorts", toCheck.name);
            Assert.Equal(u2, toCheck.userId);
-           query.DeleteInventory(theId2, u2);
-           query.DeleteInventory(theId3, u2);
         }
         
         
@@ -128,7 +126,6 @@ namespace BeanBagIntegrationTests
 
             //ASSERT
             Assert.NotNull(getInvs);
-            query.DeleteInventory(theId2, u2);
         }
         
         //Integration test defined to test the edit inventory function of the inventory service (positive testing)
@@ -172,7 +169,6 @@ namespace BeanBagIntegrationTests
 
             //ASSERT
             Assert.True(isUpdated);
-            query.DeleteInventory(thenew.Id, u2);
         }
         
         //Integration test defined to test the delete inventory function in the inventory service class (positive testing)

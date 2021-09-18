@@ -69,8 +69,6 @@ namespace BeanBagUnitTests
 
             myser.CreateItem(thenew);
 
-            var myobj = myser.FindItem(itemId);
-
             //ASSERT
             
             Assert.Equal(itemId, thenew.Id);

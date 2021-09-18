@@ -4,12 +4,14 @@
 @using AjaxOptions = Microsoft.AspNetCore.Mvc.Rendering.AjaxOptions
 @using Microsoft.AspNetCore.Mvc.Rendering
 @{int i = 1;}
+
 @{
 	ViewBag.Title = "Billing";
 }
-
 <!-- Or you can reference your local script file -->
+
 <link rel="script" href="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" />
+  
 <link rel="script" href="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" />
   
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
@@ -19,7 +21,8 @@
              Billing  
         </span>
     </section>
-
+    
+    
 <!--Wrapper-->
 <div class="dashboard-wrapper">
     <div class="container-fluid  dashboard-content">
@@ -38,8 +41,7 @@
                         <h5 class="text-muted ">Current Subscription <img src="https://img.icons8.com/ios/55/000000/membership-card.png" alt=""/></h5>
                         <div class="pt-1">
                             <ul class="list-unstyled spaced">
-                            
-                                @if ( @ViewBag.subscription =="Free")
+                                   @if (@ViewBag.subscription == "Free")
                                    {
                                        <li>
                                            <i class="ace-icon fa fa-caret-right blue"></i> Plan: Free | Active &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/>
@@ -361,7 +363,7 @@
           function OnFailure(response) {
               alert("Error occured.");
           }
-          
-</script>
+        
+   </script>
     
 

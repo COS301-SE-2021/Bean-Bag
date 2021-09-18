@@ -205,11 +205,6 @@ namespace BeanBag.Services
             {
                 throw new Exception("Tenant subscription is null");
             }
-            var duplicate = (from tenant
-                    in _tenantDb.Tenant
-                where tenant.TenantName.Equals(tenantName)
-                select tenant.TenantName).FirstOrDefault();
-            
 
             var id = Guid.NewGuid();
             
@@ -232,7 +227,7 @@ namespace BeanBag.Services
             _tenantDb.Tenant.Add(newTenant);
             _tenantDb.SaveChanges();
             
-            return newTenant.TenantId;
+            return true;
 
         }
 
@@ -397,6 +392,11 @@ namespace BeanBag.Services
             if (userId == null || tenantId == null)
             {
                 throw new Exception("User or tenant id is null");
+            }
+
+            if (userName == null)
+            {
+                userName = "";
             }
 
             //User already exists

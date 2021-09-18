@@ -13,11 +13,7 @@
 <!--header-->
     <section class="search-and-user">
     <span class="col-md-1 text-secondary ">Inventory</span>
-        <div class="admin-profile ">
-            <span class="greeting  ">
-                Total Inventories &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalInventories</span>
-            </span>
-        </div>
+
         </section>
     
      
@@ -25,12 +21,14 @@
 <div class="dashboard-wrapper">
     <div class="container-fluid  dashboard-content">
         <hr>
-            
-        <div class="row">
-            <div class=" mr-3 ml-auto">
-                <a asp-controller="Inventory" asp-action="Create" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Inventory &nbsp;   <i class="fa fa-plus"   aria-hidden="true"></i></a>
-            </div>
-            </div>
+          @if(@ViewBag.SubscriptionExpired==false) {
+              <div class="row">
+                    <b class="pl-3">Total Inventories &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalInventories</span>
+                                  
+                  <div class=" mr-3 ml-auto">
+                      <a asp-controller="Inventory" asp-action="Create" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Inventory &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                  </div>
+              </div>
         <br>
         
         <div class="row">
@@ -149,8 +147,33 @@
         
         <!--Code to show current page and page number-->
         <div >Showing @(Model.PagedList.PageCount < Model.PagedList.PageNumber ? 0 : Model.PagedList.PageNumber) out of @Model.PagedList.PageCount entries </div>
-    </div>
+   }
+          else
+          {
+       
+                  //Partial view for subscription expired
+                  await Html.RenderPartialAsync("_SubscriptionError");   
+    
+              
+          }
+        </div>
 </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!---Popup Form to create inventory -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
@@ -184,8 +207,6 @@
         </div>
     </div>
 </div>
-</section>
-
 <!--Scripts-->
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">

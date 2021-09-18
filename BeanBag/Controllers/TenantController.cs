@@ -113,6 +113,7 @@ namespace BeanBag.Controllers
         {
             Console.WriteLine("Checking the user id create tenant: " + User.GetObjectId());
             
+
             if (tenantName == null)
             {
                 return RedirectToAction("Index");
@@ -156,6 +157,9 @@ namespace BeanBag.Controllers
             SelectTenant(id, reference,payId);
 
             return RedirectToAction("Index", "Home");
+            var currentTenantId = _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber,tenantSubscription);
+
+            return SelectTenant(currentTenantId,reference,payId);
         }
 
         /* This function allows a user to select a tenant and generates
@@ -185,8 +189,16 @@ namespace BeanBag.Controllers
                 if (_tenantService.SearchTenant(currentTenantId))
                 {
                     //Verified
-                   // _tenantService.SignUserUp(userId, currentTenantId, userName);
-                    
+                    if (userName != null)
+                    {
+                        _tenantService.SignUserUp(User.GetObjectId(), currentTenantId, userName);
+                    }
+                    else
+                    {
+
+                        _tenantService.SignUserUp(User.GetObjectId(), currentTenantId, "User");
+                    }
+
                     //confirm transaction
                     if (_tenantService.GetCurrentTenant(userId).TenantSubscription != "Free")
                     {
