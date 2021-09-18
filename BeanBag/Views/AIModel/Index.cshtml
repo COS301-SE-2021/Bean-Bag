@@ -14,26 +14,21 @@
         <span class="col-md-2 text-secondary ">
              AI Models
         </span>
-        <div class="admin-profile ">
-            <span class="greeting  ">
-                Total Models &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalModels</span>
-            </span>
-        </div>
+  
     </section>
     
-     
     <div class="dashboard-wrapper">
          <div class="container-fluid  dashboard-content">
              <hr>
             @if (@ViewBag.SubscriptionExpired == false)
             {
                 <div class="row">
-
+         <b class="pl-3">Total Models &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalModels</span>
+             
                     <div class=" mr-3 ml-auto">
-                        @if (ViewBag.createNewModels == true)
-                        {
-                            <a asp-controller="AiModel" asp-action="CreateModel" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Model &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
-                        }
+                      
+                            <a asp-controller="AiModel" asp-action="CreateModel" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Create New Model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                      
                     </div>
                 </div>
                 <br>
@@ -62,7 +57,7 @@
                     }
 
                     <!--Search-->
-                    <div class="col-3 ml-auto ">
+                    <div class="mr-3 ml-auto ">
                         @using (Html.BeginForm())
                         {
                             <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
@@ -81,10 +76,10 @@
                         <div class="card shadow mb-4 bg-body rounded">
                             <h5 class="card-header">Model List</h5>
                             <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
-                                <div>
+                                <div class="table-responsive">
                                     @if (Model.PagedListModels.Any())
                                     {
-                                        <table class="table table-bordered table-striped">
+                                        <table class="table text-center table-striped">
                                             <thead>
                                             <tr>
                                                 <th>#</th>
@@ -99,14 +94,15 @@
                                             @foreach (var models in Model.PagedListModels)
                                             {
                                                 <tr>
-                                                    <td >@i</td>
+                                                    <td class="pt-4" >@i</td>
                                                     @{ i++; }
                                                     <td >
                                                         <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.Id">
 
-                                                            <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/></button></td> <td >@models.name</td>
-                                                    <td >@models.dateCreated.ToShortDateString()</td>
-                                                    <td >@models.description</td>
+                                                            <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/></button></td> 
+                                                    <td class="pt-4" >@models.name</td>
+                                                    <td class="pt-4">@models.dateCreated.ToShortDateString()</td>
+                                                    <td  class="pt-4">@models.description</td>
                                                     <td >
                                                         <div class="w-100 btn-group" role="group">
                                                             <a href="@Url.Action("EditAiModel", "AiModel", new {@models.Id})"
@@ -169,7 +165,7 @@
         
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"  id="exampleModalTitle">Create New Model <i class="fas fa-plus"> </i></h5>
+                <h5 class="modal-title"  id="exampleModalTitle">Create New Model </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
