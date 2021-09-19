@@ -9,12 +9,14 @@
 <div class="modal-body">
     <div class="form-group">
         <h6 class="text-muted">Are you sure you want to delete this AI Model Version ?</h6>
-        <hr>
-        <div class="stats mt-2">
-            <div class="d-flex justify-content-around-between p-price"><span>ID</span><span>@Model.Id</span></div>          
-            <div class="d-flex justify-content-around-between p-price"><span>Name</span><span>@Model.Name</span></div>
-            <div class="d-flex justify-content-around-between p-price"><span>Date created</span><span>@Model.createdDate</span></div>
-        </div>
+        
+         <div class="stats mt-2 pt-4">
+                            <div class="d-flex justify-content-between p-price"><span>Name</span><span>@Model.Name</span></div>
+                            <div class="d-flex justify-content-between p-price"><span>ID</span><span>@Model.Id</span></div>
+                            <div class="d-flex justify-content-between p-price"><span>Date Created</span><span>@Model.createdDate</span></div>
+                            <div class="d-flex justify-content-between p-price"><span>Description</span><span>@Model.description</span></div>
+                        </div>
+       
         <input asp-for="Id" hidden name="iterationId" />
         <input asp-for="projectId" hidden />
         <div asp-validation-summary="All" class="text-danger"></div>

@@ -90,7 +90,7 @@ namespace BeanBag.Controllers
                 }*/
                 
                 //indicates the size of list
-                int pageSize = 5;
+                int pageSize = 3;
             
                 //set page to one is there is no value, ??  is called the null-coalescing operator.
                 int pageNumber = (page ?? 1);
