@@ -28,14 +28,14 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card shadow mb-3 bg-body rounded " data-aos="zoom-in" data-aos-duration="1000">
                         <h5 class="card-header">Add Item <i class="fas fa-plus-folder"> </i> </h5>
-                        <div class="card-body">
+                        <div class="card-body ">
                             <div class="row">
                                 <div class="col-sm pl-3 pr-3 pt-3">
                                     <div >   <h5 class="text-muted pb-2">Item Image</h5>
                                         <div >
                                                                                
-                                            <div class="card shadow  mb-3 bg-body rounded pt-2">
-                                                <div class="card-body ">
+                                            <div class="card shadow  mb-3 bg-body h-25 rounded pt-2">
+                                                <div class="card-body text-center ">
                                                     <div id="mdb-lightbox-ui"></div>
                                                     <div class="mdb-lightbox">
                                                         <div class="row product-gallery mx-1 d-flex justify-content-center">
@@ -113,6 +113,7 @@
                                              <div class="form-group row">
                                                  <h5 class="text-muted pt-1">Item Details</h5> <hr></div>
 
+                                             <div class="text-muted pb-2 pt-1 form-group row">Add some attributes to your item below </div>
                                              <div asp-validation-summary="All" class="text-danger"></div>
                                              <input asp-for="imageURL" class="form-control" value="@ViewBag.imageUrl" hidden/>
                                              <input asp-for="type" class="form-control" value="@ViewBag.itemType" hidden/>
@@ -153,9 +154,11 @@
 
 
 
+                                             <div class="form-group row pt-5">
 
-                                             <div class="form-group row ">
-                                                 <input type="submit" class="btn btn-3 float-right ml-auto" value="Create"/>
+                                                                                         
+                                                 <button type="submit" class="btn btn-3  ml-auto "> Create &nbsp;
+                                                     <img src="https://img.icons8.com/ios-filled/21/000000/submit-progress.png" alt=""/></button>
                                              </div>
                                          }
 
@@ -189,7 +192,7 @@
        $(document).ready(function(){  
         let i=@i;
        $("#add_row").click(function(){
-        $('#'+i).html("<td>"+ (i+1) +"</td><td><input name='tags' type='text' placeholder='Name' class='form-control input-md'  /> " 
+        $('#'+i).html("<td><input name='tags' type='text' placeholder='Name' class='form-control input-md'  /> " 
          );
       
         $('#tab_logic').append('<tr id="'+(i+1)+'"></tr>');
