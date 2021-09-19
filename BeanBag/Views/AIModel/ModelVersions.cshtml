@@ -2,6 +2,7 @@
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
 @{int i = 1;}
+@{int x = 1;}
 
 @{
     ViewBag.Title = "Model Versions";
@@ -15,13 +16,10 @@
         <a asp-action="Index" asp-controller="AiModel" asp-route-inventoryId="@ViewBag.InventoryId" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
 
         <span class="  md-2 text-secondary ">
-            &nbsp; AI Models
+            &nbsp; AI Model Versions
         </span>
 
-        <span class="float-right mr-2">
-            Total Versions &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalModels</span>
-        </span>
-
+      
     </section>
 
     <div class="dashboard-wrapper">
@@ -31,17 +29,19 @@
 
 
             <div class="row">
-
+     <b class="pl-3">Total  Versions &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalModels</span>
+                      
                 <div class=" mr-3 ml-auto">
+                                
                     @if (ViewBag.modelTraining == false)
                     {
-                        <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="Images" class="btn btn-3 shadow-sm bg-body rounded">Upload images to model &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                        <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="Images" class="btn btn-3 shadow-sm bg-body rounded">Upload images &nbsp;<i class="fa fa-upload" aria-hidden="true"></i></a>
                         @if (ViewBag.canTrainNewVersion == true)
                         {
-                            <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                            <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
                         }
                     }
-                    <a asp-controller="AiModel" asp-action="CompareVersions" class="btn btn-3 shadow-sm bg-body rounded">Compare Versions &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                    <a asp-controller="AiModel" asp-action="CompareVersions" class="btn btn-3 shadow-sm bg-body rounded">Compare Versions <img src="https://img.icons8.com/ios-glyphs/20/000000/compare.png"/></a>
                 </div>
             </div>
 
@@ -49,25 +49,29 @@
 
             <div class="row">
 
+            
+
+            
+                    
                 <!--Date sorts-->
                 @using (Html.BeginForm())
                 {
                     <div class="d-flex">
                         <span class="d-inline-block ml-3 pt-2">
-                            <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date &nbsp;
+                            <b>Find Entries</b> &nbsp;<i class="fas fa-angle-right"></i> &nbsp; From Date &nbsp;
                         </span>
                         <span class=" d-inline-block">
-                            @Html.TextBox("from", null, new { @class = "form-control ", type = "date" })
+                            @Html.TextBox("from", null, new {@class = "form-control ", type = "date"})
                         </span>
                         <span class="d-inline-block pt-2">
                             &nbsp; &nbsp; To Date &nbsp;
                         </span>
                         <span class=" d-inline-block">
-                            @Html.TextBox("to", null, new { @class = "form-control ", type = "date" })
+                            @Html.TextBox("to", null, new {@class = "form-control ", type = "date"})
                         </span>
-                        @Html.TextBox("sortOrder", "date", new { @class = "form-control col-md-2 ml-1", type = "text", hidden = true })
+                        @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type = "text", hidden = true})
                         <span class="d-inline-block pl-2">
-                            <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3" />
+                            <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3"/>
                         </span>
                     </div>
                 }
@@ -77,7 +81,7 @@
                     @using (Html.BeginForm())
                     {
                         <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
-                            @Html.TextBox("SearchString", null, new { @class = "form-control  my-0 py-1 red-border", placeholder = "Search" })
+                            @Html.TextBox("SearchString", null, new {@class = "form-control  my-0 py-1 red-border", placeholder = "Search"})
                             <div class="input-group-append">
                                 <button class="input-group-text " value="Search" type="submit" id="basic-text1">
                                     <i class="fas fa-search text-grey"
@@ -87,9 +91,8 @@
                         </div>
                     }
                 </div>
-
                 <!--Table with bootstrap class .table and .table-condensed-->
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pt-4">
                     <br>
                     <div class="card shadow  mb-4 bg-body rounded">
                         <h5 class="card-header">Model Versions List</h5>
@@ -97,106 +100,197 @@
                             <div>
                                 @if (Model.PagedListVersions.Any())
                                 {
-                                    <table class="table table-bordered table-striped">
+                                    <table class="table text-center table-striped">
                                         <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>ID</th>
-                                                <th>
-                                                    @Html.ActionLink("Iteration Name ", "ModelVersions", new { sortOrder = ViewBag.NameSortParm, ViewBag.ProjectId })
-                                                    <i class="fas fa-chevron-down text-grey"
-                                                       aria-hidden="true"></i>
-                                                </th>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>ID</th>
+                                            <th>
+                                                @Html.ActionLink("Iteration Name ", "ModelVersions", new {sortOrder = ViewBag.NameSortParm, ViewBag.ProjectId})
+                                                <i class="fas fa-chevron-down text-grey"
+                                                   aria-hidden="true"></i>
+                                            </th>
 
-                                                <th>Date Created</th>
-                                                <th>Description</th>
-                                                <th>Available for item cataloging</th>
-                                                <th>Training Status</th>
-                                                <th class="text-center colspan-2">Actions</th>
-                                            </tr>
+                                            <th>Date Created</th>
+                                            <th>Description</th>
+                                            <th>Available for item cataloging</th>
+                                            <th>Training Status</th>
+                                            <th class="text-center colspan-2">Actions</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var models in Model.PagedListVersions)
-                                            {
-                                                <tr>
-                                                    <td>@i</td>
-                                                    @{ i++; }
-                                                    <td>
-                                                        <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.projectId">
+                                        @foreach (var models in Model.PagedListVersions)
+                                        {
+                                            <tr>
+                                                <td class="pt-4">@i</td>
+                                                @{ i++; }
+                                                <td>
+                                                    <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.projectId">
 
-                                                            <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png" />
-                                                        </button>
-                                                    </td>
-                                                    <td>@models.Name</td>
-                                                    <td>@models.createdDate.ToShortDateString()</td>
-                                                    <td>@models.description</td>
-                                                    <td>
-                                                        @if (@models.availableToUser)
+                                                        <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/>
+                                                    </button>
+                                                </td>
+                                                <td class="pt-4">@models.Name</td>
+                                                <td class="pt-4">@models.createdDate.ToShortDateString()</td>
+                                                <td class="pt-4">@models.description</td>
+                                                <td class="pt-4">
+                                                    @if (@models.availableToUser)
 
+                                                    {
+                                                        <span> Available &nbsp; </span>
+                                                        <i class="fa fa-check-circle text-success"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span> Unavailable &nbsp; </span>
+                                                        <i class="fas fa-times-circle text-danger"></i>
+
+                                                    }
+                                                </td>
+
+                                                <td class="pt-4">
+                                                    @if (@models.status.Equals("Completed"))
+                                                    {
+                                                        <span> Completed &nbsp; </span>
+                                                        <i class="fas fa-check-circle text-success"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span> Training &nbsp; </span>
+                                                        <i class="fa fa-spinner fa-pulse fa-fw text-info"></i>
+                                                    }
+                                                </td>
+                                                <td>
+
+
+                                                    <div class="w-100 btn-group" role="group">
+
+                                                        <a href="@Url.Action("EditVersion", "AiModel", new {@models.Id})"
+                                                           class="btn edit" data-toggle="modal" data-target="#exampleModal3"
+                                                           data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
+
+                                                        @if (!models.status.Equals("Training"))
                                                         {
-                                                            <span> Available  &nbsp; </span> <i class="fa fa-check-circle text-success"></i>
+                                                            <a href="@Url.Action("ViewPerformance", "AiModel", new {@models.Id})"
+                                                               class="btn viewperformance" data-toggle="modal" data-target="#exampleModal4"
+                                                               data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Performance Metrics"><i class="fas fa-search"> </i></button></a>
+
+                                                            <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.Id})"
+                                                               class="btn delete" data-toggle="modal"
+                                                               data-target="#exampleModal4" data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
                                                         }
-                                                        else
+
+
+                                                        @if (models.status.Equals("Completed") && models.availableToUser == false)
                                                         {
-                                                            <span> Unavailable  &nbsp; </span> <i class="fas fa-times-circle text-danger"></i>
+                                                            <a asp-controller="AiModel" class="btn " asp-action="PublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Enable for item cataloging"> <i class="fa fa-toggle-off fa-lg pt-1" aria-hidden="true"></i></button></a>
 
                                                         }
-                                                    </td>
-
-                                                    <td>
-                                                        @if (@models.status.Equals("Completed"))
+                                                        else if (models.status.Equals("Completed") && models.availableToUser)
                                                         {
-                                                            <span> Completed  &nbsp; </span> <i class="fas fa-check-circle text-success"></i>
+                                                            <a asp-controller="AiModel" class="btn " asp-action="UnpublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Disable for item cataloging"> <i class="fa fa-toggle-on fa-lg pt-1" aria-hidden="true"></i></button></a>
                                                         }
-                                                        else
-                                                        {
-                                                            <span> Training  &nbsp; </span> <i class="fa fa-spinner fa-pulse fa-fw text-info"></i>
-                                                        }
-                                                    </td>
-                                                    <td>
-                                                        <div class="w-100 btn-group" role="group">
-
-                                                            <a href="@Url.Action("EditVersion", "AiModel", new {@models.Id})"
-                                                               class="btn edit" data-toggle="modal" data-target="#exampleModal3"
-                                                               data-id="@models.projectId"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
-
-                                                            @if (!models.status.Equals("Training"))
-                                                            {
-                                                                <a href="@Url.Action("ViewPerformance", "AiModel", new {@models.Id})"
-                                                                   class="btn viewperformance" data-toggle="modal" data-target="#exampleModal4"
-                                                                   data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Performance Metrics"><i class="fas fa-search"> </i></button></a>
-
-                                                                <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.Id})"
-                                                                   class="btn delete" data-toggle="modal"
-                                                                   data-target="#exampleModal4" data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
-                                                            }
-
-
-                                                            @if (models.status.Equals("Completed") && models.availableToUser == false)
-                                                            {
-                                                                <a asp-controller="AiModel" class="btn " asp-action="PublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Enable for item cataloging"> <i class="fa fa-toggle-off fa-lg pt-1" aria-hidden="true"></i></button></a>
-
-                                                            }
-                                                            else if (models.status.Equals("Completed") && models.availableToUser)
-                                                            {
-                                                                <a asp-controller="AiModel" class="btn " asp-action="UnpublishIteration" asp-route-projectId="@models.projectId" asp-route-iterationId="@models.Id"><button data-toggle="tooltip" data-placement="top" class="btn " title="Disable for item cataloging"> <i class="fa fa-toggle-on fa-lg pt-1" aria-hidden="true"></i></button></a>
-                                                            }
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
                                         </tbody>
                                     </table>
                                 }
                                 else
-                                {<p>No Model Versions Found</p>}
+                                {
+                                    <p>No Model Versions Found</p>}
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!--Code to show current page and page number-->
+           
+<hr>
+                <!--Table with bootstrap class .table and .table-condensed-->
+                                    <div class="col-xl-8 col-lg-13 col-md-13 col-sm-13 col-13 ">       <br>
+                                        <div class="card shadow  mb-4 bg-body rounded" >
+                                         
+                                            <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
+                                                   <h5 class="text-muted pb-2">Model Tags</h5>
+                                                                  
+                                                <div class="table-responsive">
+                                                    @if (ViewBag.modelTags.Equals(null))
+                                                    {
+                                                        <table class="table text-center table-striped">
+                                                            <thead >
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>ID</th>
+                                                                <th>Tag</th>
+                                                                <th >Image Count</th>
+                                                                <th class="text-center colspan-2"></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            @foreach (var tag in ViewBag.modelTags)
+                                                            {
+                                                                <tr>
+                                                                    <td class="pt-4">@x</td>
+                                                                    @{ x++; }
+                                                                    <td >
+                                                                        <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@tag.Id">
+        
+                                                                            <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/></button></td>
+        
+                                                                    <td class="pt-4">@tag.Name</td>
+                                                                    <td class="pt-4">@tag.ImageCount</td>
+                                                                    <td >
+                                                                        <div class="w-100 btn-group " role="group">
+        
+                                                                            <a href="@Url.Action("DeleteTag", "AiModel", new {tag.Id, ViewBag.projectId, tag.ImageCount, tag.Name})"
+                                                                               class="btn delete" data-toggle="modal" data-target="#exampleModal4">
+                                                                                <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete tag"><i class="fas fa-trash"> </i></button>
+                                                                            </a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                            </tbody>
+                                                        </table>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="pt-4">No Tags</p>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                             
+                    <div class="col-xl-4 col-lg-12 col-md-4 col-sm-12 col-12 pt-4">
+                      
+                             @if(ViewBag.recommendations.Count > 0)
+                                        {
+                                            
+                                            <div class="card shadow  mb-4 bg-body rounded" >
+                                         
+                                                <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
+                                                    <h5 class="text-muted pb-1">Recommendations</h5><br>
+                                                     @foreach (string r in ViewBag.recommendations)
+                                                                                                   {
+                                                                                                       <div class="text-secondary "> <i class="fas fa-info-circle"></i> &nbsp; @r</div>
+                                                                                                   }
+                                                </div></div>
+        
+                                            
+                                        }
+                             else
+                             {
+                                 <div class="card shadow  mb-4 bg-body rounded" >
+                                         
+                                     <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
+                                         <h5 class="text-muted pb-2">Recommendations</h5><br>
+                                         No current recommendations
+                                             </div></div>
+        
+        
+                                             }
+                                         </div> </div>
+        <!--Code to show current page and page number-->
 
             <div>
                 @Html.PagedListPager(Model.PagedListVersions, page => Url.Action("ModelVersions", new { page }), new PagedListRenderOptions
@@ -217,57 +311,14 @@
             <br />
             @* Section to show the tags associated with the model *@
 
-        <div class="row">
-            <div class="card shadow col-sm-5">
-                <br />
-                @*Note: After uploading images to the model, the image count will take a few minutes to update especially if a large bulk of photos have been uploaded at once.*@
-                <h5 class="pl-4">Model Tags</h5>
-                <br />
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Tag</th>
-                            <th scope="col">Image Count</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var tag in ViewBag.modelTags)
-                        {
-                            <tr>
-                                <th scope="row">@tag.Name</th>
-                                <td>@tag.ImageCount</td>
-                                <td>
-                                    <a href="@Url.Action("DeleteTag", "AiModel", new { tag.Id, ViewBag.projectId, tag.ImageCount, tag.Name })"
-                                       class="btn delete" data-toggle="modal" data-target="#exampleModal4">
-                                        <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete tag"><i class="fas fa-trash"> </i></button>
-                                    </a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+
+             </div>
             @* Section for AI model recommendations *@
 
-            @if(ViewBag.recommendations.Count > 0)
-            {
-            <div class="card shadow col-sm-5 offset-md-1">
-                <br />
-                <h5 class="pl-4">Recommendations</h5>
-                <div class=" mr-3 ml-auto">
-                    @foreach (string r in ViewBag.recommendations)
-                    {
-                        <div class="text-secondary pl-4 pt-3"> <i class="fas fa-info-circle"></i> &nbsp; @r</div>
-                    }
-                </div>
-            </div>
-            }
+           
             
         </div>
-    </div>
-</div>
-
+   
             
 </section>
 
