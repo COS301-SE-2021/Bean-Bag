@@ -41,6 +41,7 @@
                             <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Model Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
                         }
                     }
+                    <a asp-controller="AiModel" asp-action="CompareVersions" class="btn btn-3 shadow-sm bg-body rounded">Compare Versions &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
                 </div>
             </div>
 
@@ -120,9 +121,13 @@
                                                 <tr>
                                                     <td>@i</td>
                                                     @{ i++; }
-                                                 <td ><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.projectId">
-                                                                                                    
-                                                                                                     <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/></button></td>    <td>@models.Name</td>
+                                                    <td>
+                                                        <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.projectId">
+
+                                                            <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png" />
+                                                        </button>
+                                                    </td>
+                                                    <td>@models.Name</td>
                                                     <td>@models.createdDate.ToShortDateString()</td>
                                                     <td>@models.description</td>
                                                     <td>
@@ -158,8 +163,8 @@
                                                             @if (!models.status.Equals("Training"))
                                                             {
                                                                 <a href="@Url.Action("ViewPerformance", "AiModel", new {@models.Id})"
-                                                                class="btn viewperformance" data-toggle="modal" data-target="#exampleModal4"
-                                                                data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Performance Metrics"><i class="fas fa-search"> </i></button></a>
+                                                                   class="btn viewperformance" data-toggle="modal" data-target="#exampleModal4"
+                                                                   data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Performance Metrics"><i class="fas fa-search"> </i></button></a>
 
                                                                 <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.Id})"
                                                                    class="btn delete" data-toggle="modal"
@@ -212,14 +217,18 @@
             <br />
             @* Section to show the tags associated with the model *@
 
-            <div class="row">
+        <div class="row">
+            <div class="card shadow col-sm-5">
+                <br />
                 @*Note: After uploading images to the model, the image count will take a few minutes to update especially if a large bulk of photos have been uploaded at once.*@
-                <b>Model Tags</b>
+                <h5 class="pl-4">Model Tags</h5>
+                <br />
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Tag</th>
                             <th scope="col">Image Count</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -231,32 +240,35 @@
                                 <td>
                                     <a href="@Url.Action("DeleteTag", "AiModel", new { tag.Id, ViewBag.projectId, tag.ImageCount, tag.Name })"
                                        class="btn delete" data-toggle="modal" data-target="#exampleModal4">
-                                    <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete tag"><i class="fas fa-trash"> </i></button></a>
+                                        <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete tag"><i class="fas fa-trash"> </i></button>
+                                    </a>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
             </div>
-
-            <br />
             @* Section for AI model recommendations *@
-            <div class="row">
-                <b>Recommendations</b>
+
+            @if(ViewBag.recommendations.Count > 0)
+            {
+            <div class="card shadow col-sm-5 offset-md-1">
+                <br />
+                <h5 class="pl-4">Recommendations</h5>
                 <div class=" mr-3 ml-auto">
                     @foreach (string r in ViewBag.recommendations)
                     {
-                        @r
-                        <br />
+                        <div class="text-secondary pl-4 pt-3"> <i class="fas fa-info-circle"></i> &nbsp; @r</div>
                     }
-
                 </div>
             </div>
-
-
-
+            }
+            
         </div>
-        </div>
+    </div>
+</div>
+
+            
 </section>
 
 

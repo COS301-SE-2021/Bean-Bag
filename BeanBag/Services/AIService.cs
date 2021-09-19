@@ -677,5 +677,12 @@ namespace BeanBag.Services
             _db.AIModels.Update(model);
             _db.SaveChanges();
         }
+
+        public List<AIModelVersions> getAllIterations()
+        {
+
+
+            return _db.AIModelIterations.ToList();
+        }
     }
 }

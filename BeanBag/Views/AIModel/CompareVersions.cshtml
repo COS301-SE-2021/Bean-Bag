@@ -1,0 +1,174 @@
+﻿<link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/circleProgressBar.css" />
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<section class="page-content" xmlns="http://www.w3.org/1999/html">
+
+    <section class="ml-3">
+        <a asp-action="Index" asp-controller="AiModel" class="btn "><i class="fas fa-chevron-left text-color"></i></a>
+
+        <span class="  md-2 text-secondary ">
+            &nbsp; AI Models
+        </span>
+
+    </section>
+
+    <div class="dashboard-wrapper">
+        <div class="container-fluid dashboard-content">
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <div>
+                        <span class="col-md-2">
+                            <select class="form-control shadow-sm bg-body rounded-lg col-md-3" id="dropDown1" asp-items="@ViewBag.iterationDropDown"></select>
+                        </span>
+                    </div>
+                    <br>
+                    <div class="card shadow mb-3 bg-body rounded-lg" id="CategoryId">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th class="border-0">Tag</th>
+                                            <th class="border-0">Precision<i class="fas fa-info-circle" title="Precision"></i></th>
+                                            <th class="border-0">Recall<i class="fas fa-info-circle" title="Recall"></i></th>
+                                            <th class="border-0">A.P.<i class="fas fa-info-circle" title="A.P"></i></th>
+                                            <th class="border-0">Image Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="version1Compare">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <section id="progress bars version1Compare">
+
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <span class="col-md-2">
+                            <select class="form-control shadow-sm bg-body rounded-lg col-md-3" id="dropDown2" asp-items="@ViewBag.iterationDropDown"></select>
+                        </span>
+                    </div>
+                    <br>
+                    <div class="card shadow mb-3 bg-body rounded-lg" id="CategoryId">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th class="border-0">Tag</th>
+                                            <th class="border-0">Precision<i class="fas fa-info-circle" title="Precision"></i></th>
+                                            <th class="border-0">Recall<i class="fas fa-info-circle" title="Recall"></i></th>
+                                            <th class="border-0">A.P.<i class="fas fa-info-circle" title="A.P"></i></th>
+                                            <th class="border-0">Image Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="version2Compare">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <section id="progress bars version2Compare">
+                        
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        
+    });
+
+    @* VERSION 1 DROP DOWN *@
+    $('#dropDown1').change(function () {
+        $("#version1Compare").html("Loading...");
+
+        var value = $('#dropDown1').val();
+
+        var formData = new FormData();
+        formData.append("iterationId", value);
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetVersionCompare")',
+            contentType: false,
+            processData: false,
+            data: formData
+        }).done(function (response) {
+
+            var returnString = "";
+
+            var performances = response.performances;
+
+            for (var i = 0; i < performances.length; i++) {
+                returnString += "<tr>";
+                returnString += "<td>" + performances[i].tagName + "</td>";
+                returnString += "<td>" + performances[i].precision + "%</td>";
+                returnString += "<td>" + performances[i].recall + "%</td>";
+                returnString += "<td>" + performances[i].averagePrecision + "%</td>";
+                returnString += "<td>" + performances[i].imageCount + "</td>";
+                returnString += "</tr>"
+            }
+
+            $("#version1Compare").html(returnString);
+
+            console.log("version 1 done");
+
+        });
+
+    });
+
+    @* VERSION 2 DROP DOWN *@
+    $('#dropDown2').change(function () {
+        $("#version2Compare").html("Loading...");
+
+        var value = $('#dropDown2').val();
+
+        var formData = new FormData();
+        formData.append("iterationId", value);
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetVersionCompare")',
+            contentType: false,
+            processData: false,
+            data: formData
+        }).done(function (response) {
+
+            var returnString = "";
+
+            var performances = response.performances;
+
+            for (var i = 0; i < performances.length; i++) {
+                returnString += "<tr>";
+                returnString += "<td>" + performances[i].tagName + "</td>";
+                returnString += "<td>" + performances[i].precision + "%</td>";
+                returnString += "<td>" + performances[i].recall + "%</td>";
+                returnString += "<td>" + performances[i].averagePrecision + "%</td>";
+                returnString += "<td>" + performances[i].imageCount + "</td>";
+                returnString += "</tr>"
+            }
+
+            $("#version2Compare").html(returnString);
+
+            console.log("version 2 done");
+        });
+    });
+
+</script>
