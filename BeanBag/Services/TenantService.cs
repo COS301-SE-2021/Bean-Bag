@@ -413,6 +413,25 @@ namespace BeanBag.Services
             return true;
 
         }
+        
+        /* Retrieves the current user */
+        public TenantUser GetUser(string userId)
+        {
+            if (userId == null)
+            {
+                throw new Exception("User id is null");
+            }
+
+            var user = _tenantDb.TenantUser.Find(userId);
+
+            if (user == null)
+            {
+                throw new Exception("User is null");
+            }
+
+            return user;
+
+        }
 
         /* Searches for user in the database by user id */
         public bool SearchUser(string userId)

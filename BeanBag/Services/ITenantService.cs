@@ -24,6 +24,7 @@ namespace BeanBag.Services
         public Tenant GetInvitationTenant(string code);
         public bool VerifyCode(string code);
         public bool SignUserUp(string userId, string tenantId, string userName);
+        public TenantUser GetUser(string userId);
         public bool SearchUser(string userId);
         public IEnumerable<TenantUser> GetUserList(string userId);
         public bool DeleteUser(string userId);
