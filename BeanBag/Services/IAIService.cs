@@ -59,5 +59,6 @@ namespace BeanBag.Services
 
         public void updateImageCount(Guid projectId);
 
+        public List<AIModelVersions> getAllIterations();
     }
 }

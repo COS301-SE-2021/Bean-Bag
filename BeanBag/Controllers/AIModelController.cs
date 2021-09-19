@@ -3,6 +3,7 @@ using BeanBag.Models.Helper_Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
 using Microsoft.Identity.Web;
 using System;
@@ -548,6 +549,65 @@ namespace BeanBag.Controllers
             _aIService.deleteModelTag(Id, projectId, imageCount);
 
             return LocalRedirect("/AIModel/ModelVersions?projectId=" + projectId.ToString());
+        }
+
+        public IActionResult Compareversions(Guid? selectedVersion)
+        {
+            List<AIModel> aIModels = _aIService.getAllModels();
+            List<SelectListItem> iterationDropDown = new List<SelectListItem>();
+            iterationDropDown.Add(new SelectListItem
+            {
+                Text = "Select", 
+                Value = "null"
+            });
+
+            List<AIModelVersions> iterations = _aIService.getAllIterations();
+
+            foreach (var m in aIModels)
+            {
+                SelectListGroup tempGroup = new SelectListGroup() { Name = m.name };
+
+                foreach (var i in iterations)
+                {
+                    if(i.status != "Training")
+                    {
+                        if (i.projectId == m.Id)
+                        {
+                            if (selectedVersion == i.Id)
+                            {
+                                iterationDropDown.Add(new SelectListItem
+                                {
+                                    Group = tempGroup,
+                                    Text = i.Name,
+                                    Value = i.Id.ToString(),
+                                    Selected = true
+                                });
+                            }
+                            else
+                            {
+                                iterationDropDown.Add(new SelectListItem
+                                {
+                                    Group = tempGroup,
+                                    Text = i.Name,
+                                    Value = i.Id.ToString()
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            ViewBag.iterationDropDown = iterationDropDown;
+
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetVersionCompare([FromForm(Name = "iterationId")]Guid iterationId)
+        {
+            Guid projectId = _aIService.getIteration(iterationId).projectId;
+            List<AIModelVersionTagPerformance> performances = _aIService.getPerformancePerTags(projectId, iterationId);
+
+            return Json(new { performances });
         }
 
     }

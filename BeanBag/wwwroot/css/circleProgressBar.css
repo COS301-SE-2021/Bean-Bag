@@ -1,0 +1,22 @@
+﻿.circleBar {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.circleBar .round {
+    min-height: 255px;
+    margin-top: 30px;
+    position: relative;
+    margin-bottom: 0px;
+}
+
+.circleBar .round strong {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -80px;
+    transform: translate(-50%);
+    font-size: 40px;
+    color: #00eaff;
+    font-weight: 100;
+}
