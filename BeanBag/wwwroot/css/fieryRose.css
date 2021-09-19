@@ -505,3 +505,8 @@ a[href^="https"] {
 {
     color: #b31f5a;
 }
+
+
+.progress div {
+    background-color: #b31f5a
+}
