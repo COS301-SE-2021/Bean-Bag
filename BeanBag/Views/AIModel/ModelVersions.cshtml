@@ -113,9 +113,9 @@
 
                                             <th>Date Created</th>
                                             <th>Description</th>
-                                            <th>Available for item cataloging</th>
+                                            <th>Availability</th>
                                             <th>Training Status</th>
-                                            <th class="text-center colspan-2">Actions</th>
+                                            <th class="text-center colspan-2"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -172,7 +172,7 @@
                                                         @if (!models.status.Equals("Training"))
                                                         {
                                                             <a href="@Url.Action("ViewPerformance", "AiModel", new {@models.Id})"
-                                                               class="btn viewperformance" data-toggle="modal" data-target="#exampleModal4"
+                                                               class="btn viewperformance" data-toggle="modal" data-target="#viewVersionPerformance"
                                                                data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View Performance Metrics"><i class="fas fa-search"> </i></button></a>
 
                                                             <a href="@Url.Action("DeleteVersion", "AiModel", new {@models.Id})"
@@ -382,9 +382,9 @@
         let action = $(this).attr('href');
 
         $.get(action, function (data) {
-            let myModal = $("#exampleModal4");
+            let myModal = $("#viewVersionPerformance");
             myModal.find("form.data").html(data);
-            $('#exampleModal4').modal('show');
+            $('#viewVersionPerformance').modal('show');
         });
     });
 
