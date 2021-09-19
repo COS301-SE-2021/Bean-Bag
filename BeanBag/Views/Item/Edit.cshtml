@@ -35,7 +35,7 @@
                                     <div >   <h5 class="text-muted pb-2">Item Image</h5>
                                         <div >
                                             <div class="card shadow  mb-3 bg-body h-25 rounded pt-2">
-                                                <div class="card-body ">
+                                                <div class="card-body text-center">
                                                     <div id="mdb-lightbox-ui"></div>
                                                     <div class="mdb-lightbox">
                                                         <div class="row product-gallery mx-1 d-flex justify-content-center">
@@ -64,7 +64,7 @@
                                                     <table class="table table-bordered table-hover pr-5" id="tab_logic">
                                                         <thead>
                                                         <tr>
-                                                            <th >#</th>
+                                                        
                                                             <th >Tag Name</th>
                                                         </tr>
                                                         </thead>
@@ -72,13 +72,15 @@
                                                         
                                                         @foreach (var x in ViewBag.types)
                                                         {
+                                                         
                                                             <tr id="@i">
-                                                                <td>@i</td>
+                                                              
                                                                 <td>
                                                                     <input type="text" name='tags' placeholder='Name' value="@x" class="form-control"/>
                                                                 </td>
                                                             </tr>
                                                             i++;
+                                                            //if statement check last
                                                         }
 
 
@@ -96,7 +98,7 @@
                                                                          <form method="post" asp-action="Edit" asp-controller="Item">
                                                                              <div class="form-group row">
                                                                                  <h5 class="text-muted">Item Details </h5> <hr></div>
-                                      <div class="text-muted pb-3 pt-1 form-group row">Edit the items details below  </div>
+                                      <div class="text-muted pb-3 pt-1 form-group row">Edit the item's details below  </div>
                                                                              <div class="row">
                                                                                  <hr>
                                                                                  <div class="col-sm">
@@ -163,7 +165,7 @@
                                                                                      <div class="form-group row pt-5">
 
                                                                                          
-                                                                                         <button type="submit" class="btn btn-3  ml-auto "> Submit &nbsp;
+                                                                                         <button type="submit" class="btn btn-3  ml-auto "> Update &nbsp;
                                                                                              <img src="https://img.icons8.com/ios-filled/21/000000/submit-progress.png" alt=""/></button>
                                                                                      </div>
                                                                                  </div>
@@ -199,7 +201,7 @@
        $(document).ready(function(){  
         let i=@i;
        $("#add_row").click(function(){
-        $('#'+i).html("<td>"+ (i+1) +"</td><td><input name='tags' type='text' placeholder='Name' class='form-control input-md'  /> " 
+        $('#'+i).html("<td><input name='tags' type='text' placeholder='Name' class='form-control input-md'  /> " 
          );
       
         $('#tab_logic').append('<tr id="'+(i+1)+'"></tr>');
