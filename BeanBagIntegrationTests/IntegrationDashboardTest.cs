@@ -1030,7 +1030,7 @@ namespace BeanBagIntegrationTests
             var u2 = finalString.Substring(0, 4);
             var u3 = finalString.Substring(1, 4);
             
-            Guid theId2 = new("00000000-0000-0000-0000-0000000" + myGuidEnd);
+            Guid theId2 = new("10100000-0000-0000-0000-0000000" + myGuidEnd);
             Guid itemId1 = new("10000000-0000-0000-0000-00000000"+ u2);
             Guid itemId2 = new("10000000-0000-0000-0000-00000000"+ u3);
             
@@ -1040,7 +1040,7 @@ namespace BeanBagIntegrationTests
             
             var item1 = new Item { Id = itemId1, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
 
-            var item2 = new Item { Id = itemId2, name = "Leopard stripe shirt", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
+            var item2 = new Item { Id = itemId2, name = "White Polo", inventoryId  = theId2, type = "Clothes", entryDate = DateTime.Now};
 
             var invSer = new InventoryService(_context);
             var itemSer = new ItemService(_context);

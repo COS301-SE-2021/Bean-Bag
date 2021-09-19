@@ -24,7 +24,7 @@ namespace BeanBag.Services
         {
             if (item != null)
             {
-                item.QRCodeLink = "https://bean-bag-function.azurewebsites.net/api/ItemQRCode?itemID=" + item.Id.ToString();
+                item.QRCodeLink = "https://bean-bag-qr-code-item.azurewebsites.net/api/itemqrcode?itemID=" + item.Id.ToString();
             }
             return item;
         }
