@@ -20,158 +20,164 @@
       
             <hr>
             <br>
-
-            <div class="row">
-                <!-- ============================================================== -->
-                <!-- Item image  -->
-                <!-- ============================================================== -->
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="card shadow mb-3 bg-body rounded " data-aos="zoom-in" data-aos-duration="1000">
-                        <h5 class="card-header">Add Item <i class="fas fa-plus-folder"> </i> </h5>
-                        <div class="card-body ">
-                            <div class="row">
-                                <div class="col-sm pl-3 pr-3 pt-3">
-                                    <div >   <h5 class="text-muted pb-2">Item Image</h5>
-                                        <div >
+          
+                <div class="row">
+                    <!-- ============================================================== -->
+                    <!-- Item image  -->
+                    <!-- ============================================================== -->
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card shadow mb-3 bg-body rounded " data-aos="zoom-in" data-aos-duration="1000">
+                            <h5 class="card-header pl-4"> &nbsp;&nbsp;Add Item <i class="fas fa-plus-folder"> </i> </h5>
+                            <div class="card-body ">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-sm  pr-3 ">
+                                            <div >   <h5 class="text-muted pb-2">Item Image</h5>
+                                                <div >
                                                                                
-                                            <div class="card shadow  mb-3 bg-body h-25 rounded pt-2">
-                                                <div class="card-body text-center ">
-                                                    <div id="mdb-lightbox-ui"></div>
-                                                    <div class="mdb-lightbox">
-                                                        <div class="row product-gallery mx-1 d-flex justify-content-center">
-                                                            <div class="col-7 mb-0">
-                                                                <figure class="view overlay rounded z-depth-1 main-img">
-                                                                    <a href="@ViewBag.imageUrl"
-                                                                       data-size="110x223">
-                                                                        <img src="@ViewBag.imageUrl"
-                                                                             class="img-fluid z-depth-1" alt="">
-                                                                    </a>
-                                                                </figure>
+                                                    <div class="card shadow  mb-3 bg-body h-25 rounded pt-2">
+                                                        <div class="card-body text-center ">
+                                                            <div id="mdb-lightbox-ui"></div>
+                                                            <div class="mdb-lightbox">
+                                                                <div class="row product-gallery mx-1 d-flex justify-content-center">
+                                                                    <div class="col-7 mb-0">
+                                                                        <figure class="view overlay rounded z-depth-1 main-img">
+                                                                            <a href="@ViewBag.imageUrl"
+                                                                               data-size="110x223">
+                                                                                <img src="@ViewBag.imageUrl"
+                                                                                     class="img-fluid z-depth-1" alt="">
+                                                                            </a>
+                                                                        </figure>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                     <div class="form-group row p-3">
+                                            <div class="form-group row p-3">
                                                                                      
-                                                                                  <h5 class="text-muted  pb-2">Item Tags</h5> <hr>
-       <!--Add your own tags -->
-       <table class="table table-bordered table-hover pr-5" id="tab_logic">
-           <thead>
-           <tr>
+                                                <h5 class="text-muted  pb-2">Item Tags</h5> <hr>
+                                                <!--Add your own tags -->
+                                                <table class="table table-bordered table-hover pr-5" id="tab_logic">
+                                                    <thead>
+                                                    <tr>
               
-               <th class="text-center">Tag Name</th>
-               @if (ViewBag.usePrediction == true)
-               {
-                   <th> Prediction % </th>
-               }
-           </tr>
-           </thead>
-           <tbody>
-           <tr id="@i">
-               @if (ViewBag.usePrediction == true)
-               {
-                   @foreach (var x in ViewBag.listPredictions)
-                   {
-                       <td>
-                           <input type="text" name='tags' placeholder='Name' value="@x.tagName" class="form-control"/>
-                       </td>
-                       <td>
-                           <input type="text" placeholder='Name' value="@x.percentage" class="form-control" disabled="true"/>
-                       </td>
-                       i++;
-                   }
-               }
+                                                        <th class="text-center">Tag Name</th>
+                                                        @if (ViewBag.usePrediction == true)
+                                                        {
+                                                            <th> Prediction % </th>
+                                                        }
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr id="@i">
+                                                        @if (ViewBag.usePrediction == true)
+                                                        {
+                                                            @foreach (var x in ViewBag.listPredictions)
+                                                            {
+                                                                <td>
+                                                                    <input type="text" name='tags' placeholder='Name' value="@x.tagName" class="form-control"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" placeholder='Name' value="@x.percentage" class="form-control" disabled="true"/>
+                                                                </td>
+                                                                i++;
+                                                            }
+                                                        }
                
-               </tr>
-           <tr id="@i"></tr>
-           <tr id="address1"></tr>
-           </tbody>
-       </table>
-
-         <button id="add_row"  class="icon-btn add-btn ml-auto">
-           <div class="add-icon "></div>
-           <div class="btn-txt ">Add</div> 
-         </button> <span> &nbsp;</span>
-         <button  id='delete_row' class="icon-btn add-btn ">  
-           <div class="btn-txt ">Remove</div>
-         </button>
+                                                    </tr>
+                                                    <tr id="@i"></tr>
+                                                    <tr id="address1"></tr>
+                                                    </tbody>
+                                                </table>
+                                                <button id="add_row"  class="icon-btn add-btn ml-auto">
+                                                    <div class="add-icon "></div>
+                                                    <div class="btn-txt ">Add</div> 
+                                                </button> <span> &nbsp;</span>
+                                                <button  id='delete_row' class="icon-btn add-btn ">  
+                                                    <div class="btn-txt ">Remove</div>
+                                                </button>
    
        
-       
-                                     </div>
-                                </div>
+                                            </div>
+                                        </div>
 
-                                <!--Create item form-->
-                                <div class="col-sm pl-5 pr-5 pt-3">
-                                         @using (Html.AjaxBeginForm("Create", "Item", new AjaxOptions
-                                         {
-                                             HttpMethod = "post",
-                                             OnSuccess = "OnSuccess",
-                                             OnFailure = "OnFailure",
-                                         }))
-                                         {
-                                             <div class="form-group row">
-                                                 <h5 class="text-muted pt-1">Item Details</h5> <hr></div>
+                                        <!--Create item form-->
+                                        <div class="col-sm pl-5  ">
+                                            @using (Html.AjaxBeginForm("Create", "Item", new AjaxOptions
+                                            {
+                                                HttpMethod = "post",
+                                                OnSuccess = "OnSuccess",
+                                                OnFailure = "OnFailure",
+                                            }))
+                                            {
+                                                <div class="form-group row">
+                                                    <h5 class="text-muted pt-1">Item Details</h5> <hr></div>
 
-                                             <div class="text-muted pb-2 pt-1 form-group row">Add some attributes to your item below </div>
-                                             <div asp-validation-summary="All" class="text-danger"></div>
-                                             <input asp-for="imageURL" class="form-control" value="@ViewBag.imageUrl" hidden/>
-                                             <input asp-for="type" class="form-control" value="@ViewBag.itemType" hidden/>
+                                                <div class="text-muted pb-2 pt-1 form-group row">Add some attributes to your item below </div>
+                                                <div asp-validation-summary="All" class="text-danger"></div>
+                                                <input asp-for="imageURL" class="form-control" value="@ViewBag.imageUrl" hidden/>
+                                                <input asp-for="type" class="form-control" value="@ViewBag.itemType" hidden/>
 
-                                             <div class="form-group row">
-                                                 <label asp-for="name"></label>
-                                                 <input asp-for="name" class="form-control"/>
-                                             </div>
+                                                <div class="form-group row">
+                                                    <label asp-for="name"></label>
+                                                    <input asp-for="name" class="form-control"/>
+                                                </div>
 
-                                             <div class="form-group row">
-                                                 <label asp-for="price"></label>
-                                                 <input asp-for="price" class="form-control"/>
-                                             </div>
+                                                <div class="form-group row">
+                                                    <label asp-for="price"></label>
+                                                    <input asp-for="price" class="form-control"/>
+                                                </div>
 
-                                             <div class="form-group row">
-                                                 <label asp-for="quantity"></label>
-                                                 <input asp-for="quantity" class="form-control"/>
-                                             </div>
+                                                <div class="form-group row">
+                                                    <label asp-for="quantity"></label>
+                                                    <input asp-for="quantity" class="form-control"/>
+                                                </div>
 
-                                             <div class="form-group row">
-                                                 <label asp-for="colour">Colour</label> &nbsp; &nbsp;<br>
-                                                 <input asp-for="colour" type="color" size="100px" name="colour">
-                                             </div>
+                                                <div class="form-group row">
+                                                    <label asp-for="colour">Colour</label> &nbsp; &nbsp;<br>
+                                                    <input asp-for="colour" type="color" size="100px" name="colour">
+                                                </div>
 
-                                             <input asp-for="inventoryId" value="@ViewBag.inventoryId" hidden/>
+                                                <input asp-for="inventoryId" value="@ViewBag.inventoryId" hidden/>
                                            
 
-                                             <div class="form-group row">
-                                                 <label asp-for="condition" value="Condition">Condition</label> &nbsp; &nbsp;<br>
-                                                 <select asp-for="condition" name="condition" class="form-control">
-                                                     <option value="New">New</option>
-                                                     <option value="Pre-Owned">Pre-Owned</option>
-                                                     <option value="Damaged">Damaged</option>
-                                                 </select>
-                                             </div>
+                                                <div class="form-group row">
+                                                    <label asp-for="condition" value="Condition">Condition</label> &nbsp; &nbsp;<br>
+                                                    <select asp-for="condition" name="condition" class="form-control">
+                                                        <option value="New">New</option>
+                                                        <option value="Pre-Owned">Pre-Owned</option>
+                                                        <option value="Damaged">Damaged</option>
+                                                    </select>
+                                                </div>
 
                                             
 
 
 
-                                             <div class="form-group row pt-5">
+                                            }
 
-                                                                                         
-                                                 <button type="submit" class="btn btn-3  ml-auto "> Create &nbsp;
-                                                     <img src="https://img.icons8.com/ios-filled/21/000000/submit-progress.png" alt=""/></button>
-                                             </div>
-                                         }
-
+                                        </div>
+                                    </div>
                                 </div>
+                                
+                                
+<div class="modal-footer p-0 pt-3">
+   <button type="submit" class="btn btn-3  ml-auto "> Create &nbsp;
+                                                          <img src="https://img.icons8.com/ios-filled/21/000000/submit-progress.png" alt=""/></button>
+                                               </div>
+
+
+
                             </div>
-                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div>        </div>
+        
+
+
+
         <!-- ============================================================== -->
         <!-- end  -->
         <!-- ============================================================== -->
