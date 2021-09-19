@@ -108,14 +108,14 @@ namespace BeanBagIntegrationTests
             var tenant1 = new Tenant
             {
                 TenantId = tenantId1, TenantName = Name, TenantAddress = Address, 
-                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, InviteCode = "a", TenantLogo = "", TenantTheme = ""
             };
             
             var tenantId2 = Guid.NewGuid().ToString();
             var tenant2 = new Tenant
             {
                 TenantId = tenantId2, TenantName = Name2, TenantAddress = Address2, 
-                TenantEmail = Email2, TenantNumber = Number2, TenantSubscription = Subscription2
+                TenantEmail = Email2, TenantNumber = Number2, TenantSubscription = Subscription2, InviteCode = "", TenantLogo = "", TenantTheme = ""
             };
 
             //Act
@@ -234,8 +234,8 @@ namespace BeanBagIntegrationTests
             var id = Guid.NewGuid().ToString();
             var newTenant = new Tenant
             {
-                TenantId = id, TenantName = Name, TenantAddress = Address, 
-                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
+                TenantId = id, TenantName = Name, TenantAddress = Address,
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, InviteCode = "", TenantLogo = "", TenantTheme = ""
             };
             
             //User
@@ -302,7 +302,7 @@ namespace BeanBagIntegrationTests
             var newTenant = new Tenant
             {
                 TenantId = id, TenantName = Name, TenantAddress = Address, 
-                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, InviteCode = "", TenantLogo = "", TenantTheme = ""
             };
             
             //Act
@@ -356,7 +356,7 @@ namespace BeanBagIntegrationTests
             var newTenant = new Tenant
             {
                 TenantId = id, TenantName = Name, TenantAddress = Address, 
-                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, InviteCode = "", TenantLogo = "", TenantTheme = ""
             };
             
             //User
@@ -432,7 +432,7 @@ namespace BeanBagIntegrationTests
             var newTenant = new Tenant
             {
                 TenantId = id, TenantName = Name, TenantAddress = Address, 
-                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, InviteCode = "", TenantLogo = "", TenantTheme = ""
             };
 
             var userId = Guid.NewGuid().ToString();
@@ -495,7 +495,7 @@ namespace BeanBagIntegrationTests
             var newTenant = new Tenant
             {
                 TenantId = id, TenantName = Name, TenantAddress = Address, 
-                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, TenantTheme = Theme
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, InviteCode = "", TenantLogo = "", TenantTheme = "Default"
             };
 
             var userId = Guid.NewGuid().ToString();

@@ -55,7 +55,7 @@ namespace BeanBagIntegrationTests
             var newTenant = new Tenant
             {
                 TenantId = id, TenantName = Name, TenantAddress = Address, 
-                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, InviteCode = "", TenantLogo = "", TenantTheme = ""
             };
             
             //User
@@ -132,7 +132,7 @@ namespace BeanBagIntegrationTests
             var newTenant = new Tenant
             {
                 TenantId = id, TenantName = Name, TenantAddress = Address, 
-                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, InviteCode = "", TenantLogo = "", TenantTheme = ""
             };
             
             //User
@@ -181,7 +181,7 @@ namespace BeanBagIntegrationTests
             var newTenant = new Tenant
             {
                 TenantId = id, TenantName = Name, TenantAddress = Address, 
-                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, InviteCode = "", TenantLogo = "", TenantTheme = ""
             };
             
             //User

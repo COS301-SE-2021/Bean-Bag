@@ -1,14 +1,15 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.TagHelpers
 
-<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle4" aria-hidden="true">
+<div class="modal fade" id="viewVersionPerformance" tabindex="-1" role="dialog" aria-labelledby="viewVersionPerformance" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalTitle4">View AI Model Version Performance Metrics@*<i class="fas fa-trash"> </i>*@</h5>
+                <h5 class="modal-title" id="viewVersionPerformance">View AI Model Version Performance Metrics@*<i class="fas fa-trash"> </i>*@</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <a asp-controller="AiModel" asp-action="CompareVersions" asp-route-selectedVersion="@ViewBag.iterationId" class="btn btn-3 shadow-sm bg-body rounded">Compare Versions &nbsp; <i class="fas fa-eye" aria-hidden="true"></i></a>
         </div>
     </div>
 </div>

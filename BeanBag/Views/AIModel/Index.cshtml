@@ -1,39 +1,46 @@
 ﻿@model Pagination
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
+@using BeanBag.Services
+
+@inject IAIService _aiService
+
+
+
 @{int i = 1;}
 
 @{
     ViewBag.Title = "AIModel";
 }
 <link href="~/lib/bootstrap/dist/css/" rel="stylesheet" />
-
+<link href="~/css/AIModels.css" rel="stylesheet" />
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
     <section class="search-and-user">
         <span class="col-md-2 text-secondary ">
              AI Models
         </span>
-        <div class="admin-profile ">
-            <span class="greeting  ">
-                Total Models &nbsp; <span class="  rounded-circle rounded p-3"> @ViewBag.totalModels</span>
-            </span>
-        </div>
+  
     </section>
     
-     
     <div class="dashboard-wrapper">
          <div class="container-fluid  dashboard-content">
+         
+      
+         
+         
+         
+         
              <hr>
             @if (@ViewBag.SubscriptionExpired == false)
             {
                 <div class="row">
-
+         <b class="pl-3">Total Models &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalModels</span>
+             
                     <div class=" mr-3 ml-auto">
-                        @if (ViewBag.createNewModels == true)
-                        {
-                            <a asp-controller="AiModel" asp-action="CreateModel" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">Create New Model &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
-                        }
+                      
+                            <a asp-controller="AiModel" asp-action="CreateModel" class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Create New Model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                      
                     </div>
                 </div>
                 <br>
@@ -62,7 +69,7 @@
                     }
 
                     <!--Search-->
-                    <div class="col-3 ml-auto ">
+                    <div class="mr-3 ml-auto ">
                         @using (Html.BeginForm())
                         {
                             <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
@@ -73,70 +80,68 @@
                             </div>
                         }
                     </div>
-
-
-                    <!--Table with bootstrap class .table and .table-condensed-->
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <br>
-                        <div class="card shadow mb-4 bg-body rounded">
-                            <h5 class="card-header">Model List</h5>
-                            <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
-                                <div>
+                
                                     @if (Model.PagedListModels.Any())
                                     {
-                                        <table class="table table-bordered table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>ID</th>
-                                                <th>@Html.ActionLink("Model Name ", "Index", new {sortOrder = ViewBag.NameSortParm}) <i class="fas fa-chevron-down text-grey" aria-hidden="true"></i></th>
-                                                <th>Date Created</th>
-                                                <th>Description</th>
-                                                <th class="text-center colspan-2">Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach (var models in Model.PagedListModels)
+                                        
+
+                                        <div class="container mt-5 mb-3">
+                                            <div class="row">
+                                        @foreach (var models in Model.PagedListModels)
                                             {
-                                                <tr>
-                                                    <td >@i</td>
-                                                    @{ i++; }
-                                                    <td >
-                                                        <button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@models.Id">
-
-                                                            <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/></button></td> <td >@models.name</td>
-                                                    <td >@models.dateCreated.ToShortDateString()</td>
-                                                    <td >@models.description</td>
-                                                    <td >
-                                                        <div class="w-100 btn-group" role="group">
-                                                            <a href="@Url.Action("EditAiModel", "AiModel", new {@models.Id})"
-                                                               class="btn edit" data-toggle="modal" data-target="#exampleModal3"
-                                                               data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
-
-                                                            <a href="@Url.Action("DeleteAiModel", "AIModel", new {projectId = @models.Id})"
-                                                               class="btn delete" data-toggle="modal"
-                                                               data-target="#exampleModal4" data-id="@models.Id"><button class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
-
-                                                            <a asp-controller="AiModel" asp-action="ModelVersions" asp-route-projectId="@models.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View"><i class="fas fa-eye"> </i></button></a>
+                                                
+                                                        <div class="col-md-4 pt-5">
+                                                            <div class="card shadow p-3 mb-2">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div class="d-flex flex-row align-items-center">
+                                                                        <div class="icon"> <i class="bx bxl-mailchimp">
+                                                                            <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/50/000000/external-ai-artificial-intelligence-kiranshastry-lineal-kiranshastry.png" alt=""/></i> </div>
+                                                                        <div class="ms-2 c-details">
+                                                                            <h6 class="mb-0"></h6> &nbsp;&nbsp;Model #@i<span><br> &nbsp; Created | @models.dateCreated.ToShortDateString()</span>
+                                                                   @{ i++; }  </div>
+                                                                    </div>
+                                                                    <div class="badge"> <span>Available</span> </div>
+                                                                </div>
+                                                                <div class="mt-5">
+                                                                    <h3 class="heading">@models.name</h3>
+                                                                    <h5> @models.description</h5>
+                                                                    <div class="mt-5 pb-5">
+                                                                        <div class="progress">
+                                                                            <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                        </div>
+                                                                        <div class="mt-3"> <span class="text1">x of <span class="text2">20 iterations created</span></span> </div>
+                                                                    <div class="mt-3"> <span class="text1">Total image count of <span class="text2">x</span></span> </div>
+                                                                                                                                      
+                                                                        </div>
+                                                                <hr>
+                                                                    <div>
+                                                                          <div class="w-100 btn-group" role="group">
+                                                                                                                                    <a href="@Url.Action("EditAiModel", "AiModel", new {@models.Id})"
+                                                                                                                                       class="btn edit" data-toggle="modal" data-target="#exampleModal3"
+                                                                                                                                       data-id="@models.Id"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"> </i></button></a>
+                                                                        
+                                                                                                                                    <a href="@Url.Action("DeleteAiModel", "AIModel", new {projectId = @models.Id})"
+                                                                                                                                       class="btn delete" data-toggle="modal"
+                                                                                                                                       data-target="#exampleModal4" data-id="@models.Id"><button class="btn" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"> </i></button></a>
+                                                                        
+                                                                                                                                    <a asp-controller="AiModel" asp-action="ModelVersions" asp-route-projectId="@models.Id" class="btn"><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="View"><i class="fas fa-eye"> </i></button></a>
+                                                                                                                                </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </td>
-                                                </tr>
+                                     
                                             }
-                                            </tbody>
-                                        </table>
-                                    }
+                                      
+                                        </div>
+                                        </div>   }
                                     else
                                     {
                                         <p>No Models Found</p>
                                     }
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--Code to show current page and page number-->
-
-                <div>
+                
+                <div class="pt-3">
                     @Html.PagedListPager(Model.PagedListModels, page => Url.Action("Index", new {page}), new PagedListRenderOptions
                     {
                         DisplayLinkToIndividualPages = true,
@@ -152,7 +157,7 @@
 
                 <!--Code to show current page and page number-->
                 <div>
-                    Showing @(Model.PagedListModels.PageCount < Model.PagedListModels.PageNumber ? 0 : Model.PagedListModels.PageNumber) out of @Model.PagedListModels.PageCount entries
+                    Showing @(Model.PagedListModels.PageCount < Model.PagedListModels.PageNumber ? 0 : Model.PagedListModels.PageNumber) out of @Model.PagedListModels.PageCount pages
                 </div>
             }
             else
@@ -169,7 +174,7 @@
         
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"  id="exampleModalTitle">Create New Model <i class="fas fa-plus"> </i></h5>
+                <h5 class="modal-title"  id="exampleModalTitle">Create New Model </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

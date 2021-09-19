@@ -41,6 +41,7 @@ namespace BeanBag.Controllers
             List<AIModel> aIModels = _aIService.getAllModels();
             List<SelectListItem> iterationDropDown = new List<SelectListItem>();
 
+            @ViewBag.id = inventoryId;
             foreach (var m in aIModels)
             {
                 List<AIModelVersions> iterations = _aIService.getAllAvailableIterationsOfModel(m.Id);
@@ -64,7 +65,7 @@ namespace BeanBag.Controllers
            This method also uses the custom vision AI that will predict what type of item is in the image.*/
         [HttpPost]
         public async Task<IActionResult> UploadImage([FromForm(Name = "file")] IFormFile file, 
-            [FromForm(Name = "predictionModel")] string predictionModelId)
+            [FromForm(Name = "predictionModel")] string predictionModelId, [FromForm(Name = "id")] string id)
         {
             string imageUrl = await _blobStorageService.uploadItemImage(file);
 
@@ -72,7 +73,7 @@ namespace BeanBag.Controllers
             if (predictionModelId == "None")
             {
                 ViewBag.listPredictions = "";
-                return LocalRedirect("/Item/Create?imageUrl=" + imageUrl + "&iterationName=null");
+                return LocalRedirect("/Item/Create?imageUrl=" + imageUrl + "&iterationName=null"+"&inventoryId=" +id);
             }
             
             var iteration = _aIService.getIteration(Guid.Parse(predictionModelId)); 
@@ -82,13 +83,13 @@ namespace BeanBag.Controllers
             ViewBag.listPredictions = _aIService.predict(iteration.projectId, iterName, imageUrl);
             
             return LocalRedirect("/Item/Create?imageUrl=" + imageUrl + "&projectId=" +
-                                 iteration.projectId + "&iterationName=" + iterName);
+                                 iteration.projectId + "&iterationName=" + iterName +"&inventoryId=" +id);
         }
 
         /* This function is the GET method for creating an item and returns Create View.
            The create page needs to accept an imageURL and item type
            This method is only called once the image of the item is uploaded */
-        public IActionResult Create(string imageUrl, string projectId, string iterationName)
+        public IActionResult Create(string imageUrl, string projectId, string iterationName, string inventoryId )
         {
             // This creates a list of the different inventories available to put the item into
 
@@ -106,6 +107,7 @@ namespace BeanBag.Controllers
 
             ViewBag.InventoryDropDown = inventoryDropDown;
             ViewBag.imageUrl = imageUrl;
+            ViewBag.InventoryId = inventoryId;
             if(iterationName != "null")
             {
                 Guid id = new Guid(projectId);
@@ -122,7 +124,7 @@ namespace BeanBag.Controllers
         // This function is the POST method for create.
         // Takes in form from Create view to add a new item to the DB.
         [HttpPost]
-        public IActionResult Create(Item newItem,[FromForm(Name ="tags")] string[] tags )
+        public ActionResult Create(Item newItem,[FromForm(Name ="tags")] string[] tags )
         {
             
             //Check subscription plan before creating an item
@@ -133,21 +135,25 @@ namespace BeanBag.Controllers
             {
                 if (totalItems >= 15)
                 {
-                    return View("_ItemCapReached");
+                    return Json(new
+                    {
+                        success = false,
+                        message = "You are restricted from adding more items. Update your subscription plan to add more items."
+                    });
                 }
 
             }else if (subscription == "Standard")
             {
                 if (totalItems >= 75)
                 {
-                    return View("_ItemCapReached");
+                    return Json(new
+                    {
+                        success = false,
+                        message = "You are restricted from adding more items. Update your subscription plan to add more items."
+                    });
                 }
             }
-            else if(string.IsNullOrEmpty(subscription))
-            {
-                return LocalRedirect("/");
-            }
-
+ 
             string type = "";
             //Updates the item type to be a string of tags 
    
@@ -163,17 +169,19 @@ namespace BeanBag.Controllers
             }
 
             newItem.type = type;
-            
          
-            if(ModelState.IsValid)
+            if(!ModelState.IsValid)
+            {
+                return View(newItem);
+            }
+            else
             {
                 _itemService.CreateItem(newItem);
                 
                 // Returns back to the viewItems view for the inventory using the inventoryId
-                return LocalRedirect("/Inventory/ViewItems?InventoryId="+newItem.inventoryId.ToString());
             }
-            // Redirect to create view if the item model is invalid
-            return View(newItem);
+            return Json(new { success= true, message = Url.Action("ViewItems", "Inventory",new{InventoryId=newItem.inventoryId}) });
+     
         }
 
         /* This function is the GET method of Edit Item. This returns the view of an item that is being edited

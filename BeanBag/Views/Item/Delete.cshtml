@@ -9,7 +9,7 @@
 <!--Delete item popup-->
 <div class="modal-body ">
     <div class="form-group">
-        <div class="text-muted"> Are you sure that you want to delete this item? </div>
+        <div class="text-muted pb-4"> Are you sure that you want to delete this item? </div>
         <div class="about-product text-center mt-2">
             <input asp-for="Id" hidden />
             <img alt="Item Image" src="@Model.imageURL" width="150" class="p-3">
@@ -19,7 +19,7 @@
             </div>
         </div>
         <hr>
-        <div class="stats mt-2">
+        <div class="stats mt-2 pt-2">
             <div class="d-flex justify-content-between p-price"><span>Inventory Name</span><span>@Model.Inventory.name</span></div>
             <div class="d-flex justify-content-between p-price"><span>Inventory ID</span><span>@Model.Inventory.Id</span></div>
             <div class="d-flex justify-content-between p-price"><span>Detected Category</span><span>@Model.type</span></div>

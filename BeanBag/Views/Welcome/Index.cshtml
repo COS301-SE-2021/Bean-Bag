@@ -37,6 +37,7 @@
  
 </style>
 
+
 <!--Nav-->
 <nav class="navbar navbar-expand-md navbar-light">
 	<a href="#" class="navbar-brand">Bean Bag</a>
@@ -54,13 +55,40 @@
 		</div>
 	</div>
 	
-	<hr>
+	<div class="collapse navbar-collapse"  id="collapsibleNavbar">
+		<div class="navbar-nav ml-auto  pt-1">
+				<li class="nav-item">		<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Tenant" asp-action="Index">
+                                        					Plans
+                                        				</a>
+            		</li>
+			<li class="nav-item">
+
+			
+
+				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Welcome" asp-action="Index">
+					Home
+				</a>
+
+
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">
+					SignOut
+				</a>
+			</li>
+
+		</div>
+		
+	</div>
+		<hr>
 </nav>
 
 <div class="container h-75 d-flex justify-content-center">
     <div class=" my-auto pt-xl-3 text-center">    
 	    <!--Successful Payment here-->
-        	<h1>Bean Bag Platform</h1>
+	    <h1> Welcome to Bean Bag </h1>
+	    <h5> Begin by joining or creating <br>
+		    a new tenant</h5>
         	<h4 class="pb-2"></h4>
 	    
 	    <!-- Button to go to create tenant page -->
@@ -88,10 +116,10 @@
 				</div>
 				<form method="post" asp-controller="Welcome" asp-action="VerifyCode">
 					<div class="modal-body">
-							<p class="text-muted pb-2">Enter the invitation code to continue</p>
+							<p class="text-muted pb-2">Enter an invitation code below to gain access to an already existing tenant.</p>
                         			
 						<div class="form-group">
-							<label for="code" class="col-form-label">Code:</label>
+							<label for="code" class="col-form-label">Invitation Code:</label>
 							<input type="text" id="code" name="code" class="form-control"/>
 						</div>
 						

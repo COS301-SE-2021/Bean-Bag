@@ -136,8 +136,9 @@ namespace BeanBag.Controllers
         /* This is function is a post method for creating an inventory, it adds a new inventory
            for the user into the DB and returns the user to the Inventory/Index page. */
         [HttpPost]
-        public IActionResult Create(Pagination inventories)
+        public ActionResult Create(Pagination inventories)
         {
+            Console.Write(inventories);
             //Check subscription plan before creating an inventory
             var totalInventories = _inventoryService.GetInventories(User.GetObjectId()).Count;
             var subscription = _tenantService.GetCurrentTenant(User.GetObjectId()).TenantSubscription;
@@ -146,21 +147,25 @@ namespace BeanBag.Controllers
             {
                 if (totalInventories >= 3)
                 {
-                    return View("_InventoryCapReached");
+                    return Json(new
+                    {
+                        success = false,
+                        message = "You are restricted from adding more items. Update your subscription plan to add more items."
+                    });
                 }
 
             }else if (subscription == "Standard")
             {
                 if (totalInventories >= 10)
                 {
-                    return View("_InventoryCapReached");
+                    return Json(new
+                    {
+                        success = false,
+                        message = "You are restricted from adding more items. Update your subscription plan to add more items."
+                    });
                 }
             }
-            else if(string.IsNullOrEmpty(subscription))
-            {
-                return LocalRedirect("/");
-            }
-            
+   
             
             if(User.Identity is {IsAuthenticated: true})
             {
@@ -172,16 +177,17 @@ namespace BeanBag.Controllers
                     _inventoryService.CreateInventory(inventories.Inventory);
 
                     // Returns back to inventory/index
-                     return RedirectToAction("Index");
+                     return Json(new { success= true, message =  Url.Action("Index", "Inventory")});
+
                 }
                 
                 // Only goes here if the newInventory is invalid
-                return RedirectToAction("Index");
+                return Json(new { success= true, message = Url.Action("Index", "Inventory")});
             }
             else
             {
                 //return LocalRedirect("/");
-                return BadRequest();
+                return Json(new { success= true, message = LocalRedirect("/")});
             }
            
         }

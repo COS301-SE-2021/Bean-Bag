@@ -9,11 +9,11 @@ using Xunit;
 namespace BeanBagUnitTests
 {
 
-    public class UnitItemTestsConcrete : UnitInventoryTests
+    public class UnitItemTestsConcrete : UnitItemTests
     {
         
         public UnitItemTestsConcrete() : base(new DbContextOptionsBuilder<DBContext>()
-            .UseSqlite("Filename=Test.db").Options)
+            .UseSqlite("Filename=Test2.db").Options)
         {
             
         }

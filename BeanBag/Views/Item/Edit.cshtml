@@ -5,171 +5,189 @@
 @inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
 
 @{int i = 0;}
-<!--Edit item-->
+
+
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
-    <section class="ml-3" >
-        <a asp-action="ViewItems" asp-controller="Inventory" asp-route-inventoryId="@ViewBag.InventoryId" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
-        <span class="col-md-1 text-secondary ">
-            Item | Edit Item
-        </span>
-    </section>
-    
+      <section class="ml-3" >
+           <a asp-action="ViewItems" asp-controller="Inventory" asp-route-inventoryId="@ViewBag.InventoryId" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
+           <span class="col-md-1 text-secondary ">
+               Item | Edit Item
+           </span>
+       </section>
+
     <div class="dashboard-wrapper">
-        <div class="container-fluid  dashboard-content">
+        <div class="container-fluid  dashboard-content"> 
+      
             <hr>
             <br>
-            <div class="row ">
-                <!--Image-->
+
+            <div class="row">
+                <!-- ============================================================== -->
+                <!-- Item image  -->
+                <!-- ============================================================== -->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="card shadow  mb-3 bg-body rounded " >
-                        <h5 class="card-header">Edit Item <i class="fas fa-edit"> </i></h5>
+                    <div class="card shadow mb-3 bg-body rounded " data-aos="zoom-in" data-aos-duration="1000">
+                        <h5 class="card-header pl-4"> &nbsp;&nbsp;Edit Item </h5>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm p-3">
-                                    <div >
-                                        <div >
-                                            <div class="card shadow p-1 mb-3 bg-body rounded">
-                                                <div class="card-body ">
-                                                    <p class=" text-muted text-uppercase medium"><i class="fas fa-camera"></i>  &nbsp; Item Image  </p>
-                                                    <hr> <br>
-                                                    <div id="mdb-lightbox-ui"></div>
-                                                    <div class="mdb-lightbox">
-                                                        <div class="row product-gallery mx-1 d-flex justify-content-center">
-                                                            <div class="col-7 mb-0">
-                                                                <figure class="view overlay rounded z-depth-1 main-img">
-                                                                    <a href="@ViewBag.imageUrl"
-                                                                       data-size="110x223">
-                                                                        <img  src="@ViewBag.imageUrl"
-                                                                              class="img-fluid z-depth-1" alt="">
-                                                                    </a>
-                                                                </figure>
+                            <div class="modal-body">
+                                                       
+                                <div class="row">
+                                    <div class="col-sm  pr-3 ">
+                                        <div >   <h5 class="text-muted pb-2">Item Image</h5>
+                                            <div >
+                                                <div class="card shadow  mb-3 bg-body h-25 rounded pt-2">
+                                                    <div class="card-body text-center">
+                                                        <div id="mdb-lightbox-ui"></div>
+                                                        <div class="mdb-lightbox">
+                                                            <div class="row product-gallery mx-1 d-flex justify-content-center">
+                                                                <div class="col-7 mb-0">
+                                                                    <figure class="view overlay rounded z-depth-1 main-img">
+                                                                        <a href="@ViewBag.imageUrl"
+                                                                           data-size="110x223">
+                                                                            <img src="@ViewBag.imageUrl"
+                                                                                 class="img-fluid z-depth-1" alt="">
+                                                                        </a>
+                                                                    </figure>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm pl-5 pr-5 pt-3">
-                                        
-                                    <!--Edit form-->
-                                    <form method="post" asp-action="Edit" asp-controller="Item">
-                                        <div class="form-group row">
-                                            <h5 class="text-muted">Item Details </h5> <hr></div>
-
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <div asp-validation-summary="All" class="text-danger"></div>
-                                                <div asp-validation-summary="All" class="text-danger"></div>
-                                                <input asp-for="Id" hidden/>
-                                                <input asp-for="imageURL" hidden/>
-                                                <input asp-for="QRCodeLink" hidden/>
-                                                <input asp-for="entryDate" hidden/>
-
-                                                <div class="form-group row">
-                                                    <label asp-for="name"></label>
-                                                    <input asp-for="name" class="form-control"/>
-                                                </div>
+                                        <div class="form-group row p-3">
+                                                                                     
+                                            <h5 class="text-muted  pb-2">Item Tags</h5> <hr>
+                                            <!--Add your own tags -->
+                                                                              
                                                 
-                                                @* RENO: GRABBING THE PREDICTED TAGS FROM THE VIEW-BAG IN THE PREDICT FUNCTION OF THE AI MODEL *@
-                                                <div class="form-group row">
-                                                 
-                                                    <label asp-for="type"></label>
-                                                    
-                                                    <!--Add your own tags -->
-                                                    <table class="table table-bordered table-hover pr-5" id="tab_logic">
-                                                        <thead>
-                                                        <tr>
-                                                            <th >#</th>
-                                                            <th >Tag Name</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
+                                            <!--Add your own tags -->
+                                            <table class="table table-bordered table-hover pr-5" id="tab_logic">
+                                                <thead>
+                                                <tr>
                                                         
-                                                        @foreach (var x in ViewBag.types)
-                                                        {
-                                                            <tr id="@i">
-                                                                <td>@i</td>
-                                                                <td>
-                                                                    <input type="text" name='tags' placeholder='Name' value="@x" class="form-control"/>
-                                                                </td>
-                                                            </tr>
-                                                            i++;
-                                                        }
+                                                    <th class="text-center">Tag Name</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                        
+                                                @foreach (var x in ViewBag.types)
+                                                {
+                                                         
+                                                    <tr id="@i">
+                                                              
+                                                        <td>
+                                                            <input type="text" name='tags' placeholder='Name' value="@x" class="form-control"/>
+                                                        </td>
+                                                    </tr>
+                                                    i++;
+                                                    //if statement check last
+                                                }
 
 
-                                                        <tr id="@i"></tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <a id="add_row" class="btn btn-3  text-light">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a> &nbsp;  &nbsp; 
-                                                    <a id='delete_row' class="btn btn-3 text-light">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
-                                                                                                                                                                                                   
+                                                <tr id="@i"></tr>
+                                                </tbody>
+                                            </table>
+                                            <button id="add_row"  class="icon-btn add-btn ml-auto">
+                                                <div class="add-icon "></div>
+                                                <div class="btn-txt ">Add</div> 
+                                            </button> <span> &nbsp;</span>
+                                            <button  id='delete_row' class="icon-btn add-btn ">  
+                                                <div class="btn-txt ">Remove</div>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!--Create item form-->
+                                    <div class="col-sm pl-5 ">
+                                        <!--Edit form-->
+                                        <form method="post" asp-action="Edit" asp-controller="Item">
+                                            <div class="form-group row">
+                                                <h5 class="text-muted">Item Details </h5> <hr></div>
+                                            <div class="text-muted pb-3 pt-1 form-group row">Edit the item's details below  </div>
+                                            <div class="row">
+                                                <hr>
+                                                <div class="col-sm">
+                                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                                    <input asp-for="Id" hidden/>
+                                                    <input asp-for="imageURL" hidden/>
+                                                    <input asp-for="QRCodeLink" hidden/>
+                                                    <input asp-for="entryDate" hidden/>
+
+                                                    <div class="form-group row">
+                                                        <label asp-for="name"></label>
+                                                        <input asp-for="name" class="form-control"/>
                                                     </div>
 
-                                                <div class="form-group row">
-                                                    <label asp-for="quantity"></label>
-                                                    <input asp-for="quantity" class="form-control"/>
+
+                                                    <div class="form-group row">
+                                                        <label asp-for="quantity"></label>
+                                                        <input asp-for="quantity" class="form-control"/>
+                                                    </div>
+
+                                                    <div class=" form-check-inline form-group row">
+                                                        <hr>
+                                                        <label class="form-check-label">Sold &nbsp;</label>
+                                                        <input class="form-check-input" type="checkbox" asp-for="isSold">
+                                                    </div>
+                                                    <div class="form-group row">
+
+                                                        <label asp-for="soldDate"></label>
+                                                        <input asp-for="soldDate" class="form-control" type="date"/>
+
+                                                    </div>
+
                                                 </div>
 
-                                                <div class=" form-check-inline form-group row">
 
-                                                    <label class="form-check-label">Sold &nbsp;</label>
-                                                    <input class="form-check-input" type="checkbox" asp-for="isSold">
+                                                <!--Form 2nd column-->
+                                                <div class="col-sm  pl-5 pr-4 p-3">
+                                                    <div class="form-group row">
+                                                        <label asp-for="price"></label>
+                                                        <input asp-for="price" class="form-control"/>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="inventoryId" value="Inventory"></label>
+                                                        <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
+                                                            <option selected>Select Inventory</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label asp-for="colour">Colour</label> &nbsp; &nbsp;<br>
+                                                        <input asp-for="colour" type="color" size="100px" name="colour">
+                                                    </div>
+
+                                                    <div class="form-group row">
+
+                                                        <label asp-for="condition" value="Condition">Condition</label> &nbsp; &nbsp;<br>
+                                                        <select asp-for="condition" name="condition" class="form-control">
+                                                            <option value="New">New</option>
+                                                            <option value="Pre-Owned">Pre-Owned</option>
+                                                            <option value="Damaged">Damaged</option>
+                                                        </select>
+                                                    </div>
+
+                                                  
                                                 </div>
                                             </div>
-
-
-                                            <!--Form 2nd column-->
-                                            <div class="col-sm  pl-5 pr-5 p-3">
-                                                <div class="form-group row">
-
-                                                    <label asp-for="soldDate"></label>
-                                                    <input asp-for="soldDate" class="form-control" type="date"/>
-                                                    
-                                                </div>
-                                                   <div class="form-group row">
-                                                                                                    <label asp-for="price"></label>
-                                                                                                    <input asp-for="price" class="form-control"/>
-                                                                                                </div>
-                                                <div class="form-group row">
-                                                    <label asp-for="inventoryId" value="Inventory"></label>
-                                                    <select asp-for="inventoryId" asp-items="@ViewBag.InventoryDropDown" class="form-control">
-                                                        <option selected>Select Inventory</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label asp-for="colour">Colour</label> &nbsp; &nbsp;<br>
-                                                    <input asp-for="colour" type="color"  size="100px" name="colour">
-                                                </div>
-
-                                                <div class="form-group row">
-
-                                                    <label asp-for="condition" value="Condition">Condition</label> &nbsp; &nbsp;<br>
-                                                    <select asp-for="condition" name="condition" class="form-control">
-                                                        <option value="New">New</option>
-                                                        <option value="Pre-Owned">Pre-Owned</option>
-                                                        <option value="Damaged">Damaged</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group row">
-
-                                                    <input type="submit" class="btn btn-3 float-right text-right" value="Submit"/>
-                                                </div>
-                                            </div></div>
-                                    </form>
-                                </div>
+                                        </form>
+                                    </div>  </div>
                             </div>
+                            
+                            <div class="modal-footer p-0 pt-3 pr-2">
+                               <button type="submit" class="btn btn-3  ml-auto "> Update &nbsp;
+                                                                                      <img src="https://img.icons8.com/ios-filled/21/000000/submit-progress.png" alt=""/></button>
+                                                                           </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
         <!-- ============================================================== -->
-            <!-- end  -->
-            <!-- ============================================================== -->
+        <!-- end  -->
+        <!-- ============================================================== -->
     </div>
 </section>
 
@@ -178,14 +196,11 @@
     @{
         <partial name="_ValidationScriptsPartial" />
     }
-    
-    
 }
 <script>
   AOS.init();
 </script>
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
 @* This script functions is used to add dynamic text boxes to allow the user to enter as many tags as
  they desire with the uploaded test images *@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -193,9 +208,9 @@
        $(document).ready(function(){  
         let i=@i;
        $("#add_row").click(function(){
-        $('#'+i).html("<td>"+ (i+1) +"</td><td><input name='tags' type='text' placeholder='Name' class='form-control input-md'  /> " 
+        $('#'+i).html("<td><input name='tags' type='text' placeholder='Name' class='form-control input-md'  /> " 
          );
-        
+      
         $('#tab_logic').append('<tr id="'+(i+1)+'"></tr>');
         i++; 
        });
@@ -206,6 +221,10 @@
   		 }
   	 });
   });   
+       
+      
+       
+     
 </script>
 
 

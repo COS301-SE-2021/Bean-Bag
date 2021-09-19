@@ -512,3 +512,7 @@ a[href^="https"] {
     cursor: default;
     background-color: #7538aa;
 }
+
+.progress div {
+    background-color: #7538aa
+}
