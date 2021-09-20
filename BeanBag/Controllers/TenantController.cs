@@ -145,17 +145,14 @@ namespace BeanBag.Controllers
                     }
 
                     //confirm transaction
-                    if (_tenantService.GetCurrentTenant(userId).TenantSubscription != "Free")
-                    {
-                        float amount;
+                    
                         if (_tenantService.GetCurrentTenant(userId).TenantSubscription.Equals("Standard"))
                         {
-                            amount = 500;
+                            float amount = 500;
                             //Add the transaction to the DB 
                             _paymentService.AddTransaction(reference, payId, currentTenantId, amount);
-
                         }
-                    }
+                    
                 }
                 else
                 {
