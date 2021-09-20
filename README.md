@@ -184,6 +184,7 @@ All neccessary documentation related to the <b> Bean Bag</b> project.
 - [Demo 3 | Technical Installation Guide](https://drive.google.com/drive/folders/1wIohf9eZYhcIg5I41J-6H5kgn2pTL3ek?usp=sharing)
 - [Demo 3 | Coding Standards](https://drive.google.com/drive/folders/1zbzHckzp8XXazPNUY-breSOGIq6FTJP_?usp=sharing)
 - [Demo 3 | User Manual](https://drive.google.com/drive/folders/1sKaVFBSJpcAiPRj4aYcBBeWGqiULrZZc?usp=sharing)
+- Demo 4| User Manual https://drive.google.com/file/d/1DEWJOlfJuONUFW7U09nfbH32MQKSPop5/view?usp=sharing
 
 ---
 
