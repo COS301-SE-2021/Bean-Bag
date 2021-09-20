@@ -32,6 +32,6 @@ namespace BeanBag.Services
         public string GetUserRole(string id);
         void UpdateSubscription(string subscription, string tenantId);
 
-        public string CreateDbName(string userId, string name);
+        public string CreateDbName(string name);
     }
 }

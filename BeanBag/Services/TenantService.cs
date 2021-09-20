@@ -621,14 +621,12 @@ namespace BeanBag.Services
             
         }
 
-        public string CreateDbName(string userId, string name)
+        public string CreateDbName(string name)
         {
-
-            var prefix = "Bean-Bag-";
+            var prefix = "Bean-Bag-DB-";
             var dbName = Regex.Replace(name, @"\s+", "");
-            var suffix = "-DB";
 
-            var newName = prefix + dbName + suffix;
+            var newName = prefix + dbName;
 
             return newName;
         }
