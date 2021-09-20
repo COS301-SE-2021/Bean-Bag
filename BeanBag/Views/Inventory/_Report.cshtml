@@ -17,8 +17,6 @@
     var inventoryItems = _itemService.GetItems(Guid.Parse(inventoryId));
     var logo = _tenantService.GetLogo(User.GetObjectId());
     var tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
-    var userDetails = _tenantService.GetUserTenantId(User.GetObjectId());
-    var userRole = _tenantService.GetUserRole(User.GetObjectId());
     var date = DateTime.UtcNow.ToString("D");
     var itemsSold = _dashboardAnalyticsService.GetItemsSold(inventoryId,"M");
     var revenue = _dashboardAnalyticsService.GetRevenue(inventoryId, "M");
