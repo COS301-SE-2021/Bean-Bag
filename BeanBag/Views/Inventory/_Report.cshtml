@@ -22,6 +22,7 @@
     var date = DateTime.UtcNow.ToString("D");
     var itemsSold = _dashboardAnalyticsService.GetItemsSold(inventoryId,"M");
     var revenue = _dashboardAnalyticsService.GetRevenue(inventoryId, "M");
+    var salesGrowth = _dashboardAnalyticsService.GetSalesGrowth(inventoryId, "M");
 
 }
 <link rel="stylesheet" href="~/css/PdfReport.css" />
