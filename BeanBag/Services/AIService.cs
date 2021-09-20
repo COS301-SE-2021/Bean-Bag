@@ -518,8 +518,8 @@ namespace BeanBag.Services
 
             string minTag = tags[0].Name;
             string maxTag = tags[0].Name;
-            int min = tags[0].ImageCount;
-            int max = tags[0].ImageCount;
+            double min = tags[0].ImageCount;
+            double max = tags[0].ImageCount;
 
             foreach (var tag in tags)
             {
@@ -546,7 +546,8 @@ namespace BeanBag.Services
             //Ensuring balance data. That the max amount of images associated with a tag is not over double than the min amount of images associated with a tag
             if(min != 0)
             {
-                if ((max / min) > 2)
+                double value = (max / min);
+                if (value > 2.0)
                     recommendations.Add(maxTag + " has more than double the amount of images than " + minTag + ". Add more images to " + minTag + " to make the model have more balanced data.");
             }
             else 
