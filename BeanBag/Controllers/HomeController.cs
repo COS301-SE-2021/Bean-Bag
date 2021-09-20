@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using BeanBag.Database;
 using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Web;
 
 namespace BeanBag.Controllers
@@ -13,23 +16,36 @@ namespace BeanBag.Controllers
     public  class  HomeController : Controller
     {
         // Global variables needed for calling the service classes.
-        private readonly IInventoryService _inventoryService;
+        private IInventoryService _inventoryService;
         private readonly IDashboardAnalyticsService _dashboardAnalyticsService;
         private readonly IItemService _itemService;
         private readonly ITenantService _tenantService;
+        private DBContext _dbContext;
+        private static IConfiguration _configuration;
+
 
         // Constructor.
         public HomeController(IInventoryService inv, IDashboardAnalyticsService dash, IItemService itm ,ITenantService ten)
-        { 
+        {
             _inventoryService = inv;
             _dashboardAnalyticsService = dash;
             _itemService = itm;
             _tenantService = ten;
+    
+            _configuration = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.local.json").Build();
+
         }
 
         // This function returns the Index page for the dashboard, returns drop-down-lists for the page view.
         public IActionResult Index()
         {
+            var currentTenant = _tenantService.GetCurrentTenant(User.GetObjectId());
+            var dbName = _tenantService.CreateDbName(currentTenant.TenantName);
+
+            _dbContext = new DBContext(dbName).GetContext();
+            
+
             var inventories = _inventoryService.GetInventories(User.GetObjectId());
             ViewBag.name = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
 

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Identity.Web;
 using System.Drawing.Imaging;
+using BeanBag.Database;
 using QRCoder;
 using BeanBag.Services;
 
@@ -23,11 +24,13 @@ namespace BeanBag.Controllers
         private readonly IInventoryService _inventoryService;
         private readonly IAIService _aIService;
         private readonly IBlobStorageService _blobStorageService;
+        private readonly ITenantService _tenantService;
+        private DBContext _dbContext;
 
         // Constructor. 
-        public ItemController(IItemService iss, IInventoryService inv, IAIService aI, IBlobStorageService blob)
+        public ItemController(IItemService iss, IInventoryService inv, IAIService aI, IBlobStorageService blob, ITenantService tenantService)
         {
-      
+            _tenantService = tenantService;
             _itemService = iss;
             _inventoryService = inv;
             _aIService = aI;
@@ -37,6 +40,11 @@ namespace BeanBag.Controllers
         // This function returns the upload-image view for an item given a unique inventory ID.
         public IActionResult UploadImage(Guid inventoryId)
         {
+            var currentTenant = _tenantService.GetCurrentTenant(User.GetObjectId());
+            var dbName = _tenantService.CreateDbName(currentTenant.TenantName);
+
+            _dbContext = new DBContext(dbName).GetContext();
+   
             List<AIModel> aIModels = _aIService.getAllModels();
             List<SelectListItem> iterationDropDown = new List<SelectListItem>();
 

@@ -15,31 +15,19 @@ namespace BeanBag.Controllers
     {
         /* This variable is used to interact with the Database/DBContext class.
            Allows us to save, update and delete records */
-        private readonly DBContext _db;
+        private DBContext _db;
         private readonly IInventoryService _inventoryService;
         private readonly ITenantService _tenantService;
         private readonly IPaymentService _paymentService;
 
         // Constructor.
-        public InventoryController(DBContext db, IInventoryService inv,
+        public InventoryController(IInventoryService inv,
             ITenantService tenantService, IPaymentService paymentService)
         {
             // Inits the db context allowing us to use CRUD operations on the inventory table
-            _db = db;
             _inventoryService = inv;
             _tenantService = tenantService;
             _paymentService = paymentService;
-        }
-
-        public void CheckUserRole()
-        {
-            var user = _db.UserRoles.Find(User.GetObjectId());
-            if(user == null)
-            {
-                user = new UserRoles { userId = User.GetObjectId(), role = "U" };
-                _db.UserRoles.Add(user);
-                _db.SaveChanges();
-            }
         }
 
         /* This function adds a page parameter, a current sort order parameter, and a current filter
@@ -47,8 +35,14 @@ namespace BeanBag.Controllers
         public IActionResult Index(string sortOrder, string currentFilter, string searchString,
             int? page,DateTime from, DateTime to)
         {
+
             if(User.Identity is {IsAuthenticated: true})
             {
+                var currentTenant = _tenantService.GetCurrentTenant(User.GetObjectId());
+                var dbName = _tenantService.CreateDbName(currentTenant.TenantName);
+                _db = new DBContext(dbName).GetContext();
+                
+               
                 
              //A ViewBag property provides the view with the current sort order, because this must be included in 
              //the paging links in order to keep the sort order the same while paging
@@ -122,8 +116,7 @@ namespace BeanBag.Controllers
                 }
             }
 
-            //Checking user role is in DB
-            CheckUserRole();
+           
             return View(viewModel);
             }
             else
@@ -188,6 +181,8 @@ namespace BeanBag.Controllers
 
 
                 var model =  from i in _db.Items where i.inventoryId.Equals(inventoryId) select i;
+                
+                
                     //Search and match data, if search string is not null or empty
                     if (!String.IsNullOrEmpty(searchString))
                     {
@@ -227,9 +222,7 @@ namespace BeanBag.Controllers
                 ViewBag.InventoryId= inventoryId;
                 viewModel.PagedListItems = pagedList;
                 @ViewBag.totalItems = pagedList.Count;
-
-                //Checking user role is in DB
-                CheckUserRole();
+                
 
                 //Checking to see if the tenant is allowed to generate reports
                 Tenant tenant = _tenantService.GetCurrentTenant(User.GetObjectId());

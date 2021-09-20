@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BeanBag.AzureSqlDatabase;
+using BeanBag.Database;
 using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -23,6 +23,7 @@ namespace BeanBag.Controllers
         private readonly IPaymentService _paymentService;
         private IConfiguration _configuration;
         private static string _databaseName;
+        private DBContext _dbContext;
         
         private static string _resource;
         private static string _server;
@@ -35,6 +36,8 @@ namespace BeanBag.Controllers
             _paymentService = paymentService;
             
             //Database
+            _configuration = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.local.json").Build();
             
             _resource = _configuration.GetValue<String>("AzureAd:Resource");
             _server = _configuration.GetValue<String>("AzureAd:Server");
@@ -46,6 +49,12 @@ namespace BeanBag.Controllers
          [AllowAnonymous]
         public IActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            
+            var currentTenant = _tenantService.GetCurrentTenant(User.GetObjectId());
+            var dbName = _tenantService.CreateDbName(currentTenant.TenantName);
+            
+            _dbContext = new DBContext(dbName).GetContext();
+
             if (User.GetObjectId() == null)
             {
                 throw new Exception("User ID is null");
@@ -108,7 +117,7 @@ namespace BeanBag.Controllers
         
         // This function allows a user to create a new tenant.
         [HttpPost]
-        public async Task<IActionResult> CreateTenant(string tenantName, string tenantAddress,
+        public IActionResult CreateTenant(string tenantName, string tenantAddress,
             string tenantEmail, string tenantNumber, string tenantSubscription, string reference, string payId)
         {
             Console.WriteLine("Checking the user id create tenant: " + User.GetObjectId());
@@ -122,21 +131,34 @@ namespace BeanBag.Controllers
             
             var id = _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber,tenantSubscription);
             _tenantService.SignUserUp(User.GetObjectId(), id, User.GetDisplayName());
+            var user = _tenantService.GetUser(User.GetObjectId());
+            user.UserRole = "A";
                 
-            var newName = _tenantService.CreateDbName(User.GetObjectId(),tenantName);
+            var newName = _tenantService.CreateDbName(tenantName);
             _databaseName = newName;
 
+            SelectTenant(id, reference,payId);
+
+            return RedirectToAction("CreateDatabase");
+        }
+
+        public async Task<IActionResult> CreateDatabase()
+        {
             //Set up SQL manager
             var sqlManager = new AzureDatabaseManager(_resource, _server);
             
             try
             {
                 //Create the database
-                var created = await sqlManager.CreateDatabase(_databaseName);
+                var created =await sqlManager.CreateDatabase(_databaseName);
 
                 if (created)
                 {
                     Console.WriteLine("Database created");
+                    //Initialise database
+                    var migration = new MigrateToDatabase(_databaseName);
+                    migration.ApplyMigration();
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -152,14 +174,8 @@ namespace BeanBag.Controllers
             }
 
             Console.ReadKey();
-            
-            
-            SelectTenant(id, reference,payId);
 
             return RedirectToAction("Index", "Home");
-            var currentTenantId = _tenantService.CreateNewTenant(tenantName, tenantAddress, tenantEmail, tenantNumber,tenantSubscription);
-
-            return SelectTenant(currentTenantId,reference,payId);
         }
 
         /* This function allows a user to select a tenant and generates
@@ -188,16 +204,6 @@ namespace BeanBag.Controllers
                 //Verify tenant
                 if (_tenantService.SearchTenant(currentTenantId))
                 {
-                    //Verified
-                    if (userName != null)
-                    {
-                        _tenantService.SignUserUp(User.GetObjectId(), currentTenantId, userName);
-                    }
-                    else
-                    {
-
-                        _tenantService.SignUserUp(User.GetObjectId(), currentTenantId, "User");
-                    }
 
                     //confirm transaction
                     if (_tenantService.GetCurrentTenant(userId).TenantSubscription != "Free")

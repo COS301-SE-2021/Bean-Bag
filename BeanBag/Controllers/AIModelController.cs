@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BeanBag.Database;
 using X.PagedList;
 
 namespace BeanBag.Controllers
@@ -21,7 +22,8 @@ namespace BeanBag.Controllers
         private readonly IAIService _aIService;
         private readonly IBlobStorageService _blobService;
         private readonly ITenantService _tenantService;
-    
+        private DBContext _dbContext;
+
         // Constructor.
         public AiModelController(IAIService aIService, IBlobStorageService blobService, ITenantService tenantService)
         {
@@ -38,7 +40,11 @@ namespace BeanBag.Controllers
             if(User.Identity is {IsAuthenticated: true})
             {
                 
-                 //A ViewBag property provides the view with the current sort order, because this must be included in 
+                var currentTenant = _tenantService.GetCurrentTenant(User.GetObjectId());
+                var dbName = _tenantService.CreateDbName(currentTenant.TenantName);
+                _dbContext = new DBContext(dbName).GetContext();
+                
+                //A ViewBag property provides the view with the current sort order, because this must be included in 
                  //  the paging links in order to keep the sort order the same while paging
                 ViewBag.CurrentSort = sortOrder;
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
