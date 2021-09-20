@@ -36,10 +36,7 @@
                     @if (ViewBag.modelTraining == false)
                     {
                         <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="Images" class="btn btn-3 shadow-sm bg-body rounded">Upload images &nbsp;<i class="fa fa-upload" aria-hidden="true"></i></a>
-                        @if (ViewBag.canTrainNewVersion == true)
-                        {
-                            <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded">Train New Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
-                        }
+                       
                     }
                     <a asp-controller="AiModel" asp-action="CompareVersions" class="btn btn-3 shadow-sm bg-body rounded">Compare Versions <img src="https://img.icons8.com/ios-glyphs/20/000000/compare.png"/></a>
                 </div>
@@ -95,7 +92,12 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pt-4">
                     <br>
                     <div class="card shadow  mb-4 bg-body rounded">
-                        <h5 class="card-header">Model Versions List</h5>
+                        <h5 class="card-header">Model Versions List 
+                      </h5>   @if (ViewBag.canTrainNewVersion == true)
+                                                                           {
+                                                                               <span class="ml-auto float-right">
+                                                                               <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded ml-auto">Train New Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
+                                                                          </span> }
                         <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
                             <div>
                                 @if (Model.PagedListVersions.Any())
@@ -199,7 +201,7 @@
                                 }
                                 else
                                 {
-                                    <p>No Model Versions Found</p>}
+                                    <p class="pb-3">No Model Versions Found</p>}
                             </div>
                         </div>
                     </div>

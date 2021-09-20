@@ -141,27 +141,18 @@ namespace BeanBag.Controllers
                     else
                     {
 
-                        _tenantService.SignUserUp(User.GetObjectId(), currentTenantId, "User");
+                        _tenantService.SignUserUp(User.GetObjectId(), currentTenantId, "Admin");
                     }
 
                     //confirm transaction
-                    if (_tenantService.GetCurrentTenant(userId).TenantSubscription != "Free")
-                    {
-                        float amount;
+                    
                         if (_tenantService.GetCurrentTenant(userId).TenantSubscription.Equals("Standard"))
                         {
-                            amount = 500;
+                            float amount = 500;
+                            //Add the transaction to the DB 
+                            _paymentService.AddTransaction(reference, payId, currentTenantId, amount);
                         }
-                        else
-                        {
-                            amount = 1000;
-                        }
-                        
-                        //Add the transaction to the DB 
-                        _paymentService.AddTransaction(reference, payId, currentTenantId, amount);
-
-
-                    }
+                    
                 }
                 else
                 {

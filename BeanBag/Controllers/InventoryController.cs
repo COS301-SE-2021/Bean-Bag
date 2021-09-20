@@ -265,7 +265,7 @@ namespace BeanBag.Controllers
 
                 //Checking to see if the tenant is allowed to generate reports
                 Tenant tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
-                if (tenant.TenantSubscription == "Premium")
+                if (tenant.TenantSubscription == "Premium"||tenant.TenantSubscription == "Standard" )
                     ViewBag.canGenerateReport = true;
                 else
                     ViewBag.canGenerateReport = false;
