@@ -20,7 +20,8 @@
     var userDetails = _tenantService.GetUserTenantId(User.GetObjectId());
     var userRole = _tenantService.GetUserRole(User.GetObjectId());
     var date = DateTime.UtcNow.ToString("D");
-    
+    var itemsSold = _dashboardAnalyticsService.GetItemsSold(inventoryId,"M");
+
 }
 <link rel="stylesheet" href="~/css/PdfReport.css" />
 
