@@ -78,28 +78,6 @@ namespace BeanBag.Services
             Inventory inventory = _db.Inventories.Find(id);
             return inventory;
         }
-
-        // This method retrieves the user role from the database
-        public string GetUserRole(string id)
-        {
-            var user = _db.UserRoles.Find(id);
-
-            if (user == null)
-            {
-                throw new Exception("User is null");
-            }
-
-            if (user.role.Equals("U"))
-            {
-                return "User";
-            }
-            
-            if (user.role.Equals("A"))
-            {
-                return "Admin";
-            }
-
-            return "";
-        }
+        
     }
 }
