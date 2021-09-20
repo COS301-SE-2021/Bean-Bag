@@ -141,7 +141,7 @@ namespace BeanBag.Controllers
                     else
                     {
 
-                        _tenantService.SignUserUp(User.GetObjectId(), currentTenantId, "User");
+                        _tenantService.SignUserUp(User.GetObjectId(), currentTenantId, "Admin");
                     }
 
                     //confirm transaction
@@ -151,16 +151,10 @@ namespace BeanBag.Controllers
                         if (_tenantService.GetCurrentTenant(userId).TenantSubscription.Equals("Standard"))
                         {
                             amount = 500;
-                        }
-                        else
-                        {
-                            amount = 1000;
-                        }
-                        
-                        //Add the transaction to the DB 
-                        _paymentService.AddTransaction(reference, payId, currentTenantId, amount);
+                            //Add the transaction to the DB 
+                            _paymentService.AddTransaction(reference, payId, currentTenantId, amount);
 
-
+                        }
                     }
                 }
                 else
