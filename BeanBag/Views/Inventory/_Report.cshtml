@@ -13,7 +13,6 @@
 
 @{
     int i = 1;
-    int counter = 0;
     var inventoryId = this.ViewData.ContainsKey("InventoryIdNew") ? this.ViewData["InventoryIdNew"].ToString() : string.Empty;
     var inventoryItems = _itemService.GetItems(Guid.Parse(inventoryId));
     var logo = _tenantService.GetLogo(User.GetObjectId());
