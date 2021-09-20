@@ -505,6 +505,11 @@ a[href^="https"] {
     color: #7538aa;
 }
 
+.text-col
+{
+    color: white;
+}
+
 /*paging*/
 
 .active {
