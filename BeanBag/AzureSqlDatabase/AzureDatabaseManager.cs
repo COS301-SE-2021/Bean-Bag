@@ -63,8 +63,8 @@ namespace BeanBag.AzureSqlDatabase
                 CreateMode = CreateMode.Default
             };
 
-            var creation =
-                await _sqlClient.Databases.CreateOrUpdateAsync(_azureResource, _databaseServer, name, databaseDetails);
+            var creation = await 
+                 _sqlClient.Databases.CreateOrUpdateAsync(_azureResource, _databaseServer, name, databaseDetails);
             
             
 
