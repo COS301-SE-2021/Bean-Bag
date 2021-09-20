@@ -9,19 +9,18 @@
 }
 @inject ITenantService _tenantService
 @inject IItemService _itemService
+@inject IDashboardAnalyticsService _dashboardAnalyticsService
 
 @{
     int i = 1;
     var inventoryId = this.ViewData.ContainsKey("InventoryIdNew") ? this.ViewData["InventoryIdNew"].ToString() : string.Empty;
-
-        var inventoryItems = _itemService.GetItems(Guid.Parse(inventoryId));
-   
+    var inventoryItems = _itemService.GetItems(Guid.Parse(inventoryId));
     var logo = _tenantService.GetLogo(User.GetObjectId());
     var tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
     var userDetails = _tenantService.GetUserTenantId(User.GetObjectId());
     var userRole = _tenantService.GetUserRole(User.GetObjectId());
     var date = DateTime.UtcNow.ToString("D");
-  //var inventoryId = "ac881860-5180-47c4-3615-08d97aa11572";
+    
 }
 <link rel="stylesheet" href="~/css/PdfReport.css" />
 
