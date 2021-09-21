@@ -185,7 +185,8 @@ All neccessary documentation related to the <b> Bean Bag</b> project.
 - [Demo 3 | Coding Standards](https://drive.google.com/drive/folders/1zbzHckzp8XXazPNUY-breSOGIq6FTJP_?usp=sharing)
 - [Demo 3 | User Manual](https://drive.google.com/drive/folders/1sKaVFBSJpcAiPRj4aYcBBeWGqiULrZZc?usp=sharing)
 - [Demo 4 | User Manual](https://drive.google.com/file/d/1DEWJOlfJuONUFW7U09nfbH32MQKSPop5/view?usp=sharing)
-
+- [Demo 4 | Testing Quality + NFR Testing Document](https://drive.google.com/file/d/1z-xZPePNy_bTVutDWSXR7XhUZDLLNf4r/view?usp=sharing)
+- [Demo 4 | SRS - Architectural Document](https://drive.google.com/drive/folders/1viOpgJCb1BMFE4uqWRd7mbRtuZ_QopCi?usp=sharing)
 ---
 
 <a name="management"/><h2>🔵 Project Management Tools</h3></a>
