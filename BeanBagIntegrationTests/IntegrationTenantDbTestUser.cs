@@ -4,6 +4,7 @@ using BeanBag.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Microsoft.Extensions.Configuration;
 using Xunit;
 
 namespace BeanBagIntegrationTests
@@ -11,16 +12,33 @@ namespace BeanBagIntegrationTests
     public class IntegrationTenantDbTestUser
     {
         private readonly TenantDbContext _tenantDbContext;
+        
+        private readonly IConfiguration _configuration;
+        
+        // Tenant testing data
+        private const string Name = "Tenant-name";
+        private const string Address = "test-address";
+        private const string Email = "tenant@test.com";
+        private const string Number = "0123456789";
+        private const string Subscription = "Free";
+
+        // User testing data
+        private const string Username = "test-user";
+        private const string Role = "U";
 
         public IntegrationTenantDbTestUser()
         {
+            this._configuration = new ConfigurationBuilder().AddJsonFile("appsettings.local.json").Build();
+            
             var serviceProvider = new ServiceCollection()
                 .AddEntityFrameworkSqlServer()
                 .BuildServiceProvider();
 
             var builder = new DbContextOptionsBuilder<TenantDbContext>();
-            builder.UseSqlServer("Server=tcp:polariscapestone.database.windows.net,1433;Initial Catalog=Bean-Bag-Tenants;Persist Security Info=False;User ID=polaris;Password=MNRSSp103;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")
-                .UseInternalServiceProvider(serviceProvider);
+
+            var connString = _configuration.GetValue<string>("Database:TenantConnection");
+            
+            builder.UseSqlServer(connString).UseInternalServiceProvider(serviceProvider);
 
             _tenantDbContext = new TenantDbContext(builder.Options);
         }
@@ -34,12 +52,20 @@ namespace BeanBagIntegrationTests
             //Arrange
             //Tenant
             var id = Guid.NewGuid().ToString();
-            var name = "Tenant-name";
-            var newTenant = new Tenant { TenantId = id, TenantName = name };
+            var newTenant = new Tenant
+            {
+                TenantId = id, TenantName = Name, TenantAddress = Address, 
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, InviteCode = "", TenantLogo = "", TenantTheme = ""
+            };
             
             //User
             var userId = Guid.NewGuid().ToString();
-            var newUser = new TenantUser { UserTenantId = id, UserObjectId = userId };
+            var newUser = new TenantUser
+            {
+                UserTenantId = id, UserObjectId = userId,
+                UserName = Username, UserRole = Role
+                
+            };
 
             //Act
             var query = new TenantService(_tenantDbContext);
@@ -103,18 +129,27 @@ namespace BeanBagIntegrationTests
             
             //Tenant
             var id = Guid.NewGuid().ToString();
-            var newTenant = new Tenant { TenantId = id, TenantName = "Tenant-name" };
+            var newTenant = new Tenant
+            {
+                TenantId = id, TenantName = Name, TenantAddress = Address, 
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, InviteCode = "", TenantLogo = "", TenantTheme = ""
+            };
             
             //User
             var userId = Guid.NewGuid().ToString();
-            
+            var newUser = new TenantUser
+            {
+                UserTenantId = id, UserObjectId = userId,
+                UserName = Username, UserRole = Role
+                
+            };
             
             //Act
             var query = new TenantService(_tenantDbContext);
             _tenantDbContext.Tenant.Add(newTenant);
             _tenantDbContext.SaveChanges();
 
-            var signedUp = query.SignUserUp(userId, id);
+            var signedUp = query.SignUserUp(userId,id,Username);
 
             var tenant = _tenantDbContext.Tenant.Find(id);
             var user = _tenantDbContext.TenantUser.Find(userId);
@@ -143,19 +178,22 @@ namespace BeanBagIntegrationTests
             
             //Tenant
             var id = Guid.NewGuid().ToString();
-            var newTenant = new Tenant { TenantId = id, TenantName = "Tenant-name" };
+            var newTenant = new Tenant
+            {
+                TenantId = id, TenantName = Name, TenantAddress = Address, 
+                TenantEmail = Email, TenantNumber = Number, TenantSubscription = Subscription, InviteCode = "", TenantLogo = "", TenantTheme = ""
+            };
             
             //User
             var userId = Guid.NewGuid().ToString();
-            
             
             //Act
             var query = new TenantService(_tenantDbContext);
             _tenantDbContext.Tenant.Add(newTenant);
             _tenantDbContext.SaveChanges();
 
-            var signedUp = query.SignUserUp(userId, id);
-            var signedUpAgain = query.SignUserUp(userId, id);
+            var signedUp = query.SignUserUp(userId, id, Username);
+            var signedUpAgain = query.SignUserUp(userId, id, Username);
 
             var tenant = _tenantDbContext.Tenant.Find(id);
             var user = _tenantDbContext.TenantUser.Find(userId);
@@ -188,7 +226,7 @@ namespace BeanBagIntegrationTests
             //Act
             var query = new TenantService(_tenantDbContext);
 
-            var signedUp = query.SignUserUp(userId, id);
+            var signedUp = query.SignUserUp(userId, id, Username);
             
             var tenant = _tenantDbContext.Tenant.Find(id);
             var user = _tenantDbContext.TenantUser.Find(userId);
@@ -215,8 +253,8 @@ namespace BeanBagIntegrationTests
             //Act
             var query = new TenantService(_tenantDbContext);
 
-            var exceptionTenant = Assert.Throws<Exception>(() => query.SignUserUp(userId, null));
-            var exceptionUser = Assert.Throws<Exception>(() => query.SignUserUp(null, null));
+            var exceptionTenant = Assert.Throws<Exception>(() => query.SignUserUp(userId, null, Username));
+            var exceptionUser = Assert.Throws<Exception>(() => query.SignUserUp(null, null, null));
             
             var tenant = _tenantDbContext.Tenant.Find(id);
             var user = _tenantDbContext.TenantUser.Find(userId);

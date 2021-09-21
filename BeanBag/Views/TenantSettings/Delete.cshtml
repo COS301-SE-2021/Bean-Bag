@@ -1,0 +1,27 @@
+﻿@model TenantUser
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+@{
+    Layout = null;
+}
+
+<!--Delete inventory inner card popup -->
+<div class="modal-body ">
+    <div class="form-group">
+        <div class="text-muted"> Are you sure that you want to delete this user? </div>
+      
+        <div class="stats mt-2 pt-4">
+            <div class="d-flex justify-content-between p-price"><span>ID</span><span>@Model.UserTenantId</span></div>
+            <div class="d-flex justify-content-between p-price"><span>Username</span><span>@Model.UserName</span></div>
+            <div class="d-flex justify-content-between p-price"><span>UserRole</span><span>@if(@Model.UserRole=="A"){<p>Admin</p>}else{<p>User</p>}</span></div>
+        </div>
+        <input asp-for="UserObjectId" hidden/>
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </div>
+</div>
+<div class="modal-footer ">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+    <input type="submit" class="btn btn-3" value="Delete"/> <!--create button-->
+</div>

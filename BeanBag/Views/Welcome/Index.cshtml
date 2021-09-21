@@ -1,0 +1,139 @@
+﻿@{
+   
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap CSS -->
+
+	<link rel = "icon" href ="https://img.icons8.com/ios/50/ffffff/circled-b.png" type = "image/x-icon">
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+  
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="stylesheet" href="~/css/dashboard.css" />
+	<link rel="stylesheet" href="~/css/tenant.css" />
+  
+	<title> Welcome </title>
+
+</head>
+
+
+<style>
+    .hidden {
+        display: none;
+    }
+
+    li {
+        list-style-type: none;
+    }
+ 
+</style>
+
+
+<!--Nav-->
+<nav class="navbar navbar-expand-md navbar-light">
+	<a href="#" class="navbar-brand">Bean Bag</a>
+	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	@{
+		System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+	}
+	
+	<div class="collapse navbar-collapse">
+		<div class="navbar-nav ml-auto">
+			<li class="nav-item" >
+			</li>
+		</div>
+	</div>
+	
+	<div class="collapse navbar-collapse"  id="collapsibleNavbar">
+		<div class="navbar-nav ml-auto  pt-1">
+				<li class="nav-item">		<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Tenant" asp-action="Index">
+                                        					Plans
+                                        				</a>
+            		</li>
+			<li class="nav-item">
+
+			
+
+				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Welcome" asp-action="Index">
+					Home
+				</a>
+
+
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">
+					SignOut
+				</a>
+			</li>
+
+		</div>
+		
+	</div>
+		<hr>
+</nav>
+
+<div class="container h-75 d-flex justify-content-center">
+    <div class=" my-auto pt-xl-3 text-center">    
+	    <!--Successful Payment here-->
+	    <h1> Welcome to Bean Bag </h1>
+	    <h5> Begin by joining or creating <br>
+		    a new tenant</h5>
+        	<h4 class="pb-2"></h4>
+	    
+	    <!-- Button to go to create tenant page -->
+	    <a class="btn btn-outline-light shadow-sm bg-body create rounded colors pt-2 " id="btn-create"
+	            asp-action="Index" asp-controller="Tenant">Create Tenant</a>
+	    
+	    <!-- Button to enter invitation code -->
+	    <a asp-controller="Welcome" asp-action="VerifyCode" class="btn btn-outline-light shadow-sm bg-body create rounded colors pt-2 " 
+                    data-toggle="modal" data-target="#exampleModalCode">Join Tenant</a>
+            			                                                                                                                                            
+           
+    </div>
+ </div>
+
+	<!---Popup Form to create tenant-->
+	<div class="modal fade" id="exampleModalCode" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitleCode">
+		<div class="modal-dialog modal-dialog" role="document">
+        
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"  id="exampleModalTitleCode">Invitation Code</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="post" asp-controller="Welcome" asp-action="VerifyCode">
+					<div class="modal-body">
+							<p class="text-muted pb-2">Enter an invitation code below to gain access to an already existing tenant.</p>
+                        			
+						<div class="form-group">
+							<label for="code" class="col-form-label">Invitation Code:</label>
+							<input type="text" id="code" name="code" class="form-control"/>
+						</div>
+						
+						
+						<div asp-validation-summary="All" class="text-danger"></div>
+
+					</div>
+					<div class="modal-footer ">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<input type="submit" class="btn colors create" value="Verify Code"/> <!--create button-->
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

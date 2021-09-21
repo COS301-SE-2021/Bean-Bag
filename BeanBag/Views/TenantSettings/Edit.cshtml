@@ -1,0 +1,29 @@
+﻿@model TenantUser
+@using Microsoft.Extensions.Options
+@using Microsoft.Identity.Web
+@inject IOptions<MicrosoftIdentityOptions> _azureAdb2COptions
+@{
+    Layout = null;
+}
+
+<!--Edit inventory inner card popup -->
+<div class="modal-body">
+
+    <div class="form-group ">
+        <input asp-for="UserObjectId" hidden/>
+        
+        <label asp-for="UserRole">User</label><br>
+        <input asp-for="UserRole" type="radio" id="user" name="userRole" value="User">
+        
+        <label asp-for="UserRole">Admin</label><br>
+        <input asp-for="UserRole" type="radio" id="admin" name="userRole" value="Admin">
+
+    </div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    
+</div>
+
+<div class="modal-footer ">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <input type="submit" class="btn btn-3" value="Save Changes"/> <!--create button-->
+</div>

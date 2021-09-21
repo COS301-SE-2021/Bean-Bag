@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BeanBag.Models;
 using BeanBag.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,30 +16,52 @@ namespace BeanBag.Controllers
         private readonly IInventoryService _inventoryService;
         private readonly IDashboardAnalyticsService _dashboardAnalyticsService;
         private readonly IItemService _itemService;
+        private readonly ITenantService _tenantService;
 
         // Constructor.
-        public HomeController(IInventoryService inv, IDashboardAnalyticsService dash, IItemService itm)
+        public HomeController(IInventoryService inv, IDashboardAnalyticsService dash, IItemService itm ,ITenantService ten)
         { 
             _inventoryService = inv;
             _dashboardAnalyticsService = dash;
             _itemService = itm;
+            _tenantService = ten;
         }
 
         // This function returns the Index page for the dashboard, returns drop-down-lists for the page view.
         public IActionResult Index()
         {
-            //Inventory Drop-Down-List
             var inventories = _inventoryService.GetInventories(User.GetObjectId());
-            IEnumerable < SelectListItem > inventoryDropDown = inventories.Select(i => new SelectListItem
+            ViewBag.name = _tenantService.GetTenantName(_tenantService.GetUserTenantId(User.GetObjectId()));
+
+            //Reno: Created new inventory for new user
+            if (inventories.Count == 0)
+            {
+                Inventory newInventory = new Inventory()
+                {
+                    name = "My First Inventory",
+                    description = "Give me a description",
+                    userId = User.GetObjectId(),
+                    createdDate = System.DateTime.Now,
+                    publicToTenant = false
+                };
+                _inventoryService.CreateInventory(newInventory);
+                ViewBag.hasItems = false;
+                return View();
+            }
+
+            //Inventory Drop-Down-List
+            IEnumerable< SelectListItem > inventoryDropDown = inventories.Select(i => new SelectListItem
                 {
                     Text = i.name,
                     Value = i.Id.ToString()
                 }
             );
+            
             if(inventories.Count!=0)
             {
                 inventoryDropDown.First().Selected = true;
             }
+            
             ViewBag.InventoryDropDown = inventoryDropDown;
             
             //TimeFrame Drop-Down-list
@@ -52,8 +75,8 @@ namespace BeanBag.Controllers
 
             times.First().Selected = true;
             ViewBag.TimeDropDown = times;
-            ViewBag.hasItems = true;
-
+            ViewBag.hasItems = false;
+            
             if (inventories.Count==0)
             {
                 ViewBag.hasItems = false;
@@ -63,13 +86,13 @@ namespace BeanBag.Controllers
             // Checking inventories for an empty state 
             foreach (var t in inventories)
             {
-                if (  _itemService.GetItems(t.Id).Count ==0)
+                if ( _itemService.GetItems(t.Id).Count> 0)
                 {
-                    ViewBag.hasItems = false;
+                    ViewBag.hasItems = true;
                     return View();
                 }
             }
-
+      
             return View();
         }
         

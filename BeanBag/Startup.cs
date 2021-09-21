@@ -1,4 +1,3 @@
-using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +10,7 @@ using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using BeanBag.Database;
 using BeanBag.Services;
+using AspNetCore.Unobtrusive.Ajax;
 
 namespace BeanBag
 {
@@ -19,7 +19,6 @@ namespace BeanBag
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
         }
 
         public IConfiguration Configuration { get; }
@@ -38,7 +37,7 @@ namespace BeanBag
                 {
                     options.Events.OnTokenValidated = async context =>
                     {
-                        context.Properties.RedirectUri = "/Account";
+                        context.Properties.RedirectUri = "/Welcome";
 
                         await Task.FromResult(0);
                     };
@@ -54,7 +53,7 @@ namespace BeanBag
 
             services.AddControllersWithViews();
 
-            // Connecting to the sql server and to the specified DB using the appsettings.json ConnectionStrings defaultConnection contents
+            // Connecting to the sql server and to the specified DB using the app-settings.json ConnectionStrings defaultConnection contents
             services.AddDbContext<DBContext>(options =>
                 options.UseSqlServer(Configuration.GetValue<string>("Database:DefaultConnection"))
             );
@@ -63,17 +62,24 @@ namespace BeanBag
             services.AddDbContext<TenantDbContext>(options => 
                 options.UseSqlServer(Configuration.GetValue<string>("Database:TenantConnection"))
             );
-
+            
+        
             //Adding service classes to be used as a DI
             services.AddTransient<IInventoryService, InventoryService>();
             services.AddTransient<IItemService, ItemService>();
-            services.AddTransient<IAiService, AiService>();
+            services.AddTransient<IAIService, AIService>();
             services.AddTransient<IDashboardAnalyticsService, DashboardAnalyticsService>();
             services.AddTransient<IBlobStorageService, BlobStorageService>();
 
-            services.AddTransient<TenantService>();
-            services.AddTransient<TenantBlobStorageService>();
-    
+            services.AddTransient<IPaymentService, PaymentService>();
+            services.AddTransient<ITenantService,TenantService>();
+            services.AddTransient<ITenantBlobStorageService, TenantBlobStorageService>();
+            services.AddUnobtrusiveAjax(); 
+            //Adding an upload limit of 100 mb (mainly for uploading a lot of test images)
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.MaxRequestBodySize = int.MaxValue;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,9 +95,11 @@ namespace BeanBag
                 app.UseExceptionHandler("/LandingPage/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }
+            } 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            //It is required for serving 'jquery-unobtrusive-ajax.min.js' embedded script file.
+            app.UseUnobtrusiveAjax();
 
             app.UseRouting();
 
@@ -105,8 +113,6 @@ namespace BeanBag
                     pattern: "{controller=LandingPage}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            
-            
         }
     }
 }

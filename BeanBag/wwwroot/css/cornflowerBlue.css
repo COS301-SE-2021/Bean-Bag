@@ -507,3 +507,10 @@ a[href^="https"] {
 {
     color: #0754f1;
 }
+
+.progress div {
+    background-color: #0754f1
+}.text-col
+ {
+     color: white;
+ }

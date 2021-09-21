@@ -1,0 +1,443 @@
+﻿@{
+   
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap CSS -->
+
+	<link rel = "icon" href ="https://img.icons8.com/ios/50/ffffff/circled-b.png" type = "image/x-icon">
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+  
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="stylesheet" href="~/css/dashboard.css" />
+	<link rel="stylesheet" href="~/css/tenant.css" />
+  
+	<title> Pricing </title>
+
+</head>
+
+
+<style>
+    .hidden {
+        display: none;
+    }
+
+    li {
+        list-style-type: none;
+    }
+    #paygate {
+        display: none;
+    }
+</style>
+
+<!--Nav-->
+<nav class="navbar navbar-expand-md navbar-light">
+	<a href="#" class="navbar-brand">Bean Bag</a>
+	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	@{
+		System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+	}
+	
+	<div class="collapse navbar-collapse">
+		<div class="navbar-nav ml-auto">
+			<li class="nav-item" >
+			</li>
+		</div>
+	</div>
+	
+	<div class="collapse navbar-collapse"  id="collapsibleNavbar">
+		<div class="navbar-nav ml-auto  pt-1">
+				<li class="nav-item">		<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Tenant" asp-action="Index">
+                                        					Plans
+                                        				</a>
+            		</li>
+			<li class="nav-item">
+
+			
+	<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Welcome" asp-action="Index">
+					Home
+				</a>
+
+
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">
+					SignOut
+				</a>
+			</li>
+
+		</div>
+		
+	</div>
+		<hr>
+</nav>
+<body>
+
+
+<div class="pt-3 text-center">
+	<h2 >Choose a Subscription Plan </h2><br>
+	Choose a plan below and get started <br>
+	with creating a new tenant
+</div>
+
+
+<div class="container-fluid">
+  <div class="container p-5">
+    <div class="row">
+      <div class="col-lg-4 col-md-12 mb-4">
+        <div class="card h-100 shadow-lg  rounded-lg">
+          
+          <div class="card-body">
+            <div class="text-center gradient ">
+              <h5 class="card-title pt-3 ">Basic</h5>
+              <small>Individual</small>
+              <br><br>
+              <span class="h2">Free</span>
+              <br><br>
+            </div>
+            <p class="card-text text-center p-3">This subscription plan is recommended for individuals and trial users.</p>
+          </div>
+          <ul class="list-group list-group-flush justify-content-between">
+            <li class="list-group-item">
+	            <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> 1 admin , 5 users </li>
+            <li class="list-group-item">
+	            <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/>Train 1 AI model, 3 iterations per model</li>
+              <li class="list-group-item">
+	              <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> 3 Inventories, 15 items per inventory</li>
+                <li class="list-group-item">
+	                <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> No extra features</li>
+          </ul>
+          <div class="card-body text-center ml-auto p-3">
+	
+	         <a class="btn btn-outline-light shadow-sm bg-body create rounded colors" data-toggle="modal" data-target="#exampleModal3">Select</a> 
+
+	          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-12 mb-4">
+        <div class="card h-100 shadow-lg  rounded-lg">
+          <div class="card-body">
+            <div class="text-center gradient">
+              <h5 class="card-title pt-3">Standard</h5>
+              <small>Small Business</small>
+              <br><br>
+              <span class="h2">R500</span>/month 
+              <br><br>
+            </div>
+            <p class="card-text text-center p-3">This subscription plan is recommended for small business owners.</p>
+          </div>
+          <ul class="list-group list-group-flush justify-content-between">
+            <li class="list-group-item">
+         	            <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> 3 admins , 15 users </li>
+                     <li class="list-group-item">
+         	            <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/>Train 3 AI models, 10 iterations per model</li>
+                       <li class="list-group-item">
+         	              <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> 10 Inventories, 75 items per inventory</li>
+                         <li class="list-group-item">
+         	                  <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> Generate inventory reports</li> </ul>
+                          	
+          <div class="card-body text-center ml-auto p-3">
+        	<a class="btn btn-outline-light shadow-sm bg-body create rounded colors" data-toggle="modal" data-target="#exampleModal">Select</a> 
+		     </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-12 mb-4">
+        <div class="card h-100 shadow-lg  rounded-lg">
+          <div class="card-body">
+            <div class="text-center gradient">
+              <h5 class="card-title pt-3">Enterprise</h5>
+              <small>Large Enterprises</small>
+              <br><br>
+              <span class="h2">Custom</span>
+              <br><br>
+            </div>
+            <p class="card-text text-center p-3">This subscription plan is recommended for large enterprises and businesses.</p>
+          </div>
+          <ul class="list-group list-group-flush">   <li class="list-group-item">
+              <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> Unlimited access </li>
+                                <li class="list-group-item">
+                    	            <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/>Train up to 20 AI models, unlimited iterations per model</li>
+                                  <li class="list-group-item">
+                    	              <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> Unlimited Inventories and items per inventory</li>
+                                    <li class="list-group-item">
+                    	                <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> Generate inventory reports</li> </ul>
+	        <div class="card-body text-center ml-auto p-3">
+		     	<a class="btn btn-outline-light shadow-sm bg-body create rounded colors" data-toggle="modal" data-target="#exampleModal2">Select</a> 
+
+	        </div>
+        </div>
+      </div>
+    </div>    
+  </div></div>
+
+</body>
+</html>
+
+
+
+<!---Popup Form to payment standard -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog" role="document">
+        
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"  id="exampleModalTitle">Payment</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="p-3">
+				<div >
+					<h6 class="pb-4 ">Standard Plan</h6>
+              
+					
+				</div> <!-- End -->
+                    
+				<!-- Paypal info -->
+				<div  class="tab-pane  pt-1">
+					<!--Pay-fast checkout-->
+				
+				                      
+					<div >
+						<form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
+							<!--Email nb-->
+							
+							<div class="form-group">
+								<p class="text-muted"> Please enter your email. This is required for payment confirmation purposes. </p>
+                                                            				
+								<label class="col-form-label">Email *</label>
+								<input type="text" id="email" name="EMAIL" class="form-control"/> <!--input box-->
+							</div>
+							<div hidden>
+							<input id="PAY_REQUEST_ID" name="PAY_REQUEST_ID" type="hidden"/>
+							<input id="CHECKSUM" name="CHECKSUM" type="hidden"/>
+							<input id="REDIRECT" type="submit" /></div>
+							<div asp-validation-summary="All" class="text-danger"></div>
+							
+						</form>
+					</div>
+						<button class="btn btn-outline-light shadow-sm bg-body create rounded colors pb-2"  id="btn-pay" >Proceed to payment</button> 
+                    				
+                    					<ul class="text-info pt-1 " id="results"></ul>
+                                  
+
+				</div> <!-- End -->
+				<DIV class="pt-1">
+				
+					<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
+				</DIV>   	
+					<img width="150" class="pb-2" src="~/images/payfastlogo.png" alt=""/>
+			</div>
+			
+	
+		</div>
+		</div>
+</div>
+<!---Popup Form to payment premium -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog" role="document">
+        
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"  id="exampleModalTitle2">Contact Us</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="pt-3 pb-3">
+				<div >
+					<h6 class="pl-3" >Enterprise Plan</h6>
+              
+					
+				</div> <!-- End -->
+                    	</div>
+				<!-- Paypal info -->
+					<!--Pay-fast checkout-->
+				<div class="modal-body pt-2">
+					For an enterprise subscription plan, email us at <b>info@agilebridge.co.za</b> 
+					and we will be sure to get back to you.</div>
+				
+				  <div class="modal-footer ">
+					  <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+				  </div>
+                   					                   
+				<!--	<div >
+						<form action="https://secure.paygate.co.za/payweb3/process.trans" method="POST">
+				
+							
+							<div class="form-group">
+								<p class="text-muted"> Please enter your email. This is required for payment confirmation purposes. </p>
+                                                            				
+								<label class="col-form-label">Email *</label>
+								<input type="text" id="email2" name="EMAIL" class="form-control"/>
+							</div>
+							<div hidden>
+							<input id="PAY_REQUEST_ID2" name="PAY_REQUEST_ID" type="hidden"/>
+							<input id="CHECKSUM2" name="CHECKSUM" type="hidden"/>
+							<input id="REDIRECT2" type="submit" /></div>
+							<div asp-validation-summary="All" class="text-danger"></div>
+							
+						</form>
+					</div>
+						<button class="btn btn-outline-light shadow-sm bg-body create rounded colors pb-2"  id="btn-pay2" >Proceed to payment</button> 
+                    				
+                    					<ul class="text-info pt-1 " id="results2"></ul>
+                                  
+
+				</div>
+				<DIV class="pt-1">
+				
+					<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
+				</DIV>   	
+					<img width="150" class="pb-2" src="~/images/payfastlogo.png" alt=""/>
+			</div>-->
+			
+	
+		</div>
+		</div>
+</div>
+	
+		
+	<!---Popup Form to create tenant-->
+	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle3" aria-hidden="true">
+		<div class="modal-dialog modal-dialog" role="document">
+        
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"  id="exampleModalTitle3">Create New Tenant</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+                
+				<form method="post" asp-action="CreateTenant" >
+					<div class="modal-body">
+						                          
+						<div class="form-group">
+							<label for="tenantName" class="col-form-label">Tenant name *</label>
+							<input type="text" id="tenantName" name="tenantName" class="form-control"/> <!--input box-->
+						</div>
+
+						<div class="form-group">
+							<label for="tenantAddress" class="col-form-label">Address *</label>
+							<input type="text" id="tenantAddress" name="tenantAddress" class="form-control"/> <!--input box-->
+						</div><br>
+
+						<h6 class="modal-title">Contact details</h6>
+
+						<div class="form-group">
+							<label for="tenantEmail" class="col-form-label">Email *</label>
+							<input type="text" id="tenantEmail" name="tenantEmail" class="form-control"/> <!--input box-->
+						</div>
+
+						<div class="form-group">
+							<label for="tenantNumber" class="col-form-label">Telephone number *</label>
+							<input type="text" id="tenantNumber" name="tenantNumber" class="form-control"/> <!--input box-->
+						</div>
+						<input name="tenantSubscription" value="Free" hidden />
+                                             
+
+						<div asp-validation-summary="All" class="text-danger"></div>
+
+					</div>
+					<div class="modal-footer ">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<input type="submit" class="btn colors create" value="Create"/> <!--create button-->
+					</div>
+				</form>
+                   
+			</div>
+		</div>
+	</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+
+//For standard payment - Get Request
+    $('#btn-pay').on('click', function () {
+        let node = document.createElement("li");
+        node.innerText = "Processing...";
+        document.querySelector("#results").appendChild(node);
+
+        $.get(`/payment/getrequest`, {email : $('#email').val(), amount: "50000" })
+            .done(data => success(data))
+            .fail(err => error(err));
+      
+    });
+    
+    function success(data) {
+        let requestNode = document.createElement("li");
+        requestNode.innerText = "Request retrieved";
+        document.querySelector("#results").appendChild(requestNode);
+
+        requestNode.innerText = data.message;
+        if (data.success) {
+            $("#PAY_REQUEST_ID").val(data.results.PAY_REQUEST_ID);
+            $("#CHECKSUM").val(data.results.CHECKSUM);
+
+            let redirectNode = document.createElement("li");
+            redirectNode.innerText = "Redirecting...";
+            document.querySelector("#results").appendChild(redirectNode);
+
+            document.querySelector("#REDIRECT").click();
+        }
+    }
+
+    function error(data) {
+        console.log("Error");
+        let node = document.createElement("li");
+        node.innerText = data;
+        document.querySelector("#results").appendChild(node);
+    }
+   
+//For premium payment - Get Request
+    $('#btn-pay2').on('click', function () {
+        let node = document.createElement("li");
+        node.innerText = "Processing...";
+        document.querySelector("#results2").appendChild(node);
+
+         $.get(`/payment/getrequest`, {email : $('#email2').val(), amount: "100000" })
+                    .done(data => success2(data))
+                    .fail(err => error2(err));
+    });
+    
+     function success2(data) {
+            let requestNode = document.createElement("li");
+            requestNode.innerText = "Request retrieved";
+            document.querySelector("#results2").appendChild(requestNode);
+    
+            requestNode.innerText = data.message;
+            if (data.success) {
+                $("#PAY_REQUEST_ID2").val(data.results.PAY_REQUEST_ID);
+                $("#CHECKSUM2").val(data.results.CHECKSUM);
+    
+    
+                let redirectNode = document.createElement("li");
+                redirectNode.innerText = "Redirecting...";
+                document.querySelector("#results2").appendChild(redirectNode);
+    
+                document.querySelector("#REDIRECT2").click();
+            }
+        }
+        
+       
+    function error2(data) {
+        console.log("Error");
+        let node = document.createElement("li");
+        node.innerText = data;
+        document.querySelector("#results2").appendChild(node);
+    }
+     
+</script>
+

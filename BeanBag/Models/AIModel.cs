@@ -1,17 +1,21 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BeanBag.Models
 {
     public class AIModel
     {
         [Key]
-        public Guid projectId { get; set; }
+        public Guid Id { get; set; }
 
-        [Required]
-        [DisplayName("Model Name")]
-        [StringLength(100, ErrorMessage = "Model name length can't be more than 100.")]
-        public string projectName { get; set; }
+        [StringLength(100, ErrorMessage = "AI Model name length can't be more than 100.")]
+        public string name { get; set; }
+
+        public DateTime dateCreated { get; set; }
+
+        public string description { get; set; }
+
+        public int? imageCount { get; set; }
     }
 }

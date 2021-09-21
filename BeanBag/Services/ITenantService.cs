@@ -9,15 +9,26 @@ namespace BeanBag.Services
         public string GetTenantName(string tenantId);
         public string GetUserTenantId(string userId);
         public string GetTenantId(string tenantName);
+        public Tenant GetCurrentTenant(string userId);
         public string GetTenantTheme(string userId);
         public bool SetTenantTheme(string userId, string theme);
-        public bool CreateNewTenant(string tenantName);
+        public string CreateNewTenant(string tenantName, string address, string email, string number, string subscription);
+        public void EditTenantDetails(string tenantId, string tenantName, string address, string email, string number);
+        public void DeleteTenant(string userId);
         public bool SearchTenant(string tenantId);
         public IEnumerable<Tenant> GetTenantList();
         public void SetLogo(string userId, string logo);
         public string GetLogo(string userId);
-        public bool SignUserUp(string userId, string tenantId);
+        public string GenerateCode();
+        public string GetTenantCode(string tenantId);
+        public Tenant GetInvitationTenant(string code);
+        public bool VerifyCode(string code);
+        public bool SignUserUp(string userId, string tenantId, string userName);
         public bool SearchUser(string userId);
-
+        public IEnumerable<TenantUser> GetUserList(string userId);
+        public bool DeleteUser(string userId);
+        public bool EditUserRole(string userId, string role);
+        public string GetUserRole(string id);
+        void UpdateSubscription(string subscription, string tenantId);
     }
 }

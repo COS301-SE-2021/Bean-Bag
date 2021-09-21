@@ -505,10 +505,19 @@ a[href^="https"] {
     color: #7538aa;
 }
 
+.text-col
+{
+    color: white;
+}
+
 /*paging*/
 
 .active {
     color: #ffffff;
     cursor: default;
     background-color: #7538aa;
+}
+
+.progress div {
+    background-color: #7538aa
 }

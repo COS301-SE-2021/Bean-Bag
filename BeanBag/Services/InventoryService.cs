@@ -78,5 +78,6 @@ namespace BeanBag.Services
             Inventory inventory = _db.Inventories.Find(id);
             return inventory;
         }
+        
     }
 }
