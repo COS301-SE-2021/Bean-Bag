@@ -208,3 +208,11 @@ Video demonstrations about the progression of the Bean Bag project.
 - [Demo Video 2 - 📅 21 June 2021](https://drive.google.com/file/d/1-rO9bH5BukctFnMlDfORGhOYwjJ4PBqt/view?usp=sharing)
 - [Demo Video 3 - 📅 19 August 2021](https://drive.google.com/file/d/1fXkJ_2Vc2-jhoxGDvmL-n-uTO6VBS7DH/view?usp=sharing)
 - [Demo Video 4 - 📅 21 September 2021](https://drive.google.com/open?id=)
+
+---
+
+<a name="deploy"/><h2>🔵 Deployment</h3></a>
+
+We used Azure to deploy our application.<br>
+The deployed website can be found at:<br>
+https://beanbagpolaris.azurewebsites.net/
