@@ -1,5 +1,5 @@
 <h1 align="center">Bean Bag </h1>
-<img align="left" src="https://ibb.co/MnDrSxX" alt="drawing" /></img
+<a href="https://ibb.co/MnDrSxX"><img src="https://i.ibb.co/wyNVgFv/beanbag.png" alt="beanbag" border="0"></a>
 Developed by Polaris for <a href="https://www.agilebridge.co.za/" >Agile Bridge</a></h5>
 
 [![GitHub forks](https://img.shields.io/github/forks/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/network) [![GitHub stars](https://img.shields.io/github/stars/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/stargazers) [![GitHub issues](https://img.shields.io/github/contributors/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/contributors)
