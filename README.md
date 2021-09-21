@@ -1,13 +1,12 @@
 <h1 align="center">Bean Bag </h1>
-<a href="https://ibb.co/MnDrSxX"><img src="https://i.ibb.co/wyNVgFv/beanbag.png" alt="beanbag" border="0"></a><br>
-Developed by Polaris for <a href="https://www.agilebridge.co.za/" >Agile Bridge</a></h5>
+<a align="center" href="https://ibb.co/MnDrSxX"><img src="https://i.ibb.co/wyNVgFv/beanbag.png" alt="beanbag" border="0"></a><br>
+Developed by Polaris for <a href="https://www.agilebridge.co.za/" >Agile Bridge</a></h5> <br>
 
 [![GitHub forks](https://img.shields.io/github/forks/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/network) [![GitHub stars](https://img.shields.io/github/stars/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/stargazers) [![GitHub issues](https://img.shields.io/github/contributors/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/contributors)
 [![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/issues)
 ![Security Headers](https://img.shields.io/security-headers?style=flat-round&url=https%3A%2F%2Fgithub.com%2FCOS301-SE-2021%2FBean-Bag%2F)
 ![Uptime Robot status](https://img.shields.io/uptimerobot/status/m788271158-bb7bc699e2e1865de72a0c39?style=flat-round&)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/Bean-Bag?style=flat-round&)
-
 ![Workflow](https://github.com/COS301-SE-2021/Bean-Bag/actions/workflows/cicd.yml/badge.svg?branch=master)
 ---
 
