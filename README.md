@@ -1,5 +1,5 @@
 <h1 align="center">Bean Bag </h1>
-
+<img align="left" src="https://ibb.co/MnDrSxX" alt="drawing" /></img
 Developed by Polaris for <a href="https://www.agilebridge.co.za/" >Agile Bridge</a></h5>
 
 [![GitHub forks](https://img.shields.io/github/forks/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/network) [![GitHub stars](https://img.shields.io/github/stars/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/stargazers) [![GitHub issues](https://img.shields.io/github/contributors/COS301-SE-2021/Bean-Bag?style=flat-round&)](https://github.com/COS301-SE-2021/Bean-Bag/contributors)
@@ -37,7 +37,6 @@ Currently, operations such as cataloging items and searching for items are done 
 This application would assist in multiple areas such as:
 
 - the cataloging of secondhand clothing and apparel,
-- condition assessment of secondhand computer parts, and more.
 
 A key feature of Bean Bag is that the recognizer can be trained on new item types thereby providing flexibility and enabling the application to be tailored to the user depending on the type of items the user catalogs into their inventory.
 
@@ -184,9 +183,10 @@ All neccessary documentation related to the <b> Bean Bag</b> project.
 - [Demo 3 | Technical Installation Guide](https://drive.google.com/drive/folders/1wIohf9eZYhcIg5I41J-6H5kgn2pTL3ek?usp=sharing)
 - [Demo 3 | Coding Standards](https://drive.google.com/drive/folders/1zbzHckzp8XXazPNUY-breSOGIq6FTJP_?usp=sharing)
 - [Demo 3 | User Manual](https://drive.google.com/drive/folders/1sKaVFBSJpcAiPRj4aYcBBeWGqiULrZZc?usp=sharing)
+- [Demo 4 | SRS - Architectural Document](https://drive.google.com/drive/folders/1viOpgJCb1BMFE4uqWRd7mbRtuZ_QopCi?usp=sharing)
 - [Demo 4 | User Manual](https://drive.google.com/file/d/1DEWJOlfJuONUFW7U09nfbH32MQKSPop5/view?usp=sharing)
 - [Demo 4 | Testing Quality + NFR Testing Document](https://drive.google.com/file/d/1z-xZPePNy_bTVutDWSXR7XhUZDLLNf4r/view?usp=sharing)
-- [Demo 4 | SRS - Architectural Document](https://drive.google.com/drive/folders/1viOpgJCb1BMFE4uqWRd7mbRtuZ_QopCi?usp=sharing)
+- [Demo 4 | Coding Standards](https://drive.google.com/drive/folders/1zbzHckzp8XXazPNUY-breSOGIq6FTJP_?usp=sharing)
 ---
 
 <a name="management"/><h2>🔵 Project Management Tools</h3></a>
@@ -206,5 +206,5 @@ Video demonstrations about the progression of the Bean Bag project.
 
 - [Demo Video 1 - 📅 4 June 2021](https://drive.google.com/drive/u/1/folders/18UvquRIEvCKuZyfEESXBXh2mFWG5_VYl)
 - [Demo Video 2 - 📅 21 June 2021](https://drive.google.com/file/d/1-rO9bH5BukctFnMlDfORGhOYwjJ4PBqt/view?usp=sharing)
-- [Demo Video 3](https://drive.google.com/file/d/1fXkJ_2Vc2-jhoxGDvmL-n-uTO6VBS7DH/view?usp=sharing)
-- [Demo Video 4](https://drive.google.com/open?id=)
+- [Demo Video 3 - 📅 19 August 2021](https://drive.google.com/file/d/1fXkJ_2Vc2-jhoxGDvmL-n-uTO6VBS7DH/view?usp=sharing)
+- [Demo Video 4 - 📅 21 September 2021](https://drive.google.com/open?id=)
