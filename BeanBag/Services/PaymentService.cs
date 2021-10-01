@@ -166,7 +166,7 @@ namespace BeanBag.Services
         #endregion MD5 Hash
 
         // This function adds a transaction to the database.
-        public bool AddTransaction(string reference, string payId, string tenantId, float amount)
+        public bool AddTransaction(string reference, string payId, string tenantId, double amount)
         {
             if (reference == null)
             {
