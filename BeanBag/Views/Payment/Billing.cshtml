@@ -206,36 +206,39 @@
                     
                     <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
                         <div>
+                            
                             @if (Model.PagedListTenantTransactions.Any())
                             {
                                 <table class="table table-bordered table-striped">
-                                    <thead ><tr>
+                                    <thead >
+                                    <tr>
                                         <th>#</th>
-	                                    <th>ID</th>
-	                                    <th>Reference</th>
-	                                    <th>Transaction Date</th>
-	                                    <th>Expiration Date</th>
-	                                    <th>Amount</th>
-	                                    <th>Subscription Plan</th>   
+                                        <th>ID</th>
+                                        <th>Reference</th>
+                                        <th>Transaction Date</th>
+                                        <th>Expiration Date</th>
+                                        <th>Amount</th>
+                                        <th>Subscription Plan</th>
                                     </tr>
-                                    </thead><tbody>
+                                    </thead>
+                                    <tbody>
                                     @foreach (var t in Model.PagedListTenantTransactions)
                                     {
                                         <tr>
                                             <td >@i</td>
                                             @{ i++; }
-                                            <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@t.TransactionId"><i class="fas fa-tag">  </i></button></td>
+                                            <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@t.TransactionId"><i class="fas fa-tag"> </i></button></td>
                                             <td >@t.Reference</td>
                                             <td >@t.StartDate</td>
                                             <td >@t.EndDate</td>
                                             <td >@t.Amount</td>
-                                            @if ((@t.Amount-500)==0)
+                                            @if (@t.Amount > 500)
                                             {
-	                                            <td>Standard</td>
+                                                <td>Premium</td>
                                             }
                                             else
                                             {
-	                                            <td>Premium</td>
+                                                <td>Standard</td>
                                             }
                                         </tr>
                                     }
@@ -243,7 +246,8 @@
                                 </table>
                             }
                             else
-                            {<p>No Billing History</p>}
+                            {
+                                <p>No Billing History</p>}
                         </div>
                     </div>
                 </div>
