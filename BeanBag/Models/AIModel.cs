@@ -17,5 +17,7 @@ namespace BeanBag.Models
         public string description { get; set; }
 
         public int? imageCount { get; set; }
+
+        public string tenantId { get; set; }
     }
 }
