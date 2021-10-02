@@ -1,4 +1,5 @@
 ﻿using System;
+using BeanBag.Database;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BeanBag.Services;
@@ -10,9 +11,11 @@ namespace BeanBag.Controllers
     {
 
         private readonly ITenantService _tenantService;
-        public WelcomeController(ITenantService tenantService)
+        private readonly TenantDbContext _tenantDbContext;
+        public WelcomeController(ITenantService tenantService, TenantDbContext context)
         {
             _tenantService = tenantService;
+            _tenantDbContext = context;
         }
 
         [AllowAnonymous]
@@ -56,6 +59,8 @@ namespace BeanBag.Controllers
                 //Add user to the database
                 if (_tenantService.SignUserUp(User.GetObjectId(), tenant.TenantId, User.GetDisplayName()))
                 {
+                    tenant.InviteCode = _tenantService.GenerateCode();
+                    _tenantDbContext.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
 
