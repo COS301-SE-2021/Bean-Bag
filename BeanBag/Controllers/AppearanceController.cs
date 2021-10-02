@@ -35,7 +35,7 @@ namespace BeanBag.Controllers
             {
                 var transaction =
                     _paymentService.GetPaidSubscription(_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId);
-                if (transaction.EndDate >= DateTime.Now)
+                if (transaction.EndDate <= DateTime.Now)
                 {
                     @ViewBag.SubscriptionExpired = true;
                 }
