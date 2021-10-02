@@ -58,7 +58,7 @@
                                    else
                                    {
                                       
-                                           @if (@ViewBag.transaction.StartDate >= DateTime.Now)
+                                           @if (@ViewBag.transaction.EndDate <= DateTime.Now)
                                            {
                                                <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp; Plan</span><span> @ViewBag.subscription | Expired &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/></span></div>
                                      
