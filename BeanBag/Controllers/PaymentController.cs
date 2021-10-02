@@ -240,6 +240,8 @@ namespace BeanBag.Controllers
             Pagination viewModel = new Pagination();
             IPagedList<Transactions> pagedList = modelList.ToPagedList(pageNumber, pageSize);
             viewModel.PagedListTenantTransactions = pagedList;
+
+            
             
             // Get the total transactions
             @ViewBag.totalTransactions = _paymentService.GetTransactions(currentTenantId).Count();
@@ -256,7 +258,9 @@ namespace BeanBag.Controllers
            }
            else
            {
-               @ViewBag.subscription = _paymentService.GetPaidSubscription(currentTenantId);
+                    ViewBag.transaction = _paymentService.GetPaidSubscription(currentTenantId);
+
+               @ViewBag.subscription = _tenantService.GetCurrentTenant(User.GetObjectId()).TenantSubscription;
            }
            
             return View(viewModel);
