@@ -22,9 +22,10 @@ namespace BeanBag.Services
         private readonly DBContext _db;
         private readonly IBlobStorageService _blob;
         private string resourceId;
+        private readonly ITenantService _tenantService;
 
         //Constructor
-        public AIService(DBContext db, IBlobStorageService blob, IConfiguration config)
+        public AIService(DBContext db, IBlobStorageService blob, IConfiguration config, ITenantService tenantService)
         {
             string key = config.GetValue<string>("CustomVision:Key");
             resourceId = config.GetValue<string>("CustomVision:ResourceId");
@@ -42,6 +43,8 @@ namespace BeanBag.Services
             {
                 Endpoint = config.GetValue<string>("CustomVision:Endpoint")
             };
+
+            _tenantService = tenantService;
         }
 
         // This method is used to return the tags (item type) from a specified model for an item image 
@@ -91,7 +94,7 @@ namespace BeanBag.Services
         }
 
         // This method is used to create a new project (model) in custom vision
-        public async Task<Guid> createProject(string projectName, string description)
+        public async Task<Guid> createProject(string projectName, string description, string tenantID)
         {
             if (projectName.Equals("") || projectName.Equals(" "))
                 throw new Exception("Invalid project name");
@@ -103,10 +106,11 @@ namespace BeanBag.Services
                 AIModel newModel = new AIModel()
                 {
                     name = projectName,
-                    Id = newProject.Id, 
-                    description = description, 
-                    dateCreated = DateTime.Now, 
-                    imageCount = 0
+                    Id = newProject.Id,
+                    description = description,
+                    dateCreated = DateTime.Now,
+                    imageCount = 0,
+                    tenantId = tenantID
                 };
 
                 await _db.AIModels.AddAsync(newModel);
@@ -354,11 +358,15 @@ namespace BeanBag.Services
         }
 
         // This method is used to retrieve all of the AI Model projects in the DB
-        public List<AIModel> getAllModels()
+        public List<AIModel> getAllModels(string tenantId)
         {
+            if (tenantId.Equals(Guid.Empty.ToString()))
+                throw new Exception("Tenant id is null");
+
             try
             {
-                return _db.AIModels.ToList();
+                var models = (from m in _db.AIModels where m.tenantId.Equals(tenantId) select m).ToList();
+                return models;
             }
             catch (Exception e)
             {
