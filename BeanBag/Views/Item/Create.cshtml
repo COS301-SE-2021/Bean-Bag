@@ -114,7 +114,7 @@
                                                 <th class="text-center">Tag Name</th>
                                                 @if (ViewBag.usePrediction == true)
                                                 {
-                                                    <th> Prediction % </th>
+                                                    <th class="text-center"> Prediction % </th>
                                                 }
                                             </tr>
                                             </thead>
@@ -145,8 +145,9 @@
                                             <tr id="address1"></tr>
                                             </tbody>
                                         </table>
-                                        <a id="add_row" class="btn btn-3  ">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a> &nbsp; &nbsp;
-                                        <a id='delete_row' class="btn btn-3 ">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
+                                              <a id="add_row" class="btn rounded-pill add  text-secondary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                                                &nbsp;           <a id='delete_row' class=" rounded-pill btn remove text-secondary"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                                                               
                                     </div>
 
 
@@ -155,7 +156,7 @@
                                     <div class="form-group row ">
                                         <button type="submit" class="btn btn-3 float-right ml-auto" value="Create">
                                         &nbsp;
-                                                                                          Create &nbsp;   <img src="https://img.icons8.com/ios-filled/21/000000/submit-progress.png" alt=""/></button>
+                                        Add Item &nbsp;  <i class="fa fa-plus" aria-hidden="true"></i></button>
                                     </div>
 
 
