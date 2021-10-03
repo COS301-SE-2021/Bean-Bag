@@ -499,3 +499,13 @@ a[href^="https"] {
  {
      color: white;
  }
+
+ .add{
+     color: white;
+     background-color: #daefd7;
+ }
+
+.remove{
+    color: white;
+    background-color: #efd7d7;
+}
