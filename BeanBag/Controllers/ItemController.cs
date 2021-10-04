@@ -38,7 +38,9 @@ namespace BeanBag.Controllers
         // This function returns the upload-image view for an item given a unique inventory ID.
         public IActionResult UploadImage(Guid inventoryId)
         {
-            List<AIModel> aIModels = _aIService.getAllModels();
+            string tenantId = _tenantService.GetCurrentTenant(User.GetObjectId()).TenantId;
+
+            List<AIModel> aIModels = _aIService.getAllModels(tenantId);
             List<SelectListItem> iterationDropDown = new List<SelectListItem>();
 
             @ViewBag.id = inventoryId;

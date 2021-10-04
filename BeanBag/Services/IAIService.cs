@@ -11,7 +11,7 @@ namespace BeanBag.Services
     {
         public List<AIPrediction> predict(Guid projectId, string iterationName, string imageURL);
 
-        public Task<Guid> createProject(string projectName, string description);
+        public Task<Guid> createProject(string projectName, string description, string tenantId);
 
         public void deleteProject(Guid projectId);
 
@@ -27,7 +27,7 @@ namespace BeanBag.Services
 
         public List<AIModelVersions> getAllAvailableIterations();
 
-        public List<AIModel> getAllModels();
+        public List<AIModel> getAllModels(string tenantId);
 
         public List<AIModelVersions> getProjectIterations(Guid projectId);
 

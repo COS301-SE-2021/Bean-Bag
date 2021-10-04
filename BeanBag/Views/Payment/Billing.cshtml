@@ -40,7 +40,7 @@
                         <div class="pt-2">
                             <ul class="list-unstyled spaced">
                             
-                                @if ( @ViewBag.subscription =="Free")
+                                @if ( @ViewBag.subscription.Equals("Free"))
                                    {
                                        
                                                                                                       
@@ -58,7 +58,7 @@
                                    else
                                    {
                                       
-                                           @if (@ViewBag.subscription.EndDate >= DateTime.Now)
+                                           @if (@ViewBag.transaction.EndDate <= DateTime.Now)
                                            {
                                                <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp; Plan</span><span> @ViewBag.subscription | Expired &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/></span></div>
                                      
@@ -66,14 +66,13 @@
                                            else
                                            {
                                                <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp; Plan</span><span> @ViewBag.subscription | Active &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/></span></div>
-                                     
-                                               <p>    Active &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/> </p>
+                                    
                                            }
                                        
-                                <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Start Date</span><span>@ViewBag.StartDate</span></div>
-                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Expiration Date</span><span>  Expiration Date: @ViewBag.EndDate</span></div>
-                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Reference</span><span>  @ViewBag.Reference</span></div>
-                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Cost</span><span> R @ViewBag.Amount</span></div>
+                                <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Start Date</span><span>@ViewBag.transaction.StartDate</span></div>
+                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Expiration Date</span><span>@ViewBag.transaction.EndDate</span></div>
+                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Reference</span><span>  @ViewBag.transaction.Reference</span></div>
+                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Cost</span><span> R @ViewBag.transaction.Amount</span></div>
                                 
                                        <li class="divider"></li>
                                    }

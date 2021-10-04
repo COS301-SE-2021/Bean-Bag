@@ -125,8 +125,7 @@ namespace BeanBag.Controllers
             {
                 userName = User.Identity.Name;
             }
-            Console.WriteLine("Checking the user id select tenant: " + User.GetObjectId());
-            Console.WriteLine("Checking user name " + User.GetNameIdentifierId());
+            
             if (_tenantService.SearchUser(userId) == false)
             {
                 //User is new - add user to database
@@ -137,11 +136,12 @@ namespace BeanBag.Controllers
                     if (userName != null)
                     {
                         _tenantService.SignUserUp(User.GetObjectId(), currentTenantId, userName);
+                        _tenantService.EditUserRole(User.GetObjectId(), "Admin");
                     }
                     else
                     {
 
-                        _tenantService.SignUserUp(User.GetObjectId(), currentTenantId, "Admin");
+                        _tenantService.SignUserUp(User.GetObjectId(), currentTenantId, "");
                     }
 
                     //confirm transaction

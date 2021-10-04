@@ -373,7 +373,7 @@ namespace BeanBag.Services
             var tenant = (from t
                     in _tenantDb.Tenant
                 where t.InviteCode.Equals(code)
-                select t).Single();
+                select t).FirstOrDefault();
 
             if (tenant == null)
             {

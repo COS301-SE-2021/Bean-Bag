@@ -63,8 +63,9 @@ namespace BeanBag.Controllers
 
                 ViewBag.CurrentFilter = searchString;
 
+                string tenantId = _tenantService.GetCurrentTenant(User.GetObjectId()).TenantId;
 
-                var model = from s in _aIService.getAllModels() select s;
+                var model = from s in _aIService.getAllModels(tenantId) select s;
             
                 //Search and match data, if search string is not null or empty
                 if (!String.IsNullOrEmpty(searchString))
@@ -102,12 +103,12 @@ namespace BeanBag.Controllers
             
                 viewModel.AiModel = mod;
                 viewModel.PagedListModels = pagedList;
-                @ViewBag.totalModels = _aIService.getAllModels().Count;
+                @ViewBag.totalModels = _aIService.getAllModels(tenantId).Count;
 
                 //Checking to see if the tenant is allowed to create more AI Models
                 Tenant tenant = _tenantService.GetCurrentTenant(User.GetObjectId());
 
-                List<AIModel> models = _aIService.getAllModels();
+                List<AIModel> models = _aIService.getAllModels(tenantId);
 
                 if(tenant.TenantSubscription == "Free")
                 {
@@ -137,7 +138,7 @@ namespace BeanBag.Controllers
                 {
                     var transaction =
                         _paymentService.GetPaidSubscription(_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId);
-                    if (transaction.EndDate >= DateTime.Now)
+                    if (transaction.EndDate <= DateTime.Now)
                     {
                         @ViewBag.SubscriptionExpired = true;
                     }
@@ -299,7 +300,9 @@ namespace BeanBag.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateModel(Pagination mods)
         {
-            Guid id = await _aIService.createProject(mods.AiModel.name, mods.AiModel.description);
+            string tenantId = _tenantService.GetCurrentTenant(User.GetObjectId()).TenantId;
+
+            Guid id = await _aIService.createProject(mods.AiModel.name, mods.AiModel.description, tenantId);
 
             return LocalRedirect("/AIModel/Images?projectId=" + id.ToString());
         }
@@ -553,7 +556,9 @@ namespace BeanBag.Controllers
 
         public IActionResult Compareversions(Guid? selectedVersion)
         {
-            List<AIModel> aIModels = _aIService.getAllModels();
+            string tenantId = _tenantService.GetCurrentTenant(User.GetObjectId()).TenantId;
+
+            List<AIModel> aIModels = _aIService.getAllModels(tenantId);
             List<SelectListItem> iterationDropDown = new List<SelectListItem>();
             iterationDropDown.Add(new SelectListItem
             {
