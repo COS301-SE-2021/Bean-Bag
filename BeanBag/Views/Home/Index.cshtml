@@ -7,30 +7,25 @@
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
 
 <!--Header-->
-<section class="search-and-user ">
-    <span class="md-2 text-secondary pl-3">
-        Dashboard | @ViewBag.name
-    </span>
-    <div class="admin-profile pr-3">
+
+
+ 
+<!--Dashboard Contents-->
+<div class="dashboard-wrapper">
+<div class="container-fluid  dashboard-content helloUser">
+   <span class="md-2 pt-3 text-secondary ">
+        @ViewBag.name
+        
         @{
             System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
         }
         @if (User.Identity.IsAuthenticated)
         {
-            <span class="greeting"> Hello @User.Identity.Name</span>
-
+            <span class=" ml-auto float-right text-dark"> Hello @User.Identity.Name &nbsp;<i class="fas fa-user-circle fa-lg"></i></span>
+         
         }
-        <div>
-            <svg class="text-secondary">
-                <use xlink:href="#users" class="text-secondary "></use>
-            </svg>
-        </div>
-    </div>
-</section>
-
-<!--Dashboard Contents-->
-<div class="dashboard-wrapper">
-<div class="container-fluid  dashboard-content">
+      
+    </span> 
 <hr>
 <br>
 
@@ -157,7 +152,7 @@
                 <h5 class="card-header">Recently Added Items </h5>
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table text-center table-hover">
                             <thead class="bg-light">
                             <tr>
                                 <td colspan="8"></td>
@@ -403,7 +398,7 @@ else
                                     '                                <td>' + item.quantity + '</td>' +
                                     '                                <td>' + "R" + item.price + '</td>' +
                                     '' +
-                                    '                                <td>' + item.entryDate + '</td>' +
+                                    '                                <td>' + item.entryDate+ '</td>' +
                                     '                            </tr>';
 
                             }

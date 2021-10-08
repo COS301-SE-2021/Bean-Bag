@@ -304,10 +304,12 @@ svg {
 /* MQ RULES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 @media screen and (max-width: 767px) {
+  
     .page-header,
     .page-content {
         position: static;
         width: 100%;
+        padding-top: 10px;
     }
 
     .page-header {
@@ -387,14 +389,24 @@ svg {
     .search-and-user .admin-profile svg {
         fill: var(--white);
     }
+    .helloUser{
+        padding-top: 5px;
+        margin-top: 5px;
+    }
+    
 }
 
 @media screen and (max-width: 400px) {
     .page-content .grid > article {
         grid-column: 1 / -1;
     }
+    
+    .helloUser{
+        padding-top: 5px;
+        margin-top: 5px;
+    }
+    
 }
-
 
 /* BODY CLASSES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -412,6 +424,7 @@ svg {
     .collapsed .page-header {
         width: 40px;
     }
+    
 
     .collapsed .page-header .admin-menu li > * {
         padding: 10px;
