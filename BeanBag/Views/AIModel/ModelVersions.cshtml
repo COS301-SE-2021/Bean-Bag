@@ -99,7 +99,7 @@
                                                                                <a asp-controller="AiModel" asp-route-projectId="@ViewBag.projectId" asp-action="TrainModel" class="btn btn-3 shadow-sm bg-body rounded ml-auto">Train New Version &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a>
                                                                           </span> }
                         <div class="card-body" data-aos="zoom-in" data-aos-duration="500">
-                            <div>
+                            <div class="table-responsive">
                                 @if (Model.PagedListVersions.Any())
                                 {
                                     <table class="table text-center table-hover table-striped">
