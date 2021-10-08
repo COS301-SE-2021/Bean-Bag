@@ -330,6 +330,8 @@ svg {
     }
 
     .page-header .toggle-mob-menu {
+        height: 35px;
+        margin-top: 20px;
         display: block;
     }
 
@@ -402,8 +404,13 @@ svg {
     }
     
     .helloUser{
-        padding-top: 5px;
-        margin-top: 5px;
+        padding-top: 8px;
+        margin-top: 8px;
+    }
+
+    .logo
+    {
+        height: 90px;
     }
     
 }
@@ -418,6 +425,7 @@ svg {
     transform: scale(1);
     visibility: visible;
     opacity: 1;
+    margin-top: 40px;
 }
 
 @media screen and (min-width: 768px) {

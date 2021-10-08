@@ -21,30 +21,31 @@
         }
         @if (User.Identity.IsAuthenticated)
         {
-            <span class=" ml-auto float-right text-dark"> Hello @User.Identity.Name &nbsp;<i class="fas fa-user-circle fa-lg"></i></span>
+            <span class=" ml-auto float-right text-dark"> Hello @User.Identity.Name &nbsp;<img src="https://img.icons8.com/material-rounded/24/000000/user.png"/></span>
          
         }
       
     </span> 
 <hr>
-<br>
+
 
 <!--If Inventory has items to display-->
 @if(ViewBag.hasItems==true){
 <!--Date picker -->
     <div class="row" >
-        <span class="col-md-2">
-            <div>
-                <h5>  <label class="badge " style="color: #323232 " >View By</label></h5>
-                @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null, new {@class = "form-control shadow-sm bg-body rounded-lg "})
-            </div>
-        </span>
+       
     
-        <span class="col-md-2">
+        <span class="col-md-3 pt-3">
             <div> <h5><label class="badge " style="color: #323232">Select Inventory</label></h5>
                 @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, null, new {@class = "form-control shadow-sm  bg-body rounded-lg"})
             </div>
         </span>
+         <span class="col-md-3 pt-3">
+                    <div>
+                        <h5>  <label class="badge " style="color: #323232 " >View By</label></h5>
+                        @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null, new {@class = "form-control shadow-sm bg-body rounded-lg "})
+                    </div>
+                </span>
     </div>
     
 <br>
