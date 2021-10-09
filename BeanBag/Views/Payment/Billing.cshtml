@@ -47,8 +47,7 @@
                                        <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;Plan</span><span> Active &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/></span></div>
                                        <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Start Date</span><span> -</span></div>
                                        <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Expiration Date</span><span>  -</span></div>
-                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Reference</span><span> -</span></div>
-                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Cost</span><span>  R0.00</span></div>
+                                      <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Cost</span><span>  R0.00</span></div>
                                 
 
                                  
@@ -68,9 +67,8 @@
                                     
                                            }
                                        
-                                <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Start Date</span><span>@ViewBag.transaction.StartDate</span></div>
-                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Expiration Date</span><span>@ViewBag.transaction.EndDate</span></div>
-                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Reference</span><span>  @ViewBag.transaction.Reference</span></div>
+                                <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Start Date</span><span>@ViewBag.transaction.StartDate.ToShortDateString()</span></div>
+                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Expiration Date</span><span>@ViewBag.transaction.EndDate.ToShortDateString()</span></div>
                                        <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Cost</span><span> R @ViewBag.transaction.Amount</span></div>
                                 
                                        <li class="divider"></li>
@@ -98,7 +96,6 @@
 
                                 <div class="stats mt-2">
                                     <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Name</span><span> @ViewBag.tenant.TenantName</span></div>
-                                    <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Subscription Plan</span><span> @ViewBag.tenant.TenantSubscription</span></div>
                                     <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Address</span><span>&nbsp;@ViewBag.tenant.TenantAddress</span></div>
                                     <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Email</span><span> @ViewBag.tenant.TenantEmail</span></div>
                                     <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Phone</span><span> @ViewBag.tenant.TenantNumber</span></div>
@@ -133,8 +130,7 @@
                                    
                                                                                                 
                                   
-                                   <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Address</span><span>  26 Pinaster Ave</span></div>
-                                                                                           <div class="d-flex justify-content-between p-price"><span>&nbsp;&nbsp;</span><span>  1st Floor, Die Klubhuis</span></div>               <div class="d-flex justify-content-between p-price"><span>&nbsp;</span><span>  Hazelwood, Pretoria</span></div>
+                                   <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Address</span><span>  26 Pinaster Ave</span></div>             <div class="d-flex justify-content-between p-price"><span>&nbsp;</span><span>  Hazelwood, Pretoria</span></div>
                                    
   
                                    
@@ -203,7 +199,7 @@
                     </h5>
                     
                     <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
-                        <div>
+                        <div class="table-responsive">
                             
                             @if (Model.PagedListTenantTransactions.Any())
                             {
@@ -226,10 +222,10 @@
                                             <td class="pt-4">@i</td>
                                             @{ i++; }
                                             <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@t.TransactionId">
-                                                        <img class="p-2" width="40" alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/></button></td>
+                                                        <img class="p-2"  alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/></button></td>
                                             <td class="pt-4" >@t.Reference</td>
-                                            <td class="pt-4" >@t.StartDate</td>
-                                            <td class="pt-4" >@t.EndDate</td>
+                                            <td class="pt-4" >@t.StartDate.ToShortDateString()</td>
+                                            <td class="pt-4" >@t.EndDate.ToShortDateString()</td>
                                             <td class="pt-4">@t.Amount</td>
                                             @if (@t.Amount > 500)
                                             {
