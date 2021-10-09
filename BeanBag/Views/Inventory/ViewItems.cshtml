@@ -11,24 +11,22 @@
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
         
 
-<!--header -->
-<section class="ml-2">
-    <a asp-action="Index" asp-controller="Inventory" class="btn " ><i class="fas fa-chevron-left text-color"> </i></a>
-    <span class="  md-2 text-secondary ">
-        &nbsp; Inventory | Item List
-    </span>
-   
-</section>
+
 
 
 <!--Inner content -->
 <div class="dashboard-wrapper">
-        <div class="container-fluid  dashboard-content">
-            <hr>
-            <br>
+               <div class="container-fluid  dashboard-content helloUser">
+        <span class="md-2 pt-3 text-secondary ">
+            <a asp-action="Index" asp-controller="Inventory" class="btn " ><i class="fas fa-chevron-left text-color"> </i></a>
+             
+                   &nbsp; Inventory | Item List
+           
+         </span>       <hr>
+         
             
             <!--pdf-->
-            <div class="row">
+            <div class="row pt-3">
                     <b class="pl-3">Total Items &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalItems</span>
                 <div class=" mr-3 ml-auto">
                   @if(ViewBag.canGenerateReport == true)

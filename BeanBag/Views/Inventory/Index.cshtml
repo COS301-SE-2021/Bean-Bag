@@ -15,18 +15,15 @@
 <link rel="script" href="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" />
 <link rel="script" href="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" />
   
-    
-<!--header-->
-    <section class="search-and-user">
-    <span class="col-md-1 text-secondary ">Inventory</span>
 
-        </section>
-    
      
 <!--Wrapper-->
 <div class="dashboard-wrapper">
-    <div class="container-fluid  dashboard-content">
-        <hr>
+          <div class="container-fluid  dashboard-content helloUser">
+         <span class="md-2 pt-3 text-secondary ">
+           Inventory
+            
+          </span>          <hr>
           @if(@ViewBag.SubscriptionExpired==false) {
               <div class="row">
                     <b class="pl-3">Total Inventories &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalInventories</span>
