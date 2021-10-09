@@ -12,23 +12,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
 
-    <section class="ml-3">
-        <a asp-action="Index" asp-controller="AiModel" asp-route-inventoryId="@ViewBag.InventoryId" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
-
-        <span class="  md-2 text-secondary ">
-            &nbsp; AI Model Versions
-        </span>
-
-      
-    </section>
-
     <div class="dashboard-wrapper">
-        <div class="container-fluid  dashboard-content">
-
-            <hr>
-
-
-            <div class="row">
+        <div class="container-fluid  dashboard-content helloUser">
+  <span class="md-2 pt-3 text-secondary ">
+        <a asp-action="Index" asp-controller="AiModel" asp-route-inventoryId="@ViewBag.InventoryId" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
+     
+             &nbsp; AI Model Versions
+            
+  </span> 
+        <hr>
+        
+        <div class="row pt-3">
      <b class="pl-3">Total  Versions &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalModels</span>
                       
                 <div class=" mr-3 ml-auto">

@@ -16,25 +16,24 @@
 <link href="~/css/AIModels.css" rel="stylesheet" />
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
-    <section class="search-and-user">
-        <span class="col-md-2 text-secondary ">
-             AI Models
-        </span>
   
-    </section>
     
     <div class="dashboard-wrapper">
-         <div class="container-fluid  dashboard-content">
+         <div class="container-fluid  dashboard-content helloUser">
          
       
-         
+  <span class="md-2 pt-3 text-secondary  ">
+         AI Models
+            </span>
+      
+
          
          
          
              <hr>
             @if (@ViewBag.SubscriptionExpired == false)
             {
-                <div class="row">
+                <div class="row pt-3">
          <b class="pl-3">Total Models &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalModels</span>
              
                     <div class=" mr-3 ml-auto">
