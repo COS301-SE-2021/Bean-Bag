@@ -182,11 +182,11 @@
         <div class="modal-body text-center pb-3">
              <br>    
             <h5 class="modal-title pt-2" id="uploadingModelImages">Upload completed sucessfully!  <img alt="" width="25" src="https://img.icons8.com/color/48/000000/checked--v4.gif"/> </h5> 
-           <p class="text-muted"> Start training the new model</p>
+           <p class="text-muted"> Start training the model</p>
             
                <br>                
-            <a asp-action="ModelVersions" asp-controller="AiModel" asp-route-projectId="@Context.Request.Query["projectId"]"  class="btn btn-3  "> Train Model &nbsp; <i class="fas fa-chevron-right text-color"> </i></a>
-
+          <a asp-controller="AiModel" asp-route-projectId="@Context.Request.Query["projectId"]"  asp-action="TrainModel" class="btn btn-3 ">Train New Model Version &nbsp; <i class="fas fa-chevron-right text-color"> </i></a>
+                                                                       
         </div>
        <br>    
     </div>
