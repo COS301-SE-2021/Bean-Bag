@@ -412,6 +412,7 @@ svg {
     .logo
     {
         max-height: 60px;
+        padding: 0;
 
     }
     
@@ -534,7 +535,7 @@ svg {
 /* LIGHT MODE STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .light-mode {
-    --page-header-bgColor: #f1efec;
+    --page-header-bgColor: #e5e5e4;
     --page-header-bgColor-hover: var(--main-color-light);
     --page-header-txtColor: #2c303a;
     --page-header-headingColor: #979595;
