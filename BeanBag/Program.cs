@@ -16,15 +16,6 @@ namespace BeanBag
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                })
-                .ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    config.AddJsonFile(
-                        "appsettings.local.json",
-                        optional: true,
-                        reloadOnChange: true
-                        );
-                }
-                );
+                });
     }
 }
