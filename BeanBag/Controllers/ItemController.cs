@@ -319,8 +319,13 @@ namespace BeanBag.Controllers
                 var qRCode = new QRCode(qRCodeData);
                 var bitmap = qRCode.GetGraphic(20);
                 bitmap.Save(ms, ImageFormat.Png);
+                
+                //Find a common path amongst all windows pc's (alternatives: desktop and pictures folder)
                 bitmap.Save("C:/Users/Public/Pictures/"+id +".png");
 
+                
+                //alternatively, a QR code can be saved by viewing it, and right clicking on the image
+                //and then going by "Save as". This will be specified in the user manual.
                 return id.ToString();
             }
         }
