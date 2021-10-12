@@ -35,12 +35,12 @@
     <div class="row" >
        
     
-        <span class="col-md-3 pt-3">
+        <span class="col-lg-3 col-md-6 pt-3">
             <div> <h5><label class="badge " style="color: #323232">Select Inventory</label></h5>
                 @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, null, new {@class = "form-control shadow-sm  bg-body rounded-lg"})
             </div>
         </span>
-         <span class="col-md-3 pt-3">
+         <span class="col-lg-3 col-md-6 pt-3">
                     <div>
                         <h5>  <label class="badge " style="color: #323232 " >View By</label></h5>
                         @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null, new {@class = "form-control shadow-sm bg-body rounded-lg "})
