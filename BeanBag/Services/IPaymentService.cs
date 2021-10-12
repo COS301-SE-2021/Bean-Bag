@@ -10,7 +10,7 @@ namespace BeanBag.Services
         Dictionary<string, string> ToDictionary(string response);
         string GetMd5Hash(Dictionary<string, string> data, string encryptionKey);
         bool VerifyMd5Hash(Dictionary<string, string> data, string encryptionKey, string hash);
-        public bool AddTransaction(string reference, string payId, string tenantId, float amount);
+        public bool AddTransaction(string reference, string payId, string tenantId, double amount);
         List<Transactions> GetTransactions(string currentTenantId);
         public Transactions GetPaidSubscription(string tenantId);
         public bool DeleteTransaction(string id);

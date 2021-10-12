@@ -261,7 +261,7 @@ namespace BeanBag.Controllers
             
             
             //Link
-            const string link = "https://localhost:44352/LandingPage";
+            const string link = "https://beanbagpolaris.azurewebsites.net//LandingPage";
 
             var mimeMessage = new MimeMessage();
             

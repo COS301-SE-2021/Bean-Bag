@@ -148,7 +148,7 @@ namespace BeanBag.Controllers
                     
                         if (_tenantService.GetCurrentTenant(userId).TenantSubscription.Equals("Standard"))
                         {
-                            float amount = 500;
+                             double amount = 500;
                             //Add the transaction to the DB 
                             _paymentService.AddTransaction(reference, payId, currentTenantId, amount);
                         }

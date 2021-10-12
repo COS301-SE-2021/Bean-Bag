@@ -140,6 +140,7 @@ a:hover {
 img {
     border-radius: 1%;
     box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+    width: 90%;
 }
 
 /*       Just setting CSS for the page   */

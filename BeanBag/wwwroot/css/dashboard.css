@@ -117,11 +117,12 @@ svg {
     min-height: 100%;
     margin-top: 0;
     padding-top: 0;
+    
 }
 
 .page-header .logo {
     display: block;
-    width: var(--page-header-width);
+    max-width: var(--page-header-width);
     margin-top: 0;
     padding-top: 0;
 }
@@ -137,7 +138,7 @@ svg {
 .page-header .toggle-mob-menu {
     display: none;
     margin-left: 5px;
-    padding: 4px;
+    padding: 6px;
     background: var(--page-content-blockColor);
     border-radius: var(--border-radius);
 }
@@ -304,10 +305,12 @@ svg {
 /* MQ RULES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 @media screen and (max-width: 767px) {
+  
     .page-header,
     .page-content {
         position: static;
         width: 100%;
+        padding-top: 10px;
     }
 
     .page-header {
@@ -328,6 +331,8 @@ svg {
     }
 
     .page-header .toggle-mob-menu {
+        height: 35px;
+        margin-top: 12px;
         display: block;
     }
 
@@ -342,6 +347,7 @@ svg {
         visibility: hidden;
         opacity: 0;
         transform: scale(0.95);
+        padding: 2px;
         transition: all 0.2s;
     }
 
@@ -387,14 +393,31 @@ svg {
     .search-and-user .admin-profile svg {
         fill: var(--white);
     }
+    .helloUser{
+        padding-top: 5px;
+        margin-top: 5px;
+    }
+    
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 415px) {
     .page-content .grid > article {
         grid-column: 1 / -1;
     }
-}
+    
+    .helloUser{
+        padding-top: 8px;
+        margin-top: 8px;
+    }
 
+    .logo
+    {
+        max-height: 70px;
+        padding: 0;
+
+    }
+    
+}
 
 /* BODY CLASSES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -412,6 +435,7 @@ svg {
     .collapsed .page-header {
         width: 40px;
     }
+    
 
     .collapsed .page-header .admin-menu li > * {
         padding: 10px;
@@ -512,7 +536,7 @@ svg {
 /* LIGHT MODE STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .light-mode {
-    --page-header-bgColor: #f1efec;
+    --page-header-bgColor: #e5e5e4;
     --page-header-bgColor-hover: var(--main-color-light);
     --page-header-txtColor: #2c303a;
     --page-header-headingColor: #979595;

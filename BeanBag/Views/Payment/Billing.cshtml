@@ -12,23 +12,22 @@
 <link rel="script" href="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" />
 <link rel="script" href="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" />
   
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
-    <section class="search-and-user">
-        <span class="col-md-2 text-secondary ">
-             Billing  
-        </span>
-    </section>
 
 <!--Wrapper-->
 <div class="dashboard-wrapper">
-    <div class="container-fluid  dashboard-content">
-    <hr>
+   <div class="container-fluid  dashboard-content helloUser">
+            <span class="md-2 pt-3 text-secondary ">
+              Billing
+               
+             </span>     <hr>
     
             <br>
     <div class="row pb-1">
         <!-- metric -->
-        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
             <div data-aos="flip-left"
                  data-aos-easing="ease-in-back"
                  data-aos-delay="200"
@@ -48,8 +47,7 @@
                                        <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Plan</span><span> Active &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/></span></div>
                                        <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Start Date</span><span> -</span></div>
                                        <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Expiration Date</span><span>  -</span></div>
-                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Reference</span><span> -</span></div>
-                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Cost</span><span>  R0.00</span></div>
+                                      <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Cost</span><span>  R0.00</span></div>
                                 
 
                                  
@@ -57,26 +55,23 @@
                                    }
                                    else
                                    {
-                                      
-                                           @if (@ViewBag.transaction.EndDate <= DateTime.Now)
+                                       @if (@ViewBag.transaction.EndDate <= DateTime.Now)
                                            {
-                                               <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp; Plan</span><span> @ViewBag.subscription | Expired &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/></span></div>
+                                               <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Plan</span><span> @ViewBag.subscription | Expired &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/></span></div>
                                      
                                          }
                                            else
                                            {
-                                               <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp; Plan</span><span> @ViewBag.subscription | Active &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/></span></div>
+                                               <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Plan</span><span> @ViewBag.subscription | Active &nbsp; <img width="20" src="https://img.icons8.com/color/48/000000/checked--v1.png" alt=""/></span></div>
                                     
                                            }
                                        
-                                <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Start Date</span><span>@ViewBag.transaction.StartDate</span></div>
-                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Expiration Date</span><span>@ViewBag.transaction.EndDate</span></div>
-                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Reference</span><span>  @ViewBag.transaction.Reference</span></div>
+                                <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Start Date</span><span>@ViewBag.transaction.StartDate.ToShortDateString()</span></div>
+                                       <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Expiration Date</span><span>@ViewBag.transaction.EndDate.ToShortDateString()</span></div>
                                        <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Cost</span><span> R @ViewBag.transaction.Amount</span></div>
                                 
                                        <li class="divider"></li>
                                    }
-
                             </ul>
                         </div>
                     </div>
@@ -85,7 +80,7 @@
     
         </div>
                 <!-- metric -->
-        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
             <div data-aos="flip-left"
                  data-aos-easing="ease-in-back"
                  data-aos-delay="400"
@@ -99,7 +94,6 @@
 
                                 <div class="stats mt-2">
                                     <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Name</span><span> @ViewBag.tenant.TenantName</span></div>
-                                    <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Subscription Plan</span><span> @ViewBag.tenant.TenantSubscription</span></div>
                                     <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Address</span><span>&nbsp;@ViewBag.tenant.TenantAddress</span></div>
                                     <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Email</span><span> @ViewBag.tenant.TenantEmail</span></div>
                                     <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Phone</span><span> @ViewBag.tenant.TenantNumber</span></div>
@@ -114,7 +108,7 @@
             
         </div>
                 <!-- metric -->
-            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
         	    <div data-aos="flip-left"
         	         data-aos-easing="ease-in-back"
         	         data-aos-delay="600"
@@ -134,8 +128,7 @@
                                    
                                                                                                 
                                   
-                                   <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Address</span><span>  26 Pinaster Ave</span></div>
-                                                                                           <div class="d-flex justify-content-between p-price"><span>&nbsp;&nbsp;</span><span>  1st Floor, Die Klubhuis</span></div>               <div class="d-flex justify-content-between p-price"><span>&nbsp;</span><span>  Hazelwood, Pretoria</span></div>
+                                   <div class="d-flex justify-content-between p-price"><span><i class="ace-icon fa fa-caret-right text-color"></i>&nbsp;&nbsp;Address</span><span>  26 Pinaster Ave</span></div>             <div class="d-flex justify-content-between p-price"><span>&nbsp;</span><span>  Hazelwood, Pretoria</span></div>
                                    
   
                                    
@@ -154,47 +147,48 @@
     <div class="row">
              <b class="pl-3">Total Transactions &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span  > &nbsp; @ViewBag.totalTransactions</span>
                         
-        <div class=" mr-3 ml-auto pt-2 pb-2 ">
-            <button class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal3">&nbsp; Update Subscription &nbsp;  &nbsp; <img src="https://img.icons8.com/ios/20/000000/approve-and-update.png" alt=""/></button>
+          <div class=" mr-3 ml-lg-auto ml-md-auto ml-sm-auto ml-3 pt-2">
+              <button class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal3">&nbsp; &nbsp; &nbsp;&nbsp;Update Subscription &nbsp; &nbsp;&nbsp; &nbsp; <i class="fa fa-refresh" aria-hidden="true"></i></button>
         </div>
     </div>
         <div class="row " >
-                     <!--Date Search-->
-                     <!--Date sorts-->
-                     @using (Html.BeginForm())
-                     {
-                         <div class="d-flex">
-                             <span class="d-inline-block ml-3 pt-2">
-                                 <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date &nbsp;</span>
-                             <span class=" d-inline-block">              
-                                 @Html.TextBox("from", null, new {@class = "form-control ", type="date"})
-                             </span>
-                             <span class="d-inline-block pt-2">
-                                 &nbsp; &nbsp; To Date &nbsp;</span>
-                             <span class=" d-inline-block">  
-                                 @Html.TextBox("to", null, new {@class = "form-control ", type="date" })
-                             </span>
-                             @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
-                             <span class="d-inline-block pl-2">
-                                 <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3"/>
-                             </span>
-                         </div>
-                     }
-                  
-                     <!--Search-->
-                     <div class="col-2 ml-auto pt-1">
-                         @using (Html.BeginForm())
-                         {
-                             <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
-                                 @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 red-border", placeholder = "Search"})
-                                 <div class="input-group-append">
-                                     <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
-                                         <i class="fas fa-search text-grey"
-                                            aria-hidden="true"></i></button>
+                      <div class=" mr-3 ml-lg-auto ml-md-auto ml-sm-auto ml-3 pt-2">
+                                                @using (Html.BeginForm())
+                                  {
+                                             <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                                                 @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 text-center red-border", placeholder = "Search Transactions"})
+                                                 <div class="input-group-append">
+                                                     <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
+                                                         <i class="fas fa-search text-grey"
+                                                            aria-hidden="true"></i></button>
+                                                 </div>
+                                             </div>
+                                         }
+                                     </div>
+                               <!--Date sorts-->
+                               @using (Html.BeginForm(FormMethod.Get,new { @class="w-100 md-2 float-left" }))
+                               { <div class="row pt-1">
+                                     
+                                     <div class="col-md-12 mt-2 ml-3 col-lg-auto">
+                                         <b>Find Transactions &nbsp;   <i class="fas fa-angle-right"></i> &nbsp; </b>
+                                     </div>
+                                     <div class="col-md-12 col-sm mt-2 mr-3 col-lg-3 ml-3  ">
+                                       From Date &nbsp;
+                                         @Html.TextBox("from", null, new {@class = "form-control ", type = "date"})
+                                     </div>
+                                     <div class="col-md-12 col-sm mt-2 mr-3 col-lg-3 ml-3">
+                                         To Date &nbsp;
+                                         @Html.TextBox("to", null, new {@class = "form-control ", type = "date"})
+                                     </div>
+                                     <div class="col-md-3 col-md-auto col-sm mt-2 col-lg-auto  mr-3 ml-3">
+                                         &nbsp; @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type = "text", hidden = true})
+                                         <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3 btn-block"/>
+            
+                                     </div>
                                  </div>
-                             </div>
-                         }
-                     </div>
+                                  
+                               }
+                             
             
             <!--Table with bootstrap class .table and .table-condensed-->
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -204,37 +198,41 @@
                     </h5>
                     
                     <div class="card-body" data-aos="zoom-in"  data-aos-duration="500">
-                        <div>
+                        <div class="table-responsive">
+                            
                             @if (Model.PagedListTenantTransactions.Any())
                             {
-                                <table class="table table-bordered table-striped">
-                                    <thead ><tr>
+                                <table class="table table-hover text-center table-striped">
+                                    <thead >
+                                    <tr>
                                         <th>#</th>
-	                                    <th>ID</th>
-	                                    <th>Reference</th>
-	                                    <th>Transaction Date</th>
-	                                    <th>Expiration Date</th>
-	                                    <th>Amount</th>
-	                                    <th>Subscription Plan</th>   
+                                        <th>ID</th>
+                                        <th>Reference</th>
+                                        <th>Transaction Date</th>
+                                        <th>Expiration Date</th>
+                                        <th>Amount</th>
+                                        <th>Subscription Plan</th>
                                     </tr>
-                                    </thead><tbody>
+                                    </thead>
+                                    <tbody>
                                     @foreach (var t in Model.PagedListTenantTransactions)
                                     {
                                         <tr>
-                                            <td >@i</td>
+                                            <td class="pt-4">@i</td>
                                             @{ i++; }
-                                            <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@t.TransactionId"><i class="fas fa-tag">  </i></button></td>
-                                            <td >@t.Reference</td>
-                                            <td >@t.StartDate</td>
-                                            <td >@t.EndDate</td>
-                                            <td >@t.Amount</td>
-                                            @if ((@t.Amount-500)==0)
+                                            <td><button class=" btn" type="button" data-toggle="tooltip" data-placement="top" title="@t.TransactionId">
+                                                        <img class="p-2"  alt="id" src="https://img.icons8.com/material/24/000000/voice-id.png"/></button></td>
+                                            <td class="pt-4" >@t.Reference</td>
+                                            <td class="pt-4" >@t.StartDate.ToShortDateString()</td>
+                                            <td class="pt-4" >@t.EndDate.ToShortDateString()</td>
+                                            <td class="pt-4">@t.Amount</td>
+                                            @if (@t.Amount > 500)
                                             {
-	                                            <td>Standard</td>
+                                                <td class="pt-4">Premium</td>
                                             }
                                             else
                                             {
-	                                            <td>Premium</td>
+                                                <td class="pt-4">Standard</td>
                                             }
                                         </tr>
                                     }
@@ -242,7 +240,8 @@
                                 </table>
                             }
                             else
-                            {<p>No Billing History</p>}
+                            {
+                                <p>No Billing History</p>}
                         </div>
                     </div>
                 </div>

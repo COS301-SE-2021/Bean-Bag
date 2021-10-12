@@ -45,8 +45,9 @@ namespace BeanBag.Controllers
                 {"AMOUNT", amount},
                 {"CURRENCY", "ZAR"},
                 // Return url to original payment page -- run in ngrok
-                // ngrok http https://localhost:44352 -host-header="localhost:44352"
-                {"RETURN_URL", "https://beanbagpolaris.azurewebsites.net/Payment/CompletePayment?amounts=" +
+                // ngrok http -host-header="localhost:44352"
+                {"RETURN_URL",
+                    "https://beanbagpolaris.azurewebsites.net/Payment/CompletePayment?amounts=" +
                                ""+amount+"&references="+reference},
                 {"TRANSACTION_DATE", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
                 {"LOCALE", "en-za"},
@@ -128,27 +129,33 @@ namespace BeanBag.Controllers
                     status = "Not Done";
                     break;
                 case "1":
-                    @ViewBag.payReqId = payReqId;
-                    @ViewBag.reference = reference;
-                    
+                    ViewBag.payReqId = payReqId;
+                    ViewBag.reference = reference;
+
                     //Transaction Approved 
-                    Console.WriteLine("Checking the user id complete: " + User.GetObjectId());
-                    
+                    //Console.WriteLine("Checking the user id complete: " + User.GetObjectId());
+
                     //Determine the type of subscription
-                    @ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
-                    @ViewBag.UpdatedSubscription = false;
-                    
-                    if (User.GetObjectId() == null)
+                    ViewBag.Subscription = amount.Equals("50000") ? "Standard" : "Premium";
+                    ViewBag.UpdatedSubscription = false;
+
+                    try
                     {
-                        return View();
+                        if(_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
+                        {
+                            @ViewBag.UpdatedSubscription = true;
+                        }
                     }
-                    else if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId == null)
+                    catch(Exception e)
                     {
-                        @ViewBag.UpdatedSubscription = true;
+                        if (e.ToString().Equals("User does not exist in the database.")) 
+                        {
+                            return View();
+                        }
                     }
-                  
+
                     return View();
-                
+
                 case "2":
                     status = "Declined";
                     break;
@@ -162,16 +169,28 @@ namespace BeanBag.Controllers
                     status = $"Unknown Status({ id })";
                     break;
             }
+
             TempData["Status"] = status;
 
-            if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
+            try 
             {
-                //Error popup
-                return RedirectToAction("Index", "Home");
+                if (_tenantService.GetCurrentTenant(User.GetObjectId()).TenantId != null)
+                {
+                    //Error popup
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            
+            catch(Exception e)
+            {
+                if (e.ToString().Equals("User does not exist in the database."))
+                {
+                    //error popup
+                    return RedirectToAction("Index", "Tenant");
+                }
+            }
+
             //error popup
-            return RedirectToAction("Index", "Tenant");
+            return RedirectToAction("Index", "Tenant");  
         }
         
         // This function returns the billing page where the tenant can view their transactions.

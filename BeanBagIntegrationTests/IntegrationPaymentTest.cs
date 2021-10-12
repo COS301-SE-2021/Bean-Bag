@@ -66,7 +66,7 @@ namespace BeanBagIntegrationTests
             string tReference = "testtransaction";
             string tPayId = theIdPay.ToString();
             string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
+            double tAmount = 12.50;
 
 
 
@@ -110,7 +110,7 @@ namespace BeanBagIntegrationTests
             string tReference = null;
             string tPayId = theIdPay.ToString();
             string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
+            double tAmount = 12.50;
 
 
 
@@ -152,7 +152,7 @@ namespace BeanBagIntegrationTests
             string tReference = "testtransaction";
             string tPayId = null;
             string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
+            double tAmount = 12.50;
 
 
 
@@ -193,7 +193,7 @@ namespace BeanBagIntegrationTests
             string tReference = "testtransaction";
             string tPayId = theIdPay.ToString();
             string tTenantId = null;
-            float tAmount = 12.50f;
+            double tAmount = 12.50;
 
 
 
@@ -234,7 +234,7 @@ namespace BeanBagIntegrationTests
             string tReference = "testtransaction";
             string tPayId = theIdPay.ToString();
             string tTenantId = theId2.ToString();
-            float tAmount = 0;
+            double tAmount = 0;
             
             //ACT
             var mySer = new PaymentService(_Tdb);
@@ -273,7 +273,7 @@ namespace BeanBagIntegrationTests
             string tReference = "testtransactionwNada";
             string tPayId = theIdPay.ToString();
             string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
+            double tAmount = 12.50;
 
             string currentTenantIdTest = tTenantId;
 
@@ -317,7 +317,7 @@ namespace BeanBagIntegrationTests
             string tReference = "testtransactionwNada";
             string tPayId = theIdPay.ToString();
             string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
+            double tAmount = 12.50;
 
             string currentTenantIdTest = null;
 
@@ -366,7 +366,7 @@ namespace BeanBagIntegrationTests
             string tReference = "testtransactionwNada";
             string tPayId = theIdPay.ToString();
             string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
+            double tAmount = 12.50;
 
             string currentTenantIdTest = tTenantId;
 
@@ -414,7 +414,7 @@ namespace BeanBagIntegrationTests
             string tReference = "testtransactionwNada";
             string tPayId = theIdPay.ToString();
             string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
+            double tAmount = 12.50;
 
             string currentTenantIdTest = null;
 
@@ -460,7 +460,7 @@ namespace BeanBagIntegrationTests
             string tReference = "testtransaction";
             string tPayId = theIdPay.ToString();
             string tTenantId = theId2.ToString();
-            float tAmount = 12.50f;
+            double tAmount = 12.50;
 
 
 

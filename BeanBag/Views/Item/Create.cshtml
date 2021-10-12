@@ -5,16 +5,16 @@
 @{int i = 0;}
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
     
-    <section class="ml-3">
-        <a asp-action="Index" asp-controller="Inventory" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
-        <span class="col-md-1 text-secondary ">
-            Inventory | Add Item
-        </span>
-    </section>
-
     <div class="dashboard-wrapper">
-        <div class="container-fluid  dashboard-content"> 
-        <div id="pop"></div>
+        <div class="container-fluid  dashboard-content helloUser">
+            <a asp-action="Index" asp-controller="Inventory" class="btn "><i class="fas fa-chevron-left text-color"> </i></a>
+                       
+                     <span class="md-2 pt-3 text-secondary ">
+                     Inventory | Add Item
+                        
+                     </span>
+            <div id="pop"></div>
+            
             <hr>
             <br>
 
@@ -34,9 +34,9 @@
                                                                      }))
                                                                      {
                             <div class="row">
-                                <div class="col-sm p-3">
+                                <div class="col-sm col-md-12 col-lg-6 p-3">
                                     <div >
-                                        <div >   <h5 class="text-muted">Item Image</h5> 
+                                        <div >   <h5 class="text-muted pb-5">Item Image</h5> 
                                             <div class="card shadow  mb-3 bg-body rounded">
                                                 <div class="card-body text-center justify-content-center h-100">
                                                     <div id="mdb-lightbox-ui"></div>
@@ -60,7 +60,7 @@
                                 </div>
 
                                 <!--Create item form-->
-                                <div class="col-sm pl-5 pr-5 pt-3">
+                                <div class="col-sm  col-lg-6 col-md-12 pl-4 pr-4 pt-3">
 
                                     <div class="form-group row">
                                         <h5 class="text-muted">Item Details</h5> <hr></div>
@@ -111,10 +111,10 @@
                                             <thead>
                                             <tr>
 
-                                                <th class="text-center">Tag Name</th>
+                                                <th >Tag Name</th>
                                                 @if (ViewBag.usePrediction == true)
                                                 {
-                                                    <th> Prediction % </th>
+                                                    <th class="text-center"> Prediction % </th>
                                                 }
                                             </tr>
                                             </thead>
@@ -145,8 +145,9 @@
                                             <tr id="address1"></tr>
                                             </tbody>
                                         </table>
-                                        <a id="add_row" class="btn btn-3  ">Add &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></a> &nbsp; &nbsp;
-                                        <a id='delete_row' class="btn btn-3 ">Remove &nbsp; <i class="fa fa-ban" aria-hidden="true"></i></a>
+                                              <a id="add_row" class="btn rounded-pill add  text-secondary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                                                &nbsp;           <a id='delete_row' class=" rounded-pill btn remove text-secondary"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                                                               
                                     </div>
 
 
@@ -155,7 +156,7 @@
                                     <div class="form-group row ">
                                         <button type="submit" class="btn btn-3 float-right ml-auto" value="Create">
                                         &nbsp;
-                                                                                          Create &nbsp;   <img src="https://img.icons8.com/ios-filled/21/000000/submit-progress.png" alt=""/></button>
+                                        Add Item &nbsp;  <i class="fa fa-plus" aria-hidden="true"></i></button>
                                     </div>
 
 

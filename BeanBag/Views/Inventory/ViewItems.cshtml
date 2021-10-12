@@ -11,71 +11,75 @@
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
         
 
-<!--header -->
-<section class="ml-2">
-    <a asp-action="Index" asp-controller="Inventory" class="btn " ><i class="fas fa-chevron-left text-color"> </i></a>
-    <span class="  md-2 text-secondary ">
-        &nbsp; Inventory | Item List
-    </span>
-   
-</section>
+
 
 
 <!--Inner content -->
 <div class="dashboard-wrapper">
-        <div class="container-fluid  dashboard-content">
-            <hr>
-            <br>
-            
-            <!--pdf-->
-            <div class="row">
-                    <b class="pl-3">Total Items &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalItems</span>
-                <div class=" mr-3 ml-auto">
-                  @if(ViewBag.canGenerateReport == true)
-                  {
-                      <button onclick="printDiv('viewInventoryModal')" class="btn btn-3 shadow-sm bg-body rounded pdf">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; Generate report&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-file-pdf"></i></button>
-                  }
-                    
-                </div>
-            </div>
-            
-            <div class="row pt-3" >
-                <!--Date Search-->
-                @using (Html.BeginForm())
-                {
-                    <div class="d-flex">
-                        <span class="d-inline-block ml-3 pt-2">
-                            <b>Find Entries</b>  &nbsp;<i class="fas fa-angle-right"></i> &nbsp;        From Date &nbsp;</span>
-                        <span class=" d-inline-block">              
-                            @Html.TextBox("from", null, new {@class = "form-control ", type="date"})
-                        </span>
-                        <span class="d-inline-block pt-2">
-                            &nbsp; &nbsp; To Date &nbsp;</span>
-                        <span class=" d-inline-block">  
-                            @Html.TextBox("to", null, new {@class = "form-control ", type="date" })
-                        </span>
-                        @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type="text", hidden=true})
-                        <span class="d-inline-block pl-2">
-                            <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3"/>
-                        </span>
-                    </div>
-                }
+               <div class="container-fluid  dashboard-content helloUser">
+        <span class="md-2 pt-3 text-secondary ">
+            <a asp-action="Index" asp-controller="Inventory" class="btn " ><i class="fas fa-chevron-left text-color"> </i></a>
              
-                <!--Search-->
-                <div class="mr-3 ml-auto">
-                    @using (Html.BeginForm())
-                    {
-                        <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
-                            @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 red-border", placeholder = "Search"})
-                            <div class="input-group-append">
-                                <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
-                                    <i class="fas fa-search text-grey"
-                                       aria-hidden="true"></i></button>
-                            </div>
-                        </div>
-                    }
-                </div>
+                   &nbsp; Inventory | Item List
+           
+         </span>       <hr>
+         
+                   
+             <div class="row">
+                                <b class="pl-3 pt-2">Total Items &nbsp; &nbsp;<i class="fas  fa-angle-right  "></i></b>  &nbsp; <span class="text-color  pt-2" > &nbsp; @ViewBag.totalItems</span>
+                                              
+              
+                     <div class="row mr-3 ml-lg-auto ml-md-auto ml-sm-auto pt-2  ml-3">
+                                              @using (Html.BeginForm())
+                                              {
+                                                  <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                                                      @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 text-center red-border", placeholder = "Search Items"})
+                                                      <div class="input-group-append">
+                                                          <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
+                                                              <i class="fas fa-search text-grey"
+                                                                 aria-hidden="true"></i></button>
+                                                      </div>
+                                                  </div>
+                                              }
+                                          </div>
+             </div>
+                    <br>
+               <div class=" mr-3 ml-lg-auto ml-md-auto ml-sm-auto ml-3 ">
+                                 @if(ViewBag.canGenerateReport == true)
+                                 {
+                                     <button onclick="printDiv('viewInventoryModal')" class="btn btn-3 shadow-sm bg-body rounded pdf">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; Generate report&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-file-pdf"></i></button>
+                                 }                   </div>
+                             
+            
+            
+            
+            <div class="row " >
+             
+     
+                   <!--Date sorts-->
+                   @using (Html.BeginForm(FormMethod.Get,new { @class="w-100 md-2 float-left" }))
+                   { <div class="row pt-1">
+                         
+                         <div class="col-md-12 mt-2 ml-3 col-lg-auto">
+                             <b>Find Items &nbsp;   <i class="fas fa-angle-right"></i> &nbsp; </b>
+                         </div>
+                         <div class="col-md-12 col-sm mt-2 mr-3 col-lg-3 ml-3  ">
+                           From Date &nbsp;
+                             @Html.TextBox("from", null, new {@class = "form-control ", type = "date"})
+                         </div>
+                         <div class="col-md-12 col-sm mt-2 mr-3 col-lg-3 ml-3">
+                             To Date &nbsp;
+                             @Html.TextBox("to", null, new {@class = "form-control ", type = "date"})
+                         </div>
+                         <div class="col-md-3 col-md-auto col-sm mt-2 col-lg-auto  mr-3 ml-3">
+                             &nbsp; @Html.TextBox("sortOrder", "date", new {@class = "form-control col-md-2 ml-1", type = "text", hidden = true})
+                             <input type="submit" name="go" id="btn_search" value="Go" class="btn btn-3 btn-block"/>
 
+                         </div>
+                     </div>
+                      
+                   }
+                 
                 <!--Table with bootstrap class-->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <br>
@@ -85,7 +89,7 @@
                             <div class="table-responsive">
                                 @if (Model.PagedListItems.Any())
                                 {
-                                    <table class="table table-striped text-center ">
+                                    <table class="table table-hover table-striped text-center ">
                                         <thead >
                                         <tr>
                                             <th>#</th>
