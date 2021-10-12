@@ -21,13 +21,13 @@
         {
             <br>
          <div class="row">
-                   <div class="col-sm-6">
+                   <div class="col-sm-12 col-md-12 col-lg-6">
                      <div class="card mt-2">
                        <h5 class="card-header">Website Theme</h5>
                        <div class="card-body">
                          <h5> <label class="badge " style="color: #323232 ">Select a theme</label></h5>
                          <form method="post" asp-action="ChangeThemeColour" asp-controller="Appearance">
-                           <div class="row p-3 ">
+                           <div class="row pt-3 "><div class="col-lg-6 pt-2 col-md-6 col-sm-12">
                                <select aria-label="Default select example" name="theme"
                                  class="form-control  shadow-sm bg-body rounded-lg col-md-12 ">
                                  <option value="">Select a theme</option>
@@ -39,25 +39,25 @@
                                  <option value="PurpleMountainMajesty">Purple Mountain Majesty</option>
                                </select>
                              </div>
-                                  <div class="row pl-3 pr-3 pb-3 pt-2  ">
+                                  <div class="col-lg-6 col-md-6 col-sm-12  pl-3 pr-3 pb-3 pt-2  ">
                                    <button class="btn btn-3 btn-block" type="submit" value="Change Theme">
                                        Change Theme
                                        <img src="https://img.icons8.com/color/25/000000/change-theme.png"
                                             alt=""/></button>
                                </div>
-                        
+                        </div>
                          </form>
                        </div>
                      </div>
                    </div>
-                   <div class="col-sm-6">
+                   <div class="col-sm-12 col-md-12 col-lg-6">
                      <div class="card mt-2">
                        <h5 class="card-header">Upload logo</h5>
                        <div class="card-body">
                          <h5> <label class="badge " style="color: #323232 ">Upload a company logo </label></h5>
          
                              <div class="row pt-3 pb-3">
-                               <div class="col ">
+                               <div class="col-sm-12 col-md-6 pt-2 col-lg-6">
                                    <button  asp-controller="Appearance" asp-action="UploadLogo"   class="btn btn-3 btn-block"
                                    data-toggle="modal" data-target="#exampleModal3">Upload Image
                                                                   &nbsp;
