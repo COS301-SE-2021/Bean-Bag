@@ -25,11 +25,20 @@
         <div class="row pt-3">
      <b class="pl-3">Total  Versions &nbsp;</b> &nbsp;<i class="fas fa-angle-right pt-1 "></i>  &nbsp; <span class="text-color" > &nbsp; @ViewBag.totalModels</span>
                       
-                <div class=" mr-3 ml-lg-auto ml-md-auto ml-sm-auto pt-1  ml-3">
-                               <a asp-controller="AiModel" asp-action="CompareVersions" class="btn btn-3 shadow-sm bg-body rounded">&nbsp;&nbsp; Compare Model Versions&nbsp;&nbsp; <i class="fa fa-exchange" aria-hidden="true"></i></a>
-                                               
-                  
-               </div>
+           
+              <div class="row mr-3 ml-lg-auto ml-md-auto ml-sm-auto pt-1 ml-3">
+                                                                   @using (Html.BeginForm())
+                                                                   {
+                                                                       <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                                                                           @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 text-center red-border", placeholder = "Search Versions"})
+                                                                           <div class="input-group-append">
+                                                                               <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
+                                                                                   <i class="fas fa-search text-dark"
+                                                                                      aria-hidden="true"></i></button>
+                                                                           </div>
+                                                                       </div>
+                                                                   }
+                                                               </div>
             </div>
 
       
@@ -64,19 +73,11 @@
                                                                         </div>
                                                                          
                                                                       }        
-                                   <div class="row mr-3 ml-lg-auto ml-md-auto ml-sm-auto pt-4 ml-3">
-                                                       @using (Html.BeginForm())
-                                                       {
-                                                           <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
-                                                               @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 text-center red-border", placeholder = "Search Versions"})
-                                                               <div class="input-group-append">
-                                                                   <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
-                                                                       <i class="fas fa-search text-dark"
-                                                                          aria-hidden="true"></i></button>
-                                                               </div>
-                                                           </div>
-                                                       }
-                                                   </div>
+                      <div class=" mr-3 ml-lg-auto ml-md-auto  pt-4 ml-3">
+                                     <a asp-controller="AiModel" asp-action="CompareVersions" class="btn btn-3 shadow-sm bg-body rounded">&nbsp;&nbsp; Compare Model Versions&nbsp;&nbsp; <i class="fa fa-exchange" aria-hidden="true"></i></a>
+                                                                    
+                                       
+                                 </div>            
                               
                 <!--Table with bootstrap class .table and .table-condensed-->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pt-4">

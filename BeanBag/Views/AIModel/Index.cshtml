@@ -37,27 +37,29 @@
                 <div class="row">
                     <b class="pl-3 pt-2">Total Models &nbsp; &nbsp;<i class="fas  fa-angle-right  "></i></b>  &nbsp; <span class="text-color  pt-2" > &nbsp; @ViewBag.totalModels</span>
                                   
-                    <div class=" mr-3 ml-lg-auto ml-md-auto ml-sm-auto ml-3 pt-2">
-                        <button asp-controller="AiModel" asp-action="CreateModel"  class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">   &nbsp;  &nbsp;  &nbsp;   &nbsp;  Create New Model   &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></button>
-                    </div>
+                  
+                    
+                    <div class="row mr-3 ml-lg-auto ml-md-auto ml-sm-auto  pt-2 ml-3">
+                                                                @using (Html.BeginForm())
+                                                                {
+                                                                    <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
+                                                                        @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 text-center red-border", placeholder = "Search  Models"})
+                                                                        <div class="input-group-append">
+                                                                            <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
+                                                                                <i class="fas fa-search text-dark"
+                                                                                   aria-hidden="true"></i></button>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
                 </div>
         
                 <br>
                <div class="row ">
                       
-                        <div class="row mr-3 ml-lg-auto ml-md-auto ml-sm-auto   ml-3">
-                                            @using (Html.BeginForm())
-                                            {
-                                                <div class="input-group md-form form-sm form-2 pl-0 shadow-sm bg-body rounded">
-                                                    @Html.TextBox("SearchString", null, new {@class = "form-control my-0 py-1 text-center red-border", placeholder = "Search  Models"})
-                                                    <div class="input-group-append">
-                                                        <button class="input-group-text red lighten-3" value="Search" type="submit" id="basic-text1">
-                                                            <i class="fas fa-search text-dark"
-                                                               aria-hidden="true"></i></button>
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
+                          <div class=" mr-3 ml-lg-auto ml-md-auto ml-sm-auto ml-3">
+                                                <button asp-controller="AiModel" asp-action="CreateModel"  class="btn btn-3 shadow-sm bg-body rounded" data-toggle="modal" data-target="#exampleModal">   &nbsp;  &nbsp;  &nbsp;   &nbsp;  Create New Model   &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; <i class="fa fa-plus" aria-hidden="true"></i></button>
+                                            </div>
                                   <!--Date sorts-->
                                   @using (Html.BeginForm(FormMethod.Get,new { @class="w-100 md-2 float-left" }))
                                   { <div class="row pt-1">
