@@ -307,12 +307,17 @@ namespace BeanBag.Controllers
         {
             var item = _itemService.FindItem(id);
 
-                //make sure memory stream is not cleaned
+            if (item == null)
+            {
+                return NotFound().ToString();
+            }
+            else
+            {
                 var ms = new MemoryStream();
                 var qRCodeGenerator = new QRCodeGenerator();
                 var qRCodeData = qRCodeGenerator.CreateQrCode(item.QRCodeLink, QRCodeGenerator.ECCLevel.Q);
                 var qRCode = new QRCode(qRCodeData);
-                var bitmap = qRCode.GetGraphic(25);
+                var bitmap = qRCode.GetGraphic(20);
                 bitmap.Save(ms, ImageFormat.Png);
                 
                 //Find a common path amongst all windows pc's (alternatives: desktop and pictures folder)
@@ -322,7 +327,7 @@ namespace BeanBag.Controllers
                 //alternatively, a QR code can be saved by viewing it, and right clicking on the image
                 //and then going by "Save as". This will be specified in the user manual.
                 return id.ToString();
-            
+            }
         }
     }
 }
