@@ -49,8 +49,8 @@ Below is a short overview of the Polaris team developing the <b>Bean Bag </b> pr
 > [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-round&logo=github&logoColor=white)](https://github.com/renodavids) <t/>[![PersonalProfile](https://img.shields.io/badge/ProfilePage-4285F4?style=flat-round&logo&logoColor=white)](https://dreddy97.github.io/) <t/>[![LinkedIn](https://img.shields.io/badge/linked-in-369?style=flat-round&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/reno-davids-661009210/)
 >
 > - <i> 3rd year BsC Computer Science student</i>
-> - <i>Skills </i>- Problem solving, full-stack development, supporting character as well as motivational.
-> - <i>Interests</i> - Music, video games and a huge movie buff.
+> - <i>Skills </i>- Problem solving, pragmatic and patient.
+> - <i>Interests</i> - Music, video games, Survivor and movies.
 
 <br>
 
