@@ -7,49 +7,45 @@
 <section class="page-content" xmlns="http://www.w3.org/1999/html">
 
 <!--Header-->
-<section class="search-and-user ">
-    <span class="md-2 text-secondary pl-3">
-        Dashboard | @ViewBag.name
-    </span>
-    <div class="admin-profile pr-3">
+
+
+ 
+<!--Dashboard Contents-->
+<div class="dashboard-wrapper">
+<div class="container-fluid  dashboard-content helloUser">
+   <span class="md-2 pt-3 text-secondary ">
+        @ViewBag.name
+        
         @{
             System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
         }
         @if (User.Identity.IsAuthenticated)
         {
-            <span class="greeting"> Hello @User.Identity.Name</span>
-
+            <span class=" ml-auto float-right text-dark"> Hello @User.Identity.Name &nbsp;<img src="https://img.icons8.com/material-rounded/24/000000/user.png"/></span>
+         
         }
-        <div>
-            <svg class="text-secondary">
-                <use xlink:href="#users" class="text-secondary "></use>
-            </svg>
-        </div>
-    </div>
-</section>
-
-<!--Dashboard Contents-->
-<div class="dashboard-wrapper">
-<div class="container-fluid  dashboard-content">
+      
+    </span> 
 <hr>
-<br>
+
 
 <!--If Inventory has items to display-->
 @if(ViewBag.hasItems==true){
 <!--Date picker -->
     <div class="row" >
-        <span class="col-md-2">
-            <div>
-                <h5>  <label class="badge " style="color: #323232 " >View By</label></h5>
-                @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null, new {@class = "form-control shadow-sm bg-body rounded-lg "})
-            </div>
-        </span>
+       
     
-        <span class="col-md-2">
+        <span class="col-lg-3 col-md-6 pt-3">
             <div> <h5><label class="badge " style="color: #323232">Select Inventory</label></h5>
                 @Html.DropDownList("InventoryDropDown", ViewBag.InventoryDropDown as SelectList, null, new {@class = "form-control shadow-sm  bg-body rounded-lg"})
             </div>
         </span>
+         <span class="col-lg-3 col-md-6 pt-3">
+                    <div>
+                        <h5>  <label class="badge " style="color: #323232 " >View By</label></h5>
+                        @Html.DropDownList("TimeDropDown", ViewBag.TimeDropDown as SelectList, null, new {@class = "form-control shadow-sm bg-body rounded-lg "})
+                    </div>
+                </span>
     </div>
     
 <br>
@@ -157,7 +153,7 @@
                 <h5 class="card-header">Recently Added Items </h5>
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table text-center table-hover">
                             <thead class="bg-light">
                             <tr>
                                 <td colspan="8"></td>
@@ -403,7 +399,7 @@ else
                                     '                                <td>' + item.quantity + '</td>' +
                                     '                                <td>' + "R" + item.price + '</td>' +
                                     '' +
-                                    '                                <td>' + item.entryDate + '</td>' +
+                                    '                                <td>' + item.entryDate+ '</td>' +
                                     '                            </tr>';
 
                             }

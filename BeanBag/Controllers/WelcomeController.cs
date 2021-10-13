@@ -59,8 +59,8 @@ namespace BeanBag.Controllers
                 //Add user to the database
                 if (_tenantService.SignUserUp(User.GetObjectId(), tenant.TenantId, User.GetDisplayName()))
                 {
-                    tenant.InviteCode = _tenantService.GenerateCode();
-                    _tenantDbContext.SaveChanges();
+                   /* tenant.InviteCode = _tenantService.GenerateCode();
+                    _tenantDbContext.SaveChanges(); */
                     return RedirectToAction("Index", "Home");
                 }
 

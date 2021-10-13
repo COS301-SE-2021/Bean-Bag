@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="~/css/dashboard.css" />
 	<link rel="stylesheet" href="~/css/tenant.css" />
   
-	<title> Pricing </title>
+	<title> Pricing Plans </title>
 
 </head>
 
@@ -42,50 +42,45 @@
 <!--Nav-->
 <nav class="navbar navbar-expand-md navbar-light">
 	<a href="#" class="navbar-brand">Bean Bag</a>
-	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-		<span class="navbar-toggler-icon"></span>
+	 <button class="navbar-toggler ml-auto float-right mr-5" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		 <span class="navbar-toggler-icon"></span>
 	</button>
-	@{
-		System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
-	}
 	
-	<div class="collapse navbar-collapse">
-		<div class="navbar-nav ml-auto">
-			<li class="nav-item" >
-			</li>
-		</div>
-	</div>
 	
-	<div class="collapse navbar-collapse"  id="collapsibleNavbar">
-		<div class="navbar-nav ml-auto  pt-1">
-				<li class="nav-item">		<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Tenant" asp-action="Index">
-                                        					Plans
-                                        				</a>
-            		</li>
-			<li class="nav-item">
+	<div class="collapse navbar-collapse float-right ml-sm-auto"  id="navbarNav" >
+		<ul class="navbar-nav ml-auto  pt-1">
+				
+			<li class="nav-item mr-5">
 
 			
-	<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Welcome" asp-action="Index">
+
+				<a class="nav-link  float-right " asp-area="MicrosoftIdentity" asp-controller="Welcome" asp-action="Index">
 					Home
 				</a>
 
 
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">
+			
+			<li class="nav-item  mr-5 ">		<a class="nav-link active float-right" asp-area="MicrosoftIdentity" asp-controller="Tenant" asp-action="Index">
+                                                    					Plans
+                                                    				</a>
+                        		</li>
+			<li class="nav-item  mr-5 ">
+				<a class="nav-link float-right" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">
 					SignOut
 				</a>
 			</li>
 
-		</div>
+		</ul>
 		
 	</div>
 		<hr>
 </nav>
+
+
 <body>
 
-
-<div class="pt-3 text-center">
+<div class="pt-5 pl-5 pr-5 text-center">
 	<h2 >Choose a Subscription Plan </h2><br>
 	Choose a plan below and get started <br>
 	with creating a new tenant
