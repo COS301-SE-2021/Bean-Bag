@@ -81,7 +81,7 @@ Below is a short overview of the Polaris team developing the <b>Bean Bag </b> pr
 
 <br>
 
-> <img align="left" src="https://i.ibb.co/gSmBwLh/circle-cropped-7.png" alt="drawing" width="90"/></img> <h3> ‎ Sphesihle Mtwa</h3><p><code> ‎ UX/UI Design, Frontend Development</p></code> 
+> <img align="left" src="https://i.ibb.co/gSmBwLh/circle-cropped-7.png" alt="drawing" width="90"/></img> <h3> ‎ Sphesihle Mtwa</h3><p><code> ‎ Frontend Development</p></code> 
 > [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-round&logo=github&logoColor=white)](https://github.com/sphesihlemtwa) <t/>[![PersonalProfile](https://img.shields.io/badge/ProfilePage-4285F4?style=flat-round&logo&logoColor=white)](https://sphesihlemtwa.github.io/) <t/>[![LinkedIn](https://img.shields.io/badge/linked-in-369?style=flat-round&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sphesihle-mtwa-a33924206/)
 >
 > - <i> 3rd year BsC Computer Science student</i>
