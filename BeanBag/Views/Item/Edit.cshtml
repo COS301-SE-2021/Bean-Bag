@@ -56,45 +56,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group row p-3">
-                                                                                     
-                                            <h5 class="text-muted  pb-2">Item Tags</h5> <hr>
-                                            <!--Add your own tags -->
-                                                                              
-                                                
-                                            <!--Add your own tags -->
-                                            <table class="table table-bordered table-hover " id="tab_logic">
-                                                <thead>
-                                                <tr>
-                                                        
-                                                    <th >Tag Name</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                        
-                                                @foreach (var x in ViewBag.types)
-                                                {
-                                                         
-                                                    <tr id="@i">
-                                                              
-                                                        <td>
-                                                            <input type="text" name='tags' placeholder='Name' value="@x" class="form-control"/>
-                                                        </td>
-                                                    </tr>
-                                                    i++;
-                                                    //if statement check last
-                                                }
-
-
-                                                <tr id="@i"></tr>
-                                                <tr id="address1"></tr>
-                                                </tbody>
-                                            </table>
-                                                     <a id="add_row" class="btn rounded-pill add  text-secondary"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                                                                                           &nbsp;           <a id='delete_row' class=" rounded-pill btn remove text-secondary"><i class="fa fa-minus" aria-hidden="true"></i></a>
-                                                                                                          
-                                                                             
-                                        </div>
+                       
                                     </div>
 
                                     <!--Create item form-->
@@ -166,9 +128,51 @@
                                                             <option value="Damaged">Damaged</option>
                                                         </select>
                                                     </div>
-
-                                                  
+             
+                                                 
+                                                    
+                                                    
+                                                    
                                                 </div>
+                                                    <div class="form-group row pl-3 pr-3 ">
+                                                                                                                                     
+                                                                                            <h5 class="text-muted  pb-2">Item Tags</h5> <hr>
+                                                                                            <!--Add your own tags -->
+                                                                                                                              
+                                                                                                
+                                                                                            <!--Add your own tags -->
+                                                                                            <table class="table table-bordered table-hover " id="tab_logic">
+                                                                                                <thead>
+                                                                                                <tr>
+                                                                                                        
+                                                                                                    <th >Tag Name</th>
+                                                                                                </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                        
+                                                                                                @foreach (var x in ViewBag.types)
+                                                                                                {
+                                                                                                         
+                                                                                                    <tr id="@i">
+                                                                                                              
+                                                                                                        <td>
+                                                                                                            <input type="text" name='tags' placeholder='Name' value="@x" class="form-control"/>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    i++;
+                                                                                                    //if statement check last
+                                                                                                }
+                                                
+                                                
+                                                                                                <tr id="@i"></tr>
+                                                                                                <tr id="address1"></tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                                     <a id="add_row" class="btn rounded-pill add  text-secondary"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                                                                                                                                           &nbsp;           <a id='delete_row' class=" rounded-pill btn remove text-secondary"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                                                                                                                                                          
+                                                                                                                             
+                                                                                        </div>
                                             </div><div class="form-group row">
                                                 <div class="p-0 pt-3  ml-auto">
                                                                            <button type="submit" class="btn btn-3  ml-auto "> Update &nbsp;
