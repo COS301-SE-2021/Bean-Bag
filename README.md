@@ -188,7 +188,7 @@ All neccessary documentation related to the <b> Bean Bag</b> project.
 - [Demo 4 | Coding Standards](https://drive.google.com/drive/folders/1zbzHckzp8XXazPNUY-breSOGIq6FTJP_?usp=sharing)
 - [Demo 4 | Technical Installation Guide](https://drive.google.com/drive/folders/1wIohf9eZYhcIg5I41J-6H5kgn2pTL3ek?usp=sharing)
 - [Final | SRS - Architectural Document](https://drive.google.com/drive/folders/1viOpgJCb1BMFE4uqWRd7mbRtuZ_QopCi?usp=sharing)
-- [Final | User Manual](https://drive.google.com/file/d/1DEWJOlfJuONUFW7U09nfbH32MQKSPop5/view?usp=sharing)
+- [Final | User Manual](https://drive.google.com/file/d/14Q0cUebQfMVIXpgK1npbQrM8oZ777ko0/view?usp=sharing)
 - [Final | Testing Quality + NFR Testing Document](https://drive.google.com/file/d/1YSbJqINmp59F5J89X0O0x6EUnk8m4fkP/view?usp=sharing)
 - [Final | Coding Standards](https://drive.google.com/drive/folders/1zbzHckzp8XXazPNUY-breSOGIq6FTJP_?usp=sharing)
 - [Final | Techincal Installation Guide](https://drive.google.com/file/d/1UwDS_34QD0ls2UaQy7_y3nWR6FpcL-1z/view?usp=sharing)
