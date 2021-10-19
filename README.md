@@ -123,7 +123,7 @@ The Bean Bag project will make use of a mono-repo. All code and assets related t
 <h4  align="center"> Branching Strategy </h4>
 
     master ( build )
-    − hotfix
+    − deploy
       - develop ( build )
             − develop-backend ( build )
                   − develop-backend-module ( build )
@@ -135,7 +135,7 @@ The Bean Bag project will make use of a mono-repo. All code and assets related t
 <h4 align="center"> Flow Management </h4>
 
 - <b>master</b> - this branch contains production code. All development code is merged into master in sometime
-- <b>hotfix</b> - this branch is necessary to act immediately upon an undesired status of master.
+- <b>deploy</b> - this branch is necessary to act immediately upon an undesired status of master, and to check all code is working perfectly before deploying.
 - <b>develop</b>- this branch contains pre-production code.
 - <b>develop-backend</b> - this branch contains pre-production backend code.
 - <b>develop-module</b>- this branch contains the backend code for specific subsystems/modules in the system. When the features from the backend are complete, they are merged into module-develop.
@@ -212,7 +212,7 @@ Video demonstrations about the progression of the Bean Bag project.
 - [Demo Video 1 - 📅 4 June 2021](https://drive.google.com/drive/u/1/folders/18UvquRIEvCKuZyfEESXBXh2mFWG5_VYl)
 - [Demo Video 2 - 📅 21 June 2021](https://drive.google.com/file/d/1-rO9bH5BukctFnMlDfORGhOYwjJ4PBqt/view?usp=sharing)
 - [Demo Video 3 - 📅 19 August 2021](https://drive.google.com/file/d/1fXkJ_2Vc2-jhoxGDvmL-n-uTO6VBS7DH/view?usp=sharing)
-- [Demo Video 4 - 📅 21 September 2021](https://drive.google.com/open?id=)
+- [Demo Video 4 - 📅 21 September 2021](https://drive.google.com/file/d/1HYmSTjDWBoTX7_znduoPD-hqCYdxcJd3/view?usp=sharing)
 
 ---
 
