@@ -55,7 +55,7 @@ Below is a short overview of the Polaris team developing the <b>Bean Bag </b> pr
 <br>
 
 > <img align="left" src="https://i.ibb.co/ZW0CRPb/circle-cropped-6.png" alt="drawing" width="90"/></img> <h3> ‎ ‎‎Nada Chraf</h3><p><code> ‎ Frontend and Backend Development </p></code>
- > [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-round&logo=github&logoColor=white)](https://github.com/nadachra) <t/>[![PersonalProfile](https://img.shields.io/badge/ProfilePage-4285F4?style=flat-round&logo&logoColor=white)](https://nadachra.github.io/) <t/>[![LinkedIn](https://img.shields.io/badge/linked-in-369?style=flat-round&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nada-chraf-a1314a135/)
+ > [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat-round&logo=github&logoColor=white)](https://github.com/nadachra) <t/>[![PersonalProfile](https://img.shields.io/badge/ProfilePage-4285F4?style=flat-round&logo&logoColor=white)](https://nadacodes.github.io/) <t/>[![LinkedIn](https://img.shields.io/badge/linked-in-369?style=flat-round&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nada-chraf-a1314a135/)
 >
 > - <i> 3rd year BsC Computer Science student</i>
 > - <i>Skills </i>-Researching, programming, designing, creative thinking and problem solving.
